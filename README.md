@@ -1,3 +1,3 @@
 # cool_app
 
-A new Flutter project.
+A cool development app flutter
