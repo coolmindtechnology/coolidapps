@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "252404014317",
+    "project_id": "cool-app-641a1",
+    "storage_bucket": "cool-app-641a1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:252404014317:android:517741646345f6175f80e4",
+        "android_client_info": {
+          "package_name": "mycool.tech.com"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCT9ENmxJqn8L4kKKy7bEkm8YlUb6zgyUo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,231 @@
+import 'dart:developer';
+
+import 'package:cool_app/data/data_global.dart';
+import 'package:cool_app/data/networks/endpoint/api_endpoint.dart';
+import 'package:cool_app/data/provider/provider_brain_activation.dart';
+import 'package:cool_app/presentation/pages/payments/payment_failed_page.dart';
+import 'package:cool_app/presentation/pages/payments/payment_success_page.dart';
+import 'package:cool_app/presentation/utils/nav_utils.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher_string.dart';
+
+class PaypalScreen extends StatefulWidget {
+  final Function? onUpdate;
+  final String? orderId, currencyPaypal, amountPaypal;
+  final String? fromPage;
+  final bool isMultiple;
+  const PaypalScreen({
+    super.key,
+    this.orderId,
+    this.onUpdate,
+    this.currencyPaypal,
+    this.amountPaypal,
+    this.fromPage,
+    this.isMultiple = false,
+  });
+
+  @override
+  State<PaypalScreen> createState() => _PaypalScreenState();
+}
+
+class _PaypalScreenState extends State<PaypalScreen> {
+  InAppWebViewController? webViewController;
+  final GlobalKey webViewKey = GlobalKey();
+  String url = "";
+  double progress = 0;
+
+  PullToRefreshController? pullToRefreshController;
+  @override
+  void initState() {
+    super.initState();
+    // print(
+    // "cobaa https://cool-app.udadeveloper.com/api/paypal/payment?order_id=${widget.orderId}&currency_paypal=${widget.currencyPaypal}&amount_paypal=${widget.amountPaypal}");
+    pullToRefreshController = kIsWeb
+        ? null
+        : PullToRefreshController(
+            options: PullToRefreshOptions(
+              color: Colors.blue,
+            ),
+            onRefresh: () async {
+              if (defaultTargetPlatform == TargetPlatform.android) {
+                webViewController?.reload();
+              } else if (defaultTargetPlatform == TargetPlatform.iOS) {
+                webViewController?.loadUrl(
+                    urlRequest:
+                        URLRequest(url: await webViewController?.getUrl()));
+              }
+            },
+          );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (BuildContext context) {
+        return ProviderBrainActivation();
+      },
+      child: Consumer<ProviderBrainActivation>(
+        builder: (BuildContext context, value, Widget? child) => Scaffold(
+          appBar: AppBar(
+            title: const Text(
+              'Pembayaran',
+              style: TextStyle(color: Colors.white),
+            ),
+            automaticallyImplyLeading: false,
+          ),
+          body: InAppWebView(
+            onPrint: (controller, uri) {
+              print("haha ${uri?.data}");
+            },
+            key: webViewKey,
+            initialUrlRequest: URLRequest(
+              url: Uri.parse(
+                  "${ApiEndpoint.baseUrlApi}paypal/payment?order_id=${widget.orderId}&currency_paypal=${widget.currencyPaypal}&amount_paypal=${widget.amountPaypal}"),
+              headers: {
+                'Authorization': dataGlobal.token,
+              },
+            ),
+            initialOptions: InAppWebViewGroupOptions(
+                crossPlatform: InAppWebViewOptions(
+                    verticalScrollBarEnabled: false,
+                    useShouldOverrideUrlLoading: true,
+                    mediaPlaybackRequiresUserGesture: false,
+                    javaScriptEnabled: true,
+                    javaScriptCanOpenWindowsAutomatically: true),
+                android: AndroidInAppWebViewOptions(
+                  overScrollMode: AndroidOverScrollMode.OVER_SCROLL_NEVER,
+                  useHybridComposition: true,
+                ),
+                ios: IOSInAppWebViewOptions(
+                    allowsInlineMediaPlayback: true, scrollsToTop: false)),
+            onWebViewCreated: (controller) {
+              webViewController = controller;
+            },
+            onLoadStart: (controller, url1) {
+              setState(() {
+                url = "${Uri.parse(url1.toString())}";
+              });
+
+              print("ON LOAD Start ${url}");
+            },
+            androidOnPermissionRequest: (controller, origin, resources) async {
+              return PermissionRequestResponse(
+                  resources: resources,
+                  action: PermissionRequestResponseAction.GRANT);
+            },
+            shouldOverrideUrlLoading: (controller, navigationAction) async {
+              var uri = navigationAction.request.url!;
+              if (kDebugMode) {
+                print(uri);
+              }
+
+              if (![
+                "http",
+                "https",
+                "file",
+                "chrome",
+                "data",
+                "javascript",
+                "about"
+              ].contains(uri.scheme)) {
+                if (await canLaunchUrlString(url)) {
+                  await launchUrlString(
+                    url,
+                  );
+                  webViewController?.goBack();
+                  return NavigationActionPolicy.CANCEL;
+                }
+                log("message ${uri.data}");
+              }
+
+              return NavigationActionPolicy.ALLOW;
+            },
+            onLoadStop: (controller, url) async {
+              pullToRefreshController?.endRefreshing();
+              setState(() {
+                this.url = url.toString();
+              });
+              if (kDebugMode) {
+                log("ONLOADSTOP ${url?.userInfo}");
+              }
+
+              if (url != null) {
+                // payment gopay
+                // if (url.toString().startsWith("https://gopay.co.id")) {
+                //   await launchUrl(url);
+                //   Nav.replace(MidtransScreen(
+                //     snapToken: widget.snapToken,
+                //   ));
+                // }
+                // payment gojek
+                // if (url.toString().startsWith("https://gojek.link")) {
+                //   await launchUrl(url);
+                //   Nav.replace(MidtransScreen(
+                //     snapToken: widget.snapToken,
+                //   ));
+                // }
+
+                // payment shopee
+                // if (url.toString().startsWith("https://shopee.co.id")) {
+                //   await launchUrl(url);
+                //   Nav.replace(MidtransScreen(
+                //     snapToken: widget.snapToken,
+                //   ));
+                // }
+
+                if (url.toString().startsWith("https://play.google.com")) {
+                  webViewController?.goBack();
+                }
+                //success payment
+                log("urllll ${url.toString()}");
+                if (url.toString().contains('payment-success')) {
+                  if (widget.fromPage == "profiling") {
+                    widget.onUpdate!();
+                    Nav.back();
+                    if (widget.isMultiple) {
+                      Nav.back();
+                    }
+                  } else if (widget.fromPage == "register_affiliate") {
+                    Nav.back(data: "affiliate");
+                  } else if (widget.fromPage == "topup_affiliate") {
+                    Nav.back();
+                    Nav.back();
+                    Nav.back(data: "topup_affiliate");
+                  } else {
+                    Nav.to(const PaymentSuccessPage());
+                  }
+                } else if (url.toString().contains('cancel-payment')) {
+                  Nav.to(const PaymentFailedPage());
+                }
+
+                //failed payment
+                if (url
+                    .toString()
+                    .contains('status_code=202&transaction_status=deny')) {
+                  if (widget.fromPage == "profiling") {
+                    Nav.back();
+                    if (widget.isMultiple) {
+                      Nav.back();
+                    }
+                  } else {
+                    Nav.to(const PaymentFailedPage());
+                  }
+                }
+                // close midtrans
+
+                if (url.toString().contains('midtrans-on-close')) {
+                  Nav.back();
+                }
+              } else {
+                Nav.back();
+              }
+            },
+          ),
+        ),
+      ),
+    );
+  }
+}

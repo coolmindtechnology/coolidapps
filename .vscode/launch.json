@@ -1,0 +1,48 @@
+{
+  "configurations": [
+    {
+      "name": "Cool Dev Release",
+      "type": "dart",
+      "request": "launch",
+      "program": "lib/main_dev.dart",
+      "flutterMode": "release"
+    },
+    {
+      "name": "Cool Prod Release",
+      "type": "dart",
+      "request": "launch",
+      "program": "lib/main_prod.dart",
+      "flutterMode": "release"
+    },
+    {
+      "name": "Cool Dev Debug",
+      "type": "dart",
+      "request": "launch",
+      "program": "lib/main_dev.dart",
+      "args": []
+    },
+    {
+      "name": "Cool Prod Debug",
+      "type": "dart",
+      "request": "launch",
+      "program": "lib/main_prod.dart",
+      "args": []
+    },
+    {
+      "name": "debug_option_1",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "debug",
+      "program": "lib/main_dev.dart",
+      "args": ["-d", "chrome", "--web-renderer", "html"]
+    },
+    {
+      "name": "debug_option_2 (release mode)",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release",
+      "program": "lib/main_dev.dart",
+      "args": ["-d", "chrome", "--web-renderer", "html"]
+    }
+  ]
+}
