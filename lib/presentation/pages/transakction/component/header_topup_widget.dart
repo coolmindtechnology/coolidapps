@@ -1,8 +1,8 @@
 // ignore_for_file: must_be_immutable
 
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/widgets/button_primary.dart';
-import 'package:cool_app/presentation/widgets/shimmer_loading.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/widgets/button_primary.dart';
+import 'package:coolappflutter/presentation/widgets/shimmer_loading.dart';
 import 'package:flutter/material.dart';
 
 class HeaderTopupWidget extends StatelessWidget {

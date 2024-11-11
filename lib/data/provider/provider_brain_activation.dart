@@ -1,20 +1,20 @@
-import 'package:cool_app/data/models/subcribtion_brain_transaction_data_model.dart';
-import 'package:cool_app/data/networks/dio_handler.dart';
-import 'package:cool_app/data/repositories/repo_brain.dart';
-import 'package:cool_app/data/response/brain_activation/rec_cek_daily.dart';
-import 'package:cool_app/data/response/brain_activation/res_check_allow_subcribe.dart';
-import 'package:cool_app/data/response/brain_activation/res_list_brain_activation.dart';
-import 'package:cool_app/data/response/brain_activation/res_list_subcription_all_item.dart';
-import 'package:cool_app/data/response/brain_activation/res_list_subcription_per_item.dart';
-import 'package:cool_app/data/response/brain_activation/res_show_price_subcribe_brain.dart';
-import 'package:cool_app/data/response/brain_activation/res_subcribe_brain_transaction.dart';
-import 'package:cool_app/data/response/brain_activation/res_timer_play.dart';
-import 'package:cool_app/data/response/brain_activation/res_transaksi_brain_activation.dart';
-import 'package:cool_app/data/response/payments/res_create_data_transaction.dart';
-import 'package:cool_app/data/response/res_update_payment.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/pages/payments/pre_invoice_screen.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/data/models/subcribtion_brain_transaction_data_model.dart';
+import 'package:coolappflutter/data/networks/dio_handler.dart';
+import 'package:coolappflutter/data/repositories/repo_brain.dart';
+import 'package:coolappflutter/data/response/brain_activation/rec_cek_daily.dart';
+import 'package:coolappflutter/data/response/brain_activation/res_check_allow_subcribe.dart';
+import 'package:coolappflutter/data/response/brain_activation/res_list_brain_activation.dart';
+import 'package:coolappflutter/data/response/brain_activation/res_list_subcription_all_item.dart';
+import 'package:coolappflutter/data/response/brain_activation/res_list_subcription_per_item.dart';
+import 'package:coolappflutter/data/response/brain_activation/res_show_price_subcribe_brain.dart';
+import 'package:coolappflutter/data/response/brain_activation/res_subcribe_brain_transaction.dart';
+import 'package:coolappflutter/data/response/brain_activation/res_timer_play.dart';
+import 'package:coolappflutter/data/response/brain_activation/res_transaksi_brain_activation.dart';
+import 'package:coolappflutter/data/response/payments/res_create_data_transaction.dart';
+import 'package:coolappflutter/data/response/res_update_payment.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/payments/pre_invoice_screen.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -127,10 +127,8 @@ class ProviderBrainActivation extends ChangeNotifier {
           ),
           textButton: S.of(context).back);
     }, success: (res) async {
-      if (res != null) {
-        listBrain = res.data ?? [];
-        notifyListeners();
-      }
+      listBrain = res.data ?? [];
+      notifyListeners();
     });
     notifyListeners();
   }
@@ -216,11 +214,9 @@ class ProviderBrainActivation extends ChangeNotifier {
       if (kDebugMode) {
         print("status tran ${res.success}");
       }
-      if (res != null) {
-        Nav.back();
-        onUpdate!();
-        notifyListeners();
-      }
+      Nav.back();
+      onUpdate!();
+      notifyListeners();
     });
     notifyListeners();
   }
@@ -458,6 +454,7 @@ class ProviderBrainActivation extends ChangeNotifier {
     isCekAllowSubcribe = false;
     notifyListeners();
     response.when(error: (e) {
+      notifyListeners();
       NotificationUtils.showDialogError(context, () {
         Nav.back();
         Nav.back();
@@ -507,7 +504,7 @@ class ProviderBrainActivation extends ChangeNotifier {
           paymentType: res.data?.transactionType,
           date: res.data?.createdAt,
           discount: res.data?.discount,
-          amount:  dataGlobal.isIndonesia
+          amount: dataGlobal.isIndonesia
               ? res.data?.totalAmount
               : res.data?.amountPaypal,
           onUpdate: onUpdate,

@@ -1,8 +1,8 @@
-import 'package:cool_app/data/helpers/failure.dart';
-import 'package:cool_app/data/locals/shared_pref.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/pages/auth/login_screen.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/data/helpers/failure.dart';
+import 'package:coolappflutter/data/locals/shared_pref.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/auth/login_screen.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:dio/dio.dart';
 
 class ErrorHandler implements Exception {

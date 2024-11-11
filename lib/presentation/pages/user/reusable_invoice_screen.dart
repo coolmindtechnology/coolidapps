@@ -1,8 +1,10 @@
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/utils/money_formatter.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/money_formatter.dart';
 import 'package:decimal/decimal.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 
 class ReusableInvoiceScreen extends StatefulWidget {
@@ -37,7 +39,7 @@ class _ReusableInvoiceScreenState extends State<ReusableInvoiceScreen> {
     return Scaffold(
       appBar: AppBar(
           title: Text(
-        widget.paymentType != "income" ? "Invoice" : "Withdrawal",
+        widget.paymentType != "income" ? "Receipt" : "Withdrawal",
         style: TextStyle(color: whiteColor),
       )),
       body: SingleChildScrollView(
@@ -116,16 +118,20 @@ Padding itemPayment(String? title, String? subtitle) {
     padding: const EdgeInsets.symmetric(vertical: 4.0),
     child: Row(
       children: [
-        Text(
-          "$title :",
-          style: const TextStyle(),
+        Expanded(
+          child: Text(
+            "$title :",
+            style: const TextStyle(),
+          ),
         ),
         const SizedBox(
           width: 16,
         ),
-        Text(
-          "$subtitle",
-          style: TextStyle(color: greyColor),
+        Expanded(
+          child: Text(
+            "$subtitle",
+            style: TextStyle(color: greyColor),
+          ),
         )
       ],
     ),
@@ -138,13 +144,17 @@ Padding itemPaymentDetail(String? title, String? subtitle) {
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          "$title",
-          style: TextStyle(color: greyColor),
+        Expanded(
+          child: Text(
+            "$title",
+            style: TextStyle(color: greyColor),
+          ),
         ),
-        Text(
-          "$subtitle",
-          style: TextStyle(color: greyColor),
+        Expanded(
+          child: Text(
+            "$subtitle",
+            style: TextStyle(color: greyColor),
+          ),
         )
       ],
     ),
@@ -157,13 +167,17 @@ Padding itemPaymentTotal(String? title, String? subtitle) {
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          "$title",
-          style: const TextStyle(fontSize: 16),
+        Expanded(
+          child: Text(
+            "$title",
+            style: const TextStyle(fontSize: 16),
+          ),
         ),
-        Text(
-          "$subtitle",
-          style: const TextStyle(fontSize: 16),
+        Expanded(
+          child: Text(
+            "$subtitle",
+            style: const TextStyle(fontSize: 16),
+          ),
         )
       ],
     ),

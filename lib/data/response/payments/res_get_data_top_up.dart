@@ -42,12 +42,12 @@ class ResGetDataTopUp {
 
 class DataListTopUp {
   int? id;
-  String? idItemPayments;
+  dynamic idItemPayments;
   String? name;
-  String? qty;
-  String? discount;
-  String? price;
-  String? status;
+  dynamic qty;
+  dynamic discount;
+  dynamic price;
+  dynamic status;
   DateTime? createdAt;
   DateTime? updatedAt;
   dynamic deletedAt;

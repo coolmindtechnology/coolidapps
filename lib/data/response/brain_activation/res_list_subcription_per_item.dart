@@ -64,20 +64,20 @@ class DataSubcriptionPerItem {
   int? id;
   String? name;
   String? upload;
-  String? status;
-  String? price;
-  String? intlPrice;
-  String? yearlyPrice;
-  String? intlYearlyPrice;
-  String? intlYearlyDiscount;
-  String? intlMonthlyPrice;
-  String? intlMonthlyDiscount;
-  String? monthlyDiscount;
+  dynamic status;
+  dynamic price;
+  dynamic intlPrice;
+  dynamic yearlyPrice;
+  dynamic intlYearlyPrice;
+  dynamic intlYearlyDiscount;
+  dynamic intlMonthlyPrice;
+  dynamic intlMonthlyDiscount;
+  dynamic monthlyDiscount;
   String? monthlyPrice;
   String? yearlyDiscount;
   dynamic deletedAt;
-  String? discountedMonthlyPrice;
-  String? discountedYearlyPrice;
+  dynamic discountedMonthlyPrice;
+  dynamic discountedYearlyPrice;
 
   DataSubcriptionPerItem({
     this.id,

@@ -1,13 +1,14 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:async';
 import 'dart:io';
-import 'package:cool_app/data/networks/endpoint/api_endpoint.dart';
-import 'package:cool_app/data/provider/provider_user.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/utils/circular_progress_widget.dart';
-import 'package:cool_app/presentation/utils/notification_utils.dart';
-import 'package:cool_app/presentation/utils/takeimage_utils.dart';
+import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
+import 'package:coolappflutter/data/provider/provider_user.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/circular_progress_widget.dart';
+import 'package:coolappflutter/presentation/utils/notification_utils.dart';
+import 'package:coolappflutter/presentation/utils/takeimage_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:provider/provider.dart';
@@ -86,11 +87,35 @@ class _ScreenProfileState extends State<ScreenProfile> {
                                         borderRadius:
                                             BorderRadius.circular(100),
                                         child: Image.network(
-                                          "${ApiEndpoint.baseUrlImage}${providerUser.dataUser?.image}",
-                                          height: 100,
-                                          width: 100,
-                                          fit: BoxFit.cover,
-                                        ),
+                                            "${providerUser.dataUser?.image}",
+                                            height: 100,
+                                            width: 100,
+                                            fit: BoxFit.cover, errorBuilder:
+                                                (BuildContext context,
+                                                    Object exception,
+                                                    StackTrace? stackTrace) {
+                                          // Tampilkan gambar placeholder jika terjadi error
+                                          return GestureDetector(
+                                            onTap: () async {
+                                              var res =
+                                                  await takeImage(context);
+                                              if (res != null) {
+                                                setState(() {
+                                                  providerUser.image = res;
+                                                });
+                                                await providerUser
+                                                    .updateProfileUser(context,
+                                                        providerUser.image!);
+                                              }
+                                            },
+                                            child: Image.asset(
+                                              'images/default_user.png', // Path ke gambar placeholder lokal
+                                              width: 56,
+                                              height: 56,
+                                              fit: BoxFit.fill,
+                                            ),
+                                          );
+                                        }),
                                       ),
                         Positioned(
                           top: 30,
@@ -186,6 +211,7 @@ class _ScreenProfileState extends State<ScreenProfile> {
                       height: 8,
                     ),
                     TextFormField(
+                      enabled: false,
                       controller: providerUser.emailController,
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.emailAddress,
@@ -215,19 +241,19 @@ class _ScreenProfileState extends State<ScreenProfile> {
                     TextFormField(
                       controller: providerUser.idCardController,
                       textInputAction: TextInputAction.next,
-                      keyboardType: TextInputType.text,
+                      keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                             borderSide:
                                 const BorderSide(color: Colors.white, width: 1),
                             borderRadius: BorderRadius.circular(10)),
                       ),
-                      validator: (validator) {
-                        if (validator!.isEmpty) {
-                          return S.of(context).cannot_be_empty;
-                        }
-                        return null;
-                      },
+                      // validator: (validator) {
+                      //   if (validator!.isEmpty) {
+                      //     return S.of(context).cannot_be_empty;
+                      //   }
+                      //   return null;
+                      // },
                     ),
                     const SizedBox(
                       height: 8,
@@ -273,6 +299,8 @@ class _ScreenProfileState extends State<ScreenProfile> {
                         height: 54,
                         minWidth: MediaQuery.of(context).size.width,
                         onPressed: () async {
+                          setState(() {});
+                          // handleAction(context);
                           if (_formKey.currentState?.validate() ?? false) {
                             if (providerUser.dataUser?.image == null &&
                                 providerUser.image == null) {
@@ -293,5 +321,30 @@ class _ScreenProfileState extends State<ScreenProfile> {
             ),
           ));
     });
+  }
+
+  handleAction(context) async {
+    showDialog(
+      context: context,
+      barrierDismissible:
+          false, // Prevents dismissing the dialog by tapping outside
+      builder: (context) {
+        return AlertDialog(
+          content: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              const CircularProgressIndicator(),
+              const SizedBox(width: 20),
+              Text(S.of(context).process), // Display loading text
+            ],
+          ),
+        );
+      },
+    );
+
+    // Timer(const Duration(seconds: 3), () {
+    //   Navigator.pop(context);
+    // });
+    // Handle further actions after loading is complete
   }
 }

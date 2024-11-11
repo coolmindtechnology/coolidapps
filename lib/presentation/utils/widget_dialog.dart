@@ -1,5 +1,5 @@
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:flutter/material.dart';
 
 class WidgetDialogOtp extends StatefulWidget {

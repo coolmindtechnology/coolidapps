@@ -1,9 +1,11 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/main.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/widgets/button_primary.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/main.dart';
+import 'package:coolappflutter/presentation/pages/auth/login_screen.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/widgets/button_primary.dart';
 import 'package:flutter/material.dart';
 
 class NotificationUtils {
@@ -68,32 +70,35 @@ class NotificationUtils {
     await showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => AlertDialog(
-        title: message != null
-            ? Center(
-                child: Text(
-                message,
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 14),
-              ))
-            : const SizedBox(),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
-        ),
-        content: widget ?? Container(),
-        scrollable: true,
-        actions: <Widget>[
-          SizedBox(
-            height: 54,
-            child: ButtonPrimary(
-              textOnButton ?? S.of(context).yes,
-              expand: true,
-              radius: 8,
-              elevation: 0.0,
-              onPress: onPress,
-            ),
+      builder: (context) => WillPopScope(
+        onWillPop: () async => false,
+        child: AlertDialog(
+          title: message != null
+              ? Center(
+                  child: Text(
+                  message,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(fontSize: 14),
+                ))
+              : const SizedBox(),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
           ),
-        ],
+          content: widget ?? Container(),
+          scrollable: true,
+          actions: <Widget>[
+            SizedBox(
+              height: 54,
+              child: ButtonPrimary(
+                textOnButton ?? S.of(context).yes,
+                expand: true,
+                radius: 8,
+                elevation: 0.0,
+                onPress: onPress,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -134,57 +139,131 @@ class NotificationUtils {
     await showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => AlertDialog(
-        title: Center(
-            child: Text(
-          message,
-          textAlign: TextAlign.center,
-          style: const TextStyle(fontSize: 16),
-        )),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
-        ),
-        content: Column(
-          children: [
-            content ?? Container(),
-            const SizedBox(height: 24),
-            Row(
-              children: [
-                Expanded(
-                  child: SizedBox(
-                    height: 48,
-                    child: ButtonPrimary(
-                      textButton2 ?? 'Yes',
-                      expand: false,
-                      radius: 8,
-                      onPress: isLoading ? null : onPress2,
-                      color: colorButon1,
-                      negativeColor: true,
-                      border: 1,
+      builder: (context) => WillPopScope(
+        onWillPop: () async => false,
+        child: AlertDialog(
+          title: Center(
+              child: Text(
+            message,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 16),
+          )),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+          ),
+          content: Column(
+            children: [
+              content ?? Container(),
+              const SizedBox(height: 24),
+              Row(
+                children: [
+                  Expanded(
+                    child: SizedBox(
+                      height: 48,
+                      child: ButtonPrimary(
+                        textButton2 ?? 'Yes',
+                        expand: false,
+                        radius: 8,
+                        onPress: isLoading ? null : onPress2,
+                        color: colorButon1,
+                        negativeColor: true,
+                        border: 1,
+                      ),
                     ),
                   ),
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: SizedBox(
-                    height: 48,
-                    child: ButtonPrimary(
-                      textButton1 ?? 'Cancel',
-                      expand: false,
-                      radius: 8,
-                      border: 3,
-                      // borderColor: dataGlobal.color.semanticError,
-                      textColor: whiteColor,
-                      borderColor: primaryColor,
-                      onPress: isLoading ? null : onPress1,
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: SizedBox(
+                      height: 48,
+                      child: ButtonPrimary(
+                        textButton1 ?? 'Cancel',
+                        expand: false,
+                        radius: 8,
+                        border: 3,
+                        // borderColor: dataGlobal.color.semanticError,
+                        textColor: whiteColor,
+                        borderColor: primaryColor,
+                        onPress: isLoading ? null : onPress1,
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
+          scrollable: true,
         ),
-        scrollable: true,
+      ),
+    );
+  }
+
+  static Future<void> showSimpleDialogAudio(
+      BuildContext context, String message,
+      {Widget? content,
+      void Function()? onPress1,
+      void Function()? onPress2,
+      String? textButton1,
+      String? textButton2,
+      Color? colorButon1,
+      Color? colorButton2,
+      bool isLoading = false}) async {
+    await showDialog(
+      context: context,
+      barrierDismissible: true,
+      builder: (context) => WillPopScope(
+        onWillPop: () async => false,
+        child: AlertDialog(
+          title: Center(
+              child: Text(
+            message,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 16),
+          )),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+          ),
+          content: Column(
+            children: [
+              content ?? Container(),
+              const SizedBox(height: 24),
+              Row(
+                children: [
+                  Expanded(
+                    child: SizedBox(
+                      height: 48,
+                      child: ButtonPrimary(
+                        textButton2 ?? 'Yes',
+                        expand: false,
+                        radius: 8,
+                        onPress: isLoading ? null : onPress2,
+                        color: colorButon1,
+                        negativeColor: true,
+                        border: 1,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: SizedBox(
+                      height: 48,
+                      child: ButtonPrimary(
+                        textButton1 ?? 'Cancel',
+                        expand: false,
+                        radius: 8,
+                        border: 3,
+                        // borderColor: dataGlobal.color.semanticError,
+                        textColor: whiteColor,
+                        borderColor: primaryColor,
+                        onPress: isLoading ? null : onPress1,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          scrollable: true,
+        ),
       ),
     );
   }
@@ -222,29 +301,34 @@ class NotificationUtils {
       {Widget? widget, String? textButton}) async {
     await showDialog(
       context: context,
-      barrierDismissible: false,
-      builder: (context) => AlertDialog(
-        title: Center(
+      barrierDismissible:
+          false, // Memastikan dialog tidak dapat ditutup dengan mengklik di luar
+      builder: (context) => WillPopScope(
+        onWillPop: () async => false, // Menonaktifkan tombol back
+        child: AlertDialog(
+          title: Center(
             child: Image.asset(
-          "assets/icons/material-symbols-light_error-outline.png",
-          width: 50,
-        )),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
-        ),
-        content: widget ?? Container(),
-        scrollable: true,
-        actions: <Widget>[
-          SizedBox(
-            height: 54,
-            child: ButtonPrimary(
-              textButton ?? 'Ok',
-              expand: true,
-              radius: 10,
-              onPress: onPress,
+              "assets/icons/material-symbols-light_error-outline.png",
+              width: 50,
             ),
           ),
-        ],
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+          ),
+          content: widget ?? Container(),
+          scrollable: true,
+          actions: <Widget>[
+            SizedBox(
+              height: 54,
+              child: ButtonPrimary(
+                textButton ?? 'Ok',
+                expand: true,
+                radius: 10,
+                onPress: onPress,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -275,6 +359,43 @@ class NotificationUtils {
   ///   widget: Text('Success message'),
   ///   textButton: 'Submit',
   /// );
+  /// //edit 7 nov
+  static Future<void> showDialogSuccessOtp(
+      BuildContext context, void Function() onPress,
+      {Widget? widget, String? textButton}) async {
+    await showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => WillPopScope(
+        onWillPop: () async => false,
+        child: AlertDialog(
+          title: Center(
+              child: Image.asset(
+            "assets/icons/verify.png",
+            width: 50,
+          )),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+          ),
+          content: widget ?? Container(),
+          scrollable: true,
+          actions: <Widget>[
+            SizedBox(
+              height: 54,
+              child: ButtonPrimary(
+                textButton ?? 'Ok',
+                expand: true,
+                radius: 10,
+                onPress: () {
+                  Nav.toAll(const LoginScreen());
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
   static Future<void> showDialogSuccess(
       BuildContext context, void Function() onPress,
@@ -282,28 +403,31 @@ class NotificationUtils {
     await showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => AlertDialog(
-        title: Center(
-            child: Image.asset(
-          "assets/icons/verify.png",
-          width: 50,
-        )),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(24),
-        ),
-        content: widget ?? Container(),
-        scrollable: true,
-        actions: <Widget>[
-          SizedBox(
-            height: 54,
-            child: ButtonPrimary(
-              textButton ?? 'Ok',
-              expand: true,
-              radius: 10,
-              onPress: onPress,
-            ),
+      builder: (context) => WillPopScope(
+        onWillPop: () async => false,
+        child: AlertDialog(
+          title: Center(
+              child: Image.asset(
+            "assets/icons/verify.png",
+            width: 50,
+          )),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
           ),
-        ],
+          content: widget ?? Container(),
+          scrollable: true,
+          actions: <Widget>[
+            SizedBox(
+              height: 54,
+              child: ButtonPrimary(
+                textButton ?? 'Ok',
+                expand: true,
+                radius: 10,
+                onPress: onPress,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -319,7 +443,7 @@ class BlockableDialog extends StatefulWidget {
   final VoidCallback? onOk2;
 
   const BlockableDialog({
-    Key? key,
+    super.key,
     required this.title,
     required this.message,
     this.message2,
@@ -327,7 +451,7 @@ class BlockableDialog extends StatefulWidget {
     required this.text2,
     required this.onOk,
     required this.onOk2,
-  }) : super(key: key);
+  });
 
   @override
   State<BlockableDialog> createState() => _BlockableDialogState();

@@ -1,32 +1,33 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:async';
-import 'package:cool_app/data/data_global.dart';
-import 'package:cool_app/data/helpers/either.dart';
-import 'package:cool_app/data/helpers/failure.dart';
-import 'package:cool_app/data/locals/shared_pref.dart';
-import 'package:cool_app/data/provider/provider_book.dart';
-import 'package:cool_app/data/repositories/authentication.dart';
-import 'package:cool_app/data/response/auth/res_get_otp.dart';
-import 'package:cool_app/data/response/auth/res_logout.dart';
-import 'package:cool_app/data/response/auth/res_resend_otp.dart';
-import 'package:cool_app/data/response/auth/res_reset_password.dart';
-import 'package:cool_app/data/response/auth/res_send_otp.dart';
-import 'package:cool_app/data/response/auth/res_update_password.dart';
-import 'package:cool_app/data/response/auth/res_verify_otp.dart';
-import 'package:cool_app/data/response/auth/res_login.dart';
-import 'package:cool_app/data/response/auth/res_register.dart';
-import 'package:cool_app/data/response/user/res_get_location_member.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/pages/auth/component/alert_dialog_otp.dart';
-import 'package:cool_app/presentation/pages/auth/login_screen.dart';
-import 'package:cool_app/presentation/pages/auth/reset_password_screen.dart';
-import 'package:cool_app/presentation/pages/main/pre_home_screen.dart';
-import 'package:cool_app/presentation/pages/otp/forgot_password_screen.dart';
-import 'package:cool_app/presentation/pages/otp/otp_screen.dart';
-import 'package:cool_app/presentation/utils/get_country.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
-import 'package:cool_app/presentation/utils/notification_utils.dart';
+import 'dart:convert';
+import 'package:coolappflutter/data/data_global.dart';
+import 'package:coolappflutter/data/helpers/either.dart';
+import 'package:coolappflutter/data/helpers/failure.dart';
+import 'package:coolappflutter/data/locals/shared_pref.dart';
+import 'package:coolappflutter/data/provider/provider_book.dart';
+import 'package:coolappflutter/data/repositories/authentication.dart';
+import 'package:coolappflutter/data/response/auth/res_get_otp.dart';
+import 'package:coolappflutter/data/response/auth/res_logout.dart';
+import 'package:coolappflutter/data/response/auth/res_resend_otp.dart';
+import 'package:coolappflutter/data/response/auth/res_reset_password.dart';
+import 'package:coolappflutter/data/response/auth/res_send_otp.dart';
+import 'package:coolappflutter/data/response/auth/res_update_password.dart';
+import 'package:coolappflutter/data/response/auth/res_verify_otp.dart';
+import 'package:coolappflutter/data/response/auth/res_login.dart';
+import 'package:coolappflutter/data/response/auth/res_register.dart';
+import 'package:coolappflutter/data/response/user/res_get_location_member.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/auth/component/alert_dialog_otp.dart';
+import 'package:coolappflutter/presentation/pages/auth/login_screen.dart';
+import 'package:coolappflutter/presentation/pages/auth/reset_password_screen.dart';
+import 'package:coolappflutter/presentation/pages/main/pre_home_screen.dart';
+import 'package:coolappflutter/presentation/pages/otp/forgot_password_screen.dart';
+import 'package:coolappflutter/presentation/pages/otp/otp_screen.dart';
+import 'package:coolappflutter/presentation/utils/get_country.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/utils/notification_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -147,17 +148,23 @@ class ProviderAuth extends ChangeNotifier {
   bool isLoading = false;
 
   Future<void> login(BuildContext context,
-      {required String phoneNumber, required String password}) async {
+      {required String phoneNumber,
+      required String password,
+      required String fcmToken}) async {
     isLoading = true;
     notifyListeners();
 
-    Either<Failure, ResLogin> response =
-        await auth.login(phoneNumber: phoneNumber, password: password);
+    Either<Failure, ResLogin> response = await auth.login(
+        phoneNumber: phoneNumber, password: password, fcmToken: fcmToken);
 
     isLoading = false;
     notifyListeners();
 
     response.when(error: (e) {
+      // debugPrint("masuk ${e.toString()}");
+      // debugPrint("masuk ${jsonEncode(response)}");
+      isLoading = false;
+      notifyListeners();
       NotificationUtils.showDialogError(
         context,
         () {
@@ -170,14 +177,22 @@ class ProviderAuth extends ChangeNotifier {
         ),
       );
     }, success: (res) async {
+      // debugPrint("masukk4 ${res.data?.idRole}");
       if (res.success == true) {
-        if (res.data?.idRole == "2") {
-          if (res.data?.isVerified == "1") {
+        if (res.data?.idRole.toString() == "2") {
+          isLoading = false;
+          notifyListeners();
+          // debugPrint("masukk4");
+          if (res.data?.isVerified.toString() == "1") {
+            isLoading = false;
+            notifyListeners();
             dataGlobal.setToken(res.data?.accessToken.toString() ?? "");
             await Prefs().setToken(res.data?.accessToken.toString());
             await context.read<ProviderBook>().getPreHome(context);
             Nav.toAll(const PreHomeScreen());
           } else {
+            isLoading = false;
+            notifyListeners();
             // ke otp page
             NotificationUtils.showDialogError(context, () {
               // context.read<ProviderUser>().getUser(context);
@@ -188,23 +203,26 @@ class ProviderAuth extends ChangeNotifier {
                   return AlertDialogOtp(
                     sms: () {
                       Nav.back();
-                      Nav.to(const ForgotPasswordScreen(
+                      Nav.to(ForgotPasswordScreen(
                         channel: "sms",
                         isVerif: true,
+                        number: phoneNumber.toString(),
                       ));
                     },
                     wa: () {
                       Nav.back();
-                      Nav.to(const ForgotPasswordScreen(
+                      Nav.to(ForgotPasswordScreen(
                         channel: 'wa',
                         isVerif: true,
+                        number: phoneNumber.toString(),
                       ));
                     },
                     email: () {
                       Nav.back();
-                      Nav.to(const ForgotPasswordScreen(
+                      Nav.to(ForgotPasswordScreen(
                         channel: 'email',
                         isVerif: true,
+                        number: phoneNumber.toString(),
                       ));
                     },
                   );
@@ -219,6 +237,9 @@ class ProviderAuth extends ChangeNotifier {
                 textButton: "Verifikasi Sekarang");
           }
         } else {
+          isLoading = false;
+          notifyListeners();
+          debugPrint("masukk");
           NotificationUtils.showDialogError(
             context,
             () {
@@ -232,6 +253,9 @@ class ProviderAuth extends ChangeNotifier {
           );
         }
       } else {
+        isLoading = false;
+        notifyListeners();
+        debugPrint("masukkk");
         NotificationUtils.showDialogError(
           context,
           () {
@@ -249,13 +273,18 @@ class ProviderAuth extends ChangeNotifier {
     notifyListeners();
   }
 
+  String removeBrackets(String input) {
+    // Menggunakan metode replaceAll untuk mengganti simbol [ dan ] dengan string kosong
+    return input.replaceAll('[', '').replaceAll(']', '').replaceAll('null', '');
+  }
+
   // register
   Future<void> register(BuildContext context, String channel, String emailReg,
       String codeReferal) async {
     isLoading = true;
     notifyListeners();
 
-    Either<Failure, ResRegister> response = await auth.register(
+    Either<FailedModel, ResRegister> response = await auth.register(
         phoneNumber: phoneNumberReg.text,
         password: passwordReg.text,
         confirmPassword: confirmPasswordReg.text,
@@ -266,16 +295,22 @@ class ProviderAuth extends ChangeNotifier {
     isLoading = false;
     notifyListeners();
     response.when(error: (e) {
+      debugPrint("ee $e");
+      isLoading = false;
+      notifyListeners();
       NotificationUtils.showDialogError(
         context,
         () {
           Nav.back();
         },
-        widget: Text(
-          e.message,
-          textAlign: TextAlign.center,
-          style: const TextStyle(fontSize: 16),
-        ),
+        widget: e.message == "Validasi gagal"
+            ? Text(
+                "${e.errors!.email!.toString() != "" ? removeBrackets(e.errors!.email.toString()) : ""}  ${e.errors!.phoneNumber!.toString() != "" ? removeBrackets(e.errors!.phoneNumber.toString()) : ""} ${e.errors!.password.toString() != "" ? removeBrackets(e.errors!.password.toString()) : ""}  ${e.errors!.passwordConfirmation.toString() != "" ? removeBrackets(e.errors!.passwordConfirmation.toString()) : ""} ${e.errors!.codeReferal.toString() != "" ? removeBrackets(e.errors!.codeReferal.toString()) : ""}",
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 16),
+              )
+            : Text(removeBrackets(
+                '${e.message.toString()}  ${e.errorCode.toString()}')),
       );
     }, success: (res) {
       if (res.success == false && res.data == null) {
@@ -447,17 +482,22 @@ class ProviderAuth extends ChangeNotifier {
         );
       } else if (res.success == true) {
         dataRegister = res.data;
-        NotificationUtils.showDialogSuccess(context, () {
-          Nav.back();
-          sendOtp(
-            context,
-            dataRegister?.userId.toString() ?? "",
-            channel,
-          );
-        },
-            widget: Center(
-              child: Text(S.of(context).registration_success),
-            ));
+        sendOtp(
+          context,
+          dataRegister?.userId.toString() ?? "",
+          channel,
+        );
+        // NotificationUtils.showDialogSuccess(context, () {
+        //   Nav.back();
+        //   sendOtp(
+        //     context,
+        //     dataRegister?.userId.toString() ?? "",
+        //     channel,
+        //   );
+        // },
+        //     widget: Center(
+        //       child: Text(S.of(context).registration_success),
+        //     ));
       }
     });
 
@@ -589,7 +629,15 @@ class ProviderAuth extends ChangeNotifier {
             textButton: S.of(context).back);
       } else if (res.status == true) {
         stopTimer();
-        Nav.toAll(const LoginScreen());
+        NotificationUtils.showDialogSuccessOtp(
+          context,
+          () {
+            Nav.back();
+          },
+          widget: Center(
+            child: Text(S.of(context).registration_success),
+          ),
+        );
       }
     });
 
@@ -611,6 +659,7 @@ class ProviderAuth extends ChangeNotifier {
     response.when(
         error: (e) {},
         success: (res) {
+          notifyListeners();
           if (res.status == true) {
             setOtpTime();
             // setOtpTime(res.data?.otpTime);
@@ -676,8 +725,13 @@ class ProviderAuth extends ChangeNotifier {
         phoneNumber: phoneNumber, channel: channel, email: email);
 
     response.when(error: (e) {
+      debugPrint("cek no salah");
+      isLoading = false;
+      notifyListeners();
       NotificationUtils.showDialogError(context, () {
+        isLoading = false;
         Nav.back();
+        notifyListeners();
       },
           widget: Center(
             child: Text(
@@ -687,6 +741,7 @@ class ProviderAuth extends ChangeNotifier {
             ),
           ));
     }, success: (res) {
+      debugPrint("cek no salah5 ${res.message.toString()}");
       if (res.success == true) {
         dataSendOtp = res.data;
         setOtpTime();
@@ -702,6 +757,9 @@ class ProviderAuth extends ChangeNotifier {
           idUser: res.data?.id.toString() ?? "0",
         ));
       } else {
+        debugPrint("cek no salah6 ${res.message.toString()}");
+        isLoading = false;
+        notifyListeners();
         NotificationUtils.showDialogError(context, () {
           Nav.back();
         },
@@ -709,7 +767,7 @@ class ProviderAuth extends ChangeNotifier {
               child: Text(
                 channel == 'email'
                     ? S.of(context).email_not_registered
-                    : S.of(context).number_not_registered,
+                    : res.message.toString(),
                 style: const TextStyle(fontSize: 16),
                 textAlign: TextAlign.center,
               ),

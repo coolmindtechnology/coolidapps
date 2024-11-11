@@ -1,8 +1,8 @@
 import 'dart:io';
-import 'package:cool_app/data/data_global.dart';
-import 'package:cool_app/data/networks/dio_handler.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/utils/notification_utils.dart';
+import 'package:coolappflutter/data/data_global.dart';
+import 'package:coolappflutter/data/networks/dio_handler.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/notification_utils.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

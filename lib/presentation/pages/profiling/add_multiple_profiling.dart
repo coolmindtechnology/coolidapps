@@ -1,14 +1,14 @@
 // ignore_for_file: must_be_immutable, library_private_types_in_public_api
 
-import 'package:cool_app/data/provider/provider_profiling.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/utils/circular_progress_widget.dart';
-import 'package:cool_app/presentation/utils/date_util.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
-import 'package:cool_app/presentation/utils/notification_utils.dart';
-import 'package:cool_app/presentation/widgets/button_primary.dart';
-import 'package:cool_app/presentation/widgets/custom_input_field.dart';
+import 'package:coolappflutter/data/provider/provider_profiling.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/circular_progress_widget.dart';
+import 'package:coolappflutter/presentation/utils/date_util.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/utils/notification_utils.dart';
+import 'package:coolappflutter/presentation/widgets/button_primary.dart';
+import 'package:coolappflutter/presentation/widgets/custom_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';

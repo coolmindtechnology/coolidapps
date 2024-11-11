@@ -1,15 +1,15 @@
 // ignore_for_file: library_private_types_in_public_api, deprecated_member_use
 
 import 'dart:async';
-import 'package:cool_app/data/data_global.dart';
-import 'package:cool_app/data/models/subcribtion_brain_transaction_data_model.dart';
-import 'package:cool_app/data/networks/endpoint/api_endpoint.dart';
-import 'package:cool_app/data/provider/provider_brain_activation.dart';
-import 'package:cool_app/data/response/brain_activation/res_list_brain_activation.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
-import 'package:cool_app/presentation/utils/notification_utils.dart';
+import 'package:coolappflutter/data/data_global.dart';
+import 'package:coolappflutter/data/models/subcribtion_brain_transaction_data_model.dart';
+import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
+import 'package:coolappflutter/data/provider/provider_brain_activation.dart';
+import 'package:coolappflutter/data/response/brain_activation/res_list_brain_activation.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/utils/notification_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
@@ -90,8 +90,7 @@ class _PlayMusicScreenState extends State<PlayMusicScreen> {
     /// increase number of played today
     totalPlayedToday++;
 
-    _audioPlayer
-        .play(UrlSource("${ApiEndpoint.baseUrl}/${widget.data?.upload}"));
+    _audioPlayer.play(UrlSource("${widget.data?.upload}"));
   }
 
   pause() {
@@ -100,8 +99,7 @@ class _PlayMusicScreenState extends State<PlayMusicScreen> {
   }
 
   setSource() async {
-    await _audioPlayer
-        .setSourceUrl("${ApiEndpoint.baseUrl}/${widget.data?.upload}");
+    await _audioPlayer.setSourceUrl("${widget.data?.upload}");
   }
 
   @override
@@ -111,6 +109,7 @@ class _PlayMusicScreenState extends State<PlayMusicScreen> {
     context
         .read<ProviderBrainActivation>()
         .getCekDaily(context, widget.data?.logBrain?.id?.toInt() ?? 0);
+    prov.getDurationAudio(context, widget.data?.logBrain?.id ?? 0);
 
     _audioPlayer.getDuration().then((d) {
       _duration = d ?? Duration.zero;
@@ -130,10 +129,11 @@ class _PlayMusicScreenState extends State<PlayMusicScreen> {
         if (context
                 .read<ProviderBrainActivation>()
                 .cekDaily
-                ?.limitAccessAudio ==
+                ?.limitAccessAudio
+                .toString() ==
             "00:05:00") {
-          prov.getDurationAudio(context, widget.data?.logBrain?.id ?? 0);
-          NotificationUtils.showSimpleDialog2(
+          // prov.getDurationAudio(context, widget.data?.logBrain?.id ?? 0);
+          NotificationUtils.showSimpleDialogAudio(
               context, S.of(context).free_version_limit,
               textButton1: S.of(context).yes,
               textButton2: S.of(context).cancel, onPress2: () {
@@ -144,8 +144,8 @@ class _PlayMusicScreenState extends State<PlayMusicScreen> {
             Nav.back();
             var data = SubscribeBrainTransactionDataModel(
                 idBrainActivations: [widget.data?.id ?? 0],
-                idLogProfiling:
-                    int.parse(widget.data?.logBrain?.idLogProfiling ?? "0"),
+                idLogProfiling: int.parse(
+                    widget.data?.logBrain?.idLogProfiling.toString() ?? "0"),
                 discount:
                     double.parse(widget.data?.monthlyDiscount ?? "0").toInt(),
                 transactionType: "monthly",
@@ -160,7 +160,8 @@ class _PlayMusicScreenState extends State<PlayMusicScreen> {
               Nav.back();
               // Nav.back();
               await context.read<ProviderBrainActivation>().getListBrain(
-                  context, widget.data?.logBrain?.idLogProfiling ?? "0");
+                  context,
+                  widget.data?.logBrain?.idLogProfiling.toString() ?? "0");
             });
           });
         }
@@ -171,11 +172,24 @@ class _PlayMusicScreenState extends State<PlayMusicScreen> {
 
     _audioPlayer.onPlayerComplete.listen((event) {
       isPlay = false;
-      prov.getDurationAudio(context, widget.data?.logBrain?.id ?? 0);
+      // prov.getDurationAudio(context, widget.data?.logBrain?.id ?? 0);
       setState(() {});
     });
 
+    playMusic();
     super.initState();
+  }
+
+  playMusic() async {
+    isPlay = true;
+    await play();
+    Timer(const Duration(seconds: 3), () async {
+      isPlay = false;
+      await pause();
+      setState(() {});
+    });
+
+    setState(() {});
   }
 
   @override
@@ -246,7 +260,8 @@ class _PlayMusicScreenState extends State<PlayMusicScreen> {
                           progress: snapshot.data ?? const Duration(seconds: 0),
                           total: _duration,
                           onSeek: (duration) {
-                            if (value.cekDaily?.limitAccessAudio ==
+                            debugPrint("cek posisi1 ${_position.inSeconds}");
+                            if (value.cekDaily?.limitAccessAudio.toString() ==
                                     "00:05:00" &&
                                 (snapshot.data?.inSeconds == maxPlaySecond ||
                                     snapshot.data!.inSeconds > maxPlaySecond)) {
@@ -260,11 +275,13 @@ class _PlayMusicScreenState extends State<PlayMusicScreen> {
                               }, onPress1: () async {
                                 //   // tambah disni
                                 Nav.back();
+                                Nav.back();
                                 var data = SubscribeBrainTransactionDataModel(
                                     idBrainActivations: [widget.data?.id ?? 0],
-                                    idLogProfiling: int.parse(
-                                        widget.data?.logBrain?.idLogProfiling ??
-                                            "0"),
+                                    idLogProfiling: int.parse(widget
+                                            .data?.logBrain?.idLogProfiling
+                                            .toString() ??
+                                        "0"),
                                     discount: double.parse(
                                             widget.data?.monthlyDiscount ?? "0")
                                         .toInt(),
@@ -288,8 +305,8 @@ class _PlayMusicScreenState extends State<PlayMusicScreen> {
                                       .read<ProviderBrainActivation>()
                                       .getListBrain(
                                           context,
-                                          widget.data?.logBrain
-                                                  ?.idLogProfiling ??
+                                          widget.data?.logBrain?.idLogProfiling
+                                                  .toString() ??
                                               "0");
                                 });
                               });
@@ -315,6 +332,7 @@ class _PlayMusicScreenState extends State<PlayMusicScreen> {
               children: [
                 GestureDetector(
                   onTap: () {
+                    debugPrint("cek posisi4 ${_position.inSeconds}");
                     if (_position > Duration.zero) {
                       _audioPlayer
                           .seek(_position - const Duration(seconds: 10));
@@ -327,11 +345,14 @@ class _PlayMusicScreenState extends State<PlayMusicScreen> {
                 ),
                 GestureDetector(
                   onTap: () async {
-                    if ((int.tryParse(value.cekDaily?.dailyCount ?? "0") ??
+                    debugPrint("cek posisi2 ${_position.inSeconds}");
+                    if ((int.tryParse(value.cekDaily?.dailyCount.toString() ??
+                                    "0") ??
                                 0) !=
                             3 ||
                         value.timerPlay?.dailyCount != null) {
-                      if (value.cekDaily?.limitAccessAudio == "00:05:00" &&
+                      if (value.cekDaily?.limitAccessAudio.toString() ==
+                              "00:05:00" &&
                           shouldStop) {
                         NotificationUtils.showSimpleDialog2(
                             context, S.of(context).free_version_limit,
@@ -344,8 +365,10 @@ class _PlayMusicScreenState extends State<PlayMusicScreen> {
                           Nav.back();
                           var data = SubscribeBrainTransactionDataModel(
                               idBrainActivations: [widget.data?.id ?? 0],
-                              idLogProfiling: int.parse(
-                                  widget.data?.logBrain?.idLogProfiling ?? "0"),
+                              idLogProfiling: int.parse(widget
+                                      .data?.logBrain?.idLogProfiling
+                                      .toString() ??
+                                  "0"),
                               discount: double.parse(
                                       widget.data?.monthlyDiscount ?? "0")
                                   .toInt(),
@@ -368,7 +391,8 @@ class _PlayMusicScreenState extends State<PlayMusicScreen> {
                                 .read<ProviderBrainActivation>()
                                 .getListBrain(
                                     context,
-                                    widget.data?.logBrain?.idLogProfiling ??
+                                    widget.data?.logBrain?.idLogProfiling
+                                            .toString() ??
                                         "0");
                           });
                         });
@@ -405,6 +429,7 @@ class _PlayMusicScreenState extends State<PlayMusicScreen> {
                 ),
                 GestureDetector(
                   onTap: () {
+                    debugPrint("cek posisi3 ${_position.inSeconds}");
                     if (_position < _duration) {
                       _audioPlayer
                           .seek(_position + const Duration(seconds: 10));

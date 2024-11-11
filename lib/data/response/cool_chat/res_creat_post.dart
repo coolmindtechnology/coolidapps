@@ -11,7 +11,7 @@ String resCreatePostToJson(ResCreatePost data) => json.encode(data.toJson());
 
 class ResCreatePost {
   bool? success;
-  String? message;
+  dynamic message;
   DataCreate? data;
 
   ResCreatePost({
@@ -34,11 +34,11 @@ class ResCreatePost {
 }
 
 class DataCreate {
-  String? idUser;
-  String? title;
-  String? description;
-  String? embedUrl;
-  String? isComment;
+  dynamic idUser;
+  dynamic title;
+  dynamic description;
+  dynamic embedUrl;
+  dynamic isComment;
   List<Audio>? image;
   List<Audio>? audio;
   List<String>? blockWord;
@@ -90,12 +90,12 @@ class DataCreate {
 }
 
 class Audio {
-  String? fileName;
-  String? path;
-  int? idPost;
+  dynamic fileName;
+  dynamic path;
+  dynamic idPost;
   DateTime? updatedAt;
   DateTime? createdAt;
-  int? id;
+  dynamic id;
 
   Audio({
     this.fileName,

@@ -12,7 +12,7 @@ String resTransactionProfilingToJson(ResUpdateTransactionProfiling data) =>
 
 class ResUpdateTransactionProfiling {
   bool? success;
-  String? message;
+  dynamic message;
   DataUpdateTransactionProfiling? data;
 
   ResUpdateTransactionProfiling({
@@ -38,17 +38,17 @@ class ResUpdateTransactionProfiling {
 }
 
 class DataUpdateTransactionProfiling {
-  String? id;
-  String? idUser;
-  String? idLogProfilingResult;
-  String? amount;
-  String? discount;
-  String? totalAmount;
-  String? status;
+  dynamic id;
+  dynamic idUser;
+  dynamic idLogProfilingResult;
+  dynamic amount;
+  dynamic discount;
+  dynamic totalAmount;
+  dynamic status;
   DateTime? createdAt;
   DateTime? updatedAt;
   dynamic deletedAt;
-  String? paymentType;
+  dynamic paymentType;
   int? qty;
   List<ItemDetailProfiling>? itemDetails;
 
@@ -112,12 +112,12 @@ class DataUpdateTransactionProfiling {
 }
 
 class ItemDetailProfiling {
-  String? logId;
-  String? profilingId;
-  String? profilingName;
-  String? userId;
-  String? userName;
-  String? status;
+  dynamic logId;
+  dynamic profilingId;
+  dynamic profilingName;
+  dynamic userId;
+  dynamic userName;
+  dynamic status;
   dynamic bloodType;
 
   ItemDetailProfiling({

@@ -12,7 +12,7 @@ String resInvoiceSaldoToJson(ResInvoiceSaldo data) =>
 
 class ResInvoiceSaldo {
   bool? success;
-  String? message;
+  dynamic message;
   DataInvoiceSaldo? data;
 
   ResInvoiceSaldo({
@@ -38,14 +38,14 @@ class ResInvoiceSaldo {
 }
 
 class DataInvoiceSaldo {
-  String? customer;
+  dynamic customer;
   DateTime? transactionDate;
-  String? status;
-  String? orderId;
-  String? amount;
-  String? source;
-  String? transactionType;
-  String? paymentType;
+  dynamic status;
+  dynamic orderId;
+  dynamic amount;
+  dynamic source;
+  dynamic transactionType;
+  dynamic paymentType;
 
   DataInvoiceSaldo({
     this.customer,

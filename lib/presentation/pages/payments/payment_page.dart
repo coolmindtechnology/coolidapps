@@ -1,8 +1,8 @@
-import 'package:cool_app/data/models/data_checkout_transaction.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/pages/payments/payment_success.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/data/models/data_checkout_transaction.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/payments/payment_success.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 
 import 'package:flutter/material.dart';
 

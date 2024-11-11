@@ -1,16 +1,16 @@
-import 'package:cool_app/data/response/brain_activation/res_list_brain_activation.dart';
-import 'package:cool_app/data/response/profiling/res_list_profiling.dart';
-import 'package:cool_app/presentation/pages/brain/brain_subscription_page.dart';
-import 'package:cool_app/presentation/pages/brain/play_music_screen.dart';
-import 'package:cool_app/presentation/pages/brain/term_conditions_brain.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/utils/circular_progress_widget.dart';
-import 'package:cool_app/presentation/utils/durasi_utils.dart';
-import 'package:cool_app/presentation/utils/money_formatter.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
-import 'package:cool_app/presentation/widgets/button_primary.dart';
-import 'package:cool_app/presentation/widgets/refresh_icon_widget.dart';
-import 'package:cool_app/presentation/widgets/shimmer_loading.dart';
+import 'package:coolappflutter/data/response/brain_activation/res_list_brain_activation.dart';
+import 'package:coolappflutter/data/response/profiling/res_list_profiling.dart';
+import 'package:coolappflutter/presentation/pages/brain/brain_subscription_page.dart';
+import 'package:coolappflutter/presentation/pages/brain/play_music_screen.dart';
+import 'package:coolappflutter/presentation/pages/brain/term_conditions_brain.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/circular_progress_widget.dart';
+import 'package:coolappflutter/presentation/utils/durasi_utils.dart';
+import 'package:coolappflutter/presentation/utils/money_formatter.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/widgets/button_primary.dart';
+import 'package:coolappflutter/presentation/widgets/refresh_icon_widget.dart';
+import 'package:coolappflutter/presentation/widgets/shimmer_loading.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
@@ -36,10 +36,10 @@ class _ScreenBrainActivationState extends State<ScreenBrainActivation> {
   void initState() {
     context
         .read<ProviderBrainActivation>()
-        .getListBrain(context, widget.data?.idLogResult ?? "");
+        .getListBrain(context, widget.data?.idLogResult.toString() ?? "");
     context
         .read<ProviderBrainActivation>()
-        .getShowPrice(context, widget.data?.idLogResult ?? "");
+        .getShowPrice(context, widget.data?.idLogResult.toString() ?? "");
     super.initState();
   }
 
@@ -128,12 +128,14 @@ class _ScreenBrainActivationState extends State<ScreenBrainActivation> {
                                     Text(
                                       MoneyFormatter.formatMoney(
                                               value.showPrice?.data
-                                                          ?.subscribePrice !=
+                                                          ?.subscribePrice
+                                                          .toString() !=
                                                       ''
                                                   ? Decimal.parse(value
                                                           .showPrice
                                                           ?.data
-                                                          ?.subscribePrice ??
+                                                          ?.subscribePrice
+                                                          .toString() ??
                                                       "0")
                                                   : "0",
                                               true)
@@ -151,22 +153,36 @@ class _ScreenBrainActivationState extends State<ScreenBrainActivation> {
                                   : ButtonPrimary(
                                       S.of(context).subscribe,
                                       onPress: () {
-                                        // value.checAllowSubcribe(
-                                        //     context, widget.data?.idLogResult);
+                                        value.checAllowSubcribe(
+                                            context,
+                                            widget.data?.idLogResult
+                                                .toString());
+                                        debugPrint(
+                                            "cekz ${value.cekAllowSubcribe?.success}");
+                                        if (value.cekAllowSubcribe?.success ==
+                                            true) {
+                                          Nav.to(BrainSubscriptionPage(
+                                              idLogProfiling: widget
+                                                  .data?.idLogResult
+                                                  .toString(),
+                                              typeSubcribe: value.showPrice
+                                                      ?.data?.subscribeType
+                                                      .toString() ??
+                                                  ""));
+                                          // Nav.to(BrainSubscriptionPage(
+                                          //     idLogProfiling: widget
+                                          //         .data?.idLogResult
+                                          //         .toString()));
+                                        }
 
-                                        // if (value.cekAllowSubcribe?.success ==
-                                        //     true) {
-                                        //   Nav.to(BrainSubscriptionPage(
-                                        //       idLogProfiling:
-                                        //           widget.data?.idLogResult));
-                                        // }
-
-                                        Nav.to(BrainSubscriptionPage(
-                                            idLogProfiling:
-                                                widget.data?.idLogResult,
-                                            typeSubcribe: value.showPrice?.data
-                                                    ?.subscribeType ??
-                                                ""));
+                                        // Nav.to(BrainSubscriptionPage(
+                                        //     idLogProfiling: widget
+                                        //         .data?.idLogResult
+                                        //         .toString(),
+                                        //     typeSubcribe: value.showPrice?.data
+                                        //             ?.subscribeType
+                                        //             .toString() ??
+                                        //         ""));
                                       },
                                       textStyle: const TextStyle(fontSize: 12),
                                       elevation: 0.0,
@@ -185,10 +201,11 @@ class _ScreenBrainActivationState extends State<ScreenBrainActivation> {
                                 return GestureDetector(
                                   onTap: () {
                                     // widget.data.logEbook != null && widget.data.logEbook?.status == "1" || widget.data.isPremium == "0"
-                                    if ((data.status == "1" &&
+                                    if ((data.status.toString() == "1" &&
                                             data.logBrain == null) ||
-                                        (data.logBrain?.status == "0" &&
-                                            data.status == "1")) {
+                                        (data.logBrain?.status.toString() ==
+                                                "0" &&
+                                            data.status.toString() == "1")) {
                                       NotificationUtils.showSimpleDialog2(
                                           context,
                                           S.of(context).pay_to_see_more,
@@ -202,11 +219,15 @@ class _ScreenBrainActivationState extends State<ScreenBrainActivation> {
                                         await value.paymentBrainActivation(
                                             context,
                                             data.id ?? 0,
-                                            data.price ?? "",
-                                            widget.data?.idLogResult ?? "",
-                                            onUpdate: () {
-                                          value.getListBrain(context,
-                                              widget.data?.idLogResult ?? "");
+                                            data.price.toString() ?? "",
+                                            widget.data?.idLogResult
+                                                    .toString() ??
+                                                "", onUpdate: () {
+                                          value.getListBrain(
+                                              context,
+                                              widget.data?.idLogResult
+                                                      .toString() ??
+                                                  "");
                                         });
                                       },
                                           colorButon1: primaryColor,
@@ -215,8 +236,11 @@ class _ScreenBrainActivationState extends State<ScreenBrainActivation> {
                                       Nav.to(PlayMusicScreen(
                                         data,
                                         onAudio: () {
-                                          value.getListBrain(context,
-                                              widget.data?.idLogResult ?? "");
+                                          value.getListBrain(
+                                              context,
+                                              widget.data?.idLogResult
+                                                      .toString() ??
+                                                  "");
                                         },
                                       ));
                                     }
@@ -281,10 +305,11 @@ class _ScreenBrainActivationState extends State<ScreenBrainActivation> {
                                           ),
                                         ),
                                         Image.asset(
-                                          data.status == "0" ||
+                                          data.status.toString() == "0" ||
                                                   (data.logBrain?.status ==
                                                           "1" &&
-                                                      data.status == "1")
+                                                      data.status.toString() ==
+                                                          "1")
                                               ? "images/menu/arrow.png"
                                               : "images/brain/Lock.png",
                                           width: 24,

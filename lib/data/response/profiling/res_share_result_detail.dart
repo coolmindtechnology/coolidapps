@@ -12,7 +12,7 @@ String resShareResultDetailToJson(ResShareResultDetail data) =>
 
 class ResShareResultDetail {
   bool? success;
-  String? message;
+  dynamic message;
   DataShareResultDetail? data;
 
   ResShareResultDetail({
@@ -38,12 +38,12 @@ class ResShareResultDetail {
 }
 
 class DataShareResultDetail {
-  String? facebook;
-  String? twitter;
-  String? linkedin;
-  String? telegram;
-  String? whatsapp;
-  String? others;
+  dynamic facebook;
+  dynamic twitter;
+  dynamic linkedin;
+  dynamic telegram;
+  dynamic whatsapp;
+  dynamic others;
 
   DataShareResultDetail({
     this.facebook,

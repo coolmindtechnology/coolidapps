@@ -1,37 +1,37 @@
 // ignore_for_file: library_private_types_in_public_api
 
-import 'package:cool_app/data/data_global.dart';
-import 'package:cool_app/data/response/payments/res_update_transaction_profiling.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/pages/payments/loading_payment_saldo.dart';
-import 'package:cool_app/presentation/pages/payments/midtrans_screen.dart';
-import 'package:cool_app/presentation/pages/payments/paypal_screen.dart';
-import 'package:cool_app/presentation/pages/user/reusable_invoice_screen.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/utils/money_formatter.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
-import 'package:cool_app/presentation/widgets/button_primary.dart';
+import 'package:coolappflutter/data/data_global.dart';
+import 'package:coolappflutter/data/response/payments/res_update_transaction_profiling.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/payments/loading_payment_saldo.dart';
+import 'package:coolappflutter/presentation/pages/payments/midtrans_screen.dart';
+import 'package:coolappflutter/presentation/pages/payments/paypal_screen.dart';
+import 'package:coolappflutter/presentation/pages/user/reusable_invoice_screen.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/money_formatter.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/widgets/button_primary.dart';
 import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class PreInvoiceScreen extends StatefulWidget {
   final String? snapToken;
-  final String? orderId;
+  final dynamic orderId;
   final String? name;
   final DateTime? date;
-  final String? paymentType;
-  final String? quantity;
-  final String? discount;
-  final String? amount;
+  final dynamic paymentType;
+  final dynamic quantity;
+  final dynamic discount;
+  final dynamic amount;
   final Function? onUpdate;
   final bool isWithSaldo;
-  final String? id;
+  final dynamic id;
   final List<ItemDetailProfiling> itemDetails;
   final bool isMultiple;
-  final String? fromPage;
+  final dynamic fromPage;
   final bool isIndonesia;
-  final String? currencyPaypal;
+  final dynamic currencyPaypal;
 
   const PreInvoiceScreen(
       {super.key,
@@ -61,7 +61,7 @@ class _PreInvoiceScreenState extends State<PreInvoiceScreen> {
   @override
   void initState() {
     // getIsIndonesia();
-
+    debugPrint("cek amount ${widget.amount}");
     super.initState();
   }
 
@@ -86,7 +86,7 @@ class _PreInvoiceScreenState extends State<PreInvoiceScreen> {
       appBar: AppBar(
         title: Text(
           S.of(context).payment,
-          style: TextStyle(color: primaryColor),
+          style: TextStyle(color: whiteColor),
         ),
       ),
       body: SingleChildScrollView(
@@ -105,7 +105,8 @@ class _PreInvoiceScreenState extends State<PreInvoiceScreen> {
                 height: 48,
               ),
               widget.orderId != null
-                  ? itemPayment(S.of(context).order_id, widget.orderId)
+                  ? itemPayment(S.of(context).order_id.toString(),
+                      widget.orderId.toString())
                   : const SizedBox(),
               widget.name != null
                   ? itemPayment(S.of(context).customer, widget.name ?? "-")
@@ -127,8 +128,8 @@ class _PreInvoiceScreenState extends State<PreInvoiceScreen> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     if (widget.paymentType != null) ...[
-                      itemPaymentDetail(
-                          S.of(context).payment, widget.paymentType ?? "-"),
+                      itemPaymentDetail(S.of(context).payment.toString(),
+                          widget.paymentType ?? "-"),
                       Divider(height: 0.0, color: greyColor.withOpacity(0.5)),
                     ],
                     widget.quantity != null
@@ -153,18 +154,19 @@ class _PreInvoiceScreenState extends State<PreInvoiceScreen> {
                       Divider(height: 0.0, color: greyColor.withOpacity(0.5)),
                     ],
                     widget.discount != null
-                        ? itemPaymentDetail(S.of(context).discount,
+                        ? itemPaymentDetail(S.of(context).discount.toString(),
                             "${Decimal.parse(widget.discount ?? "0")}%")
                         : const SizedBox(),
                     Divider(height: 0.0, color: greyColor.withOpacity(0.5)),
                     widget.amount != null
                         ? itemPaymentTotal(
-                            S.of(context).amount,
+                            S.of(context).amount.toString(),
                             dataGlobal.isIndonesia
                                 ? MoneyFormatter.formatMoney(
-                                        widget.amount, widget.isIndonesia)
+                                        widget.amount.toString(),
+                                        widget.isIndonesia)
                                     .toString()
-                                : "${widget.currencyPaypal} ${widget.amount}")
+                                : "${widget.currencyPaypal.toString()} ${widget.amount.toString()}")
                         : const SizedBox(),
                   ],
                 ),
@@ -185,33 +187,44 @@ class _PreInvoiceScreenState extends State<PreInvoiceScreen> {
                       isMultiple: widget.isMultiple,
                       onUpdate: () {
                         widget.onUpdate!();
-                        // Nav.back();
+                        Nav.back();
                       }));
                 } else {
                   Nav.replace(MidtransScreen(
                     snapToken: widget.snapToken,
-                    codeOrder: widget.orderId,
+                    codeOrder: widget.orderId.toString(),
                     onUpdate: () {
                       widget.onUpdate!();
                       // Nav.back();
                     },
-                    fromPage: widget.fromPage,
+                    fromPage: widget.fromPage.toString(),
                     isMultiple: widget.isMultiple,
                   ));
                 }
               } else {
-                Nav.to(PaypalScreen(
-                  orderId: widget.orderId ?? widget.id,
-                  currencyPaypal: widget.currencyPaypal,
-                  amountPaypal: widget.amount,
-                  onUpdate: () {
-                    widget.onUpdate!();
-                    Nav.back();
-                    Nav.back();
-                  },
-                  fromPage: widget.fromPage,
-                  isMultiple: widget.isMultiple,
-                ));
+                if (widget.isWithSaldo) {
+                  // bayar dengan saldo
+                  Nav.replace(LoadingPaymentSaldo(
+                      id: widget.id ?? '',
+                      isMultiple: widget.isMultiple,
+                      onUpdate: () {
+                        widget.onUpdate!();
+                        Nav.back();
+                      }));
+                } else {
+                  Nav.to(PaypalScreen(
+                    orderId: widget.orderId ?? widget.id.toString(),
+                    currencyPaypal: widget.currencyPaypal.toString(),
+                    amountPaypal: widget.amount.toString(),
+                    onUpdate: () {
+                      widget.onUpdate!();
+                      Nav.back();
+                      Nav.back();
+                    },
+                    fromPage: widget.fromPage.toString(),
+                    isMultiple: widget.isMultiple,
+                  ));
+                }
               }
             },
             radius: 10,

@@ -4,7 +4,8 @@
 
 import 'dart:convert';
 
-ResOpeningCool resOpeningCoolFromJson(String str) => ResOpeningCool.fromJson(json.decode(str));
+ResOpeningCool resOpeningCoolFromJson(String str) =>
+    ResOpeningCool.fromJson(json.decode(str));
 
 String resOpeningCoolToJson(ResOpeningCool data) => json.encode(data.toJson());
 
@@ -20,30 +21,30 @@ class ResOpeningCool {
   });
 
   factory ResOpeningCool.fromJson(Map<String, dynamic> json) => ResOpeningCool(
-    success: json["success"],
-    message: json["message"],
-    data: json["data"] == null ? null : DataOpening.fromJson(json["data"]),
-  );
+        success: json["success"],
+        message: json["message"],
+        data: json["data"] == null ? null : DataOpening.fromJson(json["data"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "success": success,
-    "message": message,
-    "data": data?.toJson(),
-  };
+        "success": success,
+        "message": message,
+        "data": data?.toJson(),
+      };
 }
 
 class DataOpening {
-  String? sound;
+  dynamic sound;
 
   DataOpening({
     this.sound,
   });
 
   factory DataOpening.fromJson(Map<String, dynamic> json) => DataOpening(
-    sound: json["sound"],
-  );
+        sound: json["sound"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "sound": sound,
-  };
+        "sound": sound,
+      };
 }

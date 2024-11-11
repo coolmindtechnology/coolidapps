@@ -4,9 +4,11 @@
 
 import 'dart:convert';
 
-ResCreateTopupTransaction resCreateTopupTransactionFromJson(String str) => ResCreateTopupTransaction.fromJson(json.decode(str));
+ResCreateTopupTransaction resCreateTopupTransactionFromJson(String str) =>
+    ResCreateTopupTransaction.fromJson(json.decode(str));
 
-String resCreateTopupTransactionToJson(ResCreateTopupTransaction data) => json.encode(data.toJson());
+String resCreateTopupTransactionToJson(ResCreateTopupTransaction data) =>
+    json.encode(data.toJson());
 
 class ResCreateTopupTransaction {
   bool? success;
@@ -19,41 +21,44 @@ class ResCreateTopupTransaction {
     this.data,
   });
 
-  factory ResCreateTopupTransaction.fromJson(Map<String, dynamic> json) => ResCreateTopupTransaction(
-    success: json["success"],
-    message: json["message"],
-    data: json["data"] == null ? null : DataCheckoutTopupTransaction.fromJson(json["data"]),
-  );
+  factory ResCreateTopupTransaction.fromJson(Map<String, dynamic> json) =>
+      ResCreateTopupTransaction(
+        success: json["success"],
+        message: json["message"],
+        data: json["data"] == null
+            ? null
+            : DataCheckoutTopupTransaction.fromJson(json["data"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "success": success,
-    "message": message,
-    "data": data?.toJson(),
-  };
+        "success": success,
+        "message": message,
+        "data": data?.toJson(),
+      };
 }
 
 class DataCheckoutTopupTransaction {
   int? id;
-  String? orderId;
-  String? idLogs;
-  String? idItemPayments;
-  String? idUser;
-  String? amount;
-  String? discount;
-  String? totalAmount;
-  String? transactionType;
+  dynamic orderId;
+  dynamic idLogs;
+  dynamic idItemPayments;
+  dynamic idUser;
+  dynamic amount;
+  dynamic discount;
+  dynamic totalAmount;
+  dynamic transactionType;
   dynamic paymentType;
-  String? status;
+  dynamic status;
   dynamic snapToken;
   dynamic transactionIdPaypal;
-  String? currencyPaypal;
-  String? amountPaypal;
+  dynamic currencyPaypal;
+  dynamic amountPaypal;
   dynamic responsePaypal;
-  String? statusPaypal;
+  dynamic statusPaypal;
   DateTime? createdAt;
   DateTime? updatedAt;
   dynamic deletedAt;
-  String? gateway;
+  dynamic gateway;
 
   DataCheckoutTopupTransaction({
     this.id,
@@ -79,51 +84,56 @@ class DataCheckoutTopupTransaction {
     this.gateway,
   });
 
-  factory DataCheckoutTopupTransaction.fromJson(Map<String, dynamic> json) => DataCheckoutTopupTransaction(
-    id: json["id"],
-    orderId: json["order_id"],
-    idLogs: json["id_logs"],
-    idItemPayments: json["id_item_payments"],
-    idUser: json["id_user"],
-    amount: json["amount"],
-    discount: json["discount"],
-    totalAmount: json["total_amount"],
-    transactionType: json["transaction_type"],
-    paymentType: json["payment_type"],
-    status: json["status"],
-    snapToken: json["snap_token"],
-    transactionIdPaypal: json["transaction_id_paypal"],
-    currencyPaypal: json["currency_paypal"],
-    amountPaypal: json["amount_paypal"],
-    responsePaypal: json["response_paypal"],
-    statusPaypal: json["status_paypal"],
-    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-    deletedAt: json["deleted_at"],
-    gateway: json["gateway"],
-  );
+  factory DataCheckoutTopupTransaction.fromJson(Map<String, dynamic> json) =>
+      DataCheckoutTopupTransaction(
+        id: json["id"],
+        orderId: json["order_id"],
+        idLogs: json["id_logs"],
+        idItemPayments: json["id_item_payments"],
+        idUser: json["id_user"],
+        amount: json["amount"],
+        discount: json["discount"],
+        totalAmount: json["total_amount"],
+        transactionType: json["transaction_type"],
+        paymentType: json["payment_type"],
+        status: json["status"],
+        snapToken: json["snap_token"],
+        transactionIdPaypal: json["transaction_id_paypal"],
+        currencyPaypal: json["currency_paypal"],
+        amountPaypal: json["amount_paypal"],
+        responsePaypal: json["response_paypal"],
+        statusPaypal: json["status_paypal"],
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
+        deletedAt: json["deleted_at"],
+        gateway: json["gateway"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "order_id": orderId,
-    "id_logs": idLogs,
-    "id_item_payments": idItemPayments,
-    "id_user": idUser,
-    "amount": amount,
-    "discount": discount,
-    "total_amount": totalAmount,
-    "transaction_type": transactionType,
-    "payment_type": paymentType,
-    "status": status,
-    "snap_token": snapToken,
-    "transaction_id_paypal": transactionIdPaypal,
-    "currency_paypal": currencyPaypal,
-    "amount_paypal": amountPaypal,
-    "response_paypal": responsePaypal,
-    "status_paypal": statusPaypal,
-    "created_at": createdAt?.toIso8601String(),
-    "updated_at": updatedAt?.toIso8601String(),
-    "deleted_at": deletedAt,
-    "gateway": gateway,
-  };
+        "id": id,
+        "order_id": orderId,
+        "id_logs": idLogs,
+        "id_item_payments": idItemPayments,
+        "id_user": idUser,
+        "amount": amount,
+        "discount": discount,
+        "total_amount": totalAmount,
+        "transaction_type": transactionType,
+        "payment_type": paymentType,
+        "status": status,
+        "snap_token": snapToken,
+        "transaction_id_paypal": transactionIdPaypal,
+        "currency_paypal": currencyPaypal,
+        "amount_paypal": amountPaypal,
+        "response_paypal": responsePaypal,
+        "status_paypal": statusPaypal,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
+        "deleted_at": deletedAt,
+        "gateway": gateway,
+      };
 }

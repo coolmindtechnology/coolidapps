@@ -44,8 +44,8 @@ class DataBrain {
   int? id;
   String? name;
   String? upload;
-  String? status;
-  String? price;
+  dynamic status;
+  dynamic price;
   dynamic intlPrice;
   String? yearlyPrice;
   dynamic intlYearlyPrice;
@@ -124,14 +124,14 @@ class DataBrain {
 
 class LogBrain {
   int? id;
-  String? idBrainActivations;
-  String? idUser;
-  String? idLogProfiling;
+  dynamic idBrainActivations;
+  dynamic idUser;
+  dynamic idLogProfiling;
   DateTime? expDate;
-  String? dailyCount;
+  dynamic dailyCount;
   dynamic totalAccess;
   dynamic lastAccessTime;
-  String? status;
+  dynamic status;
 
   LogBrain({
     this.id,

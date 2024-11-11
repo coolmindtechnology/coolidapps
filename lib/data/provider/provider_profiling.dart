@@ -1,30 +1,31 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:async';
-import 'package:cool_app/data/data_global.dart';
-import 'package:cool_app/data/models/data_checkout_transaction.dart';
-import 'package:cool_app/data/provider/provider_payment.dart';
-import 'package:cool_app/data/provider/provider_user.dart';
-import 'package:cool_app/data/repositories/repo_profiling.dart';
-import 'package:cool_app/data/response/payments/res_transcation_profiling.dart';
-import 'package:cool_app/data/response/profiling/res_add_profiling.dart'
+import 'package:coolappflutter/data/data_global.dart';
+import 'package:coolappflutter/data/models/data_checkout_transaction.dart';
+import 'package:coolappflutter/data/provider/provider_payment.dart';
+import 'package:coolappflutter/data/provider/provider_user.dart';
+import 'package:coolappflutter/data/repositories/repo_profiling.dart';
+import 'package:coolappflutter/data/response/payments/res_transcation_profiling.dart';
+import 'package:coolappflutter/data/response/profiling/res_add_profiling.dart'
     as add_profiling;
-import 'package:cool_app/data/response/profiling/res_check_maximum_profiling.dart';
-import 'package:cool_app/data/response/profiling/res_create_multiple_profiling.dart';
-import 'package:cool_app/data/response/profiling/res_detail_profiling.dart';
-import 'package:cool_app/data/response/profiling/res_get_user_profiling.dart';
-import 'package:cool_app/data/response/profiling/res_list_multiple_profiling.dart';
-import 'package:cool_app/data/response/profiling/res_pay_profiling.dart';
-import 'package:cool_app/data/response/profiling/res_update_transaction_profiling.dart';
-import 'package:cool_app/data/response/profiling/res_upgrade_member.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/pages/profiling/screen_feature_kepribadian.dart';
-import 'package:cool_app/data/response/profiling/res_share_result_detail.dart';
-import 'package:cool_app/data/response/profiling/res_show_detail.dart';
-import 'package:cool_app/presentation/pages/payments/pre_invoice_screen.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/widgets/custom_input_field.dart';
-import 'package:cool_app/presentation/widgets/item_share_widget.dart';
+import 'package:coolappflutter/data/response/profiling/res_check_maximum_profiling.dart';
+import 'package:coolappflutter/data/response/profiling/res_create_multiple_profiling.dart';
+import 'package:coolappflutter/data/response/profiling/res_detail_profiling.dart';
+import 'package:coolappflutter/data/response/profiling/res_get_user_profiling.dart';
+import 'package:coolappflutter/data/response/profiling/res_list_multiple_profiling.dart';
+import 'package:coolappflutter/data/response/profiling/res_pay_profiling.dart';
+import 'package:coolappflutter/data/response/profiling/res_update_transaction_profiling.dart';
+import 'package:coolappflutter/data/response/profiling/res_upgrade_member.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/profiling/screen_feature_kepribadian.dart';
+import 'package:coolappflutter/data/response/profiling/res_share_result_detail.dart';
+import 'package:coolappflutter/data/response/profiling/res_show_detail.dart';
+import 'package:coolappflutter/presentation/pages/payments/pre_invoice_screen.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/widgets/button_primary.dart';
+import 'package:coolappflutter/presentation/widgets/custom_input_field.dart';
+import 'package:coolappflutter/presentation/widgets/item_share_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -35,7 +36,7 @@ import '../helpers/either.dart';
 import '../helpers/failure.dart';
 import '../response/profiling/res_list_profiling.dart';
 import '../response/profiling/res_permit_profiling.dart';
-import 'package:flutter_share_me/flutter_share_me.dart';
+// import 'package:flutter_share_me/flutter_share_me.dart';
 
 class ProviderProfiling extends ChangeNotifier {
   ProviderProfiling();
@@ -78,7 +79,7 @@ class ProviderProfiling extends ChangeNotifier {
   List<DataProfiling> listProfiling = [], listDisable = [];
   DataDetailProfiling? detailProfiling;
   DataShowDetail? dataShowDetail;
-  final FlutterShareMe flutterShareMe = FlutterShareMe();
+  // final FlutterShareMe flutterShareMe = FlutterShareMe();
 
   int minYears = 17;
 
@@ -300,14 +301,14 @@ class ProviderProfiling extends ChangeNotifier {
     }, success: (res) async {
       bool isIndonesia = context.read<ProviderUser>().isIndonesia();
       if (kDebugMode) {
-        print("id log profiling ${res.data?.totalAmount}");
+        print("id log profilings ${res.data?.totalAmount}");
       }
       Nav.to(PreInvoiceScreen(
         snapToken: res.data?.snapToken,
-        orderId: res.data?.orderId,
-        paymentType: res.data?.transactionType,
+        orderId: res.data?.orderId.toString(),
+        paymentType: res.data?.transactionType.toString(),
         date: res.data?.createdAt,
-        discount: res.data?.discount,
+        discount: res.data?.discount.toString(),
         amount: !dataGlobal.isIndonesia
             ? res.data?.amountPaypal
             : res.data?.totalAmount,
@@ -420,8 +421,8 @@ class ProviderProfiling extends ChangeNotifier {
                       ? ItemShareWidget(
                           socialMedia: "Others",
                           onShare: () {
-                            flutterShareMe.shareToSystem(
-                                msg: res.data?.others ?? "");
+                            // flutterShareMe.shareToSystem(
+                            //     msg: res.data?.others ?? "");
                             // AppinioSocialShare().shareToSystem(
                             //     "Result Detail Profiling",
                             //     res.data?.others ?? "");
@@ -514,9 +515,9 @@ class ProviderProfiling extends ChangeNotifier {
                       ? ItemShareWidget(
                           socialMedia: "Others",
                           onShare: () {
-                            flutterShareMe.shareToSystem(
-                              msg: res.data?.others ?? "",
-                            );
+                            // flutterShareMe.shareToSystem(
+                            //   msg: res.data?.others ?? "",
+                            // );
                             // AppinioSocialShare().shareToSystem(
                             //     "Certificate Profiling",
                             //     res.data?.others ?? "");
@@ -639,6 +640,23 @@ class ProviderProfiling extends ChangeNotifier {
                       return null;
                     },
                   ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Center(
+                    child: SizedBox(
+                      height: 50,
+                      child: ButtonPrimary(
+                        S.of(context).cancel,
+                        expand: true,
+                        radius: 8,
+                        elevation: 0.0,
+                        onPress: () {
+                          Nav.back();
+                        },
+                      ),
+                    ),
+                  ),
                 ],
               ),
             );
@@ -671,6 +689,7 @@ class ProviderProfiling extends ChangeNotifier {
     notifyListeners();
 
     response.when(error: (e) {
+      debugPrint("cek paypal $e $response");
       NotificationUtils.showDialogError(
         context,
         () {
@@ -683,24 +702,25 @@ class ProviderProfiling extends ChangeNotifier {
         ),
       );
     }, success: (res) async {
+      debugPrint("cek paypal $res $response");
       resTransactionProfiling = res;
       if (resTransactionProfiling?.success == true) {
         bool isIndonesia = context.read<ProviderUser>().isIndonesia();
         if (kDebugMode) {
-          print("harga skrg ${res.data?.totalAmount}");
+          print(
+              "harga skrg ${res.data?.totalAmount} pay${res.data?.amountPaypal}");
         }
         Nav.to(PreInvoiceScreen(
-          // id: res.data?.orderId,
+          // id: res.data?.orderId.toString(), //baru di ubah 12 sep 2024
           paymentType: res.data?.paymentType,
           currencyPaypal: res.data?.currencyPaypal,
           date: res.data?.createdAt,
           discount: res.data?.discount,
           amount: dataGlobal.isIndonesia
-              ? res.data?.totalAmount.toString()
+              ? res.data?.totalAmount
               : res.data?.amountPaypal,
           quantity: "Profiling ${res.data?.itemDetails?.length.toString()}x",
-          id: res.data?.id.toString() ?? "",
-
+          id: res.data?.id.toString() ?? "", //baru di ubah 12 sep 2024
           isWithSaldo: true,
           isMultiple: isMultiple,
           onUpdate: onUpdate,
@@ -817,6 +837,7 @@ class ProviderProfiling extends ChangeNotifier {
     notifyListeners();
 
     response.when(error: (e) {
+      debugPrint("cek gagal $e");
       NotificationUtils.showDialogError(
         context,
         () {
@@ -829,6 +850,8 @@ class ProviderProfiling extends ChangeNotifier {
         ),
       );
     }, success: (res) async {
+      debugPrint("cek pay ${res.data?.amountPaypal}");
+      debugPrint("cek totpay ${res.data?.totalAmount}");
       bool isIndonesia = context.read<ProviderUser>().isIndonesia();
       Nav.to(PreInvoiceScreen(
         snapToken: res.data?.snapToken,

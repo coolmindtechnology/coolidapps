@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:cool_app/data/response/user/res_get_user.dart';
+import 'package:coolappflutter/data/response/user/res_get_user.dart';
 
 ResAffiliate resAffiliateFromJson(String str) =>
     ResAffiliate.fromJson(json.decode(str));
@@ -38,20 +38,20 @@ class ResAffiliate {
 
 class DataAffiliasi {
   int? id;
-  String? idUser;
-  String? idUserMember;
-  String? totalMember;
-  String? totalRealMoney;
-  String? totalSaldoAffiliate;
+  dynamic idUser;
+  dynamic idUserMember;
+  dynamic totalMember;
+  dynamic totalRealMoney;
+  dynamic totalSaldoAffiliate;
   String? bankName;
-  String? bankNumber;
+  dynamic bankNumber;
   String? bankAccountName;
-  String? referralCode;
+  dynamic referralCode;
   String? depositCompleted;
   DateTime? createdAt;
   DateTime? updatedAt;
-  String? isActive;
-  String? linkRefferalCode;
+  dynamic isActive;
+  dynamic linkRefferalCode;
   DataUser? user;
 
   DataAffiliasi({

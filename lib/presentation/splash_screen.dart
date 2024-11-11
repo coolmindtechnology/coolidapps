@@ -4,25 +4,25 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:audioplayers/audioplayers.dart';
-import 'package:cool_app/data/data_global.dart';
-import 'package:cool_app/data/locals/shared_pref.dart';
-import 'package:cool_app/data/provider/provider_boarding.dart';
-import 'package:cool_app/data/provider/provider_book.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/on_boarding2.dart';
-import 'package:cool_app/presentation/pages/auth/register_screen.dart';
-import 'package:cool_app/presentation/pages/main/pre_home_screen.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/utils/get_country.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/data/data_global.dart';
+import 'package:coolappflutter/data/locals/shared_pref.dart';
+import 'package:coolappflutter/data/provider/provider_boarding.dart';
+import 'package:coolappflutter/data/provider/provider_book.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/on_boarding2.dart';
+import 'package:coolappflutter/presentation/pages/auth/register_screen.dart';
+import 'package:coolappflutter/presentation/pages/main/pre_home_screen.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+import 'package:android_intent_plus/android_intent.dart';
 import 'on_boarding.dart';
 
 class SplashScreen extends StatefulWidget {
-  const SplashScreen({Key? key, this.codeReferral}) : super(key: key);
+  const SplashScreen({super.key, this.codeReferral});
 
   final String? codeReferral;
 
@@ -36,6 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+
     log("codeReferral: ${widget.codeReferral}");
 
     _audioPlayer = AudioPlayer();
@@ -71,6 +72,15 @@ class _SplashScreenState extends State<SplashScreen> {
         cekSession();
       });
     }
+  }
+
+  void openAppSettings() async {
+    debugPrint("open settt");
+    const AndroidIntent intent = AndroidIntent(
+      action: 'android.settings.APPLICATION_DETAILS_SETTINGS',
+      data: 'package:coolappflutter', // Ganti dengan package name aplikasi kamu
+    );
+    await intent.launch();
   }
 
   // Initializes the language options by getting the SharedPreferences instance and checking if the "lang_dialog_showed" flag is not true. If the flag is false, it replaces the current screen with the ObBoarding screen.
@@ -109,11 +119,13 @@ class _SplashScreenState extends State<SplashScreen> {
       await Prefs().clearSession();
       Nav.toAll(RegisterScreen(codeReferral: widget.codeReferral));
     } else if (userToken != null) {
+      debugPrint("cek session $userToken");
       dataGlobal.setToken(userToken);
 
       await context.read<ProviderBook>().getPreHome(context);
       Nav.toAll(const PreHomeScreen());
     } else {
+      debugPrint("cek sessions $userToken");
       Nav.toAll(const ObBoarding2());
     }
   }

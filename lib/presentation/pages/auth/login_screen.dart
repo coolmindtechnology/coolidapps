@@ -1,11 +1,14 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:cool_app/data/provider/provider_auth.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/pages/auth/register_screen.dart';
-import 'package:cool_app/presentation/pages/otp/forgot_password_screen.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
+import 'dart:io';
+
+import 'package:coolappflutter/data/provider/provider_auth.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/auth/register_screen.dart';
+import 'package:coolappflutter/presentation/pages/otp/forgot_password_screen.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:phone_form_field/phone_form_field.dart';
 import 'package:provider/provider.dart';
@@ -40,7 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
       controllerPhone.text = '+6285364665287';
       passwordController.text = 'babahAimar@2024';
       phoneController.value =
-          PhoneNumber(isoCode: IsoCode.ID, nsn: '6285364665287');
+          const PhoneNumber(isoCode: IsoCode.ID, nsn: '6285364665287');
       return true;
     }());
     super.initState();
@@ -229,21 +232,39 @@ class _LoginScreenState extends State<LoginScreen> {
                             textColor: primaryColor,
                             onPressed: value.isLoading
                                 ? () {}
-                                : () {
+                                : () async {
+                                    String? fcmKey = await FirebaseMessaging
+                                        .instance
+                                        .getToken();
                                     if (_formKey.currentState?.validate() ??
                                         false) {
                                       value.login(context,
                                           phoneNumber: controllerPhone.text,
-                                          password: passwordController.text);
+                                          password: passwordController.text,
+                                          fcmToken: fcmKey.toString());
                                     }
                                   },
-                            child: Text(
-                              value.isLoading
-                                  ? S.of(context).logging_in
-                                  : S.of(context).sign_in,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
-                            )),
+                            child: value.isLoading
+                                ? Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      const CircularProgressIndicator(),
+                                      const SizedBox(width: 20),
+                                      Text(S
+                                          .of(context)
+                                          .logging_in), // Display loading text
+                                    ],
+                                  )
+                                : Text(
+                                    value.isLoading
+                                        ? S.of(context).logging_in
+                                        : S.of(context).sign_in,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                  )),
                       ],
                     ),
                   )
@@ -282,5 +303,15 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  Future<String?> getFcmToken() async {
+    if (Platform.isIOS) {
+      String? fcmKey = await FirebaseMessaging.instance.getToken();
+      return fcmKey;
+    }
+    String? fcmKey = await FirebaseMessaging.instance.getToken();
+    debugPrint("fcm token $fcmKey");
+    return fcmKey;
   }
 }

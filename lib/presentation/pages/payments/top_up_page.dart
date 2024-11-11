@@ -1,13 +1,13 @@
-import 'package:cool_app/data/data_global.dart';
-import 'package:cool_app/data/models/data_checkout_transaction.dart';
-import 'package:cool_app/data/provider/provider_payment.dart';
-import 'package:cool_app/data/response/payments/res_get_data_top_up.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/utils/circular_progress_widget.dart';
-import 'package:cool_app/presentation/utils/money_formatter.dart';
-import 'package:cool_app/presentation/widgets/button_primary.dart';
-import 'package:cool_app/presentation/widgets/shimmer_loading.dart';
+import 'package:coolappflutter/data/data_global.dart';
+import 'package:coolappflutter/data/models/data_checkout_transaction.dart';
+import 'package:coolappflutter/data/provider/provider_payment.dart';
+import 'package:coolappflutter/data/response/payments/res_get_data_top_up.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/circular_progress_widget.dart';
+import 'package:coolappflutter/presentation/utils/money_formatter.dart';
+import 'package:coolappflutter/presentation/widgets/button_primary.dart';
+import 'package:coolappflutter/presentation/widgets/shimmer_loading.dart';
 import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -360,13 +360,16 @@ class _TopUpPageState extends State<TopUpPage> {
                                             ),
                                             idItemPayments:
                                                 dataListTopUpCheckout
-                                                    ?.idItemPayments,
-                                            qty: int.parse(
-                                                dataListTopUpCheckout?.qty ??
-                                                    "0"),
+                                                    ?.idItemPayments
+                                                    .toString(),
+                                            qty: int.parse(dataListTopUpCheckout
+                                                    ?.qty
+                                                    .toString() ??
+                                                "0"),
                                             transactionType: "Topup Deposit",
-                                            discount:
-                                                dataListTopUpCheckout?.discount,
+                                            discount: dataListTopUpCheckout
+                                                ?.discount
+                                                .toString(),
                                             gateway: dataGlobal.isIndonesia
                                                 ? 'midrans'
                                                 : "paypal");

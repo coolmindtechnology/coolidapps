@@ -1,10 +1,10 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:cool_app/data/provider/provider_auth.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/pages/auth/login_screen.dart';
-import 'package:cool_app/presentation/pages/auth/scan_page.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/data/provider/provider_auth.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/auth/login_screen.dart';
+import 'package:coolappflutter/presentation/pages/auth/scan_page.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:phone_form_field/phone_form_field.dart';
 import 'package:provider/provider.dart';
@@ -36,6 +36,49 @@ class _RegisterScreenState extends State<RegisterScreen> {
       codeReferal.text = code;
     }
     super.initState();
+  }
+
+  bool _isPasswordStrong(String password) {
+    final hasUppercase = password.contains(RegExp(r'[A-Z]'));
+    final hasLowercase = password.contains(RegExp(r'[a-z]'));
+    final hasDigits = password.contains(RegExp(r'[0-9]'));
+    final hasSpecialCharacters =
+        password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
+
+    return password.length >= 8 &&
+        hasUppercase &&
+        hasLowercase &&
+        hasDigits &&
+        hasSpecialCharacters;
+  }
+
+  String? _validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return S.of(context).cannot_be_empty;
+    } else if (value.length < 8) {
+      return S.of(context).password_must_be_at_least_8_characters;
+    } else if (!_isPasswordStrong(value)) {
+      return S
+          .of(context)
+          .password_must_include_uppercase_letters_lowercase_letters_digits_and_special_characters;
+    }
+    return null;
+  }
+
+  String? _validateEmail(String? value) {
+    // Memeriksa apakah email kosong
+    if (value == null || value.isEmpty) {
+      return S.of(context).cannot_be_empty;
+    }
+    // Memeriksa format email
+    final emailRegExp = RegExp(
+      r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+      caseSensitive: false,
+    );
+    if (!emailRegExp.hasMatch(value)) {
+      return S.of(context).please_enter_a_valid_email_address;
+    }
+    return null;
   }
 
   @override
@@ -148,12 +191,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                             ),
                           ),
-                          validator: (value) {
-                            if (value?.isEmpty ?? true) {
-                              return S.of(context).cannot_be_empty;
-                            }
-                            return null;
-                          },
+                          validator: _validateEmail,
                         ),
                         const SizedBox(
                           height: 15,
@@ -177,30 +215,65 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                             ),
                             border: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: Colors.white, width: 1),
-                                borderRadius: BorderRadius.circular(10)),
+                              borderSide: const BorderSide(
+                                  color: Colors.white, width: 1),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
-                              borderSide: const BorderSide(
-                                color: Colors.white,
-                              ),
+                              borderSide: const BorderSide(color: Colors.white),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
                               borderSide: const BorderSide(
-                                color: Colors.white,
-                                width: 2.0,
-                              ),
+                                  color: Colors.white, width: 2.0),
                             ),
                           ),
-                          validator: (value) {
-                            if (value == null || value.length < 8) {
-                              return S.of(context).min_8_characters;
-                            }
-                            return null;
-                          },
+                          validator: _validatePassword,
                         ),
+                        // TextFormField(
+                        //   style: TextStyle(color: whiteColor),
+                        //   controller: state.passwordReg,
+                        //   keyboardType: TextInputType.visiblePassword,
+                        //   textInputAction: TextInputAction.next,
+                        //   obscureText: state.isHide,
+                        //   decoration: InputDecoration(
+                        //     hintText: S.of(context).password,
+                        //     hintStyle: const TextStyle(color: Colors.white),
+                        //     suffixIcon: GestureDetector(
+                        //       onTap: state.onHide,
+                        //       child: Icon(
+                        //         state.isHide
+                        //             ? Icons.visibility_off
+                        //             : Icons.visibility,
+                        //         color: Colors.white,
+                        //       ),
+                        //     ),
+                        //     border: OutlineInputBorder(
+                        //         borderSide: const BorderSide(
+                        //             color: Colors.white, width: 1),
+                        //         borderRadius: BorderRadius.circular(10)),
+                        //     focusedBorder: OutlineInputBorder(
+                        //       borderRadius: BorderRadius.circular(10.0),
+                        //       borderSide: const BorderSide(
+                        //         color: Colors.white,
+                        //       ),
+                        //     ),
+                        //     enabledBorder: OutlineInputBorder(
+                        //       borderRadius: BorderRadius.circular(10.0),
+                        //       borderSide: const BorderSide(
+                        //         color: Colors.white,
+                        //         width: 2.0,
+                        //       ),
+                        //     ),
+                        //   ),
+                        //   validator: (value) {
+                        //     if (value == null || value.length < 8) {
+                        //       return S.of(context).min_8_characters;
+                        //     }
+                        //     return null;
+                        //   },
+                        // ),
                         const SizedBox(
                           height: 15,
                         ),
@@ -253,6 +326,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           height: 15,
                         ),
                         TextFormField(
+                          enabled: widget.codeReferral != null ? false : true,
                           style: TextStyle(color: whiteColor),
                           controller: codeReferal,
                           keyboardType: TextInputType.text,
@@ -315,6 +389,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             onPressed: state.isLoading
                                 ? () {}
                                 : () {
+                                    setState(() {});
                                     if (_form.currentState?.validate() ??
                                         false) {
                                       // if (isIndonesia) {
@@ -358,13 +433,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       // }
                                     }
                                   },
-                            child: Text(
-                              state.isLoading
-                                  ? S.of(context).registering
-                                  : S.of(context).register,
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.bold),
-                            )),
+                            child: state.isLoading
+                                ? Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      const CircularProgressIndicator(),
+                                      const SizedBox(width: 20),
+                                      Text(S
+                                          .of(context)
+                                          .registering), // Display loading text
+                                    ],
+                                  )
+                                : Text(
+                                    state.isLoading
+                                        ? S.of(context).registering
+                                        : S.of(context).register,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold),
+                                  )),
                       ],
                     ),
                   )

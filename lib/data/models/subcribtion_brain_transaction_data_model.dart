@@ -16,11 +16,11 @@ class SubscribeBrainTransactionDataModel {
   List<int>? idBrainActivations;
   int? idLogProfiling;
   int? discount;
-  String? transactionType;
-  String? subscriptionType;
-  String? idItemPayments;
+  dynamic transactionType;
+  dynamic subscriptionType;
+  dynamic idItemPayments;
   int? price;
-  String? gateway;
+  dynamic gateway;
 
   SubscribeBrainTransactionDataModel(
       {this.idBrainActivations,

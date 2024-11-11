@@ -1,7 +1,7 @@
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/pages/afiliate/screen_detail_member.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
-import 'package:cool_app/presentation/widgets/shimmer_loading_widget_many.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/afiliate/screen_detail_member.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/widgets/shimmer_loading_widget_many.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -90,7 +90,8 @@ class _ScreenTotalMemberState extends State<ScreenTotalMember> {
                                   ),
                                   Text(
                                     "${data.profilingsCount ?? ""} profiling",
-                                    style: TextStyle(color: greyColor, fontSize: 10),
+                                    style: TextStyle(
+                                        color: greyColor, fontSize: 10),
                                   ),
                                 ],
                               ),

@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:cool_app/data/response/profiling/res_list_profiling.dart';
+import 'package:coolappflutter/data/response/profiling/res_list_profiling.dart';
 
 ResListMultipleProfiling resListMultipleProfilingFromJson(String str) =>
     ResListMultipleProfiling.fromJson(json.decode(str));
@@ -14,7 +14,7 @@ String resListMultipleProfilingToJson(ResListMultipleProfiling data) =>
 
 class ResListMultipleProfiling {
   bool? success;
-  String? message;
+  dynamic message;
   List<DataListMultipleProfiling>? data;
 
   ResListMultipleProfiling({
@@ -43,8 +43,8 @@ class ResListMultipleProfiling {
 }
 
 class DataListMultipleProfiling {
-  String? name;
-  String? idMultiple;
+  dynamic name;
+  dynamic idMultiple;
 
   List<DataProfiling>? profiling;
   int? total;

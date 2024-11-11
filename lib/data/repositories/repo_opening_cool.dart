@@ -1,4 +1,4 @@
-// import 'package:cool_app/data/response/res_opening_cool.dart';
+// import 'package:coolappflutter/data/response/res_opening_cool.dart';
 // import 'package:dio/dio.dart';
 // import 'package:flutter/foundation.dart';
 //

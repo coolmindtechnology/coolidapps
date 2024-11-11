@@ -39,7 +39,7 @@ class ResCekIsAffiliate {
 
 class DataIsAffiliate {
   bool? isAllow;
-  String? idUser;
+  dynamic idUser;
 
   DataIsAffiliate({
     this.isAllow,

@@ -42,7 +42,7 @@ class ResListSubcriptionAllItem {
 
 class DataSubcripctionAllItem {
   int? id;
-  String? idItemPayments;
+  dynamic idItemPayments;
   String? name;
   String? title;
   String? discount;

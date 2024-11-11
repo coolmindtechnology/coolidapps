@@ -12,7 +12,7 @@ String resDetailProfilingToJson(ResDetailProfiling data) =>
 
 class ResDetailProfiling {
   bool? success;
-  String? message;
+  dynamic message;
   DataDetailProfiling? data;
 
   ResDetailProfiling({
@@ -39,22 +39,22 @@ class ResDetailProfiling {
 
 class DataDetailProfiling {
   int? id;
-  String? result;
-  String? name;
-  String? title;
-  String? character;
+  dynamic result;
+  dynamic name;
+  dynamic title;
+  dynamic character;
   Tipe? tipeAura;
   Personality? tipeOtak;
   Tipe? tipeKaya;
   Tipe? tipeDarah;
   Personality? personality;
-  String? picture;
+  dynamic picture;
   DateTime? createdAt;
   DateTime? updatedAt;
   dynamic deletedAt;
   List<PublicFigure>? publicFigure;
-  String? profilingName;
-  String? shareCode;
+  dynamic profilingName;
+  dynamic shareCode;
 
   DataDetailProfiling({
     this.id,
@@ -136,8 +136,8 @@ class DataDetailProfiling {
 }
 
 class Personality {
-  String? description;
-  String? picture;
+  dynamic description;
+  dynamic picture;
 
   Personality({
     this.description,
@@ -156,9 +156,9 @@ class Personality {
 }
 
 class Tipe {
-  String? tipe;
-  String? description;
-  String? picture;
+  dynamic tipe;
+  dynamic description;
+  dynamic picture;
 
   Tipe({
     this.tipe,
@@ -181,12 +181,12 @@ class Tipe {
 
 class PublicFigure {
   int? id;
-  String? name;
-  String? result;
-  String? character;
-  String? description;
-  String? career;
-  String? image;
+  dynamic name;
+  dynamic result;
+  dynamic character;
+  dynamic description;
+  dynamic career;
+  dynamic image;
 
   PublicFigure({
     this.id,

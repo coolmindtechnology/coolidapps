@@ -1,17 +1,17 @@
 // ignore_for_file: use_build_context_synchronously, must_be_immutable
 
-import 'package:cool_app/data/provider/provider_transaksi_affiliate.dart';
-import 'package:cool_app/presentation/pages/transakction/component/transaction_filter_date.dart';
-import 'package:cool_app/presentation/pages/transakction/withdraw.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/utils/money_formatter.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
-import 'package:cool_app/presentation/widgets/refresh_icon_widget.dart';
+import 'package:coolappflutter/data/provider/provider_transaksi_affiliate.dart';
+import 'package:coolappflutter/presentation/pages/transakction/component/transaction_filter_date.dart';
+import 'package:coolappflutter/presentation/pages/transakction/withdraw.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/money_formatter.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/widgets/refresh_icon_widget.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:cool_app/presentation/pages/transakction/component/header_topup_widget.dart';
-import 'package:cool_app/presentation/pages/transakction/component/income_card_widget.dart';
-import 'package:cool_app/presentation/pages/transakction/component/output_card_widget.dart';
+import 'package:coolappflutter/presentation/pages/transakction/component/header_topup_widget.dart';
+import 'package:coolappflutter/presentation/pages/transakction/component/income_card_widget.dart';
+import 'package:coolappflutter/presentation/pages/transakction/component/output_card_widget.dart';
 import 'package:provider/provider.dart';
 
 import '../../../generated/l10n.dart';

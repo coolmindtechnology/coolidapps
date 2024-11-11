@@ -1,14 +1,14 @@
-import 'package:cool_app/data/data_global.dart';
-import 'package:cool_app/data/helpers/either.dart';
-import 'package:cool_app/data/helpers/failure.dart';
-import 'package:cool_app/data/networks/dio_handler.dart';
-import 'package:cool_app/data/networks/endpoint/api_endpoint.dart';
-import 'package:cool_app/data/networks/error_handler.dart';
-import 'package:cool_app/data/response/user/res_check_profile.dart';
-import 'package:cool_app/data/response/user/res_get_total_saldo.dart';
-import 'package:cool_app/data/response/user/res_get_user.dart';
-import 'package:cool_app/data/response/user/res_update_photo_user.dart';
-import 'package:cool_app/data/response/user/res_update_user.dart';
+import 'package:coolappflutter/data/data_global.dart';
+import 'package:coolappflutter/data/helpers/either.dart';
+import 'package:coolappflutter/data/helpers/failure.dart';
+import 'package:coolappflutter/data/networks/dio_handler.dart';
+import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
+import 'package:coolappflutter/data/networks/error_handler.dart';
+import 'package:coolappflutter/data/response/user/res_check_profile.dart';
+import 'package:coolappflutter/data/response/user/res_get_total_saldo.dart';
+import 'package:coolappflutter/data/response/user/res_get_user.dart';
+import 'package:coolappflutter/data/response/user/res_update_photo_user.dart';
+import 'package:coolappflutter/data/response/user/res_update_user.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
@@ -43,10 +43,13 @@ class RepoUser {
             'Content-Type': 'application/json',
           },
         ));
+    debugPrint("cek settings");
 
     try {
+      debugPrint("cek settings s");
       return Either.success(ResUpdateUser.fromJson(res.data));
     } catch (e, st) {
+      debugPrint("cek settings $e");
       if (kDebugMode) {
         print(st);
       }
@@ -90,6 +93,7 @@ class RepoUser {
           ));
       return Either.success(ResMemberArea.fromJson(res.data));
     } catch (e, st) {
+      debugPrint("cek settingsss $e");
       if (kDebugMode) {
         print(st);
       }
@@ -100,12 +104,10 @@ class RepoUser {
   Future<Either<Failure, ResUpdateProfile>> updatePhotoUser(XFile image) async {
     Map<String, dynamic> data = {};
     data["id_user"] = "${dataGlobal.dataUser?.id}";
-    if (image != null) {
-      data["image"] = await MultipartFile.fromFile(
-        image.path,
-        filename: basename(image.path),
-      );
-    }
+    data["image"] = await MultipartFile.fromFile(
+      image.path,
+      filename: basename(image.path),
+    );
     Response res = await dio.post(ApiEndpoint.updatePhotoUser,
         data: FormData.fromMap(data),
         options: Options(

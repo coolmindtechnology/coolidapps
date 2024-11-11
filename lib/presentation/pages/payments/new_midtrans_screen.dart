@@ -1,10 +1,10 @@
-// import 'package:cool_app/generated/l10n.dart';
-// import 'package:cool_app/presentation/pages/main/nav_home.dart';
-// import 'package:cool_app/presentation/pages/user/reusable_invoice_screen.dart';
-// import 'package:cool_app/presentation/theme/color_utils.dart';
-// import 'package:cool_app/presentation/utils/money_formatter.dart';
-// import 'package:cool_app/presentation/utils/nav_utils.dart';
-// import 'package:cool_app/presentation/widgets/button_primary.dart';
+// import 'package:coolappflutter/generated/l10n.dart';
+// import 'package:coolappflutter/presentation/pages/main/nav_home.dart';
+// import 'package:coolappflutter/presentation/pages/user/reusable_invoice_screen.dart';
+// import 'package:coolappflutter/presentation/theme/color_utils.dart';
+// import 'package:coolappflutter/presentation/utils/money_formatter.dart';
+// import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+// import 'package:coolappflutter/presentation/widgets/button_primary.dart';
 // import 'package:decimal/decimal.dart';
 // import 'package:flutter/material.dart';
 // import 'package:intl/intl.dart';

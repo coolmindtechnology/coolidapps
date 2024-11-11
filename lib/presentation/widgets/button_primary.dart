@@ -1,4 +1,4 @@
-import 'package:cool_app/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:flutter/material.dart';
 
 class ButtonPrimary extends StatelessWidget {
@@ -25,9 +25,8 @@ class ButtonPrimary extends StatelessWidget {
   final double textSize;
   final TextStyle? textStyle;
 
-
   const ButtonPrimary(this.text,
-      {Key? key,
+      {super.key,
       this.icon,
       this.iconWidget,
       this.onPress,
@@ -47,8 +46,8 @@ class ButtonPrimary extends StatelessWidget {
       this.imageLeft,
       this.imageRight,
       this.opacity = 1,
-      this.textSize = 16, this.textStyle})
-      : super(key: key);
+      this.textSize = 16,
+      this.textStyle});
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +111,10 @@ class ButtonPrimary extends StatelessWidget {
               if (text != null) ...[
                 Text(
                   text!,
-                  style: TextStyle(color: textColor, fontSize: textSize, fontWeight: textStyle?.fontWeight),
+                  style: TextStyle(
+                      color: textColor,
+                      fontSize: textSize,
+                      fontWeight: textStyle?.fontWeight),
                   textAlign: TextAlign.center,
                 ),
               ],

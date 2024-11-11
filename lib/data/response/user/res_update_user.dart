@@ -11,7 +11,7 @@ String resUpdateUserToJson(ResUpdateUser data) => json.encode(data.toJson());
 
 class ResUpdateUser {
   bool? success;
-  String? message;
+  dynamic message;
   DataUpdateUser? data;
   Errors? errors;
 
@@ -40,19 +40,19 @@ class ResUpdateUser {
 
 class DataUpdateUser {
   int? id;
-  String? idRole;
-  String? name;
-  String? phoneNumber;
-  String? email;
+  dynamic idRole;
+  dynamic name;
+  dynamic phoneNumber;
+  dynamic email;
   dynamic emailVerifiedAt;
   dynamic address;
   dynamic image;
   dynamic idCardNumber;
-  String? otpCode;
+  dynamic otpCode;
   DateTime? otpTime;
-  String? isVerified;
-  String? isDeposit;
-  String? status;
+  dynamic isVerified;
+  dynamic isDeposit;
+  dynamic status;
   DateTime? createdAt;
   DateTime? updatedAt;
   dynamic deletedAt;

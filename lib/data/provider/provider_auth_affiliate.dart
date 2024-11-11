@@ -1,16 +1,18 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:cool_app/data/helpers/either.dart';
-import 'package:cool_app/data/helpers/failure.dart';
-import 'package:cool_app/data/provider/provider_transaksi_affiliate.dart';
-import 'package:cool_app/data/repositories/repo_auth_affiliate.dart';
-import 'package:cool_app/data/response/affiliate/res_cek_is_affiliate.dart';
-import 'package:cool_app/data/response/affiliate/res_register_affiliate.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/pages/affiliate_register/input_code_referral_affiliate.dart';
-import 'package:cool_app/presentation/pages/afiliate/naf_afiliate.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
-import 'package:cool_app/presentation/utils/notification_utils.dart';
+import 'package:coolappflutter/data/helpers/either.dart';
+import 'package:coolappflutter/data/helpers/failure.dart';
+import 'package:coolappflutter/data/provider/provider_transaksi_affiliate.dart';
+import 'package:coolappflutter/data/repositories/repo_auth_affiliate.dart';
+import 'package:coolappflutter/data/response/affiliate/res_cek_is_affiliate.dart';
+import 'package:coolappflutter/data/response/affiliate/res_register_affiliate.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/affiliate_register/input_code_referral_affiliate.dart';
+import 'package:coolappflutter/presentation/pages/afiliate/home_affiliate.dart';
+import 'package:coolappflutter/presentation/pages/afiliate/naf_afiliate.dart';
+import 'package:coolappflutter/presentation/pages/main/term_affiliasi.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/utils/notification_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -145,15 +147,18 @@ class ProviderAuthAffiliate extends ChangeNotifier {
           "Become Affiliate",
           onPress1: () async {
             Nav.back();
-            await context
-                .read<ProviderTransaksiAffiliate>()
-                .getAffiliateManagement(context);
-            if (context
-                    .read<ProviderTransaksiAffiliate>()
-                    .dataAffiliateManagement !=
-                null) {
-              Nav.to(const InputCodeReferralAffiliate());
-            }
+
+            Nav.to(const TermHomeAffiliasi());
+
+            // await context
+            //     .read<ProviderTransaksiAffiliate>()
+            //     .getAffiliateManagement(context);
+            // if (context
+            //         .read<ProviderTransaksiAffiliate>()
+            //         .dataAffiliateManagement !=
+            //     null) {
+            // Nav.to(const InputCodeReferralAffiliate());
+            // }
           },
           onPress2: () {
             Nav.back();

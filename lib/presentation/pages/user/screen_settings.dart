@@ -1,25 +1,27 @@
 // ignore_for_file: use_build_context_synchronously, must_be_immutable
 
-import 'package:cool_app/data/data_global.dart';
-import 'package:cool_app/data/locals/shared_pref.dart';
-import 'package:cool_app/data/networks/endpoint/api_endpoint.dart';
-import 'package:cool_app/data/provider/provider_user.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/pages/auth/login_screen.dart';
-import 'package:cool_app/presentation/pages/user/change_language.dart';
-import 'package:cool_app/presentation/pages/user/history_brain_activation.dart';
-import 'package:cool_app/presentation/pages/user/history_ebook.dart';
-import 'package:cool_app/presentation/pages/user/history_merchandise_payment.dart';
-import 'package:cool_app/presentation/pages/user/history_topup.dart';
-import 'package:cool_app/presentation/pages/user/screen_history.dart';
-import 'package:cool_app/presentation/pages/user/screen_profile.dart';
-import 'package:cool_app/presentation/pages/user/screen_qr.dart';
-import 'package:cool_app/presentation/pages/user/update_password.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
-import 'package:cool_app/presentation/widgets/button_primary.dart';
-import 'package:cool_app/presentation/widgets/refresh_icon_widget.dart';
-import 'package:cool_app/presentation/widgets/shimmer_loading.dart';
+import 'dart:async';
+
+import 'package:coolappflutter/data/data_global.dart';
+import 'package:coolappflutter/data/locals/shared_pref.dart';
+import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
+import 'package:coolappflutter/data/provider/provider_user.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/auth/login_screen.dart';
+import 'package:coolappflutter/presentation/pages/user/change_language.dart';
+import 'package:coolappflutter/presentation/pages/user/history_brain_activation.dart';
+import 'package:coolappflutter/presentation/pages/user/history_ebook.dart';
+import 'package:coolappflutter/presentation/pages/user/history_merchandise_payment.dart';
+import 'package:coolappflutter/presentation/pages/user/history_topup.dart';
+import 'package:coolappflutter/presentation/pages/user/screen_history.dart';
+import 'package:coolappflutter/presentation/pages/user/screen_profile.dart';
+import 'package:coolappflutter/presentation/pages/user/screen_qr.dart';
+import 'package:coolappflutter/presentation/pages/user/update_password.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/widgets/button_primary.dart';
+import 'package:coolappflutter/presentation/widgets/refresh_icon_widget.dart';
+import 'package:coolappflutter/presentation/widgets/shimmer_loading.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -33,10 +35,33 @@ class ScreenSettings extends StatefulWidget {
   State<ScreenSettings> createState() => _ScreenSettingsState();
 }
 
+String tes = "";
+
 class _ScreenSettingsState extends State<ScreenSettings> {
+  @override
+  void initState() {
+    Timer(const Duration(seconds: 3), () {
+      debugPrint("cek screeen setting state");
+      setState(() {
+        tes = "oke";
+        Provider.of<ProviderUser>(context, listen: false).getUser(context);
+      });
+    });
+    Timer(const Duration(seconds: 6), () {
+      debugPrint("cek screeen setting state");
+      setState(() {
+        tes = "oke 2";
+        Provider.of<ProviderUser>(context, listen: false).getUser(context);
+      });
+    });
+
+    super.initState();
+  }
+
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
       GlobalKey<RefreshIndicatorState>();
   bool isExpanded = false;
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -89,12 +114,22 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                                 ? ClipRRect(
                                     borderRadius: BorderRadius.circular(100),
                                     child: Image.network(
-                                      "${ApiEndpoint.baseUrlImage}${value.dataUser?.image}",
+                                      "${value.dataUser?.image}",
                                       width: 56,
                                       height: 56,
                                       fit: BoxFit.fill,
-                                    ),
-                                  )
+                                      errorBuilder: (BuildContext context,
+                                          Object exception,
+                                          StackTrace? stackTrace) {
+                                        // Tampilkan gambar placeholder jika terjadi error
+                                        return Image.asset(
+                                          'images/default_user.png', // Path ke gambar placeholder lokal
+                                          width: 56,
+                                          height: 56,
+                                          fit: BoxFit.fill,
+                                        );
+                                      },
+                                    ))
                                 : ClipRRect(
                                     borderRadius: BorderRadius.circular(100),
                                     child: Image.asset(
@@ -112,7 +147,10 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                           children: [
                             Text(
                               dataGlobal.dataUser?.name == null
-                                  ? dataGlobal.dataUser?.phoneNumber ?? ""
+                                  ? dataGlobal.dataUser?.phoneNumber != null
+                                      ? dataGlobal.dataUser?.phoneNumber
+                                          .toString()
+                                      : ""
                                   : dataGlobal.dataUser?.name ?? "",
                               style: const TextStyle(
                                 fontSize: 16,
@@ -120,7 +158,7 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                               ),
                             ),
                             Text(
-                              "${dataGlobal.dataUser?.phoneNumber}",
+                              "${dataGlobal.dataUser?.phoneNumber ?? ""}",
                               style: TextStyle(
                                   fontSize: 12,
                                   color: greyColor.withOpacity(0.5)),

@@ -1,12 +1,12 @@
-import 'package:cool_app/data/networks/endpoint/api_endpoint.dart';
-import 'package:cool_app/data/provider/provider_book.dart';
-import 'package:cool_app/data/response/res_list_ebook.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/pages/main/read_book.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
-import 'package:cool_app/presentation/utils/notification_utils.dart';
-import 'package:cool_app/presentation/widgets/button_primary.dart';
+import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
+import 'package:coolappflutter/data/provider/provider_book.dart';
+import 'package:coolappflutter/data/response/res_list_ebook.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/main/read_book.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/utils/notification_utils.dart';
+import 'package:coolappflutter/presentation/widgets/button_primary.dart';
 import 'package:flutter/material.dart';
 
 class CardBook extends StatefulWidget {
@@ -39,8 +39,7 @@ class _CardBookState extends State<CardBook> {
                   child: SizedBox(
                       width: 70,
                       height: 90,
-                      child: Image.network(
-                          "${ApiEndpoint.imageUrl}${widget.data.image ?? ""}")),
+                      child: Image.network("${widget.data.imagePath ?? ""}")),
                 ),
                 const SizedBox(
                   width: 16,
@@ -55,7 +54,7 @@ class _CardBookState extends State<CardBook> {
                             fontSize: 14, fontWeight: FontWeight.w500),
                       ),
                       Text(
-                        widget.data.summary ?? "",
+                        widget.data.summary.toString() ?? "",
                         style: const TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w300,
@@ -71,16 +70,15 @@ class _CardBookState extends State<CardBook> {
               ],
             ),
           ),
-          (widget.data.isPremium == "0") ||
-                  (widget.data.isPremium == "1" &&
+          (widget.data.isPremium.toString() == "0") ||
+                  (widget.data.isPremium.toString() == "1" &&
                       widget.data.logEbook != null &&
-                      widget.data.logEbook?.status == "1")
+                      widget.data.logEbook?.status.toString() == "1")
               ? ButtonPrimary(
                   S.of(context).read,
                   onPress: () async {
                     Nav.to(ReadBook(
-                        "${ApiEndpoint.baseUrl}/${widget.data.filePath}",
-                        "${widget.data.title}"));
+                        "${widget.data.filePath}", "${widget.data.title}"));
                   },
                   textStyle: const TextStyle(fontWeight: FontWeight.w300),
                   textSize: 12,

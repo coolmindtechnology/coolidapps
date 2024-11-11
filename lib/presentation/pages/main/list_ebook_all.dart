@@ -1,9 +1,9 @@
-import 'package:cool_app/data/provider/provider_book.dart';
-import 'package:cool_app/data/response/res_list_ebook.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/widgets/card_book.dart';
-import 'package:cool_app/presentation/widgets/shimmer_loading.dart';
+import 'package:coolappflutter/data/provider/provider_book.dart';
+import 'package:coolappflutter/data/response/res_list_ebook.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/widgets/card_book.dart';
+import 'package:coolappflutter/presentation/widgets/shimmer_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

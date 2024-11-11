@@ -1,8 +1,8 @@
 class Multimedia {
   int? id;
-  String? idPost;
-  String? fileName;
-  String? path;
+  dynamic idPost;
+  dynamic fileName;
+  dynamic path;
   DateTime? createdAt;
   DateTime? updatedAt;
 

@@ -1,15 +1,15 @@
 import 'dart:async';
-import 'package:cool_app/data/helpers/check_language.dart';
-import 'package:cool_app/data/networks/endpoint/api_endpoint.dart';
-import 'package:cool_app/data/provider/provider_profiling.dart';
-import 'package:cool_app/data/response/profiling/res_detail_profiling.dart';
-import 'package:cool_app/data/response/profiling/res_list_profiling.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/pages/profiling/results/dialog_download.dart';
-import 'package:cool_app/presentation/pages/profiling/results/pdf_download.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/utils/circular_progress_widget.dart';
-import 'package:cool_app/presentation/widgets/button_primary.dart';
+import 'package:coolappflutter/data/helpers/check_language.dart';
+import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
+import 'package:coolappflutter/data/provider/provider_profiling.dart';
+import 'package:coolappflutter/data/response/profiling/res_detail_profiling.dart';
+import 'package:coolappflutter/data/response/profiling/res_list_profiling.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/profiling/results/dialog_download.dart';
+import 'package:coolappflutter/presentation/pages/profiling/results/pdf_download.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/circular_progress_widget.dart';
+import 'package:coolappflutter/presentation/widgets/button_primary.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
@@ -87,7 +87,7 @@ class _ResultDetailState extends State<ResultDetail> {
   initLoad() async {
     await context
         .read<ProviderProfiling>()
-        .getDetailProfiling(context, widget.data?.idLogResult ?? "");
+        .getDetailProfiling(context, widget.data?.idLogResult.toString() ?? "");
   }
 
   @override
@@ -228,7 +228,7 @@ class _ResultDetailState extends State<ResultDetail> {
                                               CircleAvatar(
                                                   radius: 30,
                                                   backgroundImage: NetworkImage(
-                                                    "${ApiEndpoint.baseUrl.replaceAll("https", "http")}/${publicFigure.image}",
+                                                    "${publicFigure.image}",
                                                   )),
                                               const SizedBox(
                                                 height: 8,
@@ -331,9 +331,12 @@ class _ResultDetailState extends State<ResultDetail> {
                               isDismissible: false,
                               context: context,
                               builder: (context) {
+                                debugPrint(
+                                    "url pdf ${ApiEndpoint.donwnloadDetailPdf(widget.data?.idLogResult.toString())}");
                                 return DownloadProgressDialog(
                                     url: ApiEndpoint.donwnloadDetailPdf(
-                                        widget.data?.idLogResult ?? ""),
+                                        widget.data?.idLogResult.toString() ??
+                                            ""),
                                     name:
                                         "${widget.data?.profilingName}_CoolProfiling_Result.pdf");
                               });

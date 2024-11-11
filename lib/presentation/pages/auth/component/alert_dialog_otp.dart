@@ -1,4 +1,4 @@
-import 'package:cool_app/generated/l10n.dart';
+import 'package:coolappflutter/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 import '../../../theme/color_utils.dart';

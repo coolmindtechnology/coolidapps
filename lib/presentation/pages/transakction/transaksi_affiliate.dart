@@ -1,9 +1,9 @@
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/pages/transakction/real_money_widget.dart'
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/transakction/real_money_widget.dart'
     as real_money;
-import 'package:cool_app/presentation/pages/transakction/saldo_widget.dart'
+import 'package:coolappflutter/presentation/pages/transakction/saldo_widget.dart'
     as saldo;
-import 'package:cool_app/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:flutter/material.dart';
 
 class TransaksiAffiliatePage extends StatefulWidget {
@@ -31,6 +31,7 @@ class _TransaksiAffiliatePageState extends State<TransaksiAffiliatePage>
   @override
   void initState() {
     super.initState();
+
     widget.tabChanger(changeTabAffiliate);
     tabController = TabController(
       length: 2,

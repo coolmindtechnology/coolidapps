@@ -12,7 +12,7 @@ String resCheckProfileToJson(ResCheckProfile data) =>
 
 class ResCheckProfile {
   bool? success;
-  String? message;
+  dynamic message;
   dynamic data;
 
   ResCheckProfile({

@@ -35,8 +35,8 @@ class ResRegister {
 
 class DataRegister {
   DateTime? otpTime;
-  int? userId;
-  String? phoneNumber;
+  dynamic userId;
+  dynamic phoneNumber;
   Errors? errors;
 
   DataRegister({

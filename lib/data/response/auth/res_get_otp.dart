@@ -34,9 +34,9 @@ class ResGetOtp {
 
 class DataOtp {
   dynamic name;
-  String? otpCode;
+  dynamic otpCode;
   DateTime? otpTime;
-  String? isVerified;
+  dynamic isVerified;
 
   DataOtp({
     this.name,

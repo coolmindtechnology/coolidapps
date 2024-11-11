@@ -38,8 +38,8 @@ class ResGetSingleTotalSaldo {
 }
 
 class DataSingleTotalSaldo {
-  String? totalSaldoAffiliate;
-  String? totalRealMoney;
+  dynamic totalSaldoAffiliate;
+  dynamic totalRealMoney;
 
   DataSingleTotalSaldo({
     this.totalSaldoAffiliate,

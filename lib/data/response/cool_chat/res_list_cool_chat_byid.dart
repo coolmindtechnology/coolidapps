@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:cool_app/data/models/data_post.dart';
+import 'package:coolappflutter/data/models/data_post.dart';
 
 ResListCoolChatById reslistCoolChatByIdFromJson(String str) =>
     ResListCoolChatById.fromJson(json.decode(str));

@@ -1,4 +1,4 @@
-import 'package:cool_app/data/locals/shared_pref.dart';
+import 'package:coolappflutter/data/locals/shared_pref.dart';
 
 class LocaleChecker {
   /// Retrieves the current locale and returns a string representation of the locale code.

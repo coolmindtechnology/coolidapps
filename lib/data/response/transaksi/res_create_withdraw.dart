@@ -12,7 +12,7 @@ String rescreateWithdrawToJson(ResCreateWithdraw data) =>
 
 class ResCreateWithdraw {
   bool? success;
-  String? message;
+  dynamic message;
   Data? data;
 
   ResCreateWithdraw({
@@ -36,16 +36,16 @@ class ResCreateWithdraw {
 }
 
 class Data {
-  int? idUser;
-  int? idAffiliate;
+  dynamic idUser;
+  dynamic idAffiliate;
   dynamic idSaldoAffiliate;
-  String? amount;
-  String? transactionType;
-  String? status;
-  String? referenceNo;
+  dynamic amount;
+  dynamic transactionType;
+  dynamic status;
+  dynamic referenceNo;
   DateTime? updatedAt;
   DateTime? createdAt;
-  int? id;
+  dynamic id;
 
   Data({
     this.idUser,

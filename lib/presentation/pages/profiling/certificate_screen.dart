@@ -1,13 +1,14 @@
-import 'package:advance_pdf_viewer_fork/advance_pdf_viewer_fork.dart';
-import 'package:cool_app/data/data_global.dart';
-import 'package:cool_app/data/networks/endpoint/api_endpoint.dart';
-import 'package:cool_app/data/provider/provider_profiling.dart';
-import 'package:cool_app/data/response/profiling/res_list_profiling.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/pages/profiling/results/dialog_download.dart';
-import 'package:cool_app/presentation/pages/profiling/results/pdf_download.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/widgets/button_primary.dart';
+// import 'package:advance_pdf_viewer_fork/advance_pdf_viewer_fork.dart';
+import 'package:advance_pdf_viewer2/advance_pdf_viewer.dart';
+import 'package:coolappflutter/data/data_global.dart';
+import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
+import 'package:coolappflutter/data/provider/provider_profiling.dart';
+import 'package:coolappflutter/data/response/profiling/res_list_profiling.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/profiling/results/dialog_download.dart';
+import 'package:coolappflutter/presentation/pages/profiling/results/pdf_download.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/widgets/button_primary.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

@@ -1,7 +1,7 @@
-import 'package:cool_app/presentation/pages/transakction/transaksi_affiliate.dart';
-import 'package:cool_app/presentation/pages/afiliate/home_affiliate.dart';
-import 'package:cool_app/presentation/pages/afiliate/setting_affiliate.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/pages/transakction/transaksi_affiliate.dart';
+import 'package:coolappflutter/presentation/pages/afiliate/home_affiliate.dart';
+import 'package:coolappflutter/presentation/pages/afiliate/setting_affiliate.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:flutter/material.dart';
 
 class NafAffiliate extends StatefulWidget {

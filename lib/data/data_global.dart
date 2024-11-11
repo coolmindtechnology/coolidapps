@@ -1,6 +1,6 @@
-import 'package:cool_app/data/response/res_opening_cool.dart';
-import 'package:cool_app/data/response/user/res_get_location_member.dart';
-import 'package:cool_app/data/response/user/res_get_user.dart';
+import 'package:coolappflutter/data/response/res_opening_cool.dart';
+import 'package:coolappflutter/data/response/user/res_get_location_member.dart';
+import 'package:coolappflutter/data/response/user/res_get_user.dart';
 import 'package:flutter/foundation.dart';
 
 class DataGlobal extends ChangeNotifier {

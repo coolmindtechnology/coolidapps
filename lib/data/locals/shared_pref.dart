@@ -1,4 +1,4 @@
-import 'package:cool_app/presentation/utils/prefs_utils.dart';
+import 'package:coolappflutter/presentation/utils/prefs_utils.dart';
 
 class Prefs {
   // final Future<SharedPreferences> _pref = SharedPreferences.getInstance();

@@ -1,11 +1,11 @@
 import 'dart:developer';
 
-import 'package:cool_app/data/data_global.dart';
-import 'package:cool_app/data/networks/endpoint/api_endpoint.dart';
-import 'package:cool_app/data/provider/provider_brain_activation.dart';
-import 'package:cool_app/presentation/pages/payments/payment_failed_page.dart';
-import 'package:cool_app/presentation/pages/payments/payment_success_page.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/data/data_global.dart';
+import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
+import 'package:coolappflutter/data/provider/provider_brain_activation.dart';
+import 'package:coolappflutter/presentation/pages/payments/payment_failed_page.dart';
+import 'package:coolappflutter/presentation/pages/payments/payment_success_page.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';

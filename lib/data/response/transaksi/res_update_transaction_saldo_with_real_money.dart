@@ -14,7 +14,7 @@ String resUpdateTransactionSaldoWithRealMoneyToJson(
 
 class ResUpdateTransactionSaldoWithRealMoney {
   bool? success;
-  String? message;
+  dynamic message;
   DataUpdateTransactionSaldoWithRealMoney? data;
 
   ResUpdateTransactionSaldoWithRealMoney({
@@ -42,19 +42,19 @@ class ResUpdateTransactionSaldoWithRealMoney {
 
 class DataUpdateTransactionSaldoWithRealMoney {
   int? id;
-  String? idUser;
-  String? idUserMember;
-  String? totalMember;
-  String? totalRealMoney;
-  String? totalSaldoAffiliate;
-  String? bankName;
-  String? bankNumber;
-  String? referralCode;
-  String? depositCompleted;
-  String? countRealMoney;
+  dynamic idUser;
+  dynamic idUserMember;
+  dynamic totalMember;
+  dynamic totalRealMoney;
+  dynamic totalSaldoAffiliate;
+  dynamic bankName;
+  dynamic bankNumber;
+  dynamic referralCode;
+  dynamic depositCompleted;
+  dynamic countRealMoney;
   DateTime? createdAt;
   DateTime? updatedAt;
-  String? isActive;
+  dynamic isActive;
 
   DataUpdateTransactionSaldoWithRealMoney({
     this.id,

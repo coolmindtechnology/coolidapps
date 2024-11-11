@@ -1,19 +1,21 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:async';
-import 'package:cool_app/data/provider/provider_auth_affiliate.dart';
-import 'package:cool_app/data/provider/provider_payment.dart';
-import 'package:cool_app/data/provider/provider_profiling.dart';
-import 'package:cool_app/data/provider/provider_user.dart';
-import 'package:cool_app/data/response/res_list_ebook.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/data/provider/provider_book.dart';
-import 'package:cool_app/main.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
-import 'package:cool_app/presentation/utils/notification_utils.dart';
-import 'package:cool_app/presentation/widgets/card_book.dart';
-import 'package:cool_app/presentation/widgets/refresh_icon_widget.dart';
-import 'package:cool_app/presentation/widgets/shimmer_loading.dart';
+import 'package:android_intent_plus/android_intent.dart';
+import 'package:android_intent_plus/flag.dart';
+import 'package:coolappflutter/data/provider/provider_auth_affiliate.dart';
+import 'package:coolappflutter/data/provider/provider_payment.dart';
+import 'package:coolappflutter/data/provider/provider_profiling.dart';
+import 'package:coolappflutter/data/provider/provider_user.dart';
+import 'package:coolappflutter/data/response/res_list_ebook.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/data/provider/provider_book.dart';
+import 'package:coolappflutter/main.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/utils/notification_utils.dart';
+import 'package:coolappflutter/presentation/widgets/card_book.dart';
+import 'package:coolappflutter/presentation/widgets/refresh_icon_widget.dart';
+import 'package:coolappflutter/presentation/widgets/shimmer_loading.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -46,6 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       context.read<ProviderUser>().checkProfile(context);
       context.read<ProviderUser>().getTotalSaldo(context);
+
       // // _pengecekanIsAffiliate();
       // context.read<ProviderPayment>().getAmoutDeposit(context);
     });
@@ -103,10 +106,21 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ? ClipRRect(
                                     borderRadius: BorderRadius.circular(100),
                                     child: Image.network(
-                                      "${ApiEndpoint.baseUrlImage.replaceAll("https", "http")}${valueUser.dataUser?.image}",
+                                      "${valueUser.dataUser?.image}",
                                       width: 56,
                                       height: 56,
                                       fit: BoxFit.fill,
+                                      errorBuilder: (BuildContext context,
+                                          Object exception,
+                                          StackTrace? stackTrace) {
+                                        // Tampilkan gambar placeholder jika terjadi error
+                                        return Image.asset(
+                                          'images/default_user.png', // Path ke gambar placeholder lokal
+                                          width: 56,
+                                          height: 56,
+                                          fit: BoxFit.fill,
+                                        );
+                                      },
                                       loadingBuilder:
                                           (context, child, loadingProgress) {
                                         if (loadingProgress == null) {
@@ -160,6 +174,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     //     .getAmoutDeposit(context);
                     Provider.of<ProviderUser>(context, listen: false)
                         .getTotalSaldo(context);
+                    Timer(const Duration(seconds: 1), () {
+                      Provider.of<ProviderUser>(context, listen: false)
+                          .getTotalSaldo(context);
+                    });
                     return Future<void>.delayed(const Duration(seconds: 1));
                   },
                   indicatorBuilder:
@@ -256,14 +274,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     ),
                                                     onPressed: () async {
                                                       if (stateUser.dataUser
-                                                              ?.isAffiliate ==
+                                                              ?.isAffiliate
+                                                              .toString() ==
                                                           "1") {
+                                                        debugPrint(
+                                                            "tes topup1");
                                                         NotificationUtils
                                                             .showDialogError(
                                                                 context, () {
                                                           Nav.back();
                                                         },
-                                                                widget: Text( 
+                                                                widget: Text(
                                                                   S
                                                                       .of(context)
                                                                       .feature_unavailable_affiliate,
@@ -273,6 +294,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                                 ));
                                                       } else {
                                                         //
+                                                        debugPrint(
+                                                            "tes topup2");
+
                                                         context
                                                             .read<
                                                                 ProviderPayment>()

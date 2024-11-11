@@ -39,28 +39,28 @@ class ResRegisterffiliate {
 
 class DataRegisterAffiliate {
   int? id;
-  String? idRole;
+  dynamic idRole;
   String? name;
-  String? phoneNumber;
+  dynamic phoneNumber;
   String? email;
   dynamic emailVerifiedAt;
   String? address;
   dynamic image;
-  String? idCardNumber;
-  String? otpCode;
+  dynamic idCardNumber;
+  dynamic otpCode;
   DateTime? otpTime;
-  String? isProfiling;
-  String? isVerified;
-  String? isDeposit;
-  String? totalDeposit;
-  String? status;
+  dynamic isProfiling;
+  dynamic isVerified;
+  dynamic isDeposit;
+  dynamic totalDeposit;
+  dynamic status;
   DateTime? createdAt;
   DateTime? updatedAt;
   dynamic deletedAt;
-  String? idAffiliate;
-  String? codeReferal;
-  String? idAgent;
-  String? idMitra;
+  dynamic idAffiliate;
+  dynamic codeReferal;
+  dynamic idAgent;
+  dynamic idMitra;
   int? isAffiliate;
   Affiliate? affiliate;
 

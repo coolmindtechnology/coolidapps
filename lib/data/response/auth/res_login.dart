@@ -36,7 +36,7 @@ class DataLogin {
   String? accessToken;
   String? tokenType;
   dynamic expiresIn;
-  String? idRole;
+  dynamic idRole;
   String? isVerified;
   List<dynamic>? permission;
 

@@ -1,10 +1,10 @@
 // import 'dart:io';
-// import 'package:cool_app/data/networks/dio_handler.dart';
-// import 'package:cool_app/presentation/theme/color_utils.dart';
-// import 'package:cool_app/presentation/utils/circular_progress_widget.dart';
-// import 'package:cool_app/presentation/utils/nav_utils.dart';
-// import 'package:cool_app/presentation/utils/notification_utils.dart';
-// import 'package:cool_app/presentation/utils/resources/notification.dart';
+// import 'package:coolappflutter/data/networks/dio_handler.dart';
+// import 'package:coolappflutter/presentation/theme/color_utils.dart';
+// import 'package:coolappflutter/presentation/utils/circular_progress_widget.dart';
+// import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+// import 'package:coolappflutter/presentation/utils/notification_utils.dart';
+// import 'package:coolappflutter/presentation/utils/resources/notification.dart';
 // import 'package:dio/dio.dart';
 // import 'package:open_filex/open_filex.dart';
 // import 'package:flutter/material.dart';

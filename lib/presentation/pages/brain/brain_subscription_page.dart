@@ -1,22 +1,21 @@
-import 'package:cool_app/data/data_global.dart';
-import 'package:cool_app/data/models/subcribtion_brain_transaction_data_model.dart';
-import 'package:cool_app/data/provider/provider_brain_activation.dart';
-import 'package:cool_app/data/response/brain_activation/res_list_subcription_per_item.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/utils/circular_progress_widget.dart';
-import 'package:cool_app/presentation/utils/money_formatter.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
-import 'package:cool_app/presentation/utils/notification_utils.dart';
-import 'package:cool_app/presentation/widgets/button_primary.dart';
-import 'package:cool_app/presentation/widgets/shimmer_loading.dart';
+import 'package:coolappflutter/data/data_global.dart';
+import 'package:coolappflutter/data/models/subcribtion_brain_transaction_data_model.dart';
+import 'package:coolappflutter/data/provider/provider_brain_activation.dart';
+import 'package:coolappflutter/data/response/brain_activation/res_list_subcription_per_item.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/circular_progress_widget.dart';
+import 'package:coolappflutter/presentation/utils/money_formatter.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/utils/notification_utils.dart';
+import 'package:coolappflutter/presentation/widgets/button_primary.dart';
+import 'package:coolappflutter/presentation/widgets/shimmer_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class BrainSubscriptionPage extends StatefulWidget {
   const BrainSubscriptionPage(
-      {Key? key, this.idLogProfiling, this.typeSubcribe})
-      : super(key: key);
+      {super.key, this.idLogProfiling, this.typeSubcribe});
   final String? idLogProfiling;
   final String? typeSubcribe;
 

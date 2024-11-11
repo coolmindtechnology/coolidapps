@@ -1,4 +1,4 @@
-import 'package:cool_app/presentation/widgets/shimmer_loading.dart';
+import 'package:coolappflutter/presentation/widgets/shimmer_loading.dart';
 import 'package:flutter/material.dart';
 
 class ShimmerLoadingWidgetMany extends StatelessWidget {
@@ -7,11 +7,11 @@ class ShimmerLoadingWidgetMany extends StatelessWidget {
   final int itemCount;
 
   const ShimmerLoadingWidgetMany({
-    Key? key,
+    super.key,
     required this.itemBuilderHeight,
     required this.separatorBuilderHeight,
     required this.itemCount,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

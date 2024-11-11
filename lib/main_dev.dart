@@ -1,5 +1,5 @@
-import 'package:cool_app/data/networks/endpoint/api_endpoint.dart';
-import 'package:cool_app/main.dart' as m;
+import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
+import 'package:coolappflutter/main.dart' as m;
 
 void main() async {
   /// Initializes the application by setting the API endpoint to development mode and

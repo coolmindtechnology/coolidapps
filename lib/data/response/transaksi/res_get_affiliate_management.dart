@@ -12,7 +12,7 @@ String resGetAffiliateManagementToJson(ResGetAffiliateManagement data) =>
 
 class ResGetAffiliateManagement {
   bool? success;
-  String? message;
+  dynamic message;
   DataAffiliateManagement? data;
 
   ResGetAffiliateManagement({
@@ -39,26 +39,26 @@ class ResGetAffiliateManagement {
 
 class DataAffiliateManagement {
   int? id;
-  String? presentaseAffiliator;
-  String? mininumDeposit;
-  String? maximumDeposit;
-  String? withdrawMinimum;
-  String? withdrawMaximum;
-  String? feeCommitment;
-  String? maximumAffiliator;
-  String? feeAgent;
-  String? feeMitra;
-  String? vacumDay;
-  String? nonActiveDay;
-  String? maximalDayActive;
-  String? intlFeeAffiliator;
-  String? intlMininumDeposit;
-  String? intlMaximumDeposit;
-  String? intlFeeCommitment;
-  String? intlFeeAgent;
-  String? intlFeeMitra;
-  String? firstFeeAgent;
-  String? firstFeeMitra;
+  dynamic presentaseAffiliator;
+  dynamic mininumDeposit;
+  dynamic maximumDeposit;
+  dynamic withdrawMinimum;
+  dynamic withdrawMaximum;
+  dynamic feeCommitment;
+  dynamic maximumAffiliator;
+  dynamic feeAgent;
+  dynamic feeMitra;
+  dynamic vacumDay;
+  dynamic nonActiveDay;
+  dynamic maximalDayActive;
+  dynamic intlFeeAffiliator;
+  dynamic intlMininumDeposit;
+  dynamic intlMaximumDeposit;
+  dynamic intlFeeCommitment;
+  dynamic intlFeeAgent;
+  dynamic intlFeeMitra;
+  dynamic firstFeeAgent;
+  dynamic firstFeeMitra;
   dynamic intlFirstFeeAgent;
   dynamic intlFirstFeeMitra;
   DateTime? createdAt;

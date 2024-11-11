@@ -1,14 +1,14 @@
 // ignore_for_file: deprecated_member_use
 
-import 'package:cool_app/data/data_global.dart';
-import 'package:cool_app/data/models/data_post.dart';
-import 'package:cool_app/presentation/pages/chat/home_chat.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/utils/date_util.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
-import 'package:cool_app/presentation/utils/notification_utils.dart';
-import 'package:cool_app/presentation/widgets/refresh_icon_widget.dart';
-import 'package:cool_app/presentation/widgets/shimmer_loading.dart';
+import 'package:coolappflutter/data/data_global.dart';
+import 'package:coolappflutter/data/models/data_post.dart';
+import 'package:coolappflutter/presentation/pages/chat/home_chat.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/date_util.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/utils/notification_utils.dart';
+import 'package:coolappflutter/presentation/widgets/refresh_icon_widget.dart';
+import 'package:coolappflutter/presentation/widgets/shimmer_loading.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -41,7 +41,7 @@ class _ScreenDetailPostinganState extends State<ScreenDetailPostingan> {
     if (widget.data?.multimedia != null &&
         widget.data!.multimedia!.isNotEmpty) {
       Uri? url = Uri.tryParse(
-          "${ApiEndpoint.imageUrlPost}${widget.data!.multimedia!.elementAt(0).path?.replaceAll("//", "/")}");
+          "${widget.data!.multimedia!.elementAt(0).path?.replaceAll("//", "/")}");
       controller = VideoPlayerController.networkUrl(url!)
         ..initialize().then((_) {
           setState(() {});
@@ -139,6 +139,11 @@ class _ScreenDetailPostinganState extends State<ScreenDetailPostingan> {
                                     ?.elementAt(0)
                                     .path
                                     ?.contains(".PNG") ==
+                                true ||
+                            widget.data?.multimedia
+                                    ?.elementAt(0)
+                                    .path
+                                    ?.contains(".webp") ==
                                 true) ...[
                           Container(
                               alignment: Alignment.center,
@@ -147,7 +152,7 @@ class _ScreenDetailPostinganState extends State<ScreenDetailPostingan> {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
                                 child: Image.network(
-                                  "${ApiEndpoint.imageUrlPost}${widget.data?.multimedia?.elementAt(0).path?.replaceAll("//", "/") ?? ""}",
+                                  "${widget.data?.multimedia?.elementAt(0).path}",
                                   height: 150,
                                   width: MediaQuery.of(context).size.width,
                                   fit: BoxFit.fitWidth,

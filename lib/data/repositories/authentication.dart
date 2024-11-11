@@ -1,21 +1,22 @@
+import 'dart:convert';
 import 'dart:developer';
 
-import 'package:cool_app/data/data_global.dart';
-import 'package:cool_app/data/helpers/either.dart';
-import 'package:cool_app/data/helpers/failure.dart';
-import 'package:cool_app/data/networks/dio_handler.dart';
-import 'package:cool_app/data/networks/endpoint/api_endpoint.dart';
-import 'package:cool_app/data/networks/error_handler.dart';
-import 'package:cool_app/data/response/auth/res_get_otp.dart';
-import 'package:cool_app/data/response/auth/res_logout.dart';
-import 'package:cool_app/data/response/auth/res_register.dart';
-import 'package:cool_app/data/response/auth/res_resend_otp.dart';
-import 'package:cool_app/data/response/auth/res_reset_password.dart';
-import 'package:cool_app/data/response/auth/res_send_otp.dart';
-import 'package:cool_app/data/response/auth/res_update_password.dart';
-import 'package:cool_app/data/response/auth/res_verify_otp.dart';
-import 'package:cool_app/data/response/auth/res_login.dart';
-import 'package:cool_app/data/response/user/res_get_location_member.dart';
+import 'package:coolappflutter/data/data_global.dart';
+import 'package:coolappflutter/data/helpers/either.dart';
+import 'package:coolappflutter/data/helpers/failure.dart';
+import 'package:coolappflutter/data/networks/dio_handler.dart';
+import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
+import 'package:coolappflutter/data/networks/error_handler.dart';
+import 'package:coolappflutter/data/response/auth/res_get_otp.dart';
+import 'package:coolappflutter/data/response/auth/res_logout.dart';
+import 'package:coolappflutter/data/response/auth/res_register.dart';
+import 'package:coolappflutter/data/response/auth/res_resend_otp.dart';
+import 'package:coolappflutter/data/response/auth/res_reset_password.dart';
+import 'package:coolappflutter/data/response/auth/res_send_otp.dart';
+import 'package:coolappflutter/data/response/auth/res_update_password.dart';
+import 'package:coolappflutter/data/response/auth/res_verify_otp.dart';
+import 'package:coolappflutter/data/response/auth/res_login.dart';
+import 'package:coolappflutter/data/response/user/res_get_location_member.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
@@ -32,10 +33,17 @@ class Authentication {
   /// - [Future<Either<Failure, ResLogin>>]: A future that resolves to either a
   ///   [Failure] or a [ResLogin] object.
   Future<Either<Failure, ResLogin>> login(
-      {required String phoneNumber, required String password}) async {
+      {required String phoneNumber,
+      required String password,
+      required String fcmToken}) async {
     try {
+      debugPrint("fcmm $fcmToken");
       Response res = await dio.post(ApiEndpoint.loginWithPhone,
-          data: {'phone_number': phoneNumber, 'password': password},
+          data: {
+            'phone_number': phoneNumber,
+            'password': password,
+            'fcm_token': fcmToken
+          },
           options: Options(
             validateStatus: (status) {
               return true;
@@ -46,6 +54,7 @@ class Authentication {
           ));
       return Either.success(ResLogin.fromJson(res.data));
     } catch (e) {
+      debugPrint("mm $e");
       return Either.error(ErrorHandler.handle(e).failure);
     }
   }
@@ -66,7 +75,7 @@ class Authentication {
   ///
   /// Throws:
   /// - [Failure]: If an error occurs during the registration process.
-  Future<Either<Failure, ResRegister>> register(
+  Future<Either<FailedModel, ResRegister>> register(
       {required String phoneNumber,
       required String password,
       required String confirmPassword,
@@ -85,20 +94,25 @@ class Authentication {
           },
           options: Options(
             validateStatus: (status) {
-              return status == 200 || status == 400;
+              return status == 201 || status == 422 || status == 500;
             },
             headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json',
             },
           ));
+      if (res.statusCode == 422 || res.statusCode == 500) {
+        return Either.error(FailedModel.fromJson(jsonDecode(res.toString())));
+      }
       return Either.success(ResRegister.fromJson(res.data));
     } catch (e, st) {
+      debugPrint("cekk st $e");
+      debugPrint("cekk stt $st");
       log(st.toString());
       if (kDebugMode) {
         print(st);
       }
-      return Either.error(ErrorHandler.handle(e).failure);
+      return Either.error(FailedModel.fromJson(jsonDecode(e.toString())));
     }
   }
 

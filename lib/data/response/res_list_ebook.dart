@@ -32,16 +32,16 @@ class ResListEbook {
 
 class DataBook {
   int? id;
-  String? title;
-  String? summary;
-  String? image;
-  String? imagePath;
-  String? content;
-  String? file;
-  String? filePath;
-  String? price;
-  String? isPremium;
-  String? status;
+  dynamic title;
+  dynamic summary;
+  dynamic image;
+  dynamic imagePath;
+  dynamic content;
+  dynamic file;
+  dynamic filePath;
+  dynamic price;
+  dynamic isPremium;
+  dynamic status;
   LogEbook? logEbook;
 
   DataBook({
@@ -94,9 +94,9 @@ class DataBook {
 
 class LogEbook {
   int? id;
-  String? idEbook;
-  String? idUser;
-  String? status;
+  dynamic idEbook;
+  dynamic idUser;
+  dynamic status;
 
   LogEbook({
     this.id,

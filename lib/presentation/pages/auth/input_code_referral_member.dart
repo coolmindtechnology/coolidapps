@@ -1,9 +1,9 @@
-import 'package:cool_app/data/provider/provider_auth_affiliate.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/utils/circular_progress_widget.dart';
-import 'package:cool_app/presentation/widgets/button_primary.dart';
-import 'package:cool_app/presentation/widgets/custom_input_field.dart';
+import 'package:coolappflutter/data/provider/provider_auth_affiliate.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/circular_progress_widget.dart';
+import 'package:coolappflutter/presentation/widgets/button_primary.dart';
+import 'package:coolappflutter/presentation/widgets/custom_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

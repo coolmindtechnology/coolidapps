@@ -1,8 +1,8 @@
-import 'package:cool_app/data/provider/provider_auth.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
-import 'package:cool_app/presentation/utils/notification_utils.dart';
+import 'package:coolappflutter/data/provider/provider_auth.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/utils/notification_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
 import 'package:provider/provider.dart';
@@ -139,33 +139,37 @@ class _OtpScreenState extends State<OtpScreen> {
                           const SizedBox(
                             width: 8,
                           ),
-                          GestureDetector(
-                            onTap: providerAuth.countdownSeconds == 0
-                                ? () {
-                                    // if (providerAuth.sourceToOtpScreen ==
-                                    //     "forgot_password") {
-                                    //   providerAuth.resendOtp(
-                                    //       widget.channel, widget.idUser);
-                                    // }
-                                    // if (providerAuth.sourceToOtpScreen ==
-                                    //     "register") {
-                                    //   providerAuth.resendOtp(
-                                    //       widget.channel, widget.idUser);
-                                    // }
+                          providerAuth.countdownSeconds == 0
+                              ? GestureDetector(
+                                  onTap: providerAuth.countdownSeconds == 0
+                                      ? () {
+                                          debugPrint(
+                                              "cek otp ${providerAuth.countdownSeconds}");
+                                          // if (providerAuth.sourceToOtpScreen ==
+                                          //     "forgot_password") {
+                                          //   providerAuth.resendOtp(
+                                          //       widget.channel, widget.idUser);
+                                          // }
+                                          // if (providerAuth.sourceToOtpScreen ==
+                                          //     "register") {
+                                          //   providerAuth.resendOtp(
+                                          //       widget.channel, widget.idUser);
+                                          // }
 
-                                    providerAuth.resendOtp(
-                                        widget.channel, widget.idUser);
-                                    // providerAuth.resendOtp(widget.channel);
-                                  }
-                                : null,
-                            child: Text(
-                              S.of(context).resend,
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                  color: whiteColor),
-                            ),
-                          )
+                                          providerAuth.resendOtp(
+                                              widget.channel, widget.idUser);
+                                          // providerAuth.resendOtp(widget.channel);
+                                        }
+                                      : null,
+                                  child: Text(
+                                    S.of(context).resend,
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w400,
+                                        color: whiteColor),
+                                  ),
+                                )
+                              : Container()
                         ],
                       )
                     ],

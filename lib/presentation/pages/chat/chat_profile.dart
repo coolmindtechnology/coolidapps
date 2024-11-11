@@ -1,15 +1,16 @@
 import 'dart:async';
-import 'package:cool_app/data/data_global.dart';
-import 'package:cool_app/data/models/data_post.dart';
-import 'package:cool_app/data/provider/provider_cool_chat.dart';
-import 'package:cool_app/data/provider/provider_user.dart';
-import 'package:cool_app/data/response/cool_chat/res_search_content.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/pages/chat/screen_detail_postingan.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/utils/circular_progress_widget.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
-import 'package:cool_app/presentation/widgets/refresh_icon_widget.dart';
+import 'package:coolappflutter/data/data_global.dart';
+import 'package:coolappflutter/data/models/data_post.dart';
+import 'package:coolappflutter/data/provider/provider_cool_chat.dart';
+import 'package:coolappflutter/data/provider/provider_user.dart';
+import 'package:coolappflutter/data/response/cool_chat/res_search_content.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/chat/home_chat.dart';
+import 'package:coolappflutter/presentation/pages/chat/screen_detail_postingan.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/circular_progress_widget.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/widgets/refresh_icon_widget.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ import '../../../main.dart';
 class ChatProfile extends StatefulWidget {
   // final Profiling? data;
   final String? etSearch;
-  final String? idUser;
+  final dynamic idUser;
   final String? idprofiling;
   final bool isMe;
   final bool fromSearch;
@@ -110,11 +111,14 @@ class _ChatProfileState extends State<ChatProfile> {
             print(valueUser.dataUser?.name);
           }
           if (kDebugMode) {
-            print(
-                "prof ${ApiEndpoint.baseUrlImage}${valueChat.userProfiling?.image}");
+            print("prof ${valueChat.userProfiling?.image}");
           }
           return Scaffold(
             appBar: AppBar(
+              title: Text(
+                "${valueUser.dataUser?.name.toString()}",
+                style: const TextStyle(color: Colors.white),
+              ),
               centerTitle: true,
               iconTheme: const IconThemeData(color: Colors.white),
               backgroundColor: primaryColor,
@@ -158,7 +162,7 @@ class _ChatProfileState extends State<ChatProfile> {
                                                 borderRadius:
                                                     BorderRadius.circular(100),
                                                 child: Image.network(
-                                                  "${ApiEndpoint.baseUrlImage}${valueChat.userProfiling?.image}",
+                                                  "${valueChat.userProfiling?.image}",
                                                   width: 80,
                                                   height: 80,
                                                   fit: BoxFit.cover,
@@ -170,7 +174,7 @@ class _ChatProfileState extends State<ChatProfile> {
                                                         BorderRadius.circular(
                                                             100),
                                                     child: Image.network(
-                                                      "${ApiEndpoint.baseUrlImage}${valueUser.dataUser?.image}",
+                                                      "${valueUser.dataUser?.image}",
                                                       width: 80,
                                                       height: 80,
                                                       fit: BoxFit.cover,
@@ -417,16 +421,178 @@ class _ChatProfileState extends State<ChatProfile> {
                                       ));
                                     },
                                     child: data.multimedia?.isNotEmpty == true
-                                        ? ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(15),
-                                            child: Image.network(
-                                              "${ApiEndpoint.imageUrlPost}${data.multimedia?.elementAt(0).path}",
-                                              height: 200,
-                                              width: 200,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          )
+                                        ? data.multimedia
+                                                    ?.elementAt(0)
+                                                    .path
+                                                    ?.contains(".webp") ==
+                                                true
+                                            ? ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                                child: Image.network(
+                                                  "${data.multimedia?.elementAt(0).path}",
+                                                  height: 200,
+                                                  width: 200,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              )
+                                            // Column(
+                                            //     children: [
+                                            //     if (data.multimedia?.isNotEmpty ??
+                                            //         false) ...[
+                                            //       if (data.multimedia != null &&
+                                            //               data.multimedia
+                                            //                       ?.elementAt(0)
+                                            //                       .path
+                                            //                       ?.contains(
+                                            //                           ".jpg") ==
+                                            //                   true ||
+                                            //           data.multimedia?.elementAt(0).path?.contains(".PNG") ==
+                                            //               true ||
+                                            //           data.multimedia
+                                            //                   ?.elementAt(0)
+                                            //                   .path
+                                            //                   ?.contains(
+                                            //                       ".webp") ==
+                                            //               true) ...[
+                                            //         ClipRRect(
+                                            //           borderRadius:
+                                            //               BorderRadius.circular(
+                                            //                   15),
+                                            //           child: Image.network(
+                                            //             "${data.multimedia?.elementAt(0).path}",
+                                            //             height: 200,
+                                            //             width: 200,
+                                            //             fit: BoxFit.cover,
+                                            //           ),
+                                            //         )
+                                            //       ] else if (data.multimedia != null &&
+                                            //           data.multimedia
+                                            //                   ?.elementAt(0)
+                                            //                   .path
+                                            //                   ?.contains(
+                                            //                       ".mp4") ==
+                                            //               true) ...[
+                                            //         // SizedBox(
+                                            //         //     height: 200,
+                                            //         //     width: 200,
+                                            //         //     child:
+                                            //         //         PlayVideoPost(data)),
+                                            //         // Container(
+                                            //         //   decoration: const BoxDecoration(
+                                            //         //       color: Colors.red,
+                                            //         //       image: DecorationImage(
+                                            //         //           image: AssetImage(
+                                            //         //         "images/chat/play.png",
+                                            //         //       ))),
+                                            //         //   child: SizedBox(
+                                            //         //     width: 200,
+                                            //         //     height: 200,
+                                            //         //     child: AspectRatio(
+                                            //         //       aspectRatio: controller!.value.aspectRatio,
+                                            //         //       child: VideoPlayer(controller!),
+                                            //         //     ),
+                                            //         //   ),
+                                            //         // ),
+                                            //         // GestureDetector(
+                                            //         //   onTap: () {
+                                            //         //     setState(() {
+                                            //         //       (controller?.value.isPlaying == true)
+                                            //         //           ? controller?.pause()
+                                            //         //           : controller?.play();
+                                            //         //     });
+                                            //         //   },
+                                            //         //   child: Icon(
+                                            //         //     (controller?.value.isPlaying == true)
+                                            //         //         ? Icons.pause
+                                            //         //         : Icons.play_arrow,
+                                            //         //   ),
+                                            //         // ),
+                                            //       ] else if (data.multimedia
+                                            //               ?.elementAt(0)
+                                            //               .path
+                                            //               ?.contains(".m4a") ==
+                                            //           true) ...[
+                                            //         // SizedBox(
+                                            //         //     height: 200,
+                                            //         //     width: 200,
+                                            //         //     child: PlayAudio(data))
+                                            //       ] else if ((data.multimedia
+                                            //                   ?.elementAt(0)
+                                            //                   .path
+                                            //                   ?.contains(".mp3") ==
+                                            //               true) ||
+                                            //           (data.multimedia?.elementAt(0).path?.contains(".m4a") == true)) ...[
+                                            //         // SizedBox(
+                                            //         //     width: 200,
+                                            //         //     height: 200,
+                                            //         //     child: PlayAudio(data)),
+                                            //       ],
+                                            //     ],
+                                            //   ],
+                                            // )
+                                            // ClipRRect(
+                                            //     borderRadius:
+                                            //         BorderRadius.circular(15),
+                                            //     child: Image.network(
+                                            //       "${data.multimedia?.elementAt(0).path}",
+                                            //       height: 200,
+                                            //       width: 200,
+                                            //       fit: BoxFit.cover,
+                                            //     ),
+                                            //   )
+                                            : data.multimedia
+                                                        ?.elementAt(0)
+                                                        .path
+                                                        ?.contains(".mp3") ==
+                                                    true
+                                                ? const Center(
+                                                    child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Icon(Icons.music_note),
+                                                      Text(
+                                                        "Tap To play audio",
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                      ),
+                                                    ],
+                                                  ))
+                                                : data.multimedia
+                                                            ?.elementAt(0)
+                                                            .path
+                                                            ?.contains(
+                                                                ".mp4") ==
+                                                        true
+                                                    ? const Center(
+                                                        child: Column(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Icon(Icons
+                                                              .video_call_sharp),
+                                                          Text(
+                                                            "Tap To play video",
+                                                            textAlign: TextAlign
+                                                                .center,
+                                                          ),
+                                                        ],
+                                                      ))
+                                                    : Center(
+                                                        child: Text(
+                                                        "${data.description}",
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                      ))
                                         : Center(
                                             child: Text(
                                             "${data.description}",

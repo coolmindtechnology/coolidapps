@@ -1,19 +1,19 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:cool_app/data/models/data_checkout_transaction.dart';
-import 'package:cool_app/data/response/profiling/res_list_multiple_profiling.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/pages/profiling/add_multiple_profiling.dart';
-import 'package:cool_app/presentation/pages/profiling/detail_profiling.dart';
-import 'package:cool_app/presentation/pages/profiling/list_multiple_profiling.dart';
-import 'package:cool_app/presentation/pages/profiling/screen_hasil_kepribadian.dart';
-import 'package:cool_app/presentation/pages/profiling/screen_tambah_profiling.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
-import 'package:cool_app/presentation/widgets/button_primary.dart';
-import 'package:cool_app/presentation/widgets/no_data_widget.dart';
-import 'package:cool_app/presentation/widgets/refresh_icon_widget.dart';
-import 'package:cool_app/presentation/widgets/shimmer_loading_widget_many.dart';
+import 'package:coolappflutter/data/models/data_checkout_transaction.dart';
+import 'package:coolappflutter/data/response/profiling/res_list_multiple_profiling.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/profiling/add_multiple_profiling.dart';
+import 'package:coolappflutter/presentation/pages/profiling/detail_profiling.dart';
+import 'package:coolappflutter/presentation/pages/profiling/list_multiple_profiling.dart';
+import 'package:coolappflutter/presentation/pages/profiling/screen_hasil_kepribadian.dart';
+import 'package:coolappflutter/presentation/pages/profiling/screen_tambah_profiling.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/widgets/button_primary.dart';
+import 'package:coolappflutter/presentation/widgets/no_data_widget.dart';
+import 'package:coolappflutter/presentation/widgets/refresh_icon_widget.dart';
+import 'package:coolappflutter/presentation/widgets/shimmer_loading_widget_many.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -134,7 +134,7 @@ class _ScreenFeatureKepribadianState extends State<ScreenFeatureKepribadian>
                                         value.listProfiling[index];
                                     return GestureDetector(
                                       onTap: () {
-                                        if (data.status == "0") {
+                                        if (data.status.toString() == "0") {
                                           NotificationUtils.showSimpleDialog2(
                                               context,
                                               S.of(context).pay_to_see_more,
@@ -161,9 +161,10 @@ class _ScreenFeatureKepribadianState extends State<ScreenFeatureKepribadian>
                                               await value.payProfiling(
                                                   context,
                                                   [
-                                                    int.tryParse(
-                                                            data.idLogResult ??
-                                                                "0") ??
+                                                    int.tryParse(data
+                                                                .idLogResult
+                                                                .toString() ??
+                                                            "0") ??
                                                         0
                                                   ],
                                                   "0",
@@ -178,16 +179,17 @@ class _ScreenFeatureKepribadianState extends State<ScreenFeatureKepribadian>
                                                   .createTransactionProfiling(
                                                       context,
                                                       DataCheckoutTransaction(
-                                                        idLogs: [
-                                                          int.parse(
-                                                              data.idLogResult ??
-                                                                  "0")
-                                                        ],
-                                                        discount: "0",
-                                                        idItemPayments: "1",
-                                                        qty: 1,
-                                                        gateway: "paypal"
-                                                      ), () async {
+                                                          idLogs: [
+                                                            int.parse(data
+                                                                    .idLogResult
+                                                                    .toString() ??
+                                                                "0")
+                                                          ],
+                                                          discount: "0",
+                                                          idItemPayments: "1",
+                                                          qty: 1,
+                                                          gateway: "paypal"),
+                                                      () async {
                                                 await value
                                                     .getListProfiling(context);
                                               });
@@ -202,7 +204,7 @@ class _ScreenFeatureKepribadianState extends State<ScreenFeatureKepribadian>
                                         }
                                       },
                                       onDoubleTap: () {
-                                        if (data.status == "0") {
+                                        if (data.status.toString() == "0") {
                                           NotificationUtils.showSimpleDialog2(
                                               context,
                                               S.of(context).pay_to_see_more,
@@ -228,9 +230,9 @@ class _ScreenFeatureKepribadianState extends State<ScreenFeatureKepribadian>
                                               await value.payProfiling(
                                                 context,
                                                 [
-                                                  int.tryParse(
-                                                          data.idLogResult ??
-                                                              "0") ??
+                                                  int.tryParse(data.idLogResult
+                                                              .toString() ??
+                                                          "0") ??
                                                       0
                                                 ],
                                                 "0",
@@ -249,9 +251,10 @@ class _ScreenFeatureKepribadianState extends State<ScreenFeatureKepribadian>
                                                       context,
                                                       DataCheckoutTransaction(
                                                         idLogs: [
-                                                          int.parse(
-                                                              data.idLogResult ??
-                                                                  "0")
+                                                          int.parse(data
+                                                                  .idLogResult
+                                                                  .toString() ??
+                                                              "0")
                                                         ],
                                                         discount: "0",
                                                         idItemPayments: "1",
@@ -469,7 +472,8 @@ class _ScreenFeatureKepribadianState extends State<ScreenFeatureKepribadian>
                         await showDialog(
                           context: context,
                           builder: (context) => InputAmountProfilingDialog(
-                            maxProfiling: value.dataMaximumProfiling?.maxQty,
+                            maxProfiling:
+                                value.dataMaximumProfiling?.maxQty.toString(),
                             onAdd: () async {
                               await value.getListMutipleProfiling(context);
                             },
@@ -641,8 +645,7 @@ class InputAmountProfilingDialog extends StatelessWidget {
   final String? maxProfiling;
   final Function? onAdd;
 
-  InputAmountProfilingDialog({Key? key, this.maxProfiling, this.onAdd})
-      : super(key: key);
+  InputAmountProfilingDialog({super.key, this.maxProfiling, this.onAdd});
 
   final TextEditingController _controllerJumlahProfiling =
       TextEditingController();

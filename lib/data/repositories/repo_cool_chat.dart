@@ -1,19 +1,21 @@
 // ignore_for_file: depend_on_referenced_packages
 
-import 'package:cool_app/data/response/cool_chat/res_cek_follow.dart';
-import 'package:cool_app/data/response/cool_chat/res_cek_like.dart';
-import 'package:cool_app/data/response/cool_chat/res_comment_post.dart';
-import 'package:cool_app/data/response/cool_chat/res_creat_post.dart';
-import 'package:cool_app/data/response/cool_chat/res_delete_post.dart';
-import 'package:cool_app/data/response/cool_chat/res_followe_akun.dart';
-import 'package:cool_app/data/response/cool_chat/res_get_follower.dart';
-import 'package:cool_app/data/response/cool_chat/res_get_list_comment.dart';
-import 'package:cool_app/data/response/cool_chat/res_get_share_code.dart';
-import 'package:cool_app/data/response/cool_chat/res_get_total_count_by_post.dart';
-import 'package:cool_app/data/response/cool_chat/res_list_cool_chat_byid.dart';
-import 'package:cool_app/data/response/cool_chat/res_list_post.dart';
-import 'package:cool_app/data/response/cool_chat/res_post_reaction.dart';
-import 'package:cool_app/data/response/cool_chat/res_search_content.dart';
+import 'dart:convert';
+
+import 'package:coolappflutter/data/response/cool_chat/res_cek_follow.dart';
+import 'package:coolappflutter/data/response/cool_chat/res_cek_like.dart';
+import 'package:coolappflutter/data/response/cool_chat/res_comment_post.dart';
+import 'package:coolappflutter/data/response/cool_chat/res_creat_post.dart';
+import 'package:coolappflutter/data/response/cool_chat/res_delete_post.dart';
+import 'package:coolappflutter/data/response/cool_chat/res_followe_akun.dart';
+import 'package:coolappflutter/data/response/cool_chat/res_get_follower.dart';
+import 'package:coolappflutter/data/response/cool_chat/res_get_list_comment.dart';
+import 'package:coolappflutter/data/response/cool_chat/res_get_share_code.dart';
+import 'package:coolappflutter/data/response/cool_chat/res_get_total_count_by_post.dart';
+import 'package:coolappflutter/data/response/cool_chat/res_list_cool_chat_byid.dart';
+import 'package:coolappflutter/data/response/cool_chat/res_list_post.dart';
+import 'package:coolappflutter/data/response/cool_chat/res_post_reaction.dart';
+import 'package:coolappflutter/data/response/cool_chat/res_search_content.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http_parser/http_parser.dart';
@@ -292,8 +294,17 @@ class RepoCoolChat {
       Response res = await dio.post(ApiEndpoint.commentPost,
           data: data,
           options: Options(
+            validateStatus: (status) {
+              return status == 200 || status == 400;
+            },
+            contentType: Headers.jsonContentType,
+            responseType: ResponseType.json,
             headers: {'Authorization': dataGlobal.token},
           ));
+      if (res.statusCode == 400) {
+        debugPrint("cek tes ${res.data['message']}");
+        return Either.error(Failure(res.data['message']));
+      }
       return Either.success(ResCreateComment.fromJson(res.data));
     } on DioException catch (e) {
       return Either.error(ErrorHandler.handle(e).failure);

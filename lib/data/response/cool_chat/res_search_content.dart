@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:cool_app/data/models/data_post.dart';
+import 'package:coolappflutter/data/models/data_post.dart';
 
 ResSearchContent resSearchContentFromJson(String str) =>
     ResSearchContent.fromJson(json.decode(str));
@@ -52,19 +52,19 @@ class Data {
 }
 
 class Posts {
-  int? currentPage;
+  dynamic currentPage;
   List<DataPost>? data;
-  String? firstPageUrl;
-  int? from;
-  int? lastPage;
-  String? lastPageUrl;
+  dynamic firstPageUrl;
+  dynamic from;
+  dynamic lastPage;
+  dynamic lastPageUrl;
   List<Link>? links;
-  String? nextPageUrl;
-  String? path;
-  int? perPage;
+  dynamic nextPageUrl;
+  dynamic path;
+  dynamic perPage;
   dynamic prevPageUrl;
-  int? to;
-  int? total;
+  dynamic to;
+  dynamic total;
 
   Posts({
     this.currentPage,
@@ -124,10 +124,9 @@ class Posts {
       };
 }
 
-
 class Link {
-  String? url;
-  String? label;
+  dynamic url;
+  dynamic label;
   bool? active;
 
   Link({
@@ -150,19 +149,19 @@ class Link {
 }
 
 class Profiling {
-  int? currentPage;
+  dynamic currentPage;
   List<ProfilingDatum>? data;
-  String? firstPageUrl;
-  int? from;
-  int? lastPage;
-  String? lastPageUrl;
+  dynamic firstPageUrl;
+  dynamic from;
+  dynamic lastPage;
+  dynamic lastPageUrl;
   List<Link>? links;
-  String? nextPageUrl;
-  String? path;
-  int? perPage;
+  dynamic nextPageUrl;
+  dynamic path;
+  dynamic perPage;
   dynamic prevPageUrl;
-  int? to;
-  int? total;
+  dynamic to;
+  dynamic total;
 
   Profiling({
     this.currentPage,
@@ -223,14 +222,14 @@ class Profiling {
 }
 
 class ProfilingDatum {
-  int? id;
-  String? idUser;
-  String? idProfiling;
-  String? result;
-  String? bloodType;
+  dynamic id;
+  dynamic idUser;
+  dynamic idProfiling;
+  dynamic result;
+  dynamic bloodType;
   dynamic idDeposit;
   dynamic idMultiple;
-  String? status;
+  dynamic status;
   DateTime? createdAt;
   DateTime? updatedAt;
   dynamic deletedAt;
@@ -295,13 +294,13 @@ class ProfilingDatum {
 }
 
 class DataProfile {
-  String? idUser;
-  String? name;
-  String? birthDate;
-  String? monthDate;
-  String? yearDate;
-  String? bloodType;
-  String? domicile;
+  dynamic idUser;
+  dynamic name;
+  dynamic birthDate;
+  dynamic monthDate;
+  dynamic yearDate;
+  dynamic bloodType;
+  dynamic domicile;
   dynamic deletedAt;
 
   DataProfile({
@@ -339,8 +338,8 @@ class DataProfile {
 }
 
 class ResultName {
-  int? id;
-  String? name;
+  dynamic id;
+  dynamic name;
   dynamic createdAt;
   dynamic updatedAt;
 

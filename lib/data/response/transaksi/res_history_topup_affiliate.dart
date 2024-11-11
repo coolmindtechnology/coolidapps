@@ -112,15 +112,15 @@ class DataPaginationHistoryTopupSaldo {
 }
 
 class DataHistoryTopupAffiliate {
-  String? id;
-  String? idUser;
-  String? idAffiliate;
-  String? orderId;
-  String? amount;
-  String? transactionType;
-  String? source;
+  dynamic id;
+  dynamic idUser;
+  dynamic idAffiliate;
+  dynamic orderId;
+  dynamic amount;
+  dynamic transactionType;
+  dynamic source;
   dynamic useByMember;
-  String? status;
+  dynamic status;
   DateTime? createdAt;
   DateTime? updatedAt;
   dynamic deletedAt;

@@ -1,6 +1,6 @@
-// import 'package:cool_app/data/models/data_post.dart';
-// import 'package:cool_app/data/provider/provider_cool_chat.dart';
-// import 'package:cool_app/presentation/pages/chat/screen_detail_postingan.dart';
+// import 'package:coolappflutter/data/models/data_post.dart';
+// import 'package:coolappflutter/data/provider/provider_cool_chat.dart';
+// import 'package:coolappflutter/presentation/pages/chat/screen_detail_postingan.dart';
 // import 'package:flutter/material.dart';
 // import 'package:provider/provider.dart';
 //

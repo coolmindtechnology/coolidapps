@@ -1,18 +1,18 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:cool_app/data/provider/provider_transaksi_affiliate.dart';
-import 'package:cool_app/data/repositories/repo_affiliate.dart';
-import 'package:cool_app/data/response/affiliate/res_check_topup_affiliate.dart';
-import 'package:cool_app/data/response/affiliate/res_detail_member.dart';
-import 'package:cool_app/data/response/affiliate/res_home_affiliate.dart';
-import 'package:cool_app/data/response/affiliate/res_list_bank.dart';
-import 'package:cool_app/data/response/affiliate/res_list_member.dart';
-import 'package:cool_app/data/response/affiliate/res_save_rekening.dart';
-import 'package:cool_app/data/response/user/res_check_profile.dart';
-import 'package:cool_app/presentation/pages/afiliate/components/dialog_transfer_affiliate.dart';
-import 'package:cool_app/presentation/pages/afiliate/screen_input_rekening.dart';
-import 'package:cool_app/presentation/pages/transakction/topup_saldo.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/data/provider/provider_transaksi_affiliate.dart';
+import 'package:coolappflutter/data/repositories/repo_affiliate.dart';
+import 'package:coolappflutter/data/response/affiliate/res_check_topup_affiliate.dart';
+import 'package:coolappflutter/data/response/affiliate/res_detail_member.dart';
+import 'package:coolappflutter/data/response/affiliate/res_home_affiliate.dart';
+import 'package:coolappflutter/data/response/affiliate/res_list_bank.dart';
+import 'package:coolappflutter/data/response/affiliate/res_list_member.dart';
+import 'package:coolappflutter/data/response/affiliate/res_save_rekening.dart';
+import 'package:coolappflutter/data/response/user/res_check_profile.dart';
+import 'package:coolappflutter/presentation/pages/afiliate/components/dialog_transfer_affiliate.dart';
+import 'package:coolappflutter/presentation/pages/afiliate/screen_input_rekening.dart';
+import 'package:coolappflutter/presentation/pages/transakction/topup_saldo.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -85,6 +85,7 @@ class ProviderAffiliate extends ChangeNotifier {
     isLoading = false;
     notifyListeners();
     response.when(error: (e) {
+      debugPrint("cekt");
       NotificationUtils.showDialogError(context, () {
         Nav.back();
       },
@@ -95,6 +96,7 @@ class ProviderAffiliate extends ChangeNotifier {
           ),
           textButton: S.of(context).back);
     }, success: (res) async {
+      debugPrint("cektt");
       if (res.success == true) {
         dataAffiliasi = res.data;
         // beneficiary@example.com
@@ -102,13 +104,16 @@ class ProviderAffiliate extends ChangeNotifier {
             dataAffiliasi;
 
         /// check if the account is active
-        if (dataAffiliasi?.isActive != "1") {
+        if (dataAffiliasi?.isActive.toString() != "1") {
+          debugPrint("cekttt");
           NotificationUtils.showSimpleDialog(context,
               message: S.of(context).account_disabled_contact_admin, () {
             Nav.back();
             Nav.back();
           }, textOnButton: S.of(context).close);
         } else {
+          debugPrint("cekmm");
+
           /// if account is active check data bank
           checkCompleteBank(context);
 
@@ -194,28 +199,18 @@ class ProviderAffiliate extends ChangeNotifier {
       if (res.status == 200) {
         listRek = res.data ?? [];
         // if (listRek != null) {
-        if (listRek != null) {
-          pilihRek = listRek.firstWhereOrNull((element) {
-            notifyListeners();
-            if (kDebugMode) {
-              print("nama Bank ${nameBank?.text ?? "-"}");
-            }
-            return element.name == nameBank?.text.toString();
-          });
+        pilihRek = listRek.firstWhereOrNull((element) {
+          notifyListeners();
           if (kDebugMode) {
-            print("nama Bank pilih rek ${pilihRek?.code}");
+            print("nama Bank ${nameBank?.text ?? "-"}");
           }
-          // getDataAccountBank(
-          //     context, pilihRek?.kodeBank ?? "" ?? "", pilihRek?.namaBank ?? "");
-        } else {
-          pilihRek = listRek.firstWhereOrNull((element) {
-            notifyListeners();
-            return element.name == nameBank?.text;
-          });
-          if (kDebugMode) {
-            print("nama Bank pilih rek ${pilihRek?.code}");
-          }
+          return element.name == nameBank?.text.toString();
+        });
+        if (kDebugMode) {
+          print("nama Bank pilih rek ${pilihRek?.code}");
         }
+        // getDataAccountBank(
+        //     context, pilihRek?.kodeBank ?? "" ?? "", pilihRek?.namaBank ?? "");
 
         // }
 
@@ -383,6 +378,7 @@ class ProviderAffiliate extends ChangeNotifier {
         await repo.checkTopupAffiliate(dataAffiliasi?.idUser ?? "");
 
     response.when(error: (e) {
+      debugPrint("masuk eeee?");
       NotificationUtils.showDialogError(context, () {
         Nav.back();
       },
@@ -392,6 +388,7 @@ class ProviderAffiliate extends ChangeNotifier {
             textAlign: TextAlign.center,
           ));
     }, success: (res) async {
+      debugPrint("masuk sukses?");
       if (res.success == true) {
         resCheckTopupAffiliate = res;
 
@@ -453,17 +450,23 @@ class ProviderAffiliate extends ChangeNotifier {
                 textButton2: S.of(context).back,
                 onPress1: () async {
                   // Convert the strings to numbers
-                  double num1 =
-                      double.parse(dataAffiliasi?.totalSaldoAffiliate ?? "0.0");
-                  double num2 =
-                      double.parse(dataAffiliasi?.totalRealMoney ?? "0.0");
+                  double num1 = double.parse(
+                      dataAffiliasi?.totalSaldoAffiliate.toString() == ""
+                          ? "0.0"
+                          : "${dataAffiliasi?.totalSaldoAffiliate.toString()}");
+                  double num2 = double.parse(
+                      dataAffiliasi?.totalRealMoney.toString() == ""
+                          ? "0.0"
+                          : "${dataAffiliasi?.totalRealMoney.toString()}");
 
                   // Calculate the sum
                   double sum = num1 + num2;
                   Nav.back();
                   await showDialog(
+                      barrierDismissible: false,
                       context: context,
                       builder: (_) {
+                        debugPrint("tes cek vacum transfer");
                         return DialogTransferAffiliate(
                           calculateSaldo: sum.toString(),
                           bankName: dataAffiliasi?.bankName,
@@ -474,6 +477,71 @@ class ProviderAffiliate extends ChangeNotifier {
                   Nav.back();
                   Nav.back();
                 },
+              );
+              break;
+            case 6:
+              await NotificationUtils.showDialogError(
+                context,
+                () {
+                  Nav.back();
+                },
+                widget: Text(
+                  "${res.message}",
+                  style: const TextStyle(fontSize: 16),
+                  textAlign: TextAlign.center,
+                ),
+              );
+              break;
+            case 7:
+              await NotificationUtils.showDialogError(
+                context,
+                () {
+                  Nav.back();
+                },
+                widget: Text(
+                  "${res.message}",
+                  style: const TextStyle(fontSize: 16),
+                  textAlign: TextAlign.center,
+                ),
+              );
+              break;
+            case 8:
+              await NotificationUtils.showDialogError(
+                context,
+                () {
+                  Nav.back();
+                },
+                widget: Text(
+                  "${res.message}",
+                  style: const TextStyle(fontSize: 16),
+                  textAlign: TextAlign.center,
+                ),
+              );
+              break;
+            case 9:
+              await NotificationUtils.showDialogError(
+                context,
+                () {
+                  Nav.back();
+                },
+                widget: Text(
+                  "${res.message}",
+                  style: const TextStyle(fontSize: 16),
+                  textAlign: TextAlign.center,
+                ),
+              );
+              break;
+            case 10:
+              await NotificationUtils.showDialogError(
+                context,
+                () {
+                  Nav.back();
+                },
+                widget: Text(
+                  "${res.message}",
+                  style: const TextStyle(fontSize: 16),
+                  textAlign: TextAlign.center,
+                ),
               );
               break;
             default:

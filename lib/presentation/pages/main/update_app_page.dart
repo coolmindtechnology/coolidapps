@@ -1,13 +1,13 @@
 import 'dart:io';
 
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/widgets/button_primary.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/widgets/button_primary.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class UpdateAppPage extends StatefulWidget {
-  const UpdateAppPage({Key? key, required this.versionApp}) : super(key: key);
+  const UpdateAppPage({super.key, required this.versionApp});
   final String versionApp;
 
   @override

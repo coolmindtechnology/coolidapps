@@ -4,26 +4,29 @@ import 'dart:async';
 import 'dart:io';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:audioplayers/audioplayers.dart' as player_state;
-import 'package:cool_app/data/data_global.dart';
-import 'package:cool_app/data/provider/provider_cool_chat.dart';
-import 'package:cool_app/data/provider/provider_user.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/pages/chat/audio_player.dart';
-import 'package:cool_app/presentation/pages/chat/item_data.dart';
-import 'package:cool_app/presentation/pages/chat/search_page.dart';
-import 'package:cool_app/presentation/pages/chat/take_video_and12.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/utils/circular_progress_widget.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
-import 'package:cool_app/presentation/utils/notification_utils.dart';
-import 'package:cool_app/presentation/utils/takeVideo_utils.dart';
+import 'package:coolappflutter/data/data_global.dart';
+import 'package:coolappflutter/data/provider/provider_cool_chat.dart';
+import 'package:coolappflutter/data/provider/provider_user.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/chat/audio_player.dart';
+import 'package:coolappflutter/presentation/pages/chat/item_data.dart';
+import 'package:coolappflutter/presentation/pages/chat/search_page.dart';
+import 'package:coolappflutter/presentation/pages/chat/take_video_and12.dart';
+import 'package:coolappflutter/presentation/pages/main/home_screen.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/circular_progress_widget.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/utils/notification_utils.dart';
+import 'package:coolappflutter/presentation/utils/takeVideo_utils.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
+import 'package:video_thumbnail/video_thumbnail.dart';
 import '../../../data/models/data_post.dart';
 import '../../../data/networks/endpoint/api_endpoint.dart';
 import '../../utils/takeimage_utils.dart';
@@ -46,30 +49,8 @@ class _HomeChatState extends State<HomeChat> {
 
   bool isShare = false, isLike = false, isComment = false;
 
-  // Future<void> pickImageWithPermission() async {
-  //   PermissionStatus cameraPermissionStatus = await Permission.camera.status;
-  //   PermissionStatus storagePermissionStatus = await Permission.storage.status;
-  //
-  //   if (cameraPermissionStatus.isGranted && storagePermissionStatus.isGranted) {
-  //     // Permissions are already granted, proceed to pick file
-  //   } else {
-  //     Map<Permission, PermissionStatus> permissionStatuses = await [
-  //       Permission.camera,
-  //       Permission.storage,
-  //     ].request();
-  //
-  //     if (permissionStatuses[Permission.camera]!.isGranted &&
-  //         permissionStatuses[Permission.storage]!.isGranted) {
-  //       // Permissions granted, proceed to pick file
-  //     } else {
-  //       // Permissions denied, handle accordingly (show an error message, request again, or emit your bloc state.)
-  //       // ...
-  //     }
-  //   }
-  // }
-
   String _androidVersion = 'Unknown';
-
+  String? thumbnailPaths;
   XFile? res;
   @override
   void initState() {
@@ -79,7 +60,22 @@ class _HomeChatState extends State<HomeChat> {
     showPlayer1 = false;
     // pickImageWithPermission();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      _pengecekanIsProfiling();
+      // _pengecekanIsProfiling();
+    });
+  }
+
+  Future<void> generateThumbnail(String videoPath) async {
+    final tempDir = await getTemporaryDirectory();
+    final thumbnailPath = await VideoThumbnail.thumbnailFile(
+      video: videoPath,
+      thumbnailPath: tempDir.path,
+      imageFormat: ImageFormat.PNG,
+      maxHeight: 150, // Atur ukuran thumbnail
+      quality: 75,
+    );
+
+    setState(() {
+      thumbnailPaths = thumbnailPath;
     });
   }
 
@@ -98,6 +94,7 @@ class _HomeChatState extends State<HomeChat> {
         context,
         () {
           widget.klickTab(0);
+
           Nav.back();
         },
         widget: Text(
@@ -270,18 +267,23 @@ class _HomeChatState extends State<HomeChat> {
                                                   true)
                                           ? Row(
                                               children: [
-                                                SizedBox(
-                                                  width: 200,
-                                                  height: 200,
-                                                  child: AspectRatio(
-                                                    aspectRatio: value
-                                                        .controller!
-                                                        .value
-                                                        .aspectRatio,
-                                                    child: VideoPlayer(
-                                                        value.controller!),
-                                                  ),
-                                                ),
+                                                if (thumbnailPaths!.isNotEmpty)
+                                                  SizedBox(
+                                                      width: 200,
+                                                      height: 200,
+                                                      child: Image.file(
+                                                        File(thumbnailPaths!),
+                                                        fit: BoxFit.cover,
+                                                      )
+                                                      // AspectRatio(
+                                                      //   aspectRatio: value
+                                                      //       .controller!
+                                                      //       .value
+                                                      //       .aspectRatio,
+                                                      //   child: VideoPlayer(
+                                                      //       value.controller!),
+                                                      // ),
+                                                      ),
                                                 GestureDetector(
                                                   onTap: () {
                                                     setState(() {
@@ -372,11 +374,13 @@ class _HomeChatState extends State<HomeChat> {
                                   GestureDetector(
                                     onTap: () async {
                                       // pickImageWithPermission();
-                                      var res = await takeVideo(context, androidVersion: _androidVersion);
+                                      var res = await takeVideo(context,
+                                          androidVersion: _androidVersion);
                                       print("res video $res");
                                       if (res != null) {
                                         // Mendapatkan ukuran file
                                         File videoFile = File(res.path);
+                                        generateThumbnail(videoFile.path);
                                         int fileSizeInBytes =
                                             await videoFile.length();
                                         double fileSizeInKB = fileSizeInBytes /
@@ -384,7 +388,7 @@ class _HomeChatState extends State<HomeChat> {
                                         double fileSizeInMB = fileSizeInKB /
                                             1024; // Konversi ke MB
 
-                                        if (fileSizeInMB > 30) {
+                                        if (fileSizeInMB > 100) {
                                           NotificationUtils.showDialogError(
                                             context,
                                             () {
@@ -401,7 +405,9 @@ class _HomeChatState extends State<HomeChat> {
                                           setState(() {
                                             value.image = [res];
                                             value.initVideo();
+                                            generateThumbnail(videoFile.path);
                                           });
+                                          debugPrint("ggg ${videoFile.path}");
 
                                           value.extension =
                                               File(value.image![0].path)
@@ -487,7 +493,7 @@ class _HomeChatState extends State<HomeChat> {
                               ),
                               value.isPostChat == true
                                   ? const CircularProgressWidget(
-                                      color: Colors.white,
+                                      color: Colors.blue,
                                     )
                                   : MaterialButton(
                                       elevation: 0,
@@ -609,8 +615,7 @@ class _PlayVideoPostState extends State<PlayVideoPost> {
   late VideoPlayerController controller;
 
   void initVideo() {
-    Uri? url = Uri.tryParse(
-        "${ApiEndpoint.imageUrlPost}${widget.data?.multimedia?.elementAt(0).path?.replaceAll("//", "/")}");
+    Uri? url = Uri.tryParse("${widget.data?.multimedia?.elementAt(0).path}");
 
     print("uriii $url");
     controller = VideoPlayerController.networkUrl(url!)
@@ -769,12 +774,10 @@ class _PlayAudioState extends State<PlayAudio> {
     // });
 
     /// Optional
-    Uri? url = Uri.tryParse(
-        "${ApiEndpoint.imageUrlPost}${widget.data?.multimedia?.elementAt(0).path?.replaceAll("//", "/")}");
+    Uri? url = Uri.tryParse("${widget.data?.multimedia?.elementAt(0).path}");
 
     print("uri mp3 $url");
-    audioPlayer.setSourceUrl(
-        "${ApiEndpoint.imageUrlPost}${widget.data?.multimedia?.elementAt(0).path?.replaceAll("//", "/")}");
+    audioPlayer.setSourceUrl("${widget.data?.multimedia?.elementAt(0).path}");
     audioPlayer.onDurationChanged.listen((Duration duration) {
       setState(() {
         audioDuration = duration.inSeconds;
@@ -798,7 +801,7 @@ class _PlayAudioState extends State<PlayAudio> {
   playMusic() async {
     // Add the parameter "isLocal: true" if you want to access a local file
     await audioPlayer.play(player_state.UrlSource(
-        "${ApiEndpoint.imageUrlPost}${widget.data?.multimedia?.elementAt(0).path?.replaceAll("//", "/")}"));
+        "${widget.data?.multimedia?.elementAt(0).path}"));
     setState(() {
       audioPlayerState = audioPlayerStatePlaying;
     });

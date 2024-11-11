@@ -1,13 +1,13 @@
-import 'package:cool_app/data/data_global.dart';
-import 'package:cool_app/data/provider/provider_transaksi_affiliate.dart';
-import 'package:cool_app/data/provider/provider_user.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/pages/transakction/component/currency_input_formatter.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/utils/circular_progress_widget.dart';
-import 'package:cool_app/presentation/utils/money_formatter.dart';
-import 'package:cool_app/presentation/widgets/button_primary.dart';
-import 'package:cool_app/presentation/widgets/custom_input_field.dart';
+import 'package:coolappflutter/data/data_global.dart';
+import 'package:coolappflutter/data/provider/provider_transaksi_affiliate.dart';
+import 'package:coolappflutter/data/provider/provider_user.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/transakction/component/currency_input_formatter.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/circular_progress_widget.dart';
+import 'package:coolappflutter/presentation/utils/money_formatter.dart';
+import 'package:coolappflutter/presentation/widgets/button_primary.dart';
+import 'package:coolappflutter/presentation/widgets/custom_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
@@ -37,7 +37,14 @@ class _TopupSaldoPageState extends State<TopupSaldoPage> {
   @override
   void initState() {
     isIndonesia = context.read<ProviderUser>().isIndonesia();
+
     super.initState();
+  }
+
+  Future<void> setCurrency(double amount) async {
+    context
+        .read<ProviderTransaksiAffiliate>()
+        .getConvertCurrency(context, amount);
   }
 
   @override
@@ -121,6 +128,11 @@ class _TopupSaldoPageState extends State<TopupSaldoPage> {
                       validator: (value) =>
                           value == null ? S.of(context).cannot_be_empty : null,
                       onChanged: (String? newValue) {
+                        debugPrint(
+                            "cek set currentcy ${controllerAmount.text}");
+                        final double? numericAmount = safeStringToDouble(
+                            controllerAmount.text.toString());
+                        setCurrency(numericAmount!);
                         setState(() {
                           _selectedValue = newValue;
                         });
@@ -173,6 +185,7 @@ class _TopupSaldoPageState extends State<TopupSaldoPage> {
                               S.of(context).confirmation,
                               onPress: () {
                                 if (_formKey.currentState!.validate()) {
+                                  debugPrint("cek apa ini? $_selectedValue");
                                   state.transactionTopupDeposit(
                                       context,
                                       dataGlobal.dataUser?.id.toString() ?? "",
@@ -192,5 +205,20 @@ class _TopupSaldoPageState extends State<TopupSaldoPage> {
         );
       }),
     );
+  }
+
+  double? safeStringToDouble(String input) {
+    try {
+      // Hapus pemisah ribuan (misalnya titik untuk ribuan)
+      String cleanedInput = input.replaceAll(RegExp(r'[,.]'), '');
+
+      // Konversi ke double
+      final double result = double.parse(cleanedInput);
+      return result;
+    } catch (e) {
+      // Log atau tangani kesalahan jika diperlukan
+      print("Failed to parse '$input' to double: $e");
+      return null; // Kembalikan null atau nilai default jika parsing gagal
+    }
   }
 }

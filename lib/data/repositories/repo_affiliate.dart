@@ -1,10 +1,10 @@
-import 'package:cool_app/data/response/affiliate/res_bank_account.dart';
-import 'package:cool_app/data/response/affiliate/res_check_topup_affiliate.dart';
-import 'package:cool_app/data/response/affiliate/res_detail_member.dart';
-import 'package:cool_app/data/response/affiliate/res_list_bank.dart';
-import 'package:cool_app/data/response/affiliate/res_list_member.dart';
-import 'package:cool_app/data/response/affiliate/res_save_rekening.dart';
-import 'package:cool_app/data/response/user/res_check_profile.dart';
+import 'package:coolappflutter/data/response/affiliate/res_bank_account.dart';
+import 'package:coolappflutter/data/response/affiliate/res_check_topup_affiliate.dart';
+import 'package:coolappflutter/data/response/affiliate/res_detail_member.dart';
+import 'package:coolappflutter/data/response/affiliate/res_list_bank.dart';
+import 'package:coolappflutter/data/response/affiliate/res_list_member.dart';
+import 'package:coolappflutter/data/response/affiliate/res_save_rekening.dart';
+import 'package:coolappflutter/data/response/user/res_check_profile.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 

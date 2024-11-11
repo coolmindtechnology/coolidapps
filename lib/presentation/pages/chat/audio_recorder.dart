@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:cool_app/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:record/record.dart';

@@ -1,14 +1,14 @@
-import 'package:cool_app/data/helpers/failure.dart';
-import 'package:cool_app/data/repositories/repo_ebook.dart';
-import 'package:cool_app/data/response/payments/res_history_detail_ebook.dart';
-import 'package:cool_app/data/response/payments/res_history_ebook.dart';
-import 'package:cool_app/data/response/res_create_log_ebook.dart';
-import 'package:cool_app/data/response/res_list_ebook.dart';
-import 'package:cool_app/data/response/res_pre_home.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/pages/payments/pre_invoice_screen.dart';
-import 'package:cool_app/presentation/pages/user/reusable_invoice_screen.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/data/helpers/failure.dart';
+import 'package:coolappflutter/data/repositories/repo_ebook.dart';
+import 'package:coolappflutter/data/response/payments/res_history_detail_ebook.dart';
+import 'package:coolappflutter/data/response/payments/res_history_ebook.dart';
+import 'package:coolappflutter/data/response/res_create_log_ebook.dart';
+import 'package:coolappflutter/data/response/res_list_ebook.dart';
+import 'package:coolappflutter/data/response/res_pre_home.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/payments/pre_invoice_screen.dart';
+import 'package:coolappflutter/presentation/pages/user/reusable_invoice_screen.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../../presentation/utils/notification_utils.dart';
@@ -59,8 +59,9 @@ class ProviderBook extends ChangeNotifier {
   }
 
   List<DataBook> get displayPremium {
-    List<DataBook> listPremiumBook =
-        listAllBook.where((element) => element.isPremium == "1").toList();
+    List<DataBook> listPremiumBook = listAllBook
+        .where((element) => element.isPremium.toString() == "1")
+        .toList();
     if (searchController.text.trim().isEmpty) return listPremiumBook;
     String keyboard = searchController.text.trim();
 
@@ -77,8 +78,9 @@ class ProviderBook extends ChangeNotifier {
   }
 
   List<DataBook> get displayFree {
-    List<DataBook> listFreeBook =
-        listAllBook.where((element) => element.isPremium == "0").toList();
+    List<DataBook> listFreeBook = listAllBook
+        .where((element) => element.isPremium.toString() == "0")
+        .toList();
     if (searchController.text.trim().isEmpty) return listFreeBook;
     String keyboard = searchController.text.trim();
 
@@ -356,6 +358,8 @@ class ProviderBook extends ChangeNotifier {
     notifyListeners();
 
     response.when(error: (e) {
+      // debugPrint("cek ebook $e");
+      // debugPrint("cek ebook $response");
       NotificationUtils.showDialogError(context, () {
         Nav.back();
       },

@@ -39,23 +39,23 @@ class ResTransactionTopupDeposit {
 
 class DataTransactionTopupDeposit {
   int? id;
-  String? orderId;
-  String? idLogs;
-  String? idItemPayments;
-  String? idUser;
-  String? amount;
-  String? discount;
-  String? totalAmount;
-  String? transactionType;
+  dynamic orderId;
+  dynamic idLogs;
+  dynamic idItemPayments;
+  dynamic idUser;
+  dynamic amount;
+  dynamic discount;
+  dynamic totalAmount;
+  dynamic transactionType;
   dynamic paymentType;
-  String? status;
+  dynamic status;
   String? snapToken;
   DateTime? createdAt;
   DateTime? updatedAt;
   dynamic deletedAt;
-  String? item;
-  String? customer;
-  String? source;
+  dynamic item;
+  dynamic customer;
+  dynamic source;
 
   DataTransactionTopupDeposit({
     this.id,

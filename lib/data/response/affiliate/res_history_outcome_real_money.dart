@@ -12,7 +12,7 @@ String resHistoryRealMoneyToJson(ResHistoryOutcomeRealMoney data) =>
 
 class ResHistoryOutcomeRealMoney {
   bool? success;
-  String? message;
+  dynamic message;
   DataPaginationOutcomeHistoryRealMoney? data;
 
   ResHistoryOutcomeRealMoney({
@@ -40,13 +40,13 @@ class ResHistoryOutcomeRealMoney {
 class DataPaginationOutcomeHistoryRealMoney {
   int? currentPage;
   List<HistoryOutcomeRealMoney>? data;
-  String? firstPageUrl;
+  dynamic firstPageUrl;
   int? from;
   int? lastPage;
-  String? lastPageUrl;
+  dynamic lastPageUrl;
   List<Link>? links;
   dynamic nextPageUrl;
-  String? path;
+  dynamic path;
   int? perPage;
   dynamic prevPageUrl;
   int? to;
@@ -114,16 +114,16 @@ class DataPaginationOutcomeHistoryRealMoney {
 
 class HistoryOutcomeRealMoney {
   int? id;
-  String? idUser;
-  String? idAffiliate;
+  dynamic idUser;
+  dynamic idAffiliate;
   dynamic idSaldoAffiliate;
-  String? amount;
-  String? transactionType;
-  String? status;
+  dynamic amount;
+  dynamic transactionType;
+  dynamic status;
   DateTime? createdAt;
   DateTime? updatedAt;
   dynamic deletedAt;
-  String? referenceNo;
+  dynamic referenceNo;
   PayoutsDetail? payoutsDetail;
   User? user;
   Affiliate? affiliate;
@@ -191,29 +191,29 @@ class HistoryOutcomeRealMoney {
 
 class User {
   int? id;
-  String? idRole;
-  String? name;
-  String? phoneNumber;
-  String? email;
+  dynamic idRole;
+  dynamic name;
+  dynamic phoneNumber;
+  dynamic email;
   dynamic emailVerifiedAt;
-  String? address;
-  String? image;
-  String? idCardNumber;
-  String? otpCode;
+  dynamic address;
+  dynamic image;
+  dynamic idCardNumber;
+  dynamic otpCode;
   DateTime? otpTime;
-  String? isProfiling;
-  String? isVerified;
-  String? isDeposit;
-  String? totalDeposit;
-  String? status;
+  dynamic isProfiling;
+  dynamic isVerified;
+  dynamic isDeposit;
+  dynamic totalDeposit;
+  dynamic status;
   DateTime? createdAt;
   DateTime? updatedAt;
   dynamic deletedAt;
-  String? idAffiliate;
-  String? codeReferal;
-  String? idAgent;
-  String? idMitra;
-  String? isAffiliate;
+  dynamic idAffiliate;
+  dynamic codeReferal;
+  dynamic idAgent;
+  dynamic idMitra;
+  dynamic isAffiliate;
   dynamic verificationToken;
 
   User({
@@ -307,8 +307,8 @@ class User {
 }
 
 class Link {
-  String? url;
-  String? label;
+  dynamic url;
+  dynamic label;
   bool? active;
 
   Link({
@@ -332,20 +332,20 @@ class Link {
 
 class Affiliate {
   int? id;
-  String? idUser;
-  String? idUserMember;
-  String? totalMember;
-  String? totalRealMoney;
-  String? totalSaldoAffiliate;
-  String? bankName;
-  String? bankNumber;
-  String? bankAccountName;
-  String? referralCode;
-  String? depositCompleted;
-  String? countRealMoney;
+  dynamic idUser;
+  dynamic idUserMember;
+  dynamic totalMember;
+  dynamic totalRealMoney;
+  dynamic totalSaldoAffiliate;
+  dynamic bankName;
+  dynamic bankNumber;
+  dynamic bankAccountName;
+  dynamic referralCode;
+  dynamic depositCompleted;
+  dynamic countRealMoney;
   DateTime? createdAt;
   DateTime? updatedAt;
-  String? isActive;
+  dynamic isActive;
 
   Affiliate({
     this.id,
@@ -407,15 +407,15 @@ class Affiliate {
 }
 
 class PayoutsDetail {
-  String? amount;
-  String? beneficiaryName;
-  String? beneficiaryAccount;
-  String? bank;
-  String? referenceNo;
-  String? notes;
-  String? beneficiaryEmail;
-  String? status;
-  String? createdBy;
+  dynamic amount;
+  dynamic beneficiaryName;
+  dynamic beneficiaryAccount;
+  dynamic bank;
+  dynamic referenceNo;
+  dynamic notes;
+  dynamic beneficiaryEmail;
+  dynamic status;
+  dynamic createdBy;
   DateTime? createdAt;
   DateTime? updatedAt;
 

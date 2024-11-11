@@ -1,6 +1,6 @@
-import 'package:cool_app/data/models/data_post.dart';
-import 'package:cool_app/data/provider/provider_cool_chat.dart';
-import 'package:cool_app/presentation/pages/chat/screen_detail_postingan.dart';
+import 'package:coolappflutter/data/models/data_post.dart';
+import 'package:coolappflutter/data/provider/provider_cool_chat.dart';
+import 'package:coolappflutter/presentation/pages/chat/screen_detail_postingan.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -35,7 +35,7 @@ class _ItemCoolChatState extends State<ItemCoolChat> {
             Nav.to(ScreenDetailPostingan(
               data: widget.data,
               onUpdateLike: () {
-               widget.onUpdateLike!();
+                widget.onUpdateLike!();
               },
             ));
           },
@@ -65,7 +65,7 @@ class _ItemCoolChatState extends State<ItemCoolChat> {
                               ? ClipRRect(
                                   borderRadius: BorderRadius.circular(100),
                                   child: Image.network(
-                                    "${ApiEndpoint.baseUrlImage}${widget.data?.user?.image}",
+                                    "${widget.data?.user?.image}",
                                     width: 30,
                                     height: 30,
                                     fit: BoxFit.cover,
@@ -120,6 +120,11 @@ class _ItemCoolChatState extends State<ItemCoolChat> {
                                     ?.elementAt(0)
                                     .path
                                     ?.contains(".PNG") ==
+                                true ||
+                            widget.data?.multimedia
+                                    ?.elementAt(0)
+                                    .path
+                                    ?.contains(".webp") ==
                                 true) ...[
                           Container(
                               alignment: Alignment.center,
@@ -128,7 +133,7 @@ class _ItemCoolChatState extends State<ItemCoolChat> {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(10),
                                 child: Image.network(
-                                  "${ApiEndpoint.imageUrlPost}${widget.data?.multimedia?.elementAt(0).path?.replaceAll("//", "/") ?? ""}",
+                                  "${widget.data?.multimedia![0].path ?? ""}",
                                   height: 150,
                                   width: MediaQuery.of(context).size.width,
                                   fit: BoxFit.fitWidth,

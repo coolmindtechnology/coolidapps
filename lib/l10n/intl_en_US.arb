@@ -264,7 +264,7 @@
   "negative_balance_description": "A negative balance is incurred when a member performs profiling but exceeds the available affiliate balance. This deficit is considered a debt (negative balance). When the affiliate tops up, their balance will automatically be deducted according to the negative balance.",
   "terms_conditions_brain_act": "Terms and Conditions Brain Activation",
   "process": "Process",
-  "transfer": "Transfer",
+  "pindahkan_saldo": "Transfer Balance",
   "free_version_limit": "The free version can only be listened to for the first 5 minutes. Please subscribe to listen to the entire content.",
   "daily_limit_reached": "You have reached today's limit of 3 plays",
   "listen_brain_40_times": "Please listen to the brain according to your character 40 times first. After that, you can subscribe to others.",
@@ -274,5 +274,10 @@
   "sharing_opportunities_sharing_profits": "Sharing opportunities, Sharing profits",
   "update_photo_profile_success": "Update photo profile success",
   "please_upload_profile_picture": "Please upload your profile picture",
-  "your_affiliate_code": "Your Affiliate Code"
+  "your_affiliate_code": "Your Affiliate Code",
+  "please_enter_a_valid_email_address": "Please enter a valid email address",
+  "password_must_include_uppercase_letters_lowercase_letters_digits_and_special_characters": "Password must include uppercase letters lowercase letters digits and special characters",
+  "password_must_be_at_least_8_characters": "Password must be at least 8 characters",
+    "please_wait": "Please wait",
+  "uploading_in_progress": "Uploading in progress" 
 }

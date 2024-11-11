@@ -1,4 +1,4 @@
-import 'package:cool_app/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -23,7 +23,7 @@ class CustomInputField extends StatelessWidget {
   final String? Function(String? val)? onChanged;
   final TextInputAction? textInputAction;
   const CustomInputField(
-      {Key? key,
+      {super.key,
       this.hintText,
       this.title,
       this.textEditingController,
@@ -37,8 +37,7 @@ class CustomInputField extends StatelessWidget {
       this.obscureText,
       this.obsecureTextHint,
       this.textInputAction,
-      this.suffixIcon})
-      : super(key: key);
+      this.suffixIcon});
 
   @override
   Widget build(BuildContext context) {

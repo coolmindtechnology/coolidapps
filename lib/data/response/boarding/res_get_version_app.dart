@@ -37,7 +37,7 @@ class ResGetVersionApp {
 }
 
 class DataVersionApp {
-  String? id;
+  dynamic id;
   String? stableVersion;
   DateTime? createdAt;
   DateTime? updatedAt;

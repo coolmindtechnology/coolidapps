@@ -4,14 +4,16 @@
 
 import 'dart:convert';
 
-ResPermiteProfiling resPermiteProfilingFromJson(String str) => ResPermiteProfiling.fromJson(json.decode(str));
+ResPermiteProfiling resPermiteProfilingFromJson(String str) =>
+    ResPermiteProfiling.fromJson(json.decode(str));
 
-String resPermiteProfilingToJson(ResPermiteProfiling data) => json.encode(data.toJson());
+String resPermiteProfilingToJson(ResPermiteProfiling data) =>
+    json.encode(data.toJson());
 
 class ResPermiteProfiling {
   bool? success;
   String? message;
-  String? data;
+  dynamic data;
 
   ResPermiteProfiling({
     this.success,
@@ -19,15 +21,16 @@ class ResPermiteProfiling {
     this.data,
   });
 
-  factory ResPermiteProfiling.fromJson(Map<String, dynamic> json) => ResPermiteProfiling(
-    success: json["success"],
-    message: json["message"],
-    data: json["data"],
-  );
+  factory ResPermiteProfiling.fromJson(Map<String, dynamic> json) =>
+      ResPermiteProfiling(
+        success: json["success"],
+        message: json["message"],
+        data: json["data"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "success": success,
-    "message": message,
-    "data": data,
-  };
+        "success": success,
+        "message": message,
+        "data": data,
+      };
 }

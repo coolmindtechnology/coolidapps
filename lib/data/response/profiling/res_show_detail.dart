@@ -11,7 +11,7 @@ String resShowDetailToJson(ResShowDetail data) => json.encode(data.toJson());
 
 class ResShowDetail {
   bool? success;
-  String? message;
+  dynamic message;
   DataShowDetail? data;
 
   ResShowDetail({
@@ -23,7 +23,8 @@ class ResShowDetail {
   factory ResShowDetail.fromJson(Map<String, dynamic> json) => ResShowDetail(
         success: json["success"],
         message: json["message"],
-        data: json["data"] == null ? null : DataShowDetail.fromJson(json["data"]),
+        data:
+            json["data"] == null ? null : DataShowDetail.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -34,11 +35,11 @@ class ResShowDetail {
 }
 
 class DataShowDetail {
-  String? idResult;
-  String? name;
-  String? result;
-  String? birthDate;
-  String? shareCode;
+  dynamic idResult;
+  dynamic name;
+  dynamic result;
+  dynamic birthDate;
+  dynamic shareCode;
 
   DataShowDetail({
     this.idResult,

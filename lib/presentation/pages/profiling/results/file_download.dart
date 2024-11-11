@@ -1,7 +1,7 @@
 import 'dart:io';
-import 'package:cool_app/data/data_global.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
-import 'package:cool_app/presentation/utils/resources/notification.dart';
+import 'package:coolappflutter/data/data_global.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/utils/resources/notification.dart';
 import 'package:dio/dio.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';

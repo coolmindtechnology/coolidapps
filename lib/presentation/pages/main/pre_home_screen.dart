@@ -1,12 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:cool_app/data/provider/provider_book.dart';
-import 'package:cool_app/data/provider/provider_user.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/pages/main/nav_home.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/utils/circular_progress_widget.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/data/provider/provider_book.dart';
+import 'package:coolappflutter/data/provider/provider_user.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/main/nav_home.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/circular_progress_widget.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../data/networks/endpoint/api_endpoint.dart';
@@ -48,7 +48,7 @@ class _PreHomeScreenState extends State<PreHomeScreen> {
                 child: value.dataPre?.logo == null
                     ? Container()
                     : Image.network(
-                        "${ApiEndpoint.baseUrl}/${value.dataPre?.logo}",
+                        "${value.dataPre?.logo}",
                         height: 60,
                         width: 194,
                       ),
@@ -66,7 +66,7 @@ class _PreHomeScreenState extends State<PreHomeScreen> {
                       child: value.dataPre?.image == null
                           ? Container()
                           : Image.network(
-                              "${ApiEndpoint.baseUrl}/${value.dataPre?.image}",
+                              "${value.dataPre?.image}",
                               height: 190,
                               width: MediaQuery.of(context).size.width - 100,
                               fit: BoxFit.fitWidth,

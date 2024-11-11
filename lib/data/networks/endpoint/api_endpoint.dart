@@ -1,8 +1,12 @@
 class ApiEndpoint {
-  static String baseUrl = "https://cool-app.udadeveloper.com";
+  // static String baseUrl = "https://cool-app.udadeveloper.com";
+  static String baseUrl = "https://coolcompas.hantrr.com";
+  // static String baseUrl = "https://cool-compass.pasarsembang.com";
   // Sets the base URL to "https://cool-app.udadeveloper.com".
   static void setDev() {
-    baseUrl = "https://cool-app.udadeveloper.com";
+    // baseUrl = "https://cool-app.udadeveloper.com";
+    // baseUrl = "https://cool-compass.pasarsembang.com";
+    baseUrl = "https://coompas-of-life.hantrr.com";
   }
 
   /// Sets the base URL to "https://cool-compass.mycool.id" for production environment.
@@ -12,7 +16,10 @@ class ApiEndpoint {
   ///
   /// This function does not take any parameters and does not return any value.
   static void setProd() {
-    baseUrl = "https://cool-compass.mycool.id";
+    // baseUrl = "https://cool-compass.mycool.id";
+    // baseUrl = "https://cool-compass.pasarsembang.com";
+    // baseUrl = "https://coolprojects.sabahloka.com";
+    baseUrl = "https://coolcompas.hantrr.com";
   }
 
   /// Base API Endpoint
@@ -21,12 +28,16 @@ class ApiEndpoint {
   // Getter untuk _baseUrlApi
   static String get baseUrlApi => _baseUrlApi;
 
-  static String imageUrl = "$baseUrl/storage/images/ebook/";
-  static String imageUrlUser = "$baseUrl/storage/user/";
-  static const String imageUrlPreHome = "https://cool-app.udadeveloper.com/";
+  static String imageUrl = "$imageUrlPreHome/storage/images/ebook/";
+  static String imageUrlUser = "$imageUrlPreHome/storage/user/";
+  // static const String imageUrlPreHome = "https://cool-app.udadeveloper.com/";
+  // static const String imageUrlPreHome =
+  //     "https://cool-compass.pasarsembang.com/";
+  static const String imageUrlPreHome =
+      "https://s3.ap-southeast-1.amazonaws.com/";
 
   ////endpoint image
-  static String baseUrlImage = "$baseUrl/";
+  static String baseUrlImage = "$imageUrlPreHome/";
 
   //base endpoint boarding
   static final String _boardingUrlApi = "${_baseUrlApi}boarding/";
@@ -249,6 +260,9 @@ class ApiEndpoint {
       "${_transactionRealMoneyUrlApi}getVoucherHistory";
   static String transactionLastWithdraw =
       "${_transactionRealMoneyUrlApi}transactionLastWithdraw";
+
+  //Convert Currency
+  static String convertCurrency = "${baseUrlApi}convert-currency";
 
   ///api soung opening
   // static String apiOpeningCool = "${_baseUrlApi}boarding/get-sound";

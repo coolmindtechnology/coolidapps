@@ -1,5 +1,5 @@
-import 'package:cool_app/data/networks/endpoint/api_endpoint.dart';
-import 'package:cool_app/data/provider/provider_affiliate.dart';
+import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
+import 'package:coolappflutter/data/provider/provider_affiliate.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -77,7 +77,7 @@ class _ScreenDetailMemberState extends State<ScreenDetailMember> {
                           : ClipRRect(
                               borderRadius: BorderRadius.circular(100),
                               child: Image.network(
-                                "${ApiEndpoint.imageUrlPreHome}${value.detailDataMember?.image}",
+                                "${value.detailDataMember?.image}",
                                 width: 100,
                                 height: 100,
                                 fit: BoxFit.cover,
@@ -112,7 +112,7 @@ class _ScreenDetailMemberState extends State<ScreenDetailMember> {
                     height: 8,
                   ),
                   Text(
-                    value.detailDataMember?.phoneNumber ?? "-",
+                    value.detailDataMember?.phoneNumber.toString() ?? "-",
                     style: const TextStyle(fontSize: 14),
                   ),
                   const SizedBox(

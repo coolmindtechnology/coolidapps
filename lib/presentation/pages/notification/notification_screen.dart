@@ -1,150 +1,124 @@
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/data/provider/proviider_notification.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/notification/notification_detail.dart';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+// Import screen detail
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
 
   @override
-  State<NotificationScreen> createState() => _NotificationScreenState();
+  _NotificationScreenState createState() => _NotificationScreenState();
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
-  List<Map<String, dynamic>> listNotification = [
-    {
-      "title": S.current.profiling_results,
-      "subtitle": "Description of result Profiling",
-      "time": "15 minutes",
-      "image": "assets/icons/person_add.png"
-    },
-    {
-      "title": S.current.reset_password,
-      "subtitle": "Description of result Profiling",
-      "time": "15 minutes",
-      "image": "assets/icons/person_add.png"
-    },
-    {
-      "title": S.current.account_success,
-      "subtitle": "Description of result Profiling",
-      "time": "15 minutes",
-      "image": "assets/icons/person_add.png"
-    },
-  ];
+  late ScrollController _scrollController;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController()..addListener(_onScroll);
+  }
+
+  void _onScroll() {
+    if (_scrollController.position.pixels >=
+        _scrollController.position.maxScrollExtent) {
+      final provider =
+          Provider.of<NotificationProvider>(context, listen: false);
+      provider.loadMoreNotifications(); // Memuat halaman berikutnya
+    }
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_onScroll);
+    _scrollController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          S.of(context).notification,
-          style: TextStyle(color: whiteColor),
+        title: const Text(
+          "Notifikasi",
+          style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: primaryColor,
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Center(
-          child: Text(
-            S.of(context).coming_soon,
-            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+        actions: [
+          Consumer<NotificationProvider>(
+            builder: (context, provider, child) {
+              int unreadCount = provider.notifications
+                  .where((notification) => notification.isRead == 0)
+                  .length;
+              return IconButton(
+                onPressed: () {},
+                icon: Badge.count(
+                  count: provider.totalNotif,
+                  child: const Icon(Icons.notifications),
+                ),
+              );
+            },
           ),
-        ),
-
-        //  ListView.separated(
-        //     itemCount: listNotification.length,
-        //     separatorBuilder: (context, index) {
-        //       return Divider(
-        //         color: naturalGrey.withOpacity(0.5),
-        //       );
-        //     },
-        //     itemBuilder: (context, index) {
-        //       return Dismissible(
-        //         key: Key(listNotification[index]["title"]),
-        //         direction: DismissDirection.endToStart,
-        //         onDismissed: (direction) {
-        //           setState(() {
-        //             listNotification.removeAt(index);
-        //           });
-        //         },
-        //         background: Container(color: Colors.red),
-        //         child: itemNotification(
-        //           title: listNotification[index]["title"],
-        //           subtitle: listNotification[index]["subtitle"],
-        //           time: listNotification[index]["time"],
-        //           image: listNotification[index]["image"],
-        //           onTap: () {
-        //             setState(() {
-        //               listNotification.removeAt(index);
-        //             });
-        //           },
-        //         ),
-        //       );
-        //     }),
+        ],
       ),
-    );
-  }
-
-  Padding itemNotification(
-      {required String title,
-      required String subtitle,
-      required String time,
-      required String image,
-      Function()? onTap}) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: SizedBox(
-          child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-            Container(
-              height: 54,
-              width: 54,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle, color: greenColor.withOpacity(0.1)),
-              child: Center(
-                  child: Image.asset(
-                image,
-                width: 24,
-              )),
-            ),
-            const SizedBox(
-              width: 16,
-            ),
-            Expanded(
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      title,
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                    Text(
-                      time,
-                      style: TextStyle(
-                          color: greyColor,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w300),
-                    ),
-                    Text(
-                      subtitle,
-                      style: TextStyle(
-                          color: greyColor,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w300),
-                    ),
-                  ]),
-            ),
-            Align(
-                alignment: Alignment.topRight,
-                child: GestureDetector(
-                  onTap: onTap,
-                  child: const Icon(
-                    Icons.close,
-                    size: 20,
-                  ),
-                ))
-          ])),
+      body: Consumer<NotificationProvider>(
+        builder: (context, provider, child) {
+          return RefreshIndicator(
+              onRefresh: () async {
+                // Memanggil fetchNotifications dengan isRefresh true untuk pull-to-refresh
+                await provider.fetchNotifications(isRefresh: true);
+              },
+              child: provider.notifications.isNotEmpty
+                  ? ListView.builder(
+                      controller: _scrollController,
+                      itemCount: provider.notifications.length + 1,
+                      itemBuilder: (context, index) {
+                        if (index == provider.notifications.length) {
+                          return provider.isLoading
+                              ? const Center(child: CircularProgressIndicator())
+                              : const SizedBox
+                                  .shrink(); // Indikator loading untuk data berikutnya
+                        }
+                        final notification = provider.notifications[index];
+                        return GestureDetector(
+                          onTap: () async {
+                            final notificationDetail = await provider
+                                .fetchNotificationDetail(notification.slug);
+                            if (notificationDetail != null &&
+                                notificationDetail.isRead == 0) {
+                              await provider.markAsRead(notification.slug);
+                            }
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => DetailNotificationScreen(
+                                  notificationId: notification.slug,
+                                ),
+                              ),
+                            ).then((_) {
+                              // Refresh after returning from detail screen to update read status
+                              provider.fetchNotifications(isRefresh: true);
+                            });
+                          },
+                          child: Card(
+                            color: notification.isRead == 1
+                                ? Colors.grey[300]
+                                : Colors.white,
+                            child: ListTile(
+                              title: Text(notification.title),
+                              subtitle: Text(notification.message),
+                            ),
+                          ),
+                        );
+                      },
+                    )
+                  : Container(
+                      child: Center(child: Text(S.of(context).no_data)),
+                    ));
+        },
+      ),
     );
   }
 }

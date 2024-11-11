@@ -1,6 +1,6 @@
-import 'package:cool_app/presentation/pages/profiling/screen_hasil_kepribadian.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
-import 'package:cool_app/presentation/widgets/button_primary.dart';
+import 'package:coolappflutter/presentation/pages/profiling/screen_hasil_kepribadian.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/widgets/button_primary.dart';
 import 'package:flutter/material.dart';
 
 import '../../../data/response/profiling/res_list_profiling.dart';
@@ -23,10 +23,13 @@ class _DetailProfilingState extends State<DetailProfiling> {
     // TODO: implement initState
     super.initState();
     DateTime currentDate = DateTime.now();
-    usia = currentDate.year - int.parse(widget.data?.yearDate ?? "");
-    if (currentDate.month < int.parse(widget.data?.monthDate ?? "") ||
-        (currentDate.month == int.parse(widget.data?.monthDate ?? "") &&
-            currentDate.day < int.parse(widget.data?.birthDate ?? ""))) {
+    usia = currentDate.year - int.parse(widget.data?.yearDate.toString() ?? "");
+    if (currentDate.month <
+            int.parse(widget.data?.monthDate.toString() ?? "") ||
+        (currentDate.month ==
+                int.parse(widget.data?.monthDate.toString() ?? "") &&
+            currentDate.day <
+                int.parse(widget.data?.birthDate.toString() ?? ""))) {
       usia;
     }
   }
@@ -37,7 +40,7 @@ class _DetailProfilingState extends State<DetailProfiling> {
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-            widget.data?.profilingName ?? "",
+            widget.data?.profilingName.toString() ?? "",
             style: const TextStyle(color: Colors.white),
           ),
           iconTheme: const IconThemeData(color: Colors.white),
@@ -66,7 +69,7 @@ class _DetailProfilingState extends State<DetailProfiling> {
                     TextFormField(
                       enabled: false,
                       decoration: InputDecoration(
-                        hintText: widget.data?.profilingName ?? "-",
+                        hintText: widget.data?.profilingName.toString() ?? "-",
                         border: OutlineInputBorder(
                             borderSide:
                                 const BorderSide(color: Colors.white, width: 1),
@@ -79,7 +82,7 @@ class _DetailProfilingState extends State<DetailProfiling> {
                       height: 8,
                     ),
                     Text(
-                      S.of(context).date_of_birth,
+                      S.of(context).date_of_birth.toString(),
                       style: const TextStyle(fontSize: 14),
                     ),
                     const SizedBox(
@@ -88,7 +91,7 @@ class _DetailProfilingState extends State<DetailProfiling> {
                     TextFormField(
                       enabled: false,
                       decoration: InputDecoration(
-                        hintText: widget.data?.date ?? "-",
+                        hintText: widget.data?.date.toString() ?? "-",
                         border: OutlineInputBorder(
                             borderSide:
                                 const BorderSide(color: Colors.white, width: 1),
@@ -101,7 +104,7 @@ class _DetailProfilingState extends State<DetailProfiling> {
                       height: 8,
                     ),
                     Text(
-                      S.of(context).age,
+                      S.of(context).age.toString(),
                       style: const TextStyle(fontSize: 14),
                     ),
                     const SizedBox(
@@ -124,7 +127,7 @@ class _DetailProfilingState extends State<DetailProfiling> {
                       height: 8,
                     ),
                     Text(
-                      S.of(context).residence,
+                      S.of(context).residence.toString(),
                       style: const TextStyle(fontSize: 14),
                     ),
                     const SizedBox(
@@ -146,7 +149,7 @@ class _DetailProfilingState extends State<DetailProfiling> {
                       height: 8,
                     ),
                     Text(
-                      S.of(context).blood_type,
+                      S.of(context).blood_type.toString(),
                       style: const TextStyle(fontSize: 14),
                     ),
                     const SizedBox(

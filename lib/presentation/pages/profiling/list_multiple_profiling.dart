@@ -1,17 +1,17 @@
-import 'package:cool_app/data/models/data_checkout_transaction.dart';
-import 'package:cool_app/data/provider/provider_profiling.dart';
-import 'package:cool_app/data/response/profiling/res_list_multiple_profiling.dart';
-import 'package:cool_app/data/response/profiling/res_list_profiling.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/pages/profiling/detail_profiling.dart';
-import 'package:cool_app/presentation/pages/profiling/screen_feature_kepribadian.dart';
-import 'package:cool_app/presentation/pages/profiling/screen_hasil_kepribadian.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/utils/circular_progress_widget.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
-import 'package:cool_app/presentation/utils/notification_utils.dart';
-import 'package:cool_app/presentation/widgets/button_primary.dart';
-import 'package:cool_app/presentation/widgets/refresh_icon_widget.dart';
+import 'package:coolappflutter/data/models/data_checkout_transaction.dart';
+import 'package:coolappflutter/data/provider/provider_profiling.dart';
+import 'package:coolappflutter/data/response/profiling/res_list_multiple_profiling.dart';
+import 'package:coolappflutter/data/response/profiling/res_list_profiling.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/profiling/detail_profiling.dart';
+import 'package:coolappflutter/presentation/pages/profiling/screen_feature_kepribadian.dart';
+import 'package:coolappflutter/presentation/pages/profiling/screen_hasil_kepribadian.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/circular_progress_widget.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/utils/notification_utils.dart';
+import 'package:coolappflutter/presentation/widgets/button_primary.dart';
+import 'package:coolappflutter/presentation/widgets/refresh_icon_widget.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -59,7 +59,7 @@ class _ListMultipleProfilingState extends State<ListMultipleProfiling> {
                           widget.dataListMultipleProfiling.profiling![index];
                       return GestureDetector(
                           onTap: () {
-                            if (dataProfiling.status == "0") {
+                            if (dataProfiling.status.toString() == "0") {
                               //     NotificationUtils.showSimpleDialog2(
                               //       context,
                               //       S.of(context).pay_to_see_more,
@@ -115,7 +115,7 @@ class _ListMultipleProfilingState extends State<ListMultipleProfiling> {
                             }
                           },
                           onDoubleTap: () {
-                            if (dataProfiling.status == "0") {
+                            if (dataProfiling.status.toString() == "0") {
                               // NotificationUtils.showSimpleDialog(
                               //     context, S.of(context).pay_to_see_more, () {
                               //   Nav.back();
@@ -138,7 +138,8 @@ class _ListMultipleProfilingState extends State<ListMultipleProfiling> {
               ),
             ),
             bottomNavigationBar: widget.dataListMultipleProfiling.profiling
-                        ?.any((dataProfiling) => dataProfiling.status != "1") ==
+                        ?.any((dataProfiling) =>
+                            dataProfiling.status.toString() != "1") ==
                     true
                 ? Padding(
                     padding: const EdgeInsets.all(20),
@@ -154,9 +155,10 @@ class _ListMultipleProfilingState extends State<ListMultipleProfiling> {
                                 selectedIds.clear();
                                 widget.dataListMultipleProfiling.profiling
                                     ?.forEach((dataProfiling) {
-                                  if (dataProfiling.status != "1") {
+                                  if (dataProfiling.status.toString() != "1") {
                                     selectedIds.add(int.parse(
-                                        dataProfiling.idLogResult ?? "0"));
+                                        dataProfiling.idLogResult.toString() ??
+                                            "0"));
                                   }
                                 });
                                 DataCheckoutTransaction dataCheckoutTransaction;

@@ -1,15 +1,17 @@
 import 'dart:developer';
 
-import 'package:cool_app/data/data_global.dart';
-import 'package:cool_app/data/networks/endpoint/api_endpoint.dart';
-import 'package:cool_app/data/provider/provider_brain_activation.dart';
-import 'package:cool_app/presentation/pages/payments/payment_failed_page.dart';
-import 'package:cool_app/presentation/pages/payments/payment_success_page.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/data/data_global.dart';
+import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
+import 'package:coolappflutter/data/provider/provider_brain_activation.dart';
+import 'package:coolappflutter/presentation/pages/payments/payment_failed_page.dart';
+import 'package:coolappflutter/presentation/pages/payments/payment_success_page.dart';
+import 'package:coolappflutter/presentation/pages/payments/webview_paypal.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class PaypalScreen extends StatefulWidget {
@@ -36,13 +38,22 @@ class _PaypalScreenState extends State<PaypalScreen> {
   final GlobalKey webViewKey = GlobalKey();
   String url = "";
   double progress = 0;
+  double pembagi = 0;
 
   PullToRefreshController? pullToRefreshController;
   @override
   void initState() {
     super.initState();
-    // print(
-    // "cobaa https://cool-app.udadeveloper.com/api/paypal/payment?order_id=${widget.orderId}&currency_paypal=${widget.currencyPaypal}&amount_paypal=${widget.amountPaypal}");
+    // pembagi = int.parse(widget.amountPaypal.toString()) / 1000000;
+
+    // PaypalWebViewScreen(
+    //   orderId: widget.orderId.toString(),
+    //   currencyPaypal: widget.currencyPaypal.toString(),
+    //   amountPaypal: widget.amountPaypal.toString(),
+    // );
+    // payPal();
+    print(
+        "https://coolprojects.sabahloka.com/api/paypal/payment?order_id=${widget.orderId}&currency_paypal=${widget.currencyPaypal}&amount_paypal=${widget.amountPaypal.toString()}");
     pullToRefreshController = kIsWeb
         ? null
         : PullToRefreshController(
@@ -59,6 +70,14 @@ class _PaypalScreenState extends State<PaypalScreen> {
               }
             },
           );
+  }
+
+  payPal() async {
+    // var contact = "+6282283794783";
+    var androidUrl =
+        "https://coolprojects.sabahloka.com/api/paypal/payment?order_id=${widget.orderId}&currency_paypal=${widget.currencyPaypal}&amount_paypal=${widget.amountPaypal.toString()}";
+    // "whatsapp://send?phone=$contact&text=Hi, Ayo Gabung ke mautrip.id";
+    await launchUrl(Uri.parse(androidUrl));
   }
 
   @override
@@ -109,7 +128,7 @@ class _PaypalScreenState extends State<PaypalScreen> {
                 url = "${Uri.parse(url1.toString())}";
               });
 
-              print("ON LOAD Start ${url}");
+              print("ON LOAD Start $url");
             },
             androidOnPermissionRequest: (controller, origin, resources) async {
               return PermissionRequestResponse(
@@ -191,6 +210,7 @@ class _PaypalScreenState extends State<PaypalScreen> {
                   } else if (widget.fromPage == "register_affiliate") {
                     Nav.back(data: "affiliate");
                   } else if (widget.fromPage == "topup_affiliate") {
+                    debugPrint("cek sini ya ok? ${widget.fromPage}");
                     Nav.back();
                     Nav.back();
                     Nav.back(data: "topup_affiliate");

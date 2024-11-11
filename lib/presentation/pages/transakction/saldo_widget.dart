@@ -1,20 +1,20 @@
 // ignore_for_file: use_build_context_synchronously, must_be_immutable
 
-import 'package:cool_app/data/provider/provider_transaksi_affiliate.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/pages/transakction/component/transaction_filter_date.dart';
-import 'package:cool_app/presentation/pages/transakction/topup_saldo.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/utils/circular_progress_widget.dart';
-import 'package:cool_app/presentation/utils/money_formatter.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
-import 'package:cool_app/presentation/widgets/refresh_icon_widget.dart';
-import 'package:cool_app/presentation/widgets/shimmer_loading_widget_many.dart';
+import 'package:coolappflutter/data/provider/provider_transaksi_affiliate.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/transakction/component/transaction_filter_date.dart';
+import 'package:coolappflutter/presentation/pages/transakction/topup_saldo.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/circular_progress_widget.dart';
+import 'package:coolappflutter/presentation/utils/money_formatter.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/widgets/refresh_icon_widget.dart';
+import 'package:coolappflutter/presentation/widgets/shimmer_loading_widget_many.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:cool_app/presentation/pages/transakction/component/header_topup_widget.dart';
-import 'package:cool_app/presentation/pages/transakction/component/income_card_widget.dart';
-import 'package:cool_app/presentation/pages/transakction/component/output_card_widget.dart';
+import 'package:coolappflutter/presentation/pages/transakction/component/header_topup_widget.dart';
+import 'package:coolappflutter/presentation/pages/transakction/component/income_card_widget.dart';
+import 'package:coolappflutter/presentation/pages/transakction/component/output_card_widget.dart';
 import 'package:provider/provider.dart';
 
 class SaldoWidget extends StatefulWidget {
@@ -72,6 +72,7 @@ class _SaldoWidgetState extends State<SaldoWidget>
           .read<ProviderTransaksiAffiliate>()
           .refreshHistoryReductionSaldo(context, filterReduction);
     });
+
     super.initState();
   }
 
@@ -123,7 +124,7 @@ class _SaldoWidgetState extends State<SaldoWidget>
                     isLoading: state.isGetSingleTotalSaldoAffiliate,
                     textButton: S.of(context).top_up,
                     nominal:
-                        "${MoneyFormatter.formatMoney(state.dataSingleTotalSaldoAffiliate?.totalSaldoAffiliate, true)}",
+                        "${MoneyFormatter.formatMoney(state.dataSingleTotalSaldoAffiliate?.totalSaldoAffiliate.toString(), true)}",
                     onPress: () async {
                       var data = await Nav.to(const TopupSaldoPage());
                       if (data != null) {
@@ -383,8 +384,8 @@ class _IncomeWidgetState extends State<IncomeWidget> {
                         var data = widget.state.listHistoryTopupSaldo[index];
                         return GestureDetector(
                           onTap: () {
-                            widget.state
-                                .getInvoiceSaldo(context, data.id ?? "");
+                            widget.state.getInvoiceSaldo(
+                                context, data.id.toString() ?? "");
                           },
                           child: IncomeCardWidget(
                             nominal: "${data.amount}",

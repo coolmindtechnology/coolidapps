@@ -1,16 +1,16 @@
 import 'dart:async';
 
-import 'package:cool_app/data/helpers/either.dart';
-import 'package:cool_app/data/helpers/failure.dart';
-import 'package:cool_app/data/networks/endpoint/api_endpoint.dart';
-import 'package:cool_app/data/repositories/repo_boarding.dart';
-import 'package:cool_app/data/response/boarding/res_get_version_app.dart';
-import 'package:cool_app/data/response/boarding/res_on_boarding.dart';
-import 'package:cool_app/data/response/boarding/res_splash_screen.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/pages/main/update_app_page.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
-import 'package:cool_app/presentation/utils/notification_utils.dart';
+import 'package:coolappflutter/data/helpers/either.dart';
+import 'package:coolappflutter/data/helpers/failure.dart';
+import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
+import 'package:coolappflutter/data/repositories/repo_boarding.dart';
+import 'package:coolappflutter/data/response/boarding/res_get_version_app.dart';
+import 'package:coolappflutter/data/response/boarding/res_on_boarding.dart';
+import 'package:coolappflutter/data/response/boarding/res_splash_screen.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/main/update_app_page.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/utils/notification_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -33,10 +33,8 @@ class ProviderBoarding extends ChangeNotifier {
   String? onBoardingImageUrl = "";
 
   String? get urlLogo => "${ApiEndpoint.baseUrlImage}$logoUrl";
-  String? get urlLogoOnBoarding =>
-      "${ApiEndpoint.baseUrlImage}$onBoardingLogoUrl";
-  String? get urlImageOnBoarding =>
-      "${ApiEndpoint.baseUrlImage}$onBoardingImageUrl";
+  String? get urlLogoOnBoarding => "$onBoardingLogoUrl";
+  String? get urlImageOnBoarding => "$onBoardingImageUrl";
   DataOnBoarding? dataOnBoarding;
 
   bool disposed = false;

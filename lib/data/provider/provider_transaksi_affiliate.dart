@@ -1,24 +1,26 @@
-import 'package:cool_app/data/helpers/either.dart';
-import 'package:cool_app/data/helpers/failure.dart';
-import 'package:cool_app/data/repositories/repo_transaksi_affiliate.dart';
-import 'package:cool_app/data/response/affiliate/res_history_outcome_real_money.dart';
-import 'package:cool_app/data/response/affiliate/res_history_real_money.dart';
-import 'package:cool_app/data/response/affiliate/res_home_affiliate.dart';
-import 'package:cool_app/data/response/affiliate/res_invoice_realmooney.dart';
-import 'package:cool_app/data/response/affiliate/res_invoice_witdraw.dart';
-import 'package:cool_app/data/response/transaksi/res_create_withdraw.dart';
-import 'package:cool_app/data/response/transaksi/res_get_affiliate_management.dart';
-import 'package:cool_app/data/response/transaksi/res_get_single_total_saldo.dart';
-import 'package:cool_app/data/response/transaksi/res_history_saldo_reduction.dart';
-import 'package:cool_app/data/response/transaksi/res_history_topup_affiliate.dart';
-import 'package:cool_app/data/response/transaksi/res_invoice_saldo.dart';
-import 'package:cool_app/data/response/transaksi/res_transaction_topup_deposit.dart';
-import 'package:cool_app/data/response/transaksi/res_update_transaction_saldo_with_real_money.dart';
-import 'package:cool_app/presentation/pages/affiliate_register/invoice_register_affiliate.dart';
-import 'package:cool_app/presentation/pages/transakction/voucher_page.dart';
-import 'package:cool_app/presentation/pages/user/reusable_invoice_screen.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
-import 'package:cool_app/presentation/utils/notification_utils.dart';
+import 'package:coolappflutter/data/helpers/either.dart';
+import 'package:coolappflutter/data/helpers/failure.dart';
+import 'package:coolappflutter/data/repositories/repo_transaksi_affiliate.dart';
+import 'package:coolappflutter/data/response/affiliate/res_history_outcome_real_money.dart';
+import 'package:coolappflutter/data/response/affiliate/res_history_real_money.dart';
+import 'package:coolappflutter/data/response/affiliate/res_home_affiliate.dart';
+import 'package:coolappflutter/data/response/affiliate/res_invoice_realmooney.dart';
+import 'package:coolappflutter/data/response/affiliate/res_invoice_witdraw.dart';
+import 'package:coolappflutter/data/response/convert_currency/convert_currency.dart';
+import 'package:coolappflutter/data/response/transaksi/res_create_withdraw.dart';
+import 'package:coolappflutter/data/response/transaksi/res_create_withdraw_banned_account.dart';
+import 'package:coolappflutter/data/response/transaksi/res_get_affiliate_management.dart';
+import 'package:coolappflutter/data/response/transaksi/res_get_single_total_saldo.dart';
+import 'package:coolappflutter/data/response/transaksi/res_history_saldo_reduction.dart';
+import 'package:coolappflutter/data/response/transaksi/res_history_topup_affiliate.dart';
+import 'package:coolappflutter/data/response/transaksi/res_invoice_saldo.dart';
+import 'package:coolappflutter/data/response/transaksi/res_transaction_topup_deposit.dart';
+import 'package:coolappflutter/data/response/transaksi/res_update_transaction_saldo_with_real_money.dart';
+import 'package:coolappflutter/presentation/pages/affiliate_register/invoice_register_affiliate.dart';
+import 'package:coolappflutter/presentation/pages/transakction/voucher_page.dart';
+import 'package:coolappflutter/presentation/pages/user/reusable_invoice_screen.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/utils/notification_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -30,8 +32,33 @@ class ProviderTransaksiAffiliate extends ChangeNotifier {
   int pageHistoryIncomeSaldo = 1;
   bool hasMoreHistoryIncomeSaldo = true;
   final int _limitHistoryIncomeSaldo = 10;
+  String getResultConvertCurencyValue = "";
 
   bool isLoadingHistoryTopup = false;
+
+  Future<void> getConvertCurrency(
+    BuildContext context,
+    double amount,
+  ) async {
+    Either<Failure, ConvertCurrencyModel> response =
+        await repoTransaksiAffiliate.getConvertcurrency(amount);
+
+    response.when(error: (e) {
+      NotificationUtils.showDialogError(context, () {
+        Nav.back();
+      },
+          widget: Text(
+            e.message,
+            textAlign: TextAlign.center,
+          ));
+    }, success: (res) async {
+      debugPrint("cek conver currency from api ${res.data.toString()}");
+      getResultConvertCurencyValue = res.data.toString();
+
+      notifyListeners();
+    });
+    notifyListeners();
+  }
 
   Future<void> getHistoryTopup(
     BuildContext context,
@@ -286,6 +313,7 @@ class ProviderTransaksiAffiliate extends ChangeNotifier {
             textAlign: TextAlign.center,
           ));
     }, success: (res) async {
+      debugPrint("cek apa ini serius? $fromPage");
       var data = res.data;
 
       if (fromPage == "register") {
@@ -311,6 +339,7 @@ class ProviderTransaksiAffiliate extends ChangeNotifier {
           amount: data?.amount,
           orderId: data?.orderId,
           isIndonesia: true,
+          resultCenvertCurrency: getResultConvertCurencyValue.toString(),
           isWithdraw: false,
           date: data?.createdAt,
           paymentType: data?.item,
@@ -553,7 +582,7 @@ class ProviderTransaksiAffiliate extends ChangeNotifier {
 
     var dataBank = dataAffiliasi;
 
-    Either<Failure, ResCreateWithdraw> response =
+    Either<ResCreateWithdraw, ResCreateWithdraw> response =
         await repoTransaksiAffiliate.createWithdraw(
       amount,
       dataBank?.bankNumber ?? "",
@@ -575,9 +604,12 @@ class ProviderTransaksiAffiliate extends ChangeNotifier {
     }, success: (res) async {
       if (res.success == true) {
         var data = res.data;
+        debugPrint(
+            "cek get currency ${getResultConvertCurencyValue.toString()}");
         Nav.to(VoucherPage(
           amount: data?.amount,
           orderId: data?.referenceNo,
+          resultCenvertCurrency: getResultConvertCurencyValue.toString(),
           isIndonesia: true,
           isWithdraw: true,
           date: data?.createdAt,
@@ -733,7 +765,7 @@ class ProviderTransaksiAffiliate extends ChangeNotifier {
 
     var dataBank = dataAffiliasi;
 
-    Either<Failure, ResCreateWithdraw> response =
+    Either<ResCreateWithdrawBanned, ResCreateWithdrawBanned> response =
         await repoTransaksiAffiliate.createTransactionLastWithdraw(
       dataBank?.bankNumber ?? "",
       dataBank?.bankAccountName ?? "",
@@ -746,9 +778,11 @@ class ProviderTransaksiAffiliate extends ChangeNotifier {
     response.when(error: (e) {
       NotificationUtils.showDialogError(context, () {
         Nav.back();
+        Nav.back();
+        Nav.back();
       },
           widget: Text(
-            e.message,
+            e.data.toString(),
             textAlign: TextAlign.center,
           ));
     }, success: (res) async {
@@ -759,7 +793,7 @@ class ProviderTransaksiAffiliate extends ChangeNotifier {
           Nav.back();
         },
             widget: Text(
-              res.message ?? "",
+              " ${res.data.toString()}" ?? "",
               textAlign: TextAlign.center,
             ));
       } else {
@@ -769,7 +803,7 @@ class ProviderTransaksiAffiliate extends ChangeNotifier {
           Nav.back();
         },
             widget: Text(
-              res.message ?? "",
+              res.data.toString(),
               textAlign: TextAlign.center,
             ));
       }

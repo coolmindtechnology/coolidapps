@@ -1,22 +1,27 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:cool_app/data/data_global.dart';
-import 'package:cool_app/data/helpers/either.dart';
-import 'package:cool_app/data/helpers/failure.dart';
-import 'package:cool_app/data/repositories/repo_user.dart';
-import 'package:cool_app/data/response/user/res_check_profile.dart';
-import 'package:cool_app/data/response/user/res_get_location_member.dart';
-import 'package:cool_app/data/response/user/res_get_total_saldo.dart';
-import 'package:cool_app/data/response/user/res_get_user.dart';
-import 'package:cool_app/data/response/user/res_update_photo_user.dart';
-import 'package:cool_app/data/response/user/res_update_user.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/pages/user/screen_profile.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/utils/get_country.dart';
-import 'package:cool_app/presentation/utils/money_formatter.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
-import 'package:cool_app/presentation/utils/notification_utils.dart';
+import 'dart:async';
+
+import 'package:coolappflutter/data/data_global.dart';
+import 'package:coolappflutter/data/helpers/either.dart';
+import 'package:coolappflutter/data/helpers/failure.dart';
+import 'package:coolappflutter/data/networks/dio_handler.dart';
+import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
+import 'package:coolappflutter/data/repositories/repo_user.dart';
+import 'package:coolappflutter/data/response/user/res_check_profile.dart';
+import 'package:coolappflutter/data/response/user/res_get_location_member.dart';
+import 'package:coolappflutter/data/response/user/res_get_total_saldo.dart';
+import 'package:coolappflutter/data/response/user/res_get_user.dart';
+import 'package:coolappflutter/data/response/user/res_update_photo_user.dart';
+import 'package:coolappflutter/data/response/user/res_update_user.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/user/screen_profile.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/get_country.dart';
+import 'package:coolappflutter/presentation/utils/money_formatter.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/utils/notification_utils.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl_phone_field/countries.dart';
@@ -40,9 +45,9 @@ class ProviderUser extends ChangeNotifier {
   TextEditingController idCardController = TextEditingController();
   TextEditingController addressController = TextEditingController();
 
-  String initialCodeCountry = "ID";
-  String initialDialCode = "62";
-  String? phoneNumberWithoutCode;
+  dynamic initialCodeCountry = "ID";
+  dynamic initialDialCode = "62";
+  dynamic phoneNumberWithoutCode;
   String ipCountry = "Indonesia";
 
   /// Sets the initial values for the text controllers based on the dataUser object in the global data.
@@ -80,7 +85,7 @@ class ProviderUser extends ChangeNotifier {
   // Retrieves the user's phone number from the global data, gets the country information based on the phone number,
   // assigns the country code and dial code to the initial variables, and notifies the listeners.
   void getLocalePhonenumber() {
-    String phoneNumber = dataGlobal.dataUser?.phoneNumber ?? "";
+    String phoneNumber = dataGlobal.dataUser?.phoneNumber.toString() ?? "";
     Country country = PhoneNumber.getCountry(phoneNumber);
     initialCodeCountry = country.code;
     initialDialCode = country.dialCode;
@@ -100,7 +105,7 @@ class ProviderUser extends ChangeNotifier {
     ///
     /// Returns:
     ///   - None
-    String phoneNumber = dataGlobal.dataUser?.phoneNumber ?? "";
+    String phoneNumber = dataGlobal.dataUser?.phoneNumber.toString() ?? "";
     Country country = PhoneNumber.getCountry(phoneNumber);
 
     initialCodeCountry = country.code;
@@ -291,7 +296,7 @@ class ProviderUser extends ChangeNotifier {
       if (res.success == true) {
         memberArea = res.data;
         dataGlobal.dataMember = res.data;
-        ipCountry = memberArea?.country ?? "";
+        ipCountry = memberArea?.country.toString() ?? "";
         notifyListeners();
       }
     });
@@ -406,6 +411,7 @@ class ProviderUser extends ChangeNotifier {
     Either<Failure, ResCheckProfile> response = await repo.checkProfile();
     response.when(
       error: (e) {
+        notifyListeners();
         NotificationUtils.showDialogError(context, () {
           Nav.back();
         },
@@ -417,7 +423,9 @@ class ProviderUser extends ChangeNotifier {
       },
       success: (res) {
         if (res.success != true) {
+          notifyListeners();
           NotificationUtils.showDialogError(context, () async {
+            notifyListeners();
             Nav.back();
             await Nav.to(const ScreenProfile());
             checkProfile(context);
@@ -442,6 +450,7 @@ class ProviderUser extends ChangeNotifier {
 
   // Setter untuk totalDeposit
   set totalDeposit(String newTotalDeposit) {
+    notifyListeners();
     _totalDeposit =
         MoneyFormatter.cconvertCurrency(newTotalDeposit, isIndonesia()) ?? "";
     // Memberi tahu pendengar bahwa nilai totalDeposit telah berubah
@@ -455,13 +464,13 @@ class ProviderUser extends ChangeNotifier {
   ) async {
     isLoadingGetTotalSaldo = true;
 
-    notifyListeners();
+    // notifyListeners();
 
     Either<Failure, ResGetTotalSaldo> response =
         await repo.getTotalSaldo(isIndonesia());
 
     isLoadingGetTotalSaldo = false;
-    notifyListeners();
+    // notifyListeners();
 
     response.when(error: (e) {
       NotificationUtils.showDialogError(context, () {
@@ -472,11 +481,56 @@ class ProviderUser extends ChangeNotifier {
             textAlign: TextAlign.center,
           ));
     }, success: (res) async {
+      notifyListeners();
       dataTotalSaldo = res.data;
       totalDeposit = dataTotalSaldo?.totalSaldo.toString() ?? "0";
 
       notifyListeners();
     });
+    notifyListeners();
+  }
+
+  bool _isLoadingss = true;
+  Map<String, dynamic> _invoiceData = {};
+
+  bool get isLoadings => _isLoadingss;
+  Map<String, dynamic> get invoiceData => _invoiceData;
+
+  Future<void> fetchInvoiceDetail(String id) async {
+    debugPrint("mmmmm");
+    _isLoadingss = true;
+    // notifyListeners();
+
+    try {
+      // var response = await Dio().get(
+      //   'https://coolcompas.hantrr.com/api/user/detail-list-history-profiling/$id',
+      //   options: Options(
+      //     headers: {
+      //       'Authorization': 'Bearer ${dataGlobal.token}',
+      //     },
+      //   ),
+      // );
+      debugPrint("okkkk:");
+      Dio dio = DioHandler().dio;
+      Response res = await dio.get(
+          "${ApiEndpoint.baseUrl}/api/user/detail-list-history-profiling/$id",
+          options: Options(
+            headers: {'Authorization': dataGlobal.token},
+            validateStatus: (status) {
+              return status == 200 || status == 400;
+            },
+          ));
+      debugPrint("okk: $res");
+      if (res.data['success'] == true) {
+        _isLoadingss = false;
+        _invoiceData = res.data['data'];
+        notifyListeners();
+      }
+    } catch (e) {
+      debugPrint("Error: $e");
+    }
+
+    _isLoadingss = false;
     notifyListeners();
   }
 }

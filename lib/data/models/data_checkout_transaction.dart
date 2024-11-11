@@ -14,14 +14,14 @@ String dataCheckoutTransactionToJson(DataCheckoutTransaction data) =>
 
 class DataCheckoutTransaction {
   List<int>? idLogs;
-  String? discount;
-  String? transactionType;
-  String? idItemPayments;
+  dynamic discount;
+  dynamic transactionType;
+  dynamic idItemPayments;
   int? qty;
-  Decimal? price;
-  int? idUser;
-  String? idEbook;
-  String? gateway;
+  dynamic price;
+  dynamic idUser;
+  dynamic idEbook;
+  dynamic gateway;
 
   DataCheckoutTransaction({
     this.idLogs,

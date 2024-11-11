@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:cool_app/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:image/image.dart' as img; // Add this line
@@ -63,28 +63,23 @@ Future<XFile?> takeImage(BuildContext context) async {
 
 // Picks an image from the specified source, compresses it, and returns the compressed image as an XFile.
 Future<XFile?> _pickAndCompressImage(ImageSource source) async {
-  final ImagePicker _picker = ImagePicker();
-  XFile? pickedFile = await _picker.pickImage(
+  final ImagePicker picker = ImagePicker();
+  XFile? pickedFile = await picker.pickImage(
       source: source,
       preferredCameraDevice: CameraDevice.rear,
-      imageQuality: 75); // Adjust source as needed
+      imageQuality: 5); // Adjust source as needed
 
   if (pickedFile != null) {
     Uint8List? imageBytes = await pickedFile.readAsBytes();
-    if (imageBytes != null) {
-      img.Image? originalImage = img.decodeImage(imageBytes);
-      img.Image compressedImage = img.copyResize(originalImage!,
-          width: 1024); // Adjust compression as needed
+    img.Image? originalImage = img.decodeImage(imageBytes);
+    img.Image compressedImage = img.copyResize(originalImage!,
+        width: 500); // Adjust compression as needed
 
-      var compressedFile =
-          await File('${pickedFile.path}_compressed.jpg').create();
-      compressedFile.writeAsBytesSync(img.encodeJpg(compressedImage));
+    var compressedFile =
+        await File('${pickedFile.path}_compressed.jpg').create();
+    compressedFile.writeAsBytesSync(img.encodeJpg(compressedImage));
 
-      return XFile(compressedFile.path);
-    } else {
-      // Handle case where reading bytes fails (e.g., corrupted file)
-      return null;
-    }
+    return XFile(compressedFile.path);
   } else {
     return null;
   }

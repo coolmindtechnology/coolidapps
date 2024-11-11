@@ -32,12 +32,12 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m3(timeOtp) =>
       "An OTP code has been sent to your Whatsapp number, please check your Whatsapp message, the OTP code is valid until ${timeOtp}";
 
-  static String m4(maxAmount) => "and the maximum amount is ${maxAmount}.";
+  static String m5(maxAmount) => "and the maximum amount is ${maxAmount}.";
 
-  static String m5(minAmount) =>
+  static String m6(minAmount) =>
       "The minimum amount that must be paid is ${minAmount}";
 
-  static String m6(typeFigure) => "${typeFigure} Type Figures";
+  static String m4(typeFigure) => "${typeFigure} Type Figures";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -245,12 +245,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "otp_code_has_been_sent_wa": m3,
         "otp_code_is_wrong": MessageLookupByLibrary.simpleMessage(
             "OTP code is wrong or timeout expired"),
-        "paid_and_the_maximum_amount": m4,
+        "paid_and_the_maximum_amount": m5,
         "password": MessageLookupByLibrary.simpleMessage("Password"),
         "password_changed": MessageLookupByLibrary.simpleMessage(
             "Password successfully changed"),
         "password_confirmation":
             MessageLookupByLibrary.simpleMessage("Password Confirmation"),
+        "password_must_be_at_least_8_characters":
+            MessageLookupByLibrary.simpleMessage(
+                "Password must be at least 8 characters"),
+        "password_must_include_uppercase_letters_lowercase_letters_digits_and_special_characters":
+            MessageLookupByLibrary.simpleMessage(
+                "Password must include uppercase letters lowercase letters digits and special characters"),
         "password_not_matched":
             MessageLookupByLibrary.simpleMessage("password do not matched"),
         "password_successfully_changed": MessageLookupByLibrary.simpleMessage(
@@ -281,9 +287,14 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Payment with Cool balance was successful"),
         "personality": MessageLookupByLibrary.simpleMessage("Personality"),
         "phone_number": MessageLookupByLibrary.simpleMessage("Phone number"),
+        "pindahkan_saldo":
+            MessageLookupByLibrary.simpleMessage("Transfer Balance"),
         "play_audio": MessageLookupByLibrary.simpleMessage("Play Audio"),
         "please_check_again_on_form":
             MessageLookupByLibrary.simpleMessage("Please check again on form"),
+        "please_enter_a_valid_email_address":
+            MessageLookupByLibrary.simpleMessage(
+                "Please enter a valid email address"),
         "please_select_a_method_to_send_otp_code":
             MessageLookupByLibrary.simpleMessage(
                 "Please select a method to send the OTP code"),
@@ -291,6 +302,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Please select blood type"),
         "please_select_subscription":
             MessageLookupByLibrary.simpleMessage("Please select subscription"),
+        "please_upload_profile_picture": MessageLookupByLibrary.simpleMessage(
+            "Please upload your profile picture"),
         "plese_profiling_first_before_joining_coolchat":
             MessageLookupByLibrary.simpleMessage(
                 "Please profile first before joining Coolchat"),
@@ -394,7 +407,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "the_latest_version_off_the_app_is_available":
             MessageLookupByLibrary.simpleMessage(
                 "The latest version of the app is available. Please update the app to get the latest features and performance improvements."),
-        "the_minimum_amount_that_must_be": m5,
+        "the_minimum_amount_that_must_be": m6,
         "thirty_days_ago": MessageLookupByLibrary.simpleMessage("30 Days Ago"),
         "today": MessageLookupByLibrary.simpleMessage("Today"),
         "too_many_requests": MessageLookupByLibrary.simpleMessage(
@@ -411,14 +424,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "total_real_money":
             MessageLookupByLibrary.simpleMessage("Total Real Money"),
         "transaction": MessageLookupByLibrary.simpleMessage("Transaction"),
-        "transfer": MessageLookupByLibrary.simpleMessage("Transfer"),
         "treasure_type": MessageLookupByLibrary.simpleMessage("Treasure Type"),
         "type_ex": MessageLookupByLibrary.simpleMessage("Type, ex."),
-        "type_figure": m6,
-        "please_upload_profile_picture": MessageLookupByLibrary.simpleMessage(
-            "Please upload your profile picture"),
-        "update_photo_profile_success": MessageLookupByLibrary.simpleMessage(
-            "Update photo profile success"),
+        "type_figure": m4,
         "unauthorized": MessageLookupByLibrary.simpleMessage(
             "Unauthorized. Please log in again."),
         "unexpected_error": MessageLookupByLibrary.simpleMessage(
@@ -431,6 +439,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "update_app": MessageLookupByLibrary.simpleMessage("Update App"),
         "update_available":
             MessageLookupByLibrary.simpleMessage("Update Available!"),
+        "update_photo_profile_success": MessageLookupByLibrary.simpleMessage(
+            "Update photo profile success"),
         "upgrade_member_to_get_more_feature":
             MessageLookupByLibrary.simpleMessage(
                 "Upgrade members to get access to more features"),
@@ -455,9 +465,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "yes_continue": MessageLookupByLibrary.simpleMessage("Yes, Next"),
         "yes_exit": MessageLookupByLibrary.simpleMessage("Yes, Exit"),
         "yesterday": MessageLookupByLibrary.simpleMessage("Yesterday"),
+        "your_affiliate_code":
+            MessageLookupByLibrary.simpleMessage("Your Affiliate Code"),
         "your_personality":
             MessageLookupByLibrary.simpleMessage("Your Personality"),
-        "your_affiliate_code":
-            MessageLookupByLibrary.simpleMessage("Your Affiliate Code")
+        "please_wait": MessageLookupByLibrary.simpleMessage("Please wait"),
+        "uploading_in_progress":
+            MessageLookupByLibrary.simpleMessage("Uploading in progress"),
       };
 }

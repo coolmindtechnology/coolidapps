@@ -238,7 +238,7 @@
   "bank_account": "Rekening Bank",
   "bank_name": "Nama Bank",
   "account_number": "Nomor Rekening",
-  "save_agreement": "Dengan klik \"Simpan\", kamu menyetujui nsyarat & ketentuan",
+  "save_agreement": "Dengan klik \"Simpan\", kamu menyetujui syarat & ketentuan",
   "member_details": "Detail Anggota",
   "select_bank_account": "Pilih Akun Bank",
   "select_bank": "Pilih jenis bank",
@@ -274,5 +274,11 @@
   "sharing_opportunities_sharing_profits": "Berbagi peluang, Berbagi keuntungan",
   "update_photo_profile_success": "Berhasil memperbarui foto profil",
   "please_upload_profile_picture": "Silakan unggah foto profil Anda",
-  "your_affiliate_code": "Kode Affiliate Anda"
+  "your_affiliate_code": "Kode Affiliate Anda",
+  "please_enter_a_valid_email_address": "Harap masukkan alamat email yang valid", 
+  "password_must_include_uppercase_letters_lowercase_letters_digits_and_special_characters": "Kata sandi harus mencakup huruf besar, huruf kecil, angka, dan karakter khusus",
+  "password_must_be_at_least_8_characters": "Kata sandi harus minimal 8 karakter",
+  "please_wait": "Mohon Tunggu",
+  "uploading_in_progress": "Sedang Proses Upload"
+
 }

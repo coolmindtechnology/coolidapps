@@ -4,13 +4,15 @@
 
 import 'dart:convert';
 
-ResListProfiling resListProfilingFromJson(String str) => ResListProfiling.fromJson(json.decode(str));
+ResListProfiling resListProfilingFromJson(String str) =>
+    ResListProfiling.fromJson(json.decode(str));
 
-String resListProfilingToJson(ResListProfiling data) => json.encode(data.toJson());
+String resListProfilingToJson(ResListProfiling data) =>
+    json.encode(data.toJson());
 
 class ResListProfiling {
   bool? success;
-  String? message;
+  dynamic message;
   List<DataProfiling>? data;
 
   ResListProfiling({
@@ -19,31 +21,37 @@ class ResListProfiling {
     this.data,
   });
 
-  factory ResListProfiling.fromJson(Map<String, dynamic> json) => ResListProfiling(
-    success: json["success"],
-    message: json["message"],
-    data: json["data"] == null ? [] : List<DataProfiling>.from(json["data"]!.map((x) => DataProfiling.fromJson(x))),
-  );
+  factory ResListProfiling.fromJson(Map<String, dynamic> json) =>
+      ResListProfiling(
+        success: json["success"],
+        message: json["message"],
+        data: json["data"] == null
+            ? []
+            : List<DataProfiling>.from(
+                json["data"]!.map((x) => DataProfiling.fromJson(x))),
+      );
 
   Map<String, dynamic> toJson() => {
-    "success": success,
-    "message": message,
-    "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x.toJson())),
-  };
+        "success": success,
+        "message": message,
+        "data": data == null
+            ? []
+            : List<dynamic>.from(data!.map((x) => x.toJson())),
+      };
 }
 
 class DataProfiling {
-  String? idLogResult;
-  String? status;
-  String? result;
-  String? bloodType;
-  String? profilingName;
-  String? domicile;
-  String? yearDate;
-  String? monthDate;
-  String? birthDate;
-  String? character;
-  String? date;
+  dynamic idLogResult;
+  dynamic status;
+  dynamic result;
+  dynamic bloodType;
+  dynamic profilingName;
+  dynamic domicile;
+  dynamic yearDate;
+  dynamic monthDate;
+  dynamic birthDate;
+  dynamic character;
+  dynamic date;
 
   DataProfiling({
     this.idLogResult,
@@ -60,30 +68,30 @@ class DataProfiling {
   });
 
   factory DataProfiling.fromJson(Map<String, dynamic> json) => DataProfiling(
-    idLogResult: json["id_log_result"],
-    status: json["status"],
-    result: json["result"],
-    bloodType: json["blood_type"],
-    profilingName: json["profiling_name"],
-    domicile: json["domicile"],
-    yearDate: json["year_date"],
-    monthDate: json["month_date"],
-    birthDate: json["birth_date"],
-    character: json["character"],
-    date: json["date"],
-  );
+        idLogResult: json["id_log_result"],
+        status: json["status"],
+        result: json["result"],
+        bloodType: json["blood_type"],
+        profilingName: json["profiling_name"],
+        domicile: json["domicile"],
+        yearDate: json["year_date"],
+        monthDate: json["month_date"],
+        birthDate: json["birth_date"],
+        character: json["character"],
+        date: json["date"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id_log_result": idLogResult,
-    "status": status,
-    "result": result,
-    "blood_type": bloodType,
-    "profiling_name": profilingName,
-    "domicile": domicile,
-    "year_date": yearDate,
-    "month_date": monthDate,
-    "birth_date": birthDate,
-    "character": character,
-    "date": date,
-  };
+        "id_log_result": idLogResult,
+        "status": status,
+        "result": result,
+        "blood_type": bloodType,
+        "profiling_name": profilingName,
+        "domicile": domicile,
+        "year_date": yearDate,
+        "month_date": monthDate,
+        "birth_date": birthDate,
+        "character": character,
+        "date": date,
+      };
 }

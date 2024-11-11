@@ -1,7 +1,7 @@
-import 'package:cool_app/data/data_global.dart';
-import 'package:cool_app/data/provider/provider_affiliate.dart';
-import 'package:cool_app/presentation/pages/afiliate/screen_input_rekening.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/data/data_global.dart';
+import 'package:coolappflutter/data/provider/provider_affiliate.dart';
+import 'package:coolappflutter/presentation/pages/afiliate/screen_input_rekening.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

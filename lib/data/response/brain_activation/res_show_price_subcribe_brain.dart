@@ -37,9 +37,9 @@ class ResShowPriceBrainSubcribe {
 }
 
 class DataShowPrice {
-  String? subscribePrice;
-  String? transactionType;
-  String? subscribeType;
+  dynamic subscribePrice;
+  dynamic transactionType;
+  dynamic subscribeType;
 
   DataShowPrice({
     this.subscribePrice,

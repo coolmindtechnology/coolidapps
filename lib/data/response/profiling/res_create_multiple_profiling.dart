@@ -12,7 +12,7 @@ String resCreateMultipleProfilingToJson(ResCreateMultipleProfiling data) =>
 
 class ResCreateMultipleProfiling {
   bool? success;
-  String? message;
+  dynamic message;
   List<DataCreateMultipleProfiling>? data;
 
   ResCreateMultipleProfiling({
@@ -27,7 +27,8 @@ class ResCreateMultipleProfiling {
         message: json["message"],
         data: json["data"] == null
             ? []
-            : List<DataCreateMultipleProfiling>.from(json["data"]!.map((x) => DataCreateMultipleProfiling.fromJson(x))),
+            : List<DataCreateMultipleProfiling>.from(json["data"]!
+                .map((x) => DataCreateMultipleProfiling.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -40,14 +41,14 @@ class ResCreateMultipleProfiling {
 }
 
 class DataCreateMultipleProfiling {
-  String? bloodType;
-  int? idUser;
-  int? idProfiling;
-  int? result;
-  String? idMultiple;
+  dynamic bloodType;
+  dynamic idUser;
+  dynamic idProfiling;
+  dynamic result;
+  dynamic idMultiple;
   DateTime? updatedAt;
   DateTime? createdAt;
-  int? id;
+  dynamic id;
 
   DataCreateMultipleProfiling({
     this.bloodType,
@@ -60,7 +61,8 @@ class DataCreateMultipleProfiling {
     this.id,
   });
 
-  factory DataCreateMultipleProfiling.fromJson(Map<String, dynamic> json) => DataCreateMultipleProfiling(
+  factory DataCreateMultipleProfiling.fromJson(Map<String, dynamic> json) =>
+      DataCreateMultipleProfiling(
         bloodType: json["blood_type"],
         idUser: json["id_user"],
         idProfiling: json["id_profiling"],

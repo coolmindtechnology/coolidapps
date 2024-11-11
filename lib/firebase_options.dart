@@ -47,30 +47,29 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCT9ENmxJqn8L4kKKy7bEkm8YlUb6zgyUo',
-    appId: '1:252404014317:android:517741646345f6175f80e4',
-    messagingSenderId: '252404014317',
-    projectId: 'cool-app-641a1',
-    storageBucket: 'cool-app-641a1.appspot.com',
+    apiKey: 'AIzaSyAUwYqwfekzl72dvGkyFE7irzZdh4Qa9fk',
+    appId: '1:460609975158:android:4368eef2b9acf8efb38057',
+    messagingSenderId: '460609975158',
+    projectId: 'my-cool-id',
+    storageBucket: 'my-cool-id.firebaseio.com',
   );
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCgvBMk1EUGk9ujLA0p8lM2vPPOg8ZrolE',
-    appId: '1:252404014317:web:b390ab4aea6fcd035f80e4',
-    messagingSenderId: '252404014317',
-    projectId: 'cool-app-641a1',
+    apiKey: 'AIzaSyAUwYqwfekzl72dvGkyFE7irzZdh4Qa9fk',
+    appId: '1:460609975158:android:4368eef2b9acf8efb38057',
+    messagingSenderId: '460609975158',
+    projectId: 'my-cool-id',
+    storageBucket: 'my-cool-id.firebaseio.com',
     authDomain: 'cool-app-641a1.firebaseapp.com',
-    storageBucket: 'cool-app-641a1.appspot.com',
     measurementId: 'G-2JY8LGXM4M',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyBC6IyF40XXfTxyjrHQ4NLNDXQQ8hgK1gQ',
-    appId: '1:252404014317:ios:7dceaef2b70139655f80e4',
-    messagingSenderId: '252404014317',
-    projectId: 'cool-app-641a1',
-    storageBucket: 'cool-app-641a1.appspot.com',
+    apiKey: 'AIzaSyAUwYqwfekzl72dvGkyFE7irzZdh4Qa9fk',
+    appId: '1:460609975158:android:4368eef2b9acf8efb38057',
+    messagingSenderId: '460609975158',
+    projectId: 'my-cool-id',
+    storageBucket: 'my-cool-id.firebaseio.com',
     iosBundleId: 'mycool.tech.app',
   );
-
 }

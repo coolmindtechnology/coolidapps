@@ -12,7 +12,7 @@ String resHistoryTopupToJson(ResHistoryTopup data) =>
 
 class ResHistoryTopup {
   bool? success;
-  String? message;
+  dynamic message;
   List<DataHistoryTopup>? data;
 
   ResHistoryTopup({
@@ -27,7 +27,8 @@ class ResHistoryTopup {
         message: json["message"],
         data: json["data"] == null
             ? []
-            : List<DataHistoryTopup>.from(json["data"]!.map((x) => DataHistoryTopup.fromJson(x))),
+            : List<DataHistoryTopup>.from(
+                json["data"]!.map((x) => DataHistoryTopup.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -40,24 +41,24 @@ class ResHistoryTopup {
 }
 
 class DataHistoryTopup {
-  String? id;
-  String? orderId;
-  String? idLogs;
-  String? idItemPayments;
-  String? idUser;
-  String? amount;
-  String? discount;
-  String? totalAmount;
-  String? transactionType;
+  int id;
+  dynamic orderId;
+  dynamic idLogs;
+  dynamic idItemPayments;
+  dynamic idUser;
+  dynamic amount;
+  dynamic discount;
+  dynamic totalAmount;
+  dynamic transactionType;
   dynamic paymentType;
-  String? status;
-  String? snapToken;
+  dynamic status;
+  dynamic snapToken;
   DateTime? createdAt;
   DateTime? updatedAt;
   dynamic deletedAt;
 
   DataHistoryTopup({
-    this.id,
+    required this.id,
     this.orderId,
     this.idLogs,
     this.idItemPayments,
@@ -74,7 +75,8 @@ class DataHistoryTopup {
     this.deletedAt,
   });
 
-  factory DataHistoryTopup.fromJson(Map<String, dynamic> json) => DataHistoryTopup(
+  factory DataHistoryTopup.fromJson(Map<String, dynamic> json) =>
+      DataHistoryTopup(
         id: json["id"],
         orderId: json["order_id"],
         idLogs: json["id_logs"],

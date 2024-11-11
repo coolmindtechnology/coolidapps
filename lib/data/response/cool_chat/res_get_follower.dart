@@ -4,7 +4,8 @@
 
 import 'dart:convert';
 
-ResGetFollower resGetFollowerFromJson(String str) => ResGetFollower.fromJson(json.decode(str));
+ResGetFollower resGetFollowerFromJson(String str) =>
+    ResGetFollower.fromJson(json.decode(str));
 
 String resGetFollowerToJson(ResGetFollower data) => json.encode(data.toJson());
 
@@ -20,22 +21,22 @@ class ResGetFollower {
   });
 
   factory ResGetFollower.fromJson(Map<String, dynamic> json) => ResGetFollower(
-    success: json["success"],
-    message: json["message"],
-    data: json["data"] == null ? null : DataFollower.fromJson(json["data"]),
-  );
+        success: json["success"],
+        message: json["message"],
+        data: json["data"] == null ? null : DataFollower.fromJson(json["data"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "success": success,
-    "message": message,
-    "data": data?.toJson(),
-  };
+        "success": success,
+        "message": message,
+        "data": data?.toJson(),
+      };
 }
 
 class DataFollower {
-  int? following;
-  int? follower;
-  int? post;
+  dynamic following;
+  dynamic follower;
+  dynamic post;
 
   DataFollower({
     this.following,
@@ -44,14 +45,14 @@ class DataFollower {
   });
 
   factory DataFollower.fromJson(Map<String, dynamic> json) => DataFollower(
-    following: json["following"],
-    follower: json["follower"],
-    post: json["post"],
-  );
+        following: json["following"],
+        follower: json["follower"],
+        post: json["post"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "following": following,
-    "follower": follower,
-    "post": post,
-  };
+        "following": following,
+        "follower": follower,
+        "post": post,
+      };
 }

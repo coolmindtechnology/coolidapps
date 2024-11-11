@@ -1,6 +1,6 @@
-import 'package:cool_app/data/provider/provider_affiliate.dart';
-import 'package:cool_app/data/response/affiliate/res_bank_account.dart';
-import 'package:cool_app/presentation/utils/circular_progress_widget.dart';
+import 'package:coolappflutter/data/provider/provider_affiliate.dart';
+import 'package:coolappflutter/data/response/affiliate/res_bank_account.dart';
+import 'package:coolappflutter/presentation/utils/circular_progress_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../generated/l10n.dart';

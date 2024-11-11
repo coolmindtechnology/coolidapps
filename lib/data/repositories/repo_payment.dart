@@ -1,18 +1,19 @@
-import 'package:cool_app/data/data_global.dart';
-import 'package:cool_app/data/helpers/either.dart';
-import 'package:cool_app/data/helpers/failure.dart';
-import 'package:cool_app/data/models/data_checkout_transaction.dart';
-import 'package:cool_app/data/networks/dio_handler.dart';
-import 'package:cool_app/data/networks/endpoint/api_endpoint.dart';
-import 'package:cool_app/data/networks/error_handler.dart';
-import 'package:cool_app/data/response/payments/res_create_data_topup_transaction.dart';
-import 'package:cool_app/data/response/payments/res_get_amount_deposit.dart';
-import 'package:cool_app/data/response/payments/res_get_data_top_up.dart';
-import 'package:cool_app/data/response/payments/res_get_invoice_brain_activation.dart';
-import 'package:cool_app/data/response/payments/res_history_brain_activation.dart';
-import 'package:cool_app/data/response/payments/res_history_topup.dart';
-import 'package:cool_app/data/response/payments/res_invoice_transaction.dart';
+import 'package:coolappflutter/data/data_global.dart';
+import 'package:coolappflutter/data/helpers/either.dart';
+import 'package:coolappflutter/data/helpers/failure.dart';
+import 'package:coolappflutter/data/models/data_checkout_transaction.dart';
+import 'package:coolappflutter/data/networks/dio_handler.dart';
+import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
+import 'package:coolappflutter/data/networks/error_handler.dart';
+import 'package:coolappflutter/data/response/payments/res_create_data_topup_transaction.dart';
+import 'package:coolappflutter/data/response/payments/res_get_amount_deposit.dart';
+import 'package:coolappflutter/data/response/payments/res_get_data_top_up.dart';
+import 'package:coolappflutter/data/response/payments/res_get_invoice_brain_activation.dart';
+import 'package:coolappflutter/data/response/payments/res_history_brain_activation.dart';
+import 'package:coolappflutter/data/response/payments/res_history_topup.dart';
+import 'package:coolappflutter/data/response/payments/res_invoice_transaction.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 
 class RepoPayment {
   Future<Either<Failure, ResGetDataTopUp>> getListTopUp() async {
@@ -73,8 +74,11 @@ class RepoPayment {
               return status == 200 || status == 400;
             },
           ));
+
+      debugPrint("cek topup $res");
       return Either.success(ResHistoryTopup.fromJson(res.data));
     } catch (e) {
+      debugPrint("cek topup $e");
       return Either.error(ErrorHandler.handle(e).failure);
     }
   }
@@ -90,6 +94,7 @@ class RepoPayment {
           ));
       return Either.success(ResInvoiceTransaction.fromJson(res.data));
     } catch (e) {
+      debugPrint("cek top $e");
       return Either.error(ErrorHandler.handle(e).failure);
     }
   }
@@ -104,8 +109,10 @@ class RepoPayment {
               return status == 200 || status == 400;
             },
           ));
+      debugPrint("cek brain $res");
       return Either.success(ResHistoryBrainActivation.fromJson(res.data));
     } catch (e) {
+      debugPrint("cek brain $e");
       return Either.error(ErrorHandler.handle(e).failure);
     }
   }

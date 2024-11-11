@@ -32,7 +32,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m3(timeOtp) =>
       "Kode OTP telah dikirimkan ke nomor Whatsapp anda,\nsilahkan periksa pesan Whatsapp anda, Kode OTP\nberlaku hingga ${timeOtp}";
 
-  static String m6(typeFigure) => "Tokoh-Tokoh Tipe ${typeFigure}";
+  static String m4(typeFigure) => "Tokoh-Tokoh Tipe ${typeFigure}";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -241,6 +241,12 @@ class MessageLookup extends MessageLookupByLibrary {
             "Berhasil mengubah kata sandi"),
         "password_confirmation":
             MessageLookupByLibrary.simpleMessage("Konfirmasi Password"),
+        "password_must_be_at_least_8_characters":
+            MessageLookupByLibrary.simpleMessage(
+                "Kata sandi harus minimal 8 karakter"),
+        "password_must_include_uppercase_letters_lowercase_letters_digits_and_special_characters":
+            MessageLookupByLibrary.simpleMessage(
+                "Kata sandi harus mencakup huruf besar, huruf kecil, angka, dan karakter khusus"),
         "password_not_matched":
             MessageLookupByLibrary.simpleMessage("kata sandi tidak cocok"),
         "password_successfully_changed": MessageLookupByLibrary.simpleMessage(
@@ -274,6 +280,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "play_audio": MessageLookupByLibrary.simpleMessage("Putar Audio"),
         "please_check_again_on_form": MessageLookupByLibrary.simpleMessage(
             "Silahkan cek kembali pada form"),
+        "please_enter_a_valid_email_address":
+            MessageLookupByLibrary.simpleMessage(
+                "Harap masukkan alamat email yang valid"),
         "please_select_a_method_to_send_otp_code":
             MessageLookupByLibrary.simpleMessage(
                 "Silahkan pilih metode untuk mengirimkan kode OTP"),
@@ -281,6 +290,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Silahkan pilih gol darah"),
         "please_select_subscription":
             MessageLookupByLibrary.simpleMessage("Silahkan pilih langganan"),
+        "please_upload_profile_picture": MessageLookupByLibrary.simpleMessage(
+            "Silakan unggah foto profil Anda"),
         "plese_profiling_first_before_joining_coolchat":
             MessageLookupByLibrary.simpleMessage(
                 "Silahkan profiling dulu sebelum bergabung ke Coolchat"),
@@ -330,7 +341,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "rich_type": MessageLookupByLibrary.simpleMessage("Tipe Kaya"),
         "save": MessageLookupByLibrary.simpleMessage("Simpan"),
         "save_agreement": MessageLookupByLibrary.simpleMessage(
-            "Dengan klik \"Simpan\", kamu menyetujui nsyarat & ketentuan"),
+            "Dengan klik \"Simpan\", kamu menyetujui syarat & ketentuan"),
         "scan_qr_code": MessageLookupByLibrary.simpleMessage("Pindai Kode QR"),
         "see_all": MessageLookupByLibrary.simpleMessage("Lihat Semua"),
         "select": MessageLookupByLibrary.simpleMessage("Pilih"),
@@ -403,14 +414,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "total_real_money":
             MessageLookupByLibrary.simpleMessage("Total Real Money"),
         "transaction": MessageLookupByLibrary.simpleMessage("Transaksi"),
-        "transfer": MessageLookupByLibrary.simpleMessage("Transfer"),
         "treasure_type": MessageLookupByLibrary.simpleMessage("Tipe Harta"),
         "type_ex": MessageLookupByLibrary.simpleMessage("Ketik, misal."),
-        "type_figure": m6,
-        "please_upload_profile_picture": MessageLookupByLibrary.simpleMessage(
-            "Silakan unggah foto profil Anda"),
-        "update_photo_profile_success": MessageLookupByLibrary.simpleMessage(
-            "Berhasil memperbarui foto profil"),
+        "type_figure": m4,
         "unauthorized": MessageLookupByLibrary.simpleMessage(
             "Tidak Diizinkan. Silakan login kembali."),
         "unexpected_error": MessageLookupByLibrary.simpleMessage(
@@ -423,6 +429,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "update_app": MessageLookupByLibrary.simpleMessage("Perbarui Aplikasi"),
         "update_available":
             MessageLookupByLibrary.simpleMessage("Pembaruan Tersedia!"),
+        "update_photo_profile_success": MessageLookupByLibrary.simpleMessage(
+            "Berhasil memperbarui foto profil"),
         "upgrade_member_to_get_more_feature": MessageLookupByLibrary.simpleMessage(
             "Tingkatkan anggota untuk mendapatkan akses ke lebih banyak fitur"),
         "use_your_user_account": MessageLookupByLibrary.simpleMessage(
@@ -446,9 +454,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "yes_continue": MessageLookupByLibrary.simpleMessage("Ya, Lanjut"),
         "yes_exit": MessageLookupByLibrary.simpleMessage("Ya, Keluar"),
         "yesterday": MessageLookupByLibrary.simpleMessage("Kemarin"),
+        "your_affiliate_code":
+            MessageLookupByLibrary.simpleMessage("Kode Affiliate Anda"),
         "your_personality":
             MessageLookupByLibrary.simpleMessage("Kepribadian Anda"),
-        "your_affiliate_code":
-            MessageLookupByLibrary.simpleMessage("Kode Affiliate Anda")
+        "please_wait": MessageLookupByLibrary.simpleMessage("Mohon Tunggu"),
+        "uploading_in_progress":
+            MessageLookupByLibrary.simpleMessage("Sedang Proses Upload"),
       };
 }

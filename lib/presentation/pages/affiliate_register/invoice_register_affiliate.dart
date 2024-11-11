@@ -1,19 +1,24 @@
 // ignore_for_file: library_private_types_in_public_api
 
-import 'package:cool_app/data/helpers/check_language.dart';
-import 'package:cool_app/data/response/payments/res_update_transaction_profiling.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/pages/payments/midtrans_screen.dart';
-import 'package:cool_app/presentation/pages/afiliate/naf_afiliate.dart';
-import 'package:cool_app/presentation/pages/user/reusable_invoice_screen.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/utils/money_formatter.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
-import 'package:cool_app/presentation/utils/notification_utils.dart';
-import 'package:cool_app/presentation/widgets/button_primary.dart';
+import 'package:coolappflutter/data/data_global.dart';
+import 'package:coolappflutter/data/helpers/check_language.dart';
+import 'package:coolappflutter/data/response/payments/res_update_transaction_profiling.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/payments/midtrans_screen.dart';
+import 'package:coolappflutter/presentation/pages/afiliate/naf_afiliate.dart';
+import 'package:coolappflutter/presentation/pages/user/reusable_invoice_screen.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/money_formatter.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/utils/notification_utils.dart';
+import 'package:coolappflutter/presentation/widgets/button_primary.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:intl/intl.dart';
+
+import '../../../data/networks/endpoint/api_endpoint.dart';
 
 class InvoiceRegisterAffiliate extends StatefulWidget {
   final String? snapToken;
@@ -75,8 +80,7 @@ class _InvoiceRegisterAffiliateState extends State<InvoiceRegisterAffiliate> {
             <li>MASA AKTIF AKUN: Bila minimal setelah 3 bulan pertama (bulan ke-2,3,4 setelah registrasi) Afiliator tidak TOP UP, Akun otomatis NON AKTIF SEMENTARA, masuk masa vakum 2 bulan.</li>
             <li>Bila Afiliator TOP UP dalam masa vakum, otomatis AKUN AKTIF KEMBALI dan berlaku ketentuan dari awal.</li>
             <li>Bila setelah AKTIVASI ke-2 Afiliator kembali tidak TOP UP, AKUN akan NON AKTIF PERMANEN dan nama dihapus dari List AFILIASI AGEN.</li>
-            <li>Bila dalam masa vakum Afiliator tidak TOP UP, AKUN NON AKTIF PERMANEN dan nama dihapus dari List AFILIASI AGEN.</li>
-            <li>Afiliator yang tidak melakukan TOP UP minimal Rp 2 Juta pada bulan ke 2,3,4 setelah registrasi, AKUN NON AKTIF PERMANEN dan nama dihapus dari List AFILIASI AGEN.</li>
+
             <li>Afiliator yang NON AKTIF PERMANEN dapat mendaftar kembali sebagai Afiliasi (Daftar Ulang ke AGEN) setelah 6 bulan Akun Non Aktif Permanen, dan selama AGEN masih memiliki kuota Afiliasi.</li>
             <li>Selama Akun Non Aktif Permanen, Afiliator dapat menghabiskan sisa top up dengan melakukan profiling, dan tarik dana FEE Profiling.</li>
         </ol>
@@ -117,6 +121,7 @@ By joining, you can earn additional income by referring our products or services
     setState(() {});
   }
 
+  final Dio dio = Dio();
   @override
   void initState() {
     // getIsIndonesia();
@@ -125,6 +130,30 @@ By joining, you can earn additional income by referring our products or services
     initLocale();
   }
 
+  Future<void> cancelAffiliator() async {
+    try {
+      Response res = await dio.post(
+          "${ApiEndpoint.baseUrl}/api/affiliate/cancel-affiliator",
+          data: {"is_canceled": 1},
+          options: Options(
+            validateStatus: (status) {
+              return status == 200 || status == 400 || status == 500;
+            },
+            contentType: Headers.jsonContentType,
+            responseType: ResponseType.json,
+            headers: {'Authorization': dataGlobal.token},
+          ));
+      if (res.statusCode == 500) {
+        debugPrint("cek batal $res");
+      }
+      debugPrint("cek batalll $res");
+    } catch (e, st) {
+      debugPrint("cek batalllll $e");
+      if (kDebugMode) {
+        print(st);
+      }
+    }
+  }
 // buat nanti untuk semua udah convert
   // getIsIndonesia() async {
   //   Future.microtask(() {
@@ -209,9 +238,9 @@ By joining, you can earn additional income by referring our products or services
               const SizedBox(
                 height: 24,
               ),
-              HtmlWidget(
-                isIndonesia ? indonesianText : englishText,
-              ),
+              // HtmlWidget(
+              //   isIndonesia ? indonesianText : englishText,
+              // ),
               const SizedBox(
                 height: 24,
               ),
@@ -223,6 +252,7 @@ By joining, you can earn additional income by referring our products or services
                       child: ButtonPrimary(
                         S.of(context).cancel,
                         onPress: () {
+                          cancelAffiliator();
                           NotificationUtils.showSimpleDialog(context, () {
                             Nav.back();
                             Nav.back();

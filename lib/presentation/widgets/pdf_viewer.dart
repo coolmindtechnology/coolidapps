@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api, depend_on_referenced_packages
 
-import 'package:advance_pdf_viewer_fork/advance_pdf_viewer_fork.dart';
+// import 'package:advance_pdf_viewer_fork/advance_pdf_viewer_fork.dart';
+import 'package:advance_pdf_viewer2/advance_pdf_viewer.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
@@ -82,7 +83,8 @@ class PageInputNumber extends StatelessWidget {
   final int totalPages;
   final Function(int) onPageChanged;
 
-  const PageInputNumber({super.key,
+  const PageInputNumber({
+    super.key,
     required this.currentPage,
     required this.totalPages,
     required this.onPageChanged,

@@ -38,8 +38,8 @@ class ResCheckTopupAffiliate {
 }
 
 class DataCheckTopupNotif {
-  int? data;
-  int? notif;
+  dynamic data;
+  dynamic notif;
 
   DataCheckTopupNotif({
     this.data,

@@ -1,7 +1,7 @@
-import 'package:cool_app/data/provider/provider_payment.dart';
-import 'package:cool_app/data/response/payments/res_history_topup.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/utils/circular_progress_widget.dart';
+import 'package:coolappflutter/data/provider/provider_payment.dart';
+import 'package:coolappflutter/data/response/payments/res_history_topup.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/circular_progress_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

@@ -12,7 +12,7 @@ String resHistoryRealMoneyToJson(ResHistoryRealMoney data) =>
 
 class ResHistoryRealMoney {
   bool? success;
-  String? message;
+  dynamic message;
   DataPaginationHistoryRealMoney? data;
 
   ResHistoryRealMoney({
@@ -40,13 +40,13 @@ class ResHistoryRealMoney {
 class DataPaginationHistoryRealMoney {
   int? currentPage;
   List<HistoryRealMoney>? data;
-  String? firstPageUrl;
+  dynamic firstPageUrl;
   int? from;
   int? lastPage;
-  String? lastPageUrl;
+  dynamic lastPageUrl;
   List<Link>? links;
   dynamic nextPageUrl;
-  String? path;
+  dynamic path;
   int? perPage;
   dynamic prevPageUrl;
   int? to;
@@ -113,12 +113,12 @@ class DataPaginationHistoryRealMoney {
 
 class HistoryRealMoney {
   int? id;
-  String? idUser;
-  String? idAffiliate;
+  dynamic idUser;
+  dynamic idAffiliate;
   dynamic idSaldoAffiliate;
-  String? amount;
-  String? transactionType;
-  String? status;
+  dynamic amount;
+  dynamic transactionType;
+  dynamic status;
   DateTime? createdAt;
   DateTime? updatedAt;
   dynamic deletedAt;
@@ -182,29 +182,29 @@ class HistoryRealMoney {
 
 class User {
   int? id;
-  String? idRole;
-  String? name;
-  String? phoneNumber;
-  String? email;
+  dynamic idRole;
+  dynamic name;
+  dynamic phoneNumber;
+  dynamic email;
   dynamic emailVerifiedAt;
-  String? address;
-  String? image;
-  String? idCardNumber;
-  String? otpCode;
+  dynamic address;
+  dynamic image;
+  dynamic idCardNumber;
+  dynamic otpCode;
   DateTime? otpTime;
-  String? isProfiling;
-  String? isVerified;
-  String? isDeposit;
-  String? totalDeposit;
-  String? status;
+  dynamic isProfiling;
+  dynamic isVerified;
+  dynamic isDeposit;
+  dynamic totalDeposit;
+  dynamic status;
   DateTime? createdAt;
   DateTime? updatedAt;
   dynamic deletedAt;
-  String? idAffiliate;
-  String? codeReferal;
-  String? idAgent;
-  String? idMitra;
-  String? isAffiliate;
+  dynamic idAffiliate;
+  dynamic codeReferal;
+  dynamic idAgent;
+  dynamic idMitra;
+  dynamic isAffiliate;
   dynamic verificationToken;
 
   User({
@@ -298,8 +298,8 @@ class User {
 }
 
 class Link {
-  String? url;
-  String? label;
+  dynamic url;
+  dynamic label;
   bool? active;
 
   Link({

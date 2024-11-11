@@ -2692,11 +2692,11 @@ class S {
     );
   }
 
-  /// `Transfer`
-  String get transfer {
+  /// `Transfer Balance`
+  String get pindahkan_saldo {
     return Intl.message(
-      'Transfer',
-      name: 'transfer',
+      'Transfer Balance',
+      name: 'pindahkan_saldo',
       desc: '',
       args: [],
     );
@@ -2772,21 +2772,21 @@ class S {
     );
   }
 
-  /// `Please upload your profile picture`
-  String get please_upload_profile_picture {
-    return Intl.message(
-      'Please upload your profile picture',
-      name: 'please_upload_profile_picture',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Update photo profile success`
   String get update_photo_profile_success {
     return Intl.message(
       'Update photo profile success',
       name: 'update_photo_profile_success',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please upload your profile picture`
+  String get please_upload_profile_picture {
+    return Intl.message(
+      'Please upload your profile picture',
+      name: 'please_upload_profile_picture',
       desc: '',
       args: [],
     );
@@ -2801,6 +2801,48 @@ class S {
       args: [],
     );
   }
+
+  /// `Please enter a valid email address`
+  String get please_enter_a_valid_email_address {
+    return Intl.message(
+      'Please enter a valid email address',
+      name: 'please_enter_a_valid_email_address',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password must include uppercase letters lowercase letters digits and special characters`
+  String
+      get password_must_include_uppercase_letters_lowercase_letters_digits_and_special_characters {
+    return Intl.message(
+      'Password must include uppercase letters lowercase letters digits and special characters',
+      name:
+          'password_must_include_uppercase_letters_lowercase_letters_digits_and_special_characters',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Password must be at least 8 characters`
+  String get password_must_be_at_least_8_characters {
+    return Intl.message(
+      'Password must be at least 8 characters',
+      name: 'password_must_be_at_least_8_characters',
+      desc: '',
+      args: [],
+    );
+  }
+
+//Upload file
+  String get uploading_in_progress {
+    return Intl.message('Uploading in progress',
+        name: 'uploading_in_progress', desc: '', args: []);
+  }
+
+  String get please_wait {
+    return Intl.message('Please Wait', name: 'please_wait', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -2809,7 +2851,11 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
   List<Locale> get supportedLocales {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en', countryCode: 'US'),
+      Locale.fromSubtags(languageCode: 'ar', countryCode: 'AR'),
+      Locale.fromSubtags(languageCode: 'es', countryCode: 'ES'),
       Locale.fromSubtags(languageCode: 'id', countryCode: 'ID'),
+      Locale.fromSubtags(languageCode: 'ms', countryCode: 'MY'),
+      Locale.fromSubtags(languageCode: 'zh', countryCode: 'CN'),
     ];
   }
 

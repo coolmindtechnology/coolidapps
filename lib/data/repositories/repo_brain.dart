@@ -1,14 +1,14 @@
-import 'package:cool_app/data/models/subcribtion_brain_transaction_data_model.dart';
-import 'package:cool_app/data/networks/error_handler.dart';
-import 'package:cool_app/data/response/brain_activation/rec_cek_daily.dart';
-import 'package:cool_app/data/response/brain_activation/res_check_allow_subcribe.dart';
-import 'package:cool_app/data/response/brain_activation/res_list_brain_activation.dart';
-import 'package:cool_app/data/response/brain_activation/res_list_subcription_all_item.dart';
-import 'package:cool_app/data/response/brain_activation/res_list_subcription_per_item.dart';
-import 'package:cool_app/data/response/brain_activation/res_show_price_subcribe_brain.dart';
-import 'package:cool_app/data/response/brain_activation/res_subcribe_brain_transaction.dart';
-import 'package:cool_app/data/response/payments/res_create_data_transaction.dart';
-import 'package:cool_app/data/response/res_update_payment.dart';
+import 'package:coolappflutter/data/models/subcribtion_brain_transaction_data_model.dart';
+import 'package:coolappflutter/data/networks/error_handler.dart';
+import 'package:coolappflutter/data/response/brain_activation/rec_cek_daily.dart';
+import 'package:coolappflutter/data/response/brain_activation/res_check_allow_subcribe.dart';
+import 'package:coolappflutter/data/response/brain_activation/res_list_brain_activation.dart';
+import 'package:coolappflutter/data/response/brain_activation/res_list_subcription_all_item.dart';
+import 'package:coolappflutter/data/response/brain_activation/res_list_subcription_per_item.dart';
+import 'package:coolappflutter/data/response/brain_activation/res_show_price_subcribe_brain.dart';
+import 'package:coolappflutter/data/response/brain_activation/res_subcribe_brain_transaction.dart';
+import 'package:coolappflutter/data/response/payments/res_create_data_transaction.dart';
+import 'package:coolappflutter/data/response/res_update_payment.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
@@ -98,6 +98,7 @@ class RepoBrain {
 
   Future<Either<Failure, ResTimerPlay>> getDurationAudio(int idAudio) async {
     try {
+      debugPrint("cek brain audio $idAudio");
       Response res = await dio.get(ApiEndpoint.timerPlayAudio(idAudio),
           options: Options(
             validateStatus: (status) {
@@ -109,6 +110,7 @@ class RepoBrain {
           ));
       return Either.success(ResTimerPlay.fromJson(res.data));
     } catch (e, st) {
+      debugPrint("cek brain $e");
       if (kDebugMode) {
         print(st);
       }
@@ -218,10 +220,13 @@ class RepoBrain {
             responseType: ResponseType.json,
             headers: {'Authorization': dataGlobal.token},
           ));
+      debugPrint("cekd $res");
       return Either.success(ResCheckAllowSubcribe.fromJson(res.data));
     } on DioException catch (e) {
+      debugPrint("cekd $e");
       return Either.error(ErrorHandler.handle(e).failure);
     } catch (e, st) {
+      debugPrint("cekd $e");
       if (kDebugMode) {
         print(st);
       }

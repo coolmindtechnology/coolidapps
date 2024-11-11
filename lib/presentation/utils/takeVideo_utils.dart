@@ -1,6 +1,6 @@
-// ignore_for_file: file_names
-
-import 'package:cool_app/presentation/utils/nav_utils.dart';
+import 'dart:async';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -30,6 +30,9 @@ Future<XFile?> takeVideo(BuildContext context, {String? androidVersion}) async {
               height: 45,
               child: TextButton.icon(
                 onPressed: () async {
+                  // Tampilkan dialog sedang upload
+                  _showUploadingDialog(context);
+
                   if (kDebugMode) {
                     print("Android version: $androidVersion");
                   }
@@ -53,8 +56,10 @@ Future<XFile?> takeVideo(BuildContext context, {String? androidVersion}) async {
                     );
                   } else {
                     file = await _compressVideo(ImageSource.camera);
-                    // Nav.back();
                   }
+
+                  // Selesaikan upload dan hilangkan dialog
+                  Navigator.pop(context); // Menghilangkan dialog upload
                   Nav.back();
                 },
                 icon: const Icon(Icons.camera_alt),
@@ -67,10 +72,16 @@ Future<XFile?> takeVideo(BuildContext context, {String? androidVersion}) async {
               height: 45,
               child: TextButton.icon(
                 onPressed: () async {
+                  // Tampilkan dialog sedang upload
+                  _showUploadingDialog(context);
+
                   if (kDebugMode) {
                     print("Gallery selected");
                   }
                   file = await _compressVideo(ImageSource.gallery);
+
+                  // Selesaikan upload dan hilangkan dialog
+                  Navigator.pop(context); // Menghilangkan dialog upload
                   Nav.back();
                 },
                 icon: const Icon(Icons.photo),
@@ -97,7 +108,7 @@ Future<XFile?> _compressVideo(ImageSource source) async {
     if (pickedFile != null) {
       MediaInfo? info = await VideoCompress.compressVideo(
         pickedFile.path,
-        quality: VideoQuality.MediumQuality,
+        quality: VideoQuality.LowQuality,
       );
       if (info != null) {
         return XFile(info.path!);
@@ -117,17 +128,10 @@ Future<XFile?> _compressVideo(ImageSource source) async {
   }
 }
 
-/// Compresses a video file at the given `path` using the `VideoCompress.compressVideo`
-/// method. If the compression is successful, returns an `XFile` object representing
-/// the compressed video. Otherwise, returns `null`.
-///
-/// - Parameter path: The path of the video file to be compressed.
-/// - Returns: An `XFile` object representing the compressed video, or `null` if
-///   the compression fails.
 Future<XFile?> _compressVideoCamera(String path) async {
   MediaInfo? info = await VideoCompress.compressVideo(
     path,
-    quality: VideoQuality.MediumQuality,
+    quality: VideoQuality.LowQuality,
   );
   if (info != null) {
     return XFile(info.path!);
@@ -135,4 +139,27 @@ Future<XFile?> _compressVideoCamera(String path) async {
     // Handle compression failure
     return null;
   }
+}
+
+/// Fungsi untuk menampilkan dialog sedang proses upload
+void _showUploadingDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    barrierDismissible: false, // Tidak bisa di dismiss dengan klik di luar
+    builder: (context) {
+      return WillPopScope(
+        onWillPop: () async => false, // Disable tombol back
+        child: AlertDialog(
+          title: Text(S.of(context).uploading_in_progress),
+          content: Row(
+            children: [
+              const CircularProgressIndicator(),
+              const SizedBox(width: 20),
+              Text(S.of(context).please_wait),
+            ],
+          ),
+        ),
+      );
+    },
+  );
 }

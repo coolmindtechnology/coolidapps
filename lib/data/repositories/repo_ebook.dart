@@ -1,12 +1,12 @@
-import 'package:cool_app/data/data_global.dart';
-import 'package:cool_app/data/locals/shared_pref.dart';
-import 'package:cool_app/data/networks/error_handler.dart';
-import 'package:cool_app/data/response/payments/res_history_detail_ebook.dart';
-import 'package:cool_app/data/response/payments/res_history_ebook.dart';
-import 'package:cool_app/data/response/res_create_log_ebook.dart';
-import 'package:cool_app/data/response/res_detail_ebook.dart';
-import 'package:cool_app/data/response/res_list_ebook.dart';
-import 'package:cool_app/data/response/res_pre_home.dart';
+import 'package:coolappflutter/data/data_global.dart';
+import 'package:coolappflutter/data/locals/shared_pref.dart';
+import 'package:coolappflutter/data/networks/error_handler.dart';
+import 'package:coolappflutter/data/response/payments/res_history_detail_ebook.dart';
+import 'package:coolappflutter/data/response/payments/res_history_ebook.dart';
+import 'package:coolappflutter/data/response/res_create_log_ebook.dart';
+import 'package:coolappflutter/data/response/res_detail_ebook.dart';
+import 'package:coolappflutter/data/response/res_list_ebook.dart';
+import 'package:coolappflutter/data/response/res_pre_home.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
@@ -195,6 +195,7 @@ class RepoEbook {
           ));
       return Either.success(ResDetailHistoryEbook.fromJson(res.data));
     } catch (e) {
+      debugPrint("cek ebook $e");
       return Either.error(ErrorHandler.handle(e).failure);
     }
   }

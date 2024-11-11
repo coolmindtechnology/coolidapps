@@ -12,7 +12,7 @@ String resHistorySaldoReductionToJson(ResHistorySaldoReduction data) =>
 
 class ResHistorySaldoReduction {
   bool? success;
-  String? message;
+  dynamic message;
   DataPaginationSaldoReduction? data;
 
   ResHistorySaldoReduction({
@@ -40,13 +40,13 @@ class ResHistorySaldoReduction {
 class DataPaginationSaldoReduction {
   int? currentPage;
   List<DataHistorySaldoReduction>? data;
-  String? firstPageUrl;
+  dynamic firstPageUrl;
   int? from;
   int? lastPage;
-  String? lastPageUrl;
+  dynamic lastPageUrl;
   List<Link>? links;
   dynamic nextPageUrl;
-  String? path;
+  dynamic path;
   int? perPage;
   dynamic prevPageUrl;
   int? to;
@@ -112,15 +112,15 @@ class DataPaginationSaldoReduction {
 }
 
 class DataHistorySaldoReduction {
-  String? id;
-  String? idUser;
-  String? idAffiliate;
-  String? orderId;
-  String? amount;
-  String? transactionType;
-  String? source;
+  dynamic id;
+  dynamic idUser;
+  dynamic idAffiliate;
+  dynamic orderId;
+  dynamic amount;
+  dynamic transactionType;
+  dynamic source;
   dynamic useByMember;
-  String? status;
+  dynamic status;
   DateTime? createdAt;
   DateTime? updatedAt;
   dynamic deletedAt;
@@ -177,8 +177,8 @@ class DataHistorySaldoReduction {
 }
 
 class Link {
-  String? url;
-  String? label;
+  dynamic url;
+  dynamic label;
   bool? active;
 
   Link({

@@ -1,13 +1,13 @@
-import 'package:cool_app/data/provider/provider_profiling.dart';
-import 'package:cool_app/data/response/profiling/res_list_profiling.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/pages/brain/screen_brain_activition.dart';
-import 'package:cool_app/presentation/pages/profiling/certificate_screen.dart';
-import 'package:cool_app/presentation/pages/profiling/results/result_detail.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/utils/circular_progress_widget.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
-import 'package:cool_app/presentation/widgets/button_primary.dart';
+import 'package:coolappflutter/data/provider/provider_profiling.dart';
+import 'package:coolappflutter/data/response/profiling/res_list_profiling.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/brain/screen_brain_activition.dart';
+import 'package:coolappflutter/presentation/pages/profiling/certificate_screen.dart';
+import 'package:coolappflutter/presentation/pages/profiling/results/result_detail.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/circular_progress_widget.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/widgets/button_primary.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -25,7 +25,7 @@ class _ScreenHasilKepribadianState extends State<ScreenHasilKepribadian> {
     return ChangeNotifierProvider(
       create: (BuildContext context) {
         return ProviderProfiling.showDetail(
-            context, widget.data?.idLogResult ?? "");
+            context, widget.data?.idLogResult.toString() ?? "");
       },
       child: Consumer<ProviderProfiling>(
         builder: (BuildContext context, value, Widget? child) => Scaffold(
@@ -125,8 +125,8 @@ class _ScreenHasilKepribadianState extends State<ScreenHasilKepribadian> {
                   child: ButtonPrimary(
                     "Brain activation",
                     onPress: () {
-                      Nav.to(ScreenBrainActivation(
-                          widget.data, value.dataShowDetail?.idResult ?? ""));
+                      Nav.to(ScreenBrainActivation(widget.data,
+                          value.dataShowDetail?.idResult.toString() ?? ""));
                     },
                     expand: true,
                     radius: 10,

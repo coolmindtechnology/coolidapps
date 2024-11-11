@@ -1,8 +1,8 @@
-import 'package:cool_app/data/data_global.dart';
-import 'package:cool_app/data/networks/endpoint/api_endpoint.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/utils/circular_progress_widget.dart';
+import 'package:coolappflutter/data/data_global.dart';
+import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/circular_progress_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -14,6 +14,13 @@ class ScreenQr extends StatefulWidget {
 }
 
 class _ScreenQrState extends State<ScreenQr> {
+  @override
+  void initState() {
+    super.initState();
+    debugPrint(
+        " qrrr ${ApiEndpoint.qrCode}/${dataGlobal.dataUser?.phoneNumber}");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

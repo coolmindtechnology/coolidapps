@@ -1,24 +1,24 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:cool_app/data/models/data_post.dart';
-import 'package:cool_app/data/repositories/repo_cool_chat.dart';
-import 'package:cool_app/data/response/cool_chat/res_cek_follow.dart';
-import 'package:cool_app/data/response/cool_chat/res_cek_like.dart';
-import 'package:cool_app/data/response/cool_chat/res_comment_post.dart';
-import 'package:cool_app/data/response/cool_chat/res_creat_post.dart';
-import 'package:cool_app/data/response/cool_chat/res_delete_post.dart';
-import 'package:cool_app/data/response/cool_chat/res_followe_akun.dart';
-import 'package:cool_app/data/response/cool_chat/res_get_follower.dart';
-import 'package:cool_app/data/response/cool_chat/res_get_list_comment.dart';
-import 'package:cool_app/data/response/cool_chat/res_get_share_code.dart';
-import 'package:cool_app/data/response/cool_chat/res_get_total_count_by_post.dart';
-import 'package:cool_app/data/response/cool_chat/res_list_post.dart';
-import 'package:cool_app/data/response/cool_chat/res_post_reaction.dart';
-import 'package:cool_app/data/response/cool_chat/res_search_content.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/data/models/data_post.dart';
+import 'package:coolappflutter/data/repositories/repo_cool_chat.dart';
+import 'package:coolappflutter/data/response/cool_chat/res_cek_follow.dart';
+import 'package:coolappflutter/data/response/cool_chat/res_cek_like.dart';
+import 'package:coolappflutter/data/response/cool_chat/res_comment_post.dart';
+import 'package:coolappflutter/data/response/cool_chat/res_creat_post.dart';
+import 'package:coolappflutter/data/response/cool_chat/res_delete_post.dart';
+import 'package:coolappflutter/data/response/cool_chat/res_followe_akun.dart';
+import 'package:coolappflutter/data/response/cool_chat/res_get_follower.dart';
+import 'package:coolappflutter/data/response/cool_chat/res_get_list_comment.dart';
+import 'package:coolappflutter/data/response/cool_chat/res_get_share_code.dart';
+import 'package:coolappflutter/data/response/cool_chat/res_get_total_count_by_post.dart';
+import 'package:coolappflutter/data/response/cool_chat/res_list_post.dart';
+import 'package:coolappflutter/data/response/cool_chat/res_post_reaction.dart';
+import 'package:coolappflutter/data/response/cool_chat/res_search_content.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_share_me/flutter_share_me.dart';
+// import 'package:flutter_share_me/flutter_share_me.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
@@ -112,15 +112,13 @@ class ProviderCoolChat extends ChangeNotifier {
     response.when(
         error: (e) {},
         success: (res) async {
-          if (res != null) {
-            // listTitle = res.data ?? [];
-            listPostById = res.data ?? [];
-            // listPostById = listPostById
-            //     .where((element) => element.multimedia?.isNotEmpty == true)
-            //     .toList();
+          // listTitle = res.data ?? [];
+          listPostById = res.data ?? [];
+          // listPostById = listPostById
+          //     .where((element) => element.multimedia?.isNotEmpty == true)
+          //     .toList();
 
-            notifyListeners();
-          }
+          notifyListeners();
         });
     notifyListeners();
   }
@@ -244,7 +242,7 @@ class ProviderCoolChat extends ChangeNotifier {
     }
   }
 
-  final FlutterShareMe flutterShareMe = FlutterShareMe();
+  // final FlutterShareMe flutterShareMe = FlutterShareMe();
   Future<void> sharePost(BuildContext context, String shareCode) async {
     isLoading = true;
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -321,8 +319,8 @@ class ProviderCoolChat extends ChangeNotifier {
                       ? ItemShareWidget(
                           socialMedia: "Others",
                           onShare: () {
-                            flutterShareMe.shareToSystem(
-                                msg: res.data?.others ?? "");
+                            // flutterShareMe.shareToSystem(
+                            //     msg: res.data?.others ?? "");
                           },
                           image: "assets/icons/forward-arrow-icon.png",
                         )

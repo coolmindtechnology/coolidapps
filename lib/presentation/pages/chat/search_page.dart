@@ -1,12 +1,12 @@
-import 'package:cool_app/data/provider/provider_cool_chat.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/pages/chat/chat_profile.dart';
-import 'package:cool_app/presentation/pages/chat/screen_detail_postingan.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/utils/circular_progress_widget.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
-import 'package:cool_app/presentation/widgets/refresh_icon_widget.dart';
-import 'package:cool_app/presentation/widgets/shimmer_loading_widget_many.dart';
+import 'package:coolappflutter/data/provider/provider_cool_chat.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/chat/chat_profile.dart';
+import 'package:coolappflutter/presentation/pages/chat/screen_detail_postingan.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/circular_progress_widget.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/widgets/refresh_icon_widget.dart';
+import 'package:coolappflutter/presentation/widgets/shimmer_loading_widget_many.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -223,7 +223,6 @@ class _SearchPageState extends State<SearchPage>
                                   child: CircularProgressWidget(),
                                 );
                               }
-                              ;
                             },
                             separatorBuilder: (context, index) {
                               return const Divider(

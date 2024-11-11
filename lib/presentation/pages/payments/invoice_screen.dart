@@ -1,9 +1,9 @@
-import 'package:cool_app/data/provider/provider_payment.dart';
-import 'package:cool_app/data/response/payments/res_history_topup.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/utils/circular_progress_widget.dart';
-import 'package:cool_app/presentation/utils/money_formatter.dart';
+import 'package:coolappflutter/data/provider/provider_payment.dart';
+import 'package:coolappflutter/data/response/payments/res_history_topup.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/circular_progress_widget.dart';
+import 'package:coolappflutter/presentation/utils/money_formatter.dart';
 import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -33,7 +33,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
       return Scaffold(
         appBar: AppBar(
             title: Text(
-          "Invoice",
+          "Receipt",
           style: TextStyle(color: whiteColor),
         )),
         body: value.isLoadingInvoice
@@ -53,10 +53,10 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
                     const SizedBox(
                       height: 48,
                     ),
-                    itemPayment(
-                        S.of(context).order_id, value.dataInvoice?.orderId),
-                    itemPayment(
-                        S.of(context).customer, value.dataInvoice?.customer),
+                    itemPayment(S.of(context).order_id.toString(),
+                        value.dataInvoice?.orderId.toString()),
+                    itemPayment(S.of(context).customer.toString(),
+                        value.dataInvoice?.customer.toString()),
                     itemPayment(
                         S.of(context).date,
                         DateFormat("dd MMM yyyy").format(

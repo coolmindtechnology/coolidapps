@@ -1,15 +1,15 @@
 // ignore_for_file: library_private_types_in_public_api
 
-import 'package:cool_app/data/data_global.dart';
-import 'package:cool_app/data/provider/provider_transaksi_affiliate.dart';
-import 'package:cool_app/data/response/payments/res_update_transaction_profiling.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/pages/payments/midtrans_screen.dart';
-import 'package:cool_app/presentation/pages/user/reusable_invoice_screen.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/utils/money_formatter.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
-import 'package:cool_app/presentation/widgets/button_primary.dart';
+import 'package:coolappflutter/data/data_global.dart';
+import 'package:coolappflutter/data/provider/provider_transaksi_affiliate.dart';
+import 'package:coolappflutter/data/response/payments/res_update_transaction_profiling.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/payments/midtrans_screen.dart';
+import 'package:coolappflutter/presentation/pages/user/reusable_invoice_screen.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/money_formatter.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/widgets/button_primary.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -19,11 +19,11 @@ import '../payments/paypal_screen.dart';
 
 class VoucherPage extends StatefulWidget {
   final String? snapToken;
-  final String? orderId;
+  final dynamic orderId;
   final String? name;
   final DateTime? date;
-  final String? paymentType;
-  final String? quantity;
+  final dynamic paymentType;
+  final dynamic quantity;
   final String? discount;
   final String? amount;
   final Function? onUpdate;
@@ -35,6 +35,7 @@ class VoucherPage extends StatefulWidget {
   final bool isIndonesia;
   final bool isWithdraw;
   final String? source;
+  final String? resultCenvertCurrency;
 
   const VoucherPage(
       {super.key,
@@ -54,7 +55,8 @@ class VoucherPage extends StatefulWidget {
       this.fromPage,
       this.isIndonesia = true,
       this.isWithdraw = true,
-      this.source});
+      this.source,
+      this.resultCenvertCurrency});
 
   @override
   _VoucherPageState createState() => _VoucherPageState();
@@ -173,11 +175,13 @@ class _VoucherPageState extends State<VoucherPage> {
                 Nav.back(data: "withdraw");
               } else {
                 if (!dataGlobal.isIndonesia) {
+                  debugPrint(
+                      "cek paypal ${widget.resultCenvertCurrency.toString()}");
                   Nav.to(PaypalScreen(
-                    orderId: widget.orderId,
+                    orderId: widget.orderId.toString(),
                     fromPage: "topup_affiliate",
                     currencyPaypal: "USD",
-                    amountPaypal: widget.amount,
+                    amountPaypal: widget.resultCenvertCurrency.toString(),
                   ));
                 } else {
                   Nav.to(MidtransScreen(
@@ -191,5 +195,30 @@ class _VoucherPageState extends State<VoucherPage> {
             elevation: 0.0,
           )),
     );
+  }
+
+  String formatDouble(double value) {
+    // Format angka dengan pengaturan untuk menghilangkan nol di belakang koma
+    final formatted =
+        value.toStringAsFixed(10).replaceAll(RegExp(r'(?<=\d)0*$'), '');
+
+    // Hapus titik jika tidak ada angka setelahnya
+    return formatted.replaceAll(RegExp(r'\.$'), '');
+  }
+
+  double? safeStringToDouble(String input) {
+    try {
+      // Normalisasi string untuk memastikan format desimal yang benar
+      String cleanedInput = input.replaceAll(RegExp(r'[^\d,.]'), '');
+      cleanedInput = cleanedInput.replaceAll(',', '.');
+
+      // Konversi ke double
+      final double result = double.parse(cleanedInput);
+      return result;
+    } catch (e) {
+      // Log atau tangani kesalahan jika diperlukan
+      print("Failed to parse '$input' to double: $e");
+      return null;
+    }
   }
 }

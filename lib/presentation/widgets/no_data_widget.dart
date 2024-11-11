@@ -1,11 +1,11 @@
-import 'package:cool_app/generated/l10n.dart';
+import 'package:coolappflutter/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 class NoDataWidget extends StatelessWidget {
   const NoDataWidget({
-    Key? key,
+    super.key,
     this.withParamsAdd = true,
-  }) : super(key: key);
+  });
 
   final bool withParamsAdd;
 

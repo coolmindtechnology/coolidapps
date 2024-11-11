@@ -1,20 +1,20 @@
-import 'package:cool_app/data/models/profiling.dart';
-import 'package:cool_app/data/models/user.dart';
+import 'package:coolappflutter/data/models/profiling.dart';
+import 'package:coolappflutter/data/models/user.dart';
 
 import 'multimedia.dart';
 
 class DataPost {
-  int? id;
-  String? idUser;
-  String? title;
-  String? description;
-  String? embedUrl;
-  String? isComment;
-  String? shareCount;
+  dynamic id;
+  dynamic idUser;
+  dynamic title;
+  dynamic description;
+  dynamic embedUrl;
+  dynamic isComment;
+  dynamic shareCount;
   DateTime? createdAt;
   DateTime? updatedAt;
-  int? likes;
-  int? comment;
+  dynamic likes;
+  dynamic comment;
   List<Multimedia>? multimedia;
   Profiling? profiling;
   User? user;

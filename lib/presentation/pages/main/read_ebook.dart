@@ -1,5 +1,5 @@
-import 'package:cool_app/data/provider/provider_book.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/data/provider/provider_book.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../data/networks/endpoint/api_endpoint.dart';

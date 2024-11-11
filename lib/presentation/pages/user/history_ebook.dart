@@ -1,7 +1,7 @@
-import 'package:cool_app/data/provider/provider_book.dart';
-import 'package:cool_app/data/response/payments/res_history_ebook.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/widgets/shimmer_loading.dart';
+import 'package:coolappflutter/data/provider/provider_book.dart';
+import 'package:coolappflutter/data/response/payments/res_history_ebook.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/widgets/shimmer_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../generated/l10n.dart';
@@ -77,23 +77,40 @@ class _HistoryEbookState extends State<HistoryEbook> {
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) {
                           DataHistoryEbook data = value.dataHistoryEbook[index];
-                          return ListTile(
-                            onTap: () {
-                              value.getHistoryDetailEbook(
-                                  context, data.id.toString());
-                            },
-                            title: Text(
-                              '${data.orderId}',
-                              style: const TextStyle(fontSize: 16),
+                          return Card(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12.0)),
+                            child: ListTile(
+                              onTap: () {
+                                value.getHistoryDetailEbook(
+                                    context, data.id.toString());
+                              },
+                              title: Text(
+                                data.createdAt.toString().substring(0, 10),
+                                style: const TextStyle(
+                                    fontSize: 13, fontWeight: FontWeight.bold),
+                              ),
+                              subtitle: Text(
+                                '${data.orderId}',
+                                style: const TextStyle(fontSize: 13),
+                              ),
+                              trailing: const Icon(Icons.book),
                             ),
                           );
                         },
                         separatorBuilder: (context, index) {
-                          return Divider(
-                            thickness: 2,
-                            color: greyColor.withOpacity(0.2),
-                          );
+                          return Container();
+                          // Divider(
+                          //   thickness: 2,
+                          //   color: greyColor.withOpacity(0.2),
+                          // );
                         },
+                        // separatorBuilder: (context, index) {
+                        //   return Divider(
+                        //     thickness: 2,
+                        //     color: greyColor.withOpacity(0.2),
+                        //   );
+                        // },
                         itemCount: value.dataHistoryEbook.length),
           ),
         ),

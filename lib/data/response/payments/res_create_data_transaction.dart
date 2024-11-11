@@ -39,16 +39,16 @@ class ResCreateDataTransaction {
 
 class DataCreateTransaction {
   int? id;
-  String? orderId;
-  String? idLogs;
-  String? idItemPayments;
-  String? idUser;
-  String? amount;
-  String? discount;
-  String? totalAmount;
-  String? transactionType;
+  dynamic orderId;
+  dynamic idLogs;
+  dynamic idItemPayments;
+  dynamic idUser;
+  dynamic amount;
+  dynamic discount;
+  dynamic totalAmount;
+  dynamic transactionType;
   dynamic paymentType;
-  String? status;
+  dynamic status;
   String? snapToken;
   dynamic transactionIdPaypal;
   dynamic currencyPaypal;
@@ -58,7 +58,7 @@ class DataCreateTransaction {
   DateTime? createdAt;
   DateTime? updatedAt;
   dynamic deletedAt;
-  String? gateway;
+  dynamic gateway;
 
   DataCreateTransaction({
     this.id,

@@ -40,7 +40,7 @@ class ResCheckMaximumCreateProfiling {
 }
 
 class DataMaximumProfiling {
-  String? maxQty;
+  dynamic maxQty;
 
   DataMaximumProfiling({
     this.maxQty,

@@ -38,17 +38,17 @@ class ResDetailHistoryEbook {
 }
 
 class DataDetailHistoryEbook {
-  String? id;
-  String? orderId;
-  String? idLogs;
-  String? idItemPayments;
-  String? idUser;
+  dynamic id;
+  dynamic orderId;
+  dynamic idLogs;
+  dynamic idItemPayments;
+  dynamic idUser;
   String? amount;
   String? discount;
   String? totalAmount;
   String? transactionType;
   String? paymentType;
-  String? status;
+  dynamic status;
   String? snapToken;
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -57,11 +57,11 @@ class DataDetailHistoryEbook {
   String? summary;
   String? image;
   String? imagePath;
-  String? content;
-  String? file;
-  String? filePath;
-  String? price;
-  String? isPremium;
+  dynamic content;
+  dynamic file;
+  dynamic filePath;
+  dynamic price;
+  dynamic isPremium;
 
   DataDetailHistoryEbook({
     this.id,

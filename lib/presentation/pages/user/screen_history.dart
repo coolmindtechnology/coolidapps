@@ -1,9 +1,10 @@
-import 'package:cool_app/data/provider/provider_profiling.dart';
-import 'package:cool_app/data/response/profiling/res_list_profiling.dart';
-import 'package:cool_app/presentation/pages/profiling/screen_hasil_kepribadian.dart';
-import 'package:cool_app/presentation/theme/color_utils.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
-import 'package:cool_app/presentation/widgets/shimmer_loading.dart';
+import 'package:coolappflutter/data/provider/provider_profiling.dart';
+import 'package:coolappflutter/data/response/profiling/res_list_profiling.dart';
+import 'package:coolappflutter/presentation/pages/profiling/screen_hasil_kepribadian.dart';
+import 'package:coolappflutter/presentation/pages/user/invoice_profilling_detail_history.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/widgets/shimmer_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -80,7 +81,10 @@ class _ScreenHistoryState extends State<ScreenHistory> {
                           DataProfiling data = value.listHistory[index];
                           return ListTile(
                             onTap: () {
-                              Nav.to(ScreenHasilKepribadian(data: data));
+                              // Nav.to(ScreenHasilKepribadian(data: data));
+                              Nav.to(InvoiceDetailPage(
+                                id: data.idLogResult.toString(),
+                              ));
                             },
                             title: Text(
                               '${data.profilingName}',

@@ -1,20 +1,20 @@
-import 'package:cool_app/data/helpers/either.dart';
-import 'package:cool_app/data/helpers/failure.dart';
-import 'package:cool_app/data/models/data_checkout_transaction.dart';
-import 'package:cool_app/data/repositories/repo_payment.dart';
-import 'package:cool_app/data/response/payments/res_create_data_topup_transaction.dart';
-import 'package:cool_app/data/response/payments/res_get_amount_deposit.dart';
-import 'package:cool_app/data/response/payments/res_get_data_top_up.dart';
-import 'package:cool_app/data/response/payments/res_get_invoice_brain_activation.dart';
-import 'package:cool_app/data/response/payments/res_history_brain_activation.dart';
-import 'package:cool_app/data/response/payments/res_history_topup.dart';
-import 'package:cool_app/data/response/payments/res_invoice_transaction.dart';
-import 'package:cool_app/generated/l10n.dart';
-import 'package:cool_app/presentation/pages/payments/pre_invoice_screen.dart';
-import 'package:cool_app/presentation/pages/payments/top_up_page.dart';
-import 'package:cool_app/presentation/pages/user/reusable_invoice_screen.dart';
-import 'package:cool_app/presentation/utils/nav_utils.dart';
-import 'package:cool_app/presentation/utils/notification_utils.dart';
+import 'package:coolappflutter/data/helpers/either.dart';
+import 'package:coolappflutter/data/helpers/failure.dart';
+import 'package:coolappflutter/data/models/data_checkout_transaction.dart';
+import 'package:coolappflutter/data/repositories/repo_payment.dart';
+import 'package:coolappflutter/data/response/payments/res_create_data_topup_transaction.dart';
+import 'package:coolappflutter/data/response/payments/res_get_amount_deposit.dart';
+import 'package:coolappflutter/data/response/payments/res_get_data_top_up.dart';
+import 'package:coolappflutter/data/response/payments/res_get_invoice_brain_activation.dart';
+import 'package:coolappflutter/data/response/payments/res_history_brain_activation.dart';
+import 'package:coolappflutter/data/response/payments/res_history_topup.dart';
+import 'package:coolappflutter/data/response/payments/res_invoice_transaction.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/payments/pre_invoice_screen.dart';
+import 'package:coolappflutter/presentation/pages/payments/top_up_page.dart';
+import 'package:coolappflutter/presentation/pages/user/reusable_invoice_screen.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/utils/notification_utils.dart';
 import 'package:flutter/material.dart';
 
 import '../data_global.dart';
@@ -69,6 +69,7 @@ class ProviderPayment extends ChangeNotifier {
     notifyListeners();
 
     response.when(error: (e) {
+      debugPrint("tes topup3 ${e.toString()}");
       NotificationUtils.showDialogError(context, () {
         Nav.back();
       },

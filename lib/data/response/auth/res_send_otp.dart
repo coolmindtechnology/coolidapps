@@ -35,8 +35,8 @@ class ResSendOtp {
 
 class DataSendOtp {
   int? id;
-  String? name;
-  String? otpCode;
+  dynamic name;
+  dynamic otpCode;
   DateTime? otpTime;
   String? isVerified;
 

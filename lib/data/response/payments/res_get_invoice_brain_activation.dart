@@ -14,7 +14,7 @@ String resGetInvoiceBrainAcitovationToJson(
 
 class ResGetInvoiceBrainAcitovation {
   bool? success;
-  String? message;
+  dynamic message;
   DataInvoiceBrainActivation? data;
 
   ResGetInvoiceBrainAcitovation({
@@ -40,32 +40,32 @@ class ResGetInvoiceBrainAcitovation {
 }
 
 class DataInvoiceBrainActivation {
-  String? id;
-  String? orderId;
-  String? idLogs;
-  String? idItemPayments;
-  String? idUser;
-  String? amount;
-  String? discount;
-  String? totalAmount;
-  String? transactionType;
+  dynamic id;
+  dynamic orderId;
+  dynamic idLogs;
+  dynamic idItemPayments;
+  dynamic idUser;
+  dynamic amount;
+  dynamic discount;
+  dynamic totalAmount;
+  dynamic transactionType;
   dynamic paymentType;
-  String? status;
-  String? snapToken;
+  dynamic status;
+  dynamic snapToken;
   DateTime? createdAt;
   DateTime? updatedAt;
   dynamic deletedAt;
-  String? idBrainActivations;
-  String? idLogProfiling;
+  dynamic idBrainActivations;
+  dynamic idLogProfiling;
   DateTime? expDate;
   dynamic dailyCount;
   dynamic totalAccess;
-  String? limitAccessAudio;
+  dynamic limitAccessAudio;
   dynamic lastAccessTime;
-  String? itemPayment;
-  String? name;
-  String? upload;
-  String? price;
+  dynamic itemPayment;
+  dynamic name;
+  dynamic upload;
+  dynamic price;
 
   DataInvoiceBrainActivation({
     this.id,

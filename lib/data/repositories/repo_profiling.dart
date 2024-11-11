@@ -1,20 +1,20 @@
-import 'package:cool_app/data/helpers/check_language.dart';
-import 'package:cool_app/data/models/data_checkout_transaction.dart';
-import 'package:cool_app/data/networks/error_handler.dart';
-import 'package:cool_app/data/response/payments/res_transcation_profiling.dart';
-import 'package:cool_app/data/response/profiling/res_add_profiling.dart';
-import 'package:cool_app/data/response/profiling/res_check_maximum_profiling.dart';
-import 'package:cool_app/data/response/profiling/res_create_multiple_profiling.dart';
-import 'package:cool_app/data/response/profiling/res_detail_profiling.dart';
-import 'package:cool_app/data/response/profiling/res_get_user_profiling.dart';
-import 'package:cool_app/data/response/profiling/res_list_multiple_profiling.dart';
-import 'package:cool_app/data/response/profiling/res_list_profiling.dart';
-import 'package:cool_app/data/response/profiling/res_pay_profiling.dart';
-import 'package:cool_app/data/response/profiling/res_permit_profiling.dart';
-import 'package:cool_app/data/response/profiling/res_share_result_detail.dart';
-import 'package:cool_app/data/response/profiling/res_show_detail.dart';
-import 'package:cool_app/data/response/profiling/res_update_transaction_profiling.dart';
-import 'package:cool_app/data/response/profiling/res_upgrade_member.dart';
+import 'package:coolappflutter/data/helpers/check_language.dart';
+import 'package:coolappflutter/data/models/data_checkout_transaction.dart';
+import 'package:coolappflutter/data/networks/error_handler.dart';
+import 'package:coolappflutter/data/response/payments/res_transcation_profiling.dart';
+import 'package:coolappflutter/data/response/profiling/res_add_profiling.dart';
+import 'package:coolappflutter/data/response/profiling/res_check_maximum_profiling.dart';
+import 'package:coolappflutter/data/response/profiling/res_create_multiple_profiling.dart';
+import 'package:coolappflutter/data/response/profiling/res_detail_profiling.dart';
+import 'package:coolappflutter/data/response/profiling/res_get_user_profiling.dart';
+import 'package:coolappflutter/data/response/profiling/res_list_multiple_profiling.dart';
+import 'package:coolappflutter/data/response/profiling/res_list_profiling.dart';
+import 'package:coolappflutter/data/response/profiling/res_pay_profiling.dart';
+import 'package:coolappflutter/data/response/profiling/res_permit_profiling.dart';
+import 'package:coolappflutter/data/response/profiling/res_share_result_detail.dart';
+import 'package:coolappflutter/data/response/profiling/res_show_detail.dart';
+import 'package:coolappflutter/data/response/profiling/res_update_transaction_profiling.dart';
+import 'package:coolappflutter/data/response/profiling/res_upgrade_member.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
@@ -115,6 +115,8 @@ class RepoProfiling {
           ));
       return Either.success(ResAddProfiling.fromJson(res.data));
     } catch (e, st) {
+      debugPrint("eeeee $e");
+      debugPrint("eeeee $st");
       if (kDebugMode) {
         print(st);
       }
@@ -162,8 +164,9 @@ class RepoProfiling {
     }
   }
 
-  Future<Either<Failure, ResPayProfiling>> payProfiling(List<int> idLog,
-      String discount, String transactionType, int qty, {String? gateway}) async {
+  Future<Either<Failure, ResPayProfiling>> payProfiling(
+      List<int> idLog, String discount, String transactionType, int qty,
+      {String? gateway}) async {
     Map<String, dynamic> map = {};
     // for (int i = 0; i < idLog.length; i++) {
     // }
@@ -265,8 +268,10 @@ class RepoProfiling {
             responseType: ResponseType.json,
             headers: {'Authorization': dataGlobal.token},
           ));
+      debugPrint(" cek sini2 $res");
       return Either.success(ResTransactionProfiling.fromJson(res.data));
     } catch (e, st) {
+      debugPrint(" cek sini $e");
       if (kDebugMode) {
         print(st);
       }

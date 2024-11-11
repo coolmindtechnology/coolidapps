@@ -1,4 +1,4 @@
-import 'package:cool_app/main.dart';
+import 'package:coolappflutter/main.dart';
 import 'package:flutter/material.dart';
 
 class Nav {

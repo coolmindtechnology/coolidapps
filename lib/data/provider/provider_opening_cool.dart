@@ -1,5 +1,5 @@
-// import 'package:cool_app/data/data_global.dart';
-// import 'package:cool_app/data/repositories/repo_opening_cool.dart';
+// import 'package:coolappflutter/data/data_global.dart';
+// import 'package:coolappflutter/data/repositories/repo_opening_cool.dart';
 // import 'package:flutter/foundation.dart';
 // import 'package:flutter/material.dart';
 //

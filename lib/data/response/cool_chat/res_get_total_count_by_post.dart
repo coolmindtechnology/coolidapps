@@ -25,7 +25,9 @@ class ResGetTotalCountByPost {
       ResGetTotalCountByPost(
         success: json["success"],
         message: json["message"],
-        data: json["data"] == null ? null : DataTotalCountByPost.fromJson(json["data"]),
+        data: json["data"] == null
+            ? null
+            : DataTotalCountByPost.fromJson(json["data"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -36,8 +38,8 @@ class ResGetTotalCountByPost {
 }
 
 class DataTotalCountByPost {
-  int? likes;
-  int? comment;
+  dynamic likes;
+  dynamic comment;
   dynamic share;
 
   DataTotalCountByPost({
@@ -46,7 +48,8 @@ class DataTotalCountByPost {
     this.share,
   });
 
-  factory DataTotalCountByPost.fromJson(Map<String, dynamic> json) => DataTotalCountByPost(
+  factory DataTotalCountByPost.fromJson(Map<String, dynamic> json) =>
+      DataTotalCountByPost(
         likes: json["likes"],
         comment: json["comment"],
         share: json["share"],
