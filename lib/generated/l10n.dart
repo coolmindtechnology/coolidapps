@@ -2834,14 +2834,24 @@ class S {
     );
   }
 
-//Upload file
-  String get uploading_in_progress {
-    return Intl.message('Uploading in progress',
-        name: 'uploading_in_progress', desc: '', args: []);
+  /// `Please wait`
+  String get please_wait {
+    return Intl.message(
+      'Please wait',
+      name: 'please_wait',
+      desc: '',
+      args: [],
+    );
   }
 
-  String get please_wait {
-    return Intl.message('Please Wait', name: 'please_wait', desc: '', args: []);
+  /// `Uploading in progress`
+  String get uploading_in_progress {
+    return Intl.message(
+      'Uploading in progress',
+      name: 'uploading_in_progress',
+      desc: '',
+      args: [],
+    );
   }
 }
 
@@ -2855,6 +2865,8 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
       Locale.fromSubtags(languageCode: 'es', countryCode: 'ES'),
       Locale.fromSubtags(languageCode: 'id', countryCode: 'ID'),
       Locale.fromSubtags(languageCode: 'ms', countryCode: 'MY'),
+      Locale.fromSubtags(languageCode: 'ru', countryCode: 'RU'),
+      Locale.fromSubtags(languageCode: 'tr', countryCode: 'TR'),
       Locale.fromSubtags(languageCode: 'zh', countryCode: 'CN'),
     ];
   }

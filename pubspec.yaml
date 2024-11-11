@@ -138,3 +138,10 @@ flutter:
 flutter_intl:
   main_locale: en_US
   enabled: true
+  generate: true
+# flutter_intl:
+#   enabled: true
+#   generate: true
+#   localizations_directories:
+#     - lib/l10n
+

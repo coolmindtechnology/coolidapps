@@ -292,6 +292,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Silahkan pilih langganan"),
         "please_upload_profile_picture": MessageLookupByLibrary.simpleMessage(
             "Silakan unggah foto profil Anda"),
+        "please_wait": MessageLookupByLibrary.simpleMessage("Mohon Tunggu"),
         "plese_profiling_first_before_joining_coolchat":
             MessageLookupByLibrary.simpleMessage(
                 "Silahkan profiling dulu sebelum bergabung ke Coolchat"),
@@ -433,6 +434,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Berhasil memperbarui foto profil"),
         "upgrade_member_to_get_more_feature": MessageLookupByLibrary.simpleMessage(
             "Tingkatkan anggota untuk mendapatkan akses ke lebih banyak fitur"),
+        "uploading_in_progress":
+            MessageLookupByLibrary.simpleMessage("Sedang Proses Upload"),
         "use_your_user_account": MessageLookupByLibrary.simpleMessage(
             "Silahkan gunakan akun pengguna"),
         "user": MessageLookupByLibrary.simpleMessage("Pengguna"),
@@ -457,9 +460,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "your_affiliate_code":
             MessageLookupByLibrary.simpleMessage("Kode Affiliate Anda"),
         "your_personality":
-            MessageLookupByLibrary.simpleMessage("Kepribadian Anda"),
-        "please_wait": MessageLookupByLibrary.simpleMessage("Mohon Tunggu"),
-        "uploading_in_progress":
-            MessageLookupByLibrary.simpleMessage("Sedang Proses Upload"),
+            MessageLookupByLibrary.simpleMessage("Kepribadian Anda")
       };
 }

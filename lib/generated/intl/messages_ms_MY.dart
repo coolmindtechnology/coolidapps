@@ -295,6 +295,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Sila pilih langganan"),
         "please_upload_profile_picture": MessageLookupByLibrary.simpleMessage(
             "Sila muat naik foto profil anda"),
+        "please_wait": MessageLookupByLibrary.simpleMessage("Mohon Tunggu"),
         "plese_profiling_first_before_joining_coolchat":
             MessageLookupByLibrary.simpleMessage(
                 "Sila buat profiling terlebih dahulu sebelum menyertai Coolchat"),
@@ -438,6 +439,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Berjaya memperbarui foto profil"),
         "upgrade_member_to_get_more_feature": MessageLookupByLibrary.simpleMessage(
             "Tingkatkan keahlian untuk mendapatkan akses ke lebih banyak fitur"),
+        "uploading_in_progress":
+            MessageLookupByLibrary.simpleMessage("Sedang Proses Upload"),
         "use_your_user_account":
             MessageLookupByLibrary.simpleMessage("Sila gunakan akaun pengguna"),
         "user": MessageLookupByLibrary.simpleMessage("Pengguna"),
