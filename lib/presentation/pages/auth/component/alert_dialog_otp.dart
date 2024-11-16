@@ -28,11 +28,14 @@ class AlertDialogOtp extends StatelessWidget {
           SizedBox(
             height: 54,
             child: ButtonPrimary(
-              "SMS",
+              "Email",
               expand: true,
-              onPress: sms,
+              onPress: email,
               elevation: 0.0,
               radius: 10,
+              negativeColor: true,
+              border: 1,
+              borderColor: primaryColor,
             ),
           ),
           const SizedBox(
@@ -57,14 +60,11 @@ class AlertDialogOtp extends StatelessWidget {
           SizedBox(
             height: 54,
             child: ButtonPrimary(
-              "Email",
+              "SMS",
               expand: true,
-              onPress: email,
+              onPress: sms,
               elevation: 0.0,
               radius: 10,
-              negativeColor: true,
-              border: 1,
-              borderColor: primaryColor,
             ),
           ),
         ],

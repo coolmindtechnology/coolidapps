@@ -9,6 +9,7 @@ import 'package:coolappflutter/data/provider/provider_user.dart';
 import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/pages/auth/login_screen.dart';
 import 'package:coolappflutter/presentation/pages/user/change_language.dart';
+import 'package:coolappflutter/presentation/pages/user/delete_account.dart';
 import 'package:coolappflutter/presentation/pages/user/history_brain_activation.dart';
 import 'package:coolappflutter/presentation/pages/user/history_ebook.dart';
 import 'package:coolappflutter/presentation/pages/user/history_merchandise_payment.dart';
@@ -228,7 +229,16 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                       setState(() {});
                     },
                   ),
+
                   DropdownHistory(isExpanded: isExpanded),
+                  ItemSetting(
+                    title: "Hapus Akun",
+                    image: "disclaimer.png",
+                    onTap: () {
+                      Nav.to(const DeletedAccount());
+                      setState(() {});
+                    },
+                  ),
                   ItemSetting(
                     title: S.of(context).logout,
                     image: "logout.png",

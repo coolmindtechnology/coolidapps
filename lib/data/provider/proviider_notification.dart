@@ -1,4 +1,5 @@
 import 'package:coolappflutter/data/data_global.dart';
+import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
 import 'package:coolappflutter/data/response/notification/res_detail_notification.dart';
 import 'package:coolappflutter/data/response/notification/res_get_all_notification.dart';
 import 'package:dio/dio.dart';
@@ -18,7 +19,7 @@ class NotificationProvider with ChangeNotifier {
   Future<void> deleteNotification(String slug) async {
     try {
       final response = await _dio.delete(
-        'https://coolcompas.hantrr.com/api/notify/delete/$slug',
+        '${ApiEndpoint.baseUrl}/api/notify/delete/$slug',
         options: Options(
           contentType: Headers.jsonContentType,
           responseType: ResponseType.json,
@@ -55,7 +56,7 @@ class NotificationProvider with ChangeNotifier {
 
     try {
       final response = await _dio.get(
-        'https://coolcompas.hantrr.com/api/notify/get',
+        '${ApiEndpoint.baseUrl}/api/notify/get',
         queryParameters: {'page': page},
         options: Options(
           contentType: Headers.jsonContentType,
@@ -92,7 +93,7 @@ class NotificationProvider with ChangeNotifier {
       String notificationId) async {
     try {
       final response = await _dio.get(
-        'https://coolcompas.hantrr.com/api/notify/detail/$notificationId',
+        '${ApiEndpoint.baseUrl}/api/notify/detail/$notificationId',
         options: Options(
           contentType: Headers.jsonContentType,
           responseType: ResponseType.json,
@@ -114,7 +115,7 @@ class NotificationProvider with ChangeNotifier {
   Future<void> markAsRead(String notificationId) async {
     try {
       final response = await _dio.post(
-        'https://coolcompas.hantrr.com/api/notify/read/$notificationId',
+        '${ApiEndpoint.baseUrl}/api/notify/read/$notificationId',
         data: {
           "is_read": 1,
         },
