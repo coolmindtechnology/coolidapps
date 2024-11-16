@@ -41,7 +41,7 @@ class ResHistoryTopup {
 }
 
 class DataHistoryTopup {
-  int id;
+  dynamic id;
   dynamic orderId;
   dynamic idLogs;
   dynamic idItemPayments;

@@ -304,6 +304,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Please select subscription"),
         "please_upload_profile_picture": MessageLookupByLibrary.simpleMessage(
             "Please upload your profile picture"),
+        "please_wait": MessageLookupByLibrary.simpleMessage("Please wait"),
         "plese_profiling_first_before_joining_coolchat":
             MessageLookupByLibrary.simpleMessage(
                 "Please profile first before joining Coolchat"),
@@ -444,6 +445,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "upgrade_member_to_get_more_feature":
             MessageLookupByLibrary.simpleMessage(
                 "Upgrade members to get access to more features"),
+        "uploading_in_progress":
+            MessageLookupByLibrary.simpleMessage("Uploading in progress"),
         "use_your_user_account":
             MessageLookupByLibrary.simpleMessage("Please use user account"),
         "user": MessageLookupByLibrary.simpleMessage("User"),
@@ -468,9 +471,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "your_affiliate_code":
             MessageLookupByLibrary.simpleMessage("Your Affiliate Code"),
         "your_personality":
-            MessageLookupByLibrary.simpleMessage("Your Personality"),
-        "please_wait": MessageLookupByLibrary.simpleMessage("Please wait"),
-        "uploading_in_progress":
-            MessageLookupByLibrary.simpleMessage("Uploading in progress"),
+            MessageLookupByLibrary.simpleMessage("Your Personality")
       };
 }

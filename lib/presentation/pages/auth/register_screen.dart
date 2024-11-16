@@ -397,11 +397,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                         context: context,
                                         builder: (context2) {
                                           return AlertDialogOtp(
-                                            sms: () {
+                                            email: () {
                                               Nav.back();
                                               state.register(
                                                   context,
-                                                  "sms",
+                                                  'email',
                                                   controllerEmail.text,
                                                   codeReferal.text);
                                             },
@@ -413,11 +413,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                   controllerEmail.text,
                                                   codeReferal.text);
                                             },
-                                            email: () {
+                                            sms: () {
                                               Nav.back();
                                               state.register(
                                                   context,
-                                                  'email',
+                                                  "sms",
                                                   controllerEmail.text,
                                                   codeReferal.text);
                                             },

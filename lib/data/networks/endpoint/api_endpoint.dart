@@ -1,12 +1,11 @@
 class ApiEndpoint {
-  // static String baseUrl = "https://cool-app.udadeveloper.com";
-  static String baseUrl = "https://coolcompas.hantrr.com";
-  // static String baseUrl = "https://cool-compass.pasarsembang.com";
-  // Sets the base URL to "https://cool-app.udadeveloper.com".
+  static String baseUrl = "https://cool-compass.mycool.id";
+  // static String baseUrl = "https://coolcompas-staging.mycool.id";
+
   static void setDev() {
-    // baseUrl = "https://cool-app.udadeveloper.com";
-    // baseUrl = "https://cool-compass.pasarsembang.com";
-    baseUrl = "https://coompas-of-life.hantrr.com";
+    baseUrl = "https://cool-compass.mycool.id";
+
+    // baseUrl = "https://coolcompas-staging.mycool.id";
   }
 
   /// Sets the base URL to "https://cool-compass.mycool.id" for production environment.
@@ -16,10 +15,9 @@ class ApiEndpoint {
   ///
   /// This function does not take any parameters and does not return any value.
   static void setProd() {
-    // baseUrl = "https://cool-compass.mycool.id";
-    // baseUrl = "https://cool-compass.pasarsembang.com";
-    // baseUrl = "https://coolprojects.sabahloka.com";
-    baseUrl = "https://coolcompas.hantrr.com";
+    baseUrl = "https://cool-compass.mycool.id";
+
+    // baseUrl = "https://coolcompas-staging.mycool.id";
   }
 
   /// Base API Endpoint
@@ -30,9 +28,7 @@ class ApiEndpoint {
 
   static String imageUrl = "$imageUrlPreHome/storage/images/ebook/";
   static String imageUrlUser = "$imageUrlPreHome/storage/user/";
-  // static const String imageUrlPreHome = "https://cool-app.udadeveloper.com/";
-  // static const String imageUrlPreHome =
-  //     "https://cool-compass.pasarsembang.com/";
+
   static const String imageUrlPreHome =
       "https://s3.ap-southeast-1.amazonaws.com/";
 

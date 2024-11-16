@@ -253,13 +253,19 @@ class _HomeChatState extends State<HomeChat> {
                                           child: SizedBox(
                                               width: 100,
                                               height: 100,
-                                              child: Image.file(
-                                                File(value.image![0].path),
-                                                height: 150,
-                                                width: MediaQuery.of(context)
-                                                    .size
-                                                    .width,
-                                              )),
+                                              child: value.image![0].path !=
+                                                      null
+                                                  ? Image.file(
+                                                      File(
+                                                          value.image![0].path),
+                                                      height: 150,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                              .size
+                                                              .width,
+                                                    )
+                                                  : Image.asset(
+                                                      "images/default_user.png")),
                                         )
                                       : (value.imageType == "video") &&
                                               (value.controller?.value

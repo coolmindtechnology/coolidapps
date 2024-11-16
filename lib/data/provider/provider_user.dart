@@ -28,6 +28,17 @@ import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/phone_number.dart';
 
 class ProviderUser extends ChangeNotifier {
+  ///deleted account
+  bool _isLoadingsss = true;
+
+  bool get isLoadingsss => _isLoadingsss;
+
+  void setLoading(bool value) {
+    _isLoadingsss = value;
+    notifyListeners();
+  }
+
+  ///
   ProviderUser();
 
   ProviderUser.initMemberArea(BuildContext context) {
