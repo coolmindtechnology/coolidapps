@@ -62,7 +62,7 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="https" android:host="coolcompas-staging.mycool.id" android:pathPrefix="/mobile" />
+                <data android:scheme="https" android:host="coolcompas.hantrr.com" android:pathPrefix="/mobile" />
             </intent-filter>
             
             <!-- Flutter App Launcher -->

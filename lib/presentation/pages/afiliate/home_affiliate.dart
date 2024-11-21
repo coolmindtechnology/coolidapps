@@ -8,12 +8,14 @@ import 'package:coolappflutter/data/provider/provider_affiliate.dart';
 import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/pages/afiliate/components/term_conditions_affiliasi.dart';
 import 'package:coolappflutter/presentation/pages/afiliate/screen_total_member.dart';
+import 'package:coolappflutter/presentation/pages/afiliate/term_dialog.dart';
 
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/circular_progress_widget.dart';
 import 'package:coolappflutter/presentation/utils/money_formatter.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
@@ -149,7 +151,7 @@ class _HomeAffiliateState extends State<HomeAffiliate> {
                                 barrierDismissible: false,
                                 context: context,
                                 builder: (context) =>
-                                    const TermConditionsAffiliasi());
+                                    TermsDialog(token: token));
                           },
                           child: Container(
                             padding: const EdgeInsets.all(10),
@@ -726,5 +728,36 @@ class _HomeAffiliateState extends State<HomeAffiliate> {
                   color: Colors.blue,
                 ))),
     );
+  }
+}
+
+class TermsAndConditions {
+  final String data;
+
+  TermsAndConditions({required this.data});
+
+  factory TermsAndConditions.fromJson(Map<String, dynamic> json) {
+    return TermsAndConditions(data: json['data']['data'] ?? '');
+  }
+}
+
+class ApiService {
+  final Dio _dio = Dio(
+      BaseOptions(baseUrl: "${ApiEndpoint.baseUrl}/api/terms-and-condition"));
+
+  Future<TermsAndConditions> fetchTerms(String token) async {
+    try {
+      final response = await _dio.get(
+        "${ApiEndpoint.baseUrl}/api/terms-and-condition",
+        options: Options(headers: {'Authorization': 'Bearer $token'}),
+      );
+      if (response.statusCode == 200) {
+        return TermsAndConditions.fromJson(response.data);
+      } else {
+        throw Exception('Failed to load terms and conditions');
+      }
+    } catch (e) {
+      throw Exception('Error: $e');
+    }
   }
 }
