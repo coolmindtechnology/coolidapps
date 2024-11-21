@@ -8,7 +8,10 @@ import 'package:coolappflutter/presentation/widgets/button_primary.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+
+import '../afiliate/home_affiliate.dart';
 
 class TermHomeAffiliasi extends StatefulWidget {
   const TermHomeAffiliasi({super.key});
@@ -77,10 +80,15 @@ By joining, you can earn additional income by referring our products or services
   }
 
   bool checkbox = false;
+  late Future<TermsAndConditions> _termsFuture;
+  final ApiService _apiService = ApiService();
+  final String _token =
+      "your_bearer_token_here"; // Ganti dengan token yang valid
+
   @override
   void initState() {
     // getIsIndonesia();
-
+    _termsFuture = _apiService.fetchTerms(_token);
     super.initState();
     initLocale();
   }
@@ -109,81 +117,117 @@ By joining, you can earn additional income by referring our products or services
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          "SYARAT & KETENTUAN AFILIASI",
-          style: TextStyle(color: whiteColor),
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text(
+            "SYARAT & KETENTUAN AFILIASI",
+            style: TextStyle(color: whiteColor),
+          ),
+          iconTheme: IconThemeData(color: whiteColor),
+          backgroundColor: primaryColor,
         ),
-        iconTheme: IconThemeData(color: whiteColor),
-        backgroundColor: primaryColor,
-      ),
-      body: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const SizedBox(
-                height: 16.0,
-              ),
-              Center(
-                child: Image.asset(
-                  "assets/icons/logo_cool_vertical.png",
-                  height: 60.0,
-                ),
-              ),
-              const SizedBox(
-                height: 48,
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                    border: Border.all(color: greyColor.withOpacity(0.5)),
-                    borderRadius: BorderRadius.circular(16)),
-                child: const Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [],
-                ),
-              ),
-              const SizedBox(
-                height: 24,
-              ),
-              HtmlWidget(
-                isIndonesia ? indonesianText : englishText,
-              ),
-              const SizedBox(
-                height: 24,
-              ),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Checkbox(
-                      value: checkbox,
-                      onChanged: (val) {
-                        triger();
-                      }),
-                  Expanded(child: Text(S.of(context).save_agreement)),
-                ],
-              ),
-              ButtonPrimary(
-                "Lanjut Pendaftaran",
-                onPress: () {
-                  if (checkbox == true) {
-                    Nav.to(const InputCodeReferralAffiliate());
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text(
-                            'Silahkan ceklis persetujuan terlebih dahulu!')));
-                  }
-                },
-                expand: false,
-                elevation: 0,
-                radius: 10,
-              )
-            ],
-          )),
-    );
+        body: FutureBuilder<TermsAndConditions>(
+          future: _termsFuture,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else if (snapshot.hasData) {
+              final terms = snapshot.data!;
+              return SingleChildScrollView(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const SizedBox(
+                        height: 16.0,
+                      ),
+                      Center(
+                        child: Image.asset(
+                          "assets/icons/logo_cool_vertical.png",
+                          height: 60.0,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 48,
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            border:
+                                Border.all(color: greyColor.withOpacity(0.5)),
+                            borderRadius: BorderRadius.circular(16)),
+                        child: const Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      Html(
+                        data: terms.data,
+                        style: {
+                          "body": Style(
+                            fontSize: FontSize.large,
+                            textAlign: TextAlign.justify, // Rata kiri-kanan
+                            lineHeight:
+                                const LineHeight(1.5), // Jarak antar baris
+                            margin: Margins.all(0), // Hilangkan margin berlebih
+                            padding: HtmlPaddings.all(
+                                0), // Hilangkan padding berlebih
+                          ),
+                          "p": Style(
+                            margin: Margins.only(
+                                bottom: 8), // Jarak antar paragraf minimal
+                          ),
+                          "br": Style(
+                            display: Display.none, // Hilangkan <br> tambahan
+                          ),
+                        },
+                      ),
+                      // HtmlWidget(
+                      //   isIndonesia ? indonesianText : englishText,
+                      // ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Checkbox(
+                              value: checkbox,
+                              onChanged: (val) {
+                                triger();
+                              }),
+                          Expanded(child: Text(S.of(context).save_agreement)),
+                        ],
+                      ),
+                      ButtonPrimary(
+                        "Lanjut Pendaftaran",
+                        onPress: () {
+                          if (checkbox == true) {
+                            Nav.to(const InputCodeReferralAffiliate());
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text(
+                                        'Silahkan ceklis persetujuan terlebih dahulu!')));
+                          }
+                        },
+                        expand: false,
+                        elevation: 0,
+                        radius: 10,
+                      )
+                    ],
+                  ));
+            } else {
+              return const Center(child: Text('Tidak ada data'));
+            }
+          },
+        ));
   }
 }

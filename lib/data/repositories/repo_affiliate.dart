@@ -157,6 +157,7 @@ class RepoAffiliate {
 
   Future<Either<Failure, ResCheckTopupAffiliate>> checkTopupAffiliate(
       String idMember) async {
+    debugPrint("gg ${ApiEndpoint.checkTopupAffiliate}/$idMember");
     try {
       Response res =
           await dio.get("${ApiEndpoint.checkTopupAffiliate}/$idMember",
@@ -168,6 +169,8 @@ class RepoAffiliate {
                 responseType: ResponseType.json,
                 headers: {'Authorization': dataGlobal.token},
               ));
+      debugPrint("${ApiEndpoint.checkTopupAffiliate}/$idMember");
+      debugPrint("data cek topup $res");
 
       return Either.success(ResCheckTopupAffiliate.fromJson(res.data));
     } catch (e, st) {

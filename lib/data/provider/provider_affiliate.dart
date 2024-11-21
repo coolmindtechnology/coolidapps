@@ -104,27 +104,27 @@ class ProviderAffiliate extends ChangeNotifier {
             dataAffiliasi;
 
         /// check if the account is active
-        if (dataAffiliasi?.isActive.toString() != "1") {
-          debugPrint("cekttt");
-          NotificationUtils.showSimpleDialog(context,
-              message: S.of(context).account_disabled_contact_admin, () {
-            Nav.back();
-            Nav.back();
-          }, textOnButton: S.of(context).close);
-        } else {
-          debugPrint("cekmm");
+        // if (dataAffiliasi?.isActive.toString() != "1") {
+        //   debugPrint("cekttt");
+        // NotificationUtils.showSimpleDialog(context,
+        //     message: S.of(context).account_disabled_contact_admin, () {
+        //   Nav.back();
+        //   Nav.back();
+        // }, textOnButton: S.of(context).close);
+        // } else {
+        debugPrint("cekmm");
 
-          /// if account is active check data bank
-          checkCompleteBank(context);
+        /// if account is active check data bank
+        checkCompleteBank(context);
 
-          if (pilihRek != null) {
-            nameBank = TextEditingController(text: dataAffiliasi?.bankName);
-          }
-          getListRekening(context);
-          if (kDebugMode) {
-            print("data aff ${dataAffiliasi?.toJson()}");
-          }
+        if (pilihRek != null) {
+          nameBank = TextEditingController(text: dataAffiliasi?.bankName);
         }
+        getListRekening(context);
+        if (kDebugMode) {
+          print("data aff ${dataAffiliasi?.toJson()}");
+        }
+        // }
 
         notifyListeners();
       }
@@ -396,7 +396,33 @@ class ProviderAffiliate extends ChangeNotifier {
         var notif = resCheckTopupAffiliate?.data?.notif;
         if (notif != null) {
           switch (notif) {
+            case 0:
+              await NotificationUtils.showDialogError(
+                context,
+                () {
+                  Nav.back();
+                },
+                widget: Text(
+                  "${res.message}",
+                  style: const TextStyle(fontSize: 16),
+                  textAlign: TextAlign.center,
+                ),
+              );
+              break;
             case 1:
+              await NotificationUtils.showDialogError(
+                context,
+                () {
+                  Nav.back();
+                },
+                widget: Text(
+                  "${res.message}",
+                  style: const TextStyle(fontSize: 16),
+                  textAlign: TextAlign.center,
+                ),
+              );
+              break;
+            case 2:
               await NotificationUtils.showDialogError(
                 context,
                 () {
@@ -428,56 +454,83 @@ class ProviderAffiliate extends ChangeNotifier {
               );
               break;
             case 4:
-              await NotificationUtils.showDialogSuccess(
+              await NotificationUtils.showSimpleDialog2(
+                context,
+                resCheckTopupAffiliate?.message ?? "",
+                textButton1: S.of(context).top_up,
+                textButton2: S.of(context).back,
+                onPress1: () async {
+                  Nav.back();
+                  var data = await Nav.to(const TopupSaldoPage());
+                  if (data != null) {
+                    checkTopupAffiliate(context);
+                  }
+                },
+                onPress2: () {
+                  Nav.back();
+                },
+              );
+              // await NotificationUtils.showDialogSuccess(
+              //   context,
+              //   () {
+              //     Nav.back();
+              //     //update notif top up to false
+              //     updateNotifTopupAffiliate(context);
+              //   },
+              //   widget: Text(
+              //     "${res.message}",
+              //     style: const TextStyle(fontSize: 16),
+              //     textAlign: TextAlign.center,
+              //   ),
+              // );
+              break;
+            case 5:
+              await NotificationUtils.showDialogError(
                 context,
                 () {
                   Nav.back();
-                  //update notif top up to false
-                  updateNotifTopupAffiliate(context);
                 },
                 widget: Text(
                   "${res.message}",
                   style: const TextStyle(fontSize: 16),
-                  textAlign: TextAlign.center,
+                  textAlign: TextAlign.justify,
                 ),
               );
-              break;
-            case 5:
-              await NotificationUtils.showSimpleDialog2(
-                context,
-                "${res.message}",
-                textButton1: S.of(context).process,
-                textButton2: S.of(context).back,
-                onPress1: () async {
-                  // Convert the strings to numbers
-                  double num1 = double.parse(
-                      dataAffiliasi?.totalSaldoAffiliate.toString() == ""
-                          ? "0.0"
-                          : "${dataAffiliasi?.totalSaldoAffiliate.toString()}");
-                  double num2 = double.parse(
-                      dataAffiliasi?.totalRealMoney.toString() == ""
-                          ? "0.0"
-                          : "${dataAffiliasi?.totalRealMoney.toString()}");
+              // await NotificationUtils.showSimpleDialog2(
+              //   context,
+              //   "${res.message}",
+              // textButton1: S.of(context).process,
+              // textButton2: S.of(context).back,
+              // onPress1: () async {
+              //   // Convert the strings to numbers
+              //   double num1 = double.parse(
+              //       dataAffiliasi?.totalSaldoAffiliate.toString() == ""
+              //           ? "0.0"
+              //           : "${dataAffiliasi?.totalSaldoAffiliate.toString()}");
+              //   double num2 = double.parse(
+              //       dataAffiliasi?.totalRealMoney.toString() == ""
+              //           ? "0.0"
+              //           : "${dataAffiliasi?.totalRealMoney.toString()}");
 
-                  // Calculate the sum
-                  double sum = num1 + num2;
-                  Nav.back();
-                  await showDialog(
-                      barrierDismissible: false,
-                      context: context,
-                      builder: (_) {
-                        debugPrint("tes cek vacum transfer");
-                        return DialogTransferAffiliate(
-                          calculateSaldo: sum.toString(),
-                          bankName: dataAffiliasi?.bankName,
-                        );
-                      });
-                },
-                onPress2: () async {
-                  Nav.back();
-                  Nav.back();
-                },
-              );
+              //   // Calculate the sum
+              //   double sum = num1 + num2;
+              //   Nav.back();
+              //   await showDialog(
+              //       barrierDismissible: false,
+              //       context: context,
+              //       builder: (_) {
+              //         debugPrint("tes cek vacum transfer");
+              //         return DialogTransferAffiliate(
+              //           calculateSaldo: sum.toString(),
+              //           bankName: dataAffiliasi?.bankName,
+              //         );
+              //       });
+              // },
+              //   onPress2: () async {
+              //     Nav.back();
+              //     Nav.back();
+              //   },
+              // );
               break;
             case 6:
               await NotificationUtils.showDialogError(
@@ -532,10 +585,12 @@ class ProviderAffiliate extends ChangeNotifier {
               );
               break;
             case 10:
-              await NotificationUtils.showDialogError(
+              await NotificationUtils.showDialogSuccess(
                 context,
                 () {
                   Nav.back();
+                  //update notif top up to false
+                  updateNotifTopupAffiliate(context);
                 },
                 widget: Text(
                   "${res.message}",
@@ -543,6 +598,17 @@ class ProviderAffiliate extends ChangeNotifier {
                   textAlign: TextAlign.center,
                 ),
               );
+              // await NotificationUtils.showDialogError(
+              //   context,
+              //   () {
+              //     Nav.back();
+              //   },
+              //   widget: Text(
+              //     "${res.message}",
+              //     style: const TextStyle(fontSize: 16),
+              //     textAlign: TextAlign.center,
+              //   ),
+              // );
               break;
             default:
               // Handle other cases if needed

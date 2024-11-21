@@ -1,8 +1,7 @@
 import 'package:coolappflutter/data/helpers/check_language.dart';
-import 'package:coolappflutter/generated/l10n.dart';
+
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
-import 'package:coolappflutter/presentation/utils/nav_utils.dart';
-import 'package:coolappflutter/presentation/widgets/button_primary.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 
