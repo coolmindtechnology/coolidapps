@@ -333,6 +333,44 @@ class NotificationUtils {
     );
   }
 
+  //
+  static Future<void> showDialogError5(
+      BuildContext context, void Function() onPress,
+      {Widget? widget, String? textButton}) async {
+    await showDialog(
+      context: context,
+      barrierDismissible:
+          true, // Memastikan dialog tidak dapat ditutup dengan mengklik di luar
+      builder: (context) => WillPopScope(
+        onWillPop: () async => false, // Menonaktifkan tombol back
+        child: AlertDialog(
+          title: Center(
+            child: Image.asset(
+              "assets/icons/material-symbols-light_error-outline.png",
+              width: 50,
+            ),
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+          ),
+          content: widget ?? Container(),
+          scrollable: true,
+          actions: <Widget>[
+            SizedBox(
+              height: 54,
+              child: ButtonPrimary(
+                textButton ?? 'Ok',
+                expand: true,
+                radius: 10,
+                onPress: onPress,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   /// Shows a dialog with a success message and an optional widget.
   ///
   /// The [context] parameter is the BuildContext of the widget that is

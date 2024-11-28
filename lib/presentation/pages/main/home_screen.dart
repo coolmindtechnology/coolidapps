@@ -433,6 +433,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 initHome();
                                                 debugPrint(
                                                     "apa disini? ${valueAffiliate.resCheckTopupAffiliate?.data?.notif}");
+
+                                                // if (valueAffiliate
+                                                //         .resCheckTopupAffiliate
+                                                //         ?.data
+                                                //         ?.notif !=
+                                                //     null) {
                                                 if (valueAffiliate
                                                         .resCheckTopupAffiliate
                                                         ?.data
@@ -448,6 +454,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   valueAffiliate
                                                       .notifyListeners();
                                                 }
+                                                // }
                                               },
                                               tappedStates[2],
                                               isLoading: Provider.of<
@@ -464,71 +471,71 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ),
                             ),
-                            if (valueAffiliate
-                                    .resCheckTopupAffiliate?.data?.notif ==
-                                2) ...[
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                    color: const Color(0xffFFF3cd),
-                                    border: Border.all(
-                                        color: const Color(0x00ffeeba),
-                                        width: 1.0),
-                                    borderRadius: BorderRadius.circular(10)),
-                                margin:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                padding: const EdgeInsets.all(10),
-                                child: Stack(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        const Icon(Icons.warning_outlined,
-                                            color: Color(0xFF856404)),
-                                        const SizedBox(
-                                          width: 8,
-                                        ),
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                valueAffiliate
-                                                        .resCheckTopupAffiliate
-                                                        ?.message ??
-                                                    "",
-                                                style: const TextStyle(
-                                                    color: Color(0xFF856404)),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 24,
-                                        ),
-                                      ],
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        valueAffiliate.resCheckTopupAffiliate =
-                                            null;
-                                      },
-                                      behavior: HitTestBehavior.translucent,
-                                      child: const Align(
-                                        alignment: Alignment.topRight,
-                                        child: Icon(
-                                          Icons.close_rounded,
-                                          size: 20,
-                                          color: Color(0xFF856404),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
+                            // if (valueAffiliate
+                            //         .resCheckTopupAffiliate?.data?.notif ==
+                            //     2) ...[
+                            //   const SizedBox(
+                            //     height: 8,
+                            //   ),
+                            //   Container(
+                            //     decoration: BoxDecoration(
+                            //         color: const Color(0xffFFF3cd),
+                            //         border: Border.all(
+                            //             color: const Color(0x00ffeeba),
+                            //             width: 1.0),
+                            //         borderRadius: BorderRadius.circular(10)),
+                            //     margin:
+                            //         const EdgeInsets.symmetric(horizontal: 10),
+                            //     padding: const EdgeInsets.all(10),
+                            //     child: Stack(
+                            //       children: [
+                            //         Row(
+                            //           children: [
+                            //             const Icon(Icons.warning_outlined,
+                            //                 color: Color(0xFF856404)),
+                            //             const SizedBox(
+                            //               width: 8,
+                            //             ),
+                            //             Expanded(
+                            //               child: Column(
+                            //                 crossAxisAlignment:
+                            //                     CrossAxisAlignment.start,
+                            //                 children: [
+                            //                   Text(
+                            //                     valueAffiliate
+                            //                             .resCheckTopupAffiliate
+                            //                             ?.message ??
+                            //                         "",
+                            //                     style: const TextStyle(
+                            //                         color: Color(0xFF856404)),
+                            //                   ),
+                            //                 ],
+                            //               ),
+                            //             ),
+                            //             const SizedBox(
+                            //               width: 24,
+                            //             ),
+                            //           ],
+                            //         ),
+                            //         GestureDetector(
+                            //           onTap: () {
+                            //             valueAffiliate.resCheckTopupAffiliate =
+                            //                 null;
+                            //           },
+                            //           behavior: HitTestBehavior.translucent,
+                            //           child: const Align(
+                            //             alignment: Alignment.topRight,
+                            //             child: Icon(
+                            //               Icons.close_rounded,
+                            //               size: 20,
+                            //               color: Color(0xFF856404),
+                            //             ),
+                            //           ),
+                            //         ),
+                            //       ],
+                            //     ),
+                            //   ),
+                            // ],
                             Column(
                               children: [
                                 const Divider(
