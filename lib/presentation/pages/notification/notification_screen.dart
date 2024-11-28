@@ -42,9 +42,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Notifikasi",
-          style: TextStyle(color: Colors.white),
+        title: Text(
+          S.of(context).notification,
+          style: const TextStyle(color: Colors.white),
         ),
         actions: [
           Consumer<NotificationProvider>(
@@ -115,7 +115,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       },
                     )
                   : Container(
-                      child: Center(child: Text(S.of(context).no_data)),
+                      child: Center(
+                          child: ElevatedButton(
+                              onPressed: () {
+                                setState(() {});
+                              },
+                              child: Text(S.of(context).no_data))),
                     ));
         },
       ),

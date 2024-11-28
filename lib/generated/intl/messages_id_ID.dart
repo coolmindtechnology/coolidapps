@@ -80,6 +80,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "change_language": MessageLookupByLibrary.simpleMessage("Ganti Bahasa"),
         "change_password":
             MessageLookupByLibrary.simpleMessage("Ubah Password"),
+        "chat": MessageLookupByLibrary.simpleMessage("Pesan"),
         "check_account": MessageLookupByLibrary.simpleMessage("Cek Rekening"),
         "check_your_self_worth":
             MessageLookupByLibrary.simpleMessage("Cek nilai diri anda"),
@@ -117,6 +118,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "date_of_birth": MessageLookupByLibrary.simpleMessage("Tanggal Lahir"),
         "debit_card": MessageLookupByLibrary.simpleMessage("Kartu Debit"),
         "deduction": MessageLookupByLibrary.simpleMessage("Pengurangan"),
+        "delete": MessageLookupByLibrary.simpleMessage("Hapus"),
+        "delete_account": MessageLookupByLibrary.simpleMessage("Hapus Akun"),
         "discount": MessageLookupByLibrary.simpleMessage("Diskon"),
         "dont_have_an_account":
             MessageLookupByLibrary.simpleMessage("Belum Punya Akun?"),
@@ -164,6 +167,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Belum mendapatkan kode OTP?"),
         "hello_world": MessageLookupByLibrary.simpleMessage("Halo Dunia"),
         "history": MessageLookupByLibrary.simpleMessage("Riwayat"),
+        "home": MessageLookupByLibrary.simpleMessage("Beranda"),
         "how_much_data_do_you_want_to_create":
             MessageLookupByLibrary.simpleMessage(
                 "Berapa data yang ingin dibuat?"),

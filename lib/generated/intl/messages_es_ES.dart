@@ -82,6 +82,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Cambiar Idioma"),
         "change_password":
             MessageLookupByLibrary.simpleMessage("Cambiar Contraseña"),
+        "chat": MessageLookupByLibrary.simpleMessage("Mensaje"),
         "check_account":
             MessageLookupByLibrary.simpleMessage("Verificar cuenta"),
         "check_your_self_worth":
@@ -123,6 +124,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Fecha de Nacimiento"),
         "debit_card": MessageLookupByLibrary.simpleMessage("Tarjeta de Débito"),
         "deduction": MessageLookupByLibrary.simpleMessage("Deducción"),
+        "delete": MessageLookupByLibrary.simpleMessage("Eliminar"),
+        "delete_account":
+            MessageLookupByLibrary.simpleMessage("Eliminar cuenta"),
         "discount": MessageLookupByLibrary.simpleMessage("Descuento"),
         "dont_have_an_account":
             MessageLookupByLibrary.simpleMessage("¿No tienes una cuenta?"),
@@ -171,6 +175,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "¿No has recibido el código OTP?"),
         "hello_world": MessageLookupByLibrary.simpleMessage("Hola Mundo"),
         "history": MessageLookupByLibrary.simpleMessage("Historial"),
+        "home": MessageLookupByLibrary.simpleMessage("Inicio"),
         "how_much_data_do_you_want_to_create":
             MessageLookupByLibrary.simpleMessage(
                 "¿Cuántos datos deseas crear?"),
@@ -298,6 +303,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Por favor, selecciona una suscripción"),
         "please_upload_profile_picture": MessageLookupByLibrary.simpleMessage(
             "Por favor, sube tu foto de perfil"),
+        "please_wait": MessageLookupByLibrary.simpleMessage("Por favor espera"),
         "plese_profiling_first_before_joining_coolchat":
             MessageLookupByLibrary.simpleMessage(
                 "Por favor, realiza el perfil primero antes de unirte a Coolchat"),
@@ -443,6 +449,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "upgrade_member_to_get_more_feature":
             MessageLookupByLibrary.simpleMessage(
                 "Mejora tu membresía para obtener acceso a más funciones"),
+        "uploading_in_progress":
+            MessageLookupByLibrary.simpleMessage("Subiendo en progreso"),
         "use_your_user_account": MessageLookupByLibrary.simpleMessage(
             "Por favor, usa tu cuenta de usuario"),
         "user": MessageLookupByLibrary.simpleMessage("Usuario"),

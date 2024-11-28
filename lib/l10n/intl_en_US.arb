@@ -278,6 +278,12 @@
   "please_enter_a_valid_email_address": "Please enter a valid email address",
   "password_must_include_uppercase_letters_lowercase_letters_digits_and_special_characters": "Password must include uppercase letters lowercase letters digits and special characters",
   "password_must_be_at_least_8_characters": "Password must be at least 8 characters",
-    "please_wait": "Please wait",
-  "uploading_in_progress": "Uploading in progress" 
+  "please_wait": "Please wait",
+  "uploading_in_progress": "Uploading in progress",
+  "delete_account" : "Delete Account",
+  "home" : "Home",
+  "notification" : "Notification",
+  "chat" : "Chat",
+   "delete" : "Delete"
+
 }

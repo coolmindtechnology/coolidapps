@@ -277,5 +277,12 @@
   "your_affiliate_code": "رمز الشريك الخاص بك",
   "please_enter_a_valid_email_address": "يرجى إدخال عنوان بريد إلكتروني صالح",
   "password_must_include_uppercase_letters_lowercase_letters_digits_and_special_characters": "يجب أن تتضمن كلمة المرور أحرفًا كبيرة وصغيرة وأرقامًا وحروفًا خاصة",
-  "password_must_be_at_least_8_characters": "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل"
+  "password_must_be_at_least_8_characters": "يجب أن تتكون كلمة المرور من 8 أحرف على الأقل",
+  "please_wait": "انتظر من فضلك",
+  "uploading_in_progress": "جاري التحميل",
+  "delete_account" : "حذف الحساب",
+  "home": "الرئيسية",
+  "notification": "الإشعارات",
+  "chat": "الرسائل",
+  "delete": "حذف"
 }

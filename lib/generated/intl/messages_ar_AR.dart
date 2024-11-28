@@ -76,6 +76,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "change_language": MessageLookupByLibrary.simpleMessage("تغيير اللغة"),
         "change_password":
             MessageLookupByLibrary.simpleMessage("تغيير كلمة المرور"),
+        "chat": MessageLookupByLibrary.simpleMessage("الرسائل"),
         "check_account": MessageLookupByLibrary.simpleMessage("تحقق من الحساب"),
         "check_your_self_worth":
             MessageLookupByLibrary.simpleMessage("تحقق من قيمة نفسك"),
@@ -114,6 +115,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "date_of_birth": MessageLookupByLibrary.simpleMessage("تاريخ الميلاد"),
         "debit_card": MessageLookupByLibrary.simpleMessage("بطاقة الخصم"),
         "deduction": MessageLookupByLibrary.simpleMessage("خصم"),
+        "delete": MessageLookupByLibrary.simpleMessage("حذف"),
+        "delete_account": MessageLookupByLibrary.simpleMessage("حذف الحساب"),
         "discount": MessageLookupByLibrary.simpleMessage("خصم"),
         "dont_have_an_account":
             MessageLookupByLibrary.simpleMessage("لا تمتلك حساباً؟"),
@@ -161,6 +164,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("لم تتلقَ رمز OTP؟"),
         "hello_world": MessageLookupByLibrary.simpleMessage("مرحبا بالعالم"),
         "history": MessageLookupByLibrary.simpleMessage("التاريخ"),
+        "home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
         "how_much_data_do_you_want_to_create":
             MessageLookupByLibrary.simpleMessage(
                 "كم عدد البيانات التي ترغب في إنشائها؟"),
@@ -219,7 +223,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "not_match": MessageLookupByLibrary.simpleMessage("غير متطابقة"),
         "not_now_thankyou":
             MessageLookupByLibrary.simpleMessage("ليس الآن، شكرًا"),
-        "notification": MessageLookupByLibrary.simpleMessage("إشعار"),
+        "notification": MessageLookupByLibrary.simpleMessage("الإشعارات"),
         "number_not_registered": MessageLookupByLibrary.simpleMessage(
             "الرقم المدخل غير مسجل في النظام"),
         "order_id": MessageLookupByLibrary.simpleMessage("رقم الطلب"),
@@ -285,6 +289,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("يرجى اختيار الاشتراك"),
         "please_upload_profile_picture": MessageLookupByLibrary.simpleMessage(
             "يرجى رفع صورة الملف الشخصي الخاصة بك"),
+        "please_wait": MessageLookupByLibrary.simpleMessage("انتظر من فضلك"),
         "plese_profiling_first_before_joining_coolchat":
             MessageLookupByLibrary.simpleMessage(
                 "يرجى التصنيف أولاً قبل الانضمام إلى Coolchat"),
@@ -422,6 +427,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "upgrade_member_to_get_more_feature":
             MessageLookupByLibrary.simpleMessage(
                 "قم بترقية العضوية للحصول على ميزات إضافية"),
+        "uploading_in_progress":
+            MessageLookupByLibrary.simpleMessage("جاري التحميل"),
         "use_your_user_account":
             MessageLookupByLibrary.simpleMessage("يرجى استخدام حساب المستخدم"),
         "user": MessageLookupByLibrary.simpleMessage("المستخدم"),

@@ -277,5 +277,13 @@
   "your_affiliate_code": "您的联盟代码",
   "please_enter_a_valid_email_address": "请输入有效的电子邮件地址",
   "password_must_include_uppercase_letters_lowercase_letters_digits_and_special_characters": "密码必须包含大写字母、小写字母、数字和特殊字符",
-  "password_must_be_at_least_8_characters": "密码至少为8个字符"
+  "password_must_be_at_least_8_characters": "密码至少为8个字符",
+  "please_wait": "请稍候",
+  "uploading_in_progress": "上传进行中",
+  "delete_account": "删除账户",
+  "home": "首页",
+  "notification": "通知",
+  "chat": "聊天",
+  "delete": "删除"
+
 }

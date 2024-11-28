@@ -87,6 +87,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Change Language"),
         "change_password":
             MessageLookupByLibrary.simpleMessage("Change Password"),
+        "chat": MessageLookupByLibrary.simpleMessage("Chat"),
         "check_account": MessageLookupByLibrary.simpleMessage("Check Account"),
         "check_your_self_worth":
             MessageLookupByLibrary.simpleMessage("Check your\nself-worth"),
@@ -125,6 +126,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "date_of_birth": MessageLookupByLibrary.simpleMessage("Date of Birth"),
         "debit_card": MessageLookupByLibrary.simpleMessage("Debit Card"),
         "deduction": MessageLookupByLibrary.simpleMessage("Deduction"),
+        "delete": MessageLookupByLibrary.simpleMessage("Delete"),
+        "delete_account":
+            MessageLookupByLibrary.simpleMessage("Delete Account"),
         "discount": MessageLookupByLibrary.simpleMessage("Discount"),
         "dont_have_an_account":
             MessageLookupByLibrary.simpleMessage("Don\'t Have an Account?"),
@@ -172,6 +176,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Haven\'t received the OTP code yet?"),
         "hello_world": MessageLookupByLibrary.simpleMessage("Hello World"),
         "history": MessageLookupByLibrary.simpleMessage("History"),
+        "home": MessageLookupByLibrary.simpleMessage("Home"),
         "how_much_data_do_you_want_to_create":
             MessageLookupByLibrary.simpleMessage(
                 "How much data do you want to create?"),

@@ -279,6 +279,11 @@
   "password_must_include_uppercase_letters_lowercase_letters_digits_and_special_characters": "Kata sandi harus mencakup huruf besar, huruf kecil, angka, dan karakter khusus",
   "password_must_be_at_least_8_characters": "Kata sandi harus minimal 8 karakter",
   "please_wait": "Mohon Tunggu",
-  "uploading_in_progress": "Sedang Proses Upload"
+  "uploading_in_progress": "Sedang Proses Upload",
+  "delete_account" : "Hapus Akun",
+  "home" : "Beranda",
+  "notification" : "Notifikasi",
+  "chat" : "Pesan",
+  "delete" : "Hapus"
 
 }

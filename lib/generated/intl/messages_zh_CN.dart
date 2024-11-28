@@ -70,6 +70,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "certificate": MessageLookupByLibrary.simpleMessage("证书"),
         "change_language": MessageLookupByLibrary.simpleMessage("更改语言"),
         "change_password": MessageLookupByLibrary.simpleMessage("修改密码"),
+        "chat": MessageLookupByLibrary.simpleMessage("聊天"),
         "check_account": MessageLookupByLibrary.simpleMessage("检查账户"),
         "check_your_self_worth":
             MessageLookupByLibrary.simpleMessage("检查您的自我价值"),
@@ -102,6 +103,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "date_of_birth": MessageLookupByLibrary.simpleMessage("出生日期"),
         "debit_card": MessageLookupByLibrary.simpleMessage("借记卡"),
         "deduction": MessageLookupByLibrary.simpleMessage("扣除"),
+        "delete": MessageLookupByLibrary.simpleMessage("删除"),
+        "delete_account": MessageLookupByLibrary.simpleMessage("删除账户"),
         "discount": MessageLookupByLibrary.simpleMessage("折扣"),
         "dont_have_an_account": MessageLookupByLibrary.simpleMessage("还没有账号？"),
         "download": MessageLookupByLibrary.simpleMessage("下载"),
@@ -141,6 +144,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("没有收到OTP验证码？"),
         "hello_world": MessageLookupByLibrary.simpleMessage("你好，世界"),
         "history": MessageLookupByLibrary.simpleMessage("历史记录"),
+        "home": MessageLookupByLibrary.simpleMessage("首页"),
         "how_much_data_do_you_want_to_create":
             MessageLookupByLibrary.simpleMessage("您想创建多少数据？"),
         "id_number": MessageLookupByLibrary.simpleMessage("身份证号码"),
@@ -246,6 +250,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("请选择订阅"),
         "please_upload_profile_picture":
             MessageLookupByLibrary.simpleMessage("请上传您的个人资料照片"),
+        "please_wait": MessageLookupByLibrary.simpleMessage("请稍候"),
         "plese_profiling_first_before_joining_coolchat":
             MessageLookupByLibrary.simpleMessage("请先进行分析后再加入Coolchat"),
         "post": MessageLookupByLibrary.simpleMessage("帖子"),
@@ -354,6 +359,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("个人资料照片更新成功"),
         "upgrade_member_to_get_more_feature":
             MessageLookupByLibrary.simpleMessage("升级会员以获得更多功能"),
+        "uploading_in_progress": MessageLookupByLibrary.simpleMessage("上传进行中"),
         "use_your_user_account":
             MessageLookupByLibrary.simpleMessage("请使用您的用户账户"),
         "user": MessageLookupByLibrary.simpleMessage("用户"),

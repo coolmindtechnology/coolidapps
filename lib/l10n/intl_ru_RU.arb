@@ -279,5 +279,10 @@
   "password_must_include_uppercase_letters_lowercase_letters_digits_and_special_characters": "Пароль должен содержать заглавные и строчные буквы, цифры и специальные символы",
   "password_must_be_at_least_8_characters": "Пароль должен быть не менее 8 символов",
   "please_wait": "Пожалуйста, подождите",
-  "uploading_in_progress": "Загрузка в процессе"
+  "uploading_in_progress": "Загрузка в процессе",
+  "delete_account": "Удалить аккаунт",
+  "home": "Главная",
+  "notification": "Уведомление",
+  "chat": "Чат",
+  "delete": "Удалить"
 }

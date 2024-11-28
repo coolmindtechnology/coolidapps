@@ -709,13 +709,23 @@ class _ItemMenuHomeState extends State<ItemMenuHome> {
                     const SizedBox(
                       height: 10,
                     ),
-                    Text(
-                      widget.description ?? "",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: widget.isTapped ? whiteColor : null,
+                    if (widget.description!.length <= 40)
+                      Text(
+                        widget.description ?? "",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: widget.isTapped ? whiteColor : null,
+                        ),
                       ),
-                    )
+                    if (widget.description!.length > 40)
+                      Text(
+                        widget.description ?? "",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: widget.isTapped ? whiteColor : null,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
                   ],
                 ),
         ),

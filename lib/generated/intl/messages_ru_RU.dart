@@ -81,6 +81,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Изменить язык"),
         "change_password":
             MessageLookupByLibrary.simpleMessage("Изменить пароль"),
+        "chat": MessageLookupByLibrary.simpleMessage("Чат"),
         "check_account": MessageLookupByLibrary.simpleMessage("Проверить счет"),
         "check_your_self_worth":
             MessageLookupByLibrary.simpleMessage("Проверьте свою ценность"),
@@ -119,6 +120,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "date_of_birth": MessageLookupByLibrary.simpleMessage("Дата рождения"),
         "debit_card": MessageLookupByLibrary.simpleMessage("Дебетовая карта"),
         "deduction": MessageLookupByLibrary.simpleMessage("Вычет"),
+        "delete": MessageLookupByLibrary.simpleMessage("Удалить"),
+        "delete_account":
+            MessageLookupByLibrary.simpleMessage("Удалить аккаунт"),
         "discount": MessageLookupByLibrary.simpleMessage("Скидка"),
         "dont_have_an_account":
             MessageLookupByLibrary.simpleMessage("Нет аккаунта?"),
@@ -166,6 +170,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Не получили код OTP?"),
         "hello_world": MessageLookupByLibrary.simpleMessage("Привет, мир"),
         "history": MessageLookupByLibrary.simpleMessage("История"),
+        "home": MessageLookupByLibrary.simpleMessage("Главная"),
         "how_much_data_do_you_want_to_create":
             MessageLookupByLibrary.simpleMessage(
                 "Сколько данных вы хотите создать?"),

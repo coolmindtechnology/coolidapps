@@ -279,5 +279,11 @@
   "password_must_include_uppercase_letters_lowercase_letters_digits_and_special_characters": "Kata laluan mesti merangkumi huruf besar, huruf kecil, angka, dan karakter khas",
   "password_must_be_at_least_8_characters": "Kata laluan mesti sekurang-kurangnya 8 karakter",
   "please_wait": "Mohon Tunggu",
-  "uploading_in_progress": "Sedang Proses Upload"
+  "uploading_in_progress": "Sedang Proses Upload",
+  "delete_account": "Padam Akaun",
+  "home": "Laman Utama",
+  "notification": "Notifikasi",
+  "chat": "Mesej",
+  "delete": "Padam"
+
 }

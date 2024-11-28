@@ -213,6 +213,12 @@ class _ObBoardingState extends State<ObBoarding> {
                         S.load(const Locale('en_US'));
                       });
                     });
+                  } else if (isSelected == "English") {
+                    Prefs().setLocale('en_US', () {
+                      setState(() {
+                        S.load(const Locale('en_US'));
+                      });
+                    });
                   }
                   await prefs.setBool("lang_dialog_showed", true);
 
