@@ -452,24 +452,24 @@ class ProviderAffiliate extends ChangeNotifier {
                   Nav.back();
                 },
               );
-              break;
-            case 4:
-              await NotificationUtils.showSimpleDialog2(
-                context,
-                resCheckTopupAffiliate?.message ?? "",
-                textButton1: S.of(context).top_up,
-                textButton2: S.of(context).back,
-                onPress1: () async {
-                  Nav.back();
-                  var data = await Nav.to(const TopupSaldoPage());
-                  if (data != null) {
-                    checkTopupAffiliate(context);
-                  }
-                },
-                onPress2: () {
-                  Nav.back();
-                },
-              );
+              //   break;
+              // case 4:
+              //   await NotificationUtils.showSimpleDialog2(
+              //     context,
+              //     resCheckTopupAffiliate?.message ?? "",
+              //     textButton1: S.of(context).top_up,
+              //     textButton2: S.of(context).back,
+              //     onPress1: () async {
+              //       Nav.back();
+              //       var data = await Nav.to(const TopupSaldoPage());
+              //       if (data != null) {
+              //         checkTopupAffiliate(context);
+              //       }
+              //     },
+              //     onPress2: () {
+              //       Nav.back();
+              //     },
+              //   );
               // await NotificationUtils.showDialogSuccess(
               //   context,
               //   () {
@@ -485,7 +485,7 @@ class ProviderAffiliate extends ChangeNotifier {
               // );
               break;
             case 5:
-              await NotificationUtils.showDialogError(
+              await NotificationUtils.showDialogError5(
                 context,
                 () {
                   Nav.back();

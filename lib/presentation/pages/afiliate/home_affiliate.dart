@@ -59,12 +59,18 @@ class _HomeAffiliateState extends State<HomeAffiliate> {
     // Timer(const Duration(seconds: 2), () {
     //   handleDeepLink();
     // });
+
     Future.microtask(() {
       initHome();
     });
     super.initState();
   }
 
+  logicAffiliate5() {
+    Timer(const Duration(seconds: 1), () {
+      Nav.back();
+    });
+  }
   // Future<void> handleDeepLink() async {
   //   // Contoh: jika deeplink URL mengarah ke "/mobile"
   //   PermissionStatus status = await Permission.location.request();
@@ -298,6 +304,8 @@ class _HomeAffiliateState extends State<HomeAffiliate> {
                             ),
                           ],
                         ],
+                        if (value.resCheckTopupAffiliate?.data?.notif == 5)
+                          logicAffiliate5(),
                         if (value.resCheckTopupAffiliate?.data?.notif == 2) ...[
                           const SizedBox(
                             height: 8,
