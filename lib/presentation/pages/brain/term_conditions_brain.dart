@@ -1,8 +1,10 @@
 import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/afiliate/home_affiliate.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:coolappflutter/presentation/widgets/button_primary.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 
 class TermConditionsBrain extends StatefulWidget {
@@ -76,22 +78,104 @@ class _TermConditionsBrainState extends State<TermConditionsBrain> {
         <p>Terimakasih telah bergabung bersama kami,</p>
         <p>Brain Activation<br>COOL MIND TECHNOLOGY</p>
     </div>''';
+  late Future<BrainTermsAndConditions> _termsFuture;
+  final BarainApiService _apiService = BarainApiService();
+  final String _token = "your_bearer_token_here";
+  @override
+  void initState() {
+    // getIsIndonesia();
+    _termsFuture = _apiService.BrainPostfetchTerms(_token);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: Text(
-        S.of(context).terms_conditions_brain_act,
-        style: TextStyle(color: greyColor),
-      ),
-      content: SingleChildScrollView(
-          child: HtmlWidget(
-        S.of(context).terms_conditions_brain_act ==
-                "Terms and Conditions Brain Activation"
-            ? englishText
-            : indonesianText,
-        textStyle: TextStyle(color: greyColor),
-      )),
-      actions: [
+    return Scaffold(
+        body: SingleChildScrollView(
+            child: Padding(
+      padding: const EdgeInsets.all(12.0),
+      child: Column(children: [
+        Text(
+          S.of(context).terms_conditions_brain_act,
+          style: TextStyle(color: greyColor),
+        ),
+        SingleChildScrollView(
+            child: FutureBuilder<BrainTermsAndConditions>(
+          future: _termsFuture,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else if (snapshot.hasData) {
+              final terms = snapshot.data!;
+              return SingleChildScrollView(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const SizedBox(
+                        height: 16.0,
+                      ),
+                      Center(
+                        child: Image.asset(
+                          "assets/icons/logo_cool_vertical.png",
+                          height: 60.0,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 48,
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            border:
+                                Border.all(color: greyColor.withOpacity(0.5)),
+                            borderRadius: BorderRadius.circular(16)),
+                        child: const Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      Html(
+                        data: terms.data,
+                        style: {
+                          "body": Style(
+                            fontSize: FontSize.large,
+                            textAlign: TextAlign.justify, // Rata kiri-kanan
+                            lineHeight:
+                                const LineHeight(1.5), // Jarak antar baris
+                            margin: Margins.all(0), // Hilangkan margin berlebih
+                            padding: HtmlPaddings.all(
+                                0), // Hilangkan padding berlebih
+                          ),
+                          "p": Style(
+                            margin: Margins.only(
+                                bottom: 8), // Jarak antar paragraf minimal
+                          ),
+                          "br": Style(
+                            display: Display.none, // Hilangkan <br> tambahan
+                          ),
+                        },
+                      ),
+                      // HtmlWidget(
+                      //   isIndonesia ? indonesianText : englishText,
+                      // ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                    ],
+                  ));
+            } else {
+              return const Center(child: Text('Tidak ada data'));
+            }
+          },
+        )),
         SizedBox(
           height: 40,
           child: ButtonPrimary(
@@ -103,7 +187,7 @@ class _TermConditionsBrainState extends State<TermConditionsBrain> {
             expand: true,
           ),
         )
-      ],
-    );
+      ]),
+    )));
   }
 }

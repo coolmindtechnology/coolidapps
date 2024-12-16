@@ -432,7 +432,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               () async {
                                                 initHome();
                                                 debugPrint(
-                                                    "apa disini? ${valueAffiliate.resCheckTopupAffiliate?.data?.notif}");
+                                                    "apa disini? id user ${valueAffiliate.idUserGet.toString()}");
 
                                                 // if (valueAffiliate
                                                 //         .resCheckTopupAffiliate

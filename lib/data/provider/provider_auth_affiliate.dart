@@ -1,7 +1,11 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:async';
+
 import 'package:coolappflutter/data/helpers/either.dart';
 import 'package:coolappflutter/data/helpers/failure.dart';
+import 'package:coolappflutter/data/networks/dio_handler.dart';
+import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
 import 'package:coolappflutter/data/provider/provider_transaksi_affiliate.dart';
 import 'package:coolappflutter/data/repositories/repo_auth_affiliate.dart';
 import 'package:coolappflutter/data/response/affiliate/res_cek_is_affiliate.dart';
@@ -13,12 +17,14 @@ import 'package:coolappflutter/presentation/pages/afiliate/naf_afiliate.dart';
 import 'package:coolappflutter/presentation/pages/main/term_affiliasi.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:coolappflutter/presentation/utils/notification_utils.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ProviderAuthAffiliate extends ChangeNotifier {
   RepoAuthAffiliate repoAuthAffiliate = RepoAuthAffiliate();
   DataRegisterAffiliate? dataRegisterAffiliate;
+  String? dataCodeReferal;
 
   bool isRegisterAffiliate = false;
   Future<void> registerAffiliate(
@@ -48,20 +54,7 @@ class ProviderAuthAffiliate extends ChangeNotifier {
     }, success: (res) async {
       if (res.success == true) {
         dataRegisterAffiliate = res.data;
-
-        await context
-            .read<ProviderTransaksiAffiliate>()
-            .transactionTopupDeposit(
-                context,
-                dataRegisterAffiliate?.id.toString() ?? "",
-                context
-                        .read<ProviderTransaksiAffiliate>()
-                        .dataAffiliateManagement
-                        ?.feeCommitment
-                        .toString() ??
-                    "",
-                'other_pay',
-                "register");
+        fetchPriceUpgrade(dataRegisterAffiliate?.id.toString() ?? "", context);
       } else {
         NotificationUtils.showDialogError(context, () {
           Nav.back();
@@ -77,9 +70,73 @@ class ProviderAuthAffiliate extends ChangeNotifier {
     notifyListeners();
   }
 
+  final Dio dio = Dio();
+  Future<void> fetchPriceUpgrade(String id, BuildContext context) async {
+    try {
+      debugPrint("cek prices ooo");
+      dynamic url =
+          '${ApiEndpoint.baseUrl}/api/affiliate/getPriceUpgradeAff/$id';
+
+      final Response response = await dio.get(url);
+      debugPrint("cek prices ${response.data['data']["price"].toString()}");
+
+      if (response.statusCode == 200) {
+        await context
+            .read<ProviderTransaksiAffiliate>()
+            .transactionTopupDeposit(
+                context,
+                id,
+                response.data['data']["price"].toString(),
+                'other_pay',
+                "register");
+      } else {
+        print('Error: ${response.statusCode}');
+      }
+    } catch (e) {
+      debugPrint("cek prices ooo tesjadi kesalahan $e");
+    }
+  }
+
+  bool isLoading = true;
+
+  Future<void> autofill(String id, BuildContext context) async {
+    try {
+      isLoading = true;
+      debugPrint("cek prices ooo");
+      dynamic url = '${ApiEndpoint.baseUrl}/api/affiliate/referalCodeAgent/$id';
+      debugPrint("${ApiEndpoint.baseUrl}/api/affiliate/referalCodeAgent/$id");
+      final Response response = await dio.get(url);
+      debugPrint("cek prices ${response.data} $isLoading");
+      dataCodeReferal = response.data['data']["code"].toString();
+      notifyListeners();
+
+      if (response.statusCode == 200) {
+        Timer(const Duration(seconds: 2), () {
+          isLoading = false;
+          notifyListeners();
+        });
+
+        debugPrint("cek prices ${response.data} $isLoading");
+      } else {
+        isLoading = false;
+        notifyListeners();
+
+        print('Error: ${response.statusCode}');
+        notifyListeners();
+      }
+    } catch (e) {
+      isLoading = false;
+      notifyListeners();
+
+      debugPrint("cek prices ooo tesjadi kesalahan code $e");
+      notifyListeners();
+    }
+  }
+
   DataIsAffiliate? dataIsAffiliate;
 
   bool isCheckAffiliate = false;
+  dynamic dataIdUser;
   Future<void> checkIsAffiliate(
     BuildContext context,
   ) async {
@@ -102,6 +159,7 @@ class ProviderAuthAffiliate extends ChangeNotifier {
           ));
     }, success: (res) async {
       dataIsAffiliate = res.data;
+
       if (res.success == true && dataIsAffiliate?.isAllow == true) {
         await context
             .read<ProviderTransaksiAffiliate>()
@@ -146,6 +204,7 @@ class ProviderAuthAffiliate extends ChangeNotifier {
           context,
           "Become Affiliate",
           onPress1: () async {
+            debugPrint("cek id from home ${dataIsAffiliate?.idUser}");
             Nav.back();
 
             Nav.to(const TermHomeAffiliasi());

@@ -116,7 +116,10 @@ class ProviderProfiling extends ChangeNotifier {
 
   String _textToSpeech = "";
   String get textToSpeech {
-    return _textToSpeech.substring(1, 4000);
+    // return _textToSpeech;
+    return _textToSpeech.length < 4000
+        ? _textToSpeech
+        : _textToSpeech.substring(1, 4000);
   }
 
   void _updateTextToSpeech(DataDetailProfiling? detailProfilingData) {

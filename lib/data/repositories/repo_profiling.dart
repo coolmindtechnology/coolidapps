@@ -1,4 +1,5 @@
 import 'package:coolappflutter/data/helpers/check_language.dart';
+import 'package:coolappflutter/data/locals/preference_handler.dart';
 import 'package:coolappflutter/data/models/data_checkout_transaction.dart';
 import 'package:coolappflutter/data/networks/error_handler.dart';
 import 'package:coolappflutter/data/response/payments/res_transcation_profiling.dart';
@@ -68,9 +69,11 @@ class RepoProfiling {
   Future<Either<Failure, ResDetailProfiling>> getDetailProfiling(
       String id) async {
     String isEnglish = await LocaleChecker().cekLocale();
+    String? isLanguage = await PreferenceHandler.retrieveId();
+    String cekLanguage = isLanguage ?? "is_english";
     try {
       Response res = await dio.get(ApiEndpoint.detailProfiling(id),
-          queryParameters: {"is_english": isEnglish},
+          queryParameters: {cekLanguage: isEnglish},
           options: Options(
             validateStatus: (status) {
               return status == 200 || status == 400;

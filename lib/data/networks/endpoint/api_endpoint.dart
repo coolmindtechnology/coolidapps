@@ -1,11 +1,12 @@
 class ApiEndpoint {
-  static String baseUrl = "https://cool-compass.mycool.id";
-  // static String baseUrl = "https://coolcompas.hantrr.com";
+  // static String baseUrl = "https://cool-compass.mycool.id";
+  static String baseUrl = "https://staging-cool.hantrr.com";
   // static String baseUrl = "https://coolcompas-staging.mycool.id";
 
   static void setDev() {
-    baseUrl = "https://cool-compass.mycool.id";
+    // baseUrl = "https://cool-compass.mycool.id";
     // baseUrl = "https://coolcompas.hantrr.com";
+    baseUrl = "https://staging-cool.hantrr.com";
 
     // baseUrl = "https://coolcompas-staging.mycool.id";
   }
@@ -17,8 +18,9 @@ class ApiEndpoint {
   ///
   /// This function does not take any parameters and does not return any value.
   static void setProd() {
-    baseUrl = "https://cool-compass.mycool.id";
+    // baseUrl = "https://cool-compass.mycool.id";
     // baseUrl = "https://coolcompas.hantrr.com";
+    baseUrl = "https://staging-cool.hantrr.com";
 
     // baseUrl = "https://coolcompas-staging.mycool.id";
   }
@@ -164,6 +166,8 @@ class ApiEndpoint {
   static String listProfiling = "${_featureUrlApi}list_profiling";
   static String detailProfiling(id) => "${_featureUrlApi}detail_profiling/$id";
   static String addProfiling = "${_featureUrlApi}create_profiling";
+  //  static String sertifikatProfiling(id) =>
+  //     "${_featureUrlApi}generate-detail-pdf/$id";
   static String sertifikatProfiling(id) =>
       "${_featureUrlApi}generate-certificate/$id";
   static String historyProfiling = "${_baseUrlApi}user/list-history";
@@ -180,8 +184,10 @@ class ApiEndpoint {
 
   //qr code
   static String qrCode = "${_featureUrlApi}qrcode";
-  static String donwnloadDetailPdf(id) =>
-      "${_featureUrlApi}download-detail-pdf/$id";
+  static String donwnloadDetailPdf(id, isLanguage) =>
+      "${_featureUrlApi}download-detail-pdf/$id?$isLanguage";
+  // static String donwnloadDetailPdf(id) =>
+  //     "${_featureUrlApi}download-detail-pdf/$id";
 
   static String donwnloadCertificatrPdf(id) =>
       "${_featureUrlApi}download-certificate-pdf/$id";

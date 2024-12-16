@@ -27,6 +27,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/phone_number.dart';
 
+import '../locals/preference_handler.dart';
+
 class ProviderUser extends ChangeNotifier {
   ///deleted account
   bool _isLoadingsss = true;
@@ -266,6 +268,8 @@ class ProviderUser extends ChangeNotifier {
     }, success: (res) async {
       if (res.success == true) {
         dataUser = res.data;
+        debugPrint("id user from provider user ${dataUser!.id.toString()}");
+        await PreferenceHandler.storingIdUser(dataUser!.id.toString());
         // if (res.data?.role?.id == 2) {
         dataGlobal.dataUser = res.data;
         // }

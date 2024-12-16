@@ -165,34 +165,61 @@ class _DownloadProgressDialogState extends State<DownloadProgressDialog> {
   Future<void> _startDownload() async {
     final directory = await getApplicationDocumentsDirectory();
     filePath = '${directory.path}/${widget.name}.pdf';
+    try {
+      FileDownload().startDownloading(context,
+          (receivedBytes, totalBytes, cancel) {
+        debugPrint("folder1 $directory");
+        progress = 1.0;
+        progress++;
+        if (totalBytes > 0) {
+          setState(() {
+            progress = (receivedBytes / totalBytes).clamp(0.0, 1.0);
+            cancelToken = cancel;
+          });
+          _showNotification((progress * 100).toInt());
+        }
+      }, url: widget.url, name: widget.name);
+      //
 
-    FileDownload().startDownloading(context,
-        (receivedBytes, totalBytes, cancel) {
-      debugPrint("folder1 $directory");
-      progress = 1.0;
-      progress++;
-      if (totalBytes > 0) {
-        setState(() {
-          progress = (receivedBytes / totalBytes).clamp(0.0, 1.0);
-          cancelToken = cancel;
-        });
-        _showNotification((progress * 100).toInt());
+      Timer.periodic(const Duration(milliseconds: 100), (timer) {
+        debugPrint("folder2 $directory");
+        if (progress >= 1.0) {
+          timer.cancel();
+          setState(() {
+            isComplete = true;
+          });
+          _showNotification(100,
+              isComplete: true,
+              filePath: filePath); // Final notification with completion status
+        }
+      });
+    } catch (e) {
+      if (e is TimeoutException) {
+        // Tangani jika terjadi timeout
+        debugPrint("Error: ${e.message}");
+        _showErrorNotification('Gagal: Unduhan melebihi batas waktu.');
+      } else {
+        // Tangani error lainnya
+        debugPrint("Error: $e");
+        _showErrorNotification('Gagal: Terjadi kesalahan.');
       }
-    }, url: widget.url, name: widget.name);
-
-    Timer.periodic(const Duration(milliseconds: 100), (timer) {
-      debugPrint("folder2 $directory");
-      if (progress >= 1.0) {
-        timer.cancel();
-        setState(() {
-          isComplete = true;
-        });
-        _showNotification(100,
-            isComplete: true,
-            filePath: filePath); // Final notification with completion status
-      }
-    });
+    }
   }
+
+  void _showErrorNotification(String message) {
+    // Menampilkan snackbar dengan pesan error
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          message,
+          style: const TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.red,
+        duration: const Duration(seconds: 3),
+      ),
+    );
+  }
+
   // void _startDownload() {
   //   FileDownload().startDownloading(context,
   //       (receivedBytes, totalBytes, cancel) {

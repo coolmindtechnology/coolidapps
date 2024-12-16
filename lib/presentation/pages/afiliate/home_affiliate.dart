@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:android_intent_plus/android_intent.dart';
 import 'package:clipboard/clipboard.dart';
+import 'package:coolappflutter/data/locals/preference_handler.dart';
 import 'package:coolappflutter/data/provider/provider_affiliate.dart';
 import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/pages/afiliate/components/term_conditions_affiliasi.dart';
@@ -755,12 +756,52 @@ class ApiService {
 
   Future<TermsAndConditions> fetchTerms(String token) async {
     try {
+      // dynamic dataLocale = await PreferenceHandler.retrieveIdLanguage();
+      // debugPrint(" ${ApiEndpoint.baseUrl}/api/terms-and-condition");
+
       final response = await _dio.get(
         "${ApiEndpoint.baseUrl}/api/terms-and-condition",
-        options: Options(headers: {'Authorization': 'Bearer $token'}),
+        options:
+            Options(headers: {'Authorization': 'Bearer ${dataGlobal.token}'}),
       );
       if (response.statusCode == 200) {
         return TermsAndConditions.fromJson(response.data);
+      } else {
+        throw Exception('Failed to load terms and conditions');
+      }
+    } catch (e) {
+      throw Exception('Error: $e');
+    }
+  }
+}
+
+////brain term
+class BrainTermsAndConditions {
+  final String data;
+
+  BrainTermsAndConditions({required this.data});
+
+  factory BrainTermsAndConditions.fromJson(Map<String, dynamic> json) {
+    return BrainTermsAndConditions(data: json['data']['data'] ?? '');
+  }
+}
+
+class BarainApiService {
+  final Dio _dio = Dio(BaseOptions(
+      baseUrl: "${ApiEndpoint.baseUrl}/api/terms-and-condition/brain"));
+
+  Future<BrainTermsAndConditions> BrainPostfetchTerms(String token) async {
+    try {
+      // dynamic dataLocale = await PreferenceHandler.retrieveIdLanguage();
+      // debugPrint(" ${ApiEndpoint.baseUrl}/api/terms-and-condition");
+
+      final response = await _dio.get(
+        "${ApiEndpoint.baseUrl}/api/terms-and-condition/brain",
+        options:
+            Options(headers: {'Authorization': 'Bearer ${dataGlobal.token}'}),
+      );
+      if (response.statusCode == 200) {
+        return BrainTermsAndConditions.fromJson(response.data);
       } else {
         throw Exception('Failed to load terms and conditions');
       }

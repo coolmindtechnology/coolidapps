@@ -6,7 +6,7 @@ import 'package:coolappflutter/data/response/profiling/res_detail_profiling.dart
 import 'package:coolappflutter/data/response/profiling/res_list_profiling.dart';
 import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/pages/profiling/results/dialog_download.dart';
-import 'package:coolappflutter/presentation/pages/profiling/results/pdf_download.dart';
+
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/circular_progress_widget.dart';
 import 'package:coolappflutter/presentation/widgets/button_primary.dart';
@@ -14,6 +14,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:provider/provider.dart';
+
+import '../../../../data/locals/preference_handler.dart';
 
 class ResultDetail extends StatefulWidget {
   final DataProfiling? data;
@@ -310,7 +312,11 @@ class _ResultDetailState extends State<ResultDetail> {
                       height: 54,
                       child: ButtonPrimary(
                         S.of(context).download,
-                        onPress: () {
+                        onPress: () async {
+                          String? isLanguage =
+                              await PreferenceHandler.retrieveId();
+                          String? isID =
+                              await PreferenceHandler.retrieveIdLanguage();
                           // showDialog(
                           //     context: context,
                           //     barrierDismissible: false,
@@ -332,13 +338,14 @@ class _ResultDetailState extends State<ResultDetail> {
                               context: context,
                               builder: (context) {
                                 debugPrint(
-                                    "url pdf ${ApiEndpoint.donwnloadDetailPdf(widget.data?.idLogResult.toString())}");
+                                    "url pdf ${ApiEndpoint.donwnloadDetailPdf(widget.data?.idLogResult.toString(), "$isLanguage=$isID")}");
                                 return DownloadProgressDialog(
-                                    url: ApiEndpoint.donwnloadDetailPdf(
-                                        widget.data?.idLogResult.toString() ??
-                                            ""),
-                                    name:
-                                        "${widget.data?.profilingName}_CoolProfiling_Result.pdf");
+                                  url: ApiEndpoint.donwnloadDetailPdf(
+                                      widget.data?.idLogResult.toString() ?? "",
+                                      "$isLanguage=$isID"),
+                                  name:
+                                      "${widget.data?.profilingName}_CoolProfiling_Result.pdf",
+                                );
                               });
                         },
                         expand: true,
@@ -409,7 +416,7 @@ class _Personality extends StatelessWidget {
       children: [
         Center(
           child: Image.network(
-            "${ApiEndpoint.baseUrl}/${value.detailProfiling?.personality?.picture}",
+            "${value.detailProfiling?.personality?.picture}",
           ),
         ),
         Padding(
@@ -449,7 +456,7 @@ class _TipeOtak extends StatelessWidget {
       children: [
         Center(
           child: Image.network(
-            "${ApiEndpoint.baseUrl}/${value.detailProfiling?.tipeOtak?.picture}",
+            "${value.detailProfiling?.tipeOtak?.picture}",
           ),
         ),
         Padding(
@@ -489,7 +496,7 @@ class _TipeAura extends StatelessWidget {
       children: [
         Center(
           child: Image.network(
-            "${ApiEndpoint.baseUrl.replaceAll("https", "http")}/${value.detailProfiling?.tipeAura?.picture}",
+            "${value.detailProfiling?.tipeAura?.picture}",
             loadingBuilder: (BuildContext context, Widget image,
                 ImageChunkEvent? loadingProgress) {
               if (loadingProgress == null) return image;
@@ -542,7 +549,7 @@ class _TipeKaya extends StatelessWidget {
       children: [
         Center(
           child: Image.network(
-            "${ApiEndpoint.baseUrl}/${value.detailProfiling?.tipeKaya?.picture}",
+            "${value.detailProfiling?.tipeKaya?.picture}",
             loadingBuilder: (BuildContext context, Widget image,
                 ImageChunkEvent? loadingProgress) {
               if (loadingProgress == null) return image;
@@ -595,7 +602,7 @@ class _TipeDarah extends StatelessWidget {
       children: [
         Center(
           child: Image.network(
-            "${ApiEndpoint.baseUrl}/${value.detailProfiling?.tipeDarah?.picture}",
+            "${value.detailProfiling?.tipeDarah?.picture}",
             loadingBuilder: (BuildContext context, Widget image,
                 ImageChunkEvent? loadingProgress) {
               if (loadingProgress == null) return image;

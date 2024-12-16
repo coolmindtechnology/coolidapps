@@ -240,7 +240,7 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                     },
                   ),
                   ItemSetting(
-                    title: S.of(context).setting,
+                    title: S.of(context).logout,
                     image: "logout.png",
                     onTap: () {
                       showDialog(
