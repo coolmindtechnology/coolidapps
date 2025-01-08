@@ -1,18 +1,17 @@
 import 'package:coolappflutter/data/apps/app_sizes.dart';
-import 'package:coolappflutter/data/apps/app_strings.dart';
+
 import 'package:coolappflutter/data/locals/preference_handler.dart';
-import 'package:coolappflutter/presentation/onboarding_new3.dart';
-import 'package:coolappflutter/presentation/pages/auth/login_screen.dart';
+
 import 'package:coolappflutter/presentation/pages/auth/register_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_html/flutter_html.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../data/apps/app_assets.dart';
 import '../generated/l10n.dart';
-import 'pages/main/pre_home_screen.dart';
+
 import 'theme/color_utils.dart';
 import 'utils/nav_utils.dart';
 
