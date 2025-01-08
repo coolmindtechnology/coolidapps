@@ -81,6 +81,12 @@ class Authentication {
       required String confirmPassword,
       required String email,
       required String channel,
+      required String countryId,
+      required String stateId,
+      required String cityId,
+      required String districtId,
+      required String longitude,
+      required String latitude,
       String? codeReferal}) async {
     try {
       Response res = await dio.post(ApiEndpoint.register,
@@ -90,7 +96,13 @@ class Authentication {
             'password_confirmation': confirmPassword,
             'email': email,
             'channel': channel,
-            'code_referal': codeReferal
+            'code_referal': codeReferal,
+            "country_id": countryId,
+            "state_id": stateId,
+            "city_id": cityId,
+            "district_id": districtId,
+            "longitude": longitude,
+            "latitude": latitude
           },
           options: Options(
             validateStatus: (status) {

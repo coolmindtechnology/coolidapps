@@ -213,7 +213,7 @@ By joining, you can earn additional income by referring our products or services
                         S.of(context).register_affiliate,
                         onPress: () {
                           if (checkbox == true) {
-                            Nav.to(const InputCodeReferralAffiliate());
+                            Nav.replace(const InputCodeReferralAffiliate());
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(

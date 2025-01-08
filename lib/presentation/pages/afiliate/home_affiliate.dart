@@ -35,7 +35,7 @@ class HomeAffiliate extends StatefulWidget {
 class _HomeAffiliateState extends State<HomeAffiliate> {
   bool isQr = false, isShare = false;
   int minSaldo = 250000;
-  List<bool> tappedStates = List.filled(3, false);
+  List<bool> tappedStates = List.filled(4, false);
   initHome() async {
     await context.read<ProviderAffiliate>().getHomeAff(context);
   }
@@ -190,7 +190,7 @@ class _HomeAffiliateState extends State<HomeAffiliate> {
                           child: ListView.builder(
                               shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
-                              itemCount: 3,
+                              itemCount: 4,
                               itemBuilder: (context, index) {
                                 return GestureDetector(
                                   onTap: () {
@@ -233,9 +233,11 @@ class _HomeAffiliateState extends State<HomeAffiliate> {
                                                 ? S.of(context).total_balance
                                                 : index == 1
                                                     ? S.of(context).total_member
-                                                    : S
-                                                        .of(context)
-                                                        .total_real_money,
+                                                    : index == 2
+                                                        ? S
+                                                            .of(context)
+                                                            .total_real_money
+                                                        : "Total Point",
                                             style: TextStyle(
                                               fontSize: 12,
                                               color: tappedStates[index]
@@ -248,7 +250,9 @@ class _HomeAffiliateState extends State<HomeAffiliate> {
                                                 ? "${MoneyFormatter.formatMoney(value.dataAffiliasi?.totalSaldoAffiliate == "" ? "0" : value.dataAffiliasi?.totalSaldoAffiliate, true)}"
                                                 : index == 1
                                                     ? "${value.dataAffiliasi?.totalMember == "" ? "0" : value.dataAffiliasi?.totalMember}"
-                                                    : "${MoneyFormatter.formatMoney(value.dataAffiliasi?.totalRealMoney == "" ? "0" : value.dataAffiliasi?.totalRealMoney, true)}",
+                                                    : index == 2
+                                                        ? "${MoneyFormatter.formatMoney(value.dataAffiliasi?.totalRealMoney == "" ? "0" : value.dataAffiliasi?.totalRealMoney, true)}"
+                                                        : "${value.dataAffiliasi?.totalPoint.toString()}",
                                             style: TextStyle(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w600,

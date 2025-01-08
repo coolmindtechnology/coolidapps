@@ -77,11 +77,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "choose": MessageLookupByLibrary.simpleMessage("选择"),
         "choose_language": MessageLookupByLibrary.simpleMessage("请选择您熟悉的语言"),
         "choose_topup": MessageLookupByLibrary.simpleMessage("选择充值"),
+        "city": MessageLookupByLibrary.simpleMessage("城市"),
         "close": MessageLookupByLibrary.simpleMessage("关闭"),
         "close_page_auto": MessageLookupByLibrary.simpleMessage("页面将自动关闭"),
+        "come_get_to_know_yourself":
+            MessageLookupByLibrary.simpleMessage("了解自己"),
         "coming_soon": MessageLookupByLibrary.simpleMessage("即将推出"),
         "complete_profile_before_joining":
             MessageLookupByLibrary.simpleMessage("请先完成个人资料和分析后再加入Coolchat"),
+        "confirm_location": MessageLookupByLibrary.simpleMessage("确认位置"),
         "confirmation": MessageLookupByLibrary.simpleMessage("确认"),
         "congratulation_you_have_become_a_regular_member":
             MessageLookupByLibrary.simpleMessage("恭喜，您已成为COOL Apps的普通会员"),
@@ -91,6 +95,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "connection_lost":
             MessageLookupByLibrary.simpleMessage("连接中断，请检查您的网络连接。"),
         "copy": MessageLookupByLibrary.simpleMessage("复制"),
+        "country": MessageLookupByLibrary.simpleMessage("国家"),
         "create_new_password":
             MessageLookupByLibrary.simpleMessage("创建您的新密码以\n登录应用"),
         "create_password": MessageLookupByLibrary.simpleMessage("创建密码"),
@@ -105,7 +110,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "deduction": MessageLookupByLibrary.simpleMessage("扣除"),
         "delete": MessageLookupByLibrary.simpleMessage("删除"),
         "delete_account": MessageLookupByLibrary.simpleMessage("删除账户"),
+        "develop_yourself_by_exploring": MessageLookupByLibrary.simpleMessage(
+            "通过探索可用的在线书籍来发展自己。无论何时何地，成为更好的自己。"),
         "discount": MessageLookupByLibrary.simpleMessage("折扣"),
+        "district": MessageLookupByLibrary.simpleMessage("地区"),
         "dont_have_an_account": MessageLookupByLibrary.simpleMessage("还没有账号？"),
         "download": MessageLookupByLibrary.simpleMessage("下载"),
         "due_date": MessageLookupByLibrary.simpleMessage("到期日"),
@@ -122,6 +130,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("请输入您的电话号码\n以接收验证码"),
         "enter_referral_code": MessageLookupByLibrary.simpleMessage("请输入代理推荐码"),
         "enter_topup_amount": MessageLookupByLibrary.simpleMessage("输入充值金额"),
+        "every_human_being_is_unique": MessageLookupByLibrary.simpleMessage(
+            "每个人都是独特的，拥有不同的脑型组合。那么，什么样的脑型能描述你呢？"),
         "exit_confirmation": MessageLookupByLibrary.simpleMessage("您确定要退出应用吗？"),
         "failed_load_qr_code":
             MessageLookupByLibrary.simpleMessage("二维码加载失败，请刷新页面"),
@@ -142,6 +152,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("通过订阅获取大量福利"),
         "have_not_received_the_otp":
             MessageLookupByLibrary.simpleMessage("没有收到OTP验证码？"),
+        "have_you_ever_used_coolApps":
+            MessageLookupByLibrary.simpleMessage("您曾经使用过 CoolApps 吗？"),
         "hello_world": MessageLookupByLibrary.simpleMessage("你好，世界"),
         "history": MessageLookupByLibrary.simpleMessage("历史记录"),
         "home": MessageLookupByLibrary.simpleMessage("首页"),
@@ -162,7 +174,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "just": MessageLookupByLibrary.simpleMessage("仅"),
         "keyword": MessageLookupByLibrary.simpleMessage("关键词"),
         "language": MessageLookupByLibrary.simpleMessage("语言"),
+        "lanjut": MessageLookupByLibrary.simpleMessage("继续"),
         "latest_book": MessageLookupByLibrary.simpleMessage("最新书籍"),
+        "lets_develop_ourselves":
+            MessageLookupByLibrary.simpleMessage("让我们一起发展"),
         "list": MessageLookupByLibrary.simpleMessage("列表"),
         "listen_brain_40_times": MessageLookupByLibrary.simpleMessage(
             "请先根据您的性格听40次脑部内容，然后您可以订阅其他内容。"),
@@ -192,6 +207,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "no_data": MessageLookupByLibrary.simpleMessage("无数据"),
         "no_deposit_fee":
             MessageLookupByLibrary.simpleMessage("您还未支付存款费用，请先进行支付"),
+        "no_this_is_the_first_time":
+            MessageLookupByLibrary.simpleMessage("不，这是第一次"),
         "not_complete": MessageLookupByLibrary.simpleMessage("不完整"),
         "not_found": MessageLookupByLibrary.simpleMessage("未找到"),
         "not_match": MessageLookupByLibrary.simpleMessage("不匹配"),
@@ -263,6 +280,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "program_cancelled":
             MessageLookupByLibrary.simpleMessage("您已成功取消参与CoolApp联盟计划"),
         "qr_code": MessageLookupByLibrary.simpleMessage("二维码"),
+        "reach_your_brains_maximum_potential":
+            MessageLookupByLibrary.simpleMessage(
+                "通过收听特殊的音频录音来激发和增强各种认知功能，释放大脑的最大潜能。每天免费收听。"),
         "read": MessageLookupByLibrary.simpleMessage("阅读"),
         "read_ebook_online": MessageLookupByLibrary.simpleMessage("在线阅读电子书"),
         "referral": MessageLookupByLibrary.simpleMessage("推荐"),
@@ -293,8 +313,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "select": MessageLookupByLibrary.simpleMessage("选择"),
         "select_bank": MessageLookupByLibrary.simpleMessage("选择银行"),
         "select_bank_account": MessageLookupByLibrary.simpleMessage("选择银行账户"),
+        "select_city": MessageLookupByLibrary.simpleMessage("选择城市"),
+        "select_country": MessageLookupByLibrary.simpleMessage("选择国家"),
+        "select_district": MessageLookupByLibrary.simpleMessage("选择地区"),
         "select_payment_method": MessageLookupByLibrary.simpleMessage("选择支付方式"),
         "select_source": MessageLookupByLibrary.simpleMessage("选择来源"),
+        "select_state": MessageLookupByLibrary.simpleMessage("选择省份"),
         "self_surgery": MessageLookupByLibrary.simpleMessage("自我手术"),
         "self_surgery_solution_surgery":
             MessageLookupByLibrary.simpleMessage("自我手术，\n解决方案手术"),
@@ -304,6 +328,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "seven_days_ago": MessageLookupByLibrary.simpleMessage("7天前"),
         "share_code": MessageLookupByLibrary.simpleMessage("分享推荐码"),
         "share_link": MessageLookupByLibrary.simpleMessage("分享此链接以简化您的联盟流程"),
+        "share_stories_together":
+            MessageLookupByLibrary.simpleMessage("一起分享故事"),
+        "share_your_stories_and_your_heart_with_CoolApp_users":
+            MessageLookupByLibrary.simpleMessage(
+                "与CoolApp用户分享你的故事和感受。希望你能在CoolApp找到许多新朋友和积极的体验！"),
         "sharing_opportunities_sharing_profits":
             MessageLookupByLibrary.simpleMessage("共享机会，共享利润"),
         "show_qr_code":
@@ -312,10 +341,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("展示此二维码以简化您的联盟流程"),
         "sign_in": MessageLookupByLibrary.simpleMessage("登录"),
         "single": MessageLookupByLibrary.simpleMessage("单个"),
+        "skip": MessageLookupByLibrary.simpleMessage("跳过"),
         "solution_surgery": MessageLookupByLibrary.simpleMessage("解决方案手术"),
         "source": MessageLookupByLibrary.simpleMessage("来源"),
         "ssl_certificate_error":
             MessageLookupByLibrary.simpleMessage("SSL证书错误，请检查您的网络连接。"),
+        "start_activating_brain_potential":
+            MessageLookupByLibrary.simpleMessage("开始激活大脑潜能"),
+        "state": MessageLookupByLibrary.simpleMessage("省份"),
         "subcription_all_type": MessageLookupByLibrary.simpleMessage("订阅所有类型"),
         "subscribe": MessageLookupByLibrary.simpleMessage("订阅"),
         "subscribed_this_month":
@@ -360,6 +393,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "upgrade_member_to_get_more_feature":
             MessageLookupByLibrary.simpleMessage("升级会员以获得更多功能"),
         "uploading_in_progress": MessageLookupByLibrary.simpleMessage("上传进行中"),
+        "use_your_location": MessageLookupByLibrary.simpleMessage("使用你的当前位置"),
         "use_your_user_account":
             MessageLookupByLibrary.simpleMessage("请使用您的用户账户"),
         "user": MessageLookupByLibrary.simpleMessage("用户"),
@@ -377,6 +411,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "yes": MessageLookupByLibrary.simpleMessage("是"),
         "yes_continue": MessageLookupByLibrary.simpleMessage("是的，继续"),
         "yes_exit": MessageLookupByLibrary.simpleMessage("是的，退出"),
+        "yes_i_have": MessageLookupByLibrary.simpleMessage("是的，我有"),
         "yesterday": MessageLookupByLibrary.simpleMessage("昨天"),
         "your_affiliate_code": MessageLookupByLibrary.simpleMessage("您的联盟代码"),
         "your_personality": MessageLookupByLibrary.simpleMessage("您的性格")

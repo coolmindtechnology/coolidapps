@@ -90,12 +90,17 @@ class MessageLookup extends MessageLookupByLibrary {
             "Выберите язык, который вы знаете"),
         "choose_topup":
             MessageLookupByLibrary.simpleMessage("Выберите пополнение"),
+        "city": MessageLookupByLibrary.simpleMessage("Город"),
         "close": MessageLookupByLibrary.simpleMessage("Закрыть"),
         "close_page_auto": MessageLookupByLibrary.simpleMessage(
             "Эта страница закроется автоматически"),
+        "come_get_to_know_yourself":
+            MessageLookupByLibrary.simpleMessage("Познай себя"),
         "coming_soon": MessageLookupByLibrary.simpleMessage("Скоро"),
         "complete_profile_before_joining": MessageLookupByLibrary.simpleMessage(
             "Пожалуйста, заполните профиль перед вступлением в Coolchat"),
+        "confirm_location":
+            MessageLookupByLibrary.simpleMessage("Подтвердите местоположение"),
         "confirmation": MessageLookupByLibrary.simpleMessage("Подтверждение"),
         "congratulation_you_have_become_a_regular_member":
             MessageLookupByLibrary.simpleMessage(
@@ -106,6 +111,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "connection_lost": MessageLookupByLibrary.simpleMessage(
             "Соединение потеряно. Проверьте подключение к интернету."),
         "copy": MessageLookupByLibrary.simpleMessage("Копировать"),
+        "country": MessageLookupByLibrary.simpleMessage("Страна"),
         "create_new_password": MessageLookupByLibrary.simpleMessage(
             "Создайте новый пароль для\nвхода в приложение"),
         "create_password":
@@ -123,7 +129,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete": MessageLookupByLibrary.simpleMessage("Удалить"),
         "delete_account":
             MessageLookupByLibrary.simpleMessage("Удалить аккаунт"),
+        "develop_yourself_by_exploring": MessageLookupByLibrary.simpleMessage(
+            "Развивайтесь, изучая доступные онлайн-книги. Станьте лучшей версией себя, где бы вы ни находились и когда бы ни пожелали."),
         "discount": MessageLookupByLibrary.simpleMessage("Скидка"),
+        "district": MessageLookupByLibrary.simpleMessage("Район"),
         "dont_have_an_account":
             MessageLookupByLibrary.simpleMessage("Нет аккаунта?"),
         "download": MessageLookupByLibrary.simpleMessage("Скачать"),
@@ -144,6 +153,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Введите код реферального агента"),
         "enter_topup_amount":
             MessageLookupByLibrary.simpleMessage("Введите сумму пополнения"),
+        "every_human_being_is_unique": MessageLookupByLibrary.simpleMessage(
+            "Каждый человек уникален и обладает своей комбинацией типов мозга. Итак, какой тип мозга описывает вас?"),
         "exit_confirmation": MessageLookupByLibrary.simpleMessage(
             "Вы уверены, что хотите\nвыйти из приложения?"),
         "failed_load_qr_code": MessageLookupByLibrary.simpleMessage(
@@ -168,6 +179,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Получите множество преимуществ с подпиской"),
         "have_not_received_the_otp":
             MessageLookupByLibrary.simpleMessage("Не получили код OTP?"),
+        "have_you_ever_used_coolApps": MessageLookupByLibrary.simpleMessage(
+            "Вы когда-нибудь использовали CoolApps?"),
         "hello_world": MessageLookupByLibrary.simpleMessage("Привет, мир"),
         "history": MessageLookupByLibrary.simpleMessage("История"),
         "home": MessageLookupByLibrary.simpleMessage("Главная"),
@@ -191,7 +204,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "just": MessageLookupByLibrary.simpleMessage("только"),
         "keyword": MessageLookupByLibrary.simpleMessage("Ключевое слово"),
         "language": MessageLookupByLibrary.simpleMessage("Язык"),
+        "lanjut": MessageLookupByLibrary.simpleMessage("Продолжить"),
         "latest_book": MessageLookupByLibrary.simpleMessage("Последняя книга"),
+        "lets_develop_ourselves":
+            MessageLookupByLibrary.simpleMessage("Давайте развиваться вместе"),
         "list": MessageLookupByLibrary.simpleMessage("Список"),
         "listen_brain_40_times": MessageLookupByLibrary.simpleMessage(
             "Прослушайте brain в соответствии с вашим характером 40 раз, затем вы сможете подписаться на другие."),
@@ -229,6 +245,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "no_data": MessageLookupByLibrary.simpleMessage("Нет данных"),
         "no_deposit_fee": MessageLookupByLibrary.simpleMessage(
             "Вы еще не оплатили депозит. Пожалуйста, оплатите."),
+        "no_this_is_the_first_time":
+            MessageLookupByLibrary.simpleMessage("Нет, это первый раз."),
         "not_complete": MessageLookupByLibrary.simpleMessage("Не завершено"),
         "not_found": MessageLookupByLibrary.simpleMessage("Не найдено"),
         "not_match": MessageLookupByLibrary.simpleMessage("Не совпадает"),
@@ -317,6 +335,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "program_cancelled": MessageLookupByLibrary.simpleMessage(
             "Ваше участие в программе CoolApp успешно отменено"),
         "qr_code": MessageLookupByLibrary.simpleMessage("QR-код"),
+        "reach_your_brains_maximum_potential": MessageLookupByLibrary.simpleMessage(
+            "Достигните максимального потенциала вашего мозга, слушая специальные аудиозаписи, которые стимулируют и улучшают различные когнитивные функции. Слушайте их ежедневно бесплатно."),
         "read": MessageLookupByLibrary.simpleMessage("Читать"),
         "read_ebook_online": MessageLookupByLibrary.simpleMessage(
             "Читать электронную книгу онлайн"),
@@ -360,10 +380,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "select_bank": MessageLookupByLibrary.simpleMessage("Выберите банк"),
         "select_bank_account":
             MessageLookupByLibrary.simpleMessage("Выберите банковский счет"),
+        "select_city": MessageLookupByLibrary.simpleMessage("Выберите город"),
+        "select_country":
+            MessageLookupByLibrary.simpleMessage("Выберите страну"),
+        "select_district":
+            MessageLookupByLibrary.simpleMessage("Выберите район"),
         "select_payment_method":
             MessageLookupByLibrary.simpleMessage("Выберите способ оплаты"),
         "select_source":
             MessageLookupByLibrary.simpleMessage("Выберите источник"),
+        "select_state": MessageLookupByLibrary.simpleMessage("Выберите регион"),
         "self_surgery":
             MessageLookupByLibrary.simpleMessage("Самоисследование"),
         "self_surgery_solution_surgery":
@@ -375,6 +401,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "share_code": MessageLookupByLibrary.simpleMessage("Поделиться кодом"),
         "share_link": MessageLookupByLibrary.simpleMessage(
             "Поделитесь этой ссылкой для упрощения процесса аффилиации."),
+        "share_stories_together":
+            MessageLookupByLibrary.simpleMessage("Делитесь историями вместе"),
+        "share_your_stories_and_your_heart_with_CoolApp_users":
+            MessageLookupByLibrary.simpleMessage(
+                "Делитесь своими историями и чувствами с пользователями CoolApp. Надеемся, вы найдете много новых друзей и получите позитивный опыт с CoolApp!"),
         "sharing_opportunities_sharing_profits":
             MessageLookupByLibrary.simpleMessage(
                 "Поделитесь возможностями, поделитесь прибылью"),
@@ -384,10 +415,15 @@ class MessageLookup extends MessageLookupByLibrary {
             "Покажите этот QR-код для упрощения процесса аффилиации."),
         "sign_in": MessageLookupByLibrary.simpleMessage("Войти"),
         "single": MessageLookupByLibrary.simpleMessage("Одиночный"),
+        "skip": MessageLookupByLibrary.simpleMessage("Пропустить"),
         "solution_surgery": MessageLookupByLibrary.simpleMessage("Решение"),
         "source": MessageLookupByLibrary.simpleMessage("Источник"),
         "ssl_certificate_error": MessageLookupByLibrary.simpleMessage(
             "Ошибка сертификата SSL. Проверьте сетевое подключение."),
+        "start_activating_brain_potential":
+            MessageLookupByLibrary.simpleMessage(
+                "Начните активировать потенциал мозга"),
+        "state": MessageLookupByLibrary.simpleMessage("Регион"),
         "subcription_all_type":
             MessageLookupByLibrary.simpleMessage("Подписка на все типы"),
         "subscribe": MessageLookupByLibrary.simpleMessage("Подписаться"),
@@ -450,6 +486,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Повышение членства для доступа к новым функциям"),
         "uploading_in_progress":
             MessageLookupByLibrary.simpleMessage("Загрузка в процессе"),
+        "use_your_location": MessageLookupByLibrary.simpleMessage(
+            "Используйте ваше местоположение"),
         "use_your_user_account": MessageLookupByLibrary.simpleMessage(
             "Пожалуйста, используйте свой аккаунт"),
         "user": MessageLookupByLibrary.simpleMessage("Пользователь"),
@@ -471,6 +509,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "yes": MessageLookupByLibrary.simpleMessage("Да"),
         "yes_continue": MessageLookupByLibrary.simpleMessage("Да, продолжить"),
         "yes_exit": MessageLookupByLibrary.simpleMessage("Да, выйти"),
+        "yes_i_have": MessageLookupByLibrary.simpleMessage("Да, у меня есть"),
         "yesterday": MessageLookupByLibrary.simpleMessage("Вчера"),
         "your_affiliate_code":
             MessageLookupByLibrary.simpleMessage("Ваш аффилиатный код"),

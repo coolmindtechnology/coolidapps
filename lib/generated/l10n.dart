@@ -2893,6 +2893,236 @@ class S {
       args: [],
     );
   }
+
+  /// `Have you ever used CoolApps?`
+  String get have_you_ever_used_coolApps {
+    return Intl.message(
+      'Have you ever used CoolApps?',
+      name: 'have_you_ever_used_coolApps',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yes, I Have`
+  String get yes_i_have {
+    return Intl.message(
+      'Yes, I Have',
+      name: 'yes_i_have',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No, this is the first time`
+  String get no_this_is_the_first_time {
+    return Intl.message(
+      'No, this is the first time',
+      name: 'no_this_is_the_first_time',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Skip`
+  String get skip {
+    return Intl.message(
+      'Skip',
+      name: 'skip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Next`
+  String get lanjut {
+    return Intl.message(
+      'Next',
+      name: 'lanjut',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Get to know yourself`
+  String get come_get_to_know_yourself {
+    return Intl.message(
+      'Get to know yourself',
+      name: 'come_get_to_know_yourself',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Every human being is unique and has a different combination of brain types. So, what brain type describes you?`
+  String get every_human_being_is_unique {
+    return Intl.message(
+      'Every human being is unique and has a different combination of brain types. So, what brain type describes you?',
+      name: 'every_human_being_is_unique',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Let's develop ourselves`
+  String get lets_develop_ourselves {
+    return Intl.message(
+      'Let\'s develop ourselves',
+      name: 'lets_develop_ourselves',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Develop yourself by exploring the available online books. Be a better version of yourself, anytime and anywhere.`
+  String get develop_yourself_by_exploring {
+    return Intl.message(
+      'Develop yourself by exploring the available online books. Be a better version of yourself, anytime and anywhere.',
+      name: 'develop_yourself_by_exploring',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start activating brain potential`
+  String get start_activating_brain_potential {
+    return Intl.message(
+      'Start activating brain potential',
+      name: 'start_activating_brain_potential',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reach your brain's maximum potential by listening to special audio recordings that stimulate and enhance various cognitive functions. Play them daily for free.`
+  String get reach_your_brains_maximum_potential {
+    return Intl.message(
+      'Reach your brain\'s maximum potential by listening to special audio recordings that stimulate and enhance various cognitive functions. Play them daily for free.',
+      name: 'reach_your_brains_maximum_potential',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Share your stories and feelings with CoolApp users. May you find many new friends and positive experiences on CoolApp!`
+  String get share_your_stories_and_your_heart_with_CoolApp_users {
+    return Intl.message(
+      'Share your stories and feelings with CoolApp users. May you find many new friends and positive experiences on CoolApp!',
+      name: 'share_your_stories_and_your_heart_with_CoolApp_users',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Share stories together`
+  String get share_stories_together {
+    return Intl.message(
+      'Share stories together',
+      name: 'share_stories_together',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Country`
+  String get country {
+    return Intl.message(
+      'Country',
+      name: 'country',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select Country`
+  String get select_country {
+    return Intl.message(
+      'Select Country',
+      name: 'select_country',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select State`
+  String get select_state {
+    return Intl.message(
+      'Select State',
+      name: 'select_state',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select City`
+  String get select_city {
+    return Intl.message(
+      'Select City',
+      name: 'select_city',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select District`
+  String get select_district {
+    return Intl.message(
+      'Select District',
+      name: 'select_district',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `State`
+  String get state {
+    return Intl.message(
+      'State',
+      name: 'state',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `City`
+  String get city {
+    return Intl.message(
+      'City',
+      name: 'city',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `District`
+  String get district {
+    return Intl.message(
+      'District',
+      name: 'district',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Use Your Location`
+  String get use_your_location {
+    return Intl.message(
+      'Use Your Location',
+      name: 'use_your_location',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm Location`
+  String get confirm_location {
+    return Intl.message(
+      'Confirm Location',
+      name: 'confirm_location',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

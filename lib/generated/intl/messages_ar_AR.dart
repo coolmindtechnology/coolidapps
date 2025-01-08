@@ -55,7 +55,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("هل لديك حساب بالفعل؟"),
         "amount": MessageLookupByLibrary.simpleMessage("المبلغ"),
         "aura_type": MessageLookupByLibrary.simpleMessage("نوع هالة"),
-        "back": MessageLookupByLibrary.simpleMessage("عودة"),
+        "back": MessageLookupByLibrary.simpleMessage("رجوع"),
         "bank_account": MessageLookupByLibrary.simpleMessage("حساب بنكي"),
         "bank_account_not_found": MessageLookupByLibrary.simpleMessage(
             "لم يتم العثور على حساب البنك"),
@@ -85,12 +85,17 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("اختر اللغة التي تعرفها"),
         "choose_topup":
             MessageLookupByLibrary.simpleMessage("اختر إعادة التعبئة"),
+        "city": MessageLookupByLibrary.simpleMessage("مدينة"),
         "close": MessageLookupByLibrary.simpleMessage("إغلاق"),
         "close_page_auto":
             MessageLookupByLibrary.simpleMessage("ستغلق هذه الصفحة تلقائيًا"),
+        "come_get_to_know_yourself":
+            MessageLookupByLibrary.simpleMessage("تعرف على نفسك"),
         "coming_soon": MessageLookupByLibrary.simpleMessage("قريبًا"),
         "complete_profile_before_joining": MessageLookupByLibrary.simpleMessage(
             "يرجى إكمال ملفك الشخصي وتصنيفه قبل الانضمام إلى Coolchat"),
+        "confirm_location":
+            MessageLookupByLibrary.simpleMessage("تأكيد الموقع"),
         "confirmation": MessageLookupByLibrary.simpleMessage("تأكيد"),
         "congratulation_you_have_become_a_regular_member":
             MessageLookupByLibrary.simpleMessage(
@@ -101,6 +106,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "connection_lost": MessageLookupByLibrary.simpleMessage(
             "تم فقد الاتصال. يرجى التحقق من اتصال الإنترنت الخاص بك."),
         "copy": MessageLookupByLibrary.simpleMessage("نسخ"),
+        "country": MessageLookupByLibrary.simpleMessage("بلد"),
         "create_new_password": MessageLookupByLibrary.simpleMessage(
             "قم بإنشاء كلمة مرور جديدة للدخول إلى التطبيق"),
         "create_password":
@@ -117,7 +123,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "deduction": MessageLookupByLibrary.simpleMessage("خصم"),
         "delete": MessageLookupByLibrary.simpleMessage("حذف"),
         "delete_account": MessageLookupByLibrary.simpleMessage("حذف الحساب"),
+        "develop_yourself_by_exploring": MessageLookupByLibrary.simpleMessage(
+            "طور نفسك من خلال استكشاف الكتب الإلكترونية المتوفرة. كن أفضل نسخة منك، في أي وقت وفي أي مكان."),
         "discount": MessageLookupByLibrary.simpleMessage("خصم"),
+        "district": MessageLookupByLibrary.simpleMessage("منطقة"),
         "dont_have_an_account":
             MessageLookupByLibrary.simpleMessage("لا تمتلك حساباً؟"),
         "download": MessageLookupByLibrary.simpleMessage("تحميل"),
@@ -138,6 +147,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "يرجى إدخال رمز الإحالة للوكيل"),
         "enter_topup_amount":
             MessageLookupByLibrary.simpleMessage("أدخل مبلغ إعادة التعبئة"),
+        "every_human_being_is_unique": MessageLookupByLibrary.simpleMessage(
+            "كل إنسان فريد من نوعه ولديه مجموعة مختلفة من أنماط الدماغ. فما هو نمط الدماغ الذي يصفك؟"),
         "exit_confirmation": MessageLookupByLibrary.simpleMessage(
             "هل أنت متأكد أنك تريد\nالخروج من التطبيق؟"),
         "failed_load_qr_code": MessageLookupByLibrary.simpleMessage(
@@ -162,6 +173,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "احصل على الكثير من الفوائد من خلال الاشتراك"),
         "have_not_received_the_otp":
             MessageLookupByLibrary.simpleMessage("لم تتلقَ رمز OTP؟"),
+        "have_you_ever_used_coolApps":
+            MessageLookupByLibrary.simpleMessage("هل سبق لك استخدام CoolApps؟"),
         "hello_world": MessageLookupByLibrary.simpleMessage("مرحبا بالعالم"),
         "history": MessageLookupByLibrary.simpleMessage("التاريخ"),
         "home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
@@ -185,7 +198,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "just": MessageLookupByLibrary.simpleMessage("فقط"),
         "keyword": MessageLookupByLibrary.simpleMessage("كلمة مفتاحية"),
         "language": MessageLookupByLibrary.simpleMessage("اللغة"),
+        "lanjut": MessageLookupByLibrary.simpleMessage("استمر"),
         "latest_book": MessageLookupByLibrary.simpleMessage("أحدث الكتب"),
+        "lets_develop_ourselves":
+            MessageLookupByLibrary.simpleMessage("لنطور أنفسنا"),
         "list": MessageLookupByLibrary.simpleMessage("قائمة"),
         "listen_brain_40_times": MessageLookupByLibrary.simpleMessage(
             "يرجى الاستماع إلى العقل وفقًا لشخصيتك 40 مرة أولاً. بعد ذلك يمكنك الاشتراك في الميزات الأخرى."),
@@ -218,6 +234,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "no_data": MessageLookupByLibrary.simpleMessage("لا توجد بيانات"),
         "no_deposit_fee": MessageLookupByLibrary.simpleMessage(
             "لم تقم بدفع رسوم الإيداع. يرجى إجراء الدفع أولاً"),
+        "no_this_is_the_first_time":
+            MessageLookupByLibrary.simpleMessage("لا، هذه هي المرة الأولى"),
         "not_complete": MessageLookupByLibrary.simpleMessage("غير مكتمل"),
         "not_found": MessageLookupByLibrary.simpleMessage("غير موجود"),
         "not_match": MessageLookupByLibrary.simpleMessage("غير متطابقة"),
@@ -304,6 +322,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "program_cancelled": MessageLookupByLibrary.simpleMessage(
             "تم إلغاء اشتراكك في برنامج الشراكة مع coolApp بنجاح"),
         "qr_code": MessageLookupByLibrary.simpleMessage("رمز QR"),
+        "reach_your_brains_maximum_potential": MessageLookupByLibrary.simpleMessage(
+            "حقق أقصى إمكانيات دماغك من خلال الاستماع إلى تسجيلات صوتية مخصصة لتحفيز وتعزيز الوظائف الإدراكية المختلفة. استمع يوميًا مجانًا."),
         "read": MessageLookupByLibrary.simpleMessage("اقرأ"),
         "read_ebook_online": MessageLookupByLibrary.simpleMessage(
             "اقرأ الكتاب الإلكتروني عبر الإنترنت"),
@@ -345,9 +365,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "select_bank": MessageLookupByLibrary.simpleMessage("اختر نوع البنك"),
         "select_bank_account":
             MessageLookupByLibrary.simpleMessage("اختر حساب البنك"),
+        "select_city": MessageLookupByLibrary.simpleMessage("اختر المدينة"),
+        "select_country": MessageLookupByLibrary.simpleMessage("اختر البلد"),
+        "select_district": MessageLookupByLibrary.simpleMessage("اختر المنطقة"),
         "select_payment_method":
             MessageLookupByLibrary.simpleMessage("اختر طريقة الدفع"),
         "select_source": MessageLookupByLibrary.simpleMessage("اختر المصدر"),
+        "select_state": MessageLookupByLibrary.simpleMessage("اختر المقاطعة"),
         "self_surgery": MessageLookupByLibrary.simpleMessage("الجراحة الذاتية"),
         "self_surgery_solution_surgery":
             MessageLookupByLibrary.simpleMessage("جراحة الذات،\nجراحة الحل"),
@@ -358,6 +382,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "share_code": MessageLookupByLibrary.simpleMessage("شارك الرمز"),
         "share_link": MessageLookupByLibrary.simpleMessage(
             "شارك هذا الرابط لتسهيل عملية شراكتك."),
+        "share_stories_together":
+            MessageLookupByLibrary.simpleMessage("شاركوا القصص معًا"),
+        "share_your_stories_and_your_heart_with_CoolApp_users":
+            MessageLookupByLibrary.simpleMessage(
+                "شارك قصصك ومشاعرك مع مستخدمي CoolApp. نتمنى أن تجد الكثير من الأصدقاء الجدد والتجارب الإيجابية في CoolApp!"),
         "sharing_opportunities_sharing_profits":
             MessageLookupByLibrary.simpleMessage(
                 "مشاركة الفرص، مشاركة الأرباح"),
@@ -367,10 +396,14 @@ class MessageLookup extends MessageLookupByLibrary {
             "أظهر هذا الرمز QR لتسهيل عملية شراكتك."),
         "sign_in": MessageLookupByLibrary.simpleMessage("تسجيل الدخول"),
         "single": MessageLookupByLibrary.simpleMessage("مفرد"),
+        "skip": MessageLookupByLibrary.simpleMessage("تخطي"),
         "solution_surgery": MessageLookupByLibrary.simpleMessage("جراحة الحل"),
         "source": MessageLookupByLibrary.simpleMessage("مصدر"),
         "ssl_certificate_error": MessageLookupByLibrary.simpleMessage(
             "حدث خطأ في شهادة SSL. يرجى التحقق من اتصال الشبكة لديك."),
+        "start_activating_brain_potential":
+            MessageLookupByLibrary.simpleMessage("ابدأ تفعيل إمكانيات الدماغ"),
+        "state": MessageLookupByLibrary.simpleMessage("مقاطعة"),
         "subcription_all_type":
             MessageLookupByLibrary.simpleMessage("اشتراك جميع الأنواع"),
         "subscribe": MessageLookupByLibrary.simpleMessage("اشترك"),
@@ -429,6 +462,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "قم بترقية العضوية للحصول على ميزات إضافية"),
         "uploading_in_progress":
             MessageLookupByLibrary.simpleMessage("جاري التحميل"),
+        "use_your_location":
+            MessageLookupByLibrary.simpleMessage("استخدم موقعك"),
         "use_your_user_account":
             MessageLookupByLibrary.simpleMessage("يرجى استخدام حساب المستخدم"),
         "user": MessageLookupByLibrary.simpleMessage("المستخدم"),
@@ -448,6 +483,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "yes": MessageLookupByLibrary.simpleMessage("نعم"),
         "yes_continue": MessageLookupByLibrary.simpleMessage("نعم، تابع"),
         "yes_exit": MessageLookupByLibrary.simpleMessage("نعم، خروج"),
+        "yes_i_have": MessageLookupByLibrary.simpleMessage("نعم لدي"),
         "yesterday": MessageLookupByLibrary.simpleMessage("أمس"),
         "your_affiliate_code":
             MessageLookupByLibrary.simpleMessage("رمز الشريك الخاص بك"),

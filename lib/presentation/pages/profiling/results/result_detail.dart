@@ -129,6 +129,7 @@ class _ResultDetailState extends State<ResultDetail> {
             // return Future.value(false);
           },
           child: Scaffold(
+            backgroundColor: const Color(0xff5cc6ee),
             appBar: AppBar(
               title: Text(
                 S.of(context).result_detail,
@@ -195,7 +196,8 @@ class _ResultDetailState extends State<ResultDetail> {
                                   Text(
                                     S.of(context).type_figure(
                                         value.detailProfiling?.character ?? ""),
-                                    style: const TextStyle(fontSize: 16),
+                                    style: TextStyle(
+                                        fontSize: 16, color: whiteColor),
                                   ),
                                   const SizedBox(
                                     height: 16,
@@ -237,7 +239,8 @@ class _ResultDetailState extends State<ResultDetail> {
                                               ),
                                               Text(
                                                 "${publicFigure.name}",
-                                                style: const TextStyle(
+                                                style: TextStyle(
+                                                  color: whiteColor,
                                                   fontSize: 10,
                                                 ),
                                                 overflow: TextOverflow.ellipsis,
@@ -297,7 +300,7 @@ class _ResultDetailState extends State<ResultDetail> {
                         Container(
                             alignment: Alignment.topCenter,
                             child: LinearProgressIndicator(
-                              backgroundColor: greyColor.withOpacity(0.5),
+                              backgroundColor: whiteColor.withOpacity(0.5),
                               valueColor:
                                   AlwaysStoppedAnimation<Color>(primaryColor),
                               value: end / value.textToSpeech.length,
@@ -385,7 +388,7 @@ class _ResultDetailState extends State<ResultDetail> {
             padding: const EdgeInsets.all(8),
             child: Text(
               "$tipePola",
-              style: TextStyle(color: brownColor, fontSize: 10),
+              style: TextStyle(color: whiteColor, fontSize: 10),
             ),
           )),
           const VerticalDivider(),
@@ -394,7 +397,7 @@ class _ResultDetailState extends State<ResultDetail> {
             padding: const EdgeInsets.all(8),
             child: Text(
               "$kataKunci",
-              style: TextStyle(color: brownColor, fontSize: 10),
+              style: TextStyle(color: whiteColor, fontSize: 10),
             ),
           ))
         ],
@@ -426,14 +429,16 @@ class _Personality extends StatelessWidget {
             children: [
               Text(
                 S.of(context).personality,
-                style: const TextStyle(
+                style: TextStyle(
+                  color: whiteColor,
                   fontSize: 16,
                 ),
               ),
               Text(
                 value.detailProfiling?.personality?.description ?? "",
                 textAlign: TextAlign.justify,
-                style: TextStyle(color: greyColor, fontWeight: FontWeight.w300),
+                style:
+                    TextStyle(color: whiteColor, fontWeight: FontWeight.w300),
               ),
             ],
           ),
@@ -466,14 +471,16 @@ class _TipeOtak extends StatelessWidget {
             children: [
               Text(
                 "${S.of(context).brain_type} ",
-                style: const TextStyle(
+                style: TextStyle(
+                  color: whiteColor,
                   fontSize: 16,
                 ),
               ),
               Text(
                 value.detailProfiling?.tipeOtak?.description ?? "",
                 textAlign: TextAlign.justify,
-                style: TextStyle(color: greyColor, fontWeight: FontWeight.w300),
+                style:
+                    TextStyle(color: whiteColor, fontWeight: FontWeight.w300),
               ),
             ],
           ),
@@ -519,14 +526,16 @@ class _TipeAura extends StatelessWidget {
             children: [
               Text(
                 "${S.of(context).aura_type}  - ${value.detailProfiling?.tipeAura?.tipe ?? ""}",
-                style: const TextStyle(
+                style: TextStyle(
+                  color: whiteColor,
                   fontSize: 16,
                 ),
               ),
               Text(
                 value.detailProfiling?.tipeAura?.description ?? "",
                 textAlign: TextAlign.justify,
-                style: TextStyle(color: greyColor, fontWeight: FontWeight.w300),
+                style:
+                    TextStyle(color: whiteColor, fontWeight: FontWeight.w300),
               ),
             ],
           ),
@@ -572,14 +581,16 @@ class _TipeKaya extends StatelessWidget {
             children: [
               Text(
                 "${S.of(context).rich_type} - ${value.detailProfiling?.tipeKaya?.tipe ?? ""}",
-                style: const TextStyle(
+                style: TextStyle(
+                  color: whiteColor,
                   fontSize: 16,
                 ),
               ),
               Text(
                 value.detailProfiling?.tipeKaya?.description ?? "",
                 textAlign: TextAlign.justify,
-                style: TextStyle(color: greyColor, fontWeight: FontWeight.w300),
+                style:
+                    TextStyle(color: whiteColor, fontWeight: FontWeight.w300),
               ),
             ],
           ),
@@ -625,14 +636,16 @@ class _TipeDarah extends StatelessWidget {
             children: [
               Text(
                 "${S.of(context).blood_type} - ${value.detailProfiling?.tipeDarah?.tipe ?? ""}",
-                style: const TextStyle(
+                style: TextStyle(
+                  color: whiteColor,
                   fontSize: 16,
                 ),
               ),
               Text(
                 value.detailProfiling?.tipeDarah?.description ?? "",
                 textAlign: TextAlign.justify,
-                style: TextStyle(color: greyColor, fontWeight: FontWeight.w300),
+                style:
+                    TextStyle(color: whiteColor, fontWeight: FontWeight.w300),
               ),
             ],
           ),

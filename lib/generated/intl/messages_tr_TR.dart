@@ -88,12 +88,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "choose_language":
             MessageLookupByLibrary.simpleMessage("Bildiğiniz dili seçin"),
         "choose_topup": MessageLookupByLibrary.simpleMessage("Yükleme Seçin"),
+        "city": MessageLookupByLibrary.simpleMessage("Şehir"),
         "close": MessageLookupByLibrary.simpleMessage("Kapat"),
         "close_page_auto": MessageLookupByLibrary.simpleMessage(
             "Bu sayfa otomatik olarak kapanacaktır"),
+        "come_get_to_know_yourself":
+            MessageLookupByLibrary.simpleMessage("Kendini Tanı"),
         "coming_soon": MessageLookupByLibrary.simpleMessage("Yakında Gelecek"),
         "complete_profile_before_joining": MessageLookupByLibrary.simpleMessage(
             "Coolchat\'a katılmadan önce profilinizi tamamlayın"),
+        "confirm_location":
+            MessageLookupByLibrary.simpleMessage("Konumu Onayla"),
         "confirmation": MessageLookupByLibrary.simpleMessage("Onay"),
         "congratulation_you_have_become_a_regular_member":
             MessageLookupByLibrary.simpleMessage(
@@ -104,6 +109,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "connection_lost": MessageLookupByLibrary.simpleMessage(
             "Bağlantı kesildi. Lütfen internet bağlantınızı kontrol edin."),
         "copy": MessageLookupByLibrary.simpleMessage("Kopyala"),
+        "country": MessageLookupByLibrary.simpleMessage("Ülke"),
         "create_new_password": MessageLookupByLibrary.simpleMessage(
             "Uygulamaya giriş yapmak için yeni şifrenizi oluşturun"),
         "create_password":
@@ -121,7 +127,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete": MessageLookupByLibrary.simpleMessage("Sil"),
         "delete_account":
             MessageLookupByLibrary.simpleMessage("Hesabınızı Silin"),
+        "develop_yourself_by_exploring": MessageLookupByLibrary.simpleMessage(
+            "Kendini, mevcut çevrimiçi kitapları keşfederek geliştir. Her zaman ve her yerde daha iyi bir versiyonun ol."),
         "discount": MessageLookupByLibrary.simpleMessage("İndirim"),
+        "district": MessageLookupByLibrary.simpleMessage("Bölge"),
         "dont_have_an_account":
             MessageLookupByLibrary.simpleMessage("Hesabınız Yok Mu?"),
         "download": MessageLookupByLibrary.simpleMessage("İndir"),
@@ -142,6 +151,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Lütfen acente referans kodunu girin"),
         "enter_topup_amount":
             MessageLookupByLibrary.simpleMessage("Yükleme tutarını girin"),
+        "every_human_being_is_unique": MessageLookupByLibrary.simpleMessage(
+            "Her insan benzersizdir ve farklı beyin tiplerinin kombinasyonuna sahiptir. Peki, seni tanımlayan beyin tipi nedir?"),
         "exit_confirmation": MessageLookupByLibrary.simpleMessage(
             "Uygulamadan çıkmak istediğinizden emin misiniz?"),
         "failed_load_qr_code": MessageLookupByLibrary.simpleMessage(
@@ -166,6 +177,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Abone olarak birçok avantaj elde edin"),
         "have_not_received_the_otp": MessageLookupByLibrary.simpleMessage(
             "Henüz OTP Kodu Almadınız mı?"),
+        "have_you_ever_used_coolApps": MessageLookupByLibrary.simpleMessage(
+            "Hiç CoolApps\'i kullandınız mı?"),
         "hello_world": MessageLookupByLibrary.simpleMessage("Merhaba Dünya"),
         "history": MessageLookupByLibrary.simpleMessage("Geçmiş"),
         "home": MessageLookupByLibrary.simpleMessage("Ana Sayfa"),
@@ -189,7 +202,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "just": MessageLookupByLibrary.simpleMessage("sadece"),
         "keyword": MessageLookupByLibrary.simpleMessage("Anahtar Kelime"),
         "language": MessageLookupByLibrary.simpleMessage("Dil"),
+        "lanjut": MessageLookupByLibrary.simpleMessage("Devam Et"),
         "latest_book": MessageLookupByLibrary.simpleMessage("Son Kitap"),
+        "lets_develop_ourselves":
+            MessageLookupByLibrary.simpleMessage("Hadi kendimizi geliştirelim"),
         "list": MessageLookupByLibrary.simpleMessage("Liste"),
         "listen_brain_40_times": MessageLookupByLibrary.simpleMessage(
             "Lütfen beyninizi 40 kez dinleyin. Ardından diğer abonelik seçenekleri sunulacaktır."),
@@ -223,6 +239,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "no_data": MessageLookupByLibrary.simpleMessage("Veri Yok"),
         "no_deposit_fee": MessageLookupByLibrary.simpleMessage(
             "Henüz depozito ücreti ödemediniz. Lütfen ödeme yapın"),
+        "no_this_is_the_first_time":
+            MessageLookupByLibrary.simpleMessage("Hayır, bu ilk kez"),
         "not_complete": MessageLookupByLibrary.simpleMessage("Tamamlanmamış"),
         "not_found": MessageLookupByLibrary.simpleMessage("Bulunamadı"),
         "not_match": MessageLookupByLibrary.simpleMessage("Eşleşmiyor"),
@@ -310,6 +328,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "program_cancelled": MessageLookupByLibrary.simpleMessage(
             "CoolApp affiliate programına katılımınız başarıyla iptal edildi"),
         "qr_code": MessageLookupByLibrary.simpleMessage("QR Kodu"),
+        "reach_your_brains_maximum_potential": MessageLookupByLibrary.simpleMessage(
+            "Beynin maksimum potansiyeline ulaşmak için, çeşitli bilişsel fonksiyonları uyarıp geliştiren özel ses kayıtlarını dinle. Her gün ücretsiz dinle."),
         "read": MessageLookupByLibrary.simpleMessage("Oku"),
         "read_ebook_online":
             MessageLookupByLibrary.simpleMessage("E-Kitabı Çevrimiçi Oku"),
@@ -353,9 +373,13 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Banka türünü seçin"),
         "select_bank_account":
             MessageLookupByLibrary.simpleMessage("Banka Hesabı Seçin"),
+        "select_city": MessageLookupByLibrary.simpleMessage("Şehir Seç"),
+        "select_country": MessageLookupByLibrary.simpleMessage("Ülke Seç"),
+        "select_district": MessageLookupByLibrary.simpleMessage("Bölge Seç"),
         "select_payment_method":
             MessageLookupByLibrary.simpleMessage("Ödeme Yöntemi Seçin"),
         "select_source": MessageLookupByLibrary.simpleMessage("Kaynağı Seç"),
+        "select_state": MessageLookupByLibrary.simpleMessage("Eyalet Seç"),
         "self_surgery":
             MessageLookupByLibrary.simpleMessage("Kendi Kendine Ameliyat"),
         "self_surgery_solution_surgery": MessageLookupByLibrary.simpleMessage(
@@ -367,6 +391,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "share_code": MessageLookupByLibrary.simpleMessage("Kodu Paylaş"),
         "share_link": MessageLookupByLibrary.simpleMessage(
             "Afiliasyon sürecinizi kolaylaştırmak için bu bağlantıyı paylaşın."),
+        "share_stories_together":
+            MessageLookupByLibrary.simpleMessage("Birlikte hikayeler paylaş"),
+        "share_your_stories_and_your_heart_with_CoolApp_users":
+            MessageLookupByLibrary.simpleMessage(
+                "Hikayelerini ve duygularını CoolApp kullanıcılarıyla paylaş. CoolApp\'ta birçok yeni arkadaş ve olumlu deneyim bulmanı umuyoruz!"),
         "sharing_opportunities_sharing_profits":
             MessageLookupByLibrary.simpleMessage(
                 "Fırsatları paylaş, kazançları paylaş"),
@@ -376,11 +405,16 @@ class MessageLookup extends MessageLookupByLibrary {
             "Afiliasyon sürecinizi kolaylaştırmak için bu QR kodunu gösterin."),
         "sign_in": MessageLookupByLibrary.simpleMessage("Giriş Yap"),
         "single": MessageLookupByLibrary.simpleMessage("Tek"),
+        "skip": MessageLookupByLibrary.simpleMessage("Atla"),
         "solution_surgery":
             MessageLookupByLibrary.simpleMessage("Çözüm Ameliyatı"),
         "source": MessageLookupByLibrary.simpleMessage("Kaynak"),
         "ssl_certificate_error": MessageLookupByLibrary.simpleMessage(
             "SSL sertifika hatası oluştu. Lütfen ağ bağlantınızı kontrol edin."),
+        "start_activating_brain_potential":
+            MessageLookupByLibrary.simpleMessage(
+                "Beyin potansiyelini aktif etmeye başla"),
+        "state": MessageLookupByLibrary.simpleMessage("Eyalet"),
         "subcription_all_type":
             MessageLookupByLibrary.simpleMessage("Tüm tipler için abonelik"),
         "subscribe": MessageLookupByLibrary.simpleMessage("Abone Ol"),
@@ -439,6 +473,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Daha fazla özellik elde etmek için üyelik yükseltin"),
         "uploading_in_progress":
             MessageLookupByLibrary.simpleMessage("Yükleme İşlemi Devam Ediyor"),
+        "use_your_location":
+            MessageLookupByLibrary.simpleMessage("Konumunuzu Kullan"),
         "use_your_user_account": MessageLookupByLibrary.simpleMessage(
             "Lütfen kullanıcı hesabınızı kullanın"),
         "user": MessageLookupByLibrary.simpleMessage("Kullanıcı"),
@@ -459,6 +495,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "yes": MessageLookupByLibrary.simpleMessage("Evet"),
         "yes_continue": MessageLookupByLibrary.simpleMessage("Evet, Devam Et"),
         "yes_exit": MessageLookupByLibrary.simpleMessage("Evet, Çık"),
+        "yes_i_have": MessageLookupByLibrary.simpleMessage("Evet bende var"),
         "yesterday": MessageLookupByLibrary.simpleMessage("Dün"),
         "your_affiliate_code":
             MessageLookupByLibrary.simpleMessage("Afiliasyon Kodunuz"),

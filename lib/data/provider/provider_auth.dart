@@ -279,8 +279,18 @@ class ProviderAuth extends ChangeNotifier {
   }
 
   // register
-  Future<void> register(BuildContext context, String channel, String emailReg,
-      String codeReferal) async {
+  Future<void> register(
+    BuildContext context,
+    String channel,
+    String emailReg,
+    String codeReferal,
+    String countryId,
+    String stateId,
+    String cityId,
+    String districtId,
+    String longitude,
+    String latitude,
+  ) async {
     isLoading = true;
     notifyListeners();
 
@@ -290,7 +300,13 @@ class ProviderAuth extends ChangeNotifier {
         confirmPassword: confirmPasswordReg.text,
         channel: channel,
         email: emailReg,
-        codeReferal: codeReferal);
+        codeReferal: codeReferal,
+        countryId: countryId,
+        stateId: stateId,
+        cityId: cityId,
+        districtId: districtId,
+        latitude: latitude,
+        longitude: longitude);
 
     isLoading = false;
     notifyListeners();

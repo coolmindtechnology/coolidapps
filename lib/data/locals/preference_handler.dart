@@ -43,4 +43,15 @@ class PreferenceHandler {
     String? result = preferences.getString("idUser");
     return result;
   }
+
+  static Future<void> storingCekOnboarding(String idUser) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString("cek", idUser);
+  }
+
+  static Future<String?> retrieveCekOnboarding() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String? result = preferences.getString("cek");
+    return result;
+  }
 }

@@ -1,12 +1,15 @@
 class ApiEndpoint {
   // static String baseUrl = "https://cool-compass.mycool.id";
   static String baseUrl = "https://staging-cool.hantrr.com";
+  // static String baseUrl = "https://cool-staging.dschazy.com";
+
   // static String baseUrl = "https://coolcompas-staging.mycool.id";
 
   static void setDev() {
     // baseUrl = "https://cool-compass.mycool.id";
     // baseUrl = "https://coolcompas.hantrr.com";
     baseUrl = "https://staging-cool.hantrr.com";
+    // baseUrl = "https://cool-staging.dschazy.com";
 
     // baseUrl = "https://coolcompas-staging.mycool.id";
   }
@@ -21,6 +24,7 @@ class ApiEndpoint {
     // baseUrl = "https://cool-compass.mycool.id";
     // baseUrl = "https://coolcompas.hantrr.com";
     baseUrl = "https://staging-cool.hantrr.com";
+    // baseUrl = "https://cool-staging.dschazy.com";
 
     // baseUrl = "https://coolcompas-staging.mycool.id";
   }

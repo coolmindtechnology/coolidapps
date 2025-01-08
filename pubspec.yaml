@@ -99,6 +99,10 @@ dependencies:
   flutter_downloader: ^1.10.1
   flutter_html:
   dropdown_search: ^6.0.1
+  google_maps_flutter: ^2.4.0
+  geolocator: ^10.1.0
+  geocoding: ^2.0.3
+  flutter_screenutil: ^5.9.3
 
 dev_dependencies:
   flutter_launcher_icons: ^0.13.1
