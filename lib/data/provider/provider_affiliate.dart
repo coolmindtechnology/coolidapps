@@ -65,6 +65,7 @@ class ProviderAffiliate extends ChangeNotifier {
   DataAffiliasi? dataAffiliasi;
   bool isLoading = false;
   RepoAffiliate repo = RepoAffiliate();
+  dynamic idUserGet;
 
   /// Retrieves the home affiliate data and performs necessary actions based on the response.
   ///
@@ -99,6 +100,8 @@ class ProviderAffiliate extends ChangeNotifier {
       debugPrint("cektt");
       if (res.success == true) {
         dataAffiliasi = res.data;
+        idUserGet = dataAffiliasi!.idUser.toString();
+        debugPrint("provider id user ${dataAffiliasi!.idUser.toString()}");
         // beneficiary@example.com
         context.read<ProviderTransaksiAffiliate>().dataAffiliasi =
             dataAffiliasi;

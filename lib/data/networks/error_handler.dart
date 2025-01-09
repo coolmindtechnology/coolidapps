@@ -20,7 +20,7 @@ class ErrorHandler implements Exception {
 
   Failure _handleDioError(DioException error) {
     if (error.response?.statusCode == 401) {
-      Prefs().clearSession();
+      // Prefs().clearSession();
       Nav.toAll(const LoginScreen());
     }
 
@@ -60,7 +60,7 @@ class ErrorHandler implements Exception {
         return Failure(S.current.invalid_request);
 
       case 401:
-        Prefs().clearSession();
+        // Prefs().clearSession();
         Nav.toAll(const LoginScreen());
         return Failure(S.current.unauthorized);
 

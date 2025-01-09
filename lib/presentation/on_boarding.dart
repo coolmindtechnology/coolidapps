@@ -14,6 +14,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../data/locals/preference_handler.dart';
+
 class ObBoarding extends StatefulWidget {
   // final void Function() onChanged;
   const ObBoarding({super.key, this.codeReferral});
@@ -202,18 +204,29 @@ class _ObBoardingState extends State<ObBoarding> {
                       await SharedPreferences.getInstance();
 
                   if (isSelected == "Indonesia") {
+                    await PreferenceHandler.storingId("is_indonesia");
+                    await PreferenceHandler.storingIdLanguage("0");
                     Prefs().setLocale('id_ID', () {
                       setState(() {
                         S.load(const Locale('id_ID'));
                       });
                     });
                   } else if (isSelected == "English") {
+                    await PreferenceHandler.storingId("is_english");
+                    await PreferenceHandler.storingIdLanguage("1");
                     Prefs().setLocale('en_US', () {
                       setState(() {
                         S.load(const Locale('en_US'));
                       });
                     });
                   }
+                  // else if (isSelected == "English") {
+                  //   Prefs().setLocale('en_US', () {
+                  //     setState(() {
+                  //       S.load(const Locale('en_US'));
+                  //     });
+                  //   });
+                  // }
                   await prefs.setBool("lang_dialog_showed", true);
 
                   context

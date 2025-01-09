@@ -3,6 +3,7 @@ import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/pages/notification/notification_detail.dart';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 // Import screen detail
 
@@ -42,9 +43,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Notifikasi",
-          style: TextStyle(color: Colors.white),
+        title: Text(
+          S.of(context).notification,
+          style: const TextStyle(color: Colors.white),
         ),
         actions: [
           Consumer<NotificationProvider>(
@@ -53,7 +54,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   .where((notification) => notification.isRead == 0)
                   .length;
               return IconButton(
-                onPressed: () {},
+                onPressed: () async {
+                  await provider.fetchNotifications(isRefresh: true);
+                  setState(() {});
+                },
                 icon: Badge.count(
                   count: provider.totalNotif,
                   child: const Icon(Icons.notifications),
@@ -107,7 +111,23 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                 ? Colors.grey[300]
                                 : Colors.white,
                             child: ListTile(
-                              title: Text(notification.title),
+                              title: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        DateFormat("dd MMM yyyy").format(
+                                            notification.creatAt ??
+                                                DateTime.now()),
+                                        style: const TextStyle(
+                                            fontSize: 10, color: Colors.green),
+                                      ),
+                                    ],
+                                  ),
+                                  Text(notification.title),
+                                ],
+                              ),
                               subtitle: Text(notification.message),
                             ),
                           ),
@@ -115,7 +135,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       },
                     )
                   : Container(
-                      child: Center(child: Text(S.of(context).no_data)),
+                      child: Center(
+                          child: ElevatedButton(
+                              onPressed: () {
+                                setState(() {});
+                              },
+                              child: Text(S.of(context).no_data))),
                     ));
         },
       ),

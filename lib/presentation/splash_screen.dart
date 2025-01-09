@@ -6,6 +6,7 @@ import 'dart:developer';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:coolappflutter/data/apps/app_assets.dart';
 import 'package:coolappflutter/data/data_global.dart';
+import 'package:coolappflutter/data/locals/preference_handler.dart';
 import 'package:coolappflutter/data/locals/shared_pref.dart';
 import 'package:coolappflutter/data/provider/provider_boarding.dart';
 import 'package:coolappflutter/data/provider/provider_book.dart';
@@ -23,6 +24,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:android_intent_plus/android_intent.dart';
 import 'on_boarding.dart';
+import 'onboarding_new1.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key, this.codeReferral});
@@ -81,12 +83,12 @@ class _SplashScreenState extends State<SplashScreen>
     logoStart = true;
     if (logoStart == true) {
       setState(() {});
-      Timer(const Duration(microseconds: 100000), () {
+      Timer(const Duration(microseconds: 10000), () {
         logo1 = true;
         logoStart = false;
         if (logo1 == true) {
           setState(() {});
-          Timer(const Duration(microseconds: 100000), () {
+          Timer(const Duration(microseconds: 10000), () {
             logo2 = true;
             logo1 = false;
             logoStart = false;
@@ -245,9 +247,10 @@ class _SplashScreenState extends State<SplashScreen>
     if (!isShowed) {
       if (widget.codeReferral != '/') {
         await prefs.setBool("lang_dialog_showed", true);
-      } else {
-        await Nav.replace(ObBoarding(codeReferral: widget.codeReferral));
       }
+      // else {
+      // await Nav.replace(ObBoarding(codeReferral: widget.codeReferral));
+      // }
     }
   }
 
@@ -267,363 +270,375 @@ class _SplashScreenState extends State<SplashScreen>
   Future<void> cekSession() async {
     final locale = await Prefs().getLocale();
     await S.load(Locale(locale));
+    dynamic cekOboarding = await PreferenceHandler.retrieveCekOnboarding();
 
-    final userToken = await Prefs().getToken();
-    if (widget.codeReferral != '/') {
-      await Prefs().clearSession();
-      Nav.toAll(RegisterScreen(codeReferral: widget.codeReferral));
-    } else if (userToken != null) {
-      debugPrint("cek session $userToken");
-      dataGlobal.setToken(userToken);
-
-      await context.read<ProviderBook>().getPreHome(context);
-      Nav.toAll(const PreHomeScreen());
+    if (cekOboarding.toString() != "1") {
+      Nav.toAll(const Onboardingnew1(
+        changeLanguage: '',
+      ));
     } else {
-      debugPrint("cek sessions $userToken");
-      Nav.toAll(const ObBoarding2());
+      final userToken = await Prefs().getToken();
+      if (widget.codeReferral != '/') {
+        await Prefs().clearSession();
+        Nav.toAll(RegisterScreen(codeReferral: widget.codeReferral));
+      } else if (userToken != null) {
+        debugPrint("cek session $userToken");
+        dataGlobal.setToken(userToken);
+
+        await context.read<ProviderBook>().getPreHome(context);
+        Nav.toAll(const PreHomeScreen());
+        // Nav.toAll(const Onboardingnew1());
+      } else {
+        debugPrint("cek sessions $userToken");
+        Nav.toAll(const Onboardingnew1(
+          changeLanguage: '',
+        ));
+        // Nav.toAll(const ObBoarding2());
+      }
     }
   }
+
 //new
-//   @override
-//   Widget build(BuildContext context) {
-//     return Consumer<ProviderBoarding>(
-//       builder: (context, value, child) {
-//         return Scaffold(
-//             backgroundColor: primaryColor,
-//             body: yellowScreenAnimation(
-//                 controller,
-//                 scaleAnimation,
-//                 startColor,
-//                 logic1,
-//                 logic2,
-//                 logic3,
-//                 logic4,
-//                 logic5,
-//                 fullColor,
-//                 logoStart,
-//                 logo1,
-//                 logo2,
-//                 logo3,
-//                 logo4,
-//                 logo5,
-//                 logo6,
-//                 logo7,
-//                 logo8,
-//                 logoEnd)
-//             // bottomNavigationBar: SizedBox(
-//             //   height: 54,
-//             //   child: Row(
-//             //     mainAxisAlignment: MainAxisAlignment.center,
-//             //     children: [
-//             //       Text(
-//             //         value.version,
-//             //         style: TextStyle(color: whiteColor, fontSize: 16),
-//             //       ),
-//             //     ],
-//             //   ),
-//             // ),
-//             );
-//       },
-//     );
-//   }
-// }
-
-// Widget logoAnimation(start, l1, l2, l3, l4, l5, l6, l7, l8, end) {
-//   return Stack(
-//     children: [
-//       if (start == true)
-//         Positioned(
-//             bottom: 0,
-//             left: 0,
-//             right: 0,
-//             child: Center(
-//                 child: SizedBox(
-//                     height: 150,
-//                     width: 150,
-//                     child: Image.asset(
-//                       AppAsset.imgNewLogo,
-//                     )))),
-//       if (l1 == true)
-//         Positioned(
-//             bottom: 50,
-//             left: 0,
-//             right: 0,
-//             child: Center(
-//                 child: SizedBox(
-//                     height: 150,
-//                     width: 150,
-//                     child: Image.asset(
-//                       AppAsset.imgNewLogo,
-//                     )))),
-//       if (l2 == true)
-//         Positioned(
-//             bottom: 100,
-//             left: 0,
-//             right: 0,
-//             child: Center(
-//                 child: SizedBox(
-//                     height: 150,
-//                     width: 150,
-//                     child: Image.asset(
-//                       AppAsset.imgNewLogo,
-//                     )))),
-//       if (l3 == true)
-//         Positioned(
-//             bottom: 150,
-//             left: 0,
-//             right: 0,
-//             child: Center(
-//                 child: SizedBox(
-//                     height: 150,
-//                     width: 150,
-//                     child: Image.asset(
-//                       AppAsset.imgNewLogo,
-//                     )))),
-//       if (l4 == true)
-//         Positioned(
-//             bottom: 200,
-//             left: 0,
-//             right: 0,
-//             child: Center(
-//                 child: SizedBox(
-//                     height: 150,
-//                     width: 150,
-//                     child: Image.asset(
-//                       AppAsset.imgNewLogo,
-//                     )))),
-//       if (l5 == true)
-//         Positioned(
-//             bottom: 250,
-//             left: 0,
-//             right: 0,
-//             child: Center(
-//                 child: SizedBox(
-//                     height: 150,
-//                     width: 150,
-//                     child: Image.asset(
-//                       AppAsset.imgNewLogo,
-//                     )))),
-//       if (l6 == true)
-//         Positioned(
-//             bottom: 250,
-//             left: 0,
-//             right: 0,
-//             child: Center(
-//                 child: SizedBox(
-//                     height: 150,
-//                     width: 150,
-//                     child: Image.asset(
-//                       AppAsset.imgNewLogo,
-//                     )))),
-//       if (end == true)
-//         Positioned(
-//             child: Center(
-//                 child: SizedBox(
-//                     height: 150,
-//                     width: 150,
-//                     child: Image.asset(
-//                       AppAsset.imgNewLogo,
-//                     )))),
-//     ],
-//   );
-// }
-
-// Widget yellowScreenAnimation(
-//     controller,
-//     scaleAnimation,
-//     startColor,
-//     logic1,
-//     logic2,
-//     logic3,
-//     logic4,
-//     logic5,
-//     fullColor,
-//     start,
-//     l1,
-//     l2,
-//     l3,
-//     l4,
-//     l5,
-//     l6,
-//     l7,
-//     l8,
-//     end) {
-//   return Center(
-//     child: GestureDetector(
-//       onTap: () {
-//         controller.forward();
-//       },
-//       child: ScaleTransition(
-//         scale: scaleAnimation,
-//         child: Stack(
-//           children: [
-//             logoAnimation(start, l1, l2, l3, l4, l5, l6, l7, l8, end),
-
-//             if (startColor = true)
-//               Positioned(
-//                 top: 0,
-//                 bottom: -980,
-//                 right: -180,
-//                 child: Container(
-//                   height: 300,
-//                   width: 400,
-//                   decoration: const BoxDecoration(
-//                       shape: BoxShape.circle, color: Colors.yellow),
-//                 ),
-//               ),
-//             //1
-//             if (logic1 == true)
-//               Positioned(
-//                 top: 0,
-//                 bottom: -980,
-//                 right: -180,
-//                 child: Container(
-//                   height: 300,
-//                   width: 400,
-//                   decoration: const BoxDecoration(
-//                       shape: BoxShape.circle, color: Colors.yellow),
-//                 ),
-//               ),
-// //2
-//             if (logic2 == true)
-//               Positioned(
-//                 top: 0,
-//                 bottom: -880,
-//                 right: -180,
-//                 child: Container(
-//                   height: 300,
-//                   width: 400,
-//                   decoration: const BoxDecoration(
-//                       shape: BoxShape.circle, color: Colors.yellow),
-//                 ),
-//               ),
-//             //3
-//             if (logic3 == true)
-//               Positioned(
-//                 top: 0,
-//                 bottom: -800,
-//                 right: -150,
-//                 child: Container(
-//                   height: 300,
-//                   width: 400,
-//                   decoration: const BoxDecoration(
-//                       shape: BoxShape.circle, color: Colors.yellow),
-//                 ),
-//               ),
-//             //4
-//             if (logic4 == true)
-//               Positioned(
-//                 top: 0,
-//                 bottom: -700,
-//                 right: -100,
-//                 child: Container(
-//                   height: 300,
-//                   width: 400,
-//                   decoration: const BoxDecoration(
-//                       shape: BoxShape.circle, color: Colors.yellow),
-//                 ),
-//               ),
-//             //5
-//             if (logic5 == true)
-//               Positioned(
-//                 top: 0,
-//                 bottom: -400,
-//                 right: -100,
-//                 child: Container(
-//                   height: 300,
-//                   width: 600,
-//                   decoration: const BoxDecoration(
-//                       shape: BoxShape.circle, color: Colors.yellow),
-//                 ),
-//               ),
-//             if (fullColor == true)
-//               Positioned(
-//                 top: 0,
-//                 bottom: 0,
-//                 right: 0,
-//                 left: 0,
-//                 child: Container(
-//                   height: 900,
-//                   width: 900,
-//                   decoration: const BoxDecoration(
-//                       shape: BoxShape.circle, color: Colors.yellow),
-//                 ),
-//               ),
-
-//             //bottom1
-//             // if (bottomColor1 == true)
-//             //   Positioned(
-//             //     top: -280,
-//             //     bottom: 0,
-//             //     right: -120,
-//             //     left: -180,
-//             //     child: Container(
-//             //       height: 300,
-//             //       width: 400,
-//             //       decoration: const BoxDecoration(
-//             //           shape: BoxShape.circle, color: Colors.yellow),
-//             //     ),
-//             //   ),
-//             // if (bottomColor2 == true)
-//             //   Positioned(
-//             //     top: -580,
-//             //     bottom: 0,
-//             //     right: -10,
-//             //     left: -130,
-//             //     child: Container(
-//             //       height: 300,
-//             //       width: 400,
-//             //       decoration: const BoxDecoration(
-//             //           shape: BoxShape.circle, color: Colors.yellow),
-//             //     ),
-//             //   ),
-//             // if (bottomColor3 == true)
-//             //   Positioned(
-//             //     top: -980,
-//             //     bottom: 0,
-//             //     left: -180,
-//             //     child: Container(
-//             //       height: 300,
-//             //       width: 400,
-//             //       decoration: const BoxDecoration(
-//             //           shape: BoxShape.circle, color: Colors.yellow),
-//             //     ),
-//             //   ),
-//           ],
-//         ),
-//       ),
-//     ),
-//   );
-// }
-
-/////old
-
   @override
   Widget build(BuildContext context) {
     return Consumer<ProviderBoarding>(
       builder: (context, value, child) {
         return Scaffold(
-          backgroundColor: primaryColor,
-          body: Center(
-            child: Image.asset(
-              "images/logo_coolapp_new.png",
-              height: 60,
-            ),
-          ),
-          bottomNavigationBar: SizedBox(
-            height: 54,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  value.version,
-                  style: TextStyle(color: whiteColor, fontSize: 16),
-                ),
-              ],
-            ),
-          ),
-        );
+            backgroundColor: primaryColor,
+            body: yellowScreenAnimation(
+                controller,
+                scaleAnimation,
+                startColor,
+                logic1,
+                logic2,
+                logic3,
+                logic4,
+                logic5,
+                fullColor,
+                logoStart,
+                logo1,
+                logo2,
+                logo3,
+                logo4,
+                logo5,
+                logo6,
+                logo7,
+                logo8,
+                logoEnd)
+            // bottomNavigationBar: SizedBox(
+            //   height: 54,
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [
+            //       Text(
+            //         value.version,
+            //         style: TextStyle(color: whiteColor, fontSize: 16),
+            //       ),
+            //     ],
+            //   ),
+            // ),
+            );
       },
     );
   }
 }
+
+Widget logoAnimation(start, l1, l2, l3, l4, l5, l6, l7, l8, end) {
+  return Stack(
+    children: [
+      if (start == true)
+        Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Center(
+                child: SizedBox(
+                    height: 150,
+                    width: 150,
+                    child: Image.asset(
+                      AppAsset.imgNewLogo,
+                    )))),
+      if (l1 == true)
+        Positioned(
+            bottom: 50,
+            left: 0,
+            right: 0,
+            child: Center(
+                child: SizedBox(
+                    height: 150,
+                    width: 150,
+                    child: Image.asset(
+                      AppAsset.imgNewLogo,
+                    )))),
+      if (l2 == true)
+        Positioned(
+            bottom: 100,
+            left: 0,
+            right: 0,
+            child: Center(
+                child: SizedBox(
+                    height: 150,
+                    width: 150,
+                    child: Image.asset(
+                      AppAsset.imgNewLogo,
+                    )))),
+      if (l3 == true)
+        Positioned(
+            bottom: 150,
+            left: 0,
+            right: 0,
+            child: Center(
+                child: SizedBox(
+                    height: 150,
+                    width: 150,
+                    child: Image.asset(
+                      AppAsset.imgNewLogo,
+                    )))),
+      if (l4 == true)
+        Positioned(
+            bottom: 200,
+            left: 0,
+            right: 0,
+            child: Center(
+                child: SizedBox(
+                    height: 150,
+                    width: 150,
+                    child: Image.asset(
+                      AppAsset.imgNewLogo,
+                    )))),
+      if (l5 == true)
+        Positioned(
+            bottom: 250,
+            left: 0,
+            right: 0,
+            child: Center(
+                child: SizedBox(
+                    height: 150,
+                    width: 150,
+                    child: Image.asset(
+                      AppAsset.imgNewLogo,
+                    )))),
+      if (l6 == true)
+        Positioned(
+            bottom: 250,
+            left: 0,
+            right: 0,
+            child: Center(
+                child: SizedBox(
+                    height: 150,
+                    width: 150,
+                    child: Image.asset(
+                      AppAsset.imgNewLogo,
+                    )))),
+      if (end == true)
+        Positioned(
+            child: Center(
+                child: SizedBox(
+                    height: 150,
+                    width: 150,
+                    child: Image.asset(
+                      AppAsset.imgNewLogo,
+                    )))),
+    ],
+  );
+}
+
+Widget yellowScreenAnimation(
+    controller,
+    scaleAnimation,
+    startColor,
+    logic1,
+    logic2,
+    logic3,
+    logic4,
+    logic5,
+    fullColor,
+    start,
+    l1,
+    l2,
+    l3,
+    l4,
+    l5,
+    l6,
+    l7,
+    l8,
+    end) {
+  return Center(
+    child: GestureDetector(
+      onTap: () {
+        controller.forward();
+      },
+      child: ScaleTransition(
+        scale: scaleAnimation,
+        child: Stack(
+          children: [
+            logoAnimation(start, l1, l2, l3, l4, l5, l6, l7, l8, end),
+
+            if (startColor = true)
+              Positioned(
+                top: 0,
+                bottom: -980,
+                right: -180,
+                child: Container(
+                  height: 300,
+                  width: 400,
+                  decoration: const BoxDecoration(
+                      shape: BoxShape.circle, color: Colors.yellow),
+                ),
+              ),
+            //1
+            if (logic1 == true)
+              Positioned(
+                top: 0,
+                bottom: -980,
+                right: -180,
+                child: Container(
+                  height: 300,
+                  width: 400,
+                  decoration: const BoxDecoration(
+                      shape: BoxShape.circle, color: Colors.yellow),
+                ),
+              ),
+//2
+            if (logic2 == true)
+              Positioned(
+                top: 0,
+                bottom: -880,
+                right: -180,
+                child: Container(
+                  height: 300,
+                  width: 400,
+                  decoration: const BoxDecoration(
+                      shape: BoxShape.circle, color: Colors.yellow),
+                ),
+              ),
+            //3
+            if (logic3 == true)
+              Positioned(
+                top: 0,
+                bottom: -800,
+                right: -150,
+                child: Container(
+                  height: 300,
+                  width: 400,
+                  decoration: const BoxDecoration(
+                      shape: BoxShape.circle, color: Colors.yellow),
+                ),
+              ),
+            //4
+            if (logic4 == true)
+              Positioned(
+                top: 0,
+                bottom: -700,
+                right: -100,
+                child: Container(
+                  height: 300,
+                  width: 400,
+                  decoration: const BoxDecoration(
+                      shape: BoxShape.circle, color: Colors.yellow),
+                ),
+              ),
+            //5
+            if (logic5 == true)
+              Positioned(
+                top: 0,
+                bottom: -400,
+                right: -100,
+                child: Container(
+                  height: 300,
+                  width: 600,
+                  decoration: const BoxDecoration(
+                      shape: BoxShape.circle, color: Colors.yellow),
+                ),
+              ),
+            if (fullColor == true)
+              Positioned(
+                top: 0,
+                bottom: 0,
+                right: 0,
+                left: 0,
+                child: Container(
+                  height: 900,
+                  width: 900,
+                  decoration: const BoxDecoration(
+                      shape: BoxShape.circle, color: Colors.yellow),
+                ),
+              ),
+
+            //bottom1
+            // if (bottomColor1 == true)
+            //   Positioned(
+            //     top: -280,
+            //     bottom: 0,
+            //     right: -120,
+            //     left: -180,
+            //     child: Container(
+            //       height: 300,
+            //       width: 400,
+            //       decoration: const BoxDecoration(
+            //           shape: BoxShape.circle, color: Colors.yellow),
+            //     ),
+            //   ),
+            // if (bottomColor2 == true)
+            //   Positioned(
+            //     top: -580,
+            //     bottom: 0,
+            //     right: -10,
+            //     left: -130,
+            //     child: Container(
+            //       height: 300,
+            //       width: 400,
+            //       decoration: const BoxDecoration(
+            //           shape: BoxShape.circle, color: Colors.yellow),
+            //     ),
+            //   ),
+            // if (bottomColor3 == true)
+            //   Positioned(
+            //     top: -980,
+            //     bottom: 0,
+            //     left: -180,
+            //     child: Container(
+            //       height: 300,
+            //       width: 400,
+            //       decoration: const BoxDecoration(
+            //           shape: BoxShape.circle, color: Colors.yellow),
+            //     ),
+            //   ),
+          ],
+        ),
+      ),
+    ),
+  );
+}
+
+/////old
+
+  // @override
+  // Widget build(BuildContext context) {
+  //   return Consumer<ProviderBoarding>(
+  //     builder: (context, value, child) {
+  //       return Scaffold(
+  //         backgroundColor: primaryColor,
+  //         body: Center(
+  //           child: Image.asset(
+  //             "images/logo_coolapp_new.png",
+  //             height: 60,
+  //           ),
+  //         ),
+  //         bottomNavigationBar: SizedBox(
+  //           height: 54,
+  //           child: Row(
+  //             mainAxisAlignment: MainAxisAlignment.center,
+  //             children: [
+  //               Text(
+  //                 value.version,
+  //                 style: TextStyle(color: whiteColor, fontSize: 16),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
+// }

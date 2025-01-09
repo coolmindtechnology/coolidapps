@@ -17,6 +17,7 @@ import 'package:coolappflutter/data/provider/provider_user.dart';
 import 'package:coolappflutter/data/provider/proviider_notification.dart';
 
 import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/auth/component/location_provider.dart';
 import 'package:coolappflutter/presentation/pages/auth/register_screen.dart';
 import 'package:coolappflutter/presentation/pages/notification/notification_screen.dart';
 import 'package:coolappflutter/presentation/splash_screen.dart';
@@ -30,6 +31,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -38,6 +40,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart'; // for web
 
 import 'package:android_intent_plus/android_intent.dart';
+
+import 'presentation/pages/auth/component/country_state_city_provider.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey = GlobalKey();
@@ -338,97 +342,105 @@ class _MainAppState extends State<MainApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<ProviderAuth>(
-          create: (context) => ProviderAuth(),
-        ),
-        ChangeNotifierProvider<ProviderUser>(
-          create: (context) => ProviderUser(),
-        ),
-        ChangeNotifierProvider<ProviderBoarding>(
-          create: (context) => ProviderBoarding(),
-        ),
-        ChangeNotifierProvider<ProviderCoolChat>(
-          create: (context) => ProviderCoolChat(),
-        ),
-        ChangeNotifierProvider<ProviderProfiling>(
-          create: (context) => ProviderProfiling(),
-        ),
-        ChangeNotifierProvider<ProviderBrainActivation>(
-          create: (context) => ProviderBrainActivation(),
-        ),
-        ChangeNotifierProvider<ProviderBook>(
-          create: (context) => ProviderBook(),
-        ),
-        ChangeNotifierProvider(
-            create: (context) => ProviderTransaksiAffiliate()),
-        ChangeNotifierProvider(
-          create: (context) => ProviderAuthAffiliate(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => ProviderPayment(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => ProviderAffiliate(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => NotificationProvider(),
-        ),
-      ],
-      child: MaterialApp(
-        navigatorKey: navigatorKey,
-        scaffoldMessengerKey: scaffoldMessengerKey,
-        debugShowCheckedModeBanner: false,
-        initialRoute: "/",
-        onGenerateRoute: (RouteSettings settings) {
-          final routeName = settings.name;
-          Widget routeWidget = const SplashScreen();
+    return ScreenUtilInit(
+        designSize: const Size(360, 690),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        enableScaleWH: () => true,
+        enableScaleText: () => true,
+        // Use builder only if you need to use library outside ScreenUtilInit context
+        builder: (_, child) {
+          return MultiProvider(
+            providers: [
+              ChangeNotifierProvider<ProviderAuth>(
+                create: (context) => ProviderAuth(),
+              ),
+              ChangeNotifierProvider<ProviderUser>(
+                create: (context) => ProviderUser(),
+              ),
+              ChangeNotifierProvider<ProviderBoarding>(
+                create: (context) => ProviderBoarding(),
+              ),
+              ChangeNotifierProvider<ProviderCoolChat>(
+                create: (context) => ProviderCoolChat(),
+              ),
+              ChangeNotifierProvider<ProviderProfiling>(
+                create: (context) => ProviderProfiling(),
+              ),
+              ChangeNotifierProvider<ProviderBrainActivation>(
+                create: (context) => ProviderBrainActivation(),
+              ),
+              ChangeNotifierProvider<ProviderBook>(
+                create: (context) => ProviderBook(),
+              ),
+              ChangeNotifierProvider(
+                  create: (context) => ProviderTransaksiAffiliate()),
+              ChangeNotifierProvider(
+                create: (context) => ProviderAuthAffiliate(),
+              ),
+              ChangeNotifierProvider(
+                create: (context) => ProviderPayment(),
+              ),
+              ChangeNotifierProvider(
+                create: (context) => ProviderAffiliate(),
+              ),
+              ChangeNotifierProvider(
+                create: (context) => NotificationProvider(),
+              ),
+              ChangeNotifierProvider(create: (_) => LocationProvider()),
+              ChangeNotifierProvider(
+                create: (_) => CountryStateCityProvider(),
+              ),
+            ],
+            child: MaterialApp(
+              navigatorKey: navigatorKey,
+              scaffoldMessengerKey: scaffoldMessengerKey,
+              debugShowCheckedModeBanner: false,
+              initialRoute: "/",
+              onGenerateRoute: (RouteSettings settings) {
+                final routeName = settings.name;
+                Widget routeWidget = const SplashScreen();
 
-          if (routeName != null) {
-            if (routeName.startsWith('/mobile')) {
-              // Navigated to /book/:id
-              routeWidget = const RegisterScreen();
-            } else if (routeName == '/mobile') {
-              // Navigated to /book without other parameters
-              routeWidget = const RegisterScreen();
-            }
-          }
-          return MaterialPageRoute(
-            builder: (context) => SplashScreen(codeReferral: routeName),
-            settings: settings,
-            fullscreenDialog: true,
-          );
-        },
-        theme: ThemeData(
-          fontFamily: "Poppins",
-          textButtonTheme: TextButtonThemeData(
-            style: TextButton.styleFrom(
-              foregroundColor: primaryColor,
+                if (routeName != null) {
+                  if (routeName.startsWith('/mobile')) {
+                    // Navigated to /book/:id
+                    routeWidget = const RegisterScreen();
+                  } else if (routeName == '/mobile') {
+                    // Navigated to /book without other parameters
+                    routeWidget = const RegisterScreen();
+                  }
+                }
+                return MaterialPageRoute(
+                  builder: (context) => SplashScreen(codeReferral: routeName),
+                  settings: settings,
+                  fullscreenDialog: true,
+                );
+              },
+              theme: ThemeData(
+                fontFamily: "Poppins",
+                textButtonTheme: TextButtonThemeData(
+                  style: TextButton.styleFrom(
+                    foregroundColor: primaryColor,
+                  ),
+                ),
+                appBarTheme: AppBarTheme(
+                  backgroundColor: primaryColor,
+                  iconTheme: const IconThemeData(color: Colors.white),
+                  centerTitle: true,
+                ),
+              ),
+              localizationsDelegates: const [
+                S.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: S.delegate.supportedLocales,
             ),
-          ),
-          appBarTheme: AppBarTheme(
-            backgroundColor: primaryColor,
-            iconTheme: const IconThemeData(color: Colors.white),
-            centerTitle: true,
-          ),
-        ),
-        localizationsDelegates: const [
-          S.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-        ],
-        supportedLocales: S.delegate.supportedLocales,
-      ),
-    );
+          );
+        });
   }
 }
-
-
-
-
-
 
 ///old code
 // import 'dart:async';

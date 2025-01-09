@@ -51,6 +51,7 @@ class DataAffiliasi {
   DateTime? createdAt;
   DateTime? updatedAt;
   dynamic isActive;
+  dynamic totalPoint;
   dynamic linkRefferalCode;
   DataUser? user;
 
@@ -70,6 +71,7 @@ class DataAffiliasi {
     this.updatedAt,
     this.isActive,
     this.linkRefferalCode,
+    this.totalPoint,
     this.user,
   });
 
@@ -92,6 +94,7 @@ class DataAffiliasi {
             ? null
             : DateTime.parse(json["updated_at"]),
         isActive: json["is_active"],
+        totalPoint: json["total_point"],
         linkRefferalCode: json["link_refferal_code"],
         user: json["user"] == null ? null : DataUser.fromJson(json["user"]),
       );
@@ -111,6 +114,7 @@ class DataAffiliasi {
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
         "is_active": isActive,
+        "total_point": totalPoint,
         "link_refferal_code": linkRefferalCode,
         "user": user?.toJson(),
       };

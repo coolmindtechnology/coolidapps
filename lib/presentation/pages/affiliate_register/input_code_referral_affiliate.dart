@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:coolappflutter/data/provider/provider_auth_affiliate.dart';
 import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
@@ -6,6 +8,8 @@ import 'package:coolappflutter/presentation/widgets/button_primary.dart';
 import 'package:coolappflutter/presentation/widgets/custom_input_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../../data/locals/preference_handler.dart';
 
 class InputCodeReferralAffiliate extends StatefulWidget {
   const InputCodeReferralAffiliate({super.key});
@@ -19,6 +23,35 @@ class _InputCodeReferralAffiliateState
     extends State<InputCodeReferralAffiliate> {
   TextEditingController controllerCodeReferral = TextEditingController();
   final GlobalKey<FormState> _form = GlobalKey<FormState>();
+  @override
+  void initState() {
+    initAutofill();
+    // Timer(const Duration(seconds: 3), () {
+    //   debugPrint("Masuk Timer");
+
+    //   initAutofill();
+    // });
+    super.initState();
+  }
+
+  initAutofill() async {
+    dynamic iduser = await PreferenceHandler.retrieveIdUser();
+
+    await context
+        .read<ProviderAuthAffiliate>()
+        .autofill(iduser.toString(), context);
+    Timer(const Duration(seconds: 1), () async {
+      context.read<ProviderAuthAffiliate>().dataCodeReferal.toString();
+      if (context.read<ProviderAuthAffiliate>().dataCodeReferal.toString() !=
+          "null") {
+        controllerCodeReferral.text =
+            context.read<ProviderAuthAffiliate>().dataCodeReferal.toString();
+      } else {
+        controllerCodeReferral.text = "";
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,17 +71,21 @@ class _InputCodeReferralAffiliateState
             key: _form,
             child: Column(
               children: [
-                CustomInputField(
-                  title: S.of(context).enter_referral_code,
-                  textEditingController: controllerCodeReferral,
-                  textInputAction: TextInputAction.done,
-                  validator: (val) {
-                    if (val == null || val.isEmpty) {
-                      return S.of(context).cannot_be_empty;
-                    }
-                    return null;
-                  },
-                ),
+                value.isLoading == false
+                    ? CustomInputField(
+                        isReadOnly:
+                            controllerCodeReferral.text != "" ? true : false,
+                        title: S.of(context).enter_referral_code,
+                        textEditingController: controllerCodeReferral,
+                        textInputAction: TextInputAction.done,
+                        validator: (val) {
+                          if (val == null || val.isEmpty) {
+                            return S.of(context).cannot_be_empty;
+                          }
+                          return null;
+                        },
+                      )
+                    : const CircularProgressIndicator(),
                 const SizedBox(
                   height: 24,
                 ),

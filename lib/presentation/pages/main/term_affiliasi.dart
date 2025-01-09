@@ -1,10 +1,13 @@
 import 'package:coolappflutter/data/helpers/check_language.dart';
+import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
 import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/pages/affiliate_register/input_code_referral_affiliate.dart';
 
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:coolappflutter/presentation/widgets/button_primary.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -120,7 +123,7 @@ By joining, you can earn additional income by referring our products or services
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-            "SYARAT & KETENTUAN AFILIASI",
+            S.of(context).affiliate,
             style: TextStyle(color: whiteColor),
           ),
           iconTheme: IconThemeData(color: whiteColor),
@@ -207,10 +210,10 @@ By joining, you can earn additional income by referring our products or services
                         ],
                       ),
                       ButtonPrimary(
-                        "Lanjut Pendaftaran",
+                        S.of(context).register_affiliate,
                         onPress: () {
                           if (checkbox == true) {
-                            Nav.to(const InputCodeReferralAffiliate());
+                            Nav.replace(const InputCodeReferralAffiliate());
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(

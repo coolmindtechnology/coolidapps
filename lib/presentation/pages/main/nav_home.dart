@@ -1,13 +1,12 @@
 //rev
 import 'dart:async';
 
-import 'package:coolappflutter/data/provider/provider_profiling.dart';
 import 'package:coolappflutter/data/provider/provider_user.dart';
 import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/pages/chat/home_chat.dart';
 import 'package:coolappflutter/presentation/pages/main/home_screen.dart';
 import 'package:coolappflutter/presentation/pages/notification/notification_screen.dart';
-import 'package:coolappflutter/presentation/pages/transakction/transaksi_affiliate.dart';
+
 import 'package:coolappflutter/presentation/pages/user/screen_settings.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
@@ -97,7 +96,7 @@ class _NavMenuScreenState extends State<NavMenuScreen> {
     super.initState();
     viewMenu = [
       HomeScreen(klickTab: klikTab),
-      NotificationScreen(),
+      const NotificationScreen(),
       Container(), // Placeholder untuk tab Chat
       ScreenSettings(
         onLanguageChanged: () {
@@ -141,7 +140,15 @@ class _NavMenuScreenState extends State<NavMenuScreen> {
         items: menuTab.map((e) {
           return BottomNavigationBarItem(
             icon: ImageIcon(AssetImage(e['icon']!)),
-            label: e['title'],
+            label: e['title'] == "Home"
+                ? S.of(context).home
+                : e['title'] == "Notification"
+                    ? S.of(context).notification
+                    : e['title'] == "Chat"
+                        ? S.of(context).chat
+                        : e['title'] == "Setting"
+                            ? S.of(context).setting
+                            : "",
           );
         }).toList(),
       ),

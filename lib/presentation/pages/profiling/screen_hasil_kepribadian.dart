@@ -123,7 +123,7 @@ class _ScreenHasilKepribadianState extends State<ScreenHasilKepribadian> {
                 child: SizedBox(
                   height: 54,
                   child: ButtonPrimary(
-                    "Brain activation",
+                    S.of(context).brain_activation,
                     onPress: () {
                       Nav.to(ScreenBrainActivation(widget.data,
                           value.dataShowDetail?.idResult.toString() ?? ""));

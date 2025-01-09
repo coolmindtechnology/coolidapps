@@ -2,7 +2,9 @@
 
 import 'dart:async';
 import 'package:coolappflutter/data/data_global.dart';
+import 'package:coolappflutter/data/locals/preference_handler.dart';
 import 'package:coolappflutter/data/models/data_checkout_transaction.dart';
+import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
 import 'package:coolappflutter/data/provider/provider_payment.dart';
 import 'package:coolappflutter/data/provider/provider_user.dart';
 import 'package:coolappflutter/data/repositories/repo_profiling.dart';
@@ -18,6 +20,7 @@ import 'package:coolappflutter/data/response/profiling/res_pay_profiling.dart';
 import 'package:coolappflutter/data/response/profiling/res_update_transaction_profiling.dart';
 import 'package:coolappflutter/data/response/profiling/res_upgrade_member.dart';
 import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/main/components/input_code_ref_profilling.dart';
 import 'package:coolappflutter/presentation/pages/profiling/screen_feature_kepribadian.dart';
 import 'package:coolappflutter/data/response/profiling/res_share_result_detail.dart';
 import 'package:coolappflutter/data/response/profiling/res_show_detail.dart';
@@ -26,6 +29,7 @@ import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/widgets/button_primary.dart';
 import 'package:coolappflutter/presentation/widgets/custom_input_field.dart';
 import 'package:coolappflutter/presentation/widgets/item_share_widget.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -79,9 +83,23 @@ class ProviderProfiling extends ChangeNotifier {
   List<DataProfiling> listProfiling = [], listDisable = [];
   DataDetailProfiling? detailProfiling;
   DataShowDetail? dataShowDetail;
+  TextEditingController controllerProfillingCode = TextEditingController();
   // final FlutterShareMe flutterShareMe = FlutterShareMe();
 
   int minYears = 17;
+  bool colorList = false;
+
+  void colorChange() {
+    colorList = !colorList;
+    notifyListeners();
+  }
+
+  int? selectedIndex; // Indeks item yang dipilih
+
+  void setSelectedIndex(int index) {
+    selectedIndex = index;
+    notifyListeners();
+  }
 
   Future<void> getListProfiling(BuildContext context) async {
     isLoading = true;
@@ -116,7 +134,10 @@ class ProviderProfiling extends ChangeNotifier {
 
   String _textToSpeech = "";
   String get textToSpeech {
-    return _textToSpeech.substring(1, 4000);
+    // return _textToSpeech;
+    return _textToSpeech.length < 4000
+        ? _textToSpeech
+        : _textToSpeech.substring(1, 4000);
   }
 
   void _updateTextToSpeech(DataDetailProfiling? detailProfilingData) {
@@ -568,6 +589,7 @@ class ProviderProfiling extends ChangeNotifier {
 
   bool isCekAvailable = false;
   ResPermiteProfiling? cekAvailable;
+
   Future<void> cekAvailableProfiling(
       BuildContext context, TextEditingController controller) async {
     isCekAvailable = true;
@@ -601,7 +623,7 @@ class ProviderProfiling extends ChangeNotifier {
         notifyListeners();
       } else {
         // for upgrade member
-
+//newui
         NotificationUtils.showSimpleDialog2(
           context,
           "${res.message}",
@@ -613,53 +635,57 @@ class ProviderProfiling extends ChangeNotifier {
           textButton2: S.of(context).no,
           onPress1: () async {
             Nav.back();
-            NotificationUtils.showSimpleDialog(
-              context,
-              () async {
-                if (controller.text.isNotEmpty) {
-                  await upgradeToMember(context, controller);
-                } else {
-                  NotificationUtils.showSnackbar(S.of(context).cannot_be_empty,
-                      backgroundColor: primaryColor);
-                }
-              },
-              widget: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(S.of(context).referral_code_affiliate),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  CustomInputField(
-                    textEditingController: controller,
-                    validator: (val) {
-                      if (val!.isEmpty) {
-                        return S.of(context).cannot_be_empty;
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Center(
-                    child: SizedBox(
-                      height: 50,
-                      child: ButtonPrimary(
-                        S.of(context).cancel,
-                        expand: true,
-                        radius: 8,
-                        elevation: 0.0,
-                        onPress: () {
-                          Nav.back();
-                        },
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            );
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const InputCodeRefPofilling()));
+            // NotificationUtils.showSimpleDialog(
+            //   context,
+            //   () async {
+            //     if (controller.text.isNotEmpty) {
+            //       await upgradeToMember(context, controller);
+            //     } else {
+            //       NotificationUtils.showSnackbar(S.of(context).cannot_be_empty,
+            //           backgroundColor: primaryColor);
+            //     }
+            //   },
+            //   widget: Column(
+            //     mainAxisSize: MainAxisSize.min,
+            //     crossAxisAlignment: CrossAxisAlignment.start,
+            //     children: [
+            //       Text(S.of(context).referral_code_affiliate),
+            //       const SizedBox(
+            //         height: 16,
+            //       ),
+            //       CustomInputField(
+            //         textEditingController: controller,
+            //         validator: (val) {
+            //           if (val!.isEmpty) {
+            //             return S.of(context).cannot_be_empty;
+            //           }
+            //           return null;
+            //         },
+            //       ),
+            //       const SizedBox(
+            //         height: 16,
+            //       ),
+            //       Center(
+            //         child: SizedBox(
+            //           height: 50,
+            //           child: ButtonPrimary(
+            //             S.of(context).cancel,
+            //             expand: true,
+            //             radius: 8,
+            //             elevation: 0.0,
+            //             onPress: () {
+            //               Nav.back();
+            //             },
+            //           ),
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            // );
           },
           onPress2: () {
             Nav.back();
@@ -977,6 +1003,33 @@ class ProviderProfiling extends ChangeNotifier {
       }
     });
     notifyListeners();
+  }
+
+  //list code referal
+  List<Map<String, dynamic>> _affiliates = [];
+  bool _isLoadingC = true;
+
+  List<Map<String, dynamic>> get affiliates => _affiliates;
+  bool get isLoadingC => _isLoadingC;
+
+  Future<void> fetchAffiliates() async {
+    dynamic idUser = await PreferenceHandler.retrieveIdUser();
+    dynamic url = '${ApiEndpoint.baseUrl}/api/affiliate/suggest-aff/$idUser';
+    try {
+      _isLoadingC = true;
+      notifyListeners();
+
+      final response = await Dio().get(url);
+      if (response.statusCode == 200) {
+        _affiliates = List<Map<String, dynamic>>.from(response.data['data']);
+        debugPrint(_affiliates.toString());
+      }
+    } catch (e) {
+      print('Error fetching affiliates: $e');
+    } finally {
+      _isLoadingC = false;
+      notifyListeners();
+    }
   }
 }
 

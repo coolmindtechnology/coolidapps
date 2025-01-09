@@ -232,7 +232,7 @@ class _ScreenSettingsState extends State<ScreenSettings> {
 
                   DropdownHistory(isExpanded: isExpanded),
                   ItemSetting(
-                    title: "Hapus Akun",
+                    title: S.of(context).delete_account,
                     image: "disclaimer.png",
                     onTap: () {
                       Nav.to(const DeletedAccount());

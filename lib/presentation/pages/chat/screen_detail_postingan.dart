@@ -99,10 +99,10 @@ class _ScreenDetailPostinganState extends State<ScreenDetailPostingan> {
                             }
                           },
                           itemBuilder: (BuildContext bc) {
-                            return const [
+                            return [
                               PopupMenuItem(
                                 value: 'hapus',
-                                child: Text("Hapus"),
+                                child: Text(S.of(context).delete),
                               ),
                             ];
                           },
