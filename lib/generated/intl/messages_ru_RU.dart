@@ -36,6 +36,263 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "ACCEPTED": MessageLookupByLibrary.simpleMessage("ПРИНЯТО"),
+        "ARCHIVE": MessageLookupByLibrary.simpleMessage("АРХИВ"),
+        "About_Us_And_Help":
+            MessageLookupByLibrary.simpleMessage("О нас и помощь"),
+        "Accepted": MessageLookupByLibrary.simpleMessage("Принято"),
+        "Account": MessageLookupByLibrary.simpleMessage("Аккаунт"),
+        "Account_Deletion_Terms":
+            MessageLookupByLibrary.simpleMessage("Условия удаления аккаунта"),
+        "Achievement": MessageLookupByLibrary.simpleMessage("Достижение"),
+        "Active_session":
+            MessageLookupByLibrary.simpleMessage("Активная сессия"),
+        "Add_Session": MessageLookupByLibrary.simpleMessage("Добавить сессию?"),
+        "App_Version":
+            MessageLookupByLibrary.simpleMessage("Версия приложения V2.4.93"),
+        "Archives": MessageLookupByLibrary.simpleMessage("Архивы"),
+        "Awaiting_Confirmation": MessageLookupByLibrary.simpleMessage(
+            "Ожидаем подтверждения расписания консультанта, пожалуйста, подождите"),
+        "Ayo_kenali_diri_anda":
+            MessageLookupByLibrary.simpleMessage("Давайте узнаем себя!"),
+        "BUSINESS": MessageLookupByLibrary.simpleMessage("БИЗНЕС"),
+        "BUSINESS_desc": MessageLookupByLibrary.simpleMessage(
+            "Описание предыдущей темы бизнеса"),
+        "Back_to_Consultation": MessageLookupByLibrary.simpleMessage(
+            "Вернуться на страницу консультации через 3 секунды"),
+        "Balance": MessageLookupByLibrary.simpleMessage("Баланс"),
+        "Become_Affiliator":
+            MessageLookupByLibrary.simpleMessage("Стань партнером"),
+        "CANNOT_LEAVE_SESSION":
+            MessageLookupByLibrary.simpleMessage("НЕЛЬЗЯ ПОКИНУТЬ СЕССИЮ"),
+        "CREATIVE": MessageLookupByLibrary.simpleMessage("КРЕАТИВ"),
+        "Cannot_Leave_Session": MessageLookupByLibrary.simpleMessage(
+            "Вы не можете покинуть сессию консультации до её завершения"),
+        "Change_Email": MessageLookupByLibrary.simpleMessage(
+            "Изменить адрес электронной почты"),
+        "Change_Phone_Number":
+            MessageLookupByLibrary.simpleMessage("Изменить номер телефона"),
+        "Choose_Your_Language":
+            MessageLookupByLibrary.simpleMessage("Выберите ваш язык"),
+        "Choose_Your_Reason":
+            MessageLookupByLibrary.simpleMessage("Выберите вашу причину"),
+        "Choose_session_hour":
+            MessageLookupByLibrary.simpleMessage("Выберите время сессии"),
+        "Choose_session_time": MessageLookupByLibrary.simpleMessage(
+            "Выберите время для консультации"),
+        "Choose_time_consult": MessageLookupByLibrary.simpleMessage(
+            "Вы можете выбрать удобное время для консультации"),
+        "Choose_your_consultant": MessageLookupByLibrary.simpleMessage(
+            "Выберите консультанта тщательно, вы будете работать с ним в течение следующих 3 дней"),
+        "Complete_Session_First": MessageLookupByLibrary.simpleMessage(
+            "Пожалуйста, завершите сессию перед выходом"),
+        "Completed_On": MessageLookupByLibrary.simpleMessage("Завершено в:"),
+        "Confirm_Your_Identity":
+            MessageLookupByLibrary.simpleMessage("Подтвердите свою личность"),
+        "Consult_based_personality": MessageLookupByLibrary.simpleMessage(
+            "Консультации на основе вашей личности для более близкого знакомства с собой"),
+        "Consult_personality": MessageLookupByLibrary.simpleMessage(
+            "Пожалуйста, проконсультируйтесь по своей личности"),
+        "Consultant_Name":
+            MessageLookupByLibrary.simpleMessage("Имя консультанта"),
+        "Consultant_Profile":
+            MessageLookupByLibrary.simpleMessage("Профиль консультанта"),
+        "Consultation": MessageLookupByLibrary.simpleMessage("Консультация"),
+        "Consultation_History":
+            MessageLookupByLibrary.simpleMessage("История консультаций"),
+        "Consultation_Request_Accepted": MessageLookupByLibrary.simpleMessage(
+            "Запрос на консультацию принят"),
+        "Consultation_time":
+            MessageLookupByLibrary.simpleMessage("Время консультации"),
+        "Continue_Payment":
+            MessageLookupByLibrary.simpleMessage("Продолжить оплату"),
+        "CoolTeam": MessageLookupByLibrary.simpleMessage("CoolTeam"),
+        "Coolapp_consultation_space": MessageLookupByLibrary.simpleMessage(
+            "COOLAPP теперь предоставляет профессиональное пространство для консультаций для вас"),
+        "Curhat":
+            MessageLookupByLibrary.simpleMessage("Поговорите о своих чувствах"),
+        "Current_Language":
+            MessageLookupByLibrary.simpleMessage("Текущий язык"),
+        "Delete_Account":
+            MessageLookupByLibrary.simpleMessage("Удалить аккаунт"),
+        "Discount_newcomer": MessageLookupByLibrary.simpleMessage(
+            "Скидка 20% для новых пользователей"),
+        "Discuss_This": MessageLookupByLibrary.simpleMessage("Обсудить это"),
+        "Discussing_This":
+            MessageLookupByLibrary.simpleMessage("Обсуждение этого"),
+        "Do_You_Want_To_Delete_Account": MessageLookupByLibrary.simpleMessage(
+            "Вы хотите удалить свой аккаунт?"),
+        "Earn_money_by_becoming_an_affiliator":
+            MessageLookupByLibrary.simpleMessage(
+                "Зарабатывайте деньги, становясь партнером"),
+        "Edit_profile":
+            MessageLookupByLibrary.simpleMessage("Редактировать профиль"),
+        "Email_Input": MessageLookupByLibrary.simpleMessage(
+            "Введите ваш адрес электронной почты"),
+        "Emotion_in": MessageLookupByLibrary.simpleMessage("Эмоция в"),
+        "Enter_referal_code": MessageLookupByLibrary.simpleMessage(
+            "Хотите поддержать промоутера? Введите его реферальный код ниже!"),
+        "FITNESS": MessageLookupByLibrary.simpleMessage("ФИТНЕС"),
+        "FREE": MessageLookupByLibrary.simpleMessage("БЕСПЛАТНО"),
+        "Fill_in_your_profile": MessageLookupByLibrary.simpleMessage(
+            "Давайте! Заполните свой профиль, чтобы воспользоваться всеми нашими функциями"),
+        "Follow_on_Coolchat":
+            MessageLookupByLibrary.simpleMessage("Следить на Coolchat"),
+        "Follower": MessageLookupByLibrary.simpleMessage("Подписчик"),
+        "Following": MessageLookupByLibrary.simpleMessage("Подписки"),
+        "Free_3_times":
+            MessageLookupByLibrary.simpleMessage("Бесплатно 3 раза!"),
+        "Free_consult_3_days": MessageLookupByLibrary.simpleMessage(
+            "Консультации бесплатно 3 раза в 3 дня и максимизируйте ваш потенциал"),
+        "Free_once_daily": MessageLookupByLibrary.simpleMessage(
+            "Бесплатная консультация один раз в день!"),
+        "Give_Rating": MessageLookupByLibrary.simpleMessage("Дать оценку"),
+        "Go_test_profiling": MessageLookupByLibrary.simpleMessage(
+            "Пройдите тестирование вашего профиля сейчас и узнайте себя лучше"),
+        "Goodbye": MessageLookupByLibrary.simpleMessage("Прощайте"),
+        "Healing": MessageLookupByLibrary.simpleMessage("Исцеление"),
+        "Help": MessageLookupByLibrary.simpleMessage("Помощь"),
+        "How_was_Your_Chat_Session": MessageLookupByLibrary.simpleMessage(
+            "Как прошла ваша сессия общения?"),
+        "I_Understand": MessageLookupByLibrary.simpleMessage("Я понял"),
+        "Image": MessageLookupByLibrary.simpleMessage("Изображение"),
+        "Information_Confirmed": MessageLookupByLibrary.simpleMessage(
+            "Информация соответствует сеансу консультации, который я хочу"),
+        "Join_Coolchat":
+            MessageLookupByLibrary.simpleMessage("Присоединиться к Coolchat"),
+        "Know_deeper":
+            MessageLookupByLibrary.simpleMessage("Познайте себя глубже!"),
+        "Knowing_yourself": MessageLookupByLibrary.simpleMessage(
+            "Знать себя — это способ полюбить себя"),
+        "Minutes_Left": MessageLookupByLibrary.simpleMessage("минут осталось"),
+        "My_Profiling": MessageLookupByLibrary.simpleMessage("Мой профиль"),
+        "My_Profiling_Results": MessageLookupByLibrary.simpleMessage(
+            "Мои результаты профилирования"),
+        "My_Subscription": MessageLookupByLibrary.simpleMessage("Моя подписка"),
+        "New_Email_Input": MessageLookupByLibrary.simpleMessage(
+            "Введите новый адрес электронной почты"),
+        "New_consultation_session": MessageLookupByLibrary.simpleMessage(
+            "Новая консультационная сессия"),
+        "News_From_COOL":
+            MessageLookupByLibrary.simpleMessage("Новости от COOL"),
+        "Next": MessageLookupByLibrary.simpleMessage("Далее"),
+        "No_sessions": MessageLookupByLibrary.simpleMessage("Нет сессий"),
+        "Not_You": MessageLookupByLibrary.simpleMessage("Не вы?"),
+        "Notification_Settings":
+            MessageLookupByLibrary.simpleMessage("Настройки уведомлений"),
+        "OTP_Code_Input":
+            MessageLookupByLibrary.simpleMessage("Введите код OTP"),
+        "Old_Email": MessageLookupByLibrary.simpleMessage(
+            "Ваш старый адрес электронной почты"),
+        "Only_30_minutes": MessageLookupByLibrary.simpleMessage(
+            "Каждая сессия длится только 30 минут"),
+        "Open_all_topics": MessageLookupByLibrary.simpleMessage(
+            "Откройте все темы консультаций и выберите по своему интересу"),
+        "Open_all_topics_now":
+            MessageLookupByLibrary.simpleMessage("Откройте все темы!"),
+        "Or": MessageLookupByLibrary.simpleMessage("или"),
+        "Others": MessageLookupByLibrary.simpleMessage("Прочее"),
+        "Overview": MessageLookupByLibrary.simpleMessage("Обзор"),
+        "PARENTING": MessageLookupByLibrary.simpleMessage("ВОСПИТАНИЕ"),
+        "PARENTING_desc": MessageLookupByLibrary.simpleMessage(
+            "Описание предыдущей темы воспитания"),
+        "PERSONALITY": MessageLookupByLibrary.simpleMessage("ЛИЧНОСТЬ"),
+        "PERSONALITY_desc": MessageLookupByLibrary.simpleMessage(
+            "Описание предыдущей личности"),
+        "Pay_Now": MessageLookupByLibrary.simpleMessage("Оплатить сейчас"),
+        "Payment_After_Approval": MessageLookupByLibrary.simpleMessage(
+            "*Оплата производится после одобрения запроса консультантом"),
+        "Pick_Consultant":
+            MessageLookupByLibrary.simpleMessage("Выберите консультанта"),
+        "Pick_Date": MessageLookupByLibrary.simpleMessage("Выберите дату"),
+        "Please_Provide_Email_Phone": MessageLookupByLibrary.simpleMessage(
+            "Пожалуйста, укажите свою электронную почту или номер телефона ниже"),
+        "Please_Tell_Us_Why": MessageLookupByLibrary.simpleMessage(
+            "Пожалуйста, расскажите нам, почему вы хотите удалить свой аккаунт"),
+        "Please_select_the_promoter_you_wish_to_support":
+            MessageLookupByLibrary.simpleMessage(
+                "Пожалуйста, выберите промоутера, которого вы хотите поддержать."),
+        "Post": MessageLookupByLibrary.simpleMessage("Пост"),
+        "Price": MessageLookupByLibrary.simpleMessage("Цена"),
+        "Rating_Given": MessageLookupByLibrary.simpleMessage("Оценка дана"),
+        "Real_Money": MessageLookupByLibrary.simpleMessage("Реальные Деньги"),
+        "Receipt": MessageLookupByLibrary.simpleMessage("Квитанция"),
+        "Related_Topics":
+            MessageLookupByLibrary.simpleMessage("Связанные темы"),
+        "Report_Issue":
+            MessageLookupByLibrary.simpleMessage("Сообщить о проблеме"),
+        "Report_Issue_Usage":
+            MessageLookupByLibrary.simpleMessage("Сообщить о проблеме"),
+        "Request_Accepted":
+            MessageLookupByLibrary.simpleMessage("Запрос принят"),
+        "Request_Account_Deletion":
+            MessageLookupByLibrary.simpleMessage("Запрос на удаление аккаунта"),
+        "Requests": MessageLookupByLibrary.simpleMessage("Запросы"),
+        "Review_Your_Session":
+            MessageLookupByLibrary.simpleMessage("Проверьте вашу сессию"),
+        "Search": MessageLookupByLibrary.simpleMessage("Поиск"),
+        "Security": MessageLookupByLibrary.simpleMessage("Безопасность"),
+        "Selected_topic":
+            MessageLookupByLibrary.simpleMessage("Выбранная тема:"),
+        "Send": MessageLookupByLibrary.simpleMessage("Отправить"),
+        "Send_Verification_Code":
+            MessageLookupByLibrary.simpleMessage("Отправить код подтверждения"),
+        "Session_Archived":
+            MessageLookupByLibrary.simpleMessage("АРХИВИРОВАНО (ЗАВЕРШЕНО)"),
+        "Session_Begins_In":
+            MessageLookupByLibrary.simpleMessage("Сессия начнется через"),
+        "Session_Closed_Message": MessageLookupByLibrary.simpleMessage(
+            "Сессия закрыта, вы больше не можете отправлять сообщения своему консультанту, но консультант все еще может отвечать."),
+        "Session_Completed":
+            MessageLookupByLibrary.simpleMessage("Сессия завершена"),
+        "Session_Completed_Status":
+            MessageLookupByLibrary.simpleMessage("Статус сессии"),
+        "Session_Details":
+            MessageLookupByLibrary.simpleMessage("Детали сессии"),
+        "Session_Summary":
+            MessageLookupByLibrary.simpleMessage("Резюме сессии"),
+        "Setting": MessageLookupByLibrary.simpleMessage("Настройки"),
+        "Share_Experience":
+            MessageLookupByLibrary.simpleMessage("Поделитесь своим опытом"),
+        "Short_Time": MessageLookupByLibrary.simpleMessage(
+            "Приятно было познакомиться с вами за это короткое время, мы будем скучать"),
+        "Start_Session": MessageLookupByLibrary.simpleMessage("Начать сессию?"),
+        "Start_consulting_now":
+            MessageLookupByLibrary.simpleMessage("Начать консультацию сейчас!"),
+        "Status": MessageLookupByLibrary.simpleMessage("Статус"),
+        "Support_Your_Preferred_Promoter": MessageLookupByLibrary.simpleMessage(
+            "Поддержите своего любимого промоутера"),
+        "Tell_Us": MessageLookupByLibrary.simpleMessage("Расскажите нам!"),
+        "Tell_Us_Here":
+            MessageLookupByLibrary.simpleMessage("Расскажите здесь"),
+        "Terms_and_Conditions":
+            MessageLookupByLibrary.simpleMessage("Условия и положения"),
+        "Thank_You_For_Your_Report":
+            MessageLookupByLibrary.simpleMessage("Спасибо за ваш отчет"),
+        "Total_Point": MessageLookupByLibrary.simpleMessage("Точка"),
+        "Understood": MessageLookupByLibrary.simpleMessage("Понял"),
+        "Use_Email": MessageLookupByLibrary.simpleMessage("Использовать Email"),
+        "Use_Phone_Number":
+            MessageLookupByLibrary.simpleMessage("Использовать номер телефона"),
+        "Verification_Code": MessageLookupByLibrary.simpleMessage(
+            "Введите код подтверждения, отправленный на вашу электронную почту"),
+        "Video": MessageLookupByLibrary.simpleMessage("Видео"),
+        "View_Archive":
+            MessageLookupByLibrary.simpleMessage("Посмотреть архив"),
+        "We_Appreciate_Your_Feedback": MessageLookupByLibrary.simpleMessage(
+            "Мы ценим все отзывы и предложения. Мы будем стараться быть лучше."),
+        "What_Problem":
+            MessageLookupByLibrary.simpleMessage("Какая у вас проблема?"),
+        "Why_Consultation_Needed": MessageLookupByLibrary.simpleMessage(
+            "Почему вам нужна моя консультация?"),
+        "Why_Need_Consultant": MessageLookupByLibrary.simpleMessage(
+            "Почему вам нужен консультант?"),
+        "Write_Here": MessageLookupByLibrary.simpleMessage("Пишите здесь"),
+        "Your_Email": MessageLookupByLibrary.simpleMessage("Ваш Email"),
+        "Your_Explanation":
+            MessageLookupByLibrary.simpleMessage("Ваше объяснение"),
+        "Your_Story_Helps": MessageLookupByLibrary.simpleMessage(
+            "Ваш рассказ помогает нам становиться лучше"),
         "access_denied": MessageLookupByLibrary.simpleMessage(
             "Доступ запрещен. У вас нет разрешения на выполнение этого действия."),
         "account_disabled_contact_admin": MessageLookupByLibrary.simpleMessage(
@@ -131,6 +388,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Удалить аккаунт"),
         "develop_yourself_by_exploring": MessageLookupByLibrary.simpleMessage(
             "Развивайтесь, изучая доступные онлайн-книги. Станьте лучшей версией себя, где бы вы ни находились и когда бы ни пожелали."),
+        "digital_ID": MessageLookupByLibrary.simpleMessage("Цифровой ID"),
         "discount": MessageLookupByLibrary.simpleMessage("Скидка"),
         "district": MessageLookupByLibrary.simpleMessage("Район"),
         "dont_have_an_account":
@@ -245,6 +503,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "no_data": MessageLookupByLibrary.simpleMessage("Нет данных"),
         "no_deposit_fee": MessageLookupByLibrary.simpleMessage(
             "Вы еще не оплатили депозит. Пожалуйста, оплатите."),
+        "no_profiling_yet":
+            MessageLookupByLibrary.simpleMessage("Профиль пока не создан"),
         "no_this_is_the_first_time":
             MessageLookupByLibrary.simpleMessage("Нет, это первый раз."),
         "not_complete": MessageLookupByLibrary.simpleMessage("Не завершено"),

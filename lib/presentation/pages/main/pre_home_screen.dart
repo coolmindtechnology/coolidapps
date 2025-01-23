@@ -1,5 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:async';
+
 import 'package:coolappflutter/data/provider/provider_book.dart';
 import 'package:coolappflutter/data/provider/provider_user.dart';
 import 'package:coolappflutter/generated/l10n.dart';
@@ -9,6 +11,8 @@ import 'package:coolappflutter/presentation/utils/circular_progress_widget.dart'
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../../data/locals/preference_handler.dart';
+import '../../../data/locals/shared_pref.dart';
 import '../../../data/networks/endpoint/api_endpoint.dart';
 
 class PreHomeScreen extends StatefulWidget {
@@ -29,9 +33,30 @@ class _PreHomeScreenState extends State<PreHomeScreen> {
   @override
   void initState() {
     super.initState();
+    Timer(Duration(seconds: 3), () {
+      cekSession();
+    });
+    cekSession();
     providerUser = Provider.of<ProviderUser>(context, listen: false);
 
     _initializeData();
+  }
+
+  cekSession() async {
+    dynamic ceklanguage = await PreferenceHandler.retrieveISelectLanguage();
+    Prefs().setLocale('$ceklanguage', () {
+      setState(() {
+        S.load(Locale('$ceklanguage'));
+        setState(() {});
+      });
+    });
+    Timer(Duration(seconds: 2), () {
+      Prefs().getLocale().then((locale) {
+        debugPrint(locale);
+
+        S.load(Locale(locale)).then((value) {});
+      });
+    });
   }
 
   @override
@@ -91,11 +116,10 @@ class _PreHomeScreenState extends State<PreHomeScreen> {
                     height: 25,
                   ),
                   Text(
-                    value.dataPre?.greeting?.preHomeGreeting ?? ""
-                    // S
-                    //     .of(context)
-                    //     .congratulation_you_have_become_a_regular_member
-                    ,
+                    // value.dataPre?.greeting?.preHomeGreeting ?? ""
+                    S
+                        .of(context)
+                        .congratulation_you_have_become_a_regular_member,
                     style: const TextStyle(
                         color: Colors.white,
                         fontSize: 16,

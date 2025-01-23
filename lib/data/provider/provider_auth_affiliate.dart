@@ -202,7 +202,7 @@ class ProviderAuthAffiliate extends ChangeNotifier {
       } else {
         NotificationUtils.showSimpleDialog2(
           context,
-          "Become Affiliate",
+          S.of(context).become_affiliate,
           onPress1: () async {
             debugPrint("cek id from home ${dataIsAffiliate?.idUser}");
             Nav.back();
@@ -222,8 +222,8 @@ class ProviderAuthAffiliate extends ChangeNotifier {
           onPress2: () {
             Nav.back();
           },
-          textButton1: "Ya, Lanjut",
-          textButton2: "Tidak",
+          textButton1: S.of(context).yes_continue,
+          textButton2: S.of(context).no,
         );
       }
 

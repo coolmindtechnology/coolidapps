@@ -54,7 +54,8 @@ class Prefs {
 
   // Clears the session by calling the clearAll method on the shared preferences. Returns null.
   Future<String?> clearSession() async {
-    await _pref.clearAll();
+    // await _pref.clearAll();
+    await _pref.clear('token');
     return null;
   }
 }

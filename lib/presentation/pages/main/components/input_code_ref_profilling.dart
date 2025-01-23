@@ -30,8 +30,9 @@ class _InputCodeRefPofillingState extends State<InputCodeRefPofilling> {
           return SafeArea(
             child: Scaffold(
               appBar: AppBar(
-                title: const Text(
-                  "Dukung Promotor Pilihan",
+                title: Text(
+                  S.of(context).Support_Your_Preferred_Promoter,
+                  // "Dukung Promotor Pilihan",
                   style: TextStyle(color: Colors.white),
                 ),
               ),
@@ -53,12 +54,14 @@ class _InputCodeRefPofillingState extends State<InputCodeRefPofilling> {
                               ),
                               child: Column(
                                 children: [
-                                  const Padding(
+                                  Padding(
                                     padding: EdgeInsets.all(12.0),
                                     child: Row(
                                       children: [
                                         Text(
-                                          "Dukungan Promotor pilihan",
+                                          S
+                                              .of(context)
+                                              .Support_Your_Preferred_Promoter,
                                           style: TextStyle(
                                               color: Colors.yellow,
                                               fontSize: 17),
@@ -66,12 +69,14 @@ class _InputCodeRefPofillingState extends State<InputCodeRefPofilling> {
                                       ],
                                     ),
                                   ),
-                                  const Padding(
+                                  Padding(
                                     padding: EdgeInsets.only(left: 12),
                                     child: Row(
                                       children: [
                                         Text(
-                                          "Silahkan pilih promotor yang ingin anda dukung",
+                                          S
+                                              .of(context)
+                                              .Please_select_the_promoter_you_wish_to_support,
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontSize: 12),
@@ -92,10 +97,10 @@ class _InputCodeRefPofillingState extends State<InputCodeRefPofilling> {
                                       ],
                                     ),
                                   ),
-                                  const Padding(
+                                  Padding(
                                     padding: EdgeInsets.all(12.0),
-                                    child: Text(
-                                        "Mohon maaf, sepertinya belum ada promotor terdekat dalam jangkauan anda",
+                                    child: Text(S.of(context).not_found,
+                                        // "Mohon maaf, sepertinya belum ada promotor terdekat dalam jangkauan anda",
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 12)),
                                   ),
@@ -111,8 +116,10 @@ class _InputCodeRefPofillingState extends State<InputCodeRefPofilling> {
                                             valuePro.fetchAffiliates();
                                             valuePro.isLoading = true;
                                           },
-                                          child:
-                                              const Text("Lanjut Tanpa Code")),
+                                          child: Text(
+                                            S.of(context).lanjut,
+                                            // "Lanjut Tanpa Code"
+                                          )),
                                     ),
                                   )
                                 ],
@@ -182,7 +189,7 @@ class _InputCodeRefPofillingState extends State<InputCodeRefPofilling> {
                                                         .showSnackBar(
                                                       SnackBar(
                                                         content: Text(
-                                                          'Kode referal ${affiliate['refferal_code']} disalin',
+                                                          '${S.of(context).referral_code_copied} ${affiliate['refferal_code']}',
                                                         ),
                                                       ),
                                                     );
@@ -205,8 +212,8 @@ class _InputCodeRefPofillingState extends State<InputCodeRefPofilling> {
                             child: Container(
                               width: 50,
                               color: Colors.white,
-                              child: const Text(
-                                "Atau",
+                              child: Text(
+                                S.of(context).Or,
                                 style: TextStyle(
                                     color: Colors.blue,
                                     fontSize: 14,
@@ -220,12 +227,12 @@ class _InputCodeRefPofillingState extends State<InputCodeRefPofilling> {
                       const SizedBox(
                         height: 30,
                       ),
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.only(left: 10, right: 10),
                         child: Row(
                           children: [
                             Text(
-                              "Dukungan Promotor anda",
+                              S.of(context).Support_Your_Preferred_Promoter,
                               style: TextStyle(
                                   color: Colors.blue,
                                   fontSize: 17,
@@ -237,13 +244,13 @@ class _InputCodeRefPofillingState extends State<InputCodeRefPofilling> {
                       const SizedBox(
                         height: 10,
                       ),
-                      const Padding(
+                      Padding(
                         padding: EdgeInsets.only(left: 10, right: 10),
                         child: Row(
                           children: [
                             Expanded(
                               child: Text(
-                                "Punya promotor yang ingin didukung? input kode referalnya di bawah!",
+                                S.of(context).Enter_referal_code,
                                 style: TextStyle(
                                   color: Colors.black,
                                   fontSize: 12,

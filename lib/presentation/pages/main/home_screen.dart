@@ -1,5 +1,575 @@
-// ignore_for_file: use_build_context_synchronously
+// // ignore_for_file: use_build_context_synchronously
 
+// import 'dart:async';
+
+// import 'package:coolappflutter/data/provider/provider_auth_affiliate.dart';
+// import 'package:coolappflutter/data/provider/provider_payment.dart';
+// import 'package:coolappflutter/data/provider/provider_profiling.dart';
+// import 'package:coolappflutter/data/provider/provider_user.dart';
+// import 'package:coolappflutter/data/response/profiling/res_list_profiling.dart';
+
+// import 'package:coolappflutter/generated/l10n.dart';
+// import 'package:coolappflutter/data/provider/provider_book.dart';
+// import 'package:coolappflutter/main.dart';
+
+// import 'package:coolappflutter/presentation/pages/profiling/screen_feature_kepribadian.dart';
+// import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+// import 'package:coolappflutter/presentation/utils/notification_utils.dart';
+
+// import 'package:coolappflutter/presentation/widgets/refresh_icon_widget.dart';
+// import 'package:coolappflutter/presentation/widgets/shimmer_loading.dart';
+// import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
+// import 'package:flutter/cupertino.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter/widgets.dart';
+// import 'package:provider/provider.dart';
+// import 'package:shimmer/shimmer.dart';
+
+// import '../../../data/provider/provider_affiliate.dart';
+// import '../../theme/color_utils.dart';
+
+// import '../Konsultasi/Konsultasi_Page.dart';
+// import 'components/container_list_profiling.dart';
+// import 'components/container_profilling.dart';
+// import 'components/container_slider_home.dart';
+// import 'components/container_yellow_home.dart';
+// import 'list_ebook_all.dart';
+
+// // ignore: must_be_immutable
+// class HomeScreen extends StatefulWidget {
+//   final Function(int) klickTab;
+//   const HomeScreen({super.key, required this.klickTab});
+
+//   @override
+//   State<HomeScreen> createState() => _HomeScreenState();
+// }
+
+// class _HomeScreenState extends State<HomeScreen> {
+//   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+//       GlobalKey<RefreshIndicatorState>();
+
+//   StreamSubscription? eventBalanceStream;
+//   TextEditingController codeReferralC = TextEditingController();
+//   List<bool> tappedStates = List.filled(3, false);
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     WidgetsBinding.instance.addPostFrameCallback((_) async {
+//       context.read<ProviderUser>().checkProfile(context);
+//       context.read<ProviderUser>().getTotalSaldo(context);
+
+//       // // _pengecekanIsAffiliate();
+//       // context.read<ProviderPayment>().getAmoutDeposit(context);
+//     });
+//   }
+
+//   initHome() async {
+//     await context.read<ProviderAffiliate>().getHomeAff(context);
+//   }
+
+//   @override
+//   void dispose() {
+//     eventBalanceStream?.cancel();
+//     codeReferralC.dispose();
+//     super.dispose();
+//   }
+
+//   final List<Map<String, dynamic>> sliderData = [
+//     {
+//       'text': 'Go test your profiling now & know yourself better',
+//       'imageUrl': 'images/Slider1.png',
+//       'containerColor': BlueColor,
+//       'textColor': primaryColor,
+//     },
+//     {
+//       'text': '20% Discount Special for newcomer',
+//       'imageUrl': 'images/Slider2.png',
+//       'containerColor': BlueColor,
+//       'textColor': Colors.white,
+//     },
+//     {
+//       'text': 'Knowinng yourself, is a way love yourself',
+//       'imageUrl': 'images/Slider3.png',
+//       'containerColor': Colors.orange[100],
+//       'textColor': whiteColor,
+//     },
+//   ];
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return MultiProvider(
+//         providers: [
+//           ChangeNotifierProvider(
+//               create: (context) => ProviderBook.initHomeBook(context)),
+//           ChangeNotifierProvider(create: (context) => ProviderProfiling()),
+//         ],
+//         child: Consumer<ProviderBook>(
+//           builder: (BuildContext context, value, Widget? child) =>
+//               Consumer<ProviderProfiling>(
+//             builder: (BuildContext context, valuePro, Widget? child) =>
+//                 Consumer<ProviderAffiliate>(
+//               builder: (BuildContext context, valueAffiliate, Widget? child) =>
+//                   Consumer<ProviderUser>(builder:
+//                       (BuildContext context, valueUser, Widget? child) {
+//                 return Scaffold(
+//                   appBar: PreferredSize(
+//                     preferredSize: const Size.fromHeight(75.0),
+//                     child: AppBar(
+//                       flexibleSpace: Container(
+//                         decoration: BoxDecoration(
+//                           gradient: LinearGradient(
+//                             colors: [
+//                               primaryColor,
+//                               Colors.white
+//                             ], // Gradasi biru ke putih
+//                             begin: Alignment.topCenter,
+//                             end: Alignment.bottomCenter,
+//                           ),
+//                         ),
+//                       ),
+//                       title: Row(
+//                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                         children: [
+//                           Image.asset(
+//                             "images/logo_coolapp_new.png",
+//                             height: 36,
+//                             width: 115,
+//                           ),
+//                           Container(
+//                               width: 28,
+//                               height: 28,
+//                               decoration: BoxDecoration(
+//                                   color: Colors.white,
+//                                   borderRadius: BorderRadius.circular(5)),
+//                               child: InkWell(
+//                                 onTap: () {},
+//                                 child: Icon(
+//                                   Icons.qr_code_scanner_rounded,
+//                                   color: BlueColor,
+//                                   size: 23,
+//                                 ),
+//                               )),
+//                           Container(
+//                               height: 28,
+//                               decoration: BoxDecoration(
+//                                   color: Colors.white,
+//                                   borderRadius: BorderRadius.circular(5)),
+//                               child: Row(
+//                                 mainAxisAlignment:
+//                                     MainAxisAlignment.spaceEvenly,
+//                                 children: [
+//                                   Provider.of<ProviderPayment>(context,
+//                                               listen: false)
+//                                           .isLoading
+//                                       ? const ShimmerLoadingWidget(
+//                                           height: 24,
+//                                           width: 100,
+//                                         )
+//                                       : Text(
+//                                           valueUser.totalDeposit,
+//                                           style: const TextStyle(
+//                                             fontSize: 16,
+//                                             fontWeight: FontWeight.w600,
+//                                           ),
+//                                         ),
+//                                   Consumer<ProviderUser>(
+//                                       builder: (context, stateUser, __) {
+//                                     return InkWell(
+//                                         onTap: () async {
+//                                           if (stateUser.dataUser?.isAffiliate
+//                                                   .toString() ==
+//                                               "1") {
+//                                             debugPrint("tes topup1");
+//                                             NotificationUtils.showDialogError(
+//                                                 context, () {
+//                                               Nav.back();
+//                                             },
+//                                                 widget: Text(
+//                                                   S
+//                                                       .of(context)
+//                                                       .feature_unavailable_affiliate,
+//                                                   textAlign: TextAlign.center,
+//                                                 ));
+//                                           } else {
+//                                             //
+//                                             debugPrint("tes topup2");
+
+//                                             context
+//                                                 .read<ProviderPayment>()
+//                                                 .getListTopUp(context);
+//                                           }
+//                                         },
+//                                         child: Icon(
+//                                           CupertinoIcons.plus_circle_fill,
+//                                           color: primaryColor,
+//                                           size: 23,
+//                                         ));
+//                                   })
+//                                 ],
+//                               )),
+//                           GestureDetector(
+//                             onTap: () {
+//                               widget.klickTab(3);
+//                             },
+//                             child: valueUser.isLoading
+//                                 ? Shimmer.fromColors(
+//                                     baseColor: greyColor.withOpacity(0.2),
+//                                     highlightColor: whiteColor,
+//                                     child: Container(
+//                                       height: 54,
+//                                       width: 54,
+//                                       decoration: BoxDecoration(
+//                                           color: greyColor,
+//                                           shape: BoxShape.circle),
+//                                     ))
+//                                 : valueUser.dataUser?.image != null
+//                                     ? ClipRRect(
+//                                         borderRadius:
+//                                             BorderRadius.circular(100),
+//                                         child: Image.network(
+//                                           "${valueUser.dataUser?.image}",
+//                                           width: 56,
+//                                           height: 56,
+//                                           fit: BoxFit.fill,
+//                                           errorBuilder: (BuildContext context,
+//                                               Object exception,
+//                                               StackTrace? stackTrace) {
+//                                             // Tampilkan gambar placeholder jika terjadi error
+//                                             return Image.asset(
+//                                               'images/default_user.png', // Path ke gambar placeholder lokal
+//                                               width: 56,
+//                                               height: 56,
+//                                               fit: BoxFit.fill,
+//                                             );
+//                                           },
+//                                           loadingBuilder: (context, child,
+//                                               loadingProgress) {
+//                                             if (loadingProgress == null) {
+//                                               return child;
+//                                             }
+
+//                                             return Shimmer.fromColors(
+//                                                 baseColor:
+//                                                     greyColor.withOpacity(0.2),
+//                                                 highlightColor: whiteColor,
+//                                                 child: Container(
+//                                                   height: 56,
+//                                                   width: 56,
+//                                                   decoration: BoxDecoration(
+//                                                       color: greyColor,
+//                                                       shape: BoxShape.circle),
+//                                                 ));
+//                                           },
+//                                         ),
+//                                       )
+//                                     : ClipRRect(
+//                                         borderRadius:
+//                                             BorderRadius.circular(100),
+//                                         child: Image.asset(
+//                                           "images/default_user.png",
+//                                           width: 56,
+//                                           height: 56,
+//                                           color: whiteColor,
+//                                         ),
+//                                       ),
+//                           )
+//                         ],
+//                       ),
+//                     ),
+//                   ),
+//                   backgroundColor: Colors.white,
+//                   body: Consumer<ProviderPayment>(
+//                       builder: (BuildContext context, valueDep, Widget? child) {
+//                     eventBalanceStream ??= eventBalance.listen(onChanges: () {
+//                       Provider.of<ProviderUser>(context, listen: false)
+//                           .getTotalSaldo(context);
+//                     });
+//                     // valueDep.getAmoutDeposit(context);
+//                     return CustomMaterialIndicator(
+//                       key: _refreshIndicatorKey,
+//                       onRefresh: () {
+//                         Provider.of<ProviderUser>(context, listen: false)
+//                             .getUser(context);
+//                         Provider.of<ProviderBook>(context, listen: false)
+//                             .getListEbook(context);
+//                         // Provider.of<ProviderPayment>(context, listen: false)
+//                         //     .getAmoutDeposit(context);
+//                         Provider.of<ProviderUser>(context, listen: false)
+//                             .getTotalSaldo(context);
+//                         Provider.of<ProviderProfiling>(context, listen: false)
+//                             .getListProfiling(context);
+
+//                         Timer(const Duration(seconds: 1), () {
+//                           Provider.of<ProviderUser>(context, listen: false)
+//                               .getTotalSaldo(context);
+//                         });
+//                         return Future<void>.delayed(const Duration(seconds: 1));
+//                       },
+//                       indicatorBuilder: (BuildContext context,
+//                           IndicatorController controller) {
+//                         return const RefreshIconWidget();
+//                       },
+//                       child: SizedBox(
+//                         width: MediaQuery.of(context).size.width,
+//                         height: MediaQuery.of(context).size.height,
+//                         child: SingleChildScrollView(
+//                           physics: const AlwaysScrollableScrollPhysics(),
+//                           child: Padding(
+//                             padding: const EdgeInsets.all(20),
+//                             child: Column(
+//                               crossAxisAlignment: CrossAxisAlignment.start,
+//                               mainAxisSize: MainAxisSize.min,
+//                               children: [
+//                                 Row(
+//                                   mainAxisSize: MainAxisSize.min,
+//                                   mainAxisAlignment:
+//                                       MainAxisAlignment.spaceEvenly,
+//                                   children: [
+//                                     ContainerYellowHome(
+//                                       onTap: () {},
+//                                       icon: CupertinoIcons.chat_bubble_text,
+//                                       title: S.of(context).Curhat,
+//                                       iconColor: BlueColor,
+//                                     ),
+//                                     const SizedBox(
+//                                       width: 10,
+//                                     ),
+//                                     ContainerYellowHome(
+//                                       onTap: () {
+//                                         Nav.to(const ListEbookAll());
+//                                       },
+//                                       icon: Icons.book,
+//                                       title: S.of(context).ebook,
+//                                       iconColor: BlueColor,
+//                                     ),
+//                                     const SizedBox(
+//                                       width: 10,
+//                                     ),
+//                                     ContainerYellowHome(
+//                                       onTap: () {
+//                                         Nav.to(const KonsultasiPage());
+//                                       },
+//                                       icon: CupertinoIcons.chat_bubble_2_fill,
+//                                       title: S.of(context).Consultation,
+//                                       iconColor: BlueColor,
+//                                     ),
+//                                   ],
+//                                 ),
+//                                 Padding(
+//                                   padding: const EdgeInsets.only(
+//                                       top: 30, bottom: 10),
+//                                   child: Text(
+//                                     S.of(context).News_From_COOL,
+//                                     style: const TextStyle(
+//                                         fontSize: 20,
+//                                         fontWeight: FontWeight.w600),
+//                                   ),
+//                                 ),
+//                                 SizedBox(
+//                                   height: 140, // Batasi tinggi PageView
+//                                   child: PageView.builder(
+//                                     itemCount: sliderData.length,
+//                                     itemBuilder: (context, index) {
+//                                       final item = sliderData[index];
+//                                       return ContainerSliderHome(
+//                                         text: item['text'],
+//                                         imageUrl: item['imageUrl'],
+//                                         containerColor: item['containerColor'],
+//                                         textColor: item['textColor'],
+//                                       );
+//                                     },
+//                                   ),
+//                                 ),
+//                                 Row(
+//                                   mainAxisAlignment:
+//                                       MainAxisAlignment.spaceBetween,
+//                                   children: [
+//                                     Text(
+//                                       S.of(context).My_Profiling,
+//                                       style: TextStyle(
+//                                           color: BlueColor,
+//                                           fontSize: 20,
+//                                           fontWeight: FontWeight.w600),
+//                                     ),
+//                                     TextButton(
+//                                         onPressed: () async {
+//                                           await valuePro.cekAvailableProfiling(
+//                                               context, codeReferralC);
+//                                           codeReferralC.clear();
+//                                           Nav.to(
+//                                               const ScreenFeatureKepribadian());
+//                                         },
+//                                         child: Text(
+//                                           S.of(context).see_all,
+//                                           style: TextStyle(
+//                                               color: BlueColor, fontSize: 18),
+//                                         )),
+//                                   ],
+//                                 ),
+//                                 SizedBox(
+//                                   height: 100, // Sesuaikan tinggi widget
+//                                   child: Row(
+//                                     children: [
+//                                       ListProfilingContainer(
+//                                         leading: const Icon(
+//                                           CupertinoIcons.plus,
+//                                           color: Colors.white,
+//                                         ),
+//                                         onTap: () {},
+//                                       ),
+//                                       if (valuePro.listProfiling.isNotEmpty)
+//                                         Expanded(
+//                                           child: ListView.builder(
+//                                             scrollDirection: Axis
+//                                                 .horizontal, // Mengatur ListView menjadi horizontal
+//                                             itemCount:
+//                                                 valuePro.listProfiling.length,
+//                                             itemBuilder: (context, index) {
+//                                               DataProfiling data = valuePro
+//                                                       .listProfiling[
+//                                                   index]; // DataProfiling pada indeks saat ini
+//                                               return Padding(
+//                                                 padding:
+//                                                     const EdgeInsets.symmetric(
+//                                                         horizontal: 8),
+//                                                 child: ListProfilingContainer(
+//                                                   title: data.profilingName,
+//                                                   subtitle: data.status,
+//                                                   onTap: () {
+//                                                     // Tambahkan aksi saat item ditekan
+//                                                   },
+//                                                 ),
+//                                               );
+//                                             },
+//                                           ),
+//                                         ),
+//                                     ],
+//                                   ),
+//                                 ),
+//                                 Padding(
+//                                   padding: const EdgeInsets.only(
+//                                       bottom: 10, top: 20),
+//                                   child: Text(
+//                                     S.of(context).Ayo_kenali_diri_anda,
+//                                     style: TextStyle(
+//                                         color: BlueColor,
+//                                         fontSize: 20,
+//                                         fontWeight: FontWeight.w600),
+//                                   ),
+//                                 ),
+//                                 Row(
+//                                   mainAxisAlignment:
+//                                       MainAxisAlignment.spaceBetween,
+//                                   children: [
+//                                     ContainerProfiling(
+//                                       backgroundColor: Colors.lightBlueAccent,
+//                                       borderColor: Colors.blue,
+//                                       leading:
+//                                           Image.asset('images/HeadIcon1.png'),
+//                                       title: '${S.of(context).profiling} x1',
+//                                       subtitle: 'RP. 10.000',
+//                                     ),
+//                                     const SizedBox(
+//                                       width: 10,
+//                                     ),
+//                                     ContainerProfiling(
+//                                       backgroundColor: const Color(0xFFF8DB1C),
+//                                       borderColor: YellowColor,
+//                                       leading:
+//                                           Image.asset('images/HeadIcon2.png'),
+//                                       title: '${S.of(context).profiling} x10',
+//                                       subtitle: 'RP. 100.000',
+//                                     ),
+//                                   ],
+//                                 ),
+//                                 const SizedBox(
+//                                   height: 10,
+//                                 ),
+//                                 Container(
+//                                   height: 70,
+//                                   width: double.maxFinite,
+//                                   decoration: BoxDecoration(
+//                                     color: BlueColor,
+//                                     borderRadius: BorderRadius.circular(10),
+//                                   ),
+//                                   child: Consumer<ProviderAuthAffiliate>(
+//                                     builder: (context, provider, child) {
+//                                       return provider.isCheckAffiliate
+//                                           ? Center(
+//                                               child: CircularProgressIndicator(
+//                                                 color: YellowColor,
+//                                               ),
+//                                             )
+//                                           : InkWell(
+//                                               onTap: () async {
+//                                                 initHome();
+//                                                 debugPrint(
+//                                                   "apa disini? ${valueAffiliate.resCheckTopupAffiliate?.data?.notif}",
+//                                                 );
+
+//                                                 if (valueAffiliate
+//                                                         .resCheckTopupAffiliate
+//                                                         ?.data
+//                                                         ?.notif !=
+//                                                     5) {
+//                                                   debugPrint(
+//                                                     "apa disiniii? ${valueAffiliate.resCheckTopupAffiliate?.data?.notif}",
+//                                                   );
+
+//                                                   await context
+//                                                       .read<
+//                                                           ProviderAuthAffiliate>()
+//                                                       .checkIsAffiliate(
+//                                                           context);
+//                                                 }
+//                                               },
+//                                               child: ListTile(
+//                                                 leading: Icon(
+//                                                   CupertinoIcons.person_2_fill,
+//                                                   color: YellowColor,
+//                                                 ),
+//                                                 title: Text(
+//                                                   S
+//                                                       .of(context)
+//                                                       .Become_Affiliator,
+//                                                   style: const TextStyle(
+//                                                       color: Colors.white),
+//                                                 ),
+//                                                 subtitle: Text(
+//                                                   S
+//                                                       .of(context)
+//                                                       .Earn_money_by_becoming_an_affiliator,
+//                                                   style: const TextStyle(
+//                                                       color: Colors.white,
+//                                                       fontSize: 12.5),
+//                                                 ),
+//                                                 trailing: const Icon(
+//                                                   CupertinoIcons.forward,
+//                                                   color: Colors.white,
+//                                                 ),
+//                                               ),
+//                                             );
+//                                     },
+//                                   ),
+//                                 )
+//                               ],
+//                             ),
+//                           ),
+//                         ),
+//                       ),
+//                     );
+//                   }),
+//                 );
+//               }),
+//             ),
+//           ),
+//         ));
+//   }
+// }
+
+// ignore_for_file: use_build_context_synchronously
+// old code home
 import 'dart:async';
 import 'package:android_intent_plus/android_intent.dart';
 import 'package:android_intent_plus/flag.dart';
@@ -55,9 +625,9 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  initHome() async {
-    await context.read<ProviderAffiliate>().getHomeAff(context);
-  }
+  // initHome() async {
+  //   await context.read<ProviderAffiliate>().getHomeAff(context);
+  // }
 
   @override
   void dispose() {
@@ -430,9 +1000,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   .of(context)
                                                   .sharing_opportunities_sharing_profits,
                                               () async {
-                                                initHome();
-                                                debugPrint(
-                                                    "apa disini? id user ${valueAffiliate.idUserGet.toString()}");
+                                                // initHome();
+                                                // debugPrint(
+                                                //     "apa disini? id user ${valueAffiliate.idUserGet.toString()}");
 
                                                 // if (valueAffiliate
                                                 //         .resCheckTopupAffiliate
@@ -451,8 +1021,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                           ProviderAuthAffiliate>()
                                                       .checkIsAffiliate(
                                                           context);
-                                                  valueAffiliate
-                                                      .notifyListeners();
+                                                  // valueAffiliate
+                                                  //     .notifyListeners();
                                                 }
                                                 // }
                                               },

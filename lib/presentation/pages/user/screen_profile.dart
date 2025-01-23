@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:async';
 import 'dart:io';
 
 import 'package:coolappflutter/data/provider/provider_user.dart';
@@ -13,8 +14,11 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../auth/component/country_state_city_provider.dart';
+
 class ScreenProfile extends StatefulWidget {
-  const ScreenProfile({super.key});
+  const ScreenProfile({super.key, required this.phone});
+  final String phone;
 
   @override
   State<ScreenProfile> createState() => _ScreenProfileState();
@@ -23,14 +27,32 @@ class ScreenProfile extends StatefulWidget {
 class _ScreenProfileState extends State<ScreenProfile> {
   final _formKey = GlobalKey<FormState>();
   bool isImageSelected = false;
+
   @override
   void initState() {
     super.initState();
-    Provider.of<ProviderUser>(context, listen: false).setInitialValues();
+
+    Provider.of<ProviderUser>(context, listen: false).getAddress(context);
+
+    Provider.of<CountryStateCityProvider>(context, listen: false)
+        .fetchCountries(0);
+    Provider.of<ProviderUser>(context, listen: false)
+        .setPhoneNumber(widget.phone.toString());
+    Timer(Duration(seconds: 2), () {
+      Provider.of<ProviderUser>(context, listen: false).getLocalePhonenumber();
+      Provider.of<ProviderUser>(context, listen: false)
+          .setInitialValues(widget.phone.toString());
+
+      // provider.setSelectedCountryId(int.parse(
+      //     Provider.of<ProviderUser>(context, listen: false)
+      //         .countryController
+      //         .text));
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<CountryStateCityProvider>(context);
     return Consumer<ProviderUser>(builder: (context, providerUser, child) {
       return Scaffold(
           // resizeToAvoidBottomInset: false,
@@ -182,6 +204,7 @@ class _ScreenProfileState extends State<ScreenProfile> {
                     IntlPhoneField(
                       readOnly: true,
                       enabled: false,
+                      // controller: providerUser.phoneController,
                       decoration: InputDecoration(
                         labelStyle: const TextStyle(fontFamily: "Poppins"),
                         border: OutlineInputBorder(
@@ -282,6 +305,304 @@ class _ScreenProfileState extends State<ScreenProfile> {
                         return null;
                       },
                     ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    // Text(
+                    //   S.of(context).country,
+                    //   style: const TextStyle(fontSize: 14),
+                    // ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    DropdownButtonFormField<int>(
+                      hint: Text(providerUser.countryController.text,
+                          style: const TextStyle(color: Colors.grey)),
+                      value: provider.selectedCountryId,
+                      items: provider.countries
+                          .map<DropdownMenuItem<int>>((country) {
+                        return DropdownMenuItem<int>(
+                          value: country['id'],
+                          child: Text(
+                            country['name'],
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        if (value != null) {
+                          providerUser.setSelectedCountryId(value);
+                          provider.setSelectedCountryId(value);
+                          provider
+                              .setSelectedCountryId(providerUser.countryssId);
+                          providerUser.countryssId =
+                              provider.selectedCountryId!;
+                          provider.fetchCountries(value);
+                          provider.fetchStates(value);
+                          provider.selectedStateId = null;
+                        }
+                      },
+                      icon: const Icon(Icons.arrow_drop_down,
+                          color: Colors.grey), // Panah putih
+                      decoration: InputDecoration(
+                        labelText: S.of(context).country,
+                        labelStyle: const TextStyle(color: Colors.grey),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              const BorderSide(color: Colors.grey, width: 2.0),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide:
+                              const BorderSide(color: Colors.grey, width: 2.0),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+                    // TextFormField(
+                    //   controller: providerUser.countryController,
+                    //   textInputAction: TextInputAction.next,
+                    //   keyboardType: TextInputType.text,
+                    //   decoration: InputDecoration(
+                    //     border: OutlineInputBorder(
+                    //         borderSide:
+                    //             const BorderSide(color: Colors.white, width: 1),
+                    //         borderRadius: BorderRadius.circular(10)),
+                    //   ),
+                    // ),
+                    // const SizedBox(
+                    //   height: 8,
+                    // ),
+                    // Text(
+                    //   S.of(context).state,
+                    //   style: const TextStyle(fontSize: 14),
+                    // ),
+                    // const SizedBox(
+                    //   height: 8,
+                    // ),
+                    // TextFormField(
+                    //   controller: providerUser.stateController,
+                    //   textInputAction: TextInputAction.next,
+                    //   keyboardType: TextInputType.text,
+                    //   decoration: InputDecoration(
+                    //     border: OutlineInputBorder(
+                    //         borderSide:
+                    //             const BorderSide(color: Colors.white, width: 1),
+                    //         borderRadius: BorderRadius.circular(10)),
+                    //   ),
+                    // ),
+                    // const SizedBox(
+                    //   height: 8,
+                    // ),
+                    // Text(
+                    //   S.of(context).city,
+                    //   style: const TextStyle(fontSize: 14),
+                    // ),
+                    // const SizedBox(
+                    //   height: 8,
+                    // ),
+                    // TextFormField(
+                    //   controller: providerUser.cityController,
+                    //   textInputAction: TextInputAction.next,
+                    //   keyboardType: TextInputType.text,
+                    //   decoration: InputDecoration(
+                    //     border: OutlineInputBorder(
+                    //         borderSide:
+                    //             const BorderSide(color: Colors.white, width: 1),
+                    //         borderRadius: BorderRadius.circular(10)),
+                    //   ),
+                    // ),
+                    // const SizedBox(
+                    //   height: 8,
+                    // ),
+                    // Text(
+                    //   S.of(context).district,
+                    //   style: const TextStyle(fontSize: 14),
+                    // ),
+                    // const SizedBox(
+                    //   height: 8,
+                    // ),
+                    // TextFormField(
+                    //   controller: providerUser.districtController,
+                    //   textInputAction: TextInputAction.next,
+                    //   keyboardType: TextInputType.text,
+                    //   decoration: InputDecoration(
+                    //     border: OutlineInputBorder(
+                    //         borderSide:
+                    //             const BorderSide(color: Colors.white, width: 1),
+                    //         borderRadius: BorderRadius.circular(10)),
+                    //   ),
+                    // ),
+                    const SizedBox(height: 16),
+
+                    // Dropdown for State
+
+                    DropdownButtonFormField<int>(
+                      hint: Text(providerUser.stateController.text,
+                          style: const TextStyle(color: Colors.grey)),
+                      value: provider.selectedStateId,
+                      items:
+                          provider.states.map<DropdownMenuItem<int>>((state) {
+                        return DropdownMenuItem<int>(
+                          value: state['id'],
+                          child: Text(state['name']),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        if (value != null) {
+                          providerUser.setSelectedStateId(value);
+                          provider.setSelectedStateId(value);
+                          // provider.fetchStates(
+                          //   provider.selectedCountryId!,
+                          // );
+                          provider.fetchCities(
+                            provider.selectedCountryId!,
+                            provider.selectedStateId!,
+                          );
+                        }
+                      },
+                      icon: const Icon(Icons.arrow_drop_down,
+                          color: Colors.grey), // Panah putih
+                      decoration: InputDecoration(
+                        labelText: S.of(context).state,
+                        labelStyle: const TextStyle(color: Colors.grey),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              const BorderSide(color: Colors.grey, width: 2.0),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide:
+                              const BorderSide(color: Colors.grey, width: 2.0),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(height: 16),
+                    // Dropdown for City
+
+                    DropdownButtonFormField<int>(
+                      hint: Text(providerUser.cityController.text,
+                          style: const TextStyle(color: Colors.grey)),
+                      value: provider.selectedCityId,
+                      items:
+                          provider.cities.map<DropdownMenuItem<int>>((cities) {
+                        return DropdownMenuItem<int>(
+                          value: cities['id'],
+                          child: Text(cities['name']),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        if (value != null) {
+                          providerUser.setSelectedCityId(value);
+                          provider.setSelectedCityId(value);
+                          provider.fetchCities(
+                            provider.selectedCountryId!,
+                            provider.selectedStateId!,
+                          );
+                          provider.fetchDistricts(provider.selectedCountryId!,
+                              provider.selectedStateId!, value);
+                        }
+                      },
+                      icon: const Icon(Icons.arrow_drop_down,
+                          color: Colors.grey), // Panah putih
+                      decoration: InputDecoration(
+                        labelText: S.of(context).city,
+                        labelStyle: const TextStyle(color: Colors.grey),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              const BorderSide(color: Colors.grey, width: 2.0),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide:
+                              const BorderSide(color: Colors.grey, width: 2.0),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    // Dropdown for District
+
+                    DropdownButtonFormField<int>(
+                      hint: Text(providerUser.districtController.text,
+                          style: const TextStyle(color: Colors.grey)),
+                      value: provider.selectedDistrictId,
+                      items: provider.district
+                          .map<DropdownMenuItem<int>>((district) {
+                        return DropdownMenuItem<int>(
+                          value: district['id'],
+                          child: Text(district['name']),
+                        );
+                      }).toList(),
+                      onChanged: (value) {
+                        if (value != null) {
+                          providerUser.setSelectedDistrictId(value);
+                          provider.setSelectedDistrictId(value);
+                          // provider.fetchDistricts(
+                          //     provider.selectedCountryId!,
+                          //     provider.selectedStateId!,
+                          //     value);
+                        }
+                      },
+                      icon: const Icon(Icons.arrow_drop_down,
+                          color: Colors.grey), // Panah putih
+                      decoration: InputDecoration(
+                        labelText: S.of(context).district,
+                        labelStyle: const TextStyle(color: Colors.grey),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide:
+                              const BorderSide(color: Colors.grey, width: 2.0),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide:
+                              const BorderSide(color: Colors.grey, width: 2.0),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    MaterialButton(
+                        minWidth: MediaQuery.of(context).size.width,
+                        height: 55,
+                        elevation: 5,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        color: Colors.white,
+                        textColor: primaryColor,
+                        onPressed: () async {
+                          // dynamic idUser =
+                          //     await PreferenceHandler.retrieveIdUser();
+                          // try {
+                          //   await provider.postAddress(
+                          //     userId: idUser,
+                          //     longitude: locationProvider.longitude,
+                          //     latitude: locationProvider.latitude,
+                          //   );
+                          //   ScaffoldMessenger.of(context)
+                          //       .showSnackBar(const SnackBar(
+                          //     content: Text("Address posted successfully!"),
+                          //   ));
+                          // } catch (e) {
+                          //   ScaffoldMessenger.of(context)
+                          //       .showSnackBar(SnackBar(
+                          //     content: Text("Error posting address: $e"),
+                          //   ));
+                          // }
+                          await providerUser.getCurrentLocation();
+                          await providerUser.openMap(context);
+                        },
+                        child: Text(
+                          S.of(context).use_your_location,
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        )),
                     const SizedBox(
                       height: 25,
                     ),

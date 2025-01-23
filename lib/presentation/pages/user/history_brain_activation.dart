@@ -33,7 +33,7 @@ class _HistoryBrainActivationState extends State<HistoryBrainActivation> {
         appBar: AppBar(
           centerTitle: true,
           title: Text(
-            "${S.of(context).history} Brain Activation",
+            "${S.of(context).history} ${S.of(context).brain_activation}",
             style: const TextStyle(color: Colors.white),
           ),
           iconTheme: const IconThemeData(color: Colors.white),

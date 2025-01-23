@@ -8,6 +8,8 @@ import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../data/locals/shared_pref.dart';
+
 class InvoiceDetailPage extends StatefulWidget {
   const InvoiceDetailPage({super.key, required this.id});
   final String id;
@@ -19,12 +21,21 @@ class InvoiceDetailPage extends StatefulWidget {
 class _InvoiceDetailPageState extends State<InvoiceDetailPage> {
   @override
   void initState() {
-    setState(() {});
+    cekSession();
+
     debugPrint("okk...");
     Provider.of<ProviderUser>(context, listen: false)
         .fetchInvoiceDetail(widget.id);
-
+    cekSession();
     super.initState();
+  }
+
+  cekSession() async {
+    Prefs().getLocale().then((locale) {
+      debugPrint(locale);
+
+      S.load(Locale(locale)).then((value) {});
+    });
   }
 
   @override
@@ -32,7 +43,7 @@ class _InvoiceDetailPageState extends State<InvoiceDetailPage> {
     return Scaffold(
       appBar: AppBar(
           title: Text(
-        "Receipt",
+        S.of(context).Receipt,
         style: TextStyle(color: whiteColor),
       )),
       body: Consumer<ProviderUser>(
@@ -95,7 +106,7 @@ class _InvoiceDetailPageState extends State<InvoiceDetailPage> {
                                   height: 0.0,
                                   color: greyColor.withOpacity(0.5)),
                               itemPayment(
-                                  "Payment Type",
+                                  S.of(context).payment,
                                   invoice['payment_type'].toString() != "null"
                                       ? "${invoice['payment_type']}"
                                       : "-"),

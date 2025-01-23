@@ -23,25 +23,26 @@ class CountryStateCityProvider with ChangeNotifier {
     selectedCityId = null;
     selectedDistrictId = null;
 
-    notifyListeners();
+    // notifyListeners();
   }
 
   void setSelectedStateId(int id) {
     selectedStateId = id;
     selectedCityId = null;
     selectedDistrictId = null;
-    notifyListeners();
+    // notifyListeners();
   }
 
   void setSelectedCityId(int id) {
     selectedCityId = id;
     selectedDistrictId = null;
-    notifyListeners();
+
+    // notifyListeners();
   }
 
   void setSelectedDistrictId(int id) {
     selectedDistrictId = id;
-    notifyListeners();
+    // notifyListeners();
   }
 
   Future<void> fetchCountries(int countryId) async {

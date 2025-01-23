@@ -224,6 +224,39 @@ class ProviderAffiliate extends ChangeNotifier {
     notifyListeners();
   }
 
+  // bool isLoadingg = false;
+  // List<DataRek> listRek = [];
+  // DataRek? pilihReks;
+
+  // Future<void> getListRekening(BuildContext context) async {
+  //   isLoading = true;
+  //   notifyListeners();
+
+  //   Either<Failure, ResListBank> response = await repo.getListBank();
+  //   isLoading = false;
+
+  //   response.when(
+  //     error: (e) {
+  //       NotificationUtils.showDialogError(context, () {
+  //         Navigator.of(context).pop();
+  //       },
+  //           widget: Text(
+  //             e.message,
+  //             textAlign: TextAlign.center,
+  //             style: const TextStyle(fontSize: 16),
+  //           ),
+  //           textButton: "Back");
+  //     },
+  //     success: (res) async {
+  //       if (res.status == 200) {
+  //         listRek = res.data ?? [];
+  //       }
+  //     },
+  //   );
+
+  //   notifyListeners();
+  // }
+
   bool isListMember = false;
   List<DataMemberAffiliate> listMember = [];
   Future<void> getListMember(BuildContext context) async {

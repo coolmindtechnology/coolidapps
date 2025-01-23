@@ -8,6 +8,7 @@ import 'package:coolappflutter/data/helpers/failure.dart';
 import 'package:coolappflutter/data/networks/dio_handler.dart';
 import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
 import 'package:coolappflutter/data/repositories/repo_user.dart';
+import 'package:coolappflutter/data/response/user/res_address.dart';
 import 'package:coolappflutter/data/response/user/res_check_profile.dart';
 import 'package:coolappflutter/data/response/user/res_get_location_member.dart';
 import 'package:coolappflutter/data/response/user/res_get_total_saldo.dart';
@@ -23,10 +24,15 @@ import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:coolappflutter/presentation/utils/notification_utils.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/phone_number.dart';
+import 'package:provider/provider.dart';
 
+import '../../presentation/pages/auth/component/country_state_city_provider.dart';
+import '../../presentation/pages/auth/component/map_selection.dart';
 import '../locals/preference_handler.dart';
 
 class ProviderUser extends ChangeNotifier {
@@ -57,22 +63,97 @@ class ProviderUser extends ChangeNotifier {
   TextEditingController phoneController = TextEditingController();
   TextEditingController idCardController = TextEditingController();
   TextEditingController addressController = TextEditingController();
+  TextEditingController countryController = TextEditingController();
+  TextEditingController stateController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
+  TextEditingController districtController = TextEditingController();
+  int countryssId = 0;
+  int stateId = 0;
+  int cityssId = 0;
+  int disctrictId = 0;
 
   dynamic initialCodeCountry = "ID";
   dynamic initialDialCode = "62";
   dynamic phoneNumberWithoutCode;
   String ipCountry = "Indonesia";
+  final provider = Provider.of<CountryStateCityProvider>;
 
   /// Sets the initial values for the text controllers based on the dataUser object in the global data.
   ///
   /// This function retrieves the name, email, idCardNumber, and address from the dataUser object in the global data,
   /// and assigns them to the corresponding text controllers. It then calls the `setPhoneNumber` function to set the initial values for the phone number controller.
-  void setInitialValues() {
+  void setInitialValues(value) {
     nameController.text = dataGlobal.dataUser?.name ?? "";
     emailController.text = dataGlobal.dataUser?.email ?? "";
     idCardController.text = dataGlobal.dataUser?.idCardNumber ?? "";
     addressController.text = dataGlobal.dataUser?.address ?? "";
-    setPhoneNumber();
+    countryController.text = dataAddress!.countrys!.name ?? "";
+    stateController.text = dataAddress!.state!.name ?? "";
+    cityController.text = dataAddress!.city!.name ?? "";
+    districtController.text = dataAddress!.district!.name ?? "";
+    countryssId = int.parse(dataAddress!.countrys!.id.toString());
+    stateId = int.parse(dataAddress!.state!.id.toString());
+    cityssId = int.parse(dataAddress!.city!.id.toString());
+    disctrictId = int.parse(dataAddress!.district!.id.toString());
+
+    setPhoneNumber(value);
+  }
+
+  void setSelectedCountryId(value) {
+    countryssId = value;
+    notifyListeners();
+  }
+
+  void setSelectedStateId(value) {
+    stateId = value;
+    notifyListeners();
+  }
+
+  void setSelectedCityId(value) {
+    cityssId = value;
+    notifyListeners();
+  }
+
+  void setSelectedDistrictId(value) {
+    disctrictId = value;
+    notifyListeners();
+  }
+
+  double? _latitude;
+  double? _longitude;
+  double? selectedLatitude;
+  double? selectedLongitude;
+
+  Future<void> getCurrentLocation() async {
+    try {
+      final position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.high);
+      _latitude = position.latitude;
+      _longitude = position.longitude;
+      notifyListeners();
+
+      debugPrint("Current Location: Lat=$_latitude, Lng=$_longitude");
+    } catch (e) {
+      debugPrint("Error getting location: $e");
+    }
+  }
+
+  openMap(BuildContext context) async {
+    final LatLng? result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const MapSelectionScreen(
+          initialPosition: LatLng(-6.1751, 106.8650), // Default position
+        ),
+      ),
+    );
+
+    if (result != null) {
+      selectedLatitude = result.latitude;
+      selectedLongitude = result.longitude;
+      notifyListeners();
+      // fetchLocationData(selectedLatitude!, selectedLongitude!);
+    }
   }
 
   /// Checks if the current user's phone number and IP country are both from Indonesia.
@@ -105,7 +186,7 @@ class ProviderUser extends ChangeNotifier {
     notifyListeners();
   }
 
-  void setPhoneNumber() {
+  void setPhoneNumber(value) {
     /// Sets the phone number for the user.
     ///
     /// This function retrieves the user's phone number from the global data,
@@ -118,8 +199,8 @@ class ProviderUser extends ChangeNotifier {
     ///
     /// Returns:
     ///   - None
-    String phoneNumber = dataGlobal.dataUser?.phoneNumber.toString() ?? "";
-    Country country = PhoneNumber.getCountry(phoneNumber);
+    String phoneNumber = value ?? "";
+    Country country = PhoneNumber.getCountry(value);
 
     initialCodeCountry = country.code;
     initialDialCode = country.dialCode;
@@ -129,12 +210,15 @@ class ProviderUser extends ChangeNotifier {
 
     phoneController.text = phoneNumber;
 
+    notifyListeners();
+
     Future.microtask(() {
       notifyListeners();
     });
   }
 
   DataUser? dataUser;
+  DataAddress? dataAddress;
 
   bool isLoading = false;
 
@@ -163,12 +247,15 @@ class ProviderUser extends ChangeNotifier {
     isLoadingUpdateUser = true;
     notifyListeners();
     Either<Failure, ResUpdateUser> response = await repo.updateUser(
-      name: nameController.text,
-      email: emailController.text,
-      phoneNumber: phoneController.text,
-      idCardNumber: idCardController.text,
-      address: addressController.text,
-    );
+        name: nameController.text,
+        email: emailController.text,
+        phoneNumber: phoneController.text,
+        idCardNumber: idCardController.text,
+        address: addressController.text,
+        country: countryssId.toString(),
+        state: stateId.toString(),
+        city: cityssId.toString(),
+        district: disctrictId.toString());
 
     isLoadingUpdateUser = false;
     notifyListeners();
@@ -275,6 +362,40 @@ class ProviderUser extends ChangeNotifier {
         // }
 
         getCountryCode();
+
+        notifyListeners();
+      }
+    });
+
+    notifyListeners();
+  }
+
+  Future<void> getAddress(
+    BuildContext context,
+  ) async {
+    isLoading = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      notifyListeners();
+    });
+
+    Either<Failure, AddressResponse> response = await repo.getAddress();
+
+    isLoading = false;
+    notifyListeners();
+
+    response.when(error: (e) {
+      NotificationUtils.showDialogError(context, () {
+        Nav.back();
+      },
+          widget: Text(
+            e.message,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 16),
+          ),
+          textButton: S.of(context).back);
+    }, success: (res) async {
+      if (res.success == true) {
+        dataAddress = res.data;
 
         notifyListeners();
       }
@@ -442,7 +563,9 @@ class ProviderUser extends ChangeNotifier {
           NotificationUtils.showDialogError(context, () async {
             notifyListeners();
             Nav.back();
-            await Nav.to(const ScreenProfile());
+            await Nav.to(ScreenProfile(
+              phone: dataGlobal.dataUser?.phoneNumber,
+            ));
             checkProfile(context);
           },
               widget: Text(

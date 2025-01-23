@@ -80,9 +80,9 @@ class TabbarTransaksiWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return TabBar(
       controller: tabController,
-      tabs: const [
-        Tab(text: "Saldo"),
-        Tab(text: "Real Money"),
+      tabs: [
+        Tab(text: S.of(context).Balance),
+        Tab(text: S.of(context).Real_Money),
       ],
       labelColor: primaryColor,
       unselectedLabelColor: primaryColor,

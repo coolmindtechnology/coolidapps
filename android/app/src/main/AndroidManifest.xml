@@ -83,7 +83,8 @@
             android:value="2" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCEzlMiV5qYGt5xY2wNpFjoakFT42r0ZVI"/>
+            android:value="AIzaSyAUwYqwfekzl72dvGkyFE7irzZdh4Qa9fk"/>
+
 
         <!-- Local Notifications Receivers -->
         <receiver

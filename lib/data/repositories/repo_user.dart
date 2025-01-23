@@ -4,6 +4,7 @@ import 'package:coolappflutter/data/helpers/failure.dart';
 import 'package:coolappflutter/data/networks/dio_handler.dart';
 import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
 import 'package:coolappflutter/data/networks/error_handler.dart';
+import 'package:coolappflutter/data/response/user/res_address.dart';
 import 'package:coolappflutter/data/response/user/res_check_profile.dart';
 import 'package:coolappflutter/data/response/user/res_get_total_saldo.dart';
 import 'package:coolappflutter/data/response/user/res_get_user.dart';
@@ -24,6 +25,10 @@ class RepoUser {
     required String phoneNumber,
     required String idCardNumber,
     required String address,
+    required String country,
+    required String state,
+    required String city,
+    required String district,
   }) async {
     Response res = await dio.post(ApiEndpoint.updateUser,
         data: {
@@ -32,6 +37,10 @@ class RepoUser {
           'phone_number': phoneNumber,
           'id_card_number': idCardNumber,
           'address': address,
+          'country_id': country,
+          'state_id': state,
+          'city_id': city,
+          'district_id': district
         },
         options: Options(
           validateStatus: (status) {
@@ -57,6 +66,27 @@ class RepoUser {
     }
   }
 
+//get address user
+  Future<Either<Failure, AddressResponse>> getAddress() async {
+    try {
+      Response res = await dio.get(ApiEndpoint.getAddress,
+          options: Options(
+            validateStatus: (status) {
+              return status == 200 || status == 400;
+            },
+            contentType: Headers.jsonContentType,
+            responseType: ResponseType.json,
+            headers: {'Authorization': dataGlobal.token},
+          ));
+
+      return Either.success(AddressResponse.fromJson(res.data));
+    } catch (e, st) {
+      if (kDebugMode) {
+        print(st);
+      }
+      return Either.error(ErrorHandler.handle(e).failure);
+    }
+  }
   //get user
 
   Future<Either<Failure, ResGetUser>> getUser({String? token}) async {

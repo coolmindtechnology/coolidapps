@@ -3123,6 +3123,1586 @@ class S {
       args: [],
     );
   }
+
+  /// `Healing`
+  String get Healing {
+    return Intl.message(
+      'Healing',
+      name: 'Healing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Consultation`
+  String get Consultation {
+    return Intl.message(
+      'Consultation',
+      name: 'Consultation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `News From COOL`
+  String get News_From_COOL {
+    return Intl.message(
+      'News From COOL',
+      name: 'News_From_COOL',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My Profiling`
+  String get My_Profiling {
+    return Intl.message(
+      'My Profiling',
+      name: 'My_Profiling',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Let's get to know yourself!`
+  String get Ayo_kenali_diri_anda {
+    return Intl.message(
+      'Let\'s get to know yourself!',
+      name: 'Ayo_kenali_diri_anda',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Become Affiliator`
+  String get Become_Affiliator {
+    return Intl.message(
+      'Become Affiliator',
+      name: 'Become_Affiliator',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Earn money by becoming an affiliator`
+  String get Earn_money_by_becoming_an_affiliator {
+    return Intl.message(
+      'Earn money by becoming an affiliator',
+      name: 'Earn_money_by_becoming_an_affiliator',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No profiling yet`
+  String get no_profiling_yet {
+    return Intl.message(
+      'No profiling yet',
+      name: 'no_profiling_yet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Come on! Fill in your profile so you can enjoy all our features`
+  String get Fill_in_your_profile {
+    return Intl.message(
+      'Come on! Fill in your profile so you can enjoy all our features',
+      name: 'Fill_in_your_profile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit Profile`
+  String get Edit_profile {
+    return Intl.message(
+      'Edit Profile',
+      name: 'Edit_profile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Emotion In`
+  String get Emotion_in {
+    return Intl.message(
+      'Emotion In',
+      name: 'Emotion_in',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Post`
+  String get Post {
+    return Intl.message(
+      'Post',
+      name: 'Post',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Following`
+  String get Following {
+    return Intl.message(
+      'Following',
+      name: 'Following',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Follower`
+  String get Follower {
+    return Intl.message(
+      'Follower',
+      name: 'Follower',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My Subscription`
+  String get My_Subscription {
+    return Intl.message(
+      'My Subscription',
+      name: 'My_Subscription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `digital ID`
+  String get digital_ID {
+    return Intl.message(
+      'digital ID',
+      name: 'digital_ID',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My Profiling Results`
+  String get My_Profiling_Results {
+    return Intl.message(
+      'My Profiling Results',
+      name: 'My_Profiling_Results',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Setting`
+  String get Setting {
+    return Intl.message(
+      'Setting',
+      name: 'Setting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Others`
+  String get Others {
+    return Intl.message(
+      'Others',
+      name: 'Others',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Account`
+  String get Account {
+    return Intl.message(
+      'Account',
+      name: 'Account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Security`
+  String get Security {
+    return Intl.message(
+      'Security',
+      name: 'Security',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Notification Settings`
+  String get Notification_Settings {
+    return Intl.message(
+      'Notification Settings',
+      name: 'Notification_Settings',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `About Us & Help`
+  String get About_Us_And_Help {
+    return Intl.message(
+      'About Us & Help',
+      name: 'About_Us_And_Help',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Report Issue Usage`
+  String get Report_Issue_Usage {
+    return Intl.message(
+      'Report Issue Usage',
+      name: 'Report_Issue_Usage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Help`
+  String get Help {
+    return Intl.message(
+      'Help',
+      name: 'Help',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Terms & Conditions`
+  String get Terms_and_Conditions {
+    return Intl.message(
+      'Terms & Conditions',
+      name: 'Terms_and_Conditions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `App Version V2.4.93`
+  String get App_Version {
+    return Intl.message(
+      'App Version V2.4.93',
+      name: 'App_Version',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your Old Email`
+  String get Old_Email {
+    return Intl.message(
+      'Your Old Email',
+      name: 'Old_Email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Input New Email`
+  String get New_Email_Input {
+    return Intl.message(
+      'Input New Email',
+      name: 'New_Email_Input',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change Email`
+  String get Change_Email {
+    return Intl.message(
+      'Change Email',
+      name: 'Change_Email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your email`
+  String get Email_Input {
+    return Intl.message(
+      'Enter your email',
+      name: 'Email_Input',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Input OTP Code`
+  String get OTP_Code_Input {
+    return Intl.message(
+      'Input OTP Code',
+      name: 'OTP_Code_Input',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter the verification code sent to your email`
+  String get Verification_Code {
+    return Intl.message(
+      'Enter the verification code sent to your email',
+      name: 'Verification_Code',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Not You?`
+  String get Not_You {
+    return Intl.message(
+      'Not You?',
+      name: 'Not_You',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Request Account Deletion`
+  String get Request_Account_Deletion {
+    return Intl.message(
+      'Request Account Deletion',
+      name: 'Request_Account_Deletion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Report Issue`
+  String get Report_Issue {
+    return Intl.message(
+      'Report Issue',
+      name: 'Report_Issue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `What problem are you experiencing?`
+  String get What_Problem {
+    return Intl.message(
+      'What problem are you experiencing?',
+      name: 'What_Problem',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tell us!`
+  String get Tell_Us {
+    return Intl.message(
+      'Tell us!',
+      name: 'Tell_Us',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tell us here`
+  String get Tell_Us_Here {
+    return Intl.message(
+      'Tell us here',
+      name: 'Tell_Us_Here',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Send`
+  String get Send {
+    return Intl.message(
+      'Send',
+      name: 'Send',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Thank you for your report`
+  String get Thank_You_For_Your_Report {
+    return Intl.message(
+      'Thank you for your report',
+      name: 'Thank_You_For_Your_Report',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `We appreciate all feedback and suggestions. We will strive to be better.`
+  String get We_Appreciate_Your_Feedback {
+    return Intl.message(
+      'We appreciate all feedback and suggestions. We will strive to be better.',
+      name: 'We_Appreciate_Your_Feedback',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I Understand`
+  String get I_Understand {
+    return Intl.message(
+      'I Understand',
+      name: 'I_Understand',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Current Language`
+  String get Current_Language {
+    return Intl.message(
+      'Current Language',
+      name: 'Current_Language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose Your Language`
+  String get Choose_Your_Language {
+    return Intl.message(
+      'Choose Your Language',
+      name: 'Choose_Your_Language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do you want to delete your account?`
+  String get Do_You_Want_To_Delete_Account {
+    return Intl.message(
+      'Do you want to delete your account?',
+      name: 'Do_You_Want_To_Delete_Account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please tell us why you want to delete your account`
+  String get Please_Tell_Us_Why {
+    return Intl.message(
+      'Please tell us why you want to delete your account',
+      name: 'Please_Tell_Us_Why',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose your reason`
+  String get Choose_Your_Reason {
+    return Intl.message(
+      'Choose your reason',
+      name: 'Choose_Your_Reason',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your story helps us to improve`
+  String get Your_Story_Helps {
+    return Intl.message(
+      'Your story helps us to improve',
+      name: 'Your_Story_Helps',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Write here`
+  String get Write_Here {
+    return Intl.message(
+      'Write here',
+      name: 'Write_Here',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete Account`
+  String get Delete_Account {
+    return Intl.message(
+      'Delete Account',
+      name: 'Delete_Account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm your identity`
+  String get Confirm_Your_Identity {
+    return Intl.message(
+      'Confirm your identity',
+      name: 'Confirm_Your_Identity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please provide your email or phone number below`
+  String get Please_Provide_Email_Phone {
+    return Intl.message(
+      'Please provide your email or phone number below',
+      name: 'Please_Provide_Email_Phone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your Email`
+  String get Your_Email {
+    return Intl.message(
+      'Your Email',
+      name: 'Your_Email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Use phone number`
+  String get Use_Phone_Number {
+    return Intl.message(
+      'Use phone number',
+      name: 'Use_Phone_Number',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Send verification code`
+  String get Send_Verification_Code {
+    return Intl.message(
+      'Send verification code',
+      name: 'Send_Verification_Code',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change phone number`
+  String get Change_Phone_Number {
+    return Intl.message(
+      'Change phone number',
+      name: 'Change_Phone_Number',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Account Deletion Terms`
+  String get Account_Deletion_Terms {
+    return Intl.message(
+      'Account Deletion Terms',
+      name: 'Account_Deletion_Terms',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Goodbye`
+  String get Goodbye {
+    return Intl.message(
+      'Goodbye',
+      name: 'Goodbye',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `It was nice knowing you for this short time, we will miss you`
+  String get Short_Time {
+    return Intl.message(
+      'It was nice knowing you for this short time, we will miss you',
+      name: 'Short_Time',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Use Email`
+  String get Use_Email {
+    return Intl.message(
+      'Use Email',
+      name: 'Use_Email',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Go test your profiling now & know yourself better`
+  String get Go_test_profiling {
+    return Intl.message(
+      'Go test your profiling now & know yourself better',
+      name: 'Go_test_profiling',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `20% Discount Special for newcomer`
+  String get Discount_newcomer {
+    return Intl.message(
+      '20% Discount Special for newcomer',
+      name: 'Discount_newcomer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Knowing yourself is a way to love yourself`
+  String get Knowing_yourself {
+    return Intl.message(
+      'Knowing yourself is a way to love yourself',
+      name: 'Knowing_yourself',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Know yourself better!`
+  String get Know_deeper {
+    return Intl.message(
+      'Know yourself better!',
+      name: 'Know_deeper',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Consult based on your personality to become more familiar with yourself`
+  String get Consult_based_personality {
+    return Intl.message(
+      'Consult based on your personality to become more familiar with yourself',
+      name: 'Consult_based_personality',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Free for 3 times!`
+  String get Free_3_times {
+    return Intl.message(
+      'Free for 3 times!',
+      name: 'Free_3_times',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Consult for free 3 times in 3 days and maximize your potential`
+  String get Free_consult_3_days {
+    return Intl.message(
+      'Consult for free 3 times in 3 days and maximize your potential',
+      name: 'Free_consult_3_days',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Open all consultation topics and choose based on your interests`
+  String get Open_all_topics {
+    return Intl.message(
+      'Open all consultation topics and choose based on your interests',
+      name: 'Open_all_topics',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Open all topics!`
+  String get Open_all_topics_now {
+    return Intl.message(
+      'Open all topics!',
+      name: 'Open_all_topics_now',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `COOLAPP now provides a professional consultation space for you`
+  String get Coolapp_consultation_space {
+    return Intl.message(
+      'COOLAPP now provides a professional consultation space for you',
+      name: 'Coolapp_consultation_space',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `New Consultation Session`
+  String get New_consultation_session {
+    return Intl.message(
+      'New Consultation Session',
+      name: 'New_consultation_session',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Active Session`
+  String get Active_session {
+    return Intl.message(
+      'Active Session',
+      name: 'Active_session',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Requests`
+  String get Requests {
+    return Intl.message(
+      'Requests',
+      name: 'Requests',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Archives`
+  String get Archives {
+    return Intl.message(
+      'Archives',
+      name: 'Archives',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No sessions`
+  String get No_sessions {
+    return Intl.message(
+      'No sessions',
+      name: 'No_sessions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start consulting now!`
+  String get Start_consulting_now {
+    return Intl.message(
+      'Start consulting now!',
+      name: 'Start_consulting_now',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please consult your personality`
+  String get Consult_personality {
+    return Intl.message(
+      'Please consult your personality',
+      name: 'Consult_personality',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Free consultation once a day!`
+  String get Free_once_daily {
+    return Intl.message(
+      'Free consultation once a day!',
+      name: 'Free_once_daily',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `PERSONALITY`
+  String get PERSONALITY {
+    return Intl.message(
+      'PERSONALITY',
+      name: 'PERSONALITY',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Description of the previous personality`
+  String get PERSONALITY_desc {
+    return Intl.message(
+      'Description of the previous personality',
+      name: 'PERSONALITY_desc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `PARENTING`
+  String get PARENTING {
+    return Intl.message(
+      'PARENTING',
+      name: 'PARENTING',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Description of the previous parenting topic`
+  String get PARENTING_desc {
+    return Intl.message(
+      'Description of the previous parenting topic',
+      name: 'PARENTING_desc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `BUSINESS`
+  String get BUSINESS {
+    return Intl.message(
+      'BUSINESS',
+      name: 'BUSINESS',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Description of the previous business topic`
+  String get BUSINESS_desc {
+    return Intl.message(
+      'Description of the previous business topic',
+      name: 'BUSINESS_desc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `FITNESS`
+  String get FITNESS {
+    return Intl.message(
+      'FITNESS',
+      name: 'FITNESS',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose your session time`
+  String get Choose_session_time {
+    return Intl.message(
+      'Choose your session time',
+      name: 'Choose_session_time',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You can choose when it's convenient to consult`
+  String get Choose_time_consult {
+    return Intl.message(
+      'You can choose when it\'s convenient to consult',
+      name: 'Choose_time_consult',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose Session Hour`
+  String get Choose_session_hour {
+    return Intl.message(
+      'Choose Session Hour',
+      name: 'Choose_session_hour',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Each session is limited to 30 minutes`
+  String get Only_30_minutes {
+    return Intl.message(
+      'Each session is limited to 30 minutes',
+      name: 'Only_30_minutes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Next`
+  String get Next {
+    return Intl.message(
+      'Next',
+      name: 'Next',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose your consultant carefully, you will work with them for the next 3 days`
+  String get Choose_your_consultant {
+    return Intl.message(
+      'Choose your consultant carefully, you will work with them for the next 3 days',
+      name: 'Choose_your_consultant',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Selected Topic:`
+  String get Selected_topic {
+    return Intl.message(
+      'Selected Topic:',
+      name: 'Selected_topic',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Consultation Time`
+  String get Consultation_time {
+    return Intl.message(
+      'Consultation Time',
+      name: 'Consultation_time',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CREATIVE`
+  String get CREATIVE {
+    return Intl.message(
+      'CREATIVE',
+      name: 'CREATIVE',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Achievement`
+  String get Achievement {
+    return Intl.message(
+      'Achievement',
+      name: 'Achievement',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Share your feelings`
+  String get Curhat {
+    return Intl.message(
+      'Share your feelings',
+      name: 'Curhat',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search`
+  String get Search {
+    return Intl.message(
+      'Search',
+      name: 'Search',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pick Date`
+  String get Pick_Date {
+    return Intl.message(
+      'Pick Date',
+      name: 'Pick_Date',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pick your consultant`
+  String get Pick_Consultant {
+    return Intl.message(
+      'Pick your consultant',
+      name: 'Pick_Consultant',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Session Completed`
+  String get Session_Completed {
+    return Intl.message(
+      'Session Completed',
+      name: 'Session_Completed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your Explanation`
+  String get Your_Explanation {
+    return Intl.message(
+      'Your Explanation',
+      name: 'Your_Explanation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Why do you need a consultant?`
+  String get Why_Need_Consultant {
+    return Intl.message(
+      'Why do you need a consultant?',
+      name: 'Why_Need_Consultant',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Session Summary`
+  String get Session_Summary {
+    return Intl.message(
+      'Session Summary',
+      name: 'Session_Summary',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Review your session`
+  String get Review_Your_Session {
+    return Intl.message(
+      'Review your session',
+      name: 'Review_Your_Session',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Price`
+  String get Price {
+    return Intl.message(
+      'Price',
+      name: 'Price',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `FREE`
+  String get FREE {
+    return Intl.message(
+      'FREE',
+      name: 'FREE',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `*Payment is made after the request is approved by the consultant`
+  String get Payment_After_Approval {
+    return Intl.message(
+      '*Payment is made after the request is approved by the consultant',
+      name: 'Payment_After_Approval',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The above information is correct according to the consultation session I want`
+  String get Information_Confirmed {
+    return Intl.message(
+      'The above information is correct according to the consultation session I want',
+      name: 'Information_Confirmed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Awaiting consultant's schedule confirmation, please wait`
+  String get Awaiting_Confirmation {
+    return Intl.message(
+      'Awaiting consultant\'s schedule confirmation, please wait',
+      name: 'Awaiting_Confirmation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Back to consultation page in 3 seconds`
+  String get Back_to_Consultation {
+    return Intl.message(
+      'Back to consultation page in 3 seconds',
+      name: 'Back_to_Consultation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Follow on Coolchat`
+  String get Follow_on_Coolchat {
+    return Intl.message(
+      'Follow on Coolchat',
+      name: 'Follow_on_Coolchat',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Discuss this`
+  String get Discuss_This {
+    return Intl.message(
+      'Discuss this',
+      name: 'Discuss_This',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Consultant Profile`
+  String get Consultant_Profile {
+    return Intl.message(
+      'Consultant Profile',
+      name: 'Consultant_Profile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Why do you need my consultation?`
+  String get Why_Consultation_Needed {
+    return Intl.message(
+      'Why do you need my consultation?',
+      name: 'Why_Consultation_Needed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `ACCEPTED`
+  String get ACCEPTED {
+    return Intl.message(
+      'ACCEPTED',
+      name: 'ACCEPTED',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Continue Payment`
+  String get Continue_Payment {
+    return Intl.message(
+      'Continue Payment',
+      name: 'Continue_Payment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Session Status`
+  String get Session_Completed_Status {
+    return Intl.message(
+      'Session Status',
+      name: 'Session_Completed_Status',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Consultation request accepted`
+  String get Consultation_Request_Accepted {
+    return Intl.message(
+      'Consultation request accepted',
+      name: 'Consultation_Request_Accepted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `CoolTeam`
+  String get CoolTeam {
+    return Intl.message(
+      'CoolTeam',
+      name: 'CoolTeam',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Consultant Name`
+  String get Consultant_Name {
+    return Intl.message(
+      'Consultant Name',
+      name: 'Consultant_Name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Session starts in`
+  String get Session_Begins_In {
+    return Intl.message(
+      'Session starts in',
+      name: 'Session_Begins_In',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `minutes left`
+  String get Minutes_Left {
+    return Intl.message(
+      'minutes left',
+      name: 'Minutes_Left',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Status`
+  String get Status {
+    return Intl.message(
+      'Status',
+      name: 'Status',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Accepted`
+  String get Accepted {
+    return Intl.message(
+      'Accepted',
+      name: 'Accepted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Session Details`
+  String get Session_Details {
+    return Intl.message(
+      'Session Details',
+      name: 'Session_Details',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start Session?`
+  String get Start_Session {
+    return Intl.message(
+      'Start Session?',
+      name: 'Start_Session',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You are not allowed to leave the consultation session before it ends`
+  String get Cannot_Leave_Session {
+    return Intl.message(
+      'You are not allowed to leave the consultation session before it ends',
+      name: 'Cannot_Leave_Session',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cannot leave the session`
+  String get CANNOT_LEAVE_SESSION {
+    return Intl.message(
+      'Cannot leave the session',
+      name: 'CANNOT_LEAVE_SESSION',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please complete your session before leaving`
+  String get Complete_Session_First {
+    return Intl.message(
+      'Please complete your session before leaving',
+      name: 'Complete_Session_First',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Understood`
+  String get Understood {
+    return Intl.message(
+      'Understood',
+      name: 'Understood',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Completed On:`
+  String get Completed_On {
+    return Intl.message(
+      'Completed On:',
+      name: 'Completed_On',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Consultation History`
+  String get Consultation_History {
+    return Intl.message(
+      'Consultation History',
+      name: 'Consultation_History',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `ARCHIVED (COMPLETED)`
+  String get Session_Archived {
+    return Intl.message(
+      'ARCHIVED (COMPLETED)',
+      name: 'Session_Archived',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rating Given`
+  String get Rating_Given {
+    return Intl.message(
+      'Rating Given',
+      name: 'Rating_Given',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View Archive`
+  String get View_Archive {
+    return Intl.message(
+      'View Archive',
+      name: 'View_Archive',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `ARCHIVE`
+  String get ARCHIVE {
+    return Intl.message(
+      'ARCHIVE',
+      name: 'ARCHIVE',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Give Rating`
+  String get Give_Rating {
+    return Intl.message(
+      'Give Rating',
+      name: 'Give_Rating',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Share your experience`
+  String get Share_Experience {
+    return Intl.message(
+      'Share your experience',
+      name: 'Share_Experience',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `How was your chat session?`
+  String get How_was_Your_Chat_Session {
+    return Intl.message(
+      'How was your chat session?',
+      name: 'How_was_Your_Chat_Session',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add session?`
+  String get Add_Session {
+    return Intl.message(
+      'Add session?',
+      name: 'Add_Session',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Join on Coolchat`
+  String get Join_Coolchat {
+    return Intl.message(
+      'Join on Coolchat',
+      name: 'Join_Coolchat',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Related Topics`
+  String get Related_Topics {
+    return Intl.message(
+      'Related Topics',
+      name: 'Related_Topics',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Video`
+  String get Video {
+    return Intl.message(
+      'Video',
+      name: 'Video',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Image`
+  String get Image {
+    return Intl.message(
+      'Image',
+      name: 'Image',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Discussing this`
+  String get Discussing_This {
+    return Intl.message(
+      'Discussing this',
+      name: 'Discussing_This',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Request Accepted`
+  String get Request_Accepted {
+    return Intl.message(
+      'Request Accepted',
+      name: 'Request_Accepted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pay Now`
+  String get Pay_Now {
+    return Intl.message(
+      'Pay Now',
+      name: 'Pay_Now',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Session closed, you can no longer send messages to your consultant, but the consultant can still respond.`
+  String get Session_Closed_Message {
+    return Intl.message(
+      'Session closed, you can no longer send messages to your consultant, but the consultant can still respond.',
+      name: 'Session_Closed_Message',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Receipt`
+  String get Receipt {
+    return Intl.message(
+      'Receipt',
+      name: 'Receipt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Support Your Preferred Promoter`
+  String get Support_Your_Preferred_Promoter {
+    return Intl.message(
+      'Support Your Preferred Promoter',
+      name: 'Support_Your_Preferred_Promoter',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select the promoter you wish to support.`
+  String get Please_select_the_promoter_you_wish_to_support {
+    return Intl.message(
+      'Please select the promoter you wish to support.',
+      name: 'Please_select_the_promoter_you_wish_to_support',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Have a promoter you'd like to support? Enter their referral code below!`
+  String get Enter_referal_code {
+    return Intl.message(
+      'Have a promoter you\'d like to support? Enter their referral code below!',
+      name: 'Enter_referal_code',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Or`
+  String get Or {
+    return Intl.message(
+      'Or',
+      name: 'Or',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total Point`
+  String get Total_Point {
+    return Intl.message(
+      'Total Point',
+      name: 'Total_Point',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Overview`
+  String get Overview {
+    return Intl.message(
+      'Overview',
+      name: 'Overview',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Balance`
+  String get Balance {
+    return Intl.message(
+      'Balance',
+      name: 'Balance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Real Money`
+  String get Real_Money {
+    return Intl.message(
+      'Real Money',
+      name: 'Real_Money',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

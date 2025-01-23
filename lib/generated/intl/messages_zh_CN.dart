@@ -35,6 +35,201 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "ACCEPTED": MessageLookupByLibrary.simpleMessage("已接受"),
+        "ARCHIVE": MessageLookupByLibrary.simpleMessage("档案"),
+        "About_Us_And_Help": MessageLookupByLibrary.simpleMessage("关于我们和帮助"),
+        "Accepted": MessageLookupByLibrary.simpleMessage("已接受"),
+        "Account": MessageLookupByLibrary.simpleMessage("账户"),
+        "Account_Deletion_Terms":
+            MessageLookupByLibrary.simpleMessage("账户删除条款"),
+        "Achievement": MessageLookupByLibrary.simpleMessage("成就"),
+        "Active_session": MessageLookupByLibrary.simpleMessage("活跃会话"),
+        "Add_Session": MessageLookupByLibrary.simpleMessage("添加会话"),
+        "App_Version": MessageLookupByLibrary.simpleMessage("应用版本 V2.4.93"),
+        "Archives": MessageLookupByLibrary.simpleMessage("档案"),
+        "Awaiting_Confirmation":
+            MessageLookupByLibrary.simpleMessage("等待顾问的时间安排确认，请稍候"),
+        "Ayo_kenali_diri_anda":
+            MessageLookupByLibrary.simpleMessage("让我们了解自己！"),
+        "BUSINESS": MessageLookupByLibrary.simpleMessage("商业"),
+        "BUSINESS_desc": MessageLookupByLibrary.simpleMessage("之前商业主题的描述"),
+        "Back_to_Consultation":
+            MessageLookupByLibrary.simpleMessage("3秒钟后返回咨询页面"),
+        "Balance": MessageLookupByLibrary.simpleMessage("余额"),
+        "Become_Affiliator": MessageLookupByLibrary.simpleMessage("成为合伙人"),
+        "CANNOT_LEAVE_SESSION": MessageLookupByLibrary.simpleMessage("不能离开会话"),
+        "CREATIVE": MessageLookupByLibrary.simpleMessage("创造性"),
+        "Cannot_Leave_Session":
+            MessageLookupByLibrary.simpleMessage("您不能在会话结束前离开"),
+        "Change_Email": MessageLookupByLibrary.simpleMessage("更改电子邮件"),
+        "Change_Phone_Number": MessageLookupByLibrary.simpleMessage("更改手机号"),
+        "Choose_Your_Language": MessageLookupByLibrary.simpleMessage("选择您的语言"),
+        "Choose_Your_Reason": MessageLookupByLibrary.simpleMessage("选择您的理由"),
+        "Choose_session_hour": MessageLookupByLibrary.simpleMessage("选择会话时间"),
+        "Choose_session_time": MessageLookupByLibrary.simpleMessage("选择您的咨询时间"),
+        "Choose_time_consult":
+            MessageLookupByLibrary.simpleMessage("您可以选择适合您的时间进行咨询"),
+        "Choose_your_consultant":
+            MessageLookupByLibrary.simpleMessage("仔细选择您的顾问，您将与他合作3天"),
+        "Complete_Session_First":
+            MessageLookupByLibrary.simpleMessage("请先完成会话，然后再离开"),
+        "Completed_On": MessageLookupByLibrary.simpleMessage("完成时间:"),
+        "Confirm_Your_Identity": MessageLookupByLibrary.simpleMessage("确认您的身份"),
+        "Consult_based_personality":
+            MessageLookupByLibrary.simpleMessage("根据您的个性进行咨询，更加了解自己"),
+        "Consult_personality": MessageLookupByLibrary.simpleMessage("请咨询您的个性"),
+        "Consultant_Name": MessageLookupByLibrary.simpleMessage("顾问名字"),
+        "Consultant_Profile": MessageLookupByLibrary.simpleMessage("顾问简介"),
+        "Consultation": MessageLookupByLibrary.simpleMessage("咨询"),
+        "Consultation_History": MessageLookupByLibrary.simpleMessage("咨询历史"),
+        "Consultation_Request_Accepted":
+            MessageLookupByLibrary.simpleMessage("咨询请求已接受"),
+        "Consultation_time": MessageLookupByLibrary.simpleMessage("咨询时间"),
+        "Continue_Payment": MessageLookupByLibrary.simpleMessage("继续支付"),
+        "CoolTeam": MessageLookupByLibrary.simpleMessage("CoolTeam"),
+        "Coolapp_consultation_space":
+            MessageLookupByLibrary.simpleMessage("COOLAPP现在为您提供专业咨询空间"),
+        "Curhat": MessageLookupByLibrary.simpleMessage("分享您的感受"),
+        "Current_Language": MessageLookupByLibrary.simpleMessage("当前语言"),
+        "Delete_Account": MessageLookupByLibrary.simpleMessage("删除账户"),
+        "Discount_newcomer": MessageLookupByLibrary.simpleMessage("新来者专享20%折扣"),
+        "Discuss_This": MessageLookupByLibrary.simpleMessage("讨论这个"),
+        "Discussing_This": MessageLookupByLibrary.simpleMessage("正在讨论这个"),
+        "Do_You_Want_To_Delete_Account":
+            MessageLookupByLibrary.simpleMessage("您想删除您的账户吗？"),
+        "Earn_money_by_becoming_an_affiliator":
+            MessageLookupByLibrary.simpleMessage("通过成为合伙人赚取收入"),
+        "Edit_profile": MessageLookupByLibrary.simpleMessage("编辑个人资料"),
+        "Email_Input": MessageLookupByLibrary.simpleMessage("输入您的电子邮件"),
+        "Emotion_in": MessageLookupByLibrary.simpleMessage("情感状态"),
+        "Enter_referal_code":
+            MessageLookupByLibrary.simpleMessage("有您想要支持的推广者吗？请在下面输入他们的推荐代码！"),
+        "FITNESS": MessageLookupByLibrary.simpleMessage("健身"),
+        "FREE": MessageLookupByLibrary.simpleMessage("免费"),
+        "Fill_in_your_profile":
+            MessageLookupByLibrary.simpleMessage("快来！完善您的个人资料以享受我们所有的功能"),
+        "Follow_on_Coolchat":
+            MessageLookupByLibrary.simpleMessage("在Coolchat上关注"),
+        "Follower": MessageLookupByLibrary.simpleMessage("粉丝"),
+        "Following": MessageLookupByLibrary.simpleMessage("关注"),
+        "Free_3_times": MessageLookupByLibrary.simpleMessage("免费3次！"),
+        "Free_consult_3_days":
+            MessageLookupByLibrary.simpleMessage("在3天内免费咨询3次，并最大化您的潜力"),
+        "Free_once_daily": MessageLookupByLibrary.simpleMessage("每天免费咨询一次！"),
+        "Give_Rating": MessageLookupByLibrary.simpleMessage("给予评价"),
+        "Go_test_profiling":
+            MessageLookupByLibrary.simpleMessage("立即测试您的个人资料并更好地了解自己"),
+        "Goodbye": MessageLookupByLibrary.simpleMessage("再见"),
+        "Healing": MessageLookupByLibrary.simpleMessage("治疗"),
+        "Help": MessageLookupByLibrary.simpleMessage("帮助"),
+        "How_was_Your_Chat_Session":
+            MessageLookupByLibrary.simpleMessage("您的聊天会话如何?"),
+        "I_Understand": MessageLookupByLibrary.simpleMessage("我明白"),
+        "Image": MessageLookupByLibrary.simpleMessage("图片"),
+        "Information_Confirmed":
+            MessageLookupByLibrary.simpleMessage("以上信息与我想要的咨询会话一致"),
+        "Join_Coolchat": MessageLookupByLibrary.simpleMessage("加入Coolchat"),
+        "Know_deeper": MessageLookupByLibrary.simpleMessage("更深入地了解自己！"),
+        "Knowing_yourself":
+            MessageLookupByLibrary.simpleMessage("了解自己是一种爱自己的方式"),
+        "Minutes_Left": MessageLookupByLibrary.simpleMessage("分钟剩余"),
+        "My_Profiling": MessageLookupByLibrary.simpleMessage("我的个人资料"),
+        "My_Profiling_Results": MessageLookupByLibrary.simpleMessage("我的分析结果"),
+        "My_Subscription": MessageLookupByLibrary.simpleMessage("我的订阅"),
+        "New_Email_Input": MessageLookupByLibrary.simpleMessage("输入新电子邮件"),
+        "New_consultation_session":
+            MessageLookupByLibrary.simpleMessage("新的咨询会话"),
+        "News_From_COOL": MessageLookupByLibrary.simpleMessage("来自COOL的新闻"),
+        "Next": MessageLookupByLibrary.simpleMessage("下一步"),
+        "No_sessions": MessageLookupByLibrary.simpleMessage("没有会话"),
+        "Not_You": MessageLookupByLibrary.simpleMessage("不是您？"),
+        "Notification_Settings": MessageLookupByLibrary.simpleMessage("通知设置"),
+        "OTP_Code_Input": MessageLookupByLibrary.simpleMessage("输入 OTP 代码"),
+        "Old_Email": MessageLookupByLibrary.simpleMessage("您的旧电子邮件"),
+        "Only_30_minutes": MessageLookupByLibrary.simpleMessage("每次会话仅限30分钟"),
+        "Open_all_topics":
+            MessageLookupByLibrary.simpleMessage("打开所有咨询主题，并根据您的兴趣选择"),
+        "Open_all_topics_now":
+            MessageLookupByLibrary.simpleMessage("立即打开所有主题！"),
+        "Or": MessageLookupByLibrary.simpleMessage("或者"),
+        "Others": MessageLookupByLibrary.simpleMessage("其他"),
+        "Overview": MessageLookupByLibrary.simpleMessage("概览"),
+        "PARENTING": MessageLookupByLibrary.simpleMessage("育儿"),
+        "PARENTING_desc": MessageLookupByLibrary.simpleMessage("之前育儿主题的描述"),
+        "PERSONALITY": MessageLookupByLibrary.simpleMessage("个性"),
+        "PERSONALITY_desc": MessageLookupByLibrary.simpleMessage("之前的个性描述"),
+        "Pay_Now": MessageLookupByLibrary.simpleMessage("立即付款"),
+        "Payment_After_Approval":
+            MessageLookupByLibrary.simpleMessage("*支付将在顾问批准请求后进行"),
+        "Pick_Consultant": MessageLookupByLibrary.simpleMessage("选择您的顾问"),
+        "Pick_Date": MessageLookupByLibrary.simpleMessage("选择日期"),
+        "Please_Provide_Email_Phone":
+            MessageLookupByLibrary.simpleMessage("请在下方提供您的邮箱或手机号"),
+        "Please_Tell_Us_Why":
+            MessageLookupByLibrary.simpleMessage("请告诉我们您为什么要删除账户"),
+        "Please_select_the_promoter_you_wish_to_support":
+            MessageLookupByLibrary.simpleMessage("请选择您希望支持的发起人。"),
+        "Post": MessageLookupByLibrary.simpleMessage("帖子"),
+        "Price": MessageLookupByLibrary.simpleMessage("价格"),
+        "Rating_Given": MessageLookupByLibrary.simpleMessage("给予评价"),
+        "Real_Money": MessageLookupByLibrary.simpleMessage("真实货币"),
+        "Receipt": MessageLookupByLibrary.simpleMessage("收据"),
+        "Related_Topics": MessageLookupByLibrary.simpleMessage("相关主题"),
+        "Report_Issue": MessageLookupByLibrary.simpleMessage("报告问题"),
+        "Report_Issue_Usage": MessageLookupByLibrary.simpleMessage("报告使用问题"),
+        "Request_Accepted": MessageLookupByLibrary.simpleMessage("请求已接受"),
+        "Request_Account_Deletion":
+            MessageLookupByLibrary.simpleMessage("请求账户删除"),
+        "Requests": MessageLookupByLibrary.simpleMessage("请求"),
+        "Review_Your_Session": MessageLookupByLibrary.simpleMessage("查看您的会话"),
+        "Search": MessageLookupByLibrary.simpleMessage("搜索"),
+        "Security": MessageLookupByLibrary.simpleMessage("安全"),
+        "Selected_topic": MessageLookupByLibrary.simpleMessage("选择的主题："),
+        "Send": MessageLookupByLibrary.simpleMessage("发送"),
+        "Send_Verification_Code": MessageLookupByLibrary.simpleMessage("发送验证码"),
+        "Session_Archived": MessageLookupByLibrary.simpleMessage("已归档（已完成）"),
+        "Session_Begins_In":
+            MessageLookupByLibrary.simpleMessage("会话将在xx分钟后开始"),
+        "Session_Closed_Message": MessageLookupByLibrary.simpleMessage(
+            "会话已关闭，您不再能向您的顾问发送消息，但顾问仍然可以回应。"),
+        "Session_Completed": MessageLookupByLibrary.simpleMessage("会话完成"),
+        "Session_Completed_Status":
+            MessageLookupByLibrary.simpleMessage("会话状态"),
+        "Session_Details": MessageLookupByLibrary.simpleMessage("会话详情"),
+        "Session_Summary": MessageLookupByLibrary.simpleMessage("会话总结"),
+        "Setting": MessageLookupByLibrary.simpleMessage("设置"),
+        "Share_Experience": MessageLookupByLibrary.simpleMessage("分享您的经历"),
+        "Short_Time":
+            MessageLookupByLibrary.simpleMessage("很高兴在这短暂的时间里认识你，我们会想念你的"),
+        "Start_Session": MessageLookupByLibrary.simpleMessage("开始会话?"),
+        "Start_consulting_now": MessageLookupByLibrary.simpleMessage("现在开始咨询！"),
+        "Status": MessageLookupByLibrary.simpleMessage("状态"),
+        "Support_Your_Preferred_Promoter":
+            MessageLookupByLibrary.simpleMessage("支持您首选的推广者"),
+        "Tell_Us": MessageLookupByLibrary.simpleMessage("告诉我们！"),
+        "Tell_Us_Here": MessageLookupByLibrary.simpleMessage("在这里告诉我们"),
+        "Terms_and_Conditions": MessageLookupByLibrary.simpleMessage("条款和条件"),
+        "Thank_You_For_Your_Report":
+            MessageLookupByLibrary.simpleMessage("感谢您的报告"),
+        "Total_Point": MessageLookupByLibrary.simpleMessage("总分"),
+        "Understood": MessageLookupByLibrary.simpleMessage("理解"),
+        "Use_Email": MessageLookupByLibrary.simpleMessage("使用电子邮件"),
+        "Use_Phone_Number": MessageLookupByLibrary.simpleMessage("使用手机号"),
+        "Verification_Code":
+            MessageLookupByLibrary.simpleMessage("输入发送到您电子邮件的验证码"),
+        "Video": MessageLookupByLibrary.simpleMessage("视频"),
+        "View_Archive": MessageLookupByLibrary.simpleMessage("查看档案"),
+        "We_Appreciate_Your_Feedback":
+            MessageLookupByLibrary.simpleMessage("我们感谢所有反馈和建议。我们将努力变得更好。"),
+        "What_Problem": MessageLookupByLibrary.simpleMessage("您遇到了什么问题？"),
+        "Why_Consultation_Needed":
+            MessageLookupByLibrary.simpleMessage("为什么需要我的咨询?"),
+        "Why_Need_Consultant":
+            MessageLookupByLibrary.simpleMessage("为什么您需要顾问?"),
+        "Write_Here": MessageLookupByLibrary.simpleMessage("在这里写"),
+        "Your_Email": MessageLookupByLibrary.simpleMessage("您的邮箱"),
+        "Your_Explanation": MessageLookupByLibrary.simpleMessage("您的解释"),
+        "Your_Story_Helps": MessageLookupByLibrary.simpleMessage("您的故事帮助我们改进"),
         "access_denied": MessageLookupByLibrary.simpleMessage("拒绝访问，您无权执行此操作。"),
         "account_disabled_contact_admin":
             MessageLookupByLibrary.simpleMessage("您的账户已被停用，请联系Cool App管理员"),
@@ -112,6 +307,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete_account": MessageLookupByLibrary.simpleMessage("删除账户"),
         "develop_yourself_by_exploring": MessageLookupByLibrary.simpleMessage(
             "通过探索可用的在线书籍来发展自己。无论何时何地，成为更好的自己。"),
+        "digital_ID": MessageLookupByLibrary.simpleMessage("数字身份证"),
         "discount": MessageLookupByLibrary.simpleMessage("折扣"),
         "district": MessageLookupByLibrary.simpleMessage("地区"),
         "dont_have_an_account": MessageLookupByLibrary.simpleMessage("还没有账号？"),
@@ -207,6 +403,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "no_data": MessageLookupByLibrary.simpleMessage("无数据"),
         "no_deposit_fee":
             MessageLookupByLibrary.simpleMessage("您还未支付存款费用，请先进行支付"),
+        "no_profiling_yet": MessageLookupByLibrary.simpleMessage("尚未配置资料"),
         "no_this_is_the_first_time":
             MessageLookupByLibrary.simpleMessage("不，这是第一次"),
         "not_complete": MessageLookupByLibrary.simpleMessage("不完整"),

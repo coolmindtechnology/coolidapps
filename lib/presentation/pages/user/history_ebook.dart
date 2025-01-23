@@ -25,7 +25,7 @@ class _HistoryEbookState extends State<HistoryEbook> {
           appBar: AppBar(
             centerTitle: true,
             title: Text(
-              "${S.of(context).history} Ebook",
+              "${S.of(context).history} ${S.of(context).ebook}",
               style: const TextStyle(color: Colors.white),
             ),
             iconTheme: const IconThemeData(color: Colors.white),

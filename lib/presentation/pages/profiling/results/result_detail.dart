@@ -27,6 +27,16 @@ class ResultDetail extends StatefulWidget {
 
 class _ResultDetailState extends State<ResultDetail> {
   String language = "id-ID";
+  // List<dynamic> languages = [
+  //   "id_ID",
+  //   "en-US",
+  //   "ar_AR",
+  //   "zh_CN",
+  //   "es_ES",
+  //   "ms_MY",
+  //   "ru_RU",
+  //   "tr_TR"
+  // ];
   late StreamController<Duration> progressController;
 
   FlutterTts flutterTts = FlutterTts();
@@ -38,6 +48,7 @@ class _ResultDetailState extends State<ResultDetail> {
     await flutterTts.getLanguages;
     await flutterTts.setVolume(1.0);
     await flutterTts.setLanguage(await LocaleChecker().cekLocaleV2());
+    await flutterTts.isLanguageAvailable(await LocaleChecker().cekLocaleV2());
   }
 
   void _speak(String text) async {
@@ -49,6 +60,21 @@ class _ResultDetailState extends State<ResultDetail> {
 
     _complete();
   }
+  // Future<void> _speak(String text) async {
+  //   if (text.isEmpty) return;
+
+  //   setState(() {
+  //     isPlay = true;
+  //   });
+
+  //   await flutterTts.speak(text);
+
+  //   flutterTts.setCompletionHandler(() {
+  //     setState(() {
+  //       isPlay = false;
+  //     });
+  //   });
+  // }
 
   void _pause() async {
     await flutterTts.pause();
@@ -94,12 +120,35 @@ class _ResultDetailState extends State<ResultDetail> {
 
   @override
   void initState() {
+    flutterTts = FlutterTts();
     initLoad();
     initSetting();
     _progress();
+    // initSettings();
 
     super.initState();
   }
+
+  // Future<void> initSettings() async {
+  //   // Mendapatkan daftar bahasa yang tersedia
+  //   languages = await flutterTts.getLanguages;
+
+  //   // Menggunakan bahasa default sistem jika tersedia
+  //   String defaultLanguage = await flutterTts.getDefaultVoice;
+  //   language = defaultLanguage;
+
+  //   // Memeriksa ketersediaan bahasa dan menetapkan bahasa
+  //   bool isAvailable = await flutterTts.isLanguageAvailable(language);
+  //   if (!isAvailable) {
+  //     language =
+  //         "en-US"; // Default fallback ke Inggris jika bahasa default tidak tersedia
+  //   }
+
+  //   await flutterTts.setLanguage(language);
+  //   await flutterTts.setVolume(1.0);
+
+  //   setState(() {});
+  // }
 
   @override
   dispose() {
@@ -268,7 +317,11 @@ class _ResultDetailState extends State<ResultDetail> {
                       isPlay
                           ? S.of(context).pause_audio
                           : S.of(context).play_audio,
-                      onPress: () {
+                      onPress: () async {
+                        // debugPrint("cek audio${value.textToSpeech}");
+                        List<dynamic> languages = await flutterTts.getLanguages;
+                        print("Bahasa yang didukung: $languages");
+
                         isPlay ? _pause() : _speak(value.textToSpeech);
                         setState(() {});
                       },

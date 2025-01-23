@@ -62,7 +62,6 @@ class ProviderAuth extends ChangeNotifier {
 
   //register
 
-  TextEditingController phoneNumberReg = TextEditingController();
   TextEditingController passwordReg = TextEditingController();
   TextEditingController confirmPasswordReg = TextEditingController();
 
@@ -280,22 +279,22 @@ class ProviderAuth extends ChangeNotifier {
 
   // register
   Future<void> register(
-    BuildContext context,
-    String channel,
-    String emailReg,
-    String codeReferal,
-    String countryId,
-    String stateId,
-    String cityId,
-    String districtId,
-    String longitude,
-    String latitude,
-  ) async {
+      BuildContext context,
+      String channel,
+      String emailReg,
+      String codeReferal,
+      String countryId,
+      String stateId,
+      String cityId,
+      String districtId,
+      String longitude,
+      String latitude,
+      String phoneNumberReg) async {
     isLoading = true;
     notifyListeners();
 
     Either<FailedModel, ResRegister> response = await auth.register(
-        phoneNumber: phoneNumberReg.text,
+        phoneNumber: phoneNumberReg.toString(),
         password: passwordReg.text,
         confirmPassword: confirmPasswordReg.text,
         channel: channel,

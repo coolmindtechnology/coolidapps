@@ -7,11 +7,8 @@ class ApiEndpoint {
 
   static void setDev() {
     // baseUrl = "https://cool-compass.mycool.id";
-    // baseUrl = "https://coolcompas.hantrr.com";
-    baseUrl = "https://staging-cool.hantrr.com";
-    // baseUrl = "https://cool-staging.dschazy.com";
 
-    // baseUrl = "https://coolcompas-staging.mycool.id";
+    baseUrl = "https://staging-cool.hantrr.com";
   }
 
   /// Sets the base URL to "https://cool-compass.mycool.id" for production environment.
@@ -22,11 +19,8 @@ class ApiEndpoint {
   /// This function does not take any parameters and does not return any value.
   static void setProd() {
     // baseUrl = "https://cool-compass.mycool.id";
-    // baseUrl = "https://coolcompas.hantrr.com";
-    baseUrl = "https://staging-cool.hantrr.com";
-    // baseUrl = "https://cool-staging.dschazy.com";
 
-    // baseUrl = "https://coolcompas-staging.mycool.id";
+    baseUrl = "https://staging-cool.hantrr.com";
   }
 
   /// Base API Endpoint
@@ -112,6 +106,7 @@ class ApiEndpoint {
   static String updatePhotoUser = "${_userUrlApi}update-photo-profile";
   static String checkProfile = "${_userUrlApi}cek-profile";
   static String getTotalSaldo = "${_userUrlApi}getTotalSaldo";
+  static String getAddress = "${_userUrlApi}get/extra/address";
 
   //// Home
   // Api Ebook

@@ -41,6 +41,256 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "ACCEPTED": MessageLookupByLibrary.simpleMessage("ACCEPTED"),
+        "ARCHIVE": MessageLookupByLibrary.simpleMessage("ARCHIVE"),
+        "About_Us_And_Help":
+            MessageLookupByLibrary.simpleMessage("About Us & Help"),
+        "Accepted": MessageLookupByLibrary.simpleMessage("Accepted"),
+        "Account": MessageLookupByLibrary.simpleMessage("Account"),
+        "Account_Deletion_Terms":
+            MessageLookupByLibrary.simpleMessage("Account Deletion Terms"),
+        "Achievement": MessageLookupByLibrary.simpleMessage("Achievement"),
+        "Active_session":
+            MessageLookupByLibrary.simpleMessage("Active Session"),
+        "Add_Session": MessageLookupByLibrary.simpleMessage("Add session?"),
+        "App_Version":
+            MessageLookupByLibrary.simpleMessage("App Version V2.4.93"),
+        "Archives": MessageLookupByLibrary.simpleMessage("Archives"),
+        "Awaiting_Confirmation": MessageLookupByLibrary.simpleMessage(
+            "Awaiting consultant\'s schedule confirmation, please wait"),
+        "Ayo_kenali_diri_anda": MessageLookupByLibrary.simpleMessage(
+            "Let\'s get to know yourself!"),
+        "BUSINESS": MessageLookupByLibrary.simpleMessage("BUSINESS"),
+        "BUSINESS_desc": MessageLookupByLibrary.simpleMessage(
+            "Description of the previous business topic"),
+        "Back_to_Consultation": MessageLookupByLibrary.simpleMessage(
+            "Back to consultation page in 3 seconds"),
+        "Balance": MessageLookupByLibrary.simpleMessage("Balance"),
+        "Become_Affiliator":
+            MessageLookupByLibrary.simpleMessage("Become Affiliator"),
+        "CANNOT_LEAVE_SESSION":
+            MessageLookupByLibrary.simpleMessage("Cannot leave the session"),
+        "CREATIVE": MessageLookupByLibrary.simpleMessage("CREATIVE"),
+        "Cannot_Leave_Session": MessageLookupByLibrary.simpleMessage(
+            "You are not allowed to leave the consultation session before it ends"),
+        "Change_Email": MessageLookupByLibrary.simpleMessage("Change Email"),
+        "Change_Phone_Number":
+            MessageLookupByLibrary.simpleMessage("Change phone number"),
+        "Choose_Your_Language":
+            MessageLookupByLibrary.simpleMessage("Choose Your Language"),
+        "Choose_Your_Reason":
+            MessageLookupByLibrary.simpleMessage("Choose your reason"),
+        "Choose_session_hour":
+            MessageLookupByLibrary.simpleMessage("Choose Session Hour"),
+        "Choose_session_time":
+            MessageLookupByLibrary.simpleMessage("Choose your session time"),
+        "Choose_time_consult": MessageLookupByLibrary.simpleMessage(
+            "You can choose when it\'s convenient to consult"),
+        "Choose_your_consultant": MessageLookupByLibrary.simpleMessage(
+            "Choose your consultant carefully, you will work with them for the next 3 days"),
+        "Complete_Session_First": MessageLookupByLibrary.simpleMessage(
+            "Please complete your session before leaving"),
+        "Completed_On": MessageLookupByLibrary.simpleMessage("Completed On:"),
+        "Confirm_Your_Identity":
+            MessageLookupByLibrary.simpleMessage("Confirm your identity"),
+        "Consult_based_personality": MessageLookupByLibrary.simpleMessage(
+            "Consult based on your personality to become more familiar with yourself"),
+        "Consult_personality": MessageLookupByLibrary.simpleMessage(
+            "Please consult your personality"),
+        "Consultant_Name":
+            MessageLookupByLibrary.simpleMessage("Consultant Name"),
+        "Consultant_Profile":
+            MessageLookupByLibrary.simpleMessage("Consultant Profile"),
+        "Consultation": MessageLookupByLibrary.simpleMessage("Consultation"),
+        "Consultation_History":
+            MessageLookupByLibrary.simpleMessage("Consultation History"),
+        "Consultation_Request_Accepted": MessageLookupByLibrary.simpleMessage(
+            "Consultation request accepted"),
+        "Consultation_time":
+            MessageLookupByLibrary.simpleMessage("Consultation Time"),
+        "Continue_Payment":
+            MessageLookupByLibrary.simpleMessage("Continue Payment"),
+        "CoolTeam": MessageLookupByLibrary.simpleMessage("CoolTeam"),
+        "Coolapp_consultation_space": MessageLookupByLibrary.simpleMessage(
+            "COOLAPP now provides a professional consultation space for you"),
+        "Curhat": MessageLookupByLibrary.simpleMessage("Share your feelings"),
+        "Current_Language":
+            MessageLookupByLibrary.simpleMessage("Current Language"),
+        "Delete_Account":
+            MessageLookupByLibrary.simpleMessage("Delete Account"),
+        "Discount_newcomer": MessageLookupByLibrary.simpleMessage(
+            "20% Discount Special for newcomer"),
+        "Discuss_This": MessageLookupByLibrary.simpleMessage("Discuss this"),
+        "Discussing_This":
+            MessageLookupByLibrary.simpleMessage("Discussing this"),
+        "Do_You_Want_To_Delete_Account": MessageLookupByLibrary.simpleMessage(
+            "Do you want to delete your account?"),
+        "Earn_money_by_becoming_an_affiliator":
+            MessageLookupByLibrary.simpleMessage(
+                "Earn money by becoming an affiliator"),
+        "Edit_profile": MessageLookupByLibrary.simpleMessage("Edit Profile"),
+        "Email_Input": MessageLookupByLibrary.simpleMessage("Enter your email"),
+        "Emotion_in": MessageLookupByLibrary.simpleMessage("Emotion In"),
+        "Enter_referal_code": MessageLookupByLibrary.simpleMessage(
+            "Have a promoter you\'d like to support? Enter their referral code below!"),
+        "FITNESS": MessageLookupByLibrary.simpleMessage("FITNESS"),
+        "FREE": MessageLookupByLibrary.simpleMessage("FREE"),
+        "Fill_in_your_profile": MessageLookupByLibrary.simpleMessage(
+            "Come on! Fill in your profile so you can enjoy all our features"),
+        "Follow_on_Coolchat":
+            MessageLookupByLibrary.simpleMessage("Follow on Coolchat"),
+        "Follower": MessageLookupByLibrary.simpleMessage("Follower"),
+        "Following": MessageLookupByLibrary.simpleMessage("Following"),
+        "Free_3_times":
+            MessageLookupByLibrary.simpleMessage("Free for 3 times!"),
+        "Free_consult_3_days": MessageLookupByLibrary.simpleMessage(
+            "Consult for free 3 times in 3 days and maximize your potential"),
+        "Free_once_daily": MessageLookupByLibrary.simpleMessage(
+            "Free consultation once a day!"),
+        "Give_Rating": MessageLookupByLibrary.simpleMessage("Give Rating"),
+        "Go_test_profiling": MessageLookupByLibrary.simpleMessage(
+            "Go test your profiling now & know yourself better"),
+        "Goodbye": MessageLookupByLibrary.simpleMessage("Goodbye"),
+        "Healing": MessageLookupByLibrary.simpleMessage("Healing"),
+        "Help": MessageLookupByLibrary.simpleMessage("Help"),
+        "How_was_Your_Chat_Session":
+            MessageLookupByLibrary.simpleMessage("How was your chat session?"),
+        "I_Understand": MessageLookupByLibrary.simpleMessage("I Understand"),
+        "Image": MessageLookupByLibrary.simpleMessage("Image"),
+        "Information_Confirmed": MessageLookupByLibrary.simpleMessage(
+            "The above information is correct according to the consultation session I want"),
+        "Join_Coolchat":
+            MessageLookupByLibrary.simpleMessage("Join on Coolchat"),
+        "Know_deeper":
+            MessageLookupByLibrary.simpleMessage("Know yourself better!"),
+        "Knowing_yourself": MessageLookupByLibrary.simpleMessage(
+            "Knowing yourself is a way to love yourself"),
+        "Minutes_Left": MessageLookupByLibrary.simpleMessage("minutes left"),
+        "My_Profiling": MessageLookupByLibrary.simpleMessage("My Profiling"),
+        "My_Profiling_Results":
+            MessageLookupByLibrary.simpleMessage("My Profiling Results"),
+        "My_Subscription":
+            MessageLookupByLibrary.simpleMessage("My Subscription"),
+        "New_Email_Input":
+            MessageLookupByLibrary.simpleMessage("Input New Email"),
+        "New_consultation_session":
+            MessageLookupByLibrary.simpleMessage("New Consultation Session"),
+        "News_From_COOL":
+            MessageLookupByLibrary.simpleMessage("News From COOL"),
+        "Next": MessageLookupByLibrary.simpleMessage("Next"),
+        "No_sessions": MessageLookupByLibrary.simpleMessage("No sessions"),
+        "Not_You": MessageLookupByLibrary.simpleMessage("Not You?"),
+        "Notification_Settings":
+            MessageLookupByLibrary.simpleMessage("Notification Settings"),
+        "OTP_Code_Input":
+            MessageLookupByLibrary.simpleMessage("Input OTP Code"),
+        "Old_Email": MessageLookupByLibrary.simpleMessage("Your Old Email"),
+        "Only_30_minutes": MessageLookupByLibrary.simpleMessage(
+            "Each session is limited to 30 minutes"),
+        "Open_all_topics": MessageLookupByLibrary.simpleMessage(
+            "Open all consultation topics and choose based on your interests"),
+        "Open_all_topics_now":
+            MessageLookupByLibrary.simpleMessage("Open all topics!"),
+        "Or": MessageLookupByLibrary.simpleMessage("Or"),
+        "Others": MessageLookupByLibrary.simpleMessage("Others"),
+        "Overview": MessageLookupByLibrary.simpleMessage("Overview"),
+        "PARENTING": MessageLookupByLibrary.simpleMessage("PARENTING"),
+        "PARENTING_desc": MessageLookupByLibrary.simpleMessage(
+            "Description of the previous parenting topic"),
+        "PERSONALITY": MessageLookupByLibrary.simpleMessage("PERSONALITY"),
+        "PERSONALITY_desc": MessageLookupByLibrary.simpleMessage(
+            "Description of the previous personality"),
+        "Pay_Now": MessageLookupByLibrary.simpleMessage("Pay Now"),
+        "Payment_After_Approval": MessageLookupByLibrary.simpleMessage(
+            "*Payment is made after the request is approved by the consultant"),
+        "Pick_Consultant":
+            MessageLookupByLibrary.simpleMessage("Pick your consultant"),
+        "Pick_Date": MessageLookupByLibrary.simpleMessage("Pick Date"),
+        "Please_Provide_Email_Phone": MessageLookupByLibrary.simpleMessage(
+            "Please provide your email or phone number below"),
+        "Please_Tell_Us_Why": MessageLookupByLibrary.simpleMessage(
+            "Please tell us why you want to delete your account"),
+        "Please_select_the_promoter_you_wish_to_support":
+            MessageLookupByLibrary.simpleMessage(
+                "Please select the promoter you wish to support."),
+        "Post": MessageLookupByLibrary.simpleMessage("Post"),
+        "Price": MessageLookupByLibrary.simpleMessage("Price"),
+        "Rating_Given": MessageLookupByLibrary.simpleMessage("Rating Given"),
+        "Real_Money": MessageLookupByLibrary.simpleMessage("Real Money"),
+        "Receipt": MessageLookupByLibrary.simpleMessage("Receipt"),
+        "Related_Topics":
+            MessageLookupByLibrary.simpleMessage("Related Topics"),
+        "Report_Issue": MessageLookupByLibrary.simpleMessage("Report Issue"),
+        "Report_Issue_Usage":
+            MessageLookupByLibrary.simpleMessage("Report Issue Usage"),
+        "Request_Accepted":
+            MessageLookupByLibrary.simpleMessage("Request Accepted"),
+        "Request_Account_Deletion":
+            MessageLookupByLibrary.simpleMessage("Request Account Deletion"),
+        "Requests": MessageLookupByLibrary.simpleMessage("Requests"),
+        "Review_Your_Session":
+            MessageLookupByLibrary.simpleMessage("Review your session"),
+        "Search": MessageLookupByLibrary.simpleMessage("Search"),
+        "Security": MessageLookupByLibrary.simpleMessage("Security"),
+        "Selected_topic":
+            MessageLookupByLibrary.simpleMessage("Selected Topic:"),
+        "Send": MessageLookupByLibrary.simpleMessage("Send"),
+        "Send_Verification_Code":
+            MessageLookupByLibrary.simpleMessage("Send verification code"),
+        "Session_Archived":
+            MessageLookupByLibrary.simpleMessage("ARCHIVED (COMPLETED)"),
+        "Session_Begins_In":
+            MessageLookupByLibrary.simpleMessage("Session starts in"),
+        "Session_Closed_Message": MessageLookupByLibrary.simpleMessage(
+            "Session closed, you can no longer send messages to your consultant, but the consultant can still respond."),
+        "Session_Completed":
+            MessageLookupByLibrary.simpleMessage("Session Completed"),
+        "Session_Completed_Status":
+            MessageLookupByLibrary.simpleMessage("Session Status"),
+        "Session_Details":
+            MessageLookupByLibrary.simpleMessage("Session Details"),
+        "Session_Summary":
+            MessageLookupByLibrary.simpleMessage("Session Summary"),
+        "Setting": MessageLookupByLibrary.simpleMessage("Setting"),
+        "Share_Experience":
+            MessageLookupByLibrary.simpleMessage("Share your experience"),
+        "Short_Time": MessageLookupByLibrary.simpleMessage(
+            "It was nice knowing you for this short time, we will miss you"),
+        "Start_Session": MessageLookupByLibrary.simpleMessage("Start Session?"),
+        "Start_consulting_now":
+            MessageLookupByLibrary.simpleMessage("Start consulting now!"),
+        "Status": MessageLookupByLibrary.simpleMessage("Status"),
+        "Support_Your_Preferred_Promoter": MessageLookupByLibrary.simpleMessage(
+            "Support Your Preferred Promoter"),
+        "Tell_Us": MessageLookupByLibrary.simpleMessage("Tell us!"),
+        "Tell_Us_Here": MessageLookupByLibrary.simpleMessage("Tell us here"),
+        "Terms_and_Conditions":
+            MessageLookupByLibrary.simpleMessage("Terms & Conditions"),
+        "Thank_You_For_Your_Report":
+            MessageLookupByLibrary.simpleMessage("Thank you for your report"),
+        "Total_Point": MessageLookupByLibrary.simpleMessage("Total Point"),
+        "Understood": MessageLookupByLibrary.simpleMessage("Understood"),
+        "Use_Email": MessageLookupByLibrary.simpleMessage("Use Email"),
+        "Use_Phone_Number":
+            MessageLookupByLibrary.simpleMessage("Use phone number"),
+        "Verification_Code": MessageLookupByLibrary.simpleMessage(
+            "Enter the verification code sent to your email"),
+        "Video": MessageLookupByLibrary.simpleMessage("Video"),
+        "View_Archive": MessageLookupByLibrary.simpleMessage("View Archive"),
+        "We_Appreciate_Your_Feedback": MessageLookupByLibrary.simpleMessage(
+            "We appreciate all feedback and suggestions. We will strive to be better."),
+        "What_Problem": MessageLookupByLibrary.simpleMessage(
+            "What problem are you experiencing?"),
+        "Why_Consultation_Needed": MessageLookupByLibrary.simpleMessage(
+            "Why do you need my consultation?"),
+        "Why_Need_Consultant": MessageLookupByLibrary.simpleMessage(
+            "Why do you need a consultant?"),
+        "Write_Here": MessageLookupByLibrary.simpleMessage("Write here"),
+        "Your_Email": MessageLookupByLibrary.simpleMessage("Your Email"),
+        "Your_Explanation":
+            MessageLookupByLibrary.simpleMessage("Your Explanation"),
+        "Your_Story_Helps": MessageLookupByLibrary.simpleMessage(
+            "Your story helps us to improve"),
         "access_denied": MessageLookupByLibrary.simpleMessage(
             "Access denied. You do not have permission to perform this action."),
         "account_disabled_contact_admin": MessageLookupByLibrary.simpleMessage(
@@ -137,6 +387,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Delete Account"),
         "develop_yourself_by_exploring": MessageLookupByLibrary.simpleMessage(
             "Develop yourself by exploring the available online books. Be a better version of yourself, anytime and anywhere."),
+        "digital_ID": MessageLookupByLibrary.simpleMessage("digital ID"),
         "discount": MessageLookupByLibrary.simpleMessage("Discount"),
         "district": MessageLookupByLibrary.simpleMessage("District"),
         "dont_have_an_account":
@@ -249,6 +500,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "no_data": MessageLookupByLibrary.simpleMessage("No data"),
         "no_deposit_fee": MessageLookupByLibrary.simpleMessage(
             "You have not made a deposit fee. Please make a payment first"),
+        "no_profiling_yet":
+            MessageLookupByLibrary.simpleMessage("No profiling yet"),
         "no_this_is_the_first_time":
             MessageLookupByLibrary.simpleMessage("No, this is the first time"),
         "not_complete": MessageLookupByLibrary.simpleMessage("Not Complete"),

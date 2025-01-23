@@ -1,10 +1,14 @@
+import 'dart:async';
 import 'dart:convert';
 
+import 'package:coolappflutter/data/locals/preference_handler.dart';
 import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+
+import '../../../data/locals/shared_pref.dart';
 
 class ScanPage extends StatefulWidget {
   const ScanPage({super.key});
@@ -20,6 +24,32 @@ class _ScanPageState extends State<ScanPage> {
   void dispose() {
     scannerController.dispose();
     super.dispose();
+  }
+
+  @override
+  void initState() {
+    Timer(Duration(seconds: 3), () {
+      cekSession();
+    });
+    cekSession();
+    super.initState();
+  }
+
+  cekSession() async {
+    dynamic ceklanguage = await PreferenceHandler.retrieveISelectLanguage();
+    Prefs().setLocale('$ceklanguage', () {
+      setState(() {
+        S.load(Locale('$ceklanguage'));
+        setState(() {});
+      });
+    });
+    Timer(Duration(seconds: 2), () {
+      Prefs().getLocale().then((locale) {
+        debugPrint(locale);
+
+        S.load(Locale(locale)).then((value) {});
+      });
+    });
   }
 
   @override

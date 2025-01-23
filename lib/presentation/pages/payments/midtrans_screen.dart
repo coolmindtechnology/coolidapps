@@ -12,6 +12,8 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+import '../../../generated/l10n.dart';
+
 class MidtransScreen extends StatefulWidget {
   final Function? onUpdate;
   final String? snapToken, codeOrder, typePayment;
@@ -69,8 +71,8 @@ class _MidtransScreenState extends State<MidtransScreen> {
       child: Consumer<ProviderBrainActivation>(
         builder: (BuildContext context, value, Widget? child) => Scaffold(
           appBar: AppBar(
-            title: const Text(
-              'Pembayaran',
+            title: Text(
+              S.of(context).payment,
               style: TextStyle(color: Colors.white),
             ),
             automaticallyImplyLeading: false,
@@ -78,7 +80,7 @@ class _MidtransScreenState extends State<MidtransScreen> {
           body: InAppWebView(
             key: webViewKey,
             initialUrlRequest: URLRequest(
-              url: Uri.parse("${ApiEndpoint.payPreference}${widget.snapToken}"),
+              url: WebUri("${ApiEndpoint.payPreference}${widget.snapToken}"),
               headers: {
                 'Authorization': dataGlobal.token,
               },

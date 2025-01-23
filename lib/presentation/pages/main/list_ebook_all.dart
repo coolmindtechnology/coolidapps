@@ -75,8 +75,8 @@ class _ListEbookAllState extends State<ListEbookAll> {
                         ),
                       ),
                     )
-                  : const Text(
-                      "Ebook",
+                  : Text(
+                      S.of(context).ebook,
                       style: TextStyle(color: Colors.white),
                     ),
               iconTheme: const IconThemeData(color: Colors.white),

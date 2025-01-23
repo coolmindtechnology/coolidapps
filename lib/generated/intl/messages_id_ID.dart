@@ -36,6 +36,256 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "ACCEPTED": MessageLookupByLibrary.simpleMessage("DITERIMA"),
+        "ARCHIVE": MessageLookupByLibrary.simpleMessage("ARSIP"),
+        "About_Us_And_Help":
+            MessageLookupByLibrary.simpleMessage("Tentang Kami & Bantuan"),
+        "Accepted": MessageLookupByLibrary.simpleMessage("Diterima"),
+        "Account": MessageLookupByLibrary.simpleMessage("Akun"),
+        "Account_Deletion_Terms":
+            MessageLookupByLibrary.simpleMessage("Ketentuan Hapus Akun"),
+        "Achievement": MessageLookupByLibrary.simpleMessage("Pencapaian"),
+        "Active_session": MessageLookupByLibrary.simpleMessage("Sesi Aktif"),
+        "Add_Session": MessageLookupByLibrary.simpleMessage("Tambah sesi?"),
+        "App_Version":
+            MessageLookupByLibrary.simpleMessage("Versi Aplikasi V2.4.93"),
+        "Archives": MessageLookupByLibrary.simpleMessage("Arsip"),
+        "Awaiting_Confirmation": MessageLookupByLibrary.simpleMessage(
+            "Menunggu konfirmasi jadwal konsultan, harap menunggu"),
+        "Ayo_kenali_diri_anda":
+            MessageLookupByLibrary.simpleMessage("Ayo kenali diri anda!"),
+        "BUSINESS": MessageLookupByLibrary.simpleMessage("BISNIS"),
+        "BUSINESS_desc": MessageLookupByLibrary.simpleMessage(
+            "Deskripsi topik bisnis sebelumnya"),
+        "Back_to_Consultation": MessageLookupByLibrary.simpleMessage(
+            "Kembali ke laman konsultasi dalam 3 detik"),
+        "Balance": MessageLookupByLibrary.simpleMessage("Saldo"),
+        "Become_Affiliator":
+            MessageLookupByLibrary.simpleMessage("Jadi Affiliator"),
+        "CANNOT_LEAVE_SESSION":
+            MessageLookupByLibrary.simpleMessage("TIDAK BISA KELUAR SESI"),
+        "CREATIVE": MessageLookupByLibrary.simpleMessage("KREATIF"),
+        "Cannot_Leave_Session": MessageLookupByLibrary.simpleMessage(
+            "Anda tidak diperbolehkan meninggalkan sesi konsultasi sebelum selesai"),
+        "Change_Email": MessageLookupByLibrary.simpleMessage("Ubah Email"),
+        "Change_Phone_Number":
+            MessageLookupByLibrary.simpleMessage("Ubah nomor telepon"),
+        "Choose_Your_Language":
+            MessageLookupByLibrary.simpleMessage("Pilih Bahasa Anda"),
+        "Choose_Your_Reason":
+            MessageLookupByLibrary.simpleMessage("Pilih alasan Anda"),
+        "Choose_session_hour":
+            MessageLookupByLibrary.simpleMessage("Pilih Jam Sesi"),
+        "Choose_session_time":
+            MessageLookupByLibrary.simpleMessage("Pilih waktu sesi Anda"),
+        "Choose_time_consult": MessageLookupByLibrary.simpleMessage(
+            "Anda dapat memilih waktu yang tepat untuk konsultasi"),
+        "Choose_your_consultant": MessageLookupByLibrary.simpleMessage(
+            "Pilih konsultan Anda dengan seksama, Anda akan berkonsultasi dengan orang yang sama selama 3 hari ke depan"),
+        "Complete_Session_First": MessageLookupByLibrary.simpleMessage(
+            "Harap selesaikan sesi anda terlebih dahulu untuk meninggalkan sesi"),
+        "Completed_On": MessageLookupByLibrary.simpleMessage("Selesai Pada:"),
+        "Confirm_Your_Identity":
+            MessageLookupByLibrary.simpleMessage("Konfirmasi Identitas Anda"),
+        "Consult_based_personality": MessageLookupByLibrary.simpleMessage(
+            "Konsultasi berdasarkan kepribadian Anda untuk lebih akrab dengan diri Anda"),
+        "Consult_personality": MessageLookupByLibrary.simpleMessage(
+            "Harap konsultasi kepribadian Anda"),
+        "Consultant_Name":
+            MessageLookupByLibrary.simpleMessage("Nama Konsultan"),
+        "Consultant_Profile":
+            MessageLookupByLibrary.simpleMessage("Profil Konsultan"),
+        "Consultation": MessageLookupByLibrary.simpleMessage("Konsultasi"),
+        "Consultation_History":
+            MessageLookupByLibrary.simpleMessage("Riwayat Konsultasi"),
+        "Consultation_Request_Accepted": MessageLookupByLibrary.simpleMessage(
+            "Permohonan konsultasi diterima"),
+        "Consultation_time":
+            MessageLookupByLibrary.simpleMessage("Waktu Konsultasi"),
+        "Continue_Payment":
+            MessageLookupByLibrary.simpleMessage("Lanjutkan Pembayaran"),
+        "CoolTeam": MessageLookupByLibrary.simpleMessage("CoolTeam"),
+        "Coolapp_consultation_space": MessageLookupByLibrary.simpleMessage(
+            "COOLAPP kini menyediakan ruang konsultasi profesional untuk Anda"),
+        "Curhat": MessageLookupByLibrary.simpleMessage("Curhat"),
+        "Current_Language":
+            MessageLookupByLibrary.simpleMessage("Bahasa Saat Ini"),
+        "Delete_Account": MessageLookupByLibrary.simpleMessage("Hapus Akun"),
+        "Discount_newcomer": MessageLookupByLibrary.simpleMessage(
+            "Diskon 20% spesial untuk pendatang baru"),
+        "Discuss_This":
+            MessageLookupByLibrary.simpleMessage("Membicarakan ini"),
+        "Discussing_This":
+            MessageLookupByLibrary.simpleMessage("Membicarakan ini"),
+        "Do_You_Want_To_Delete_Account": MessageLookupByLibrary.simpleMessage(
+            "Apakah Anda ingin menghapus akun Anda?"),
+        "Earn_money_by_becoming_an_affiliator":
+            MessageLookupByLibrary.simpleMessage(
+                "Dapatkan uang dengan menjadi affiliator"),
+        "Edit_profile": MessageLookupByLibrary.simpleMessage("Edit Profil"),
+        "Email_Input": MessageLookupByLibrary.simpleMessage("Isi Email Anda"),
+        "Emotion_in": MessageLookupByLibrary.simpleMessage("Emosi Dalam"),
+        "Enter_referal_code": MessageLookupByLibrary.simpleMessage(
+            "Punya promotor yang ingin didukung? input kode referalnya di bawah!"),
+        "FITNESS": MessageLookupByLibrary.simpleMessage("KEBUGARAN"),
+        "FREE": MessageLookupByLibrary.simpleMessage("GRATIS"),
+        "Fill_in_your_profile": MessageLookupByLibrary.simpleMessage(
+            "Ayo! Lengkapi profil Anda agar dapat menikmati semua fitur kami"),
+        "Follow_on_Coolchat":
+            MessageLookupByLibrary.simpleMessage("Ikuti di Coolchat"),
+        "Follower": MessageLookupByLibrary.simpleMessage("Pengikut"),
+        "Following": MessageLookupByLibrary.simpleMessage("Mengikuti"),
+        "Free_3_times": MessageLookupByLibrary.simpleMessage("Gratis 3 kali!"),
+        "Free_consult_3_days": MessageLookupByLibrary.simpleMessage(
+            "Lakukan konsultasi gratis 3 kali dalam 3 hari dan maksimalkan potensi Anda"),
+        "Free_once_daily": MessageLookupByLibrary.simpleMessage(
+            "Konsultasi gratis sekali dalam sehari!"),
+        "Give_Rating": MessageLookupByLibrary.simpleMessage("Berikan Rating"),
+        "Go_test_profiling": MessageLookupByLibrary.simpleMessage(
+            "Uji profil Anda sekarang & kenali diri Anda lebih baik"),
+        "Goodbye": MessageLookupByLibrary.simpleMessage("Sampai Jumpa"),
+        "Healing": MessageLookupByLibrary.simpleMessage("Healing"),
+        "Help": MessageLookupByLibrary.simpleMessage("Bantuan"),
+        "How_was_Your_Chat_Session":
+            MessageLookupByLibrary.simpleMessage("Bagaimana sesi curhat Anda?"),
+        "I_Understand": MessageLookupByLibrary.simpleMessage("Saya Mengerti"),
+        "Image": MessageLookupByLibrary.simpleMessage("Gambar"),
+        "Information_Confirmed": MessageLookupByLibrary.simpleMessage(
+            "Informasi di atas sudah sesuai dengan sesi konsultasi yang saya inginkan"),
+        "Join_Coolchat":
+            MessageLookupByLibrary.simpleMessage("Bergabung di Coolchat"),
+        "Know_deeper": MessageLookupByLibrary.simpleMessage(
+            "Kenali diri Anda lebih dalam!"),
+        "Knowing_yourself": MessageLookupByLibrary.simpleMessage(
+            "Mengenali diri sendiri adalah cara untuk mencintai diri sendiri"),
+        "Minutes_Left": MessageLookupByLibrary.simpleMessage("menit lagi"),
+        "My_Profiling": MessageLookupByLibrary.simpleMessage("Profil Saya"),
+        "My_Profiling_Results":
+            MessageLookupByLibrary.simpleMessage("Hasil Profiling Saya"),
+        "My_Subscription":
+            MessageLookupByLibrary.simpleMessage("Langganan Saya"),
+        "New_Email_Input":
+            MessageLookupByLibrary.simpleMessage("Input Email Baru"),
+        "New_consultation_session":
+            MessageLookupByLibrary.simpleMessage("Sesi Konsultasi Baru"),
+        "News_From_COOL":
+            MessageLookupByLibrary.simpleMessage("Berita Dari COOL"),
+        "Next": MessageLookupByLibrary.simpleMessage("Lanjut"),
+        "No_sessions": MessageLookupByLibrary.simpleMessage("Tidak ada sesi"),
+        "Not_You": MessageLookupByLibrary.simpleMessage("Bukan Anda?"),
+        "Notification_Settings":
+            MessageLookupByLibrary.simpleMessage("Pengaturan Notifikasi"),
+        "OTP_Code_Input":
+            MessageLookupByLibrary.simpleMessage("Input Kode OTP"),
+        "Old_Email": MessageLookupByLibrary.simpleMessage("Email Lama Anda"),
+        "Only_30_minutes": MessageLookupByLibrary.simpleMessage(
+            "Setiap sesi hanya dapat berlangsung 30 menit"),
+        "Open_all_topics": MessageLookupByLibrary.simpleMessage(
+            "Buka semua topik konsultasi dan pilih sesuai minat Anda"),
+        "Open_all_topics_now":
+            MessageLookupByLibrary.simpleMessage("Buka semua topik!"),
+        "Or": MessageLookupByLibrary.simpleMessage("Atau"),
+        "Others": MessageLookupByLibrary.simpleMessage("Lainnya"),
+        "Overview": MessageLookupByLibrary.simpleMessage("Ringkasan"),
+        "PARENTING": MessageLookupByLibrary.simpleMessage("PENDIDIKAN ANAK"),
+        "PARENTING_desc": MessageLookupByLibrary.simpleMessage(
+            "Deskripsi topik pendidikan anak sebelumnya"),
+        "PERSONALITY": MessageLookupByLibrary.simpleMessage("PERSONALITAS"),
+        "PERSONALITY_desc": MessageLookupByLibrary.simpleMessage(
+            "Deskripsi kepribadian sebelumnya"),
+        "Pay_Now": MessageLookupByLibrary.simpleMessage("Bayar Sekarang"),
+        "Payment_After_Approval": MessageLookupByLibrary.simpleMessage(
+            "*Pembayaran dilakukan setelah permohonan disetujui oleh konsultan"),
+        "Pick_Consultant":
+            MessageLookupByLibrary.simpleMessage("Pilih konsultan anda"),
+        "Pick_Date": MessageLookupByLibrary.simpleMessage("Pilih Tanggal"),
+        "Please_Provide_Email_Phone": MessageLookupByLibrary.simpleMessage(
+            "Harap mengisi email atau nomor telepon Anda di bawah"),
+        "Please_Tell_Us_Why": MessageLookupByLibrary.simpleMessage(
+            "Harap ceritakan kepada kami alasan Anda menghapus akun Anda"),
+        "Please_select_the_promoter_you_wish_to_support":
+            MessageLookupByLibrary.simpleMessage(
+                "Silakan pilih promotor yang ingin Anda dukung."),
+        "Post": MessageLookupByLibrary.simpleMessage("Postingan"),
+        "Price": MessageLookupByLibrary.simpleMessage("Harga"),
+        "Rating_Given":
+            MessageLookupByLibrary.simpleMessage("Rating Diberikan"),
+        "Real_Money": MessageLookupByLibrary.simpleMessage("Uang Nyata"),
+        "Receipt": MessageLookupByLibrary.simpleMessage("Kuitansi"),
+        "Related_Topics": MessageLookupByLibrary.simpleMessage("Topik Terkait"),
+        "Report_Issue":
+            MessageLookupByLibrary.simpleMessage("Laporkan Masalah"),
+        "Report_Issue_Usage":
+            MessageLookupByLibrary.simpleMessage("Laporkan Masalah Penggunaan"),
+        "Request_Accepted":
+            MessageLookupByLibrary.simpleMessage("Permohonan Diterima"),
+        "Request_Account_Deletion":
+            MessageLookupByLibrary.simpleMessage("Ajukan Penghapusan Akun"),
+        "Requests": MessageLookupByLibrary.simpleMessage("Permintaan"),
+        "Review_Your_Session":
+            MessageLookupByLibrary.simpleMessage("Periksa kembali sesi anda"),
+        "Search": MessageLookupByLibrary.simpleMessage("Cari"),
+        "Security": MessageLookupByLibrary.simpleMessage("Keamanan"),
+        "Selected_topic":
+            MessageLookupByLibrary.simpleMessage("Topik Terpilih:"),
+        "Send": MessageLookupByLibrary.simpleMessage("Kirimkan"),
+        "Send_Verification_Code":
+            MessageLookupByLibrary.simpleMessage("Kirim kode verifikasi"),
+        "Session_Archived":
+            MessageLookupByLibrary.simpleMessage("DIARSIPKAN (SELESAI)"),
+        "Session_Begins_In":
+            MessageLookupByLibrary.simpleMessage("Sesi dimulai dalam"),
+        "Session_Closed_Message": MessageLookupByLibrary.simpleMessage(
+            "Sesi ditutup, Anda tidak bisa lagi mengirim pesan ke konsultan Anda, tapi konsultan tetap bisa merespon."),
+        "Session_Completed":
+            MessageLookupByLibrary.simpleMessage("Sesi Selesai"),
+        "Session_Completed_Status":
+            MessageLookupByLibrary.simpleMessage("Status Sesi"),
+        "Session_Details": MessageLookupByLibrary.simpleMessage("Detail Sesi"),
+        "Session_Summary":
+            MessageLookupByLibrary.simpleMessage("Rangkuman Sesi"),
+        "Setting": MessageLookupByLibrary.simpleMessage("Pengaturan"),
+        "Share_Experience":
+            MessageLookupByLibrary.simpleMessage("Ceritakan pengalaman Anda"),
+        "Short_Time": MessageLookupByLibrary.simpleMessage(
+            "Senang mengenal Anda untuk waktu yang singkat ini, kami akan merindukan Anda"),
+        "Start_Session": MessageLookupByLibrary.simpleMessage("Mulai sesi?"),
+        "Start_consulting_now": MessageLookupByLibrary.simpleMessage(
+            "Ayo lakukan konsultasi sekarang!"),
+        "Status": MessageLookupByLibrary.simpleMessage("Status"),
+        "Support_Your_Preferred_Promoter":
+            MessageLookupByLibrary.simpleMessage("Dukung Promotor Pilihan"),
+        "Tell_Us":
+            MessageLookupByLibrary.simpleMessage("Ceritakan kepada kami!"),
+        "Tell_Us_Here":
+            MessageLookupByLibrary.simpleMessage("Ceritakan di sini"),
+        "Terms_and_Conditions":
+            MessageLookupByLibrary.simpleMessage("Terma & Syarat"),
+        "Thank_You_For_Your_Report": MessageLookupByLibrary.simpleMessage(
+            "Terima kasih atas laporan Anda"),
+        "Total_Point": MessageLookupByLibrary.simpleMessage("Jumlah Point"),
+        "Understood": MessageLookupByLibrary.simpleMessage("Mengerti"),
+        "Use_Email": MessageLookupByLibrary.simpleMessage("Gunakan Email"),
+        "Use_Phone_Number":
+            MessageLookupByLibrary.simpleMessage("Gunakan nomor telepon"),
+        "Verification_Code": MessageLookupByLibrary.simpleMessage(
+            "Isi Kode Verifikasi yang Dikirimkan pada Email"),
+        "Video": MessageLookupByLibrary.simpleMessage("Video"),
+        "View_Archive": MessageLookupByLibrary.simpleMessage("Lihat Arsip"),
+        "We_Appreciate_Your_Feedback": MessageLookupByLibrary.simpleMessage(
+            "Kami menghargai semua masukan dan saran. Kami akan berusaha menjadi lebih baik."),
+        "What_Problem": MessageLookupByLibrary.simpleMessage(
+            "Tipe masalah apa yang dialami?"),
+        "Why_Consultation_Needed": MessageLookupByLibrary.simpleMessage(
+            "Kenapa anda butuh konsultasi saya?"),
+        "Why_Need_Consultant": MessageLookupByLibrary.simpleMessage(
+            "Kenapa Anda Butuh Konsultan?"),
+        "Write_Here": MessageLookupByLibrary.simpleMessage("Ceritakan di sini"),
+        "Your_Email": MessageLookupByLibrary.simpleMessage("Email Anda"),
+        "Your_Explanation":
+            MessageLookupByLibrary.simpleMessage("Penjelasan Anda"),
+        "Your_Story_Helps": MessageLookupByLibrary.simpleMessage(
+            "Cerita Anda membantu kami menjadi lebih baik"),
         "access_denied": MessageLookupByLibrary.simpleMessage(
             "Akses ditolak. Anda tidak memiliki izin untuk melakukan tindakan ini."),
         "account_disabled_contact_admin": MessageLookupByLibrary.simpleMessage(
@@ -128,6 +378,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete_account": MessageLookupByLibrary.simpleMessage("Hapus Akun"),
         "develop_yourself_by_exploring": MessageLookupByLibrary.simpleMessage(
             "Kembangkan diri anda dengan menjelajahi buku online yang telah tersedia. Jadi diri yang lebih baik, dimanapun dan kapanpun"),
+        "digital_ID": MessageLookupByLibrary.simpleMessage("ID digital"),
         "discount": MessageLookupByLibrary.simpleMessage("Diskon"),
         "district": MessageLookupByLibrary.simpleMessage("Daerah"),
         "dont_have_an_account":
@@ -239,6 +490,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "no_data": MessageLookupByLibrary.simpleMessage("Tidak ada data"),
         "no_deposit_fee": MessageLookupByLibrary.simpleMessage(
             "Kamu belum melakukan deposit fee. Silahkan lakukan pembayaran dulu"),
+        "no_profiling_yet":
+            MessageLookupByLibrary.simpleMessage("Belum ada profil"),
         "no_this_is_the_first_time":
             MessageLookupByLibrary.simpleMessage("Tidak, ini pertama kali"),
         "not_complete": MessageLookupByLibrary.simpleMessage("Belum Lengkap"),

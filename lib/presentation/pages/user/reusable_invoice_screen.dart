@@ -39,7 +39,9 @@ class _ReusableInvoiceScreenState extends State<ReusableInvoiceScreen> {
     return Scaffold(
       appBar: AppBar(
           title: Text(
-        widget.paymentType != "income" ? "Receipt" : "Withdrawal",
+        widget.paymentType != "income"
+            ? S.of(context).Receipt
+            : S.of(context).withdrawal,
         style: TextStyle(color: whiteColor),
       )),
       body: SingleChildScrollView(

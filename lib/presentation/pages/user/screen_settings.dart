@@ -3,6 +3,7 @@
 import 'dart:async';
 
 import 'package:coolappflutter/data/data_global.dart';
+import 'package:coolappflutter/data/locals/preference_handler.dart';
 import 'package:coolappflutter/data/locals/shared_pref.dart';
 import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
 import 'package:coolappflutter/data/provider/provider_user.dart';
@@ -189,7 +190,9 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                     title: S.of(context).profile,
                     image: "profile.png",
                     onTap: () {
-                      Nav.to(const ScreenProfile());
+                      Nav.to(ScreenProfile(
+                        phone: dataGlobal.dataUser?.phoneNumber,
+                      ));
                     },
                   ),
                   // ItemSetting(
