@@ -28,8 +28,11 @@ import 'package:coolappflutter/presentation/pages/otp/otp_screen.dart';
 import 'package:coolappflutter/presentation/utils/get_country.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:coolappflutter/presentation/utils/notification_utils.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 
 class ProviderAuth extends ChangeNotifier {
   ProviderAuth() {
@@ -176,6 +179,11 @@ class ProviderAuth extends ChangeNotifier {
         ),
       );
     }, success: (res) async {
+      // final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      //   email: "${res.data?.email.toString()}",
+      //   password: password,
+      // );
+      // credential.user!.uid;
       // debugPrint("masukk4 ${res.data?.idRole}");
       if (res.success == true) {
         if (res.data?.idRole.toString() == "2") {
@@ -327,7 +335,23 @@ class ProviderAuth extends ChangeNotifier {
             : Text(removeBrackets(
                 '${e.message.toString()}  ${e.errorCode.toString()}')),
       );
-    }, success: (res) {
+    }, success: (res) async {
+      try {
+        final credential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: emailReg.trim(),
+          password: passwordReg.text.trim(),
+        );
+
+        await FirebaseChatCore.instance.createUserInFirestore(
+          types.User(
+            firstName: emailReg.trim(),
+            id: credential.user!.uid,
+            imageUrl: 'https://i.pravatar.cc/300?u=${emailReg.trim()}',
+            lastName: emailReg.trim(),
+          ),
+        );
+      } catch (e) {}
       if (res.success == false && res.data == null) {
         NotificationUtils.showDialogError(context, () {
           Nav.back();

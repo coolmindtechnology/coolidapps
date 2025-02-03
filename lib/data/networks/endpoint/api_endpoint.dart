@@ -1,14 +1,15 @@
 class ApiEndpoint {
   // static String baseUrl = "https://cool-compass.mycool.id";
-  static String baseUrl = "https://staging-cool.hantrr.com";
-  // static String baseUrl = "https://cool-staging.dschazy.com";
+  // static String baseUrl = "https://staging-cool.hantrr.com";
+  static String baseUrl = "https://cool-staging.dschazy.com";
 
   // static String baseUrl = "https://coolcompas-staging.mycool.id";
 
   static void setDev() {
     // baseUrl = "https://cool-compass.mycool.id";
+    baseUrl = "https://cool-staging.dschazy.com";
 
-    baseUrl = "https://staging-cool.hantrr.com";
+    // baseUrl = "https://staging-cool.hantrr.com";
   }
 
   /// Sets the base URL to "https://cool-compass.mycool.id" for production environment.
@@ -19,8 +20,9 @@ class ApiEndpoint {
   /// This function does not take any parameters and does not return any value.
   static void setProd() {
     // baseUrl = "https://cool-compass.mycool.id";
+    baseUrl = "https://cool-staging.dschazy.com";
 
-    baseUrl = "https://staging-cool.hantrr.com";
+    // baseUrl = "https://staging-cool.hantrr.com";
   }
 
   /// Base API Endpoint
@@ -107,6 +109,35 @@ class ApiEndpoint {
   static String checkProfile = "${_userUrlApi}cek-profile";
   static String getTotalSaldo = "${_userUrlApi}getTotalSaldo";
   static String getAddress = "${_userUrlApi}get/extra/address";
+
+  //API Consultation
+  static String getListConsultation =
+      "${_baseUrlApi}consultation/get-list-session";
+  static String getListTheme = "${_baseUrlApi}consultation/get-theme";
+  static String getListTime(time) =>
+      "${_baseUrlApi}consultation/get-sessions-time?date=$time";
+  static String getListConsultanPerson =
+      "${_baseUrlApi}consultant/get-list-consultant";
+  static String getDetailConsultant(id) =>
+      "${_baseUrlApi}consultant/get-list-consultant?consultant_id=$id";
+
+  //==============================base endpoint Consultant==========================================//
+  static final String _consultantUrlApi = "${_baseUrlApi}consultant/";
+  static final String _consultationUrlApi = "${_baseUrlApi}consultation/";
+
+  ///Consultant
+  static String registerConsultant = "${_consultantUrlApi}register-consultant";
+  static String getSummaryApproval = "${_consultantUrlApi}get-approval-detail";
+  static String getHomeConsultant = "${_consultantUrlApi}overview";
+  static String getParticipant = "${_consultationUrlApi}get-participant";
+
+  static String getTermConsultant =
+      "${_baseUrlApi}terms-and-condition/consultant";
+  static String getHistoryCommission = "${_consultantUrlApi}get-comission";
+  static String updateAvailable(id) =>
+      "${_consultantUrlApi}update-available/$id";
+  static String approveByConsultant =
+      "${_consultantUrlApi}approval-by-consultant";
 
   //// Home
   // Api Ebook

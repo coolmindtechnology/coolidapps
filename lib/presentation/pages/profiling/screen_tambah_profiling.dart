@@ -93,21 +93,21 @@ class _ScreenTambahProfilingState extends State<ScreenTambahProfiling> {
                           onTap: () async {
                             var res = await DateUtil.pickDate(context);
 
-                            setState(() {
-                              value.tglLahir.text = DateFormat("dd, MMMM yyyy")
-                                  .format(res ?? DateTime.now());
-                              value.dayDate = res?.day.toString();
-                              value.monthDate = res?.month.toString();
-                              value.yearDate = res?.year.toString();
-                              DateTime currentDate = DateTime.now();
-                              value.birthDate = currentDate.year - res!.year;
+                            value.tglLahir.text = DateFormat("dd, MMMM yyyy")
+                                .format(res ?? DateTime.now());
+                            value.dayDate = res?.day.toString();
+                            value.monthDate = res?.month.toString();
+                            value.yearDate = res?.year.toString();
+                            DateTime currentDate = DateTime.now();
+                            value.birthDate = currentDate.year - res!.year;
 
-                              if (currentDate.month < res.month ||
-                                  (currentDate.month == res.month &&
-                                      currentDate.day < res.day)) {
-                                value.birthDate;
-                              }
-                            });
+                            if (currentDate.month < res.month ||
+                                (currentDate.month == res.month &&
+                                    currentDate.day < res.day)) {
+                              value.birthDate;
+                            }
+                            debugPrint("tes date");
+                            setState(() {});
                           },
                           decoration: InputDecoration(
                               hintText: S.of(context).select,

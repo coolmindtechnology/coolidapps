@@ -564,7 +564,7 @@ class ProviderUser extends ChangeNotifier {
             notifyListeners();
             Nav.back();
             await Nav.to(ScreenProfile(
-              phone: dataGlobal.dataUser?.phoneNumber,
+              phone: dataGlobal.dataUser?.phoneNumber.toString(),
             ));
             checkProfile(context);
           },

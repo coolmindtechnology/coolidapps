@@ -10,3 +10,8 @@ Color naturalGrey = const Color(0xffD9D9D9);
 
 Color BlueColor = const Color(0xFF267AAF);
 Color YellowColor = const Color(0xFFFBF008);
+Color DarkYellow = const Color(0xFFB4AB04);
+Color LightBlue = const Color(0xFFDBFEFD);
+Color LightRed = const Color(0xFFFCE4D0);
+Color Darkred = const Color(0xFF960D11);
+Color blueSlider = const Color(0xFF93F1FB);

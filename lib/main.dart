@@ -9,6 +9,7 @@ import 'package:coolappflutter/data/provider/provider_auth_affiliate.dart';
 import 'package:coolappflutter/data/provider/provider_boarding.dart';
 import 'package:coolappflutter/data/provider/provider_book.dart';
 import 'package:coolappflutter/data/provider/provider_brain_activation.dart';
+import 'package:coolappflutter/data/provider/provider_consultation.dart';
 import 'package:coolappflutter/data/provider/provider_cool_chat.dart';
 import 'package:coolappflutter/data/provider/provider_payment.dart';
 import 'package:coolappflutter/data/provider/provider_profiling.dart';
@@ -25,6 +26,7 @@ import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/event_notifier.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:coolappflutter/presentation/utils/resources/notification.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -74,31 +76,6 @@ void onDidReceiveNotificationResponse(NotificationResponse response) {
 }
 
 void main() async {
-  // WidgetsFlutterBinding.ensureInitialized();
-  // if (kIsWeb) {
-  //   var fbOptions = const FirebaseOptions(
-  //     apiKey: 'AIzaSyAUwYqwfekzl72dvGkyFE7irzZdh4Qa9fk',
-  //     appId: '1:460609975158:android:4368eef2b9acf8efb38057',
-  //     messagingSenderId: '460609975158',
-  //     projectId: 'my-cool-id',
-  //     storageBucket: 'my-cool-id.firebaseio.com',
-
-  //     // authDomain: "cool-app-641a1.firebaseapp.com",
-
-  //     // measurementId: "G-2JY8LGXM4M"
-  //   );
-
-  //   await Firebase.initializeApp(options: fbOptions);
-  // } else {
-  //   await Firebase.initializeApp(
-  //     options: DefaultFirebaseOptions.currentPlatform,
-  //   );
-  // }
-  // WidgetsFlutterBinding.ensureInitialized();
-  // await Firebase.initializeApp(
-  //   options: DefaultFirebaseOptions.currentPlatform,
-  // );
-  // await FirebaseMessangingRemoteDatasource().initialize();
   WidgetsFlutterBinding.ensureInitialized();
   if (Firebase.apps.isEmpty) {
     await Firebase.initializeApp(); // Inisialisasi hanya sekali
@@ -169,9 +146,13 @@ class _MainAppState extends State<MainApp> {
   String? deepLinkUrl;
   late Widget currentPage;
   bool isDeepLinkActivated = false;
+  bool errorr = false;
+  bool initializedd = false;
+  User? userr;
   @override
   void initState() {
     super.initState();
+    initializeFlutterFire();
     getFcmToken();
     // Listener ketika notifikasi diterima saat app terbuka
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
@@ -184,6 +165,23 @@ class _MainAppState extends State<MainApp> {
     initDeepLinkListener();
     if (!kIsWeb) {
       initDeepLinks();
+    }
+  }
+
+  void initializeFlutterFire() async {
+    try {
+      FirebaseAuth.instance.authStateChanges().listen((User? user) {
+        setState(() {
+          userr = user;
+        });
+      });
+      setState(() {
+        initializedd = true;
+      });
+    } catch (e) {
+      setState(() {
+        errorr = true;
+      });
     }
   }
 
@@ -254,24 +252,7 @@ class _MainAppState extends State<MainApp> {
     }
   }
 
-  // Future<void> handleDeepLink(String link) async {
-  //   if (link.contains("/mobile")) {
-  //     // Contoh: jika deeplink URL mengarah ke "/mobile"
-  //     PermissionStatus status = await Permission.location.request();
-
-  //     if (status.isGranted) {
-  //       // Izin diberikan, arahkan ke halaman terkait
-  //       Navigator.pushNamed(context, '/mobile');
-  //     } else if (status.isPermanentlyDenied) {
-  //       // Jika izin ditolak permanen, arahkan ke halaman pengaturan
-  //       openAppSettings();
-  //     }
-  //   }
-  // }
-
   void openAppLink(Uri uri) {
-    // print('onAppUri: $uri');
-    // print('onAppFragment: ${uri.path}');
     if (kIsWeb) {
       // Handle web deep link by launching URL in Chrome
       launchInBrowser(uri.toString());
@@ -288,19 +269,6 @@ class _MainAppState extends State<MainApp> {
     }
   }
 
-  // Future<void> handleDeepLink() async {
-  //   // Contoh: jika deeplink URL mengarah ke "/mobile"
-  //   PermissionStatus status = await Permission.location.request();
-
-  //   if (status.isDenied) {
-  //     Timer(const Duration(seconds: 4), () {
-  //       showSettingsDialog();
-  //     });
-  //   } else if (status.isPermanentlyDenied) {
-  //     // Jika izin ditolak permanen, arahkan ke halaman pengaturan
-  //     // openAppSettingss();
-  //   }
-  // }
   Future<void> setDeepLinkActivated() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     // Menyimpan nilai 1 yang berarti deep linking sudah diaktifkan
@@ -372,6 +340,9 @@ class _MainAppState extends State<MainApp> {
               ),
               ChangeNotifierProvider<ProviderBook>(
                 create: (context) => ProviderBook(),
+              ),
+              ChangeNotifierProvider<ProviderConsultation>(
+                create: (context) => ProviderConsultation(),
               ),
               ChangeNotifierProvider(
                   create: (context) => ProviderTransaksiAffiliate()),

@@ -18,7 +18,7 @@ import '../auth/component/country_state_city_provider.dart';
 
 class ScreenProfile extends StatefulWidget {
   const ScreenProfile({super.key, required this.phone});
-  final String phone;
+  final dynamic phone;
 
   @override
   State<ScreenProfile> createState() => _ScreenProfileState();

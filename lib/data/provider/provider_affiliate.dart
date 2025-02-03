@@ -1,21 +1,31 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:coolappflutter/data/data_global.dart';
+import 'package:coolappflutter/data/provider/provider_profiling.dart';
 import 'package:coolappflutter/data/provider/provider_transaksi_affiliate.dart';
 import 'package:coolappflutter/data/repositories/repo_affiliate.dart';
 import 'package:coolappflutter/data/response/affiliate/res_check_topup_affiliate.dart';
+import 'package:coolappflutter/data/response/affiliate/res_overview.dart'
+    as affiliasiover;
 import 'package:coolappflutter/data/response/affiliate/res_detail_member.dart';
 import 'package:coolappflutter/data/response/affiliate/res_home_affiliate.dart';
 import 'package:coolappflutter/data/response/affiliate/res_list_bank.dart';
 import 'package:coolappflutter/data/response/affiliate/res_list_member.dart';
+import 'package:coolappflutter/data/response/affiliate/res_overview.dart';
 import 'package:coolappflutter/data/response/affiliate/res_save_rekening.dart';
 import 'package:coolappflutter/data/response/user/res_check_profile.dart';
 import 'package:coolappflutter/presentation/pages/afiliate/components/dialog_transfer_affiliate.dart';
 import 'package:coolappflutter/presentation/pages/afiliate/screen_input_rekening.dart';
+import 'package:coolappflutter/presentation/pages/konsultasi/konsultant/boarding/Boarding1.dart';
+import 'package:coolappflutter/presentation/pages/konsultasi/konsultant/konsultant_dashboard.dart';
+import 'package:coolappflutter/presentation/pages/konsultasi/konsultant/konsultasi_status.dart';
+import 'package:coolappflutter/presentation/pages/konsultasi/konsultant/terma_konsultan.dart';
 import 'package:coolappflutter/presentation/pages/transakction/topup_saldo.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../generated/l10n.dart';
 import '../../presentation/pages/afiliate/result_rekening_bank.dart';
@@ -28,44 +38,10 @@ import '../response/affiliate/res_bank_account.dart';
 import 'package:collection/collection.dart';
 
 class ProviderAffiliate extends ChangeNotifier {
-  // ProviderAffiliate.initEdit(BuildContext context, {BankAccount? datBank}) {
-  //   nameBank = TextEditingController(text: datBank?.bankName ?? "-");
-  //   noRek = TextEditingController(text: datBank?.accountNo);
-  //   nama = TextEditingController(text: datBank?.accountName ?? "-");
-  //   // getDataAccountBank(context, datBank?.bankcode ?? "", noRek?.text ?? "");
-  // }
-
-  // ProviderAffiliate.initAff(BuildContext context, {Function? onUpdate}) {
-  //   if (onUpdate != null) {
-  //     getHomeAff(context);
-  //   }
-  //   getHomeAff(context);
-  // }
-
-  // ProviderAffiliate.initDetailMember(BuildContext context,
-  //     {DataMemberAffiliate? data}) {
-  //   if (data != null) {
-  //     getDetailAffiliate(context, data.id.toString());
-  //   }
-  // }
-
-  // ProviderAffiliate.initMember(BuildContext context) {
-  //   getListMember(context);
-  // }
-
-  // ProviderAffiliate.initRek(BuildContext context, {DataAffiliasi? dataBank}) {
-  //   if (dataBank != null) {
-  //     noRek = TextEditingController(text: dataBank.bankNumber);
-  //     nameBank = TextEditingController(text: dataBank.bankName);
-  //     getListRekening(context);
-  //   } else {
-  //     getListRekening(context);
-  //   }
-  // }
   DataAffiliasi? dataAffiliasi;
+  affiliasiover.Data? dataOverview;
   bool isLoading = false;
   RepoAffiliate repo = RepoAffiliate();
-  dynamic idUserGet;
 
   /// Retrieves the home affiliate data and performs necessary actions based on the response.
   ///
@@ -76,13 +52,14 @@ class ProviderAffiliate extends ChangeNotifier {
   ///
   /// Returns:
   /// - `Future<void>`: A `Future` that completes when the function finishes executing.
+
   Future<void> getHomeAff(BuildContext context) async {
     isLoading = true;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       notifyListeners();
     });
 
-    Either<Failure, ResAffiliate> response = await repo.getHomeAffiliate();
+    Either<Failure, ResOverView> response = await repo.getOverViewAffiliate();
     isLoading = false;
     notifyListeners();
     response.when(error: (e) {
@@ -99,39 +76,123 @@ class ProviderAffiliate extends ChangeNotifier {
     }, success: (res) async {
       debugPrint("cektt");
       if (res.success == true) {
-        dataAffiliasi = res.data;
-        idUserGet = dataAffiliasi!.idUser.toString();
-        debugPrint("provider id user ${dataAffiliasi!.idUser.toString()}");
+        dataOverview = res.data;
+        dataGlobal.dataAff = res.data;
+        notifyListeners();
+        Provider.of<ProviderProfiling>(context, listen: false)
+            .getListProfiling(context);
         // beneficiary@example.com
-        context.read<ProviderTransaksiAffiliate>().dataAffiliasi =
-            dataAffiliasi;
-
-        /// check if the account is active
-        // if (dataAffiliasi?.isActive.toString() != "1") {
-        //   debugPrint("cekttt");
-        // NotificationUtils.showSimpleDialog(context,
-        //     message: S.of(context).account_disabled_contact_admin, () {
-        //   Nav.back();
-        //   Nav.back();
-        // }, textOnButton: S.of(context).close);
-        // } else {
+        // context.read<ProviderTransaksiAffiliate>().dataAffiliasi =
+        //     dataAffiliasi;
         debugPrint("cekmm");
-
-        /// if account is active check data bank
-        checkCompleteBank(context);
+        // checkCompleteBank(context);
 
         if (pilihRek != null) {
           nameBank = TextEditingController(text: dataAffiliasi?.bankName);
         }
-        getListRekening(context);
+        // getListRekening(context);
         if (kDebugMode) {
-          print("data aff ${dataAffiliasi?.toJson()}");
+          print("data aff ${dataOverview?.toJson()}");
         }
-        // }
-
         notifyListeners();
       }
     });
+
+    notifyListeners();
+  }
+
+  bool isCheckloading = false;
+  Future<void> checkConsultantStatus(BuildContext context) async {
+    isCheckloading = false;
+    Either<Failure, ResOverView> response = await repo.getOverViewAffiliate();
+
+    response.when(
+      error: (e) {
+        NotificationUtils.showDialogError(
+          context,
+          () {
+            Nav.back();
+          },
+          widget: Text(
+            e.message,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 16),
+          ),
+          textButton: S.of(context).back,
+        );
+      },
+      success: (res) async {
+        print(res.data?.statusApprovalConsultant ??
+            "Status approval consultant tidak ditemukan di response");
+
+        if (res.success == true) {
+          String? statusApproval = res.data?.statusApprovalConsultant;
+
+          if (statusApproval == null) {
+            // Jika statusApproval bernilai null
+            Nav.to(TermaKonsultant(
+              isCheck: true,
+            ));
+            print('Status approval consultant: null');
+          } else if (statusApproval == "not_found") {
+            Nav.to(TermaKonsultant(
+              isCheck: true,
+            ));
+            print('Status approval consultant: not_found');
+          } else if (statusApproval == "waiting") {
+            Nav.to(KonsulatsiStatusPage(isRejected: false));
+            print('Status approval consultant: waiting');
+          } else if (statusApproval == "reject") {
+            Nav.to(KonsulatsiStatusPage(isRejected: true));
+            print('Status approval consultant: waiting');
+          } else if (statusApproval == "approve") {
+            final prefs = await SharedPreferences.getInstance();
+            final isFirstTimeBoarding =
+                prefs.getBool('isFirstTimeBoarding') ?? true;
+            if (isFirstTimeBoarding) {
+              // Jika pertama kali, arahkan ke BoardingKonsultan1
+              await prefs.setBool(
+                  'isFirstTimeBoarding', false); // Tandai sudah masuk
+              Nav.to(BoardingKonsultan1());
+              print('Status approval consultant: approved (first time)');
+            } else {
+              // Jika bukan pertama kali, arahkan ke KonsultantDashboard
+              Nav.to(KonsultantDashboard());
+              print('Status approval consultant: approved (not first time)');
+            }
+          } else {
+            // Penanganan jika status tidak dikenali
+            NotificationUtils.showDialogError(
+              context,
+              () {
+                Nav.back();
+              },
+              widget: Text(
+                "Status tidak dikenali: $statusApproval",
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 16),
+              ),
+              textButton: S.of(context).back,
+            );
+            print("Status approval consultant tidak dikenali: $statusApproval");
+          }
+        } else {
+          // Penanganan jika res.success == false
+          NotificationUtils.showDialogError(
+            context,
+            () {
+              Nav.back();
+            },
+            widget: const Text(
+              "Gagal memuat data.",
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 16),
+            ),
+            textButton: S.of(context).back,
+          );
+        }
+      },
+    );
 
     notifyListeners();
   }
@@ -223,39 +284,6 @@ class ProviderAffiliate extends ChangeNotifier {
 
     notifyListeners();
   }
-
-  // bool isLoadingg = false;
-  // List<DataRek> listRek = [];
-  // DataRek? pilihReks;
-
-  // Future<void> getListRekening(BuildContext context) async {
-  //   isLoading = true;
-  //   notifyListeners();
-
-  //   Either<Failure, ResListBank> response = await repo.getListBank();
-  //   isLoading = false;
-
-  //   response.when(
-  //     error: (e) {
-  //       NotificationUtils.showDialogError(context, () {
-  //         Navigator.of(context).pop();
-  //       },
-  //           widget: Text(
-  //             e.message,
-  //             textAlign: TextAlign.center,
-  //             style: const TextStyle(fontSize: 16),
-  //           ),
-  //           textButton: "Back");
-  //     },
-  //     success: (res) async {
-  //       if (res.status == 200) {
-  //         listRek = res.data ?? [];
-  //       }
-  //     },
-  //   );
-
-  //   notifyListeners();
-  // }
 
   bool isListMember = false;
   List<DataMemberAffiliate> listMember = [];

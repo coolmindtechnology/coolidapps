@@ -40,18 +40,32 @@ class MessageLookup extends MessageLookupByLibrary {
         "ARCHIVE": MessageLookupByLibrary.simpleMessage("ARŞİV"),
         "About_Us_And_Help":
             MessageLookupByLibrary.simpleMessage("Hakkımızda ve Yardım"),
+        "Accept_Themes": MessageLookupByLibrary.simpleMessage(
+            "Kullanıcılar çeşitli temalarla danışmanlık isteği gönderecek, size uygun olan temaları kabul edin!"),
         "Accepted": MessageLookupByLibrary.simpleMessage("Kabul Edildi"),
         "Account": MessageLookupByLibrary.simpleMessage("Hesap"),
         "Account_Deletion_Terms":
             MessageLookupByLibrary.simpleMessage("Hesap Silme Şartları"),
         "Achievement": MessageLookupByLibrary.simpleMessage("Başarı"),
         "Active_session": MessageLookupByLibrary.simpleMessage("Aktif Seans"),
+        "Add_Experience": MessageLookupByLibrary.simpleMessage("Deneyim ekle"),
         "Add_Session": MessageLookupByLibrary.simpleMessage("Oturum Ekle"),
+        "Add_Supporting_Documents": MessageLookupByLibrary.simpleMessage(
+            "Destekleyici belgeler ekleyin (pdf)"),
+        "Adjust_Your_Schedule": MessageLookupByLibrary.simpleMessage(
+            "Danışmanlık programınızla takviminizi ayarlayın, gerekirse takvimi serbestçe kapatın"),
+        "Affordable_Professional_Services":
+            MessageLookupByLibrary.simpleMessage(
+                "Uygun Fiyatlı Profesyonel Hizmetler"),
+        "All": MessageLookupByLibrary.simpleMessage("Hepsi"),
         "App_Version":
             MessageLookupByLibrary.simpleMessage("Uygulama Sürümü V2.4.93"),
         "Archives": MessageLookupByLibrary.simpleMessage("Arşivler"),
+        "Available": MessageLookupByLibrary.simpleMessage("Mevcut"),
         "Awaiting_Confirmation": MessageLookupByLibrary.simpleMessage(
             "Danışmanın programı için onay bekleniyor, lütfen bekleyin"),
+        "Awaiting_Payment":
+            MessageLookupByLibrary.simpleMessage("Ödeme Bekleniyor"),
         "Ayo_kenali_diri_anda":
             MessageLookupByLibrary.simpleMessage("Hadi kendini tanıyalım!"),
         "BUSINESS": MessageLookupByLibrary.simpleMessage("İŞ DÜNYASI"),
@@ -64,13 +78,22 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Affiliator Ol"),
         "CANNOT_LEAVE_SESSION":
             MessageLookupByLibrary.simpleMessage("OTURUMDAN ÇIKILAMAZ"),
+        "COOLAPP_Now_With_Confiding_Space":
+            MessageLookupByLibrary.simpleMessage(
+                "COOLAPP şimdi sizin için bir sır paylaşma alanı sunuyor"),
         "CREATIVE": MessageLookupByLibrary.simpleMessage("YARATICI"),
+        "Cannot_Leave_Confiding": MessageLookupByLibrary.simpleMessage(
+            "Sır paylaşma oturumu bitmeden oturumu terk etmenize izin verilmiyor"),
         "Cannot_Leave_Session": MessageLookupByLibrary.simpleMessage(
             "Oturumu tamamlamadan çıkamazsınız"),
         "Change_Email":
             MessageLookupByLibrary.simpleMessage("E-postayı Değiştir"),
         "Change_Phone_Number":
             MessageLookupByLibrary.simpleMessage("Telefon numarasını değiştir"),
+        "Check_Confiding_Details": MessageLookupByLibrary.simpleMessage(
+            "Lütfen sır paylaşma sayfasında oturum detaylarını kontrol edin"),
+        "Choose_Confiding_Time": MessageLookupByLibrary.simpleMessage(
+            "Sır paylaşma oturumunuz için uygun zamanı seçebilirsiniz"),
         "Choose_Your_Language":
             MessageLookupByLibrary.simpleMessage("Dil Seçiniz"),
         "Choose_Your_Reason":
@@ -83,15 +106,28 @@ class MessageLookup extends MessageLookupByLibrary {
             "Danışmanlık için uygun zamanı seçebilirsiniz"),
         "Choose_your_consultant": MessageLookupByLibrary.simpleMessage(
             "Danışmanınızı dikkatlice seçin, önümüzdeki 3 gün boyunca onunla çalışacaksınız"),
+        "Classes_Training": MessageLookupByLibrary.simpleMessage(
+            "Kurslar, eğitimler veya COOL seminerleri dahil. Sertifikalar gibi destekleyici belgeler sağlayın"),
+        "Close": MessageLookupByLibrary.simpleMessage("Kapat"),
+        "Commission_History":
+            MessageLookupByLibrary.simpleMessage("Komisyon Geçmişi"),
         "Complete_Session_First": MessageLookupByLibrary.simpleMessage(
             "Lütfen çıkmadan önce oturumunuzu tamamlayın"),
         "Completed_On": MessageLookupByLibrary.simpleMessage("Tamamlandı:"),
+        "Confession_History":
+            MessageLookupByLibrary.simpleMessage("İtiraf Geçmişi"),
+        "Confiding_Time":
+            MessageLookupByLibrary.simpleMessage("Sır Paylaşma Zamanı"),
         "Confirm_Your_Identity":
             MessageLookupByLibrary.simpleMessage("Kimliğinizi Doğrulayın"),
+        "Consult_Themes": MessageLookupByLibrary.simpleMessage(
+            "Temalarınıza göre danışmanlık yapın"),
         "Consult_based_personality": MessageLookupByLibrary.simpleMessage(
             "Kişiliğinize göre danışmanlık alarak kendinizi daha yakından tanıyın"),
         "Consult_personality":
             MessageLookupByLibrary.simpleMessage("Lütfen kişiliğinizi danışın"),
+        "Consultant_Commission":
+            MessageLookupByLibrary.simpleMessage("Danışman Komisyonu"),
         "Consultant_Name": MessageLookupByLibrary.simpleMessage("Danışman Adı"),
         "Consultant_Profile":
             MessageLookupByLibrary.simpleMessage("Danışman Profili"),
@@ -100,17 +136,22 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Danışmanlık Geçmişi"),
         "Consultation_Request_Accepted": MessageLookupByLibrary.simpleMessage(
             "Danışmanlık Talebi Kabul Edildi"),
+        "Consultation_Schedule":
+            MessageLookupByLibrary.simpleMessage("Danışmanlık Takvimi"),
         "Consultation_time":
             MessageLookupByLibrary.simpleMessage("Danışmanlık Zamanı"),
         "Continue_Payment":
             MessageLookupByLibrary.simpleMessage("Ödemeye Devam Et"),
         "CoolTeam": MessageLookupByLibrary.simpleMessage("CoolTeam"),
+        "Cool_Points": MessageLookupByLibrary.simpleMessage("Cool Puanlar"),
         "Coolapp_consultation_space": MessageLookupByLibrary.simpleMessage(
             "COOLAPP artık sizin için profesyonel bir danışmanlık alanı sunuyor"),
         "Curhat":
             MessageLookupByLibrary.simpleMessage("Duygularınızı paylaşın"),
         "Current_Language": MessageLookupByLibrary.simpleMessage("Mevcut Dil"),
         "Delete_Account": MessageLookupByLibrary.simpleMessage("Hesabı Sil"),
+        "Describe_Your_Experience":
+            MessageLookupByLibrary.simpleMessage("Deneyiminizi tanımlayın"),
         "Discount_newcomer": MessageLookupByLibrary.simpleMessage(
             "Yeni başlayanlara özel %20 indirim"),
         "Discuss_This": MessageLookupByLibrary.simpleMessage("Bunu Tartış"),
@@ -118,19 +159,31 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Bunu tartışıyoruz"),
         "Do_You_Want_To_Delete_Account": MessageLookupByLibrary.simpleMessage(
             "Hesabınızı silmek istiyor musunuz?"),
+        "Dont_Be_Shy": MessageLookupByLibrary.simpleMessage(
+            "Çekinmeyin, yalnız değilsiniz, sizi dinlemeye hazır birçok insan var"),
+        "Earn_Commission": MessageLookupByLibrary.simpleMessage(
+            "Tamamladığınız danışmanlıklar üzerinden komisyon kazanın!"),
         "Earn_money_by_becoming_an_affiliator":
             MessageLookupByLibrary.simpleMessage(
                 "Bir affiliator olarak para kazan"),
+        "Ebook": MessageLookupByLibrary.simpleMessage("E-Book"),
         "Edit_profile": MessageLookupByLibrary.simpleMessage("Profili Düzenle"),
         "Email_Input":
             MessageLookupByLibrary.simpleMessage("E-postanızı girin"),
         "Emotion_in": MessageLookupByLibrary.simpleMessage("Duygu İçinde"),
         "Enter_referal_code": MessageLookupByLibrary.simpleMessage(
             "Desteklemek istediğiniz bir destekçiniz mi var? Aşağıya yönlendirme kodunu girin!"),
+        "Experience": MessageLookupByLibrary.simpleMessage("Deneyim"),
+        "Experience_Description":
+            MessageLookupByLibrary.simpleMessage("Deneyim Açıklaması"),
+        "Experience_Title":
+            MessageLookupByLibrary.simpleMessage("Deneyim Başlığı"),
         "FITNESS": MessageLookupByLibrary.simpleMessage("FİTNESS"),
         "FREE": MessageLookupByLibrary.simpleMessage("ÜCRETSİZ"),
         "Fill_in_your_profile": MessageLookupByLibrary.simpleMessage(
             "Hadi! Profilinizi doldurun, böylece tüm özelliklerimizin keyfini çıkarabilirsiniz"),
+        "Filter_By_Date":
+            MessageLookupByLibrary.simpleMessage("Tarihe Göre Filtrele"),
         "Follow_on_Coolchat":
             MessageLookupByLibrary.simpleMessage("Coolchat\'ta Takip Et"),
         "Follower": MessageLookupByLibrary.simpleMessage("Takipçi"),
@@ -145,25 +198,35 @@ class MessageLookup extends MessageLookupByLibrary {
         "Go_test_profiling": MessageLookupByLibrary.simpleMessage(
             "Profilinizi şimdi test edin ve kendinizi daha iyi tanıyın"),
         "Goodbye": MessageLookupByLibrary.simpleMessage("Hoşça kal"),
+        "Guide_Followers": MessageLookupByLibrary.simpleMessage(
+            "Takipçileri daha iyi bir hayata yönlendirelim"),
         "Healing": MessageLookupByLibrary.simpleMessage("Şifa"),
         "Help": MessageLookupByLibrary.simpleMessage("Yardım"),
         "How_was_Your_Chat_Session":
             MessageLookupByLibrary.simpleMessage("Sohbet oturumunuz nasıldı?"),
+        "Hundred_Points": MessageLookupByLibrary.simpleMessage("100 Puan"),
         "I_Understand": MessageLookupByLibrary.simpleMessage("Anladım"),
         "Image": MessageLookupByLibrary.simpleMessage("Görsel"),
         "Information_Confirmed": MessageLookupByLibrary.simpleMessage(
             "Verilen bilgiler, istediğim danışmanlık seansı ile uyumludur"),
+        "Invite_Friends": MessageLookupByLibrary.simpleMessage(
+            "Arkadaşlarınızı davet edin ve ödüller kazanın"),
+        "Invite_Friends_Rewards": MessageLookupByLibrary.simpleMessage(
+            "Arkadaşlarınızı davet edin, daha fazla ödül kazanın"),
         "Join_Coolchat":
             MessageLookupByLibrary.simpleMessage("Coolchat\'a Katıl"),
         "Know_deeper": MessageLookupByLibrary.simpleMessage(
             "Kendinizi daha derinden tanıyın!"),
         "Knowing_yourself": MessageLookupByLibrary.simpleMessage(
             "Kendini tanımak, kendini sevmenin bir yoludur"),
+        "Member": MessageLookupByLibrary.simpleMessage("Üye"),
         "Minutes_Left": MessageLookupByLibrary.simpleMessage("dakika kaldı"),
         "My_Profiling": MessageLookupByLibrary.simpleMessage("Profilim"),
         "My_Profiling_Results":
             MessageLookupByLibrary.simpleMessage("Profil Sonuçlarım"),
         "My_Subscription": MessageLookupByLibrary.simpleMessage("Aboneliğim"),
+        "New_Confiding_Session":
+            MessageLookupByLibrary.simpleMessage("Yeni Sır Paylaşma Oturumu"),
         "New_Email_Input":
             MessageLookupByLibrary.simpleMessage("Yeni E-postayı Girin"),
         "New_consultation_session":
@@ -178,6 +241,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "OTP_Code_Input":
             MessageLookupByLibrary.simpleMessage("OTP Kodunu Girin"),
         "Old_Email": MessageLookupByLibrary.simpleMessage("Eski E-postanız"),
+        "One_Session_Thirty_Minutes": MessageLookupByLibrary.simpleMessage(
+            "1 oturum sadece 30 dakika sürebilir"),
         "Only_30_minutes": MessageLookupByLibrary.simpleMessage(
             "Her seans sadece 30 dakika sürebilir"),
         "Open_all_topics": MessageLookupByLibrary.simpleMessage(
@@ -196,6 +261,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Pay_Now": MessageLookupByLibrary.simpleMessage("Şimdi Öde"),
         "Payment_After_Approval": MessageLookupByLibrary.simpleMessage(
             "*Ödeme, danışmanın onayı sonrasında yapılır"),
+        "Payment_Successful":
+            MessageLookupByLibrary.simpleMessage("Ödeme Başarılı"),
         "Pick_Consultant":
             MessageLookupByLibrary.simpleMessage("Danışmanınızı Seçin"),
         "Pick_Date": MessageLookupByLibrary.simpleMessage("Tarih Seç"),
@@ -208,10 +275,16 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Lütfen desteklemek istediğiniz promotörü seçin."),
         "Post": MessageLookupByLibrary.simpleMessage("Gönderi"),
         "Price": MessageLookupByLibrary.simpleMessage("Fiyat"),
+        "Proceed": MessageLookupByLibrary.simpleMessage("Devam Et"),
         "Rating_Given":
             MessageLookupByLibrary.simpleMessage("Verilen Değerlendirme"),
-        "Real_Money": MessageLookupByLibrary.simpleMessage("Gerçek Para"),
+        "Read_Ebook": MessageLookupByLibrary.simpleMessage("E-Book\'u Okuyun"),
+        "Real_Money": MessageLookupByLibrary.simpleMessage("Gerçek Para :"),
+        "Reapply": MessageLookupByLibrary.simpleMessage("Tekrar başvur"),
         "Receipt": MessageLookupByLibrary.simpleMessage("Fiş"),
+        "Rejected": MessageLookupByLibrary.simpleMessage("Reddedildi"),
+        "Related_Experience":
+            MessageLookupByLibrary.simpleMessage("COOL ile ilgili deneyim?"),
         "Related_Topics":
             MessageLookupByLibrary.simpleMessage("İlgili Konular"),
         "Report_Issue": MessageLookupByLibrary.simpleMessage("Sorun Bildir"),
@@ -222,6 +295,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Request_Account_Deletion":
             MessageLookupByLibrary.simpleMessage("Hesap Silme Talebi"),
         "Requests": MessageLookupByLibrary.simpleMessage("İstekler"),
+        "Return_To_Main_Page": MessageLookupByLibrary.simpleMessage(
+            "Ana sayfaya 3 saniye içinde geri dönülüyor..."),
+        "Review_Session":
+            MessageLookupByLibrary.simpleMessage("Oturumunuzu gözden geçirin"),
         "Review_Your_Session":
             MessageLookupByLibrary.simpleMessage("Oturumunuzu Gözden Geçirin"),
         "Search": MessageLookupByLibrary.simpleMessage("Arama"),
@@ -230,6 +307,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Send": MessageLookupByLibrary.simpleMessage("Gönder"),
         "Send_Verification_Code":
             MessageLookupByLibrary.simpleMessage("Doğrulama kodu gönder"),
+        "Session": MessageLookupByLibrary.simpleMessage("Oturum"),
         "Session_Archived":
             MessageLookupByLibrary.simpleMessage("ARŞİVLENDİ (TAMAMLANDI)"),
         "Session_Begins_In": MessageLookupByLibrary.simpleMessage(
@@ -246,22 +324,43 @@ class MessageLookup extends MessageLookupByLibrary {
         "Setting": MessageLookupByLibrary.simpleMessage("Ayarlar"),
         "Share_Experience":
             MessageLookupByLibrary.simpleMessage("Deneyiminizi Paylaşın"),
+        "Share_Link": MessageLookupByLibrary.simpleMessage("Bağlantıyı paylaş"),
         "Short_Time": MessageLookupByLibrary.simpleMessage(
             "Seni bu kısa süre içinde tanımak güzeldi, seni özleyeceğiz"),
+        "Skip": MessageLookupByLibrary.simpleMessage("Atla"),
         "Start_Session":
             MessageLookupByLibrary.simpleMessage("Oturumu Başlat?"),
         "Start_consulting_now": MessageLookupByLibrary.simpleMessage(
             "Hemen danışmanlık yapmaya başlayın!"),
         "Status": MessageLookupByLibrary.simpleMessage("Durum"),
+        "Submission_Details": MessageLookupByLibrary.simpleMessage(
+            "İşte danışman olarak başvurunuzun detayları"),
         "Support_Your_Preferred_Promoter": MessageLookupByLibrary.simpleMessage(
             "Tercih Ettiğiniz Promotörü Destekleyin"),
+        "Supporting_Documents": MessageLookupByLibrary.simpleMessage(
+            "Destekleyici belgeler (Opsiyonel)"),
         "Tell_Us": MessageLookupByLibrary.simpleMessage("Bize anlatın!"),
         "Tell_Us_Here": MessageLookupByLibrary.simpleMessage("Buraya yazın"),
+        "Tell_Us_What_You_Gained":
+            MessageLookupByLibrary.simpleMessage("Bize kazandığınızı anlatın"),
+        "Terms_Conditions":
+            MessageLookupByLibrary.simpleMessage("Şartlar ve Koşullar"),
         "Terms_and_Conditions":
             MessageLookupByLibrary.simpleMessage("Şartlar ve Koşullar"),
+        "Thank_You_For_Registering": MessageLookupByLibrary.simpleMessage(
+            "Danışman olarak kaydolduğunuz için teşekkür ederiz, lütfen danışmanlık sayfasındaki başvuru durumunu kontrol edin"),
         "Thank_You_For_Your_Report": MessageLookupByLibrary.simpleMessage(
             "Raporunuz için teşekkür ederiz"),
+        "Total_Commission":
+            MessageLookupByLibrary.simpleMessage("Toplam Komisyon :"),
+        "Total_Earned":
+            MessageLookupByLibrary.simpleMessage("Toplam Kazanılan"),
+        "Total_Members": MessageLookupByLibrary.simpleMessage("Toplam Üye :"),
         "Total_Point": MessageLookupByLibrary.simpleMessage("Toplam Puan"),
+        "Type_Need": MessageLookupByLibrary.simpleMessage("İhtiyaç Türü :"),
+        "Unavailable": MessageLookupByLibrary.simpleMessage("Kullanılamaz"),
+        "UndangTeman":
+            MessageLookupByLibrary.simpleMessage("Arkadaşlarını Davet Et!"),
         "Understood": MessageLookupByLibrary.simpleMessage("Anlaşıldı"),
         "Use_Email": MessageLookupByLibrary.simpleMessage("E-posta Kullan"),
         "Use_Phone_Number":
@@ -271,19 +370,35 @@ class MessageLookup extends MessageLookupByLibrary {
         "Video": MessageLookupByLibrary.simpleMessage("Video"),
         "View_Archive":
             MessageLookupByLibrary.simpleMessage("Arşivi Görüntüle"),
+        "Waiting_Approval":
+            MessageLookupByLibrary.simpleMessage("Onay Bekleniyor"),
+        "Waiting_Confirmation":
+            MessageLookupByLibrary.simpleMessage("Onay Bekleniyor"),
         "We_Appreciate_Your_Feedback": MessageLookupByLibrary.simpleMessage(
             "Geri bildirim ve önerilerinizi önemsiyoruz. Daha iyi olmaya çalışacağız."),
+        "Welcome_Affiliator":
+            MessageLookupByLibrary.simpleMessage("Hoş geldiniz affiliator!"),
+        "Welcome_Consultation_Program": MessageLookupByLibrary.simpleMessage(
+            "Danışmanlık Programına Hoş Geldiniz"),
+        "Welcome_To_Consultation_Program": MessageLookupByLibrary.simpleMessage(
+            "Danışmanlık Programına Hoş Geldiniz"),
+        "What_Is_Your_Problem":
+            MessageLookupByLibrary.simpleMessage("Sorununuz nedir?"),
         "What_Problem":
             MessageLookupByLibrary.simpleMessage("Hangi sorunu yaşıyorsunuz?"),
         "Why_Consultation_Needed": MessageLookupByLibrary.simpleMessage(
             "Neden danışmanlık almak istiyorsunuz?"),
         "Why_Need_Consultant": MessageLookupByLibrary.simpleMessage(
             "Neden bir danışmana ihtiyacınız var?"),
+        "Why_Rejected":
+            MessageLookupByLibrary.simpleMessage("Neden reddedildim?"),
         "Write_Here": MessageLookupByLibrary.simpleMessage("Buraya yazın"),
+        "Your_Balance": MessageLookupByLibrary.simpleMessage("Bakiyeniz :"),
         "Your_Email": MessageLookupByLibrary.simpleMessage("E-postanız"),
         "Your_Explanation": MessageLookupByLibrary.simpleMessage("Açıklamanız"),
         "Your_Story_Helps": MessageLookupByLibrary.simpleMessage(
             "Hikayeniz, daha iyi olmamıza yardımcı olur"),
+        "Your_Submission": MessageLookupByLibrary.simpleMessage("Başvurunuz"),
         "access_denied": MessageLookupByLibrary.simpleMessage(
             "Erişim reddedildi. Bu işlemi yapma yetkiniz yok."),
         "account_disabled_contact_admin": MessageLookupByLibrary.simpleMessage(
@@ -304,6 +419,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "already_have_an_account":
             MessageLookupByLibrary.simpleMessage("Zaten Hesabınız Var Mı?"),
         "amount": MessageLookupByLibrary.simpleMessage("Tutar"),
+        "approvalSuccessful":
+            MessageLookupByLibrary.simpleMessage("Onay Başarılı"),
         "aura_type": MessageLookupByLibrary.simpleMessage("Aura Tipi"),
         "back": MessageLookupByLibrary.simpleMessage("Geri"),
         "bank_account": MessageLookupByLibrary.simpleMessage("Banka Hesabı"),
@@ -322,6 +439,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "calculation_results":
             MessageLookupByLibrary.simpleMessage("Profiling Sonuçları"),
         "cancel": MessageLookupByLibrary.simpleMessage("İptal"),
+        "cannotAcceptConsultation": MessageLookupByLibrary.simpleMessage(
+            "Danışmanlık kabul edilemiyor"),
         "cannot_be_empty": MessageLookupByLibrary.simpleMessage("Boş olamaz"),
         "certificate": MessageLookupByLibrary.simpleMessage("Sertifika"),
         "change_language":
@@ -337,6 +456,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Bildiğiniz dili seçin"),
         "choose_topup": MessageLookupByLibrary.simpleMessage("Yükleme Seçin"),
         "city": MessageLookupByLibrary.simpleMessage("Şehir"),
+        "clientComment": MessageLookupByLibrary.simpleMessage("Müşteri Yorumu"),
+        "clientExplanation":
+            MessageLookupByLibrary.simpleMessage("Müşteri Açıklaması"),
+        "clientRating":
+            MessageLookupByLibrary.simpleMessage("Müşteri Değerlendirmesi"),
+        "clientReason": MessageLookupByLibrary.simpleMessage("Müşteri Nedeni"),
         "close": MessageLookupByLibrary.simpleMessage("Kapat"),
         "close_page_auto": MessageLookupByLibrary.simpleMessage(
             "Bu sayfa otomatik olarak kapanacaktır"),
@@ -348,6 +473,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "confirm_location":
             MessageLookupByLibrary.simpleMessage("Konumu Onayla"),
         "confirmation": MessageLookupByLibrary.simpleMessage("Onay"),
+        "conflictingSession": MessageLookupByLibrary.simpleMessage(
+            "Aynı zamanda başka bir danışmanlık oturumunuz var"),
         "congratulation_you_have_become_a_regular_member":
             MessageLookupByLibrary.simpleMessage(
                 "Tebrikler, artık COOL Apps düzenli üyesisiniz"),
@@ -356,6 +483,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Bağlantı hatası oluştu. Lütfen ağ bağlantınızı kontrol edin."),
         "connection_lost": MessageLookupByLibrary.simpleMessage(
             "Bağlantı kesildi. Lütfen internet bağlantınızı kontrol edin."),
+        "consultationApproved":
+            MessageLookupByLibrary.simpleMessage("Danışmanlık onaylandı."),
         "copy": MessageLookupByLibrary.simpleMessage("Kopyala"),
         "country": MessageLookupByLibrary.simpleMessage("Ülke"),
         "create_new_password": MessageLookupByLibrary.simpleMessage(
@@ -384,6 +513,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Hesabınız Yok Mu?"),
         "download": MessageLookupByLibrary.simpleMessage("İndir"),
         "due_date": MessageLookupByLibrary.simpleMessage("Vade Tarihi"),
+        "earnedCommission":
+            MessageLookupByLibrary.simpleMessage("Kazanılan Komisyon"),
         "ebook": MessageLookupByLibrary.simpleMessage("E-Kitap"),
         "email": MessageLookupByLibrary.simpleMessage("E-posta"),
         "email_not_registered": MessageLookupByLibrary.simpleMessage(
@@ -402,6 +533,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Yükleme tutarını girin"),
         "every_human_being_is_unique": MessageLookupByLibrary.simpleMessage(
             "Her insan benzersizdir ve farklı beyin tiplerinin kombinasyonuna sahiptir. Peki, seni tanımlayan beyin tipi nedir?"),
+        "exampleReason":
+            MessageLookupByLibrary.simpleMessage("Örnek: Zaman uygun değil"),
         "exit_confirmation": MessageLookupByLibrary.simpleMessage(
             "Uygulamadan çıkmak istediğinizden emin misiniz?"),
         "failed_load_qr_code": MessageLookupByLibrary.simpleMessage(
@@ -458,6 +591,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "list": MessageLookupByLibrary.simpleMessage("Liste"),
         "listen_brain_40_times": MessageLookupByLibrary.simpleMessage(
             "Lütfen beyninizi 40 kez dinleyin. Ardından diğer abonelik seçenekleri sunulacaktır."),
+        "loading": MessageLookupByLibrary.simpleMessage("Yükleniyor..."),
         "logging_in":
             MessageLookupByLibrary.simpleMessage("Giriş Yapılıyor..."),
         "logout": MessageLookupByLibrary.simpleMessage("Çıkış Yap"),
@@ -578,6 +712,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Profiling Sonuçları"),
         "program_cancelled": MessageLookupByLibrary.simpleMessage(
             "CoolApp affiliate programına katılımınız başarıyla iptal edildi"),
+        "provideYourReason":
+            MessageLookupByLibrary.simpleMessage("Nedeninizi belirtin"),
         "qr_code": MessageLookupByLibrary.simpleMessage("QR Kodu"),
         "reach_your_brains_maximum_potential": MessageLookupByLibrary.simpleMessage(
             "Beynin maksimum potansiyeline ulaşmak için, çeşitli bilişsel fonksiyonları uyarıp geliştiren özel ses kayıtlarını dinle. Her gün ücretsiz dinle."),
@@ -585,6 +721,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "read_ebook_online":
             MessageLookupByLibrary.simpleMessage("E-Kitabı Çevrimiçi Oku"),
         "referral": MessageLookupByLibrary.simpleMessage("Referans"),
+        "referralLinkCopied": MessageLookupByLibrary.simpleMessage(
+            "Referans bağlantısı kopyalandı!"),
         "referral_code_affiliate":
             MessageLookupByLibrary.simpleMessage("Afiliasyon Kodu"),
         "referral_code_copied":
@@ -598,6 +736,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Kayıt Olunuyor..."),
         "registration_success":
             MessageLookupByLibrary.simpleMessage("Kaydolma başarılı"),
+        "reject": MessageLookupByLibrary.simpleMessage("Reddet"),
+        "rejectRequest": MessageLookupByLibrary.simpleMessage("Talebi Reddet?"),
         "repeat_password":
             MessageLookupByLibrary.simpleMessage("Şifreyi Tekrarla"),
         "request_cancelled": MessageLookupByLibrary.simpleMessage(
@@ -613,6 +753,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "response_timeout":
             MessageLookupByLibrary.simpleMessage("Yanıt zaman aşımına uğradı."),
         "result_detail": MessageLookupByLibrary.simpleMessage("Sonuç Detayı"),
+        "returnIn3Seconds":
+            MessageLookupByLibrary.simpleMessage("3 saniye içinde geri dön..."),
         "rich_type": MessageLookupByLibrary.simpleMessage("Zengin Tipi"),
         "save": MessageLookupByLibrary.simpleMessage("Kaydet"),
         "save_agreement": MessageLookupByLibrary.simpleMessage(
@@ -637,6 +779,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "KENDİNİZİ AMELİYAT EDİN,\nÇÖZÜM AMELİYATINI YAPIN"),
         "send": MessageLookupByLibrary.simpleMessage("Gönder"),
         "sending": MessageLookupByLibrary.simpleMessage("Gönderiliyor ..."),
+        "sessionCompleted":
+            MessageLookupByLibrary.simpleMessage("Oturum Tamamlandı"),
         "setting": MessageLookupByLibrary.simpleMessage("Ayarlar"),
         "seven_days_ago": MessageLookupByLibrary.simpleMessage("7 Gün Önce"),
         "share_code": MessageLookupByLibrary.simpleMessage("Kodu Paylaş"),
@@ -729,7 +873,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "use_your_user_account": MessageLookupByLibrary.simpleMessage(
             "Lütfen kullanıcı hesabınızı kullanın"),
         "user": MessageLookupByLibrary.simpleMessage("Kullanıcı"),
+        "viewArchive": MessageLookupByLibrary.simpleMessage("Arşivi Görüntüle"),
         "view_results": MessageLookupByLibrary.simpleMessage("Sonuçları Gör"),
+        "waiting": MessageLookupByLibrary.simpleMessage("BEKLENİYOR"),
+        "waitingForUser":
+            MessageLookupByLibrary.simpleMessage("Kullanıcı Bekleniyor"),
         "want_to_hear_more_please_subscribe":
             MessageLookupByLibrary.simpleMessage(
                 "Daha fazla duymak ister misiniz? Lütfen abone olun"),
@@ -748,6 +896,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "yes_exit": MessageLookupByLibrary.simpleMessage("Evet, Çık"),
         "yes_i_have": MessageLookupByLibrary.simpleMessage("Evet bende var"),
         "yesterday": MessageLookupByLibrary.simpleMessage("Dün"),
+        "yourReferralCode":
+            MessageLookupByLibrary.simpleMessage("Referans Kodunuz"),
         "your_affiliate_code":
             MessageLookupByLibrary.simpleMessage("Afiliasyon Kodunuz"),
         "your_personality": MessageLookupByLibrary.simpleMessage("Kişiliğiniz")

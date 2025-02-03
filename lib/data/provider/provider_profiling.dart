@@ -77,7 +77,7 @@ class ProviderProfiling extends ChangeNotifier {
   }
 
   ProviderPayment payment = ProviderPayment();
-
+  bool isLoadingget = false;
   bool isLoading = false;
   RepoProfiling repo = RepoProfiling();
   List<DataProfiling> listProfiling = [], listDisable = [];

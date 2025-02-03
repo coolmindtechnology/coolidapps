@@ -1,11 +1,17 @@
 import 'package:coolappflutter/data/response/res_opening_cool.dart';
 import 'package:coolappflutter/data/response/user/res_get_location_member.dart';
 import 'package:coolappflutter/data/response/user/res_get_user.dart';
+import 'package:coolappflutter/data/response/consultant/res_dashboard_consultant.dart'
+    as consultant;
+import 'package:coolappflutter/data/response/affiliate/res_overview.dart'
+    as Aff;
 import 'package:flutter/foundation.dart';
 
 class DataGlobal extends ChangeNotifier {
   DataGlobal();
   DataUser? dataUser;
+  consultant.Data? dataConsultant;
+  Aff.Data? dataAff;
   MemberArea? dataMember;
   DataOpening? dataOpening;
   bool isIndonesia = true;

@@ -3,6 +3,7 @@ import 'package:coolappflutter/data/response/affiliate/res_check_topup_affiliate
 import 'package:coolappflutter/data/response/affiliate/res_detail_member.dart';
 import 'package:coolappflutter/data/response/affiliate/res_list_bank.dart';
 import 'package:coolappflutter/data/response/affiliate/res_list_member.dart';
+import 'package:coolappflutter/data/response/affiliate/res_overview.dart';
 import 'package:coolappflutter/data/response/affiliate/res_save_rekening.dart';
 import 'package:coolappflutter/data/response/user/res_check_profile.dart';
 import 'package:dio/dio.dart';
@@ -32,6 +33,29 @@ class RepoAffiliate {
               ));
 
       return Either.success(ResAffiliate.fromJson(res.data));
+    } catch (e, st) {
+      if (kDebugMode) {
+        print(st);
+      }
+      return Either.error(ErrorHandler.handle(e).failure);
+    }
+  }
+
+  Future<Either<Failure, ResOverView>> getOverViewAffiliate() async {
+    try {
+      Response res =
+          await dio.get(ApiEndpoint.homeAffiliate(dataGlobal.dataUser?.id),
+              // ApiEndpoint.homeAffiliate(843),
+              options: Options(
+                validateStatus: (status) {
+                  return status == 200 || status == 400;
+                },
+                contentType: Headers.jsonContentType,
+                responseType: ResponseType.json,
+                headers: {'Authorization': dataGlobal.token},
+              ));
+
+      return Either.success(ResOverView.fromJson(res.data));
     } catch (e, st) {
       if (kDebugMode) {
         print(st);

@@ -1,9 +1,9 @@
 import 'package:coolappflutter/generated/l10n.dart';
-import 'package:coolappflutter/presentation/pages/Konsultasi/Konsultasi_Page.dart';
+
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:flutter/material.dart';
 
-import '../Konsultasi/components/Container_Promo.dart';
+import '../../widgets/Container/container_promo.dart';
 
 class PromoPopup extends StatefulWidget {
   const PromoPopup({super.key});
