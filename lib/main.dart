@@ -9,6 +9,7 @@ import 'package:coolappflutter/data/provider/provider_auth_affiliate.dart';
 import 'package:coolappflutter/data/provider/provider_boarding.dart';
 import 'package:coolappflutter/data/provider/provider_book.dart';
 import 'package:coolappflutter/data/provider/provider_brain_activation.dart';
+import 'package:coolappflutter/data/provider/provider_consultant.dart';
 import 'package:coolappflutter/data/provider/provider_consultation.dart';
 import 'package:coolappflutter/data/provider/provider_cool_chat.dart';
 import 'package:coolappflutter/data/provider/provider_payment.dart';
@@ -361,6 +362,9 @@ class _MainAppState extends State<MainApp> {
               ChangeNotifierProvider(create: (_) => LocationProvider()),
               ChangeNotifierProvider(
                 create: (_) => CountryStateCityProvider(),
+              ),
+              ChangeNotifierProvider(
+                create: (context) => ConsultantProvider(),
               ),
             ],
             child: MaterialApp(
