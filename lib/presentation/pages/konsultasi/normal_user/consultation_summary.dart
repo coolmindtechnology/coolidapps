@@ -95,9 +95,10 @@ class _SummaryConsultantState extends State<SummaryConsultant> {
                 height: 20,
               ),
               TextField(
+                enabled: false,
                 maxLines: 5,
                 decoration: InputDecoration(
-                    hintText: S.of(context).Why_Need_Consultant,
+                    hintText: widget.partisipant,
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: BorderSide(color: Colors.grey.shade300))),
@@ -158,43 +159,44 @@ class _SummaryConsultantState extends State<SummaryConsultant> {
               SizedBox(
                 height: 10,
               ),
-              GlobalButton(
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      provider.createConsultation(
-                          context,
-                          widget.consultId,
-                          widget.themeId,
-                          widget.partisipant,
-                          widget.typeSession,
-                          widget.time);
-                      // Timer untuk navigasi otomatis setelah 3 detik
-                      Future.delayed(Duration(seconds: 3), () {
-                        Nav.toAll(KonsultasiPage()); // Ganti ke rute tujuan
-                      });
+              if (isConfirmed)
+                GlobalButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        provider.createConsultation(
+                            context,
+                            widget.consultId,
+                            widget.themeId,
+                            widget.partisipant,
+                            widget.typeSession,
+                            widget.time);
+                        // Timer untuk navigasi otomatis setelah 3 detik
+                        Future.delayed(Duration(seconds: 5), () {
+                          Nav.toAll(KonsultasiPage()); // Ganti ke rute tujuan
+                        });
 
-                      return Dialog(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                        child: SizedBox(
-                          height: 350,
-                          child: ContainerPromo(
-                            title: S.of(context).Awaiting_Confirmation,
-                            imageUrl: 'konsultasi/Time_Circle.jpg',
-                            subtitle: S.of(context).Awaiting_Confirmation,
-                            subtitle2: S.of(context).Back_to_Consultation,
+                        return Dialog(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15.0),
                           ),
-                        ),
-                      );
-                    },
-                  );
-                },
-                color: primaryColor,
-                text: S.of(context).next,
-              )
+                          child: SizedBox(
+                            height: 350,
+                            child: ContainerPromo(
+                              title: S.of(context).Awaiting_Confirmation,
+                              imageUrl: 'konsultasi/Time_Circle.jpg',
+                              subtitle: S.of(context).Awaiting_Confirmation,
+                              subtitle2: S.of(context).Back_to_Consultation,
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                  color: primaryColor,
+                  text: S.of(context).next,
+                )
             ],
           ),
         ),

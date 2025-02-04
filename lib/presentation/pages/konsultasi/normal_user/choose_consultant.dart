@@ -115,7 +115,7 @@ class _ChooseConsultantState extends State<ChooseConsultant> {
                 child: ListView.builder(
                   itemCount: provider.consultantsPerson.length,
                   itemBuilder: (context, index) {
-                    final profile = profileData[index];
+                    final profile = provider.consultantsPerson.length;
                     return GestureDetector(
                       onTap: () {
                         // Nav.toAll(ProfileConsultant());
@@ -154,7 +154,9 @@ class _ChooseConsultantState extends State<ChooseConsultant> {
                               timeColor: BlueColor,
                               status: S.of(context).Achievement,
                               warnastatus: Colors.white,
-                              onTap: profile['onTap'], // Aksi jika ada
+                              onTap: () {
+                                selectId = index;
+                              }, // Aksi jika ada
                             ),
                           ],
                         ),

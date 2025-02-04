@@ -3,6 +3,7 @@
 import 'dart:async';
 
 import 'package:coolappflutter/data/apps/app_assets.dart';
+import 'package:coolappflutter/data/apps/app_sizes.dart';
 
 import 'package:coolappflutter/data/provider/provider_payment.dart';
 import 'package:coolappflutter/data/provider/provider_profiling.dart';
@@ -404,7 +405,7 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                                   onTap: () {
                                     Nav.to(TransaksiAffiliatePage(
                                       initialTab: () =>
-                                          1, // Menentukan tab kedua sebagai tab awal
+                                          0, // Menentukan tab kedua sebagai tab awal
                                       tabChanger: (changeTabAffiliate) {
                                         // Dapat digunakan untuk mengubah tab dari luar
                                       },
@@ -731,13 +732,13 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
         backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         title: Text(S.of(context).yourReferralCode),
-        content: Row(
+        content: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             const SizedBox(height: 10),
             Container(
-              width: 150,
+              width: double.infinity,
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
                 color: Colors.grey[200],
@@ -750,32 +751,31 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                 maxLines: 5,
               ),
             ),
-            Expanded(
-              child: ElevatedButton.icon(
-                onPressed: () {
-                  Clipboard.setData(ClipboardData(text: linkReferralCode))
-                      .then((_) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(S.of(context).referralLinkCopied)),
-                    );
-                  });
-                },
-                icon: const Icon(Icons.copy, color: Colors.white), // Warna ikon
-                label: Text(
-                  S.of(context).copy,
-                  style: TextStyle(color: Colors.white), // Warna teks
+            gapH20,
+            ElevatedButton.icon(
+              onPressed: () {
+                Clipboard.setData(ClipboardData(text: linkReferralCode))
+                    .then((_) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(S.of(context).referralLinkCopied)),
+                  );
+                });
+              },
+              icon: const Icon(Icons.copy, color: Colors.white), // Warna ikon
+              label: Text(
+                S.of(context).copy,
+                style: TextStyle(color: Colors.white), // Warna teks
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: BlueColor, // Warna latar belakang tombol
+                foregroundColor: Colors.white, // Warna teks dan ikon
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(
+                      8), // Membuat sudut tombol melengkung
                 ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: BlueColor, // Warna latar belakang tombol
-                  foregroundColor: Colors.white, // Warna teks dan ikon
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                        8), // Membuat sudut tombol melengkung
-                  ),
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 12, horizontal: 16), // Padding tombol
-                  elevation: 5, // Efek bayangan tombol
-                ),
+                padding: const EdgeInsets.symmetric(
+                    vertical: 12, horizontal: 16), // Padding tombol
+                elevation: 5, // Efek bayangan tombol
               ),
             ),
           ],

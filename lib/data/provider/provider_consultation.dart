@@ -137,10 +137,18 @@ class ProviderConsultation extends ChangeNotifier {
     try {
       final response = await dio.get(
         url,
+        // data: {
+        //   "type_session": "consultation",
+        // },
+        queryParameters: {
+          'type_session': 'consultation',
+        },
         options: Options(
           headers: {'Authorization': 'Bearer $token'},
         ),
       );
+      final responseData = ResponseListConsultant.fromJson(response.data);
+      debugPrint("${responseData.data?.data}");
 
       if (response.statusCode == 200) {
         final responseData = ResponseListConsultant.fromJson(response.data);
@@ -149,6 +157,7 @@ class ProviderConsultation extends ChangeNotifier {
         throw Exception('Failed to load consultations');
       }
     } catch (error) {
+      debugPrint("cek e $error");
       rethrow;
     } finally {
       _isLoading = false;
@@ -294,7 +303,7 @@ class ProviderConsultation extends ChangeNotifier {
       );
 
       if (response.statusCode == 200 || response.statusCode == 201) {
-        print("Consultation created successfully: ${response.data}");
+        debugPrint("Consultation created successfully: ${response.data}");
       } else {
         NotificationUtils.showDialogError(context, () {
           Nav.back();
@@ -304,7 +313,7 @@ class ProviderConsultation extends ChangeNotifier {
               style: const TextStyle(fontSize: 16),
               textAlign: TextAlign.center,
             ));
-        print("Failed to create consultation: ${response.statusMessage}");
+        debugPrint("Failed to create consultation: ${response.statusMessage}");
       }
     } catch (e) {
       NotificationUtils.showDialogError(context, () {

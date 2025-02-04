@@ -9,10 +9,12 @@ import 'package:coolappflutter/data/networks/dio_handler.dart';
 import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
 import 'package:coolappflutter/data/repositories/repo_user.dart';
 import 'package:coolappflutter/data/response/user/res_address.dart';
+import 'package:coolappflutter/data/response/user/res_category_bug.dart';
 import 'package:coolappflutter/data/response/user/res_check_profile.dart';
 import 'package:coolappflutter/data/response/user/res_get_location_member.dart';
 import 'package:coolappflutter/data/response/user/res_get_total_saldo.dart';
 import 'package:coolappflutter/data/response/user/res_get_user.dart';
+import 'package:coolappflutter/data/response/user/res_report_bug.dart';
 import 'package:coolappflutter/data/response/user/res_update_photo_user.dart';
 import 'package:coolappflutter/data/response/user/res_update_user.dart';
 import 'package:coolappflutter/generated/l10n.dart';
@@ -23,6 +25,7 @@ import 'package:coolappflutter/presentation/utils/money_formatter.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:coolappflutter/presentation/utils/notification_utils.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -670,5 +673,91 @@ class ProviderUser extends ChangeNotifier {
 
     _isLoadingss = false;
     notifyListeners();
+  }
+
+  ResGetCategory? categoryData;
+  bool isLoadingCategory = false;
+  Future<void> getCategroyBug(
+    BuildContext context,
+  ) async {
+    isLoadingCategory = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      notifyListeners();
+    });
+
+    Either<Failure, ResGetCategory> response = await repo.getCategoryBug();
+
+    isLoadingCategory = false;
+    notifyListeners();
+
+    response.when(
+      error: (failure) {
+        debugPrint("Error fetching list kategori bug");
+        // Tampilkan dialog error jika gagal
+        NotificationUtils.showDialogError(
+          context,
+          () {
+            Nav.back(); // Kembali ke layar sebelumnya
+          },
+          widget: Text(
+            failure.message,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 16),
+          ),
+          textButton: "Back",
+        );
+      },
+      success: (res) {
+        debugPrint("list kategori bug fetched successfully");
+        if (res.success == true) {
+          categoryData = res;
+          notifyListeners(); // Update UI dengan data terbaru
+          if (kDebugMode) {
+            print("list kategori bug: ${categoryData?.toJson()}");
+          }
+        } else {
+          debugPrint("Failed to fetch list kategori bug");
+        }
+      },
+    );
+
+    notifyListeners();
+  }
+
+  bool isLoadingReportBug = false;
+
+  Future<void> reportBug({
+    required List<int> categories,
+    required String body,
+  }) async {
+    isLoadingReportBug = true;
+    notifyListeners();
+
+    try {
+      // Mengirim data ke repository
+      Either<Failure, ResReportBug> response = await repo.ReportBugByUser(
+        categories,
+        body,
+      );
+
+      isLoadingReportBug = false;
+      notifyListeners();
+
+      // Handle response
+      response.when(
+        error: (e) {
+          throw Exception(e.message ?? 'Terjadi kesalahan');
+        },
+        success: (res) {
+          if (res.success != true) {
+            throw Exception(res.message ?? 'Laporan bug gagal');
+          }
+        },
+      );
+    } catch (e) {
+      isLoadingReportBug = false;
+      notifyListeners();
+      throw Exception('Error during report: $e');
+    }
   }
 }

@@ -38,10 +38,10 @@ class Datas {
   int? lastPage;
   String? lastPageUrl;
   List<Links>? links;
-  Null nextPageUrl;
+  dynamic nextPageUrl;
   String? path;
   int? perPage;
-  Null prevPageUrl;
+  dynamic prevPageUrl;
   int? to;
   int? total;
 

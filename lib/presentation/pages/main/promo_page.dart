@@ -56,31 +56,30 @@ class _PromoPopupState extends State<PromoPopup> {
     ];
 
     return SizedBox(
-        height: 400, // Adjust the height as needed for better view
-        child: Expanded(
-          child: PageView.builder(
-            controller: _pageController,
-            itemCount: promoContent.length,
-            itemBuilder: (context, index) {
-              final item = promoContent[index];
-              return ContainerPromo(
-                title: item['title'],
-                imageUrl: item['imageUrl'],
-                subtitle: item['subtitle'],
-                imageUrl2: item['imageUrl2'],
-                onPressed1: () {
-                  _goBackPage();
-                },
-                onPressed2: index == 2
-                    ? () {
-                        Navigator.pop(context);
-                      }
-                    : () {
-                        _goToNextPage();
-                      },
-              );
+      height: 400, // Adjust the height as needed for better view
+      child: PageView.builder(
+        controller: _pageController,
+        itemCount: promoContent.length,
+        itemBuilder: (context, index) {
+          final item = promoContent[index];
+          return ContainerPromo(
+            title: item['title'],
+            imageUrl: item['imageUrl'],
+            subtitle: item['subtitle'],
+            imageUrl2: item['imageUrl2'],
+            onPressed1: () {
+              _goBackPage();
             },
-          ),
-        ));
+            onPressed2: index == 2
+                ? () {
+                    Navigator.pop(context);
+                  }
+                : () {
+                    _goToNextPage();
+                  },
+          );
+        },
+      ),
+    );
   }
 }

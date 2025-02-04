@@ -7,7 +7,8 @@ import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'chat.dart';
 
 class UsersPage extends StatelessWidget {
-  const UsersPage({super.key});
+  const UsersPage({super.key, required this.idUser});
+  final String idUser;
 
   Widget _buildAvatar(types.User user) {
     final color = getUserAvatarNameColor(user);
@@ -33,11 +34,13 @@ class UsersPage extends StatelessWidget {
   void _handlePressed(types.User otherUser, BuildContext context) async {
     final navigator = Navigator.of(context);
     final room = await FirebaseChatCore.instance.createRoom(otherUser);
+    debugPrint("cek id users ${room.id}");
 
     navigator.pop();
     await navigator.push(
       MaterialPageRoute(
         builder: (context) => ChatPage(
+          idUser: idUser,
           room: room,
         ),
       ),
@@ -71,6 +74,7 @@ class UsersPage extends StatelessWidget {
 
                 return GestureDetector(
                   onTap: () {
+                    debugPrint("cek user ids $user ");
                     _handlePressed(user, context);
                   },
                   child: Container(

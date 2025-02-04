@@ -375,7 +375,7 @@ class _MainAppState extends State<MainApp> {
               onGenerateRoute: (RouteSettings settings) {
                 final routeName = settings.name;
                 Widget routeWidget = const SplashScreen();
-
+//  userr == null ? const SplashScreen() : RoomsPage();
                 if (routeName != null) {
                   if (routeName.startsWith('/mobile')) {
                     // Navigated to /book/:id

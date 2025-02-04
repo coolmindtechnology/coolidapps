@@ -40,6 +40,7 @@ class _FormConsultantState extends State<FormConsultant> {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController inputDeskrip = TextEditingController();
     return Consumer<ProviderConsultation>(builder: (context, provider, _) {
       return Scaffold(
           appBar: AppBar(
@@ -81,6 +82,7 @@ class _FormConsultantState extends State<FormConsultant> {
                   height: 20,
                 ),
                 TextField(
+                  controller: inputDeskrip,
                   maxLines: 5,
                   decoration: InputDecoration(
                       hintText: S.of(context).Why_Need_Consultant,
@@ -94,7 +96,7 @@ class _FormConsultantState extends State<FormConsultant> {
                       Nav.to(SummaryConsultant(
                         consultId: widget.id.toString(),
                         themeId: widget.getThemeId,
-                        partisipant: widget.getTopik,
+                        partisipant: inputDeskrip.text,
                         typeSession: 'consultation',
                         time: widget.getTime,
                         imagePath: provider.image.toString(),

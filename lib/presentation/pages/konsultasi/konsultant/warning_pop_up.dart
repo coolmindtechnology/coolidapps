@@ -1,11 +1,16 @@
 import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/konsultasi_page.dart';
 import 'package:coolappflutter/presentation/pages/konsultasi/konsultant/chat/chatbox.dart';
+import 'package:coolappflutter/presentation/pages/konsultasi/konsultant/chat/rooms_konsultant.dart';
+import 'package:coolappflutter/presentation/pages/konsultasi/normal_user/chat/firebase_chat/rooms.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:coolappflutter/presentation/widgets/Container/Container_Promo.dart';
 import 'package:flutter/material.dart';
 
 class WarningStartSession extends StatefulWidget {
+  const WarningStartSession({super.key, required this.idUser});
+  final String idUser;
+
   @override
   _WarningStartSessionState createState() => _WarningStartSessionState();
 }
@@ -15,7 +20,6 @@ class _WarningStartSessionState extends State<WarningStartSession> {
 
   List<Map<String, dynamic>> promoContent = [];
   // Daftar konten promo dengan onPressed2 yang dapat disesuaikan
-
 
   void _goToNextPage() {
     _pageController.nextPage(
@@ -45,32 +49,27 @@ class _WarningStartSessionState extends State<WarningStartSession> {
     ];
 
     return SizedBox(
-        height: 400, // Adjust the height as needed for better view
-        child: Expanded(
-          child: PageView.builder(
-            controller: _pageController,
-            itemCount: promoContent.length,
-            itemBuilder: (context, index) {
-              final item = promoContent[index];
-              return ContainerPromo(
-                title: item['title'],
-                imageUrl: 'konsultasi/Danger.png',
-                subtitle: item['subtitle'],
-                onPressed1: () {
-                  _goBackPage();
-                },
-                onPressed2: index == 2
-                    ? () {
-                  Nav.toAll(ChatPageByConsultant(status: true,));
-                }
-                    : () {
-                  _goToNextPage();
-                },
-              );
-
-            },
-          ),
-        )
+      height: 400, // Adjust the height as needed for better view
+      child: PageView.builder(
+        controller: _pageController,
+        itemCount: promoContent.length,
+        itemBuilder: (context, index) {
+          final item = promoContent[index];
+          return ContainerPromo(
+              title: item['title'],
+              imageUrl: 'konsultasi/Danger.png',
+              subtitle: item['subtitle'],
+              onPressed1: () {
+                Nav.back();
+                // _goBackPage();
+              },
+              onPressed2: () {
+                Nav.to(RoomsPageKonsultan(
+                  idUser: widget.idUser,
+                ));
+              });
+        },
+      ),
     );
   }
 }

@@ -5,11 +5,13 @@ import 'package:coolappflutter/data/helpers/failure.dart';
 import 'package:coolappflutter/data/repositories/repo_consultant.dart';
 import 'package:coolappflutter/data/response/consultant/res_approval_by_consultant.dart';
 import 'package:coolappflutter/data/response/consultant/res_approval_summary.dart';
-import 'package:coolappflutter/data/response/consultant/res_dashboard_consultant.dart' as dashboard;
+import 'package:coolappflutter/data/response/consultant/res_dashboard_consultant.dart'
+    as dashboard;
 import 'package:coolappflutter/data/response/consultant/res_dashboard_consultant.dart';
 import 'package:coolappflutter/data/response/consultant/res_get_comissen.dart';
 import 'package:coolappflutter/data/response/consultant/res_get_participant.dart';
-import 'package:coolappflutter/data/response/consultant/res_get_participant.dart' as participantlist;
+import 'package:coolappflutter/data/response/consultant/res_get_participant.dart'
+    as participantlist;
 import 'package:coolappflutter/data/response/consultant/res_get_term.dart';
 import 'package:coolappflutter/data/response/consultant/res_regist_consultant.dart';
 import 'package:coolappflutter/data/response/consultant/res_update_status.dart';
@@ -17,14 +19,15 @@ import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/pages/konsultasi/konsultant/konsultant_dashboard.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:coolappflutter/presentation/utils/notification_utils.dart';
-import 'package:coolappflutter/data/response/consultant/res_approval_summary.dart' as summary;
-import 'package:coolappflutter/data/response/consultant/res_regist_consultant.dart' as regist;
+import 'package:coolappflutter/data/response/consultant/res_approval_summary.dart'
+    as summary;
+import 'package:coolappflutter/data/response/consultant/res_regist_consultant.dart'
+    as regist;
 import 'package:coolappflutter/presentation/widgets/Container/Container_Promo.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class ConsultantProvider extends ChangeNotifier {
-
   // Inisialisasi RepoConsultant
   final RepoConsultant repoConsultant = RepoConsultant();
 
@@ -50,10 +53,6 @@ class ConsultantProvider extends ChangeNotifier {
   List<participantlist.Datum> get listParticipant => participantData ?? [];
   ResGetTerm? get terms => termData;
 
-
-
-
-
   //=========================== Fungsi untuk register consultant =========================== //
   Future<void> registerConsultant({
     required List<String> titleExperience,
@@ -69,7 +68,8 @@ class ConsultantProvider extends ChangeNotifier {
     print('Documents: $documents');
 
     // Mengirim data ke repository
-    Either<Failure, ResRegistConsultant> response = await repoConsultant.registerconsultant(
+    Either<Failure, ResRegistConsultant> response =
+        await repoConsultant.registerconsultant(
       title_experience: titleExperience,
       description_experience: descriptionExperience,
       documents: documents,
@@ -103,7 +103,8 @@ class ConsultantProvider extends ChangeNotifier {
     });
 
     // Call API
-    Either<Failure, ResApprovalConsultant> response = await repoConsultant.getSummary();
+    Either<Failure, ResApprovalConsultant> response =
+        await repoConsultant.getSummary();
 
     // Update loading state
     isLoading = false;
@@ -115,7 +116,7 @@ class ConsultantProvider extends ChangeNotifier {
         debugPrint("Error fetching approval data");
         NotificationUtils.showDialogError(
           context,
-              () {
+          () {
             Nav.back();
           },
           widget: Text(
@@ -123,7 +124,8 @@ class ConsultantProvider extends ChangeNotifier {
             textAlign: TextAlign.center,
             style: const TextStyle(fontSize: 16),
           ),
-          textButton: "Back", // Ganti dengan S.of(context).back jika menggunakan l10n
+          textButton:
+              "Back", // Ganti dengan S.of(context).back jika menggunakan l10n
         );
       },
       success: (res) async {
@@ -142,7 +144,6 @@ class ConsultantProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-
   //=====================================fungsi get data untuk dashboard konsultant ============================//
   Future<void> getHomeConsultant(BuildContext context) async {
     // Set loading state
@@ -152,7 +153,8 @@ class ConsultantProvider extends ChangeNotifier {
     });
 
     // Call API
-    Either<Failure, ResHomeConsultant> response = await repoConsultant.getHomeConsultant();
+    Either<Failure, ResHomeConsultant> response =
+        await repoConsultant.getHomeConsultant();
 
     // Update loading state
     isLoadingHomeConsultant = true;
@@ -164,7 +166,7 @@ class ConsultantProvider extends ChangeNotifier {
         debugPrint("Error fetching home consultant data");
         NotificationUtils.showDialogError(
           context,
-              () {
+          () {
             Nav.back();
           },
           widget: Text(
@@ -172,7 +174,8 @@ class ConsultantProvider extends ChangeNotifier {
             textAlign: TextAlign.center,
             style: const TextStyle(fontSize: 16),
           ),
-          textButton: "Back", // Ganti dengan S.of(context).back jika menggunakan l10n
+          textButton:
+              "Back", // Ganti dengan S.of(context).back jika menggunakan l10n
         );
       },
       success: (res) async {
@@ -192,7 +195,6 @@ class ConsultantProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-
 // ==============================================fungsi untuk get list data participant =====================================//
   Future<void> getParticipant(BuildContext context, {String? parameter}) async {
     // Set loading state
@@ -205,7 +207,8 @@ class ConsultantProvider extends ChangeNotifier {
     debugPrint("Fetching participant data from API...");
 
     // Memanggil fungsi getListParticipant dengan parameter opsional
-    Either<Failure, ResGetParticipant> response = await repoConsultant.getListParticipant(parameter: parameter);
+    Either<Failure, ResGetParticipant> response =
+        await repoConsultant.getListParticipant(parameter: parameter);
 
     // Update loading state
     isLoadingParticipant = false;
@@ -217,7 +220,7 @@ class ConsultantProvider extends ChangeNotifier {
         debugPrint("Error fetching participant data");
         NotificationUtils.showDialogError(
           context,
-              () {
+          () {
             Nav.back();
           },
           widget: Text(
@@ -225,17 +228,20 @@ class ConsultantProvider extends ChangeNotifier {
             textAlign: TextAlign.center,
             style: const TextStyle(fontSize: 16),
           ),
-          textButton: "Back", // Ganti dengan S.of(context).back jika menggunakan l10n
+          textButton:
+              "Back", // Ganti dengan S.of(context).back jika menggunakan l10n
         );
       },
       success: (res) async {
         debugPrint("Participant data fetched successfully");
         if (res.success == true) {
           participantData = res.data;
-          debugPrint("API response sukses: ${res.data}"); // Simpan data ke state
+          debugPrint(
+              "API response sukses: ${res.data}"); // Simpan data ke state
           notifyListeners();
           if (kDebugMode) {
-            print("Participant Data: ${participantData?.map((e) => e.toJson())}");
+            print(
+                "Participant Data: ${participantData?.map((e) => e.toJson())}");
           }
         } else {
           debugPrint("API response gagal : ${res.data}");
@@ -246,13 +252,14 @@ class ConsultantProvider extends ChangeNotifier {
     notifyListeners();
   }
 
- //==========================================fungsi get data term and condition ====================================/
+  //==========================================fungsi get data term and condition ====================================/
   Future<void> getTermsAndConditions(BuildContext context) async {
     isLoadingTerms = true;
     notifyListeners();
 
     // Panggil API melalui repo
-    final Either<Failure, ResGetTerm> response = await repoConsultant.getTermCondition();
+    final Either<Failure, ResGetTerm> response =
+        await repoConsultant.getTermCondition();
 
     // Set loading ke false setelah API selesai
     isLoadingTerms = false;
@@ -263,7 +270,7 @@ class ConsultantProvider extends ChangeNotifier {
         // Tampilkan dialog error
         NotificationUtils.showDialogError(
           context,
-              () {
+          () {
             Nav.back(); // Kembali ke layar sebelumnya
           },
           widget: Text(
@@ -289,14 +296,14 @@ class ConsultantProvider extends ChangeNotifier {
     );
   }
 
-
   //=====================get data comissen ====================////////
   Future<void> getCommissions(BuildContext context, {String? token}) async {
     isLoadingCommissions = true;
     notifyListeners(); // Menandakan bahwa loading sedang berlangsung
 
     // Panggil API melalui repository untuk mendapatkan data commission
-    final Either<Failure, ResGetComissen> response = await repoConsultant.getComissen(token: token);
+    final Either<Failure, ResGetComissen> response =
+        await repoConsultant.getComissen(token: token);
 
     // Set loading ke false setelah API selesai
     isLoadingCommissions = false;
@@ -308,7 +315,7 @@ class ConsultantProvider extends ChangeNotifier {
         // Tampilkan dialog error jika gagal
         NotificationUtils.showDialogError(
           context,
-              () {
+          () {
             Nav.back(); // Kembali ke layar sebelumnya
           },
           widget: Text(
@@ -334,7 +341,6 @@ class ConsultantProvider extends ChangeNotifier {
     );
   }
 
-
   ///=========================update status consultant======================/
   Future<void> updateStatusProvider(BuildContext context, int status) async {
     // Set loading state
@@ -342,7 +348,8 @@ class ConsultantProvider extends ChangeNotifier {
     notifyListeners();
 
     // Call API
-    Either<Failure, ResUpdateStatus> response = await repoConsultant.updateStatus(status);
+    Either<Failure, ResUpdateStatus> response =
+        await repoConsultant.updateStatus(status);
 
     // Update loading state
     isLoadingStatus = false;
@@ -353,7 +360,7 @@ class ConsultantProvider extends ChangeNotifier {
         debugPrint("Error updating status");
         NotificationUtils.showDialogError(
           context,
-              () {
+          () {
             Nav.back();
           },
           widget: Text(
@@ -368,13 +375,14 @@ class ConsultantProvider extends ChangeNotifier {
         if (res.success == true) {
           debugPrint("Status updated successfully");
           // Update UI data
-          homeConsultantData?.availableStatus = res.data?.availableStatus.toString();
+          homeConsultantData?.availableStatus =
+              res.data?.availableStatus.toString();
           notifyListeners(); // Trigger UI rebuild
         } else {
           debugPrint("Failed to update status: ${res.message}");
           NotificationUtils.showDialogError(
             context,
-                () {
+            () {
               Nav.back();
             },
             widget: Text(
@@ -390,10 +398,12 @@ class ConsultantProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-
-
   ///=================================== approve by consultant =================================/
-  Future<void> approveByConsultant(BuildContext context, int consultation_id,String type,) async {
+  Future<void> approveByConsultant(
+    BuildContext context,
+    int consultationId,
+    String type,
+  ) async {
     // Set loading state
     isLoadingApprove = true;
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -401,7 +411,8 @@ class ConsultantProvider extends ChangeNotifier {
     });
 
     // Call API
-    Either<Failure, ResApproveByConsultant> response = await repoConsultant.ApproveByConsultant(consultation_id,"true");
+    Either<Failure, ResApproveByConsultant> response =
+        await repoConsultant.ApproveByConsultant(consultationId, "true");
 
     // Update loading state
     isLoadingApprove = false;
@@ -472,9 +483,9 @@ class ConsultantProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-
   ///=================================== approve by consultant =================================/
-  Future<void> RejectByConsultant(BuildContext context, int consultation_id, String noted) async {
+  Future<void> RejectByConsultant(
+      BuildContext context, int consultationId, String noted) async {
     // Set loading state
     isLoadingApprove = true;
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -482,7 +493,9 @@ class ConsultantProvider extends ChangeNotifier {
     });
 
     // Call API
-    Either<Failure, ResApproveByConsultant> response = await repoConsultant.ApproveByConsultant(consultation_id,"false", note: noted);
+    Either<Failure, ResApproveByConsultant> response =
+        await repoConsultant.ApproveByConsultant(consultationId, "false",
+            note: noted);
 
     // Update loading state
     isLoadingApprove = false;
@@ -513,10 +526,4 @@ class ConsultantProvider extends ChangeNotifier {
 
     notifyListeners();
   }
-
-
-
-
-
-
 }

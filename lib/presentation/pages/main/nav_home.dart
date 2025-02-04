@@ -125,7 +125,9 @@ class _NavMenuScreenState extends State<NavMenuScreen> {
       });
     });
     viewMenu = [
-      HomeScreen(klickTab: klikTab),
+      dataGlobal.dataUser?.isAffiliate == 1
+          ? HomeKonsultant(klickTab: klikTab)
+          : HomeScreen(klickTab: klikTab),
       const NotificationScreen(),
       Container(), // Placeholder untuk tab Chat
       ScreenSettings(

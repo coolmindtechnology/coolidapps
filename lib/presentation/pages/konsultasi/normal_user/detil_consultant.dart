@@ -1,4 +1,5 @@
 import 'package:coolappflutter/presentation/pages/konsultasi/normal_user/chat/firebase_chat/rooms.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/pages/konsultasi/normal_user/pop-upwarning.dart';
@@ -6,8 +7,11 @@ import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:coolappflutter/presentation/widgets/GlobalButton.dart';
 import 'card_consultant.dart';
-import 'chat/chatbox.dart';
+
 import 'profile_card.dart';
+import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
+import 'package:coolappflutter/presentation/pages/konsultasi/normal_user/chat/firebase_chat/chat.dart';
 
 class DetailConsultant extends StatefulWidget {
   final String imagePath;
@@ -23,6 +27,8 @@ class DetailConsultant extends StatefulWidget {
   final String getTopik;
   final String statusSession;
   final String deskripsi;
+  final String idUser;
+  final dynamic user;
 
   const DetailConsultant({
     super.key,
@@ -39,6 +45,8 @@ class DetailConsultant extends StatefulWidget {
     required this.getTopik,
     required this.statusSession,
     required this.deskripsi,
+    required this.idUser,
+    this.user,
   });
 
   @override
@@ -52,6 +60,22 @@ class _DetailConsultantState extends State<DetailConsultant> {
   void initState() {
     deskripsiText.text = widget.deskripsi.toString();
     super.initState();
+  }
+
+  void _handlePressed(types.User otherUser, BuildContext context) async {
+    final navigator = Navigator.of(context);
+    final room = await FirebaseChatCore.instance.createRoom(otherUser);
+    debugPrint("cek id users ${room.id}");
+
+    navigator.pop();
+    await navigator.push(
+      MaterialPageRoute(
+        builder: (context) => ChatPage(
+          idUser: widget.idUser,
+          room: room,
+        ),
+      ),
+    );
   }
 
   @override
@@ -180,9 +204,9 @@ class _DetailConsultantState extends State<DetailConsultant> {
                         Navigator.pop(context);
                       } else {
                         Future.delayed(Duration(seconds: 3), () {
-                          Nav.toAll(RoomsPage()
-                              // ChatPage(status: true),
-                              );
+                          _handlePressed(widget.user, context);
+                          // Nav.to(RoomsPage(idUser: widget.idUser));
+                          // ChatPage(status: true),
                         });
                       }
 

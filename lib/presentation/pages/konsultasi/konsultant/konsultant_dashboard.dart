@@ -68,15 +68,19 @@ class _KonsultantDashboardState extends State<KonsultantDashboard> {
             Text(
               S.of(context).Consultation,
               style: const TextStyle(
-                  color: Colors.white, fontWeight: FontWeight.w600,fontSize: 20),
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 20),
               overflow: TextOverflow.ellipsis,
             ),
           ],
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.white), // Ikon tombol kembali
+          icon: Icon(Icons.arrow_back,
+              color: Colors.white), // Ikon tombol kembali
           onPressed: () {
-            Nav.toAll(NavMenuScreen()); // Aksi untuk kembali ke halaman sebelumnya
+            Nav.toAll(
+                NavMenuScreen()); // Aksi untuk kembali ke halaman sebelumnya
           },
         ),
         actions: [
@@ -86,36 +90,34 @@ class _KonsultantDashboardState extends State<KonsultantDashboard> {
               builder: (context, provider, _) {
                 // Cek apakah provider sedang loading
                 bool isLoading = provider.isLoadingStatus;
-                bool isAvailable = provider.homeConsultantData?.availableStatus == "1";
+                bool isAvailable =
+                    provider.homeConsultantData?.availableStatus == "1";
 
                 return GestureDetector(
                   onTap: () async {
-                    if (!isLoading) {
-                      // Hanya update status jika tidak sedang loading
-                      int newStatus = isAvailable ? 0 : 1; // Toggle status
-                      await provider.updateStatusProvider(context, newStatus);
-                    }
+                    // if (!isLoading) {
+                    //   // Hanya update status jika tidak sedang loading
+                    //   int newStatus = isAvailable ? 0 : 1; // Toggle status
+                    //   await provider.updateStatusProvider(context, newStatus);
+                    // }
                   },
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(5),
                       border: Border.all(
-                        color: isLoading
-                            ? Colors.grey // Border abu-abu saat loading
-                            : (isAvailable ? Colors.green : Colors.red),
+                        color: Colors.green,
                         width: 1.5,
                       ),
                     ),
                     child: Text(
-                      isLoading
-                          ? "Loading..." // Teks saat loading
-                          : (isAvailable ? S.of(context).Available : S.of(context).Unavailable),
+                      S.of(context).Available,
                       style: TextStyle(
                         color: isLoading
                             ? Colors.grey // Teks abu-abu saat loading
-                            : (isAvailable ? Colors.green : Colors.red),
+                            : (Colors.green),
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -123,7 +125,6 @@ class _KonsultantDashboardState extends State<KonsultantDashboard> {
                 );
               },
             ),
-
           ),
           // Padding(
           //   padding: const EdgeInsets.only(right: 10),
@@ -134,7 +135,6 @@ class _KonsultantDashboardState extends State<KonsultantDashboard> {
           // ),
         ],
       ),
-
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -174,7 +174,8 @@ class _KonsultantDashboardState extends State<KonsultantDashboard> {
                   backgroundColor: Colors.lightBlueAccent,
                   borderColor: Colors.blue,
                   title: S.of(context).Consultation_History,
-                  subtitle: '${homeConsultantData?.totalHistoryConsultations ?? "0"}' + ' ' + S.of(context).Session,
+                  subtitle:
+                      '${homeConsultantData?.totalHistoryConsultations ?? "0"} ${S.of(context).Session}',
                   onTap: () {
                     Nav.to(HisotryKonsultasi());
                   },
@@ -186,7 +187,8 @@ class _KonsultantDashboardState extends State<KonsultantDashboard> {
                   backgroundColor: Color(0xFFF8DB1C),
                   borderColor: YellowColor,
                   title: S.of(context).Confession_History,
-                  subtitle: '${homeConsultantData?.totalHistoryCurhat ?? "0"}' + ' ' + S.of(context).Session,
+                  subtitle:
+                      '${homeConsultantData?.totalHistoryCurhat ?? "0"} ${S.of(context).Session}',
                   onTap: () {
                     Nav.to(HisotryCurhat());
                   },
@@ -204,8 +206,10 @@ class _KonsultantDashboardState extends State<KonsultantDashboard> {
                 height: 100,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  border: Border.all(color: BlueColor, width: 2), // Warna garis tepi
-                  borderRadius: BorderRadius.circular(8), // Membulatkan sudut container
+                  border: Border.all(
+                      color: BlueColor, width: 2), // Warna garis tepi
+                  borderRadius:
+                      BorderRadius.circular(8), // Membulatkan sudut container
                   gradient: LinearGradient(
                     colors: [
                       Colors.white.withOpacity(0.8),
@@ -224,11 +228,18 @@ class _KonsultantDashboardState extends State<KonsultantDashboard> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(S.of(context).Commission_History,style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),),
+                          Text(
+                            S.of(context).Commission_History,
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w600),
+                          ),
                           gapW10,
-                          Text('${homeConsultantData?.totalHistoryComission ?? "0"} ' + S.of(context).Session_Completed,style: TextStyle(fontSize: 14,fontWeight: FontWeight.w400),)
+                          Text(
+                            '${homeConsultantData?.totalHistoryComission ?? "0"} ${S.of(context).Session_Completed}',
+                            style: TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.w400),
+                          )
                         ],
-
                       ),
                       Spacer(),
                       Container(
@@ -243,8 +254,10 @@ class _KonsultantDashboardState extends State<KonsultantDashboard> {
                             children: [
                               Text(S.of(context).Your_Balance,
                                   style: TextStyle(
-                                      fontWeight: FontWeight.w500, fontSize: 15)),
-                              Text('Rp.${homeConsultantData?.totalComission ?? "0"}',
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 15)),
+                              Text(
+                                  'Rp.${homeConsultantData?.totalComission ?? "0"}',
                                   style: TextStyle(
                                       fontWeight: FontWeight.w500,
                                       fontSize: 16,
@@ -253,7 +266,6 @@ class _KonsultantDashboardState extends State<KonsultantDashboard> {
                           ),
                         ),
                       )
-
                     ],
                   ),
                 ),

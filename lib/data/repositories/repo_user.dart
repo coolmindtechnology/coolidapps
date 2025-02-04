@@ -5,9 +5,11 @@ import 'package:coolappflutter/data/networks/dio_handler.dart';
 import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
 import 'package:coolappflutter/data/networks/error_handler.dart';
 import 'package:coolappflutter/data/response/user/res_address.dart';
+import 'package:coolappflutter/data/response/user/res_category_bug.dart';
 import 'package:coolappflutter/data/response/user/res_check_profile.dart';
 import 'package:coolappflutter/data/response/user/res_get_total_saldo.dart';
 import 'package:coolappflutter/data/response/user/res_get_user.dart';
+import 'package:coolappflutter/data/response/user/res_report_bug.dart';
 import 'package:coolappflutter/data/response/user/res_update_photo_user.dart';
 import 'package:coolappflutter/data/response/user/res_update_user.dart';
 import 'package:dio/dio.dart';
@@ -195,6 +197,52 @@ class RepoUser {
         print(
           st,
         );
+      }
+      return Either.error(ErrorHandler.handle(e).failure);
+    }
+  }
+
+  Future<Either<Failure, ResGetCategory>> getCategoryBug(
+      {String? token}) async {
+    try {
+      Response res = await dio.get(ApiEndpoint.getCategoryBug,
+          options: Options(
+            validateStatus: (status) {
+              return status == 200 || status == 400;
+            },
+            headers: {'Authorization': dataGlobal.token},
+          ));
+
+      return Either.success(ResGetCategory.fromJson(res.data));
+    } catch (e, st) {
+      if (kDebugMode) {
+        print(st);
+      }
+      return Either.error(ErrorHandler.handle(e).failure);
+    }
+  }
+
+  Future<Either<Failure, ResReportBug>> ReportBugByUser(
+      List<int> categories, String body) async {
+    try {
+      Response res = await dio.post(
+        ApiEndpoint.ReportBugByUser,
+        data: {
+          "category": categories, // Mengirimkan data kategori sebagai array
+          "body": body,
+        },
+        options: Options(
+          validateStatus: (status) {
+            return status == 200 || status == 400;
+          },
+          headers: {'Authorization': dataGlobal.token},
+        ),
+      );
+
+      return Either.success(ResReportBug.fromJson(res.data));
+    } catch (e, st) {
+      if (kDebugMode) {
+        print(st);
       }
       return Either.error(ErrorHandler.handle(e).failure);
     }

@@ -109,6 +109,8 @@ class ApiEndpoint {
   static String checkProfile = "${_userUrlApi}cek-profile";
   static String getTotalSaldo = "${_userUrlApi}getTotalSaldo";
   static String getAddress = "${_userUrlApi}get/extra/address";
+  static String ReportBugByUser = "${_baseUrlApi}users/log/reports";
+  static String getCategoryBug = "${_baseUrlApi}category-user";
 
   //API Consultation
   static String getListConsultation =

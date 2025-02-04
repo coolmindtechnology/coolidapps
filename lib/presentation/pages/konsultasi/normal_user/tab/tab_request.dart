@@ -93,6 +93,7 @@ class _TabRequestState extends State<TabRequest> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => DetailConsultant(
+                          idUser: consultation.id.toString(),
                           imagePath: consultation.consultantImage ?? '-',
                           name: consultation.consultantName ?? '-',
                           title: consultation.consultantTypeBrain ?? '-',

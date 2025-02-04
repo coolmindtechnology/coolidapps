@@ -1,6 +1,10 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/konsultasi/normal_user/konsultasi_page.dart';
+import 'package:coolappflutter/presentation/pages/main/nav_home.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -20,10 +24,12 @@ class ChatPage extends StatefulWidget {
     super.key,
     required this.room,
     this.user,
+    required this.idUser,
   });
 
   final types.Room room;
   final dynamic user;
+  final String idUser;
 
   @override
   State<ChatPage> createState() => _ChatPageState();
@@ -54,7 +60,7 @@ class _ChatPageState extends State<ChatPage> {
   @override
   void initState() {
     startTimerr();
-    fetchDurationFromApi();
+    fetchDurationFromApi(widget.idUser);
     _startCountdown();
     super.initState();
   }
@@ -68,17 +74,17 @@ class _ChatPageState extends State<ChatPage> {
     const apiUrl =
         'https://cool-staging.dschazy.com/api/consultation/post-end-room';
     final formData = FormData.fromMap({
-      'consultation_id': 20,
+      'consultation_id': widget.idUser,
       'is_status': true,
     });
 
     try {
       final response = await dio.post(apiUrl, data: formData);
-      if (response.data['success'] == true) {
+      if (response.statusCode == 200) {
         print(response.data['message']);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(response.data['message'])),
-        );
+        // ScaffoldMessenger.of(context).showSnackBar(
+        //   SnackBar(content: Text(response.data['message'])),
+        // );
       }
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -127,10 +133,10 @@ class _ChatPageState extends State<ChatPage> {
     });
   }
 
-  Future<void> fetchDurationFromApi() async {
+  Future<void> fetchDurationFromApi(String id) async {
     try {
       final response = await Dio().get(
-          'https://cool-staging.dschazy.com/api/consultation/get-start-room/13'); // Ganti dengan URL API Anda
+          'https://cool-staging.dschazy.com/api/consultation/get-start-room/$id'); // Ganti dengan URL API Anda
 
       if (response.statusCode == 200) {
         final int duration =
@@ -342,7 +348,15 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
           systemOverlayStyle: SystemUiOverlayStyle.light,
-          title: const Text('List Konsultan'),
+          title: Text(
+            S.of(context).Consultation,
+            style: TextStyle(color: Colors.white),
+          ),
+          leading: IconButton(
+              onPressed: () {
+                Nav.toAll(NavMenuScreen());
+              },
+              icon: Icon(Icons.arrow_back)),
           actions: [
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -375,77 +389,101 @@ class _ChatPageState extends State<ChatPage> {
             ),
           ],
         ),
-        body: Column(
-          children: [
-            // Tambahkan pesan peringatan jika sesi sudah ditutup
-            if (_remainingSeconds <= 0)
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: Container(
-                  color: Colors.red[50],
-                  padding: const EdgeInsets.all(10),
-                  child: const Text(
-                    'Sesi ditutup, Anda tidak bisa lagi mengirim pesan ke konsultan Anda, tapi konsultan tetap bisa merespon.',
-                    style: TextStyle(
-                        color: Colors.red, fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
+        body: StreamBuilder<types.Room>(
+          initialData: widget.room,
+          stream: FirebaseChatCore.instance.room(widget.room.id),
+          builder: (context, snapshot) => StreamBuilder<List<types.Message>>(
+            initialData: const [],
+            stream: FirebaseChatCore.instance.messages(snapshot.data!),
+            builder: (context, snapshot) => Chat(
+              isAttachmentUploading: _isAttachmentUploading,
+              messages: snapshot.data ?? [],
+              onAttachmentPressed:
+                  _remainingSeconds > 0 ? _handleAtachmentPressed : null,
+              onMessageTap: _handleMessageTap,
+              onPreviewDataFetched: _handlePreviewDataFetched,
+              onSendPressed:
+                  _remainingSeconds > 0 ? _handleSendPressed : (message) {},
+              user: types.User(
+                id: FirebaseChatCore.instance.firebaseUser?.uid ?? '',
               ),
-
-            // Chat
-            Expanded(
-              child: StreamBuilder<types.Room>(
-                initialData: widget.room,
-                stream: FirebaseChatCore.instance.room(widget.room.id),
-                builder: (context, snapshot) =>
-                    StreamBuilder<List<types.Message>>(
-                  initialData: const [],
-                  stream: FirebaseChatCore.instance.messages(snapshot.data!),
-                  builder: (context, snapshot) => Chat(
-                    isAttachmentUploading: _isAttachmentUploading,
-                    messages: snapshot.data ?? [],
-                    onAttachmentPressed:
-                        _remainingSeconds > 0 ? _handleAtachmentPressed : null,
-                    onMessageTap: _handleMessageTap,
-                    onPreviewDataFetched: _handlePreviewDataFetched,
-                    onSendPressed: _remainingSeconds > 0
-                        ? _handleSendPressed
-                        : (message) {},
-                    user: types.User(
-                      id: FirebaseChatCore.instance.firebaseUser?.uid ?? '',
-                    ),
-                    inputOptions: isVisibleChat == false
-                        ? const InputOptions(enabled: true)
-                        : const InputOptions(enabled: false),
-                  ),
-                ),
-              ),
+              inputOptions: isVisibleChat == false
+                  ? const InputOptions(enabled: true)
+                  : const InputOptions(enabled: false),
             ),
-            // Expanded(
-            //   child: StreamBuilder<types.Room>(
-            //     initialData: widget.room,
-            //     stream: FirebaseChatCore.instance.room(widget.room.id),
-            //     builder: (context, snapshot) =>
-            //         StreamBuilder<List<types.Message>>(
-            //       initialData: const [],
-            //       stream: FirebaseChatCore.instance.messages(snapshot.data!),
-            //       builder: (context, snapshot) => Chat(
-            //         isAttachmentUploading: _isAttachmentUploading,
-            //         messages: snapshot.data ?? [],
-            //         onAttachmentPressed: _handleAtachmentPressed,
-            //         onMessageTap: _handleMessageTap,
-            //         onPreviewDataFetched: _handlePreviewDataFetched,
-            //         onSendPressed: _handleSendPressed,
-            //         user: types.User(
-            //           id: FirebaseChatCore.instance.firebaseUser?.uid ?? '',
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            // ),
-          ],
+          ),
         ),
+        // Column(
+        // children: [
+        //   // Tambahkan pesan peringatan jika sesi sudah ditutup
+        //   if (_remainingSeconds <= 0)
+        //     Padding(
+        //       padding: const EdgeInsets.all(20),
+        //       child: Container(
+        //         color: Colors.red[50],
+        //         padding: const EdgeInsets.all(10),
+        //         child: const Text(
+        //           'Sesi ditutup, Anda tidak bisa lagi mengirim pesan ke konsultan Anda, tapi konsultan tetap bisa merespon.',
+        //           style: TextStyle(
+        //               color: Colors.red, fontWeight: FontWeight.bold),
+        //           textAlign: TextAlign.center,
+        //         ),
+        //       ),
+        //     ),
+
+        //   // Chat
+        //   Expanded(
+        //     child: StreamBuilder<types.Room>(
+        //       initialData: widget.room,
+        //       stream: FirebaseChatCore.instance.room(widget.room.id),
+        //       builder: (context, snapshot) =>
+        //           StreamBuilder<List<types.Message>>(
+        //         initialData: const [],
+        //         stream: FirebaseChatCore.instance.messages(snapshot.data!),
+        //         builder: (context, snapshot) => Chat(
+        //           isAttachmentUploading: _isAttachmentUploading,
+        //           messages: snapshot.data ?? [],
+        //           onAttachmentPressed:
+        //               _remainingSeconds > 0 ? _handleAtachmentPressed : null,
+        //           onMessageTap: _handleMessageTap,
+        //           onPreviewDataFetched: _handlePreviewDataFetched,
+        //           onSendPressed: _remainingSeconds > 0
+        //               ? _handleSendPressed
+        //               : (message) {},
+        //           user: types.User(
+        //             id: FirebaseChatCore.instance.firebaseUser?.uid ?? '',
+        //           ),
+        //           inputOptions: isVisibleChat == false
+        //               ? const InputOptions(enabled: true)
+        //               : const InputOptions(enabled: false),
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // Expanded(
+        //   child: StreamBuilder<types.Room>(
+        //     initialData: widget.room,
+        //     stream: FirebaseChatCore.instance.room(widget.room.id),
+        //     builder: (context, snapshot) =>
+        //         StreamBuilder<List<types.Message>>(
+        //       initialData: const [],
+        //       stream: FirebaseChatCore.instance.messages(snapshot.data!),
+        //       builder: (context, snapshot) => Chat(
+        //         isAttachmentUploading: _isAttachmentUploading,
+        //         messages: snapshot.data ?? [],
+        //         onAttachmentPressed: _handleAtachmentPressed,
+        //         onMessageTap: _handleMessageTap,
+        //         onPreviewDataFetched: _handlePreviewDataFetched,
+        //         onSendPressed: _handleSendPressed,
+        //         user: types.User(
+        //           id: FirebaseChatCore.instance.firebaseUser?.uid ?? '',
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // ),
+        // ],
+        // ),
       );
 }
 

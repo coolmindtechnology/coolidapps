@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:coolappflutter/presentation/pages/konsultasi/normal_user/chat/firebase_chat/chat.dart';
 import 'package:coolappflutter/presentation/pages/konsultasi/normal_user/chat/firebase_chat/users.dart';
 import 'package:coolappflutter/presentation/pages/konsultasi/normal_user/chat/firebase_chat/util.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -8,17 +9,15 @@ import 'package:flutter/services.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 
-import 'chat.dart';
-
-class RoomsPage extends StatefulWidget {
-  const RoomsPage({super.key, required this.idUser});
+class RoomsPageKonsultan extends StatefulWidget {
+  const RoomsPageKonsultan({super.key, required this.idUser});
   final String idUser;
 
   @override
-  State<RoomsPage> createState() => _RoomsPageState();
+  State<RoomsPageKonsultan> createState() => _RoomsPageState();
 }
 
-class _RoomsPageState extends State<RoomsPage> {
+class _RoomsPageState extends State<RoomsPageKonsultan> {
   bool _error = false;
   bool _initialized = false;
   User? _user;

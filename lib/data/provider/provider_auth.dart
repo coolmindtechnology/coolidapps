@@ -179,12 +179,35 @@ class ProviderAuth extends ChangeNotifier {
         ),
       );
     }, success: (res) async {
-      // final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-      //   email: "${res.data?.email.toString()}",
-      //   password: password,
-      // );
-      // credential.user!.uid;
-      // debugPrint("masukk4 ${res.data?.idRole}");
+      try {
+        // **Coba Login dengan Firebase**
+        final credential =
+            await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: res.data?.email.trim() ?? "",
+          password: password.trim(),
+        );
+
+        debugPrint("Login berhasil: ${credential.user?.email}");
+      } on FirebaseAuthException catch (e) {
+        // **Jika Error 'user-not-found', Buat Akun Baru**
+
+        final credential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: res.data?.email.trim() ?? "",
+          password: password.trim(),
+        );
+
+        await FirebaseChatCore.instance.createUserInFirestore(
+          types.User(
+            firstName: res.data?.email.toString().substring(0, 3).trim(),
+            id: credential.user!.uid,
+            imageUrl:
+                'https://i.pravatar.cc/300?u=${res.data?.email.toString().substring(0, 2).trim()}',
+            lastName: res.data?.email.toString().substring(0, 2).trim(),
+          ),
+        );
+      }
+
       if (res.success == true) {
         if (res.data?.idRole.toString() == "2") {
           isLoading = false;
@@ -345,10 +368,10 @@ class ProviderAuth extends ChangeNotifier {
 
         await FirebaseChatCore.instance.createUserInFirestore(
           types.User(
-            firstName: emailReg.trim(),
+            firstName: emailReg.toString().substring(0, 3).trim(),
             id: credential.user!.uid,
             imageUrl: 'https://i.pravatar.cc/300?u=${emailReg.trim()}',
-            lastName: emailReg.trim(),
+            lastName: emailReg.toString().substring(0, 2).trim(),
           ),
         );
       } catch (e) {}

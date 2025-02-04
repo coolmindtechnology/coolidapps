@@ -67,6 +67,11 @@ class _KonsultasiPageState extends State<KonsultasiPage> {
       return Scaffold(
           appBar: AppBar(
             backgroundColor: primaryColor,
+            leading: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(Icons.arrow_back)),
             title: Row(
               children: [
                 Text(

@@ -48,30 +48,29 @@ class _WarningPopupState extends State<WarningPopup> {
     ];
 
     return SizedBox(
-        height: 400, // Adjust the height as needed for better view
-        child: Expanded(
-          child: PageView.builder(
-            controller: _pageController,
-            itemCount: promoContent.length,
-            itemBuilder: (context, index) {
-              final item = promoContent[index];
-              return ContainerPromo(
-                title: item['title'],
-                imageUrl: 'konsultasi/Danger.png',
-                subtitle: item['subtitle'],
-                onPressed1: () {
-                  _goBackPage();
-                },
-                onPressed2: index == 2
-                    ? () {
-                        Nav.to(KonsultasiPage());
-                      }
-                    : () {
-                        _goToNextPage();
-                      },
-              );
+      height: 400, // Adjust the height as needed for better view
+      child: PageView.builder(
+        controller: _pageController,
+        itemCount: promoContent.length,
+        itemBuilder: (context, index) {
+          final item = promoContent[index];
+          return ContainerPromo(
+            title: item['title'],
+            imageUrl: 'konsultasi/Danger.png',
+            subtitle: item['subtitle'],
+            onPressed1: () {
+              _goBackPage();
             },
-          ),
-        ));
+            onPressed2: index == 2
+                ? () {
+                    Nav.to(KonsultasiPage());
+                  }
+                : () {
+                    _goToNextPage();
+                  },
+          );
+        },
+      ),
+    );
   }
 }

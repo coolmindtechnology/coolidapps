@@ -92,6 +92,7 @@ class _TabArsipState extends State<TabArsip> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => DetailConsultant(
+                            idUser: consultation.id.toString(),
                             imagePath: consultation.consultantImage ?? '-',
                             name: consultation.consultantName ?? '-',
                             title: consultation.consultantTypeBrain ?? '-',
