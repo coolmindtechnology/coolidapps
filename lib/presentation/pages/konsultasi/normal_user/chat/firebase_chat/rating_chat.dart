@@ -44,19 +44,20 @@ class _RatingState extends State<RatingChat> {
       if (token == null) {
         throw Exception("Token tidak ditemukan");
       }
-      debugPrint(" give id ${widget.consultationId}");
+      debugPrint(" give consultation ${widget.consultationId}");
+      debugPrint(" give consultant ${widget.consultanId}");
       debugPrint(_selectedRating.toString());
       debugPrint(_controller.text.trim());
 
       final dio = Dio();
-      final response = await dio.get(
+      final response = await dio.post(
         "${ApiEndpoint.baseUrl}/api/consultation/rate-consultant",
         options: Options(
           headers: {"Authorization": "Bearer $token"},
         ),
         data: {
-          "consultation_id": widget.consultationId,
-          "consultant_id": widget.consultanId,
+          "consultation_id": widget.consultanId,
+          "consultant_id": widget.consultationId,
           "rate": _selectedRating.toString(),
           "feedback": _controller.text.trim().isEmpty
               ? "Sangat good dan bagus bagus pisan"
@@ -64,7 +65,7 @@ class _RatingState extends State<RatingChat> {
         },
       );
 
-      if (response.statusCode == 200) {
+      if (response.statusCode == 201) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Rating berhasil dikirim")),
         );

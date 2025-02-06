@@ -74,6 +74,7 @@ class _DetailConsultantState extends State<DetailConsultant> {
         builder: (context) => ChatPage(
           idUser: widget.idUser,
           room: room,
+          idConsultation: widget.idConsultant,
         ),
       ),
     );

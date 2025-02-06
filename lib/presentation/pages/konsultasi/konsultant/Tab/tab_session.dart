@@ -5,6 +5,7 @@ import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/detil_c
 import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/pop-upwarning.dart';
 import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/profile_card.dart';
 import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/non_konsultasi.dart';
+import 'package:coolappflutter/presentation/pages/konsultasi/konsultant/chat/chat_consultant.dart';
 import 'package:coolappflutter/presentation/pages/konsultasi/konsultant/chat/chatbox.dart';
 import 'package:coolappflutter/presentation/pages/konsultasi/konsultant/chat/rooms_konsultant.dart';
 import 'package:coolappflutter/presentation/pages/konsultasi/konsultant/detail_session.dart';
@@ -43,7 +44,7 @@ class _TabSesiKonsultantState extends State<TabSesiKonsultant> {
     navigator.pop();
     await navigator.push(
       MaterialPageRoute(
-        builder: (context) => ChatPage(
+        builder: (context) => ChatPageConsultant(
           idUser: id,
           room: room,
         ),

@@ -22,8 +22,8 @@ import 'package:mime/mime.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 
-class ChatPage extends StatefulWidget {
-  const ChatPage(
+class ChatPageConsultant extends StatefulWidget {
+  const ChatPageConsultant(
       {super.key,
       required this.room,
       this.user,
@@ -36,10 +36,10 @@ class ChatPage extends StatefulWidget {
   final String? idConsultation;
 
   @override
-  State<ChatPage> createState() => _ChatPageState();
+  State<ChatPageConsultant> createState() => _ChatPageState();
 }
 
-class _ChatPageState extends State<ChatPage> {
+class _ChatPageState extends State<ChatPageConsultant> {
   bool _isAttachmentUploading = false;
   Timer? timerr;
   int _remainingSeconds = 1; // Waktu lebih pendek untuk testing
@@ -77,9 +77,7 @@ class _ChatPageState extends State<ChatPage> {
         actions: [
           TextButton(
             onPressed: () {
-              Nav.to(RatingChat(
-                  consultanId: widget.idUser,
-                  consultationId: widget.idConsultation.toString()));
+              Nav.to(NavMenuScreen());
             },
             child: Text(S.of(context).yes),
           ),
