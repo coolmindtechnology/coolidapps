@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:coolappflutter/data/data_global.dart';
+import 'package:coolappflutter/data/locals/shared_pref.dart';
 import 'package:coolappflutter/data/provider/provider_consultant.dart';
 import 'package:coolappflutter/data/response/consultant/res_get_comissen.dart';
 import 'package:coolappflutter/generated/l10n.dart';
@@ -8,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:coolappflutter/data/locals/preference_handler.dart';
 
 class HistoryKomisen extends StatefulWidget {
   const HistoryKomisen({super.key});
@@ -24,6 +28,7 @@ class _HistoryKomisenState extends State<HistoryKomisen>
   @override
   void initState() {
     super.initState();
+    cekSession();
     _tabController = TabController(length: 3, vsync: this);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final provider = Provider.of<ConsultantProvider>(context, listen: false);
@@ -35,6 +40,39 @@ class _HistoryKomisenState extends State<HistoryKomisen>
   void dispose() {
     _tabController.dispose();
     super.dispose();
+  }
+
+  cekSession() async {
+    dynamic ceklanguage = await PreferenceHandler.retrieveISelectLanguage();
+    if (ceklanguage == null) {
+      Prefs().setLocale('en_US', () {
+        setState(() {
+          S.load(Locale('en_US'));
+          setState(() {});
+        });
+      });
+      Timer(Duration(seconds: 2), () {
+        Prefs().getLocale().then((locale) {
+          debugPrint(locale);
+
+          S.load(Locale(locale)).then((value) {});
+        });
+      });
+    } else {
+      Prefs().setLocale('$ceklanguage', () {
+        setState(() {
+          S.load(Locale('$ceklanguage'));
+          setState(() {});
+        });
+      });
+      Timer(Duration(seconds: 2), () {
+        Prefs().getLocale().then((locale) {
+          debugPrint(locale);
+
+          S.load(Locale(locale)).then((value) {});
+        });
+      });
+    }
   }
 
   Future<void> _selectDate(BuildContext context) async {
@@ -60,9 +98,9 @@ class _HistoryKomisenState extends State<HistoryKomisen>
         }
         final allData = provider.commissionData!.data!.result!;
         final consultationData =
-        allData.where((result) => result.type == "curhat").toList();
+            allData.where((result) => result.type == "curhat").toList();
         final curhatData =
-        allData.where((result) => result.type == "consultation").toList();
+            allData.where((result) => result.type == "consultation").toList();
 
         return DefaultTabController(
           length: 3,
@@ -70,11 +108,13 @@ class _HistoryKomisenState extends State<HistoryKomisen>
             appBar: AppBar(
               title: Text(
                 S.of(context).Commission_History,
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
               ),
             ),
             body: Padding(
-              padding: const EdgeInsets.only(bottom: 30, top: 30, right: 20, left: 20),
+              padding: const EdgeInsets.only(
+                  bottom: 30, top: 30, right: 20, left: 20),
               child: Column(
                 children: [
                   Container(
@@ -189,14 +229,16 @@ class _HistoryKomisenState extends State<HistoryKomisen>
           subtitle: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('${result.date != null ? result.date.toString().split(' ')[0] : 'N/A'}'),
-              Text('${result.time ?? 'N/A'}'),
+              Text(result.date != null
+                  ? result.date.toString().split(' ')[0]
+                  : 'N/A'),
+              Text(result.time ?? 'N/A'),
             ],
           ),
           trailing: Column(
             children: [
               Text('${dataGlobal.dataConsultant?.name ?? 'N/A'}'),
-              Text('${result.type ?? 'N/A'}'),
+              Text(result.type ?? 'N/A'),
             ],
           ),
           onTap: () {

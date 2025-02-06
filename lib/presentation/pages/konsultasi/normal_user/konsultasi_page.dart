@@ -8,6 +8,7 @@ import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/new_kon
 import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/Tab/tab_arsip.dart';
 import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/Tab/tab_request.dart';
 import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/Tab/tab_sesi.dart';
+import 'package:coolappflutter/presentation/pages/main/nav_home.dart';
 import 'package:coolappflutter/presentation/pages/main/promo_page.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
@@ -79,7 +80,7 @@ class _KonsultasiPageState extends State<KonsultasiPage> {
             backgroundColor: primaryColor,
             leading: IconButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Nav.to(NavMenuScreen());
                 },
                 icon: Icon(Icons.arrow_back)),
             title: Row(

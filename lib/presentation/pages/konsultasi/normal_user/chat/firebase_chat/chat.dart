@@ -5,6 +5,7 @@ import 'package:coolappflutter/data/locals/preference_handler.dart';
 import 'package:coolappflutter/data/locals/shared_pref.dart';
 import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
 import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/konsultasi/normal_user/chat/firebase_chat/rating_chat.dart';
 import 'package:coolappflutter/presentation/pages/main/nav_home.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:dio/dio.dart';
@@ -53,9 +54,36 @@ class _ChatPageState extends State<ChatPage> {
       } else {
         timer.cancel();
         _postEndRoom();
+        showClosePopup();
         debugPrint('pos endddddd');
       }
     });
+  }
+
+  void showClosePopup() {
+    showDialog(
+      context: context,
+      barrierDismissible: false, // Supaya tidak bisa ditutup tanpa aksi
+      builder: (context) => AlertDialog(
+        title: Text(S.of(context).sessionCompleted),
+        content: Text(
+          S.of(context).Session_Closed_Message,
+          overflow: TextOverflow.ellipsis,
+          maxLines: 3,
+          style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+          textAlign: TextAlign.center,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Nav.to(RatingChat(
+                  consultanId: widget.idUser, consultationId: widget.idUser));
+            },
+            child: Text(S.of(context).yes),
+          ),
+        ],
+      ),
+    );
   }
 
   bool _isPosting = false;
@@ -380,15 +408,17 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
+  Widget build(BuildContext context) => WillPopScope(
+      onWillPop: () async => false, // Blokir tombol back
+      child: Scaffold(
         appBar: AppBar(
           systemOverlayStyle: SystemUiOverlayStyle.light,
           title: const Text('Chat'),
-          leading: IconButton(
-              onPressed: () {
-                Nav.to(NavMenuScreen());
-              },
-              icon: Icon(Icons.arrow_back)),
+          // leading: IconButton(
+          //     onPressed: () {
+          //       Nav.to(NavMenuScreen());
+          //     },
+          //     icon: Icon(Icons.arrow_back)),
           actions: [
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -476,7 +506,7 @@ class _ChatPageState extends State<ChatPage> {
             // ),
           ],
         ),
-      );
+      ));
 }
 
 //   @override
