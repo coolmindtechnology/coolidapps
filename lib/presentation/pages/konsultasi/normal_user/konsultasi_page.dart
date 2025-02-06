@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:coolappflutter/data/locals/preference_handler.dart';
 import 'package:coolappflutter/data/provider/provider_consultation.dart';
 import 'package:coolappflutter/generated/l10n.dart';
 
@@ -37,15 +40,22 @@ class _KonsultasiPageState extends State<KonsultasiPage> {
   }
 
   // Menampilkan dialog promo
-  void _showPromoDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          child: PromoPopup(), // Popup sesuai dengan widget yang Anda inginkan
+  void _showPromoDialog() async {
+    Timer(Duration(seconds: 2), () async {
+      var cek = await PreferenceHandler.retrieveCekDialogKonsultan();
+      if (cek.toString() != "1") {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return Dialog(
+              child:
+                  PromoPopup(), // Popup sesuai dengan widget yang Anda inginkan
+            );
+          },
         );
-      },
-    );
+        await PreferenceHandler.storingCekDialogKonsultan("1");
+      }
+    });
   }
 
   void _onTabSelected(int index) {
@@ -155,15 +165,15 @@ class _KonsultasiPageState extends State<KonsultasiPage> {
                     _buildTab(index: 1, text: S.of(context).Requests),
                     _buildTab(index: 2, text: S.of(context).Archives),
                     Spacer(),
-                    TextButton(
-                      onPressed: () {
-                        Nav.to(HistoryConsultant());
-                      },
-                      style: TextButton.styleFrom(
-                        foregroundColor: BlueColor,
-                      ),
-                      child: Text(S.of(context).see_all),
-                    )
+                    // TextButton(
+                    //   onPressed: () {
+                    //     Nav.to(HistoryConsultant());
+                    //   },
+                    //   style: TextButton.styleFrom(
+                    //     foregroundColor: BlueColor,
+                    //   ),
+                    //   child: Text(S.of(context).see_all),
+                    // )
                   ],
                 ),
                 Expanded(

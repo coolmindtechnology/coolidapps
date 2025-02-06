@@ -6,6 +6,7 @@ import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/pop-upw
 import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/profile_card.dart';
 import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/non_konsultasi.dart';
 import 'package:coolappflutter/presentation/pages/konsultasi/konsultant/chat/chatbox.dart';
+import 'package:coolappflutter/presentation/pages/konsultasi/konsultant/chat/rooms_konsultant.dart';
 import 'package:coolappflutter/presentation/pages/konsultasi/konsultant/detail_session.dart';
 import 'package:coolappflutter/presentation/pages/konsultasi/konsultant/warning_pop_up.dart';
 import 'package:coolappflutter/presentation/pages/konsultasi/normal_user/chat/firebase_chat/chat.dart';
@@ -102,6 +103,7 @@ class _TabSesiKonsultantState extends State<TabSesiKonsultant> {
                                     warnastatus:
                                         Colors.lightBlueAccent.shade100,
                                     onTap: () {
+                                      // Nav.to(RoomsPageKonsultan(idUser: ""));
                                       _handlePressed(
                                           user,
                                           context,

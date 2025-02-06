@@ -277,7 +277,7 @@ class ProviderConsultation extends ChangeNotifier {
       final Dio dio = Dio();
 
       final String baseUrl =
-          "https://cool-staging.dschazy.com/api/consultation/create-consultation";
+          "${ApiEndpoint.baseUrl}/api/consultation/create-consultation";
 
       if (token == null) {
         throw Exception("Token tidak ditemukan, silakan login kembali.");

@@ -65,4 +65,15 @@ class PreferenceHandler {
     String? result = preferences.getString("idSelect");
     return result;
   }
+
+  static Future<void> storingCekDialogKonsultan(String dialog) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString("dialog", dialog);
+  }
+
+  static Future<String?> retrieveCekDialogKonsultan() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String? result = preferences.getString("dialog");
+    return result;
+  }
 }

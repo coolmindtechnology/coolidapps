@@ -174,6 +174,7 @@ class _MainAppState extends State<MainApp> {
       FirebaseAuth.instance.authStateChanges().listen((User? user) {
         setState(() {
           userr = user;
+          debugPrint("cek user ${userr!.email.toString()}");
         });
       });
       setState(() {

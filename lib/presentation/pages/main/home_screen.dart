@@ -122,6 +122,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   appBar: PreferredSize(
                     preferredSize: const Size.fromHeight(75.0),
                     child: AppBar(
+                      automaticallyImplyLeading: false,
                       flexibleSpace: Container(
                         decoration: BoxDecoration(
                           gradient: LinearGradient(

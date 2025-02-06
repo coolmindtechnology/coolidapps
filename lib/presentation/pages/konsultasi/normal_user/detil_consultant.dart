@@ -28,7 +28,7 @@ class DetailConsultant extends StatefulWidget {
   final String statusSession;
   final String deskripsi;
   final String idUser;
-  final dynamic user;
+  final types.User? user;
 
   const DetailConsultant({
     super.key,
@@ -204,7 +204,7 @@ class _DetailConsultantState extends State<DetailConsultant> {
                         Navigator.pop(context);
                       } else {
                         Future.delayed(Duration(seconds: 3), () {
-                          _handlePressed(widget.user, context);
+                          _handlePressed(widget.user!, context);
                           // Nav.to(RoomsPage(idUser: widget.idUser));
                           // ChatPage(status: true),
                         });

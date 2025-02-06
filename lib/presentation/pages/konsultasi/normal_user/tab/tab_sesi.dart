@@ -22,40 +22,9 @@ class TabSesi extends StatefulWidget {
 class _TabSesiState extends State<TabSesi> {
   @override
   void initState() {
-    _initializeFlutterFire();
     Provider.of<ProviderConsultation>(context, listen: false)
         .getListConsultations(context, "active");
     super.initState();
-  }
-
-  bool _error = false;
-  bool _initialized = false;
-  User? _user;
-
-  /// Initialize Firebase and listen to auth state changes
-  Future<void> _initializeFlutterFire() async {
-    try {
-      FirebaseAuth.instance.authStateChanges().listen((User? user) {
-        if (mounted) {
-          setState(() {
-            _user = user;
-            _initialized = true; // Firebase initialized
-          });
-
-          // Fetch fresh data after login
-          if (user != null) {
-            FirebaseChatCore.instance.rooms().first.then((rooms) {
-              debugPrint('Rooms fetched: $rooms');
-            });
-          }
-        }
-      });
-    } catch (e) {
-      setState(() {
-        _error = true;
-      });
-      debugPrint('Initialization error: $e');
-    }
   }
 
   // final List<Map<String, dynamic>> profileData = [
@@ -89,6 +58,52 @@ class _TabSesiState extends State<TabSesi> {
   //     "timeRemaining": '10',
   //   },
   // ];
+  void _handlePressed(
+      types.User otherUser,
+      BuildContext context,
+      String id,
+      dynamic user,
+      String idUser,
+      String imagePath,
+      String name,
+      String title,
+      String bloodType,
+      String location,
+      String time,
+      String timeRemaining,
+      Color timeColor,
+      String status,
+      Color warnastatus,
+      String getTopik,
+      String statusSession,
+      String deskripsi) async {
+    final navigator = Navigator.of(context);
+    final room = await FirebaseChatCore.instance.createRoom(otherUser);
+    debugPrint("cek id users ${room.id}");
+
+    // navigator.pop();
+    await navigator.push(
+      MaterialPageRoute(
+        builder: (context) => DetailConsultant(
+          user: user,
+          idUser: idUser,
+          imagePath: imagePath,
+          name: name,
+          title: title,
+          bloodType: bloodType,
+          location: location,
+          time: time,
+          timeRemaining: timeRemaining,
+          timeColor: timeColor,
+          status: status,
+          warnastatus: warnastatus,
+          getTopik: getTopik,
+          statusSession: statusSession,
+          deskripsi: deskripsi,
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -140,29 +155,48 @@ class _TabSesiState extends State<TabSesi> {
                   status: S.of(context).Session_Begins_In,
                   warnastatus: Colors.lightBlueAccent.shade100,
                   onTap: () {
-                    Navigator.push(
+                    _handlePressed(
+                        user,
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => DetailConsultant(
-                                user: user,
-                                idUser: consultation.id.toString(),
-                                imagePath: consultation.consultantImage ?? '-',
-                                name: consultation.consultantName ?? '-',
-                                title: consultation.consultantTypeBrain ?? '-',
-                                bloodType:
-                                    consultation.consultantBloodType ?? '-',
-                                location: consultation.consultantAddress ?? '-',
-                                time: "${consultation.timeSelected}",
-                                timeRemaining:
-                                    '${consultation.remainingMinutes ?? '-'} ${S.of(context).Minutes_Left}',
-                                timeColor: BlueColor,
-                                status: consultation.status.toString(),
-                                warnastatus: Colors.lightBlueAccent.shade100,
-                                getTopik: consultation.theme.toString(),
-                                statusSession:
-                                    consultation.sessionStatus.toString(),
-                                deskripsi:
-                                    consultation.explanation.toString())));
+                        consultation.id.toString(),
+                        user,
+                        consultation.id.toString(),
+                        consultation.consultantImage ?? '-',
+                        consultation.consultantName ?? '-',
+                        consultation.consultantTypeBrain ?? '-',
+                        consultation.consultantBloodType ?? '-',
+                        consultation.consultantAddress ?? '-',
+                        "${consultation.timeSelected}",
+                        '${consultation.remainingMinutes ?? '-'} ${S.of(context).Minutes_Left}',
+                        BlueColor,
+                        consultation.status.toString(),
+                        Colors.lightBlueAccent.shade100,
+                        consultation.theme.toString(),
+                        consultation.sessionStatus.toString(),
+                        consultation.explanation.toString());
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => DetailConsultant(
+                    //             user: user,
+                    //             idUser: consultation.id.toString(),
+                    //             imagePath: consultation.consultantImage ?? '-',
+                    //             name: consultation.consultantName ?? '-',
+                    //             title: consultation.consultantTypeBrain ?? '-',
+                    //             bloodType:
+                    //                 consultation.consultantBloodType ?? '-',
+                    //             location: consultation.consultantAddress ?? '-',
+                    //             time: "${consultation.timeSelected}",
+                    //             timeRemaining:
+                    //                 '${consultation.remainingMinutes ?? '-'} ${S.of(context).Minutes_Left}',
+                    //             timeColor: BlueColor,
+                    //             status: consultation.status.toString(),
+                    //             warnastatus: Colors.lightBlueAccent.shade100,
+                    //             getTopik: consultation.theme.toString(),
+                    //             statusSession:
+                    //                 consultation.sessionStatus.toString(),
+                    //             deskripsi:
+                    //                 consultation.explanation.toString())));
                   }, // Aksi jika ada
                 );
               },

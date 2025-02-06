@@ -155,6 +155,11 @@ class _ChooseConsultantState extends State<ChooseConsultant> {
                               status: S.of(context).Achievement,
                               warnastatus: Colors.white,
                               onTap: () {
+                                // Nav.toAll(ProfileConsultant());
+                                setState(() {
+                                  _selectedIndex =
+                                      index; // Set indeks yang dipilih
+                                });
                                 selectId = index;
                               }, // Aksi jika ada
                             ),
