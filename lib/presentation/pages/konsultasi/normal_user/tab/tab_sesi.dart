@@ -63,7 +63,7 @@ class _TabSesiState extends State<TabSesi> {
       BuildContext context,
       String id,
       dynamic user,
-      String idUser,
+      String idConsultant,
       String imagePath,
       String name,
       String title,
@@ -86,7 +86,7 @@ class _TabSesiState extends State<TabSesi> {
       MaterialPageRoute(
         builder: (context) => DetailConsultant(
           user: user,
-          idUser: idUser,
+          idUser: id,
           imagePath: imagePath,
           name: name,
           title: title,
@@ -100,6 +100,7 @@ class _TabSesiState extends State<TabSesi> {
           getTopik: getTopik,
           statusSession: statusSession,
           deskripsi: deskripsi,
+          idConsultant: idConsultant,
         ),
       ),
     );
@@ -160,7 +161,7 @@ class _TabSesiState extends State<TabSesi> {
                         context,
                         consultation.id.toString(),
                         user,
-                        consultation.id.toString(),
+                        consultation.consultantId.toString(),
                         consultation.consultantImage ?? '-',
                         consultation.consultantName ?? '-',
                         consultation.consultantTypeBrain ?? '-',

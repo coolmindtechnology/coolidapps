@@ -29,25 +29,26 @@ class DetailConsultant extends StatefulWidget {
   final String deskripsi;
   final String idUser;
   final types.User? user;
+  final String? idConsultant;
 
-  const DetailConsultant({
-    super.key,
-    required this.imagePath,
-    required this.name,
-    required this.title,
-    required this.bloodType,
-    required this.location,
-    required this.time,
-    required this.timeRemaining,
-    required this.timeColor,
-    required this.status,
-    required this.warnastatus,
-    required this.getTopik,
-    required this.statusSession,
-    required this.deskripsi,
-    required this.idUser,
-    this.user,
-  });
+  const DetailConsultant(
+      {super.key,
+      required this.imagePath,
+      required this.name,
+      required this.title,
+      required this.bloodType,
+      required this.location,
+      required this.time,
+      required this.timeRemaining,
+      required this.timeColor,
+      required this.status,
+      required this.warnastatus,
+      required this.getTopik,
+      required this.statusSession,
+      required this.deskripsi,
+      required this.idUser,
+      this.user,
+      this.idConsultant});
 
   @override
   State<DetailConsultant> createState() => _DetailConsultantState();
