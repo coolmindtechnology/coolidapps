@@ -1,13 +1,13 @@
 class ApiEndpoint {
-  // static String baseUrl = "https://cool-compass.mycool.id";
+  static String baseUrl = "https://cool-compass.mycool.id";
   // static String baseUrl = "https://staging-cool.hantrr.com";
-  static String baseUrl = "https://cool-staging.dschazy.com";
+  // static String baseUrl = "https://cool-staging.dschazy.com";
 
   // static String baseUrl = "https://coolcompas-staging.mycool.id";
 
   static void setDev() {
-    // baseUrl = "https://cool-compass.mycool.id";
-    baseUrl = "https://cool-staging.dschazy.com";
+    baseUrl = "https://cool-compass.mycool.id";
+    // baseUrl = "https://cool-staging.dschazy.com";
 
     // baseUrl = "https://staging-cool.hantrr.com";
   }
@@ -19,8 +19,8 @@ class ApiEndpoint {
   ///
   /// This function does not take any parameters and does not return any value.
   static void setProd() {
-    // baseUrl = "https://cool-compass.mycool.id";
-    baseUrl = "https://cool-staging.dschazy.com";
+    baseUrl = "https://cool-compass.mycool.id";
+    // baseUrl = "https://cool-staging.dschazy.com";
 
     // baseUrl = "https://staging-cool.hantrr.com";
   }

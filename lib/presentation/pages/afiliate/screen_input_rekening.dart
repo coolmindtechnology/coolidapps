@@ -43,6 +43,7 @@ class _ScreenInputRekeningState extends State<ScreenInputRekening> {
     super.initState();
   }
 
+  TextEditingController nomorRek = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<ProviderAffiliate>(context);
@@ -218,7 +219,7 @@ class _ScreenInputRekeningState extends State<ScreenInputRekening> {
                   height: 8,
                 ),
                 TextFormField(
-                  controller: value.noRek,
+                  controller: nomorRek,
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
@@ -247,11 +248,12 @@ class _ScreenInputRekeningState extends State<ScreenInputRekening> {
                         height: 54,
                         minWidth: MediaQuery.of(context).size.width,
                         onPressed: () async {
+                          debugPrint("reee ${value.noRek?.text}");
                           if (keyForm.currentState?.validate() == true) {
                             await value.getDataAccountBank(
                                 context,
                                 _selectedValue ?? "",
-                                value.noRek?.text ?? "", onUpdate: () {
+                                nomorRek.text ?? "", onUpdate: () {
                               widget.onUpdate!();
                             });
                           }

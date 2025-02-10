@@ -77,7 +77,7 @@ class _TabSesiKonsultantState extends State<TabSesiKonsultant> {
                 : provider.listParticipant.isEmpty
                     ? Center(child: NoneKonsul())
                     : ListView.builder(
-                        itemCount: snapshot.data!.length,
+                        itemCount: provider.listParticipant.length,
                         itemBuilder: (context, index) {
                           final user = snapshot.data![index];
                           final participant = provider.listParticipant[index];

@@ -48,7 +48,7 @@ class ContainerPromo extends StatelessWidget {
             if (imageUrl != null && imageUrl!.isNotEmpty) ...[
               SizedBox(height: 20),
               Image.asset(
-                'images/$imageUrl',
+                'assets/icons/success.png',
                 height: 80, // Menambahkan batasan ukuran gambar
                 fit: BoxFit
                     .cover, // Memastikan gambar menyesuaikan dengan ukuran
@@ -77,8 +77,8 @@ class ContainerPromo extends StatelessWidget {
             // Menampilkan gambar kedua jika ada
             if (imageUrl2 != null && imageUrl2!.isNotEmpty) ...[
               SizedBox(height: 20),
-              Image.asset(
-                'images/promo/$imageUrl2',
+              Image.network(
+                'assets/icons/success.png',
                 fit: BoxFit
                     .cover, // Memastikan gambar menyesuaikan dengan ukuran
               ),

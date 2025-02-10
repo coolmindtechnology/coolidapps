@@ -134,7 +134,7 @@ class _TabSesiState extends State<TabSesi> {
             }
 
             return ListView.builder(
-              itemCount: snapshot.data!.length,
+              itemCount: consultations.length,
               itemBuilder: (context, index) {
                 final user = snapshot.data![index];
                 final consultation = consultations[index];

@@ -205,6 +205,7 @@ class ProviderAffiliate extends ChangeNotifier {
   Future<void> saveRek(BuildContext context, String bankName, String bankNumber,
       String accountName,
       {Function? onUpdate}) async {
+    debugPrint("rekkk $noRek");
     isSaveRek = true;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       notifyListeners();

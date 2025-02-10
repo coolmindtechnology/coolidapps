@@ -128,7 +128,8 @@ class _DetailSessionPageState extends State<DetailSessionPage> {
                               padding: const EdgeInsets.all(20),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisSize: MainAxisSize.min, // Menjaga dialog sesuai dengan ukuran konten
+                                mainAxisSize: MainAxisSize
+                                    .min, // Menjaga dialog sesuai dengan ukuran konten
                                 children: [
                                   Center(
                                     child: Text(
@@ -143,7 +144,9 @@ class _DetailSessionPageState extends State<DetailSessionPage> {
                                   SizedBox(height: 10), // Jarak antara teks
                                   Text(
                                     S.of(context).provideYourReason,
-                                    style: TextStyle(fontSize: 16,fontWeight: FontWeight.w600),
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600),
                                   ),
                                   gapH10,
                                   TextField(
@@ -152,41 +155,51 @@ class _DetailSessionPageState extends State<DetailSessionPage> {
                                     decoration: InputDecoration(
                                       hintText: S.of(context).exampleReason,
                                       border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                        borderSide: BorderSide.none
-                                      ),
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          borderSide: BorderSide.none),
                                     ),
                                   ),
-                                  SizedBox(height: 15), // Jarak antara TextField dan tombol
+                                  SizedBox(
+                                      height:
+                                          15), // Jarak antara TextField dan tombol
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly, // Menyebarkan tombol secara merata
+                                    mainAxisAlignment: MainAxisAlignment
+                                        .spaceEvenly, // Menyebarkan tombol secara merata
                                     children: [
                                       Expanded(
                                         child: GlobalButton(
                                           onPressed: () {
-                                            Navigator.pop(context); // Menutup dialog
+                                            Navigator.pop(
+                                                context); // Menutup dialog
                                           },
                                           color: Colors.white,
                                           text: S.of(context).cancel,
-                                          textStyle: TextStyle(color: primaryColor),
+                                          textStyle:
+                                              TextStyle(color: primaryColor),
                                         ),
                                       ),
-                                      SizedBox(width: 10), // Menambahkan jarak antar tombol
-                                      Expanded(
-                                        child: Consumer<ConsultantProvider>(builder: (context, provider, _) {
-                                          return GlobalButton(
-                                              onPressed: () async {
-                                                await provider.RejectByConsultant(
-                                                    context, widget.id_consultation, alasan.text);
-                                              },
-                                            color: Darkred ,
-                                            text: S.of(context).reject,
-                                            textStyle: TextStyle(color: Colors.white),
-                                        ); })
-                                      ),
+                                      SizedBox(
+                                          width:
+                                              10), // Menambahkan jarak antar tombol
+                                      Expanded(child:
+                                          Consumer<ConsultantProvider>(
+                                              builder: (context, provider, _) {
+                                        return GlobalButton(
+                                          onPressed: () async {
+                                            await provider.RejectByConsultant(
+                                                context,
+                                                widget.id_consultation,
+                                                alasan.text);
+                                          },
+                                          color: Darkred,
+                                          text: S.of(context).reject,
+                                          textStyle:
+                                              TextStyle(color: Colors.white),
+                                        );
+                                      })),
                                     ],
                                   )
-
                                 ],
                               ),
                             ),
@@ -198,23 +211,28 @@ class _DetailSessionPageState extends State<DetailSessionPage> {
                     text: S.of(context).Rejected,
                     textStyle: TextStyle(color: Colors.red),
                   ),
-
                 ),
                 SizedBox(
                   width: 10,
                 ),
-                Consumer<ConsultantProvider>(builder: (context, provider, _) {
-                  return SizedBox(
-                    width: 180,
-                    child: GlobalButton(
-                        onPressed: () async {
-                          await provider.approveByConsultant(
-                              context, widget.id_consultation, widget.type,);
-                        },
-                        color: primaryColor,
-                        text: S.of(context).next),
-                  );
-                })
+                Expanded(
+                  child: Consumer<ConsultantProvider>(
+                      builder: (context, provider, _) {
+                    return SizedBox(
+                      width: 170,
+                      child: GlobalButton(
+                          onPressed: () async {
+                            await provider.approveByConsultant(
+                              context,
+                              widget.id_consultation,
+                              widget.type,
+                            );
+                          },
+                          color: primaryColor,
+                          text: S.of(context).next),
+                    );
+                  }),
+                )
               ],
             ),
             SizedBox(

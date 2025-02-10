@@ -9,6 +9,7 @@ import 'package:coolappflutter/presentation/pages/auth/register_screen.dart';
 import 'package:coolappflutter/presentation/pages/otp/forgot_password_screen.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:phone_form_field/phone_form_field.dart';
@@ -41,20 +42,41 @@ class _LoginScreenState extends State<LoginScreen> {
 
   cekSession() async {
     dynamic ceklanguage = await PreferenceHandler.retrieveISelectLanguage();
-    Prefs().setLocale('$ceklanguage', () {
-      setState(() {
-        S.load(Locale('$ceklanguage'));
-        setState(() {});
+    if (ceklanguage == null) {
+      Prefs().setLocale('en_US', () {
+        setState(() {
+          S.load(Locale('en_US'));
+          setState(() {});
+        });
       });
-    });
-    Timer(Duration(seconds: 2), () {
-      Prefs().getLocale().then((locale) {
-        debugPrint(locale);
+      Timer(Duration(seconds: 2), () {
+        Prefs().getLocale().then((locale) {
+          debugPrint(locale);
 
-        S.load(Locale(locale)).then((value) {});
+          S.load(Locale(locale)).then((value) {});
+        });
       });
-    });
+    } else {
+      Prefs().setLocale('$ceklanguage', () {
+        setState(() {
+          S.load(Locale('$ceklanguage'));
+          setState(() {});
+        });
+      });
+      Timer(Duration(seconds: 2), () {
+        Prefs().getLocale().then((locale) {
+          debugPrint(locale);
+
+          S.load(Locale(locale)).then((value) {});
+        });
+      });
+    }
   }
+
+  // logout() async {
+  //   debugPrint("logout sukses");
+  //   await FirebaseAuth.instance.signOut();
+  // }
 
   @override
   void initState() {

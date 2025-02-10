@@ -1,6 +1,10 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'dart:async';
+
 import 'package:coolappflutter/data/data_global.dart';
+import 'package:coolappflutter/data/locals/preference_handler.dart';
+import 'package:coolappflutter/data/locals/shared_pref.dart';
 import 'package:coolappflutter/data/response/payments/res_update_transaction_profiling.dart';
 import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/pages/payments/loading_payment_saldo.dart';
@@ -62,9 +66,42 @@ class _PreInvoiceScreenState extends State<PreInvoiceScreen> {
   void initState() {
     // getIsIndonesia();
     debugPrint("cek amount ${widget.amount}");
+    cekSession();
     super.initState();
   }
 
+  cekSession() async {
+    dynamic ceklanguage = await PreferenceHandler.retrieveISelectLanguage();
+    if (ceklanguage == null) {
+      Prefs().setLocale('en_US', () {
+        setState(() {
+          S.load(Locale('en_US'));
+          setState(() {});
+        });
+      });
+      Timer(Duration(seconds: 2), () {
+        Prefs().getLocale().then((locale) {
+          debugPrint(locale);
+
+          S.load(Locale(locale)).then((value) {});
+        });
+      });
+    } else {
+      Prefs().setLocale('$ceklanguage', () {
+        setState(() {
+          S.load(Locale('$ceklanguage'));
+          setState(() {});
+        });
+      });
+      Timer(Duration(seconds: 2), () {
+        Prefs().getLocale().then((locale) {
+          debugPrint(locale);
+
+          S.load(Locale(locale)).then((value) {});
+        });
+      });
+    }
+  }
 // buat nanti untuk semua udah convert
   // getIsIndonesia() async {
   //   Future.microtask(() {

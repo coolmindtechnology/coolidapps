@@ -73,12 +73,12 @@ class _RatingState extends State<RatingChat> {
           showTextButton = true;
         });
       } else {
-        throw Exception("Gagal mengirim rating");
+        // throw Exception("Gagal mengirim rating");
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Error: ${e.toString()}")),
-      );
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   SnackBar(content: Text("Error: ${e.toString()}")),
+      // );
     } finally {
       setState(() {
         isLoading = false;
