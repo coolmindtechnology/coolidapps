@@ -12,6 +12,9 @@ import 'package:coolappflutter/data/response/profiling/res_list_profiling.dart';
 import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/data/provider/provider_book.dart';
 import 'package:coolappflutter/main.dart';
+import 'package:coolappflutter/presentation/pages/main/detail_saldo/detail_saldo.dart';
+import 'package:coolappflutter/presentation/pages/main/ebook/home_ebook.dart';
+import 'package:coolappflutter/presentation/pages/main/qrcode/qr_code.dart';
 
 import 'package:coolappflutter/presentation/pages/profiling/screen_feature_kepribadian.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
@@ -143,20 +146,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             height: 36,
                             width: 115,
                           ),
-                          // Container(
-                          //     width: 28,
-                          //     height: 28,
-                          //     decoration: BoxDecoration(
-                          //         color: Colors.white,
-                          //         borderRadius: BorderRadius.circular(5)),
-                          //     child: InkWell(
-                          //       onTap: () {},
-                          //       child: Icon(
-                          //         Icons.qr_code_scanner_rounded,
-                          //         color: primaryColor,
-                          //         size: 23,
-                          //       ),
-                          //     )),
                           Container(
                               height: 35,
                               decoration: BoxDecoration(
@@ -175,11 +164,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                             height: 24,
                                             width: 100,
                                           )
-                                        : Text(
-                                            valueUser.totalDeposit,
-                                            style: const TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.w600,
+                                        : GestureDetector(
+                                            onTap: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          DetailSaldoPage()));
+                                            },
+                                            child: Text(
+                                              valueUser.totalDeposit,
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w600,
+                                              ),
                                             ),
                                           ),
                                     gapW10,
@@ -332,6 +330,27 @@ class _HomeScreenState extends State<HomeScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisSize: MainAxisSize.min,
                               children: [
+                                Container(
+                                    width: 50,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(5)),
+                                    child: InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    QRCodePage()));
+                                      },
+                                      child: Icon(
+                                        Icons.qr_code_scanner_rounded,
+                                        color: primaryColor,
+                                        size: 23,
+                                      ),
+                                    )),
+                                gapH10,
                                 Row(
                                   mainAxisSize: MainAxisSize.min,
                                   mainAxisAlignment:
@@ -350,7 +369,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ),
                                     ContainerYellowHome(
                                       onTap: () {
-                                        Nav.to(const ListEbookAll());
+                                        Nav.to(const HomeEbook());
                                       },
                                       icon: Icons.book,
                                       title: S.of(context).ebook,

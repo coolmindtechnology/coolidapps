@@ -1,4 +1,7 @@
 import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/konsultasi/normal_user/card_consultant.dart';
+import 'package:coolappflutter/presentation/pages/konsultasi/normal_user/consultation_summary.dart';
+import 'package:coolappflutter/presentation/pages/konsultasi/normal_user/profile_card.dart';
 
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
@@ -7,12 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../data/provider/provider_consultation.dart';
-import 'card_consultant.dart';
-import 'consultation_summary.dart';
-import 'profile_card.dart';
 
-class FormConsultant extends StatefulWidget {
-  const FormConsultant({
+class FormIsianCurhat extends StatefulWidget {
+  const FormIsianCurhat({
     super.key,
     required this.id,
     required this.getTime,
@@ -27,10 +27,10 @@ class FormConsultant extends StatefulWidget {
   final String getThemeId;
 
   @override
-  State<FormConsultant> createState() => _FormConsultantState();
+  State<FormIsianCurhat> createState() => _FormIsianCurhatState();
 }
 
-class _FormConsultantState extends State<FormConsultant> {
+class _FormIsianCurhatState extends State<FormIsianCurhat> {
   @override
   void initState() {
     Provider.of<ProviderConsultation>(context, listen: false)
@@ -106,7 +106,7 @@ class _FormConsultantState extends State<FormConsultant> {
                           consultId: widget.id.toString(),
                           themeId: widget.getThemeId,
                           partisipant: inputDeskrip.text,
-                          typeSession: 'consultation',
+                          typeSession: 'curhat',
                           time: widget.getTime,
                           imagePath: provider.image.toString(),
                           name: provider.name.toString(),

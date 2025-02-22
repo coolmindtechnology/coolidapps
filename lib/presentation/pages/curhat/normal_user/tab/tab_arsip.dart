@@ -1,7 +1,9 @@
+import 'package:coolappflutter/data/provider/provider_consultation.dart';
 import 'package:coolappflutter/generated/l10n.dart';
 
 import 'package:flutter/material.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:provider/provider.dart';
 
 import '../../../konsultasi/normal_user/profile_card.dart';
 
@@ -46,26 +48,41 @@ class _TabArsipCurhatState extends State<TabArsipCurhat> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView.builder(
-        itemCount: profileData.length,
+    return Scaffold(body:
+        Consumer<ProviderConsultation>(builder: (context, provider, child) {
+      if (provider.isLoading) {
+        return Center(child: CircularProgressIndicator());
+      }
+
+      final consultations = provider.consultations;
+      if (consultations.isEmpty) {
+        return Center(child: Text('No consultations available'));
+      }
+
+      return ListView.builder(
+        itemCount: consultations.length,
         itemBuilder: (context, index) {
-          final profile = profileData[index];
+          final consultation = consultations[index];
+          final sessionStart =
+              consultation.sessionStart?.substring(0, 5) ?? '-';
+          final sessionEnd = consultation.sessionEnd?.substring(0, 5) ?? '-';
+          // final profile = profileData[index];
           return ProfileCard(
-            imagePath: profile['imagePath'],
-            name: profile['name'],
-            title: profile['title'],
-            bloodType: profile['bloodType'],
-            location: profile['location'],
-            time: profile['time'],
-            timeRemaining: profile['timeRemaining'],
+            imagePath: consultation.consultantImage ?? '-',
+            name: consultation.consultantName ?? '-',
+            title: consultation.consultantTypeBrain ?? '-',
+            bloodType: consultation.consultantBloodType ?? '-',
+            location: consultation.consultantAddress ?? '-',
+            time: "${consultation.timeSelected}",
+            timeRemaining:
+                '${consultation.remainingMinutes ?? '-'} ${S.of(context).Minutes_Left}',
             timeColor: BlueColor,
             status: S.of(context).Completed_On,
-            warnastatus: Colors.white,
+            warnastatus: Colors.lightBlueAccent.shade100,
             onTap: () {}, // Aksi jika ada
           );
         },
-      ),
-    );
+      );
+    }));
   }
 }

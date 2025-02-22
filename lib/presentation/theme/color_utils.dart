@@ -15,3 +15,4 @@ Color LightBlue = const Color(0xFFDBFEFD);
 Color LightRed = const Color(0xFFFCE4D0);
 Color Darkred = const Color(0xFF960D11);
 Color blueSlider = const Color(0xFF93F1FB);
+Color blueContainer = const Color(0xFF4CCBF4);

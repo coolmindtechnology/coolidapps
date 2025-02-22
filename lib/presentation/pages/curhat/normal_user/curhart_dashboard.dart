@@ -6,6 +6,8 @@ import 'package:coolappflutter/presentation/pages/curhat/normal_user/histori_cur
 import 'package:coolappflutter/presentation/pages/curhat/normal_user/tab/tab_arsip.dart';
 import 'package:coolappflutter/presentation/pages/curhat/normal_user/tab/tab_request.dart';
 import 'package:coolappflutter/presentation/pages/curhat/normal_user/tab/tab_session.dart';
+import 'package:coolappflutter/presentation/pages/curhat/session_time_curhat.dart';
+import 'package:coolappflutter/presentation/pages/konsultasi/normal_user/sessions_time.dart';
 
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
@@ -75,7 +77,10 @@ class _CurhatDashboardState extends State<CurhatDashboard> {
             ),
             InkWell(
               onTap: () {
-                Nav.to(ChooseSession());
+                Nav.to(SessionTimeCurhat(
+                  getTopik: '',
+                  getId: '',
+                ));
               },
               child: Container(
                 width: 400,

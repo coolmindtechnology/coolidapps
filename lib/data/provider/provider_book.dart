@@ -58,6 +58,26 @@ class ProviderBook extends ChangeNotifier {
     return filtered;
   }
 
+  ThemeMode _themeMode = ThemeMode.light;
+
+  ThemeMode get themeMode => _themeMode;
+
+  bool get isDarkMode => _themeMode == ThemeMode.dark;
+
+  void toggleTheme(bool isOn) {
+    _themeMode = isOn ? ThemeMode.dark : ThemeMode.light;
+    notifyListeners();
+  }
+
+  double _rating = 0.0;
+
+  double get rating => _rating;
+
+  void setRating(double newRating) {
+    _rating = newRating;
+    notifyListeners();
+  }
+
   List<DataBook> get displayPremium {
     List<DataBook> listPremiumBook = listAllBook
         .where((element) => element.isPremium.toString() == "1")
