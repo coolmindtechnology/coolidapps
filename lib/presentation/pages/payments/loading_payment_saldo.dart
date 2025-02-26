@@ -102,7 +102,7 @@ class _LoadingPaymentSaldoState extends State<LoadingPaymentSaldo> {
       }
     });
 
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -119,7 +119,8 @@ class _LoadingPaymentSaldoState extends State<LoadingPaymentSaldo> {
               height: 16,
             ),
             Text(
-              "Pembayaran dengan saldo gagal, silahkan coba lagi",
+              S.of(context).payment_failed,
+              // "Pembayaran dengan saldo gagal, silahkan coba lagi",
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 16,
@@ -129,7 +130,10 @@ class _LoadingPaymentSaldoState extends State<LoadingPaymentSaldo> {
             SizedBox(
               height: 16,
             ),
-            Text("Halaman ini akan menutup secara otomatis")
+            Text(S.of(context).close_page_auto
+
+                // "Halaman ini akan menutup secara otomatis"
+                )
           ],
         ),
       ),

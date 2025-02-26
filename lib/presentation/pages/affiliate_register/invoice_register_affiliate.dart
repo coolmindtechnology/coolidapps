@@ -175,7 +175,8 @@ By joining, you can earn additional income by referring our products or services
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          "Invoice",
+          S.of(context).Receipt,
+          // "Invoice",
           style: TextStyle(color: whiteColor),
         ),
         iconTheme: IconThemeData(color: whiteColor),

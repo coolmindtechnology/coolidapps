@@ -87,11 +87,13 @@ class NotificationProvider with ChangeNotifier {
   // Panggil loadMoreNotifications untuk mengambil halaman berikutnya
   void loadMoreNotifications() {
     if (!isLoading) fetchNotifications();
+    notifyListeners();
   }
 
   Future<NotificationDetailModel?> fetchNotificationDetail(
       String notificationId) async {
     try {
+      notifyListeners();
       final response = await _dio.get(
         '${ApiEndpoint.baseUrl}/api/notify/detail/$notificationId',
         options: Options(
@@ -107,6 +109,7 @@ class NotificationProvider with ChangeNotifier {
         return NotificationDetailModel.fromJson(response.data['data']);
       }
     } catch (e) {
+      notifyListeners();
       print('Error fetching notification detail: $e');
     }
     return null;

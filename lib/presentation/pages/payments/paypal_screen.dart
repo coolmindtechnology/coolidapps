@@ -14,6 +14,8 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
+import '../../../generated/l10n.dart';
+
 class PaypalScreen extends StatefulWidget {
   final Function? onUpdate;
   final String? orderId, currencyPaypal, amountPaypal;
@@ -89,8 +91,8 @@ class _PaypalScreenState extends State<PaypalScreen> {
       child: Consumer<ProviderBrainActivation>(
         builder: (BuildContext context, value, Widget? child) => Scaffold(
           appBar: AppBar(
-            title: const Text(
-              'Pembayaran',
+            title: Text(
+              S.of(context).payment,
               style: TextStyle(color: Colors.white),
             ),
             automaticallyImplyLeading: false,
@@ -101,7 +103,7 @@ class _PaypalScreenState extends State<PaypalScreen> {
             },
             key: webViewKey,
             initialUrlRequest: URLRequest(
-              url: Uri.parse(
+              url: WebUri(
                   "${ApiEndpoint.baseUrlApi}paypal/payment?order_id=${widget.orderId}&currency_paypal=${widget.currencyPaypal}&amount_paypal=${widget.amountPaypal}"),
               headers: {
                 'Authorization': dataGlobal.token,

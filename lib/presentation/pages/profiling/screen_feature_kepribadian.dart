@@ -1,6 +1,10 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:async';
+
+import 'package:coolappflutter/data/data_global.dart';
 import 'package:coolappflutter/data/models/data_checkout_transaction.dart';
+import 'package:coolappflutter/data/provider/provider_user.dart';
 import 'package:coolappflutter/data/response/profiling/res_list_multiple_profiling.dart';
 import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/pages/profiling/add_multiple_profiling.dart';
@@ -42,13 +46,16 @@ class _ScreenFeatureKepribadianState extends State<ScreenFeatureKepribadian>
   }
 
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-      GlobalKey<RefreshIndicatorState>();
+  GlobalKey<RefreshIndicatorState>();
 
   final _formKey = GlobalKey<FormState>();
   @override
   void initState() {
     super.initState();
     tabController = TabController(length: 2, vsync: this, initialIndex: 0);
+    Timer(Duration(seconds: 2), () async {
+      await context.read<ProviderUser>().getUser(context);
+    });
   }
 
   @override
@@ -60,264 +67,293 @@ class _ScreenFeatureKepribadianState extends State<ScreenFeatureKepribadian>
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (BuildContext context) {
-        return ProviderProfiling.initList(context);
-      },
-      child: Consumer<ProviderProfiling>(
-        builder: (BuildContext context, value, Widget? child) => Scaffold(
-          appBar: AppBar(
-            centerTitle: true,
-            title: Text(
-              S.of(context).profiling,
-              style: const TextStyle(color: Colors.white),
-            ),
-            iconTheme: const IconThemeData(color: Colors.white),
-            backgroundColor: primaryColor,
-          ),
-          body: CustomMaterialIndicator(
-            key: _refreshIndicatorKey,
-            onRefresh: () {
-              value.getListProfiling(context);
-              value.getListMutipleProfiling(context);
-              return Future<void>.delayed(const Duration(seconds: 1));
-            },
-            indicatorBuilder:
-                (BuildContext context, IndicatorController controller) {
-              return const RefreshIconWidget();
-            },
-            child: Column(
-              children: [
-                Container(
-                  height: 275,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage("images/feature.png"),
-                        fit: BoxFit.fitWidth),
+        create: (BuildContext context) {
+          return ProviderProfiling.initList(context);
+        },
+        child: Consumer<ProviderUser>(
+          builder: (BuildContext context, valueUser, Widget? child) =>
+              Consumer<ProviderProfiling>(
+                builder: (BuildContext context, value, Widget? child) => Scaffold(
+                  appBar: AppBar(
+                    centerTitle: true,
+                    title: Text(
+                      S.of(context).profiling,
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                    iconTheme: const IconThemeData(color: Colors.white),
+                    backgroundColor: primaryColor,
                   ),
-                ),
-                TabBar(
-                  controller: tabController,
-                  tabs: [
-                    Tab(
-                      text: S.of(context).single,
-                    ),
-                    Tab(
-                      text: S.of(context).multiple,
-                    ),
-                  ],
-                  labelColor: primaryColor,
-                  unselectedLabelColor: primaryColor,
-                  indicatorColor: primaryColor,
-                  dividerColor: Colors.transparent,
-                  indicatorSize: TabBarIndicatorSize.tab,
-                  indicatorWeight: 2,
-                ),
-                Expanded(
-                  child: TabBarView(controller: tabController, children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: value.isLoading
-                          ? const ShimmerLoadingWidgetMany(
-                              itemBuilderHeight: 156,
-                              separatorBuilderHeight: 10,
-                              itemCount: 5,
-                            )
-                          : value.listProfiling.isEmpty
-                              ? const NoDataWidget()
-                              : ListView.separated(
-                                  // physics:
-                                  //     const NeverScrollableScrollPhysics(),
+                  body: CustomMaterialIndicator(
+                    key: _refreshIndicatorKey,
+                    onRefresh: () {
+                      value.getListProfiling(context);
+                      value.getListMutipleProfiling(context);
+                      return Future<void>.delayed(const Duration(seconds: 1));
+                    },
+                    indicatorBuilder:
+                        (BuildContext context, IndicatorController controller) {
+                      return const RefreshIconWidget();
+                    },
+                    child: Column(
+                      children: [
+                        Container(
+                          height: 275,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: const BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage("images/feature.png"),
+                                fit: BoxFit.fitWidth),
+                          ),
+                        ),
+                        TabBar(
+                          controller: tabController,
+                          tabs: [
+                            Tab(
+                              text: S.of(context).single,
+                            ),
+                            Tab(
+                              text: S.of(context).multiple,
+                            ),
+                          ],
+                          labelColor: primaryColor,
+                          unselectedLabelColor: primaryColor,
+                          indicatorColor: primaryColor,
+                          dividerColor: Colors.transparent,
+                          indicatorSize: TabBarIndicatorSize.tab,
+                          indicatorWeight: 2,
+                        ),
+                        Expanded(
+                          child: TabBarView(controller: tabController, children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 20),
+                              child: value.isLoading
+                                  ? const ShimmerLoadingWidgetMany(
+                                itemBuilderHeight: 156,
+                                separatorBuilderHeight: 10,
+                                itemCount: 5,
+                              )
+                                  : value.listProfiling.isEmpty
+                                  ? const NoDataWidget()
+                                  : ListView.separated(
+                                // physics:
+                                //     const NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
                                   itemBuilder: (context, index) {
                                     DataProfiling data =
-                                        value.listProfiling[index];
+                                    value.listProfiling[index];
                                     return GestureDetector(
                                       onTap: () {
                                         if (data.status.toString() == "0") {
-                                          NotificationUtils.showSimpleDialog2(
+                                          NotificationUtils
+                                              .showSimpleDialog2(
                                               context,
-                                              S.of(context).pay_to_see_more,
-                                              textButton1:
-                                                  S.of(context).yes_continue,
-                                              textButton2: S.of(context).no,
-                                              onPress2: () {
+                                              S
+                                                  .of(context)
+                                                  .pay_to_see_more,
+                                              textButton1: S
+                                                  .of(context)
+                                                  .yes_continue,
+                                              textButton2: S
+                                                  .of(context)
+                                                  .no, onPress2: () {
                                             Nav.back();
                                           }, onPress1: () async {
                                             Nav.back();
                                             await NotificationUtils
                                                 .showSimpleDialog2(
-                                                    context,
-                                                    S
-                                                        .of(context)
-                                                        .pay_with_your_cool_balance,
-                                                    textButton1: S
-                                                        .of(context)
-                                                        .yes_continue,
-                                                    textButton2:
-                                                        S.of(context).other_pay,
-                                                    onPress2: () async {
-                                              Nav.back();
-                                              await value.payProfiling(
-                                                  context,
-                                                  [
-                                                    int.tryParse(data
-                                                                .idLogResult
-                                                                .toString() ??
+                                                context,
+                                                S
+                                                    .of(context)
+                                                    .pay_with_your_cool_balance,
+                                                textButton1: S
+                                                    .of(context)
+                                                    .yes_continue,
+                                                textButton2: S
+                                                    .of(context)
+                                                    .other_pay,
+                                                onPress2: () async {
+                                                  Nav.back();
+                                                  await value.payProfiling(
+                                                      context,
+                                                      [
+                                                        int.tryParse(data
+                                                            .idLogResult
+                                                            .toString() ??
                                                             "0") ??
-                                                        0
-                                                  ],
-                                                  "0",
-                                                  "transaction_type",
-                                                  1, onUpdate: () async {
-                                                await value
-                                                    .getListProfiling(context);
-                                              }, fromPage: "profiling");
-                                            }, onPress1: () async {
+                                                            0
+                                                      ],
+                                                      "0",
+                                                      "transaction_type",
+                                                      1, onUpdate: () async {
+                                                    await value
+                                                        .getListProfiling(
+                                                        context);
+                                                  }, fromPage: "profiling");
+                                                }, onPress1: () async {
                                               Nav.back();
                                               await value
                                                   .createTransactionProfiling(
-                                                      context,
-                                                      DataCheckoutTransaction(
-                                                          idLogs: [
-                                                            int.parse(data
-                                                                    .idLogResult
-                                                                    .toString() ??
-                                                                "0")
-                                                          ],
-                                                          discount: "0",
-                                                          idItemPayments: "1",
-                                                          qty: 1,
-                                                          gateway: "paypal"),
+                                                  context,
+                                                  DataCheckoutTransaction(
+                                                      idLogs: [
+                                                        int.parse(data
+                                                            .idLogResult
+                                                            .toString() ??
+                                                            "0")
+                                                      ],
+                                                      discount: "0",
+                                                      idItemPayments:
+                                                      "1",
+                                                      qty: 1,
+                                                      gateway:
+                                                      "paypal"),
                                                       () async {
-                                                await value
-                                                    .getListProfiling(context);
-                                              });
+                                                    await value
+                                                        .getListProfiling(
+                                                        context);
+                                                  });
                                             },
-                                                    colorButon1: primaryColor,
-                                                    colorButton2: Colors.white);
+                                                colorButon1:
+                                                primaryColor,
+                                                colorButton2:
+                                                Colors.white);
                                           },
                                               colorButon1: primaryColor,
-                                              colorButton2: Colors.white);
+                                              colorButton2:
+                                              Colors.white);
                                         } else {
-                                          Nav.to(DetailProfiling(data: data));
+                                          Nav.to(
+                                              DetailProfiling(data: data));
                                         }
                                       },
                                       onDoubleTap: () {
                                         if (data.status.toString() == "0") {
-                                          NotificationUtils.showSimpleDialog2(
+                                          NotificationUtils
+                                              .showSimpleDialog2(
                                               context,
-                                              S.of(context).pay_to_see_more,
-                                              textButton1:
-                                                  S.of(context).yes_continue,
-                                              textButton2: S.of(context).no,
-                                              onPress2: () {
+                                              S
+                                                  .of(context)
+                                                  .pay_to_see_more,
+                                              textButton1: S
+                                                  .of(context)
+                                                  .yes_continue,
+                                              textButton2: S
+                                                  .of(context)
+                                                  .no, onPress2: () {
                                             Nav.back();
                                           }, onPress1: () async {
                                             Nav.back();
                                             await NotificationUtils
                                                 .showSimpleDialog2(
-                                                    context,
-                                                    S
-                                                        .of(context)
-                                                        .pay_with_your_cool_balance,
-                                                    textButton1: S
-                                                        .of(context)
-                                                        .yes_continue,
-                                                    textButton2:
-                                                        S.of(context).other,
-                                                    onPress2: () async {
-                                              await value.payProfiling(
                                                 context,
-                                                [
-                                                  int.tryParse(data.idLogResult
-                                                              .toString() ??
+                                                S
+                                                    .of(context)
+                                                    .pay_with_your_cool_balance,
+                                                textButton1: S
+                                                    .of(context)
+                                                    .yes_continue,
+                                                textButton2:
+                                                S.of(context).other,
+                                                onPress2: () async {
+                                                  await value.payProfiling(
+                                                    context,
+                                                    [
+                                                      int.tryParse(data
+                                                          .idLogResult
+                                                          .toString() ??
                                                           "0") ??
-                                                      0
-                                                ],
-                                                "0",
-                                                "transaction_type",
-                                                1,
-                                                onUpdate: () async {
-                                                  await value.getListProfiling(
-                                                      context);
-                                                },
-                                                fromPage: "profiling",
-                                              );
-                                            }, onPress1: () async {
+                                                          0
+                                                    ],
+                                                    "0",
+                                                    "transaction_type",
+                                                    1,
+                                                    onUpdate: () async {
+                                                      await value
+                                                          .getListProfiling(
+                                                          context);
+                                                    },
+                                                    fromPage: "profiling",
+                                                  );
+                                                }, onPress1: () async {
                                               Nav.back();
                                               await value
                                                   .createTransactionProfiling(
-                                                      context,
-                                                      DataCheckoutTransaction(
-                                                        idLogs: [
-                                                          int.parse(data
-                                                                  .idLogResult
-                                                                  .toString() ??
-                                                              "0")
-                                                        ],
-                                                        discount: "0",
-                                                        idItemPayments: "1",
-                                                        qty: 1,
-                                                      ), () async {
+                                                  context,
+                                                  DataCheckoutTransaction(
+                                                    idLogs: [
+                                                      int.parse(data
+                                                          .idLogResult
+                                                          .toString() ??
+                                                          "0")
+                                                    ],
+                                                    discount: "0",
+                                                    idItemPayments: "1",
+                                                    qty: 1,
+                                                  ), () async {
                                                 await value
-                                                    .getListProfiling(context);
+                                                    .getListProfiling(
+                                                    context);
                                               });
                                             },
-                                                    colorButon1: primaryColor,
-                                                    colorButton2: Colors.white);
+                                                colorButon1:
+                                                primaryColor,
+                                                colorButton2:
+                                                Colors.white);
                                           },
                                               colorButon1: primaryColor,
-                                              colorButton2: Colors.white);
+                                              colorButton2:
+                                              Colors.white);
                                         } else {
                                           Nav.to(ScreenHasilKepribadian(
                                               data: data));
                                         }
                                       },
-                                      child:
-                                          CardListProfilingWidget(data: data),
+                                      child: CardListProfilingWidget(
+                                          data: data),
                                     );
                                   },
                                   separatorBuilder: (context, index) {
                                     return const Padding(
-                                        padding: EdgeInsets.only(bottom: 8));
+                                        padding:
+                                        EdgeInsets.only(bottom: 8));
                                   },
                                   itemCount: value.listProfiling.length),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: value.isLoadingGetLIstMultipleProfiling
-                          ? const ShimmerLoadingWidgetMany(
-                              itemBuilderHeight: 156,
-                              separatorBuilderHeight: 10,
-                              itemCount: 5,
-                            )
-                          : value.listMultipleProfiling.isEmpty
-                              ? const NoDataWidget()
-                              : ListView.separated(
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 20),
+                              child: value.isLoadingGetLIstMultipleProfiling
+                                  ? const ShimmerLoadingWidgetMany(
+                                itemBuilderHeight: 156,
+                                separatorBuilderHeight: 10,
+                                itemCount: 5,
+                              )
+                                  : value.listMultipleProfiling.isEmpty
+                                  ? const NoDataWidget()
+                                  : ListView.separated(
                                   itemBuilder: (context, index) {
                                     DataListMultipleProfiling
-                                        dataListMultipleProfiling =
-                                        value.listMultipleProfiling[index];
+                                    dataListMultipleProfiling =
+                                    value.listMultipleProfiling[index];
                                     return ListTile(
                                       onTap: () async {
                                         await Nav.to(ListMultipleProfiling(
                                           dataListMultipleProfiling:
-                                              dataListMultipleProfiling,
+                                          dataListMultipleProfiling,
                                         ));
-                                        value.getListMutipleProfiling(context);
+                                        value.getListMutipleProfiling(
+                                            context);
                                       },
                                       contentPadding: EdgeInsets.zero,
                                       title: Container(
                                         padding: const EdgeInsets.all(20),
                                         decoration: BoxDecoration(
-                                            color:
-                                                primaryColor.withOpacity(0.2),
+                                            color: primaryColor
+                                                .withOpacity(0.2),
                                             borderRadius:
-                                                BorderRadius.circular(20)),
-                                        child: Text(dataListMultipleProfiling
-                                            .name
-                                            .toString()),
+                                            BorderRadius.circular(20)),
+                                        child: Text(
+                                            dataListMultipleProfiling.name
+                                                .toString()),
                                       ),
                                     );
                                   },
@@ -327,168 +363,172 @@ class _ScreenFeatureKepribadianState extends State<ScreenFeatureKepribadian>
                                     );
                                   },
                                   itemCount:
-                                      value.listMultipleProfiling.length),
+                                  value.listMultipleProfiling.length),
+                            ),
+                          ]),
+                        ),
+                      ],
                     ),
-                  ]),
-                ),
-              ],
-            ),
-          ),
-          bottomNavigationBar: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                // Padding(
-                //   padding: const EdgeInsets.symmetric(horizontal: 20),
-                //   child: MaterialButton(
-                //     shape: RoundedRectangleBorder(
-                //         borderRadius: BorderRadius.circular(10),
-                //         side: BorderSide(width: 1, color: primaryColor)),
-                //     color: Colors.white,
-                //     textColor: primaryColor,
-                //     height: 54,
-                //     minWidth: MediaQuery.of(context).size.width,
-                //     onPressed: () {
-                //       show();
-                //       Nav.to(ScreenTambahProfiling(
-                //         onAdd: () async {
-                //           await value.getListProfiling(context);
-                //         },
-                //       ));
-                //     },
-                //     child: Text("+ ${S.of(context).add}"),
-                //   ),
-                // ),
-                // value.listProfiling.isNotEmpty
-                //     ? SizedBox(
-                //         height:
-                //             value.listDisable.length == value.listProfiling.length
-                //                 ? 0
-                //                 : 12,
-                //       )
-                //     : const SizedBox(
-                //         height: 0,
-                //         width: 0,
-                //       ),
-                // value.listProfiling.isNotEmpty ||
-                // value.listProfiling.isNotEmpty &&
-                //         value.listDisable != value.listProfiling
-                //     ? Padding(
-                //         padding: const EdgeInsets.only(
-                //             left: 20, right: 20, bottom: 10),
-                //         child: MaterialButton(
-                //           shape: RoundedRectangleBorder(
-                //             borderRadius: BorderRadius.circular(10),
-                //           ),
-                //           color: primaryColor,
-                //           textColor: Colors.white,
-                //           height: 54,
-                //           minWidth: MediaQuery.of(context).size.width,
-                //           onPressed: value.listDisable.length ==
-                //                   value.listProfiling.length
-                //               ? null
-                //               : () {
-                //                   NotificationUtils.showSimpleDialog2(
-                //                       context, S.of(context).pay_to_see_more,
-                //                       textButton1: S.of(context).yes_continue,
-                //                       textButton2: S.of(context).no,
-                //                       onPress2: () {
-                //                     Nav.back();
-                //                   }, onPress1: () async {
-                //                     List<DataProfiling> satuList = [];
-                //                     satuList = value.listProfiling.where((e) {
-                //                       return e.status == "0";
-                //                     }).toList();
+                  ),
+                  bottomNavigationBar: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        // Padding(
+                        //   padding: const EdgeInsets.symmetric(horizontal: 20),
+                        //   child: MaterialButton(
+                        //     shape: RoundedRectangleBorder(
+                        //         borderRadius: BorderRadius.circular(10),
+                        //         side: BorderSide(width: 1, color: primaryColor)),
+                        //     color: Colors.white,
+                        //     textColor: primaryColor,
+                        //     height: 54,
+                        //     minWidth: MediaQuery.of(context).size.width,
+                        //     onPressed: () {
+                        //       show();
+                        //       Nav.to(ScreenTambahProfiling(
+                        //         onAdd: () async {
+                        //           await value.getListProfiling(context);
+                        //         },
+                        //       ));
+                        //     },
+                        //     child: Text("+ ${S.of(context).add}"),
+                        //   ),
+                        // ),
+                        // value.listProfiling.isNotEmpty
+                        //     ? SizedBox(
+                        //         height:
+                        //             value.listDisable.length == value.listProfiling.length
+                        //                 ? 0
+                        //                 : 12,
+                        //       )
+                        //     : const SizedBox(
+                        //         height: 0,
+                        //         width: 0,
+                        //       ),
+                        // value.listProfiling.isNotEmpty ||
+                        // value.listProfiling.isNotEmpty &&
+                        //         value.listDisable != value.listProfiling
+                        //     ? Padding(
+                        //         padding: const EdgeInsets.only(
+                        //             left: 20, right: 20, bottom: 10),
+                        //         child: MaterialButton(
+                        //           shape: RoundedRectangleBorder(
+                        //             borderRadius: BorderRadius.circular(10),
+                        //           ),
+                        //           color: primaryColor,
+                        //           textColor: Colors.white,
+                        //           height: 54,
+                        //           minWidth: MediaQuery.of(context).size.width,
+                        //           onPressed: value.listDisable.length ==
+                        //                   value.listProfiling.length
+                        //               ? null
+                        //               : () {
+                        //                   NotificationUtils.showSimpleDialog2(
+                        //                       context, S.of(context).pay_to_see_more,
+                        //                       textButton1: S.of(context).yes_continue,
+                        //                       textButton2: S.of(context).no,
+                        //                       onPress2: () {
+                        //                     Nav.back();
+                        //                   }, onPress1: () async {
+                        //                     List<DataProfiling> satuList = [];
+                        //                     satuList = value.listProfiling.where((e) {
+                        //                       return e.status == "0";
+                        //                     }).toList();
 
-                //                     print(
-                //                         "satuList ${satuList.map((e) => e.idLogResult)}");
+                        //                     print(
+                        //                         "satuList ${satuList.map((e) => e.idLogResult)}");
 
-                //                     await value.payProfiling(
-                //                         context,
-                //                         satuList
-                //                             .map((e) =>
-                //                                 int.tryParse(
-                //                                     e.idLogResult ?? "0") ??
-                //                                 0)
-                //                             .toList(),
-                //                         "0",
-                //                         "payment",
-                //                         satuList.length, onUpdate: () {
-                //                       value.getListProfiling(context);
-                //                     });
-                //                   },
-                //                       colorButon1: primaryColor,
-                //                       colorButton2: Colors.white);
+                        //                     await value.payProfiling(
+                        //                         context,
+                        //                         satuList
+                        //                             .map((e) =>
+                        //                                 int.tryParse(
+                        //                                     e.idLogResult ?? "0") ??
+                        //                                 0)
+                        //                             .toList(),
+                        //                         "0",
+                        //                         "payment",
+                        //                         satuList.length, onUpdate: () {
+                        //                       value.getListProfiling(context);
+                        //                     });
+                        //                   },
+                        //                       colorButon1: primaryColor,
+                        //                       colorButton2: Colors.white);
 
-                //                   // Nav.to(InvoiceScreen());
-                //                   // Nav.to(PreInvoiceScreen());
-                //                   // show();
-                //                   // Nav.to(const ScreenHasilKepribadian());
-                //                 },
-                //           child: const Text("Bayar Semua"),
-                //         ),
-                //       )
-                //     : const SizedBox(
-                //         height: 0,
-                //         width: 0,
-                //       ),
-
-                SizedBox(
-                  height: 54,
-                  child: ButtonPrimary(S.of(context).single,
-                      expand: true,
-                      negativeColor: true,
-                      useBorder: true,
-                      border: 1,
-                      radius: 10,
-                      elevation: 0.0,
-                      borderColor: primaryColor, onPress: () {
-                    // show();
-                    Nav.to(ScreenTambahProfiling(
-                      onAdd: () async {
-                        await value.getListProfiling(context);
-                      },
-                    ));
-                  }),
-                ),
-
-                const SizedBox(
-                  height: 8,
-                ),
-                SizedBox(
-                  height: 54,
-                  child: ButtonPrimary(
-                    S.of(context).multiple,
-                    expand: true,
-                    negativeColor: true,
-                    useBorder: true,
-                    border: 1,
-                    radius: 10,
-                    elevation: 0.0,
-                    borderColor: primaryColor,
-                    onPress: () async {
-                      if (value.dataMaximumProfiling?.maxQty != null) {
-                        await showDialog(
-                          context: context,
-                          builder: (context) => InputAmountProfilingDialog(
-                            maxProfiling:
-                                value.dataMaximumProfiling?.maxQty.toString(),
-                            onAdd: () async {
-                              await value.getListMutipleProfiling(context);
-                            },
+                        //                   // Nav.to(InvoiceScreen());
+                        //                   // Nav.to(PreInvoiceScreen());
+                        //                   // show();
+                        //                   // Nav.to(const ScreenHasilKepribadian());
+                        //                 },
+                        //           child: const Text("Bayar Semua"),
+                        //         ),
+                        //       )
+                        //     : const SizedBox(
+                        //         height: 0,
+                        //         width: 0,
+                        //       ),
+                        if (valueUser.dataUser!.isAffiliate.toString() != "1")
+                          SizedBox(
+                            height: 54,
+                            child: ButtonPrimary(S.of(context).single,
+                                expand: true,
+                                negativeColor: true,
+                                useBorder: true,
+                                border: 1,
+                                radius: 10,
+                                elevation: 0.0,
+                                borderColor: primaryColor, onPress: () {
+                                  // show();
+                                  Nav.to(ScreenTambahProfiling(
+                                    onAdd: () async {
+                                      await value.getListProfiling(context);
+                                    },
+                                  ));
+                                }),
                           ),
-                        );
-                      } else {}
-                    },
+                        if (valueUser.dataUser!.isAffiliate.toString() != "1")
+                          const SizedBox(
+                            height: 8,
+                          ),
+                        if (valueUser.dataUser!.isAffiliate.toString() != "1")
+                          SizedBox(
+                            height: 54,
+                            child: ButtonPrimary(
+                              S.of(context).multiple,
+                              expand: true,
+                              negativeColor: true,
+                              useBorder: true,
+                              border: 1,
+                              radius: 10,
+                              elevation: 0.0,
+                              borderColor: primaryColor,
+                              onPress: () async {
+                                if (value.dataMaximumProfiling?.maxQty != null) {
+                                  await showDialog(
+                                    context: context,
+                                    builder: (context) =>
+                                        InputAmountProfilingDialog(
+                                          maxProfiling: value
+                                              .dataMaximumProfiling?.maxQty
+                                              .toString(),
+                                          onAdd: () async {
+                                            await value
+                                                .getListMutipleProfiling(context);
+                                          },
+                                        ),
+                                  );
+                                } else {}
+                              },
+                            ),
+                          ),
+                      ],
+                    ),
                   ),
                 ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
+              ),
+        ));
   }
 }
 
@@ -563,18 +603,18 @@ class CardListProfilingWidget extends StatelessWidget {
                       ),
                       data.status == "0"
                           ? const Padding(
-                              padding: EdgeInsets.only(right: 24),
-                              child: ImageIcon(
-                                AssetImage(
-                                  "images/brain/Lock.png",
-                                ),
-                                color: Color(0XFFF2994A),
-                              ),
-                            )
+                        padding: EdgeInsets.only(right: 24),
+                        child: ImageIcon(
+                          AssetImage(
+                            "images/brain/Lock.png",
+                          ),
+                          color: Color(0XFFF2994A),
+                        ),
+                      )
                           : const SizedBox(
-                              height: 0,
-                              width: 0,
-                            ),
+                        height: 0,
+                        width: 0,
+                      ),
                     ],
                   ),
                 ),
@@ -589,7 +629,7 @@ class CardListProfilingWidget extends StatelessWidget {
                       bottomRight: Radius.circular(20))),
               child: Padding(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+                const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
                 child: Column(
                   children: [
                     Row(
@@ -648,7 +688,7 @@ class InputAmountProfilingDialog extends StatelessWidget {
   InputAmountProfilingDialog({super.key, this.maxProfiling, this.onAdd});
 
   final TextEditingController _controllerJumlahProfiling =
-      TextEditingController();
+  TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override

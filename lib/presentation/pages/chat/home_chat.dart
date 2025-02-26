@@ -21,12 +21,13 @@ import 'package:coolappflutter/presentation/utils/takeVideo_utils.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get_thumbnail_video/index.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:video_player/video_player.dart';
-import 'package:video_thumbnail/video_thumbnail.dart';
+
 import '../../../data/models/data_post.dart';
 import '../../../data/networks/endpoint/api_endpoint.dart';
 import '../../utils/takeimage_utils.dart';
@@ -34,6 +35,7 @@ import '../../widgets/shimmer_loading.dart';
 import 'alert_audio_vn.dart';
 import 'chat_profile.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:get_thumbnail_video/video_thumbnail.dart';
 
 class HomeChat extends StatefulWidget {
   const HomeChat({super.key, required this.klickTab, required});
@@ -68,16 +70,31 @@ class _HomeChatState extends State<HomeChat> {
     final tempDir = await getTemporaryDirectory();
     final thumbnailPath = await VideoThumbnail.thumbnailFile(
       video: videoPath,
-      thumbnailPath: tempDir.path,
-      imageFormat: ImageFormat.PNG,
-      maxHeight: 150, // Atur ukuran thumbnail
-      quality: 75,
+      thumbnailPath: tempDir.path, // Lokasi direktori sementara
+      imageFormat: ImageFormat.PNG, // Format thumbnail
+      maxHeight: 150,
+      maxWidth: 150,
+      quality: 75, // Kualitas gambar
     );
 
     setState(() {
-      thumbnailPaths = thumbnailPath;
+      thumbnailPaths = thumbnailPath.toString();
     });
   }
+  // Future<void> generateThumbnail(String videoPath) async {
+  //   final tempDir = await getTemporaryDirectory();
+  //   final thumbnailPath = await VideoThumbnail.thumbnailFile(
+  //     video: videoPath,
+  //     thumbnailPath: tempDir.path,
+  //     imageFormat: ImageFormat.PNG,
+  //     maxHeight: 150, // Atur ukuran thumbnail
+  //     quality: 75,
+  //   );
+
+  //   setState(() {
+  //     thumbnailPaths = thumbnailPath;
+  //   });
+  // }
 
   Future<void> _fetchAndroidVersion() async {
     String version = await getAndroidVersion();

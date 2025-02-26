@@ -137,13 +137,13 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                                   phoneNumber.nsn.toString();
                         },
                         enabled: widget.isVerif ? false : true,
-                        countryButtonPadding: null,
+                        // countryButtonPadding: null,
                         isCountrySelectionEnabled: true,
                         isCountryButtonPersistent: true,
-                        showDialCode: true,
-                        showIsoCodeInInput: false,
-                        showFlagInInput: true,
-                        flagSize: 16,
+                        // showDialCode: true,
+                        // showIsoCodeInInput: false,
+                        // showFlagInInput: true,
+                        // flagSize: 16,
 
                         style: TextStyle(color: whiteColor),
                         decoration: InputDecoration(

@@ -1,3 +1,7 @@
+import 'dart:async';
+
+import 'package:coolappflutter/data/locals/preference_handler.dart';
+import 'package:coolappflutter/data/locals/shared_pref.dart';
 import 'package:coolappflutter/data/provider/provider_profiling.dart';
 import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
@@ -18,6 +22,45 @@ class ScreenTambahProfiling extends StatefulWidget {
 }
 
 class _ScreenTambahProfilingState extends State<ScreenTambahProfiling> {
+  @override
+  void initState() {
+    cekSession();
+    super.initState();
+  }
+
+  cekSession() async {
+    dynamic ceklanguage = await PreferenceHandler.retrieveISelectLanguage();
+    if (ceklanguage == null) {
+      Prefs().setLocale('en_US', () {
+        setState(() {
+          S.load(Locale('en_US'));
+          setState(() {});
+        });
+      });
+      Timer(Duration(seconds: 2), () {
+        Prefs().getLocale().then((locale) {
+          debugPrint(locale);
+
+          S.load(Locale(locale)).then((value) {});
+        });
+      });
+    } else {
+      Prefs().setLocale('$ceklanguage', () {
+        setState(() {
+          S.load(Locale('$ceklanguage'));
+          setState(() {});
+        });
+      });
+      Timer(Duration(seconds: 2), () {
+        Prefs().getLocale().then((locale) {
+          debugPrint(locale);
+
+          S.load(Locale(locale)).then((value) {});
+        });
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -93,21 +136,21 @@ class _ScreenTambahProfilingState extends State<ScreenTambahProfiling> {
                           onTap: () async {
                             var res = await DateUtil.pickDate(context);
 
-                            setState(() {
-                              value.tglLahir.text = DateFormat("dd, MMMM yyyy")
-                                  .format(res ?? DateTime.now());
-                              value.dayDate = res?.day.toString();
-                              value.monthDate = res?.month.toString();
-                              value.yearDate = res?.year.toString();
-                              DateTime currentDate = DateTime.now();
-                              value.birthDate = currentDate.year - res!.year;
+                            value.tglLahir.text = DateFormat("dd, MMMM yyyy")
+                                .format(res ?? DateTime.now());
+                            value.dayDate = res?.day.toString();
+                            value.monthDate = res?.month.toString();
+                            value.yearDate = res?.year.toString();
+                            DateTime currentDate = DateTime.now();
+                            value.birthDate = currentDate.year - res!.year;
 
-                              if (currentDate.month < res.month ||
-                                  (currentDate.month == res.month &&
-                                      currentDate.day < res.day)) {
-                                value.birthDate;
-                              }
-                            });
+                            if (currentDate.month < res.month ||
+                                (currentDate.month == res.month &&
+                                    currentDate.day < res.day)) {
+                              value.birthDate;
+                            }
+                            debugPrint("tes date");
+                            setState(() {});
                           },
                           decoration: InputDecoration(
                               hintText: S.of(context).select,

@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:async';
 import 'dart:io';
 
 import 'package:coolappflutter/data/provider/provider_auth.dart';
@@ -8,11 +9,14 @@ import 'package:coolappflutter/presentation/pages/auth/register_screen.dart';
 import 'package:coolappflutter/presentation/pages/otp/forgot_password_screen.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:phone_form_field/phone_form_field.dart';
 import 'package:provider/provider.dart';
 
+import '../../../data/locals/preference_handler.dart';
+import '../../../data/locals/shared_pref.dart';
 import 'component/alert_dialog_otp.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -36,14 +40,52 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
+  cekSession() async {
+    dynamic ceklanguage = await PreferenceHandler.retrieveISelectLanguage();
+    if (ceklanguage == null) {
+      Prefs().setLocale('en_US', () {
+        setState(() {
+          S.load(Locale('en_US'));
+          setState(() {});
+        });
+      });
+      Timer(Duration(seconds: 2), () {
+        Prefs().getLocale().then((locale) {
+          debugPrint(locale);
+
+          S.load(Locale(locale)).then((value) {});
+        });
+      });
+    } else {
+      Prefs().setLocale('$ceklanguage', () {
+        setState(() {
+          S.load(Locale('$ceklanguage'));
+          setState(() {});
+        });
+      });
+      Timer(Duration(seconds: 2), () {
+        Prefs().getLocale().then((locale) {
+          debugPrint(locale);
+
+          S.load(Locale(locale)).then((value) {});
+        });
+      });
+    }
+  }
+
+  // logout() async {
+  //   debugPrint("logout sukses");
+  //   await FirebaseAuth.instance.signOut();
+  // }
+
   @override
   void initState() {
-    // TODO: implement initState
+    cekSession();
     assert(() {
-      controllerPhone.text = '+6285364665287';
-      passwordController.text = 'babahAimar@2024';
+      controllerPhone.text = '+62821777775';
+      passwordController.text = 'Password1234()';
       phoneController.value =
-          const PhoneNumber(isoCode: IsoCode.ID, nsn: '6285364665287');
+          const PhoneNumber(isoCode: IsoCode.ID, nsn: '+62821777775');
       return true;
     }());
     super.initState();
@@ -89,13 +131,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                     phoneNumber.nsn.toString();
                           },
                           enabled: true,
-                          countryButtonPadding: null,
+                          // countryButtonPadding: null,
                           isCountrySelectionEnabled: true,
                           isCountryButtonPersistent: true,
-                          showDialCode: true,
-                          showIsoCodeInInput: false,
-                          showFlagInInput: true,
-                          flagSize: 16,
+                          // showDialCode: true,
+                          // showIsoCodeInInput: false,
+                          // showFlagInInput: true,
+                          // flagSize: 16,
                           style: TextStyle(color: whiteColor),
                           decoration: InputDecoration(
                             labelText: S.of(context).phone_number,

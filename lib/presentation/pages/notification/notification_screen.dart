@@ -139,6 +139,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           child: ElevatedButton(
                               onPressed: () {
                                 setState(() {});
+                                final provider =
+                                    Provider.of<NotificationProvider>(context,
+                                        listen: false);
+                                provider.loadMoreNotifications();
                               },
                               child: Text(S.of(context).no_data))),
                     ));

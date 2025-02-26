@@ -271,15 +271,17 @@ class _SplashScreenState extends State<SplashScreen>
     final locale = await Prefs().getLocale();
     await S.load(Locale(locale));
     dynamic cekOboarding = await PreferenceHandler.retrieveCekOnboarding();
-
-    if (cekOboarding.toString() != "1") {
+    final userToken = await Prefs().getToken();
+    debugPrint("cek sessions $userToken");
+    if (userToken == null && cekOboarding.toString() != "1") {
       Nav.toAll(const Onboardingnew1(
         changeLanguage: '',
       ));
     } else {
       final userToken = await Prefs().getToken();
+      debugPrint("cek session $userToken");
       if (widget.codeReferral != '/') {
-        await Prefs().clearSession();
+        // await Prefs().clearSession();
         Nav.toAll(RegisterScreen(codeReferral: widget.codeReferral));
       } else if (userToken != null) {
         debugPrint("cek session $userToken");

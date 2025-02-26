@@ -3,6 +3,8 @@ import 'package:coolappflutter/data/response/notification/res_detail_notificatio
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../generated/l10n.dart';
+
 class DetailNotificationScreen extends StatefulWidget {
   final String notificationId;
 
@@ -42,15 +44,19 @@ class _DetailNotificationScreenState extends State<DetailNotificationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Notification Detail",
+        title: Text(
+          S.of(context).notification,
+          // "Notification Detail",
           style: TextStyle(color: Colors.white),
         ),
       ),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
           : notificationDetail == null
-              ? const Center(child: Text("Failed to load notification detail."))
+              ? Center(
+                  child: Text(S.of(context).no_data
+                      // "Failed to load notification detail."
+                      ))
               : Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
@@ -68,7 +74,7 @@ class _DetailNotificationScreenState extends State<DetailNotificationScreen> {
                       ),
                       const SizedBox(height: 10),
                       Text(
-                        "Date Read: ${notificationDetail!.dateRead ?? 'Not read yet'}",
+                        "${S.of(context).date}: ${notificationDetail!.dateRead ?? 'Not ${S.of(context).read} yet'}",
                         style:
                             const TextStyle(fontSize: 14, color: Colors.grey),
                       ),

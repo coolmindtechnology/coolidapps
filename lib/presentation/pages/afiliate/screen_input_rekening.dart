@@ -43,6 +43,7 @@ class _ScreenInputRekeningState extends State<ScreenInputRekening> {
     super.initState();
   }
 
+  TextEditingController nomorRek = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<ProviderAffiliate>(context);
@@ -86,18 +87,19 @@ class _ScreenInputRekeningState extends State<ScreenInputRekening> {
                 //     });
                 //   },
                 // ),
-                TypeAheadFormField<DataRek>(
-                  textFieldConfiguration: TextFieldConfiguration(
-                    controller: _typeAheadController,
-                    decoration: InputDecoration(
-                      labelText: S.of(context).select_bank_account,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
+                TypeAheadField(
+                  controller:
+                      _typeAheadController, // your custom controller, or null
+                  builder: (context, controller, focusNode) {
+                    return TextField(
+                      controller:
+                          controller, // note how the controller is passed
+                      focusNode: focusNode,
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
                       ),
-                      fillColor: Colors.grey.withOpacity(0.2),
-                      filled: true,
-                    ),
-                  ),
+                    );
+                  },
                   suggestionsCallback: (pattern) {
                     // Filter daftar rekening berdasarkan input pengguna
                     return provider.listRek
@@ -111,22 +113,54 @@ class _ScreenInputRekeningState extends State<ScreenInputRekening> {
                       title: Text(suggestion.name ?? ""),
                     );
                   },
-                  noItemsFoundBuilder: (context) => const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      'No Bank Accounts Found',
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                  ),
-                  onSuggestionSelected: (suggestion) {
+                  onSelected: (suggestion) {
                     setState(() {
                       _typeAheadController.text = suggestion.name ?? "";
                       _selectedValue = suggestion.code;
                     });
                   },
-                  validator: (value) =>
-                      value!.isEmpty ? S.of(context).select_bank_account : null,
                 ),
+                // TypeAheadFormField<DataRek>(
+                //   textFieldConfiguration: TextFieldConfiguration(
+                //     controller: _typeAheadController,
+                //     decoration: InputDecoration(
+                //       labelText: S.of(context).select_bank_account,
+                //       border: OutlineInputBorder(
+                //         borderRadius: BorderRadius.circular(10),
+                //       ),
+                //       fillColor: Colors.grey.withOpacity(0.2),
+                //       filled: true,
+                //     ),
+                //   ),
+                //   suggestionsCallback: (pattern) {
+                //     // Filter daftar rekening berdasarkan input pengguna
+                //     return provider.listRek
+                //         .where((item) => item.name!
+                //             .toLowerCase()
+                //             .contains(pattern.toLowerCase()))
+                //         .toList();
+                //   },
+                //   itemBuilder: (context, suggestion) {
+                //     return ListTile(
+                //       title: Text(suggestion.name ?? ""),
+                //     );
+                //   },
+                //   noItemsFoundBuilder: (context) => const Padding(
+                //     padding: EdgeInsets.all(8.0),
+                //     child: Text(
+                //       'No Bank Accounts Found',
+                //       style: TextStyle(color: Colors.grey),
+                //     ),
+                //   ),
+                //   onSuggestionSelected: (suggestion) {
+                //     setState(() {
+                //       _typeAheadController.text = suggestion.name ?? "";
+                //       _selectedValue = suggestion.code;
+                //     });
+                //   },
+                //   validator: (value) =>
+                //       value!.isEmpty ? S.of(context).select_bank_account : null,
+                // ),
                 const SizedBox(height: 16),
                 if (provider.isListRek && provider.listRek.isEmpty)
                   const Text('No bank accounts available.'),
@@ -185,7 +219,7 @@ class _ScreenInputRekeningState extends State<ScreenInputRekening> {
                   height: 8,
                 ),
                 TextFormField(
-                  controller: value.noRek,
+                  controller: nomorRek,
                   textInputAction: TextInputAction.next,
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
@@ -214,11 +248,12 @@ class _ScreenInputRekeningState extends State<ScreenInputRekening> {
                         height: 54,
                         minWidth: MediaQuery.of(context).size.width,
                         onPressed: () async {
+                          debugPrint("reee ${value.noRek?.text}");
                           if (keyForm.currentState?.validate() == true) {
                             await value.getDataAccountBank(
                                 context,
                                 _selectedValue ?? "",
-                                value.noRek?.text ?? "", onUpdate: () {
+                                nomorRek.text ?? "", onUpdate: () {
                               widget.onUpdate!();
                             });
                           }

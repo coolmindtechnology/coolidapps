@@ -52,20 +52,21 @@ class DataProfiling {
   dynamic birthDate;
   dynamic character;
   dynamic date;
+  dynamic typeBrain;
 
-  DataProfiling({
-    this.idLogResult,
-    this.status,
-    this.result,
-    this.bloodType,
-    this.profilingName,
-    this.domicile,
-    this.yearDate,
-    this.monthDate,
-    this.birthDate,
-    this.character,
-    this.date,
-  });
+  DataProfiling(
+      {this.idLogResult,
+      this.status,
+      this.result,
+      this.bloodType,
+      this.profilingName,
+      this.domicile,
+      this.yearDate,
+      this.monthDate,
+      this.birthDate,
+      this.character,
+      this.date,
+      this.typeBrain});
 
   factory DataProfiling.fromJson(Map<String, dynamic> json) => DataProfiling(
         idLogResult: json["id_log_result"],
@@ -79,6 +80,7 @@ class DataProfiling {
         birthDate: json["birth_date"],
         character: json["character"],
         date: json["date"],
+        typeBrain: json["type_brain"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -93,5 +95,6 @@ class DataProfiling {
         "birth_date": birthDate,
         "character": character,
         "date": date,
+        "type_brain": typeBrain
       };
 }

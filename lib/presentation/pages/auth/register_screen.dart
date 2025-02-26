@@ -1,5 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
+import 'dart:async';
+
 import 'package:coolappflutter/data/locals/preference_handler.dart';
 import 'package:coolappflutter/data/provider/provider_auth.dart';
 import 'package:coolappflutter/generated/l10n.dart';
@@ -12,7 +14,10 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:phone_form_field/phone_form_field.dart';
 import 'package:provider/provider.dart';
+import '../../../data/locals/shared_pref.dart';
 import '../../utils/nav_utils.dart';
+import '../user/language/model_language.dart';
+import '../user/language/service_language.dart';
 import 'component/alert_dialog_otp.dart';
 import 'component/location_provider.dart';
 
@@ -28,6 +33,7 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   final GlobalKey<FormState> _form = GlobalKey<FormState>();
   TextEditingController controllerPhone = TextEditingController();
+  TextEditingController phoneNumberReg = TextEditingController();
   TextEditingController controllerEmail = TextEditingController();
   TextEditingController codeReferal = TextEditingController();
 
@@ -40,8 +46,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
   String? selectedCountry;
   String? selectedState;
   String? selectedProvince;
+
   @override
   void initState() {
+    Timer(Duration(seconds: 3), () {
+      cekSession();
+    });
+    cekSession();
     // Fetch countries when the widget initializes
     final provider =
         Provider.of<CountryStateCityProvider>(context, listen: false);
@@ -63,6 +74,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       String code = parts.last;
       codeReferal.text = code;
     }
+    cekSession();
     super.initState();
   }
 
@@ -128,6 +140,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
   }
 
+  cekSession() async {
+    dynamic ceklanguage = await PreferenceHandler.retrieveISelectLanguage();
+    Prefs().setLocale('$ceklanguage', () {
+      setState(() {
+        S.load(Locale('$ceklanguage'));
+        setState(() {});
+      });
+    });
+    Timer(Duration(seconds: 2), () {
+      Prefs().getLocale().then((locale) {
+        debugPrint(locale);
+
+        S.load(Locale(locale)).then((value) {});
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final locationProvider = Provider.of<LocationProvider>(context);
@@ -168,27 +197,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           ]),
                           countrySelectorNavigator:
                               const CountrySelectorNavigator.dialog(),
-
                           onChanged: (phoneNumber) {
-                            state.phoneNumberReg.text =
+                            phoneNumberReg.text =
                                 phoneNumber.countryCode.toString() +
                                     phoneNumber.nsn.toString();
+                            cekSession();
 
-                            if (phoneNumber.countryCode.toString() != "62") {
-                              setState(() {
-                                isIndonesia = false;
-                              });
-                            }
+                            // if (phoneNumber.countryCode.toString() != "62") {
+                            //   setState(() {
+                            //     isIndonesia = false;
+                            //   });
+                            // }
                           },
                           enabled: true,
-                          countryButtonPadding: null,
+                          // countryButtonPadding: null,
                           isCountrySelectionEnabled: true,
                           isCountryButtonPersistent: true,
-                          showDialCode: true,
-                          showIsoCodeInInput: false,
-                          showFlagInInput: true,
-                          flagSize: 16,
-
+                          // showDialCode: true,
+                          // showIsoCodeInInput: false,
+                          // showFlagInInput: true,
+                          // flagSize: 16,
                           style: TextStyle(color: whiteColor),
                           decoration: InputDecoration(
                             labelText: S.of(context).phone_number,
@@ -214,6 +242,63 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                           ),
                         ),
+                        // PhoneFormField(
+                        //   initialValue:
+                        //       PhoneNumber.parse('+62'), // or use the controller
+                        //   validator: PhoneValidator.compose([
+                        //     PhoneValidator.required(context,
+                        //         errorText: S.of(context).cannot_be_empty),
+                        //     PhoneValidator.validMobile(context,
+                        //         errorText: S.of(context).invalid_phone_number)
+                        //   ]),
+                        //   countrySelectorNavigator:
+                        //       const CountrySelectorNavigator.dialog(),
+
+                        //   onChanged: (phoneNumber) {
+                        //     state.phoneNumberReg.text =
+                        //         phoneNumber.countryCode.toString() +
+                        //             phoneNumber.nsn.toString();
+
+                        //     if (phoneNumber.countryCode.toString() != "62") {
+                        //       setState(() {
+                        //         isIndonesia = false;
+                        //       });
+                        //     }
+                        //   },
+                        //   enabled: true,
+                        //   // countryButtonPadding: null,
+                        //   isCountrySelectionEnabled: true,
+                        //   isCountryButtonPersistent: true,
+                        //   // showDialCode: true,
+                        //   // showIsoCodeInInput: false,
+                        //   // showFlagInInput: true,
+                        //   // flagSize: 16,
+
+                        //   style: TextStyle(color: whiteColor),
+                        //   decoration: InputDecoration(
+                        //     labelText: S.of(context).phone_number,
+                        //     labelStyle: TextStyle(
+                        //         color: whiteColor, fontFamily: "Poppins"),
+                        //     helperStyle: TextStyle(color: whiteColor),
+                        //     border: OutlineInputBorder(
+                        //         borderSide: const BorderSide(
+                        //             color: Colors.white, width: 1),
+                        //         borderRadius: BorderRadius.circular(10)),
+                        //     focusedBorder: OutlineInputBorder(
+                        //       borderRadius: BorderRadius.circular(15.0),
+                        //       borderSide: const BorderSide(
+                        //         color: Colors.white,
+                        //       ),
+                        //     ),
+                        //     enabledBorder: OutlineInputBorder(
+                        //       borderRadius: BorderRadius.circular(15.0),
+                        //       borderSide: const BorderSide(
+                        //         color: Colors.white,
+                        //         width: 2.0,
+                        //       ),
+                        //     ),
+                        //   ),
+                        // ),
                         const SizedBox(
                           height: 15,
                         ),
@@ -407,6 +492,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               provider.fetchCountries(value);
                               provider.fetchStates(value);
                               provider.selectedStateId = null;
+                              cekSession();
                             }
                           },
                           icon: const Icon(Icons.arrow_drop_down,
@@ -452,6 +538,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   provider.selectedCountryId!,
                                   provider.selectedStateId!,
                                 );
+                                cekSession();
                               }
                             },
                             icon: const Icon(Icons.arrow_drop_down,
@@ -497,7 +584,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     provider.selectedCountryId!,
                                     provider.selectedStateId!,
                                     value);
-                                print('Selected City ID: $value');
+                                cekSession();
                               }
                             },
                             icon: const Icon(Icons.arrow_drop_down,
@@ -537,6 +624,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             onChanged: (value) {
                               if (value != null) {
                                 provider.setSelectedDistrictId(value);
+                                cekSession();
                                 // provider.fetchDistricts(
                                 //     provider.selectedCountryId!,
                                 //     provider.selectedStateId!,
@@ -593,6 +681,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               // }
                               await locationProvider.getCurrentLocation();
                               await locationProvider.openMap(context);
+                              cekSession();
                             },
                             child: state.isLoading
                                 ? Row(
@@ -652,7 +741,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             onPressed: state.isLoading
                                 ? () {}
                                 : () {
-                                    setState(() {});
                                     if (_form.currentState?.validate() ??
                                         false) {
                                       // if (isIndonesia) {
@@ -663,65 +751,65 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             email: () {
                                               Nav.back();
                                               state.register(
-                                                context,
-                                                'email',
-                                                controllerEmail.text,
-                                                codeReferal.text,
-                                                provider.selectedCountryId
-                                                    .toString(),
-                                                provider.selectedStateId
-                                                    .toString(),
-                                                provider.selectedCityId
-                                                    .toString(),
-                                                provider.selectedDistrictId
-                                                    .toString(),
-                                                locationProvider.longitude
-                                                    .toString(),
-                                                locationProvider.latitude
-                                                    .toString(),
-                                              );
+                                                  context,
+                                                  'email',
+                                                  controllerEmail.text,
+                                                  codeReferal.text,
+                                                  provider.selectedCountryId
+                                                      .toString(),
+                                                  provider.selectedStateId
+                                                      .toString(),
+                                                  provider.selectedCityId
+                                                      .toString(),
+                                                  provider.selectedDistrictId
+                                                      .toString(),
+                                                  locationProvider.longitude
+                                                      .toString(),
+                                                  locationProvider.latitude
+                                                      .toString(),
+                                                  phoneNumberReg.text);
                                             },
                                             wa: () {
                                               Nav.back();
                                               state.register(
-                                                context,
-                                                'wa',
-                                                controllerEmail.text,
-                                                codeReferal.text,
-                                                provider.selectedCountryId
-                                                    .toString(),
-                                                provider.selectedStateId
-                                                    .toString(),
-                                                provider.selectedCityId
-                                                    .toString(),
-                                                provider.selectedDistrictId
-                                                    .toString(),
-                                                locationProvider.longitude
-                                                    .toString(),
-                                                locationProvider.latitude
-                                                    .toString(),
-                                              );
+                                                  context,
+                                                  'wa',
+                                                  controllerEmail.text,
+                                                  codeReferal.text,
+                                                  provider.selectedCountryId
+                                                      .toString(),
+                                                  provider.selectedStateId
+                                                      .toString(),
+                                                  provider.selectedCityId
+                                                      .toString(),
+                                                  provider.selectedDistrictId
+                                                      .toString(),
+                                                  locationProvider.longitude
+                                                      .toString(),
+                                                  locationProvider.latitude
+                                                      .toString(),
+                                                  phoneNumberReg.text);
                                             },
                                             sms: () {
                                               Nav.back();
                                               state.register(
-                                                context,
-                                                "sms",
-                                                controllerEmail.text,
-                                                codeReferal.text,
-                                                provider.selectedCountryId
-                                                    .toString(),
-                                                provider.selectedStateId
-                                                    .toString(),
-                                                provider.selectedCityId
-                                                    .toString(),
-                                                provider.selectedDistrictId
-                                                    .toString(),
-                                                locationProvider.longitude
-                                                    .toString(),
-                                                locationProvider.latitude
-                                                    .toString(),
-                                              );
+                                                  context,
+                                                  "sms",
+                                                  controllerEmail.text,
+                                                  codeReferal.text,
+                                                  provider.selectedCountryId
+                                                      .toString(),
+                                                  provider.selectedStateId
+                                                      .toString(),
+                                                  provider.selectedCityId
+                                                      .toString(),
+                                                  provider.selectedDistrictId
+                                                      .toString(),
+                                                  locationProvider.longitude
+                                                      .toString(),
+                                                  locationProvider.latitude
+                                                      .toString(),
+                                                  phoneNumberReg.text);
                                             },
                                           );
                                         },
@@ -734,6 +822,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       //       codeReferal.text);
                                       // }
                                     }
+                                    cekSession();
                                   },
                             child: state.isLoading
                                 ? Row(

@@ -184,11 +184,10 @@ class _ChangeLanguangeState extends State<ChangeLanguange> {
                                           selectBahasa(value);
                                           setState(() {});
                                         },
-                                        fillColor:
-                                            MaterialStateColor.resolveWith(
-                                          (Set<MaterialState> states) {
+                                        fillColor: WidgetStateColor.resolveWith(
+                                          (Set<WidgetState> states) {
                                             if (states.contains(
-                                                MaterialState.selected)) {
+                                                WidgetState.selected)) {
                                               return Colors.blue;
                                             }
                                             return Colors.grey;
@@ -592,6 +591,7 @@ class _ChangeLanguangeState extends State<ChangeLanguange> {
                     if (isSelected == "id_ID") {
                       await PreferenceHandler.storingId("is_indonesia");
                       await PreferenceHandler.storingIdLanguage("0");
+                      await PreferenceHandler.storingISelectLanguage("id_ID");
                       Prefs().setLocale('id_ID', () {
                         setState(() {
                           S.load(const Locale('id_ID'));
@@ -602,6 +602,7 @@ class _ChangeLanguangeState extends State<ChangeLanguange> {
                     } else if (isSelected == "en_US") {
                       await PreferenceHandler.storingId("is_english");
                       await PreferenceHandler.storingIdLanguage("1");
+                      await PreferenceHandler.storingISelectLanguage("en_US");
 
                       Prefs().setLocale('en_US', () {
                         setState(() {
@@ -613,6 +614,7 @@ class _ChangeLanguangeState extends State<ChangeLanguange> {
                     } else if (isSelected == "ar_AR") {
                       await PreferenceHandler.storingId("is_arab");
                       await PreferenceHandler.storingIdLanguage("2");
+                      await PreferenceHandler.storingISelectLanguage("ar_AR");
                       Prefs().setLocale('ar_AR', () {
                         setState(() {
                           S.load(const Locale('ar_AR'));
@@ -623,6 +625,7 @@ class _ChangeLanguangeState extends State<ChangeLanguange> {
                     } else if (isSelected == "zh_CN") {
                       await PreferenceHandler.storingId("is_mandarin");
                       await PreferenceHandler.storingIdLanguage("3");
+                      await PreferenceHandler.storingISelectLanguage("zh_CN");
                       Prefs().setLocale('zh_CN', () {
                         setState(() {
                           S.load(const Locale('zh_CN'));
@@ -633,6 +636,7 @@ class _ChangeLanguangeState extends State<ChangeLanguange> {
                     } else if (isSelected == "es_ES") {
                       await PreferenceHandler.storingId("is_spanish");
                       await PreferenceHandler.storingIdLanguage("4");
+                      await PreferenceHandler.storingISelectLanguage("es_ES");
                       Prefs().setLocale('es_ES', () {
                         setState(() {
                           S.load(const Locale('es_ES'));
@@ -643,6 +647,8 @@ class _ChangeLanguangeState extends State<ChangeLanguange> {
                     } else if (isSelected == "ms_MY") {
                       await PreferenceHandler.storingId("is_melayu");
                       await PreferenceHandler.storingIdLanguage("5");
+                      await PreferenceHandler.storingISelectLanguage("ms_MY");
+
                       Prefs().setLocale('ms_MY', () {
                         setState(() {
                           S.load(const Locale('ms_MY'));
@@ -653,6 +659,7 @@ class _ChangeLanguangeState extends State<ChangeLanguange> {
                     } else if (isSelected == "ru_RU") {
                       await PreferenceHandler.storingId("is_rusia");
                       await PreferenceHandler.storingIdLanguage("6");
+                      await PreferenceHandler.storingISelectLanguage("ru_RU");
                       Prefs().setLocale('ru_RU', () {
                         setState(() {
                           S.load(const Locale('ru_RU'));
@@ -665,6 +672,7 @@ class _ChangeLanguangeState extends State<ChangeLanguange> {
                     else if (isSelected == "tr_TR") {
                       await PreferenceHandler.storingId("is_turkish");
                       await PreferenceHandler.storingIdLanguage("7");
+                      await PreferenceHandler.storingISelectLanguage("tr_TR");
                       Prefs().setLocale('tr_TR', () {
                         setState(() {
                           S.load(const Locale('tr_TR'));

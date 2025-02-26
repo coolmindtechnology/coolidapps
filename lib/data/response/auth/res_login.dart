@@ -39,26 +39,27 @@ class DataLogin {
   dynamic idRole;
   String? isVerified;
   List<dynamic>? permission;
+  dynamic email;
 
-  DataLogin({
-    this.accessToken,
-    this.tokenType,
-    this.expiresIn,
-    this.idRole,
-    this.isVerified,
-    this.permission,
-  });
+  DataLogin(
+      {this.accessToken,
+      this.tokenType,
+      this.expiresIn,
+      this.idRole,
+      this.isVerified,
+      this.permission,
+      this.email});
 
   factory DataLogin.fromJson(Map<String, dynamic> json) => DataLogin(
-        accessToken: json["access_token"],
-        tokenType: json["token_type"],
-        expiresIn: json["expires_in"],
-        idRole: json["id_role"],
-        isVerified: json["is_verified"],
-        permission: json["permission"] == null
-            ? []
-            : List<dynamic>.from(json["permission"]!.map((x) => x)),
-      );
+      accessToken: json["access_token"],
+      tokenType: json["token_type"],
+      expiresIn: json["expires_in"],
+      idRole: json["id_role"],
+      isVerified: json["is_verified"],
+      permission: json["permission"] == null
+          ? []
+          : List<dynamic>.from(json["permission"]!.map((x) => x)),
+      email: json["email"]);
 
   Map<String, dynamic> toJson() => {
         "access_token": accessToken,
@@ -69,5 +70,6 @@ class DataLogin {
         "permission": permission == null
             ? []
             : List<dynamic>.from(permission!.map((x) => x)),
+        "email": email
       };
 }

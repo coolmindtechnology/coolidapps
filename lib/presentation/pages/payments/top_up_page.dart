@@ -1,3 +1,4 @@
+import 'package:coolappflutter/data/apps/app_sizes.dart';
 import 'package:coolappflutter/data/data_global.dart';
 import 'package:coolappflutter/data/models/data_checkout_transaction.dart';
 import 'package:coolappflutter/data/provider/provider_payment.dart';
@@ -66,16 +67,51 @@ class _TopUpPageState extends State<TopUpPage> {
     super.initState();
   }
 
+  String removeLastDigit(String value) {
+    if (value.isNotEmpty) {
+      // Hapus karakter terakhir
+      value = value.substring(0, value.length - 1);
+
+      // Jika karakter terakhir setelah pemotongan adalah titik, hapus juga
+      if (value.endsWith(".")) {
+        value = value.substring(0, value.length - 1);
+      }
+    }
+    return value; // Kembalikan string hasil perubahan
+  }
+
+  int count = 1; // Mulai dari 1 paket
+  final int packagePrice = 369000; // Harga per paket
+
+  void _increment() {
+    setState(() {
+      count++;
+    });
+  }
+
+  void _decrement() {
+    if (count > 1) {
+      setState(() {
+        count--;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<ProviderPayment>(builder: (context, value, child) {
       return Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Image.asset("images/buku/arrowleft.png")),
           iconTheme: IconThemeData(
             color: whiteColor,
           ),
           backgroundColor: primaryColor,
-          centerTitle: true,
+          centerTitle: false,
           title: Text(
             S.of(context).top_up,
             style: TextStyle(color: whiteColor),
@@ -136,19 +172,8 @@ class _TopUpPageState extends State<TopUpPage> {
                           if (dataListTopUp.id == 2 ||
                               dataListTopUp.id == 3 ||
                               (dataListTopUp.id == 1 && (hasId2 && hasId3))) {
-                            return MaterialButton(
-                              elevation: 0,
-                              height: 54,
-                              minWidth: MediaQuery.of(context).size.width,
-                              textColor: greyColor,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                  side: BorderSide(
-                                      width: 1,
-                                      color: selected == index
-                                          ? primaryColor
-                                          : greyColor)),
-                              onPressed: dataListTopUp.status == "AKTIF"
+                            return GestureDetector(
+                              onTap: dataListTopUp.status == "AKTIF"
                                   ? () {
                                       if (dataListTopUp.id == 1) {
                                         setState(() {
@@ -172,16 +197,144 @@ class _TopUpPageState extends State<TopUpPage> {
                                       });
                                     }
                                   : null,
-                              color: dataListTopUp.status != "AKTIF"
-                                  ? greyColor
-                                  : selected == index
-                                      ? primaryColor.withOpacity(0.2)
-                                      : whiteColor,
-                              child: Text(
-                                value.listDataListTopUp?[index].name ?? "",
-                                style: TextStyle(color: greyColor),
+                              // color: dataListTopUp.status != "AKTIF"
+                              //     ? greyColor
+                              //     : selected == index
+                              //         ? primaryColor.withOpacity(0.2)
+                              //         : whiteColor,
+                              child: Container(
+                                padding: EdgeInsets.fromLTRB(22, 15, 22, 15),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  gradient: index == 0
+                                      ? LinearGradient(
+                                          colors: [
+                                            Color(0xFF44BBFE),
+                                            Color(0xFF1E78FE)
+                                          ],
+                                          begin: Alignment.topCenter,
+                                          end: Alignment.bottomCenter,
+                                        )
+                                      : index == 1
+                                          ? LinearGradient(
+                                              colors: [
+                                                Color(0xFFFFCF53),
+                                                Color(0xFFFF9900)
+                                              ],
+                                              begin: Alignment.topCenter,
+                                              end: Alignment.bottomCenter,
+                                            )
+                                          : LinearGradient(
+                                              colors: [
+                                                Color(0xFFFF9252),
+                                                Color(0xFFFF3F15)
+                                              ],
+                                              begin: Alignment.topCenter,
+                                              end: Alignment.bottomCenter,
+                                            ),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.black.withOpacity(0.2),
+                                      blurRadius: 5,
+                                      offset: Offset(0, 3),
+                                    ),
+                                  ],
+                                ),
+                                child: Row(
+                                  children: [
+                                    // Image di pojok kiri
+                                    Image.asset(
+                                      'images/head-w.png', // Ganti dengan path gambar di assets
+                                      width: 40, // Sesuaikan ukuran gambar
+                                      height: 40,
+                                      fit: BoxFit.contain,
+                                    ),
+                                    SizedBox(
+                                        width:
+                                            12), // Jarak antara gambar dan teks
+
+                                    // Kolom teks
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          value.listDataListTopUp?[index]
+                                                  .name ??
+                                              "",
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                        SizedBox(height: 4),
+                                        Text(
+                                          "Rp250.000",
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             );
+
+                            ///
+                            // MaterialButton(
+                            //   elevation: 0,
+                            //   height: 54,
+                            //   minWidth: MediaQuery.of(context).size.width,
+                            //   textColor: greyColor,
+                            //   shape: RoundedRectangleBorder(
+                            //       borderRadius: BorderRadius.circular(10),
+                            //       side: BorderSide(
+                            //           width: 1,
+                            //           color: selected == index
+                            //               ? primaryColor
+                            //               : greyColor)),
+                            //   onPressed: dataListTopUp.status == "AKTIF"
+                            //       ? () {
+                            //           if (dataListTopUp.id == 1) {
+                            //             setState(() {
+                            //               islainnya = true;
+                            //             });
+
+                            //             amountController.clear();
+                            //           } else {
+                            //             setState(() {
+                            //               islainnya = false;
+                            //             });
+                            //             amountController.clear();
+                            //             amountController.text = (double.parse(
+                            //                     dataListTopUp.price ?? "0"))
+                            //                 .toString();
+                            //           }
+                            //           selected = index;
+
+                            //           setState(() {
+                            //             dataListTopUpCheckout = dataListTopUp;
+                            //           });
+                            //         }
+                            //       : null,
+                            //   color: dataListTopUp.status != "AKTIF"
+                            //       ? greyColor
+                            //       : selected == index
+                            //           ? primaryColor.withOpacity(0.2)
+                            //           : whiteColor,
+                            //   child: Text(
+                            //     value.listDataListTopUp?[index].name ?? "",
+                            //     style: TextStyle(color: greyColor),
+                            //   ),
+                            // );
+
+                            /////
                           } else {
                             return Container();
                           }
@@ -337,9 +490,83 @@ class _TopUpPageState extends State<TopUpPage> {
                         )
                       ]
                     ],
-                    const SizedBox(
-                      height: 24,
+                    gapH24,
+                    Container(
+                      width: 360,
+                      height: 138,
+                      padding:
+                          EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+                      decoration: BoxDecoration(
+                        color: Color(0xFFDBFEFD),
+                        borderRadius: BorderRadius.circular(
+                            8), // Tambahkan radius untuk tampilan lebih halus
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Judul Paket
+                          Text(
+                            "Paket Custom",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                          SizedBox(height: 4),
+                          // Deskripsi Harga
+                          Text(
+                            '*Kelipatan ${MoneyFormatter.formatMoney(
+                              amountController.text,
+                              true,
+                            )} ',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black54,
+                            ),
+                          ),
+                          SizedBox(height: 12),
+
+                          // Box Counter
+                          Container(
+                            width: double.infinity,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(color: Colors.grey.shade300),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                // Tombol Minus
+                                IconButton(
+                                  icon: Icon(Icons.remove, color: Colors.red),
+                                  onPressed: _decrement,
+                                ),
+
+                                // Harga di tengah
+                                Text(
+                                  amountController.text.isNotEmpty
+                                      ? "${MoneyFormatter.formatMoney("${count * int.parse(removeLastDigit(amountController.text))}", false)} "
+                                      : "0",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+
+                                // Tombol Plus
+                                IconButton(
+                                  icon: Icon(Icons.add, color: Colors.green),
+                                  onPressed: _increment,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
+                    gapH24,
                     SizedBox(
                       height: 54,
                       child: value.isCreatePayment
