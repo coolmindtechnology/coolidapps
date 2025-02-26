@@ -20,22 +20,23 @@ class ListProfilingContainer extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        width: 130,
-        height: 80,
+        width: 100,
+        height: 100,
         decoration: BoxDecoration(
-          color: BlueColor, // Warna biru
-          borderRadius: BorderRadius.circular(10),
+          color: BlueColor.withOpacity(0.6), // Warna biru
+          borderRadius: BorderRadius.circular(15),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (leading != null) leading!, // Menampilkan leading jika ada
+            if (leading != null) leading!,
+            SizedBox(height: 5,),// Menampilkan leading jika ada
             if (title != null)
               Text(
                 _formatTitle(title!),
                 style: const TextStyle(
                   color: Colors.white,
-                  fontSize: 13,
+                  fontSize: 12,
                   fontWeight: FontWeight.bold,
                 ),
                 textAlign: TextAlign.center,

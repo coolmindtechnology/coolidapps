@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:async';
+import 'dart:io';
 
 import 'package:coolappflutter/data/data_global.dart';
 import 'package:coolappflutter/data/helpers/either.dart';
@@ -729,15 +730,18 @@ class ProviderUser extends ChangeNotifier {
   Future<void> reportBug({
     required List<int> categories,
     required String body,
+    File? media
   }) async {
     isLoadingReportBug = true;
     notifyListeners();
 
     try {
+
       // Mengirim data ke repository
       Either<Failure, ResReportBug> response = await repo.ReportBugByUser(
         categories,
         body,
+        media!
       );
 
       isLoadingReportBug = false;

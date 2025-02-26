@@ -1,13 +1,14 @@
 class ApiEndpoint {
   // static String baseUrl = "https://cool-compass.mycool.id";
   // static String baseUrl = "https://staging-cool.hantrr.com";
-  static String baseUrl = "https://coolstaging.amalprihatinsabah.com";
+  // static String baseUrl = "https://cool-staging.dschazy.com";
+  static String baseUrl = "https://cool-new.dschazy.com";
 
   // static String baseUrl = "https://coolcompas-staging.mycool.id";
 
   static void setDev() {
-    // baseUrl = "https://cool-compass.mycool.id";
-    baseUrl = "https://coolstaging.amalprihatinsabah.com";
+    baseUrl = "https://cool-new.dschazy.com";
+    // baseUrl = "https://cool-staging.dschazy.com";
 
     // baseUrl = "https://staging-cool.hantrr.com";
   }
@@ -19,8 +20,8 @@ class ApiEndpoint {
   ///
   /// This function does not take any parameters and does not return any value.
   static void setProd() {
-    // baseUrl = "https://cool-compass.mycool.id";
-    baseUrl = "https://coolstaging.amalprihatinsabah.com";
+    baseUrl = "https://cool-new.dschazy.com";
+    // baseUrl = "https://cool-staging.dschazy.com";
 
     // baseUrl = "https://staging-cool.hantrr.com";
   }
@@ -132,6 +133,7 @@ class ApiEndpoint {
   static String getSummaryApproval = "${_consultantUrlApi}get-approval-detail";
   static String getHomeConsultant = "${_consultantUrlApi}overview";
   static String getParticipant = "${_consultationUrlApi}get-participant";
+  static String checkSession = "${_consultationUrlApi}check-sessions";
 
   static String getTermConsultant =
       "${_baseUrlApi}terms-and-condition/consultant";
@@ -197,6 +199,8 @@ class ApiEndpoint {
   // Api Profiling
   static String listProfiling = "${_featureUrlApi}list_profiling";
   static String detailProfiling(id) => "${_featureUrlApi}detail_profiling/$id";
+  static String updateProfiling(id) => "${_featureUrlApi}edit_profiling/$id";
+  static String deleteProfiling(id) => "${_featureUrlApi}delete_profiling/$id";
   static String addProfiling = "${_featureUrlApi}create_profiling";
   //  static String sertifikatProfiling(id) =>
   //     "${_featureUrlApi}generate-detail-pdf/$id";

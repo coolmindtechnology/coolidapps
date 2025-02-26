@@ -12,6 +12,7 @@ class AppAsset {
   static const imgKonsultanHome = "images/SliderKonsutan.png";
   static const imgCurhatDashboad = "images/CurhatDashboard.png";
   static const imgCoolMind = "images/konsultasi/CoolMind.png";
+  static const imgLogoCoolMind = "images/LogoCoolMind.png";
   static const imgBoardingKonsul1 = "images/konsultasi/Boarding1.png";
   static const imgBoardingKonsul2 = "images/konsultasi/Boarding2.png";
   static const imgBoardingKonsul3 = "images/konsultasi/Boarding3.png";
@@ -20,6 +21,9 @@ class AppAsset {
   static const imgProfile3 = "images/konsultasi/profile3.png";
   static const imgProfile4 = "images/konsultasi/profile4.png";
   static const imgDefaultProfile = "images/default_user.png";
+  static const imgTerm = "images/term.png";
+  static const imgWelcomeAff = "images/WelcomeAff.png";
+
 
   // Icon Asset
   static const icGlobe = "assets/icons/icon-globe.png";
@@ -36,4 +40,8 @@ class AppAsset {
   static const icRealMoney = "images/konsultasi/icon_realmoney.png";
   static const icShare = "images/konsultasi/icon_share.png";
   static const icKonsult = "images/konsultasi/icon_konsul.png";
+  static const icImages = "images/konsultasi/Image.png";
+  static const icKonsultasi = "images/konsultasi.png";
+  static const icBuku = "images/book.png";
+  static const icCurhat = "images/curhat.png";
 }

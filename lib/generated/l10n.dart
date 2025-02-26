@@ -5593,6 +5593,533 @@ class S {
       args: [],
     );
   }
+
+  String get approve {
+    return Intl.message(
+      'approve',
+      name: 'approve',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get complete_profiling {
+    return Intl.message(
+      'Complete profiling & get Free consultation',
+      name: 'complete_profiling',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get affiliatorCode {
+    return Intl.message(
+      'Affiliator Code',
+      name: 'affiliator_code',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get welcomeAffiliatorProgram {
+    return Intl.message(
+      'Welcome to the Affiliator Program',
+      name: 'welcome_affiliator_program',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get invalidAgentCode {
+    return Intl.message(
+      'Invalid agent code!',
+      name: 'invalid_agent_code',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get agentMaxMembers {
+    return Intl.message(
+      'Agent already has the maximum number of members',
+      name: 'agent_max_members',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get enterAgentCode {
+    return Intl.message(
+      'Enter agent code',
+      name: 'enter_agent_code',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get agreeTermsConditions {
+    return Intl.message(
+      'By reading this, I agree to the terms & conditions',
+      name: 'agree_terms_conditions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get readTermsConditions {
+    return Intl.message(
+      'Please read the terms & conditions completely',
+      name: 'read_terms_conditions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get iUnderstand {
+    return Intl.message(
+      'I Understand',
+      name: 'i_understand',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get affiliatorAccountNotice {
+    return Intl.message(
+      'An account that has become an affiliator CANNOT be used to create a NEW profile',
+      name: 'affiliator_account_notice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get attention {
+    return Intl.message(
+      'ATTENTION!',
+      name: 'attention',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get viewOldProfiling {
+    return Intl.message(
+      'You can still view old profiling results',
+      name: 'view_old_profiling',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get continueText {
+    return Intl.message(
+      'Continue',
+      name: 'continue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get useAnotherAccount {
+    return Intl.message(
+      'Use another account',
+      name: 'use_another_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get confirmBankAccount {
+    return Intl.message(
+      'Are you sure about this bank account number?',
+      name: 'confirm_bank_account',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get doubleCheckBankNumber {
+    return Intl.message(
+      'Make sure the entered number is yours. You can change your bank account number in the settings.',
+      name: 'double_check_bank_number',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get from {
+    return Intl.message(
+      'From',
+      name: 'from',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get yesIamSure {
+    return Intl.message(
+      'Yes, I am sure',
+      name: 'yes_i_am_sure',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get proceed {
+    return Intl.message(
+      'Proceed',
+      name: 'proceed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get invoice {
+    return Intl.message(
+      'Invoice',
+      name: 'invoice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get id {
+    return Intl.message(
+      'ID:',
+      name: 'id',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get affiliateProgram {
+    return Intl.message(
+      'Affiliate Program:',
+      name: 'affiliate_program',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get welcomeAffiliateProgram {
+    return Intl.message(
+      'Welcome to our Affiliate Program! By joining, you can earn additional income by referring our products or services to others.',
+      name: 'welcome_affiliate_program',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get affiliateAgreement {
+    return Intl.message(
+      'Affiliate Program Agreement:',
+      name: 'affiliate_agreement',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get depositInfo {
+    return Intl.message(
+      'Deposit: A deposit of 2,000,000 IDR is required to join.',
+      name: 'deposit_info',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get commissionInfo {
+    return Intl.message(
+      'Commission: Paid based on actions generated from your affiliate link.',
+      name: 'commission_info',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get rightsResponsibilities {
+    return Intl.message(
+      'Rights & Responsibilities: You are responsible for ethical promotion, and we reserve the right to cancel your account if terms are violated.',
+      name: 'rights_responsibilities',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get cancellationChanges {
+    return Intl.message(
+      'Cancellation & Changes: We reserve the right to modify or cancel the agreement with prior notice.',
+      name: 'cancellation_changes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get joinNow {
+    return Intl.message(
+      'Join now and start earning additional income!',
+      name: 'join_now',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get welcomeAffiliator {
+    return Intl.message(
+      'Welcome, Affiliator',
+      name: 'welcome_affiliator',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get congratulationsAffiliator {
+    return Intl.message(
+      'Congratulations! You are now part of our contributors',
+      name: 'congratulations_affiliator',
+      desc: '',
+      args: [],
+    );
+  }
+
+  String get what_is_profiling {
+    return Intl.message('what is profiling ?',
+        name: 'what_is_profiling',
+        desc: '',
+        args: []);
+  }
+
+  String get new_profiling {
+    return Intl.message('New Profiling',
+        name: 'new_profiling',
+        desc: '',
+        args: []);
+  }
+
+  String get identity_confirmation {
+    return Intl.message('Identity Confirmation',
+        name: 'identity_confirmation',
+        desc: '',
+        args: []);
+  }
+
+  String get your_profiling {
+    return Intl.message('Your Profiling',
+        name: 'your_profiling', desc: '', args: []);
+  }
+
+  String get check_profiling_data {
+    return Intl.message(
+        "Let's review the profiling data you want to create, we don't want any mistakes, do we?",
+        name: 'check_profiling_data',
+        desc: '',
+        args: []);
+  }
+
+  String get add_profile {
+    return Intl.message('Add Profile',
+        name: 'add_profile',
+        desc: '',
+        args: []);
+  }
+
+  String get delete_profiling_data {
+    return Intl.message('DELETE PROFILING DATA?',
+        name: 'delete_profiling_data',
+        desc: '',
+        args: []);
+  }
+
+  String get data_deletion_warning {
+    return Intl.message('Deleted data cannot be recovered, are you sure?',
+        name: 'data_deletion_warning',
+        desc: '',
+        args: []);
+  }
+
+  String get yes_delete {
+    return Intl.message('Yes, Delete',
+        name: 'yes_delete',
+        desc: '',
+        args: []);
+  }
+
+  String get no_dont {
+    return Intl.message("No, Don't",
+        name: 'no_dont',
+        desc: '',
+        args: []);
+  }
+
+  String get congratulationsYou {
+    return Intl.message('CONGRATULATIONS!! YOU \n ARE A',
+        name: 'congratulationsYou',
+        desc: '',
+        args: []);
+  }
+
+  String get download_result {
+    return Intl.message('Download Result',
+        name: 'download_result',
+        desc: '',
+        args: []);
+  }
+
+  String get brain {
+    return Intl.message('Brain',
+        name: 'brain',
+        desc: '',
+        args: []);
+  }
+
+  String get free_consultation {
+    return Intl.message('FREE CONSULTATION 3x',
+        name: 'free_consultation',
+        desc: '',
+        args: []);
+  }
+
+  String get free_consultation_details {
+    return Intl.message('Get free consultation up to 3 times in 3 days',
+        name: 'free_consultation_details',
+        desc: '',
+        args: []);
+  }
+
+  String get about_your_profile {
+    return Intl.message('About your profile',
+        name: 'about_your_profile',
+        desc: '',
+        args: []);
+  }
+
+  String get wealth_type {
+    return Intl.message('Wealth Type',
+        name: 'wealth_type',
+        desc: '',
+        args: []);
+  }
+
+  String get family {
+    return Intl.message('Family',
+        name: 'family',
+        desc: '',
+        args: []);
+  }
+
+  String get communication {
+    return Intl.message('Communication',
+        name: 'communication',
+        desc: '',
+        args: []);
+  }
+
+  String get career {
+    return Intl.message('Career',
+        name: 'career', desc: '',
+        args: []);
+  }
+
+  String get financial {
+    return Intl.message('Financial', name: 'financial', desc: '', args: []);
+  }
+
+  String get others {
+    return Intl.message('Others', name: 'others', desc: '', args: []);
+  }
+
+  String get figures {
+    return Intl.message('Figures', name: 'figures', desc: '', args: []);
+  }
+
+  String get figures_with_same_type {
+    return Intl.message('Figures with the same type',
+        name: 'figures_with_same_type', desc: '', args: []);
+  }
+
+  String get now_listening {
+    return Intl.message('Now Listening:',
+        name: 'now_listening', desc: '', args: []);
+  }
+
+  String get asset_type {
+    return Intl.message('Asset Type', name: 'asset_type', desc: '', args: []);
+  }
+
+  String get brain_type_label {
+    return Intl.message('Brain Type',
+        name: 'brain_type_label', desc: '', args: []);
+  }
+
+  String get blood_group {
+    return Intl.message('Blood Group', name: 'blood_group', desc: '', args: []);
+  }
+
+  String get happiness_pattern {
+    return Intl.message('Happiness Pattern',
+        name: 'happiness_pattern', desc: '', args: []);
+  }
+
+  String get social_interaction_pattern {
+    return Intl.message('Social Interaction Pattern',
+        name: 'social_interaction_pattern', desc: '', args: []);
+  }
+
+  String get healing_pattern {
+    return Intl.message('Healing Pattern',
+        name: 'healing_pattern', desc: '', args: []);
+  }
+
+  String get spiritual {
+    return Intl.message('Spiritual', name: 'spiritual', desc: '', args: []);
+  }
+
+  String get figures_with_same_brain_type {
+    return Intl.message('Figures with the same brain type',
+        name: 'figures_with_same_brain_type', desc: '', args: []);
+  }
+
+  String get figures_with_same_personality {
+    return Intl.message('Figures with the same personality',
+        name: 'figures_with_same_personality', desc: '', args: []);
+  }
+
+  String get great_figures_with_same_brain_type {
+    return Intl.message(
+        'Great! There are figures with the same brain type as you',
+        name: 'great_figures_with_same_brain_type',
+        desc: '',
+        args: []);
+  }
+
+  String get biodata {
+    return Intl.message('Biodata', name: 'biodata', desc: '', args: []);
+  }
+
+  String get add_icon_for_profiling {
+    return Intl.message('Add Icon for your profiling!',
+        name: 'add_icon_for_profiling', desc: '', args: []);
+  }
+
+  String get green {
+    return Intl.message('Green', name: 'green', desc: '', args: []);
+  }
+
+  String get yellow {
+    return Intl.message('Yellow', name: 'yellow', desc: '', args: []);
+  }
+
+  String get white {
+    return Intl.message('White', name: 'white', desc: '', args: []);
+  }
+
+  String get orange {
+    return Intl.message('Orange', name: 'orange', desc: '', args: []);
+  }
+
+  String get red {
+    return Intl.message('Red', name: 'red', desc: '', args: []);
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

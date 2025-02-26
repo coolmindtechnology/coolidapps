@@ -27,7 +27,7 @@ class ContainerSliderHome extends StatelessWidget {
       height: ContainerSize ?? 120, // Tinggi container
       decoration: BoxDecoration(
         color: containerColor ?? primaryColor, // Warna default atau opsional
-        borderRadius: BorderRadius.circular(5), // Sudut container dibulatkan
+        borderRadius: BorderRadius.circular(15), // Sudut container dibulatkan
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,

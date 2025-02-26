@@ -1,10 +1,13 @@
 import 'package:coolappflutter/data/provider/provider_user.dart';
 import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/afiliate/home_affiliate.dart';
+import 'package:coolappflutter/presentation/pages/afiliate/result_rekening_bank.dart';
 import 'package:coolappflutter/presentation/pages/user/Setting/Report/Report_Page.dart';
 import 'package:coolappflutter/presentation/pages/user/Setting/Security/Security_Page.dart';
 import 'package:coolappflutter/presentation/pages/user/change_language.dart';
 import 'package:coolappflutter/presentation/pages/user/Setting/Delete_Account/delete_account.dart';
 import 'package:coolappflutter/presentation/pages/user/delete_account.dart';
+import 'package:coolappflutter/presentation/pages/user/update_password.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:flutter/cupertino.dart';
@@ -69,6 +72,19 @@ class _Setting_pageState extends State<Setting_page> {
                       });
                     },
                   ));
+                },
+              ),
+              ItemSetting(
+                title: S.of(context).bank_account,
+                onTap: () {
+                  Nav.to(HomeAffiliate());
+                },
+              ),
+              ItemSetting(
+                title: S.of(context).change_password,
+                onTap: () {
+                  Nav.to(UpdatePassword());
+                  setState(() {});
                 },
               ),
               SizedBox(

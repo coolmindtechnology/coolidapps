@@ -1,9 +1,14 @@
+import 'dart:io';
+
+import 'package:coolappflutter/data/apps/app_assets.dart';
+import 'package:coolappflutter/data/apps/app_sizes.dart';
 import 'package:coolappflutter/data/provider/provider_user.dart';
 import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/pages/user/Setting/Report/Pop_Up.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/widgets/GlobalButton.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 
@@ -17,6 +22,7 @@ class ReportPage extends StatefulWidget {
 class _ReportPageState extends State<ReportPage> {
   String? selectedItem;
   bool isExpanded = false;
+  File? selectedImage;
 
   // Controller untuk TextField (body laporan)
   TextEditingController bodyController = TextEditingController();
@@ -102,7 +108,36 @@ class _ReportPageState extends State<ReportPage> {
                     ),
                   ),
 
+                const SizedBox(height: 20),
+                Text(S.of(context).Supporting_Documents,style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w400)),
+                gapH10,
+                GestureDetector(
+                  onTap: _pickImage, // Panggil fungsi untuk memilih gambar
+                  child: Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.grey),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Row(
+                      children: [
+                        Image.asset(AppAsset.icImages),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Text(
+                            selectedImage != null
+                                ? selectedImage!.path.split('/').last  // Tampilkan nama file
+                                : "Pilih gambar dari galeri atau kamera",
+                            style: TextStyle(color: selectedImage != null ? Colors.black : Colors.grey),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
                 const SizedBox(height: 30),
+
 
                 Text(
                   S.of(context).Tell_Us,
@@ -138,7 +173,8 @@ class _ReportPageState extends State<ReportPage> {
                         // Panggil fungsi reportBug dan tunggu hingga selesai
                         await context.read<ProviderUser>().reportBug(
                           categories: selectedCategoryIds,  // Kirim kategori dalam bentuk array of int
-                          body: bodyController.text,  // Kirim body laporan
+                          body: bodyController.text,
+                          media: selectedImage, // Kirim body laporan
                         );
 
                         // Menampilkan dialog setelah berhasil
@@ -177,5 +213,57 @@ class _ReportPageState extends State<ReportPage> {
       ),
     );
   }
+  Future<void> _pickImage() async {
+    final ImagePicker picker = ImagePicker();
+    showModalBottomSheet(
+      context: context,
+      builder: (_) {
+        return SafeArea(
+          child: Wrap(
+            children: [
+              ListTile(
+                leading: const Icon(Icons.camera),
+                title: const Text("Ambil dari Kamera"),
+                onTap: () async {
+                  Navigator.pop(context);
+                  final XFile? image = await picker.pickImage(source: ImageSource.camera);
+                  if (image != null) {
+                    setState(() {
+                      selectedImage = File(image.path);
+                      // Extract the file name and format (extension)
+                      String fileName = image.path.split('/').last;
+                      String fileExtension = fileName.split('.').last;
+                      String displayName = "$fileName ($fileExtension)";
+                      print(displayName); // You can display this name in the UI
+                    });
+                  }
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.image),
+                title: const Text("Pilih dari Galeri"),
+                onTap: () async {
+                  Navigator.pop(context);
+                  final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+                  if (image != null) {
+                    setState(() {
+                      selectedImage = File(image.path);
+                      // Extract the file name and format (extension)
+                      String fileName = image.path.split('/').last;
+                      String fileExtension = fileName.split('.').last;
+                      String displayName = "$fileName ($fileExtension)";
+                      print(displayName); // You can display this name in the UI
+                    });
+                  }
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
 }
+
 

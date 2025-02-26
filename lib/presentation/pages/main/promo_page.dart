@@ -1,5 +1,5 @@
 import 'package:coolappflutter/generated/l10n.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:flutter/material.dart';
 
@@ -18,11 +18,18 @@ class _PromoPopupState extends State<PromoPopup> {
   List<Map<String, dynamic>> promoContent = [];
   // Daftar konten promo dengan onPressed2 yang dapat disesuaikan
 
+  Future<void> _setPromoStatus() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('isPromoDisplayed', true); // Menandakan promo sudah ditampilkan
+  }
+
   void _goToNextPage() {
     _pageController.nextPage(
       duration: const Duration(milliseconds: 300),
       curve: Curves.easeIn,
     );
+
+    _setPromoStatus();
   }
 
   void _goBackPage() {

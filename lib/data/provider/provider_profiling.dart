@@ -81,6 +81,7 @@ class ProviderProfiling extends ChangeNotifier {
   bool isLoading = false;
   RepoProfiling repo = RepoProfiling();
   List<DataProfiling> listProfiling = [], listDisable = [];
+  List<DataProfiling> filteredProfiling = [];
   DataDetailProfiling? detailProfiling;
   DataShowDetail? dataShowDetail;
   TextEditingController controllerProfillingCode = TextEditingController();
@@ -99,6 +100,43 @@ class ProviderProfiling extends ChangeNotifier {
   void setSelectedIndex(int index) {
     selectedIndex = index;
     notifyListeners();
+  }
+
+  void filterProfilingData(int selectedIndex) {
+    switch (selectedIndex) {
+      case 0:  // Semua data
+        filteredProfiling = List.from(listProfiling);
+        break;
+      case 1:  // Hijau: "emotion in" atau "emotion out"
+        filteredProfiling = listProfiling.where((profiling) =>
+        profiling.typeBrain == "emotion in" || profiling.typeBrain == "emotion out"
+        ).toList();
+        break;
+      case 2:  // Kuning: "logic in" atau "logic out"
+        filteredProfiling = listProfiling.where((profiling) =>
+        profiling.typeBrain == "logic in" || profiling.typeBrain == "logic out"
+        ).toList();
+        break;
+      case 3:  // Putih: "master"
+        filteredProfiling = listProfiling.where((profiling) =>
+        profiling.typeBrain == "master"
+        ).toList();
+        break;
+      case 4:  // Orange: "creative in" atau "creative out"
+        filteredProfiling = listProfiling.where((profiling) =>
+        profiling.typeBrain == "creative in" || profiling.typeBrain == "creative out"
+        ).toList();
+        break;
+      case 5:  // Merah: "action in" atau "action out"
+        filteredProfiling = listProfiling.where((profiling) =>
+        profiling.typeBrain == "action in" || profiling.typeBrain == "action out"
+        ).toList();
+        break;
+      default:
+        filteredProfiling = List.from(listProfiling);
+        break;
+    }
+    notifyListeners();  // Memberitahukan UI untuk diperbarui
   }
 
   Future<void> getListProfiling(BuildContext context) async {

@@ -196,14 +196,14 @@ class _KonsultantDashboardState extends State<KonsultantDashboard> {
               ],
             ),
             SizedBox(
-              height: 10,
+              height: 15,
             ),
             InkWell(
               onTap: () {
                 Nav.to(HistoryKomisen());
               },
               child: Container(
-                height: 100,
+                height: 120,
                 width: double.infinity,
                 decoration: BoxDecoration(
                   border: Border.all(
@@ -221,50 +221,27 @@ class _KonsultantDashboardState extends State<KonsultantDashboard> {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(15),
-                  child: Row(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            S.of(context).Commission_History,
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w600),
-                          ),
-                          gapW10,
-                          Text(
-                            '${homeConsultantData?.totalHistoryComission ?? "0"} ${S.of(context).Session_Completed}',
-                            style: TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.w400),
-                          )
-                        ],
+                      Text(
+                        S.of(context).Total_Commission,
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w600),
                       ),
-                      Spacer(),
-                      Container(
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 20, right: 20, top: 5, bottom: 5),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(S.of(context).Your_Balance,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 15)),
-                              Text(
-                                  'Rp.${homeConsultantData?.totalComission ?? "0"}',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 16,
-                                      color: BlueColor))
-                            ],
-                          ),
-                        ),
+                     SizedBox(height: 5,),
+                      Text(
+                          'Rp.${homeConsultantData?.totalComission ?? "0"}',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16,
+                              color: BlueColor)),
+                      SizedBox(height: 5,),
+                      Text(
+                        '${homeConsultantData?.totalHistoryComission ?? "0"} ${S.of(context).Session_Completed}',
+                        style: TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.w400),
                       )
                     ],
                   ),
@@ -272,7 +249,7 @@ class _KonsultantDashboardState extends State<KonsultantDashboard> {
               ),
             ),
             SizedBox(
-              height: 30,
+              height: 20,
             ),
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,

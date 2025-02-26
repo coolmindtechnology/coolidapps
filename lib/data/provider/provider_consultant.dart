@@ -5,6 +5,7 @@ import 'package:coolappflutter/data/helpers/failure.dart';
 import 'package:coolappflutter/data/repositories/repo_consultant.dart';
 import 'package:coolappflutter/data/response/consultant/res_approval_by_consultant.dart';
 import 'package:coolappflutter/data/response/consultant/res_approval_summary.dart';
+import 'package:coolappflutter/data/response/consultant/res_check_session.dart';
 import 'package:coolappflutter/data/response/consultant/res_dashboard_consultant.dart'
     as dashboard;
 import 'package:coolappflutter/data/response/consultant/res_dashboard_consultant.dart';
@@ -40,6 +41,8 @@ class ConsultantProvider extends ChangeNotifier {
   bool isLoadingCommissions = false;
   bool isLoadingStatus = false;
   bool isLoadingApprove = false;
+  bool isLoadingStatusAcc = false;
+  bool isLoadingSession = false;
 
   // modedl data////////
   ResGetTerm? termData;
@@ -405,7 +408,7 @@ class ConsultantProvider extends ChangeNotifier {
     String type,
   ) async {
     // Set loading state
-    isLoadingApprove = true;
+    isLoadingStatusAcc = true;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       notifyListeners();
     });
@@ -415,7 +418,7 @@ class ConsultantProvider extends ChangeNotifier {
         await repoConsultant.ApproveByConsultant(consultationId, "true");
 
     // Update loading state
-    isLoadingApprove = false;
+    isLoadingStatusAcc = false;
     notifyListeners();
 
     // Handle response
@@ -505,13 +508,21 @@ class ConsultantProvider extends ChangeNotifier {
     response.when(
       error: (failure) {
         debugPrint("Error reject by consultant");
-        Future.delayed(Duration(seconds: 3), () {
-          Navigator.pop(context); // Tutup dialog
-          Nav.toAll(KonsultantDashboard()); // Navigasi ke dashboard
-        });
+        NotificationUtils.showDialogError(
+          context,
+              () {
+            Nav.back();
+          },
+          widget: Text(
+            failure.message,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 16),
+          ),
+          textButton: "Back",
+        );
       },
       success: (res) async {
-        debugPrint("Reject by consultant successfully");
+        debugPrint("Reject by consultant hit oke");
         if (res.success == true) {
           if (kDebugMode) {
             print("Reject by consultant: ${res.data?.toJson()}");
@@ -526,4 +537,48 @@ class ConsultantProvider extends ChangeNotifier {
 
     notifyListeners();
   }
+
+
+
+  ///==========================check session =====================================//
+  Future<void> checkUserSession(BuildContext context, {String? token}) async {
+    isLoadingSession = true;
+    notifyListeners(); // Menandakan bahwa loading sedang berlangsung
+
+    // Panggil API melalui repository untuk memeriksa sesi pengguna
+    final Either<Failure, ResCheckSession> response = await repoConsultant.checkSession(token: token);
+
+    // Set loading ke false setelah API selesai
+    isLoadingSession = false;
+    notifyListeners(); // Update UI untuk menandakan bahwa loading selesai
+
+    response.when(
+      error: (failure) {
+        debugPrint("Error checking user session");
+        // Tampilkan dialog error jika terjadi kegagalan
+        NotificationUtils.showDialogError(
+          context,
+              () {
+            Nav.back(); // Kembali ke layar sebelumnya
+          },
+          widget: Text(
+            failure.message,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 16),
+          ),
+          textButton: "Back",
+        );
+      },
+      success: (res) {
+        debugPrint("User session checked successfully");
+        if (res.success == true) {
+          // debugPrint("Session valid, navigating to Dashboard...");
+          // Nav.pushReplacementNamed(Routes.dashboard); // Navigasi ke halaman Dashboard
+        } else {
+          debugPrint("Session invalid, staying on the same page.");
+        }
+      },
+    );
+  }
+
 }

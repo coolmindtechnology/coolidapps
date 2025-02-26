@@ -109,7 +109,7 @@ class _TabSesiState extends State<TabSesi> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(body:
-        Consumer<ProviderConsultation>(builder: (context, provider, child) {
+    Consumer<ProviderConsultation>(builder: (context, provider, child) {
       if (provider.isLoading) {
         return Center(child: CircularProgressIndicator());
       }
@@ -137,6 +137,7 @@ class _TabSesiState extends State<TabSesi> {
               itemCount: consultations.length,
               itemBuilder: (context, index) {
                 final user = snapshot.data![index];
+                if (index >= provider.consultations.length) return SizedBox();
                 final consultation = consultations[index];
                 final sessionStart =
                     consultation.sessionStart?.substring(0, 5) ?? '-';
@@ -151,7 +152,7 @@ class _TabSesiState extends State<TabSesi> {
                   location: consultation.consultantAddress ?? '-',
                   time: "${consultation.timeSelected}",
                   timeRemaining:
-                      '${consultation.remainingMinutes ?? '-'} ${S.of(context).Minutes_Left}',
+                  '${consultation.remainingMinutes ?? '-'} ${S.of(context).Minutes_Left}',
                   timeColor: BlueColor,
                   status: S.of(context).Session_Begins_In,
                   warnastatus: Colors.lightBlueAccent.shade100,

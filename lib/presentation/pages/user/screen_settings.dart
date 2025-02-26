@@ -465,7 +465,9 @@ import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
 import 'package:coolappflutter/data/provider/provider_auth_affiliate.dart';
 import 'package:coolappflutter/data/provider/provider_user.dart';
 import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/afiliate/screen_total_member.dart';
 import 'package:coolappflutter/presentation/pages/auth/login_screen.dart';
+import 'package:coolappflutter/presentation/pages/payments/top_up_page.dart';
 import 'package:coolappflutter/presentation/pages/transakction/transaksi_affiliate.dart';
 import 'package:coolappflutter/presentation/pages/user/change_language.dart';
 import 'package:coolappflutter/presentation/pages/user/Setting/Delete_Account/delete_account.dart';
@@ -477,6 +479,7 @@ import 'package:coolappflutter/presentation/pages/user/screen_history.dart';
 import 'package:coolappflutter/presentation/pages/user/screen_profile.dart';
 import 'package:coolappflutter/presentation/pages/user/screen_qr.dart';
 import 'package:coolappflutter/presentation/pages/user/Setting/setting_Page.dart';
+import 'package:coolappflutter/presentation/pages/user/type_brain.dart';
 import 'package:coolappflutter/presentation/pages/user/update_password.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
@@ -531,11 +534,19 @@ class _ScreenSettingsState extends State<ScreenSettings> {
   }
 
   final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
-      GlobalKey<RefreshIndicatorState>();
+  GlobalKey<RefreshIndicatorState>();
   bool isExpanded = false;
 
   @override
   Widget build(BuildContext context) {
+    final Map<String, Color> brainColors = {
+      "emotion_in": Colors.green,
+      "action_in": Colors.red,
+      "creative_in": Colors.orange,
+      "master": Colors.black,
+      "logic_in": Colors.yellow,
+    };
+
     return ChangeNotifierProvider(
       create: (BuildContext context) {
         return ProviderUser.initMemberArea(context);
@@ -576,57 +587,57 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                         children: [
                           value.isLoading
                               ? Shimmer.fromColors(
-                                  baseColor: greyColor.withOpacity(0.2),
-                                  highlightColor: whiteColor,
-                                  child: Container(
-                                    width: 80,
-                                    height: 80,
-                                    decoration: BoxDecoration(
-                                        color: greyColor,
-                                        shape: BoxShape.circle),
-                                  ))
+                              baseColor: greyColor.withOpacity(0.2),
+                              highlightColor: whiteColor,
+                              child: Container(
+                                width: 80,
+                                height: 80,
+                                decoration: BoxDecoration(
+                                    color: greyColor,
+                                    shape: BoxShape.circle),
+                              ))
                               : value.dataUser?.image != null
-                                  ? Container(
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                          color:
-                                              Colors.green, // Warna garis tepi
-                                          width: 4, // Lebar garis tepi
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(100),
-                                      ),
-                                      child: ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(100),
-                                        child: Image.network(
-                                          "${value.dataUser?.image}",
-                                          width: 80,
-                                          height: 80,
-                                          fit: BoxFit.fill,
-                                          errorBuilder: (BuildContext context,
-                                              Object exception,
-                                              StackTrace? stackTrace) {
-                                            // Tampilkan gambar placeholder jika terjadi error
-                                            return Image.asset(
-                                              'images/default_user.png', // Path ke gambar placeholder lokal
-                                              width: 56,
-                                              height: 56,
-                                              fit: BoxFit.fill,
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                    )
-                                  : ClipRRect(
-                                      borderRadius: BorderRadius.circular(100),
-                                      child: Image.asset(
-                                        "images/default_user.png",
-                                        width: 80,
-                                        height: 80,
-                                        color: greyColor,
-                                      ),
-                                    ),
+                              ? Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                color:
+                                brainColors[dataGlobal.dataUser?.typeBrain] ?? Colors.white, // Warna garis tepi
+                                width: 4, // Lebar garis tepi
+                              ),
+                              borderRadius:
+                              BorderRadius.circular(100),
+                            ),
+                            child: ClipRRect(
+                              borderRadius:
+                              BorderRadius.circular(100),
+                              child: Image.network(
+                                "${value.dataUser?.image}",
+                                width: 80,
+                                height: 80,
+                                fit: BoxFit.fill,
+                                errorBuilder: (BuildContext context,
+                                    Object exception,
+                                    StackTrace? stackTrace) {
+                                  // Tampilkan gambar placeholder jika terjadi error
+                                  return Image.asset(
+                                    'images/default_user.png', // Path ke gambar placeholder lokal
+                                    width: 56,
+                                    height: 56,
+                                    fit: BoxFit.fill,
+                                  );
+                                },
+                              ),
+                            ),
+                          )
+                              : ClipRRect(
+                            borderRadius: BorderRadius.circular(100),
+                            child: Image.asset(
+                              "images/default_user.png",
+                              width: 80,
+                              height: 80,
+                              color: greyColor,
+                            ),
+                          ),
                           const SizedBox(
                             width: 16,
                           ),
@@ -636,9 +647,9 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                               Text(
                                 dataGlobal.dataUser?.name == null
                                     ? dataGlobal.dataUser?.phoneNumber != null
-                                        ? dataGlobal.dataUser?.phoneNumber
-                                            .toString()
-                                        : ""
+                                    ? dataGlobal.dataUser?.phoneNumber
+                                    .toString()
+                                    : ""
                                     : dataGlobal.dataUser?.name ?? "",
                                 style: const TextStyle(
                                   fontSize: 20,
@@ -648,26 +659,8 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                               SizedBox(
                                 height: 10,
                               ),
-                              Container(
-                                height: 40,
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Colors.green, // Warna garis tepi
-                                    width: 2, // Lebar garis tepi
-                                  ),
-                                  borderRadius: BorderRadius.circular(
-                                      10), // Menyesuaikan border dengan radius yang sama
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    S.of(context).Emotion_in,
-                                    style: TextStyle(
-                                        color: Colors.green,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                ),
-                              )
+                              if (dataGlobal.dataUser!.typeBrain == null || dataGlobal.dataUser!.typeBrain.isEmpty)
+                              BrainTypeWidget(typeBrain:  dataGlobal.dataUser!.typeBrain.toString(),)
                             ],
                           )
                         ],
@@ -687,13 +680,18 @@ class _ScreenSettingsState extends State<ScreenSettings> {
 
                     InkWell(
                       onTap: () {
-                        Nav.to(TransaksiAffiliatePage(
-                          initialTab: () =>
-                              0, // Menentukan tab kedua sebagai tab awal
-                          tabChanger: (changeTabAffiliate) {
-                            // Dapat digunakan untuk mengubah tab dari luar
-                          },
-                        ));
+                        if(dataGlobal.dataUser?.isAffiliate == 1){
+                          Nav.to(TransaksiAffiliatePage(
+                            initialTab: () =>
+                            0, // Menentukan tab kedua sebagai tab awal
+                            tabChanger: (changeTabAffiliate) {
+                              // Dapat digunakan untuk mengubah tab dari luar
+                            },
+                          ));
+                        } else {
+                          Nav.to(const TopUpPage());
+                        }
+
                       },
                       child: Container(
                         height: 80,
@@ -726,7 +724,7 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                                         width: 10,
                                       ),
                                       Text(
-                                          'IDR ${dataGlobal.dataAff?.totalSaldoAffiliate ?? "0"}',
+                                          'IDR ${(dataGlobal.dataAff?.totalSaldoAffiliate == null || dataGlobal.dataAff?.totalSaldoAffiliate == '') ? "0" : dataGlobal.dataAff?.totalSaldoAffiliate}',
                                           style: TextStyle(
                                               color: BlueColor,
                                               fontSize: 18,
@@ -740,7 +738,7 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                                 onPressed: () {
                                   Nav.to(TransaksiAffiliatePage(
                                     initialTab: () =>
-                                        0, // Menentukan tab kedua sebagai tab awal
+                                    0, // Menentukan tab kedua sebagai tab awal
                                     tabChanger: (changeTabAffiliate) {
                                       // Dapat digunakan untuk mengubah tab dari luar
                                     },
@@ -761,37 +759,43 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        // Expanded(
-                        //   child: Container(
-                        //     height: 60,
-                        //     width: 175,
-                        //     decoration: BoxDecoration(
-                        //       color: Colors.blueGrey.shade100,
-                        //       borderRadius: BorderRadius.circular(10),
-                        //     ),
-                        //     child: Padding(
-                        //       padding: const EdgeInsets.all(8.0),
-                        //       child: Row(
-                        //         mainAxisAlignment:
-                        //             MainAxisAlignment.spaceEvenly,
-                        //         children: [
-                        //           Icon(
-                        //             Icons.web,
-                        //             color: BlueColor,
-                        //           ),
-                        //           Text(S.of(context).My_Subscription,
-                        //               style: TextStyle(
-                        //                   color: Colors.blueGrey,
-                        //                   fontSize: 15,
-                        //                   fontWeight: FontWeight.w600))
-                        //         ],
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
-                        // SizedBox(
-                        //   width: 20,
-                        // ),
+                        if (dataGlobal.dataUser?.isAffiliate == 1)
+                        Expanded(
+                          child: InkWell(
+                            onTap: () {
+                              Nav.to(const ScreenTotalMember());
+                            },
+                            child: Container(
+                              height: 60,
+                              width: 175,
+                              decoration: BoxDecoration(
+                                color: primaryColor,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Icon(
+                                      CupertinoIcons.person_2_fill,
+                                      color: BlueColor,
+                                    ),
+                                    Text(S.of(context).Member,
+                                        style: TextStyle(
+                                            color: BlueColor,
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w600))
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 20,
+                        ),
                         Expanded(
                           child: InkWell(
                             onTap: () async {
@@ -1097,10 +1101,10 @@ class ItemSetting extends StatelessWidget {
         title: Text(title),
         leading: image != null
             ? Image.asset(
-                "images/menu/$image",
-                width: 24,
-                height: 24,
-              )
+          "images/menu/$image",
+          width: 24,
+          height: 24,
+        )
             : const Text(''),
         trailing: SizedBox(
           width: 24,

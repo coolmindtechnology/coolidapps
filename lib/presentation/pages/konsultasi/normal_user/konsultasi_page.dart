@@ -7,8 +7,6 @@ import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/new_konsultasi.dart';
 import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/Tab/tab_arsip.dart';
 import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/Tab/tab_request.dart';
-import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/Tab/tab_sesi.dart';
-import 'package:coolappflutter/presentation/pages/main/nav_home.dart';
 import 'package:coolappflutter/presentation/pages/main/promo_page.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
@@ -18,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../konsultasi/normal_user/histori_consultant.dart';
+import 'tab/tab_sesi.dart';
 
 class KonsultasiPage extends StatefulWidget {
   const KonsultasiPage({super.key});
@@ -50,7 +49,7 @@ class _KonsultasiPageState extends State<KonsultasiPage> {
           builder: (BuildContext context) {
             return Dialog(
               child:
-                  PromoPopup(), // Popup sesuai dengan widget yang Anda inginkan
+              PromoPopup(), // Popup sesuai dengan widget yang Anda inginkan
             );
           },
         );
@@ -75,115 +74,115 @@ class _KonsultasiPageState extends State<KonsultasiPage> {
   Widget build(BuildContext context) {
     return Consumer<ProviderConsultation>(
         builder: (BuildContext context, valueConsultation, Widget? child) {
-      return Scaffold(
-          appBar: AppBar(
-            backgroundColor: primaryColor,
-            leading: IconButton(
-                onPressed: () {
-                  Nav.to(NavMenuScreen());
-                },
-                icon: Icon(Icons.arrow_back)),
-            title: Row(
-              children: [
-                Text(
-                  S.of(context).Consultation,
-                  style: const TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.w600),
-                ),
-              ],
-            ),
-            actions: [
-              Padding(
-                  padding: const EdgeInsets.only(
-                      right: 10), // Memberikan jarak dari kanan
-                  child: Image.asset(
-                    'images/konsultasi/mark.png',
-                    height: 40,
-                  )),
-            ],
-          ),
-          body: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              children: [
-                ContainerSliderHome(
-                  text: S.of(context).Coolapp_consultation_space,
-                  imageUrl: 'images/konsultasi/dashboard.png',
-                  textColor: Colors.white,
-                  containerColor: Colors.orange,
-                  textSize: 15,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                InkWell(
-                  onTap: () {
-                    Nav.to(NewKonsultasi());
-                  },
-                  child: Container(
-                    height: 40,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: BlueColor,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          Icon(CupertinoIcons.chat_bubble_2_fill,
-                              color: YellowColor),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(S.of(context).New_consultation_session,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w600)),
-                          Spacer(),
-                          Icon(
-                            CupertinoIcons.chevron_forward,
-                            color: Colors.white,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+          return Scaffold(
+              appBar: AppBar(
+                backgroundColor: primaryColor,
+                leading: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.arrow_back)),
+                title: Row(
                   children: [
-                    _buildTab(
-                      index: 0,
-                      text: S.of(context).Active_session,
+                    Text(
+                      S.of(context).Consultation,
+                      style: const TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.w600),
                     ),
-                    _buildTab(index: 1, text: S.of(context).Requests),
-                    _buildTab(index: 2, text: S.of(context).Archives),
-                    Spacer(),
-                    // TextButton(
-                    //   onPressed: () {
-                    //     Nav.to(HistoryConsultant());
-                    //   },
-                    //   style: TextButton.styleFrom(
-                    //     foregroundColor: BlueColor,
-                    //   ),
-                    //   child: Text(S.of(context).see_all),
-                    // )
                   ],
                 ),
-                Expanded(
-                  child: _tabs[_selectedIndex],
+                actions: [
+                  Padding(
+                      padding: const EdgeInsets.only(
+                          right: 10), // Memberikan jarak dari kanan
+                      child: Image.asset(
+                        'images/konsultasi/mark.png',
+                        height: 40,
+                      )),
+                ],
+              ),
+              body: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  children: [
+                    ContainerSliderHome(
+                      text: S.of(context).Coolapp_consultation_space,
+                      imageUrl: 'images/konsultasi/dashboard.png',
+                      textColor: Colors.white,
+                      containerColor: Colors.orange,
+                      textSize: 15,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Nav.to(NewKonsultasi());
+                      },
+                      child: Container(
+                        height: 40,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: BlueColor,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              Icon(CupertinoIcons.chat_bubble_2_fill,
+                                  color: YellowColor),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(S.of(context).New_consultation_session,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600)),
+                              Spacer(),
+                              Icon(
+                                CupertinoIcons.chevron_forward,
+                                color: Colors.white,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        _buildTab(
+                          index: 0,
+                          text: S.of(context).Active_session,
+                        ),
+                        _buildTab(index: 1, text: S.of(context).Requests),
+                        _buildTab(index: 2, text: S.of(context).Archives),
+                        Spacer(),
+                        // TextButton(
+                        //   onPressed: () {
+                        //     Nav.to(HistoryConsultant());
+                        //   },
+                        //   style: TextButton.styleFrom(
+                        //     foregroundColor: BlueColor,
+                        //   ),
+                        //   child: Text(S.of(context).see_all),
+                        // )
+                      ],
+                    ),
+                    Expanded(
+                      child: _tabs[_selectedIndex],
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ));
-    });
+              ));
+        });
   }
 
   Widget _buildTab({required int index, required String text}) {

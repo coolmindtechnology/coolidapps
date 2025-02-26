@@ -13,12 +13,18 @@ import 'package:coolappflutter/data/response/profiling/res_list_profiling.dart';
 import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/data/provider/provider_book.dart';
 import 'package:coolappflutter/main.dart';
+import 'package:coolappflutter/presentation/pages/afiliate/on_board/onboard_aff1.dart';
 
 import 'package:coolappflutter/presentation/pages/afiliate/screen_total_member.dart';
+import 'package:coolappflutter/presentation/pages/ebook/ebook_dashboard.dart';
 
 import 'package:coolappflutter/presentation/pages/konsultasi/konsultant/terma_konsultan.dart';
+import 'package:coolappflutter/presentation/pages/payments/realmoney_aff/detail_realmoney.dart';
+import 'package:coolappflutter/presentation/pages/payments/saldo_aff/detai_saldo_aff.dart';
+import 'package:coolappflutter/presentation/pages/profiling/profiling%20dashboard.dart';
 
 import 'package:coolappflutter/presentation/pages/profiling/screen_feature_kepribadian.dart';
+import 'package:coolappflutter/presentation/pages/profiling/screen_hasil_kepribadian.dart';
 
 import 'package:coolappflutter/presentation/pages/transakction/transaksi_affiliate.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
@@ -60,10 +66,15 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
 
   @override
   void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
+    debugPrint("tes cek vacum home");
+    // Timer(const Duration(seconds: 2), () {
+    //   handleDeepLink();
+    // });
+
+    Future.microtask(() {
       initHome();
     });
+    super.initState();
   }
 
   initHome() async {
@@ -111,10 +122,11 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                             .getUser(context);
                         Provider.of<ProviderBook>(context, listen: false)
                             .getListEbook(context);
+                        Provider.of<ProviderAffiliate>(context, listen: false).getHomeAff(context);
                         // Provider.of<ProviderPayment>(context, listen: false)
                         //     .getAmoutDeposit(context);
-                        Provider.of<ProviderUser>(context, listen: false)
-                            .getTotalSaldo(context);
+                        // Provider.of<ProviderUser>(context, listen: false)
+                        //     .getTotalSaldo(context);
                         Provider.of<ProviderProfiling>(context, listen: false)
                             .getListProfiling(context);
 
@@ -278,9 +290,7 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             15)),
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
+                                                child: Center(
                                                   child: Text(
                                                     S.of(context).UndangTeman,
                                                     style: TextStyle(
@@ -332,7 +342,19 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                                 SizedBox(
                                   height: 15,
                                 ),
-                                Container(
+                                valueAffiliate.isLoading
+                                    ? Shimmer.fromColors(
+                                  baseColor: Colors.grey[300]!,
+                                  highlightColor: Colors.grey[100]!,
+                                  child: Container(
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                  ),
+                                )
+                                    : Container(
                                   height: 40,
                                   decoration: BoxDecoration(
                                     color: LightBlue,
@@ -341,8 +363,7 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Text(
                                           S.of(context).Cool_Points,
@@ -352,8 +373,8 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                                               fontWeight: FontWeight.w300),
                                         ),
                                         Text(
-                                          '${valueAffiliate.dataOverview?.totalPoint ?? '0'}'
-                                                  " " +
+                                          "${(valueAffiliate.dataOverview?.totalPoint == null || valueAffiliate.dataOverview?.totalPoint == '') ? '0' : valueAffiliate.dataOverview?.totalPoint}"
+                                              " " +
                                               S.of(context).Total_Point,
                                           style: TextStyle(
                                               color: BlueColor,
@@ -364,147 +385,256 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                                     ),
                                   ),
                                 ),
+
                                 SizedBox(
                                   height: 15,
                                 ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    CardHomeKonsultant(
-                                      title: S.of(context).Read_Ebook,
-                                      subtitle:
-                                          "${valueAffiliate.dataOverview?.totalEbook ?? '0'} ${S.of(context).ebook}",
-                                      imageAsset: AppAsset.icEbook,
-                                      containerColor: Color(0xFFF9D904),
-                                      onTap: () {
-                                        Nav.to(const ListEbookAll());
-                                      },
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    CardHomeKonsultant(
-                                      title: S.of(context).Total_Members,
-                                      titleColor: Colors.white,
-                                      subtitleColor: Colors.white,
-                                      subtitle:
-                                          "${valueAffiliate.dataOverview?.totalMember ?? '0'} ${S.of(context).Member}",
-                                      imageAsset: AppAsset.icMember,
-                                      containerColor: Color(0xFF4CCBF4),
-                                      onTap: () {
-                                        Nav.to(const ScreenTotalMember());
-                                      },
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    Nav.to(TransaksiAffiliatePage(
-                                      initialTab: () =>
-                                          0, // Menentukan tab kedua sebagai tab awal
-                                      tabChanger: (changeTabAffiliate) {
-                                        // Dapat digunakan untuk mengubah tab dari luar
-                                      },
-                                    ));
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: LightBlue,
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                S.of(context).Your_Balance,
-                                                style: TextStyle(
-                                                    color: BlueColor,
-                                                    fontSize: 17,
-                                                    fontWeight:
-                                                        FontWeight.w300),
-                                              ),
-                                              Text(
-                                                'Rp ${valueAffiliate.dataOverview?.totalSaldoAffiliate ?? '0'}',
-                                                style: TextStyle(
-                                                    color: BlueColor,
-                                                    fontSize: 17,
-                                                    fontWeight:
-                                                        FontWeight.w600),
-                                              ),
-                                            ],
+                                if (valueAffiliate.isLoading)
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Expanded(
+                                        child: Shimmer.fromColors(
+                                          baseColor: Colors.grey[300]!,
+                                          highlightColor: Colors.grey[100]!,
+                                          child: Container(
+                                            height: 80,
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius: BorderRadius.circular(8),
+                                            ),
                                           ),
-                                          Image.asset(AppAsset.icDompet)
-                                        ],
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    Nav.to(TransaksiAffiliatePage(
-                                      initialTab: () =>
-                                          1, // Menentukan tab kedua sebagai tab awal
-                                      tabChanger: (changeTabAffiliate) {
-                                        // Dapat digunakan untuk mengubah tab dari luar
-                                      },
-                                    ));
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: Color(0xFFFEFDCD),
-                                      borderRadius: BorderRadius.circular(10),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                S.of(context).Real_Money,
-                                                style: TextStyle(
-                                                    color: DarkYellow,
-                                                    fontSize: 17,
-                                                    fontWeight:
-                                                        FontWeight.w300),
-                                              ),
-                                              Text(
-                                                'Rp ${valueAffiliate.dataOverview?.totalRealMoney ?? '0'}',
-                                                style: TextStyle(
-                                                    color: DarkYellow,
-                                                    fontSize: 17,
-                                                    fontWeight:
-                                                        FontWeight.w600),
-                                              ),
-                                            ],
+                                      SizedBox(width: 10),
+                                      Expanded(
+                                        child: Shimmer.fromColors(
+                                          baseColor: Colors.grey[300]!,
+                                          highlightColor: Colors.grey[100]!,
+                                          child: Container(
+                                            height: 80,
+                                            decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius: BorderRadius.circular(8),
+                                            ),
                                           ),
-                                          Image.asset(AppAsset.icRealMoney)
-                                        ],
+                                        ),
                                       ),
-                                    ),
+                                    ],
+                                  )
+                                else
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      CardHomeKonsultant(
+                                        title: S.of(context).Read_Ebook,
+                                        subtitle:
+                                        "${(valueAffiliate.dataOverview?.totalEbook == null || valueAffiliate.dataOverview?.totalEbook == '') ? '0' : valueAffiliate.dataOverview?.totalEbook} ${S.of(context).ebook}",
+                                        imageAsset: AppAsset.icEbook,
+                                        containerColor: Color(0xFFF9D904),
+                                        onTap: () {
+                                          Nav.to(const ListEbookAll());
+                                        },
+                                      ),
+                                      SizedBox(width: 10),
+                                      CardHomeKonsultant(
+                                        title: S.of(context).Total_Members,
+                                        titleColor: Colors.white,
+                                        subtitleColor: Colors.white,
+                                        subtitle:
+                                        "${(valueAffiliate.dataOverview?.totalMember == null || valueAffiliate.dataOverview?.totalMember == '') ? '0' : valueAffiliate.dataOverview?.totalMember} ${S.of(context).Member}",
+                                        imageAsset: AppAsset.icMember,
+                                        containerColor: Color(0xFF4CCBF4),
+                                        onTap: () {
+                                          Nav.to(const ScreenTotalMember());
+                                        },
+                                      ),
+                                    ],
                                   ),
-                                ),
+
                                 SizedBox(
                                   height: 10,
                                 ),
+                                if (valueAffiliate.isLoading) // Jika sedang memuat data
+                                  Column(
+                                    children: [
+                                      Shimmer.fromColors(
+                                        baseColor: Colors.grey[300]!,
+                                        highlightColor: Colors.grey[100]!,
+                                        child: Container(
+                                          height: 60, // Sesuaikan tinggi dengan aslinya
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.circular(10),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Container(
+                                                      width: 100,
+                                                      height: 15,
+                                                      color: Colors.white, // Placeholder shimmer untuk teks pertama
+                                                    ),
+                                                    SizedBox(height: 5),
+                                                    Container(
+                                                      width: 80,
+                                                      height: 15,
+                                                      color: Colors.white, // Placeholder shimmer untuk teks kedua
+                                                    ),
+                                                  ],
+                                                ),
+                                                Container(
+                                                  width: 40,
+                                                  height: 40,
+                                                  color: Colors.white, // Placeholder shimmer untuk icon
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(height: 10), // Spasi antara dua shimmer box
+                                      Shimmer.fromColors(
+                                        baseColor: Colors.grey[300]!,
+                                        highlightColor: Colors.grey[100]!,
+                                        child: Container(
+                                          height: 60, // Sesuaikan tinggi dengan aslinya
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius: BorderRadius.circular(10),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Container(
+                                                      width: 100,
+                                                      height: 15,
+                                                      color: Colors.white, // Placeholder shimmer untuk teks pertama
+                                                    ),
+                                                    SizedBox(height: 5),
+                                                    Container(
+                                                      width: 80,
+                                                      height: 15,
+                                                      color: Colors.white, // Placeholder shimmer untuk teks kedua
+                                                    ),
+                                                  ],
+                                                ),
+                                                Container(
+                                                  width: 40,
+                                                  height: 40,
+                                                  color: Colors.white, // Placeholder shimmer untuk icon
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                else
+                                  Column(
+                                    children: [
+                                      InkWell(
+                                        onTap: () {
+                                          Nav.to(DetailSaldoAff());
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: LightBlue,
+                                            borderRadius: BorderRadius.circular(10),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      S.of(context).Your_Balance,
+                                                      style: TextStyle(
+                                                        color: BlueColor,
+                                                        fontSize: 17,
+                                                        fontWeight: FontWeight.w300,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      'Rp ${(valueAffiliate.dataOverview?.totalSaldoAffiliate == null || valueAffiliate.dataOverview?.totalSaldoAffiliate == '') ? '0' : valueAffiliate.dataOverview?.totalSaldoAffiliate}',
+                                                      style: TextStyle(
+                                                        color: BlueColor,
+                                                        fontSize: 17,
+                                                        fontWeight: FontWeight.w600,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Image.asset(AppAsset.icDompet),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(height: 10),
+                                      InkWell(
+                                        onTap: () {
+                                          Nav.to(DetailRealMoneyAff());
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFFFEFDCD),
+                                            borderRadius: BorderRadius.circular(10),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Column(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      S.of(context).Real_Money,
+                                                      style: TextStyle(
+                                                        color: DarkYellow,
+                                                        fontSize: 17,
+                                                        fontWeight: FontWeight.w300,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      'Rp ${(valueAffiliate.dataOverview?.totalRealMoney == null || valueAffiliate.dataOverview?.totalRealMoney == '') ? '0' : valueAffiliate.dataOverview?.totalRealMoney}',
+                                                      style: TextStyle(
+                                                        color: DarkYellow,
+                                                        fontSize: 17,
+                                                        fontWeight: FontWeight.w600,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Image.asset(AppAsset.icRealMoney),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+
+                                    ],
+                                  ),
+
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                if(valuePro.listProfiling.isNotEmpty)
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -518,11 +648,8 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                                     ),
                                     TextButton(
                                         onPressed: () async {
-                                          await valuePro.cekAvailableProfiling(
-                                              context, codeReferralC);
-                                          codeReferralC.clear();
                                           Nav.to(
-                                              const ScreenFeatureKepribadian());
+                                              const ProfilingDashboard());
                                         },
                                         child: Row(
                                           children: [
@@ -540,16 +667,33 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                                         )),
                                   ],
                                 ),
+                                if(valuePro.listProfiling.isNotEmpty)
                                 SizedBox(
                                   height: 100, // Sesuaikan tinggi widget
                                   child: Row(
                                     children: [
-                                      if (valuePro
-                                          .isLoadingget) // Jika sedang memuat data
+                                      if (valuePro.isLoading) // Jika sedang memuat data
                                         Expanded(
-                                          child: Center(
-                                            child:
-                                                CircularProgressIndicator(), // Tampilkan loading spinner
+                                          child: ListView.builder(
+                                            scrollDirection: Axis.horizontal, // ListView horizontal
+                                            itemCount: 3, // Jumlah shimmer box yang ditampilkan
+                                            itemBuilder: (context, index) {
+                                              return Padding(
+                                                padding: const EdgeInsets.only(right: 10),
+                                                child: Shimmer.fromColors(
+                                                  baseColor: Colors.grey[300]!,
+                                                  highlightColor: Colors.grey[100]!,
+                                                  child: Container(
+                                                    width: 100,
+                                                    height: 100,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius: BorderRadius.circular(15),
+                                                    ),
+                                                  ),
+                                                ),
+                                              );
+                                            },
                                           ),
                                         )
                                       else if (valuePro.listProfiling
@@ -566,61 +710,67 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                                               return Padding(
                                                 padding: const EdgeInsets.only(
                                                     right: 10),
-                                                child: Container(
-                                                  width: 100,
-                                                  height: 100,
-                                                  decoration: BoxDecoration(
-                                                    color: BlueColor,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            15),
-                                                  ),
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: Column(
-                                                      children: [
-                                                        Text(
-                                                          data.typeBrain ??
-                                                              S
-                                                                  .of(context)
-                                                                  .no_data,
-                                                          style: TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 16,
-                                                            fontWeight:
-                                                                FontWeight.w600,
+                                                child: InkWell(
+                                                  onTap: () {
+                                                    Nav.to(ScreenHasilKepribadian(
+                                                        data: data));
+                                                  },
+                                                  child: Container(
+                                                    width: 100,
+                                                    height: 100,
+                                                    decoration: BoxDecoration(
+                                                      color: BlueColor,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              15),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: Column(
+                                                        children: [
+                                                          Text(
+                                                            data.typeBrain ??
+                                                                S
+                                                                    .of(context)
+                                                                    .no_data,
+                                                            style: TextStyle(
+                                                              color: Colors.white,
+                                                              fontSize: 16,
+                                                              fontWeight:
+                                                                  FontWeight.w600,
+                                                            ),
                                                           ),
-                                                        ),
-                                                        Spacer(),
-                                                        Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceEvenly,
-                                                          children: [
-                                                            Text(
-                                                              data.profilingName ??
-                                                                  "Data tidak ditemukan",
-                                                              style: TextStyle(
-                                                                color: Colors
-                                                                    .white,
-                                                                fontSize: 14,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
+                                                          Spacer(),
+                                                          Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceEvenly,
+                                                            children: [
+                                                              Text(
+                                                                data.profilingName ??
+                                                                    "Data tidak ditemukan",
+                                                                style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 14,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                ),
                                                               ),
-                                                            ),
-                                                            Icon(
-                                                              CupertinoIcons
-                                                                  .heart_fill,
-                                                              color:
-                                                                  Colors.white,
-                                                              size: 18,
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
+                                                              Icon(
+                                                                CupertinoIcons
+                                                                    .heart_fill,
+                                                                color:
+                                                                    Colors.white,
+                                                                size: 18,
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
@@ -699,7 +849,9 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                                 ),
                                 InkWell(
                                   onTap: () {
-                                    Nav.to(TermaKonsultant(
+                                    Nav.to(
+                                        // OnboardAff1()
+                                        TermaKonsultant(
                                       isCheck: false,
                                     ));
                                   },

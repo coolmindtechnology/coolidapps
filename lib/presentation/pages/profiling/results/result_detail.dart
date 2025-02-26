@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:coolappflutter/data/apps/app_sizes.dart';
 import 'package:coolappflutter/data/helpers/check_language.dart';
 import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
 import 'package:coolappflutter/data/provider/provider_profiling.dart';
@@ -19,7 +20,8 @@ import '../../../../data/locals/preference_handler.dart';
 
 class ResultDetail extends StatefulWidget {
   final DataProfiling? data;
-  const ResultDetail({super.key, this.data});
+  final String? type;
+  const ResultDetail({super.key, this.data, this.type});
 
   @override
   State<ResultDetail> createState() => _ResultDetailState();
@@ -209,210 +211,157 @@ class _ResultDetailState extends State<ResultDetail> {
                 ? CircularProgressWidget(
                     color: primaryColor,
                   )
-                : SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        if (value.detailProfiling?.tipeAura != null) ...[
-                          _TipeAura(value: value),
-                        ],
-                        if (value.detailProfiling?.tipeOtak != null) ...[
-                          _TipeOtak(value: value),
-                        ],
-                        if (value.detailProfiling?.tipeKaya != null) ...[
-                          _TipeKaya(value: value),
-                        ],
-                        if (value.detailProfiling?.tipeDarah != null) ...[
-                          _TipeDarah(value: value),
-                        ],
-                        if (value.detailProfiling?.personality != null) ...[
-                          _Personality(value: value),
-                        ],
-
-                        // Center(
-                        //   child: Image.asset(
-                        //     "assets/images/cool-result-4.png",
-                        //   ),
-                        // ),
-                        if (value.detailProfiling?.publicFigure != null) ...[
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 24, vertical: 16),
+                : Container(
+              color: Colors.white,
+                  child: SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            color: primaryColor
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(15),
                             child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    S.of(context).type_figure(
-                                        value.detailProfiling?.character ?? ""),
-                                    style: TextStyle(
-                                        fontSize: 16, color: whiteColor),
-                                  ),
-                                  const SizedBox(
-                                    height: 16,
-                                  ),
-                                  SizedBox(
-                                    width:
-                                        MediaQuery.of(context).size.width - 48,
-                                    child: GridView.builder(
-                                      gridDelegate:
-                                          const SliverGridDelegateWithFixedCrossAxisCount(
-                                              crossAxisCount: 5,
-                                              mainAxisExtent: 100),
-                                      itemCount: value.detailProfiling
-                                          ?.publicFigure?.length,
-                                      shrinkWrap: true,
-                                      physics:
-                                          const NeverScrollableScrollPhysics(),
-                                      itemBuilder: (context, index) {
-                                        PublicFigure publicFigure = value
-                                            .detailProfiling!
-                                            .publicFigure![index];
-                                        return InkWell(
-                                          onTap: () {
-                                            // Nav.to(const RelatedFigure());
-                                          },
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              CircleAvatar(
-                                                  radius: 30,
-                                                  backgroundImage: NetworkImage(
-                                                    "${publicFigure.image}",
-                                                  )),
-                                              const SizedBox(
-                                                height: 8,
-                                              ),
-                                              Text(
-                                                "${publicFigure.name}",
-                                                style: TextStyle(
-                                                  color: whiteColor,
-                                                  fontSize: 10,
-                                                ),
-                                                overflow: TextOverflow.ellipsis,
-                                              ),
-                                            ],
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ]),
-                          ),
-                        ]
-                      ],
-                    ),
-                  ),
-            bottomNavigationBar: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(
-                    height: 54,
-                    child: ButtonPrimary(
-                      isPlay
-                          ? S.of(context).pause_audio
-                          : S.of(context).play_audio,
-                      onPress: () async {
-                        // debugPrint("cek audio${value.textToSpeech}");
-                        List<dynamic> languages = await flutterTts.getLanguages;
-                        print("Bahasa yang didukung: $languages");
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                if (widget.type == "tipeAura" && value.detailProfiling?.tipeAura != null) ...[
+                                  _TipeAura(value: value),
+                                ],
+                                if (widget.type == "tipeOtak" && value.detailProfiling?.tipeOtak != null) ...[
+                                  _TipeOtak(value: value),
+                                ],
+                                if (widget.type == "tipeKaya" && value.detailProfiling?.tipeKaya != null) ...[
+                                  _TipeKaya(value: value),
+                                ],
+                                if (widget.type == "tipeDarah" && value.detailProfiling?.tipeDarah != null) ...[
+                                  _TipeDarah(value: value),
+                                ],
+                                if (widget.type == "personality" && value.detailProfiling?.personality != null) ...[
+                                  _Personality(value: value),
+                                ],
 
-                        isPlay ? _pause() : _speak(value.textToSpeech);
-                        setState(() {});
-                      },
-                      expand: true,
-                      radius: 10,
-                      imageLeft: Row(
-                        children: [
-                          Image.asset(
-                            isPlay
-                                ? "assets/icons/heroicons-outline_pause.png"
-                                : "assets/icons/play.png",
-                            width: 24,
-                            color: whiteColor,
+                                // Center(
+                                //   child: Image.asset(
+                                //     "assets/images/cool-result-4.png",
+                                //   ),
+                                // ),
+                                // if (value.detailProfiling?.publicFigure != null) ...[
+                                //   Padding(
+                                //     padding: const EdgeInsets.symmetric(
+                                //         horizontal: 24, vertical: 16),
+                                //     child: Column(
+                                //         crossAxisAlignment: CrossAxisAlignment.start,
+                                //         children: [
+                                //           Text(
+                                //             S.of(context).type_figure(
+                                //                 value.detailProfiling?.character ?? ""),
+                                //             style: TextStyle(
+                                //                 fontSize: 16, color: whiteColor),
+                                //           ),
+                                //           const SizedBox(
+                                //             height: 16,
+                                //           ),
+                                //           SizedBox(
+                                //             width:
+                                //                 MediaQuery.of(context).size.width - 48,
+                                //             child: GridView.builder(
+                                //               gridDelegate:
+                                //                   const SliverGridDelegateWithFixedCrossAxisCount(
+                                //                       crossAxisCount: 5,
+                                //                       mainAxisExtent: 100),
+                                //               itemCount: value.detailProfiling
+                                //                   ?.publicFigure?.length,
+                                //               shrinkWrap: true,
+                                //               physics:
+                                //                   const NeverScrollableScrollPhysics(),
+                                //               itemBuilder: (context, index) {
+                                //                 PublicFigure publicFigure = value
+                                //                     .detailProfiling!
+                                //                     .publicFigure![index];
+                                //                 return InkWell(
+                                //                   onTap: () {
+                                //                     // Nav.to(const RelatedFigure());
+                                //                   },
+                                //                   child: Column(
+                                //                     crossAxisAlignment:
+                                //                         CrossAxisAlignment.center,
+                                //                     mainAxisAlignment:
+                                //                         MainAxisAlignment.center,
+                                //                     children: [
+                                //                       CircleAvatar(
+                                //                           radius: 30,
+                                //                           backgroundImage: NetworkImage(
+                                //                             "${publicFigure.image}",
+                                //                           )),
+                                //                       const SizedBox(
+                                //                         height: 8,
+                                //                       ),
+                                //                       Text(
+                                //                         "${publicFigure.name}",
+                                //                         style: TextStyle(
+                                //                           color: whiteColor,
+                                //                           fontSize: 10,
+                                //                         ),
+                                //                         overflow: TextOverflow.ellipsis,
+                                //                       ),
+                                //                     ],
+                                //                   ),
+                                //                 );
+                                //               },
+                                //             ),
+                                //           ),
+                                //         ]),
+                                //   ),
+                                // ]
+                              ],
+                            ),
                           ),
-                          const SizedBox(
-                            width: 8,
-                          )
-                        ],
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  if (isPlay) ...[
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
+                ),
+            bottomNavigationBar: Container(
+              color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(24.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Container(
-                            alignment: Alignment.topCenter,
-                            child: LinearProgressIndicator(
-                              backgroundColor: whiteColor.withOpacity(0.5),
-                              valueColor:
-                                  AlwaysStoppedAnimation<Color>(primaryColor),
-                              value: end / value.textToSpeech.length,
-                            )),
-                        const SizedBox(
-                          height: 8,
-                        ),
+                        Text('Akan Didengar :'),
+                        Text(value.dataShowDetail?.result ?? "",style: TextStyle(fontWeight: FontWeight.w600),)
                       ],
-                    )
-                  ] else ...[
+                    ),
+                    gapH10,
                     SizedBox(
                       height: 54,
                       child: ButtonPrimary(
-                        S.of(context).download,
+                        isPlay
+                            ? S.of(context).pause_audio
+                            : S.of(context).play_audio,
                         onPress: () async {
-                          String? isLanguage =
-                              await PreferenceHandler.retrieveId();
-                          String? isID =
-                              await PreferenceHandler.retrieveIdLanguage();
-                          // showDialog(
-                          //     context: context,
-                          //     barrierDismissible: false,
-                          //     builder: (dialogcontext) {
-                          //       return DownloadProgressDialog(
-                          //           url: ApiEndpoint.donwnloadDetailPdf(
-                          //               widget.data?.idLogResult ?? ""),
-                          //           name:
-                          //               "${widget.data?.profilingName}_CoolProfiling_Result.pdf");
-                          //     });
-                          showModalBottomSheet(
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(25),
-                                  topRight: Radius.circular(25),
-                                ),
-                              ),
-                              isDismissible: false,
-                              context: context,
-                              builder: (context) {
-                                debugPrint(
-                                    "url pdf ${ApiEndpoint.donwnloadDetailPdf(widget.data?.idLogResult.toString(), "$isLanguage=$isID")}");
-                                return DownloadProgressDialog(
-                                  url: ApiEndpoint.donwnloadDetailPdf(
-                                      widget.data?.idLogResult.toString() ?? "",
-                                      "$isLanguage=$isID"),
-                                  name:
-                                      "${widget.data?.profilingName}_CoolProfiling_Result.pdf",
-                                );
-                              });
+                          // debugPrint("cek audio${value.textToSpeech}");
+                          List<dynamic> languages = await flutterTts.getLanguages;
+                          print("Bahasa yang didukung: $languages");
+
+                          isPlay ? _pause() : _speak(value.textToSpeech);
+                          setState(() {});
                         },
                         expand: true,
-                        negativeColor: true,
-                        border: 1,
                         radius: 10,
                         imageLeft: Row(
                           children: [
                             Image.asset(
-                              "assets/icons/download.png",
+                              isPlay
+                                  ? "assets/icons/heroicons-outline_pause.png"
+                                  : "assets/icons/play.png",
                               width: 24,
+                              color: whiteColor,
                             ),
                             const SizedBox(
                               width: 8,
@@ -421,8 +370,87 @@ class _ResultDetailState extends State<ResultDetail> {
                         ),
                       ),
                     ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    if (isPlay) ...[
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                              alignment: Alignment.topCenter,
+                              child: LinearProgressIndicator(
+                                backgroundColor: whiteColor.withOpacity(0.5),
+                                valueColor:
+                                    AlwaysStoppedAnimation<Color>(primaryColor),
+                                value: end / value.textToSpeech.length,
+                              )),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                        ],
+                      )
+                    ] else ...[
+                      SizedBox(
+                        // height: 54,
+                        // child: ButtonPrimary(
+                        //   S.of(context).download,
+                        //   onPress: () async {
+                        //     String? isLanguage =
+                        //         await PreferenceHandler.retrieveId();
+                        //     String? isID =
+                        //         await PreferenceHandler.retrieveIdLanguage();
+                        //     // showDialog(
+                        //     //     context: context,
+                        //     //     barrierDismissible: false,
+                        //     //     builder: (dialogcontext) {
+                        //     //       return DownloadProgressDialog(
+                        //     //           url: ApiEndpoint.donwnloadDetailPdf(
+                        //     //               widget.data?.idLogResult ?? ""),
+                        //     //           name:
+                        //     //               "${widget.data?.profilingName}_CoolProfiling_Result.pdf");
+                        //     //     });
+                        //     showModalBottomSheet(
+                        //         shape: const RoundedRectangleBorder(
+                        //           borderRadius: BorderRadius.only(
+                        //             topLeft: Radius.circular(25),
+                        //             topRight: Radius.circular(25),
+                        //           ),
+                        //         ),
+                        //         isDismissible: false,
+                        //         context: context,
+                        //         builder: (context) {
+                        //           debugPrint(
+                        //               "url pdf ${ApiEndpoint.donwnloadDetailPdf(widget.data?.idLogResult.toString(), "$isLanguage=$isID")}");
+                        //           return DownloadProgressDialog(
+                        //             url: ApiEndpoint.donwnloadDetailPdf(
+                        //                 widget.data?.idLogResult.toString() ?? "",
+                        //                 "$isLanguage=$isID"),
+                        //             name:
+                        //                 "${widget.data?.profilingName}_CoolProfiling_Result.pdf",
+                        //           );
+                        //         });
+                        //   },
+                        //   expand: true,
+                        //   negativeColor: true,
+                        //   border: 1,
+                        //   radius: 10,
+                        //   imageLeft: Row(
+                        //     children: [
+                        //       Image.asset(
+                        //         "assets/icons/download.png",
+                        //         width: 24,
+                        //       ),
+                        //       const SizedBox(
+                        //         width: 8,
+                        //       )
+                        //     ],
+                        //   ),
+                        // ),
+                      ),
+                    ],
                   ],
-                ],
+                ),
               ),
             ),
           ),
@@ -470,30 +498,45 @@ class _Personality extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Center(
+        Container(
+          height: 160,
+          width: double.infinity,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: value.detailProfiling?.tipeDarah != null ? Colors.white : imageBlue
+          ),
           child: Image.network(
             "${value.detailProfiling?.personality?.picture}",
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                S.of(context).personality,
-                style: TextStyle(
-                  color: whiteColor,
-                  fontSize: 16,
+        gapH20,
+        Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: Colors.white
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  S.of(context).personality,
+                  style: TextStyle(
+                   fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
                 ),
-              ),
-              Text(
-                value.detailProfiling?.personality?.description ?? "",
-                textAlign: TextAlign.justify,
-                style:
-                    TextStyle(color: whiteColor, fontWeight: FontWeight.w300),
-              ),
-            ],
+                gapH10,
+                Text(
+                  value.detailProfiling?.personality?.description ?? "",
+                  textAlign: TextAlign.justify,
+                  style:
+                      TextStyle(fontWeight: FontWeight.w300),
+                ),
+              ],
+            ),
           ),
         ),
       ],
@@ -512,30 +555,45 @@ class _TipeOtak extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Center(
+        Container(
+          height: 160,
+          width: double.infinity,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: value.detailProfiling?.tipeDarah != null ? Colors.white : imageBlue
+          ),
           child: Image.network(
             "${value.detailProfiling?.tipeOtak?.picture}",
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "${S.of(context).brain_type} ",
-                style: TextStyle(
-                  color: whiteColor,
-                  fontSize: 16,
+        gapH20,
+        Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: Colors.white
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "${S.of(context).brain_type} ",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold
+                  ),
                 ),
-              ),
-              Text(
-                value.detailProfiling?.tipeOtak?.description ?? "",
-                textAlign: TextAlign.justify,
-                style:
-                    TextStyle(color: whiteColor, fontWeight: FontWeight.w300),
-              ),
-            ],
+                gapH10,
+                Text(
+                  value.detailProfiling?.tipeOtak?.description ?? "",
+                  textAlign: TextAlign.justify,
+                  style:
+                      TextStyle(fontWeight: FontWeight.w300),
+                ),
+              ],
+            ),
           ),
         ),
       ],
@@ -554,7 +612,13 @@ class _TipeAura extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Center(
+        Container(
+          height: 160,
+          width: double.infinity,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: value.detailProfiling?.tipeDarah != null ? Colors.white : imageBlue
+          ),
           child: Image.network(
             "${value.detailProfiling?.tipeAura?.picture}",
             loadingBuilder: (BuildContext context, Widget image,
@@ -572,25 +636,34 @@ class _TipeAura extends StatelessWidget {
             },
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "${S.of(context).aura_type}  - ${value.detailProfiling?.tipeAura?.tipe ?? ""}",
-                style: TextStyle(
-                  color: whiteColor,
-                  fontSize: 16,
+        gapH20,
+        Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: Colors.white
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "${S.of(context).aura_type}  - ${value.detailProfiling?.tipeAura?.tipe ?? ""}",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold
+                  ),
                 ),
-              ),
-              Text(
-                value.detailProfiling?.tipeAura?.description ?? "",
-                textAlign: TextAlign.justify,
-                style:
-                    TextStyle(color: whiteColor, fontWeight: FontWeight.w300),
-              ),
-            ],
+                gapH10,
+                Text(
+                  value.detailProfiling?.tipeAura?.description ?? "",
+                  textAlign: TextAlign.justify,
+                  style:
+                      TextStyle(fontWeight: FontWeight.w300),
+                ),
+              ],
+            ),
           ),
         ),
       ],
@@ -609,43 +682,61 @@ class _TipeKaya extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Text(S.of(context).rich_type,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
         Center(
-          child: Image.network(
-            "${value.detailProfiling?.tipeKaya?.picture}",
-            loadingBuilder: (BuildContext context, Widget image,
-                ImageChunkEvent? loadingProgress) {
-              if (loadingProgress == null) return image;
-              return Center(
-                child: CircularProgressWidget(
-                  color: primaryColor,
-                  value: loadingProgress.expectedTotalBytes != null
-                      ? loadingProgress.cumulativeBytesLoaded /
-                          loadingProgress.expectedTotalBytes!
-                      : null,
-                ),
-              );
-            },
+          child: Container(
+            height: 160,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: value.detailProfiling?.tipeDarah != null ? Colors.white : imageBlue
+            ),
+            child: Image.network(
+              "${value.detailProfiling?.tipeKaya?.picture}",
+              loadingBuilder: (BuildContext context, Widget image,
+                  ImageChunkEvent? loadingProgress) {
+                if (loadingProgress == null) return image;
+                return Center(
+                  child: CircularProgressWidget(
+                    color: primaryColor,
+                    value: loadingProgress.expectedTotalBytes != null
+                        ? loadingProgress.cumulativeBytesLoaded /
+                            loadingProgress.expectedTotalBytes!
+                        : null,
+                  ),
+                );
+              },
+            ),
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "${S.of(context).rich_type} - ${value.detailProfiling?.tipeKaya?.tipe ?? ""}",
-                style: TextStyle(
-                  color: whiteColor,
-                  fontSize: 16,
+        gapH20,
+        Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: Colors.white
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "${S.of(context).rich_type} - ${value.detailProfiling?.tipeKaya?.tipe ?? ""}",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold
+                  ),
                 ),
-              ),
-              Text(
-                value.detailProfiling?.tipeKaya?.description ?? "",
-                textAlign: TextAlign.justify,
-                style:
-                    TextStyle(color: whiteColor, fontWeight: FontWeight.w300),
-              ),
-            ],
+                gapH10,
+                Text(
+                  value.detailProfiling?.tipeKaya?.description ?? "",
+                  textAlign: TextAlign.justify,
+                  style:
+                      TextStyle( fontWeight: FontWeight.w300),
+                ),
+              ],
+            ),
           ),
         ),
       ],
@@ -664,7 +755,13 @@ class _TipeDarah extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Center(
+        Container(
+          height: 160,
+          width: double.infinity,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: value.detailProfiling?.tipeDarah != null ? Colors.white : imageBlue
+          ),
           child: Image.network(
             "${value.detailProfiling?.tipeDarah?.picture}",
             loadingBuilder: (BuildContext context, Widget image,
@@ -682,25 +779,34 @@ class _TipeDarah extends StatelessWidget {
             },
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "${S.of(context).blood_type} - ${value.detailProfiling?.tipeDarah?.tipe ?? ""}",
-                style: TextStyle(
-                  color: whiteColor,
-                  fontSize: 16,
+        gapH20,
+        Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: Colors.white
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "${S.of(context).blood_type} - ${value.detailProfiling?.tipeDarah?.tipe ?? ""}",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold
+                  ),
                 ),
-              ),
-              Text(
-                value.detailProfiling?.tipeDarah?.description ?? "",
-                textAlign: TextAlign.justify,
-                style:
-                    TextStyle(color: whiteColor, fontWeight: FontWeight.w300),
-              ),
-            ],
+                gapH10,
+                Text(
+                  value.detailProfiling?.tipeDarah?.description ?? "",
+                  textAlign: TextAlign.justify,
+                  style:
+                      TextStyle( fontWeight: FontWeight.w300),
+                ),
+              ],
+            ),
           ),
         ),
       ],

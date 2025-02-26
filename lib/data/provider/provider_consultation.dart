@@ -48,6 +48,7 @@ class ProviderConsultation extends ChangeNotifier {
       if (response.statusCode == 200) {
         final responseData = ResponseListConsultation.fromJson(response.data);
         _consultations = responseData.datas?.data ?? [];
+        print('input data oke');
       } else {
         throw Exception('Failed to load consultations');
       }
@@ -264,6 +265,8 @@ class ProviderConsultation extends ChangeNotifier {
   //   notifyListeners();
   // }
 
+  bool _isRequesting = false;
+
   Future<void> createConsultation(
       BuildContext context,
       String consulId,
@@ -271,9 +274,11 @@ class ProviderConsultation extends ChangeNotifier {
       String partisipant,
       String typeSeesion,
       String time) async {
+    if (_isRequesting) return; // Cegah pemanggilan ganda
+    _isRequesting = true;
+
     try {
-      final String? token =
-          await Prefs().getToken(); // Mengambil token dari shared preferences
+      final String? token = await Prefs().getToken();
       final Dio dio = Dio();
 
       final String baseUrl =
@@ -324,6 +329,9 @@ class ProviderConsultation extends ChangeNotifier {
             style: const TextStyle(fontSize: 16),
             textAlign: TextAlign.center,
           ));
+    } finally {
+      _isRequesting = false; // Reset flag setelah selesai
     }
   }
+
 }

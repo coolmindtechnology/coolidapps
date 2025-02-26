@@ -18,12 +18,6 @@ class _ReadBookState extends State<ReadBook> {
     return Scaffold(
       backgroundColor: whiteColor,
       appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Image.asset("images/buku/arrowleft.png")),
-        centerTitle: false,
         title: Text(
           widget.file ?? "",
           style: const TextStyle(color: Colors.white),

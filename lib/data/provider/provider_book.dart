@@ -41,23 +41,6 @@ class ProviderBook extends ChangeNotifier {
   }
 
   TextEditingController searchController = TextEditingController();
-
-  List<DataBook> get display {
-    if (searchController.text.trim().isEmpty) return listAllBook;
-    String keyboard = searchController.text.trim();
-
-    List<DataBook> filtered = listAllBook.where((e) {
-      var found1 =
-          e.title?.toLowerCase().contains(keyboard.toLowerCase()) == true;
-      var found2 =
-          e.summary?.toLowerCase().contains(keyboard.toLowerCase()) == true;
-
-      return found1 || found2;
-    }).toList();
-
-    return filtered;
-  }
-
   ThemeMode _themeMode = ThemeMode.light;
 
   ThemeMode get themeMode => _themeMode;
@@ -76,6 +59,22 @@ class ProviderBook extends ChangeNotifier {
   void setRating(double newRating) {
     _rating = newRating;
     notifyListeners();
+  }
+
+  List<DataBook> get display {
+    if (searchController.text.trim().isEmpty) return listAllBook;
+    String keyboard = searchController.text.trim();
+
+    List<DataBook> filtered = listAllBook.where((e) {
+      var found1 =
+          e.title?.toLowerCase().contains(keyboard.toLowerCase()) == true;
+      var found2 =
+          e.summary?.toLowerCase().contains(keyboard.toLowerCase()) == true;
+
+      return found1 || found2;
+    }).toList();
+
+    return filtered;
   }
 
   List<DataBook> get displayPremium {

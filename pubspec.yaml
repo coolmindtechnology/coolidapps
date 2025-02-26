@@ -151,10 +151,11 @@ flutter:
     - images/menu/
     - assets/images/
     - assets/icons/
-    - images/buku/
     - images/qrcode/
+    - images/buku/
     - images/brain/
     - images/chat/
+    - images/profiling/
     - assets/audio/1717485918_Cool Compas - Master_2.wav
 
   fonts:
@@ -178,4 +179,3 @@ flutter_intl:
 #   generate: true
 #   localizations_directories:
 #     - lib/l10n
-

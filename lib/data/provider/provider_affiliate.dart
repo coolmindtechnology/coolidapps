@@ -20,6 +20,8 @@ import 'package:coolappflutter/presentation/pages/konsultasi/konsultant/boarding
 import 'package:coolappflutter/presentation/pages/konsultasi/konsultant/konsultant_dashboard.dart';
 import 'package:coolappflutter/presentation/pages/konsultasi/konsultant/konsultasi_status.dart';
 import 'package:coolappflutter/presentation/pages/konsultasi/konsultant/terma_konsultan.dart';
+import 'package:coolappflutter/presentation/pages/main/nav_home.dart';
+import 'package:coolappflutter/presentation/pages/main/nav_home.dart';
 import 'package:coolappflutter/presentation/pages/transakction/topup_saldo.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:flutter/foundation.dart';
@@ -79,13 +81,13 @@ class ProviderAffiliate extends ChangeNotifier {
         dataOverview = res.data;
         dataGlobal.dataAff = res.data;
         notifyListeners();
-        Provider.of<ProviderProfiling>(context, listen: false)
-            .getListProfiling(context);
+        // Provider.of<ProviderProfiling>(context, listen: false)
+        //     .getListProfiling(context);
         // beneficiary@example.com
-        // context.read<ProviderTransaksiAffiliate>().dataAffiliasi =
-        //     dataAffiliasi;
+        context.read<ProviderTransaksiAffiliate>().dataAffiliasi =
+            dataAffiliasi;
         debugPrint("cekmm");
-        // checkCompleteBank(context);
+        checkCompleteBank(context);
 
         if (pilihRek != null) {
           nameBank = TextEditingController(text: dataAffiliasi?.bankName);
@@ -229,8 +231,9 @@ class ProviderAffiliate extends ChangeNotifier {
       if (res.success == true) {
         NotificationUtils.showSnackbar(res.message ?? "",
             backgroundColor: primaryColor);
-        Nav.back();
-        Nav.back(data: 'save');
+        // Nav.back();
+        // Nav.back(data: 'save');
+        Nav.toAll(NavMenuScreen());
         onUpdate!();
         notifyListeners();
       }
@@ -750,8 +753,32 @@ class ProviderAffiliate extends ChangeNotifier {
                 style: const TextStyle(fontSize: 16),
               ));
         } else {
+          // NotificationUtils.showDialogError(context, () async {
+          //   await Nav.back();
+          //   var data = await Nav.to(ScreenInputRekening(
+          //     dataBank: dataAffiliasi,
+          //     onUpdate: () async {},
+          //   ));
+          //
+          //   /// check again
+          //   ///if without save account, when back from input rekening page
+          //   if (data == null) {
+          //     await checkCompleteBank(context);
+          //   } else {
+          //     /// if save account, when back from input rekening page
+          //     await getHomeAff(context);
+          //     await checkCompleteBank(context);
+          //   }
+          // },
+          //     widget: Text(
+          //       res.message ?? "",
+          //       textAlign: TextAlign.center,
+          //       style: const TextStyle(fontSize: 16),
+          //     ));
           /// data bank complete will check notification for top up
-          checkTopupAffiliate(context);
+          // checkTopupAffiliate(context);
+
+
         }
       },
     );

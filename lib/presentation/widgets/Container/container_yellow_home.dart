@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class ContainerYellowHome extends StatelessWidget {
   final VoidCallback onTap;
   final String title;
-  final IconData icon;
+  final String icon;
   final Color iconColor;
 
   const ContainerYellowHome({
@@ -22,18 +22,17 @@ class ContainerYellowHome extends StatelessWidget {
         onTap: onTap,
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 10.w),
-          height: 40.h, // Responsif tinggi
+          height: 50.h, // Responsif tinggi
           decoration: BoxDecoration(
             color: Color(0xFFFBF008),
             borderRadius: BorderRadius.circular(8.r),
           ),
-          child: Row(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Icon(
-                icon,
-                size: 24.sp,
-                color: iconColor,
+              Image.asset(
+                '$icon',height: 24.sp,
+                fit: BoxFit.cover,
               ),
               Flexible(
                 child: Text(

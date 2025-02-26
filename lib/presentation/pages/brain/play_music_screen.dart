@@ -127,10 +127,10 @@ class _PlayMusicScreenState extends State<PlayMusicScreen> {
         isPlay = false;
         pause();
         if (context
-                .read<ProviderBrainActivation>()
-                .cekDaily
-                ?.limitAccessAudio
-                .toString() ==
+            .read<ProviderBrainActivation>()
+            .cekDaily
+            ?.limitAccessAudio
+            .toString() ==
             "00:05:00") {
           // prov.getDurationAudio(context, widget.data?.logBrain?.id ?? 0);
           NotificationUtils.showSimpleDialogAudio(
@@ -147,7 +147,7 @@ class _PlayMusicScreenState extends State<PlayMusicScreen> {
                 idLogProfiling: int.parse(
                     widget.data?.logBrain?.idLogProfiling.toString() ?? "0"),
                 discount:
-                    double.parse(widget.data?.monthlyDiscount ?? "0").toInt(),
+                double.parse(widget.data?.monthlyDiscount ?? "0").toInt(),
                 transactionType: "monthly",
                 subscriptionType: "single",
                 idItemPayments: "3",
@@ -245,10 +245,10 @@ class _PlayMusicScreenState extends State<PlayMusicScreen> {
                 ),
                 isPlay
                     ? MusicVisualizer(
-                        barCount: 30,
-                        colors: colors,
-                        duration: duration,
-                      )
+                  barCount: 30,
+                  colors: colors,
+                  duration: duration,
+                )
                     : const SizedBox(),
                 const Spacer(),
                 Padding(
@@ -262,7 +262,7 @@ class _PlayMusicScreenState extends State<PlayMusicScreen> {
                           onSeek: (duration) {
                             debugPrint("cek posisi1 ${_position.inSeconds}");
                             if (value.cekDaily?.limitAccessAudio.toString() ==
-                                    "00:05:00" &&
+                                "00:05:00" &&
                                 (snapshot.data?.inSeconds == maxPlaySecond ||
                                     snapshot.data!.inSeconds > maxPlaySecond)) {
                               NotificationUtils.showSimpleDialog2(
@@ -270,26 +270,26 @@ class _PlayMusicScreenState extends State<PlayMusicScreen> {
                                   textButton1: S.of(context).yes,
                                   textButton2: S.of(context).cancel,
                                   onPress2: () {
-                                Nav.back();
-                                Nav.back();
-                              }, onPress1: () async {
+                                    Nav.back();
+                                    Nav.back();
+                                  }, onPress1: () async {
                                 //   // tambah disni
                                 Nav.back();
                                 Nav.back();
                                 var data = SubscribeBrainTransactionDataModel(
                                     idBrainActivations: [widget.data?.id ?? 0],
                                     idLogProfiling: int.parse(widget
-                                            .data?.logBrain?.idLogProfiling
-                                            .toString() ??
+                                        .data?.logBrain?.idLogProfiling
+                                        .toString() ??
                                         "0"),
                                     discount: double.parse(
-                                            widget.data?.monthlyDiscount ?? "0")
+                                        widget.data?.monthlyDiscount ?? "0")
                                         .toInt(),
                                     transactionType: "monthly",
                                     subscriptionType: "single",
                                     idItemPayments: "3",
                                     price: double.parse(
-                                            widget.data?.monthlyPrice ?? "0")
+                                        widget.data?.monthlyPrice ?? "0")
                                         .toInt(),
                                     gateway: !dataGlobal.isIndonesia
                                         ? "paypal"
@@ -298,17 +298,17 @@ class _PlayMusicScreenState extends State<PlayMusicScreen> {
                                 context
                                     .read<ProviderBrainActivation>()
                                     .subcribeBrainProfiling(context, data,
-                                        onUpdate: () async {
-                                  Nav.back();
-                                  // Nav.back();
-                                  await context
-                                      .read<ProviderBrainActivation>()
-                                      .getListBrain(
+                                    onUpdate: () async {
+                                      Nav.back();
+                                      // Nav.back();
+                                      await context
+                                          .read<ProviderBrainActivation>()
+                                          .getListBrain(
                                           context,
                                           widget.data?.logBrain?.idLogProfiling
-                                                  .toString() ??
+                                              .toString() ??
                                               "0");
-                                });
+                                    });
                               });
                             } else {
                               _audioPlayer.seek(duration);
@@ -347,12 +347,12 @@ class _PlayMusicScreenState extends State<PlayMusicScreen> {
                   onTap: () async {
                     debugPrint("cek posisi2 ${_position.inSeconds}");
                     if ((int.tryParse(value.cekDaily?.dailyCount.toString() ??
-                                    "0") ??
-                                0) !=
-                            3 ||
+                        "0") ??
+                        0) !=
+                        3 ||
                         value.timerPlay?.dailyCount != null) {
                       if (value.cekDaily?.limitAccessAudio.toString() ==
-                              "00:05:00" &&
+                          "00:05:00" &&
                           shouldStop) {
                         NotificationUtils.showSimpleDialog2(
                             context, S.of(context).free_version_limit,
@@ -366,35 +366,35 @@ class _PlayMusicScreenState extends State<PlayMusicScreen> {
                           var data = SubscribeBrainTransactionDataModel(
                               idBrainActivations: [widget.data?.id ?? 0],
                               idLogProfiling: int.parse(widget
-                                      .data?.logBrain?.idLogProfiling
-                                      .toString() ??
+                                  .data?.logBrain?.idLogProfiling
+                                  .toString() ??
                                   "0"),
                               discount: double.parse(
-                                      widget.data?.monthlyDiscount ?? "0")
+                                  widget.data?.monthlyDiscount ?? "0")
                                   .toInt(),
                               transactionType: "monthly",
                               subscriptionType: "single",
                               idItemPayments: "3",
                               price:
-                                  double.parse(widget.data?.monthlyPrice ?? "0")
-                                      .toInt(),
+                              double.parse(widget.data?.monthlyPrice ?? "0")
+                                  .toInt(),
                               gateway:
-                                  !dataGlobal.isIndonesia ? "paypal" : null);
+                              !dataGlobal.isIndonesia ? "paypal" : null);
 
                           context
                               .read<ProviderBrainActivation>()
                               .subcribeBrainProfiling(context, data,
-                                  onUpdate: () async {
-                            Nav.back();
-                            // Nav.back();
-                            await context
-                                .read<ProviderBrainActivation>()
-                                .getListBrain(
+                              onUpdate: () async {
+                                Nav.back();
+                                // Nav.back();
+                                await context
+                                    .read<ProviderBrainActivation>()
+                                    .getListBrain(
                                     context,
                                     widget.data?.logBrain?.idLogProfiling
-                                            .toString() ??
+                                        .toString() ??
                                         "0");
-                          });
+                              });
                         });
                       } else {
                         playOrPause();

@@ -11,6 +11,17 @@ import 'card_consultant.dart';
 import 'consultation_summary.dart';
 import 'profile_card.dart';
 
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/widgets/GlobalButton.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../../../data/provider/provider_consultation.dart';
+import 'card_consultant.dart';
+import 'consultation_summary.dart';
+import 'profile_card.dart';
+
 class FormConsultant extends StatefulWidget {
   const FormConsultant({
     super.key,

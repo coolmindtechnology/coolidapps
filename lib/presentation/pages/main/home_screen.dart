@@ -2,6 +2,7 @@
 
 import 'dart:async';
 
+import 'package:coolappflutter/data/apps/app_assets.dart';
 import 'package:coolappflutter/data/apps/app_sizes.dart';
 import 'package:coolappflutter/data/provider/provider_auth_affiliate.dart';
 import 'package:coolappflutter/data/provider/provider_payment.dart';
@@ -15,8 +16,11 @@ import 'package:coolappflutter/main.dart';
 import 'package:coolappflutter/presentation/pages/main/detail_saldo/detail_saldo.dart';
 import 'package:coolappflutter/presentation/pages/main/ebook/home_ebook.dart';
 import 'package:coolappflutter/presentation/pages/main/qrcode/qr_code.dart';
+import 'package:coolappflutter/presentation/pages/profiling/add_multiple_profiling.dart';
+import 'package:coolappflutter/presentation/pages/profiling/profiling%20dashboard.dart';
 
 import 'package:coolappflutter/presentation/pages/profiling/screen_feature_kepribadian.dart';
+import 'package:coolappflutter/presentation/pages/profiling/screen_hasil_kepribadian.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:coolappflutter/presentation/utils/notification_utils.dart';
 
@@ -84,527 +88,601 @@ class _HomeScreenState extends State<HomeScreen> {
     super.dispose();
   }
 
-  final List<Map<String, dynamic>> sliderData = [
-    {
-      'text': 'Go test your profiling now & know yourself better',
-      'imageUrl': 'images/Slider1.png',
-      'containerColor': primaryColor,
-      'textColor': BlueColor,
-    },
-    {
-      'text': '20% Discount Special for newcomer',
-      'imageUrl': 'images/Slider2.png',
-      'containerColor': BlueColor,
-      'textColor': Colors.white,
-    },
-    {
-      'text': 'Knowinng yourself, is a way love yourself',
-      'imageUrl': 'images/Slider3.png',
-      'containerColor': Colors.orange[100],
-      'textColor': whiteColor,
-    },
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final List<Map<String, dynamic>> sliderData = [
+      {
+        'text': S.of(context).Go_test_profiling,
+        'imageUrl': 'images/Slider1.png',
+        'containerColor': primaryColor,
+        'textColor': BlueColor,
+      },
+      {
+        'text': S.of(context).Discount_newcomer,
+        'imageUrl': 'images/Slider2.png',
+        'containerColor': BlueColor,
+        'textColor': Colors.white,
+      },
+      {
+        'text': S.of(context).complete_profiling, // Harus di dalam build()
+        'imageUrl': 'images/Slider3.png',
+        'containerColor': Colors.orange[100],
+        'textColor': whiteColor,
+      },
+    ];
+
     return MultiProvider(
-        providers: [
-          ChangeNotifierProvider(
-              create: (context) => ProviderBook.initHomeBook(context)),
-          ChangeNotifierProvider(create: (context) => ProviderProfiling()),
-        ],
-        child: Consumer<ProviderBook>(
-          builder: (BuildContext context, value, Widget? child) =>
-              Consumer<ProviderProfiling>(
-            builder: (BuildContext context, valuePro, Widget? child) =>
-                Consumer<ProviderAffiliate>(
-              builder: (BuildContext context, valueAffiliate, Widget? child) =>
-                  Consumer<ProviderUser>(builder:
-                      (BuildContext context, valueUser, Widget? child) {
-                return Scaffold(
-                  appBar: PreferredSize(
-                    preferredSize: const Size.fromHeight(75.0),
-                    child: AppBar(
-                      automaticallyImplyLeading: false,
-                      flexibleSpace: Container(
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              primaryColor,
-                              Colors.white
-                            ], // Gradasi biru ke putih
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                          ),
-                        ),
-                      ),
-                      title: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Image.asset(
-                            "images/logo_coolapp_new.png",
-                            height: 36,
-                            width: 115,
-                          ),
-                          Container(
-                              height: 35,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(5)),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Provider.of<ProviderPayment>(context,
-                                                listen: false)
-                                            .isLoading
-                                        ? const ShimmerLoadingWidget(
-                                            height: 24,
-                                            width: 100,
-                                          )
-                                        : GestureDetector(
-                                            onTap: () {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          DetailSaldoPage()));
-                                            },
-                                            child: Text(
-                                              valueUser.totalDeposit,
-                                              style: const TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w600,
-                                              ),
-                                            ),
-                                          ),
-                                    gapW10,
-                                    Consumer<ProviderUser>(
-                                        builder: (context, stateUser, __) {
-                                      return InkWell(
-                                          onTap: () async {
-                                            if (stateUser.dataUser?.isAffiliate
-                                                    .toString() ==
-                                                "1") {
-                                              debugPrint("tes topup1");
-                                              NotificationUtils.showDialogError(
-                                                  context, () {
-                                                Nav.back();
-                                              },
-                                                  widget: Text(
-                                                    S
-                                                        .of(context)
-                                                        .feature_unavailable_affiliate,
-                                                    textAlign: TextAlign.center,
-                                                  ));
-                                            } else {
-                                              //
-                                              debugPrint("tes topup2");
-
-                                              context
-                                                  .read<ProviderPayment>()
-                                                  .getListTopUp(context);
-                                            }
-                                          },
-                                          child: Icon(
-                                            CupertinoIcons.plus_circle_fill,
-                                            color: primaryColor,
-                                            size: 23,
-                                          ));
-                                    })
-                                  ],
-                                ),
-                              )),
-                          GestureDetector(
-                            onTap: () {
-                              widget.klickTab(3);
-                            },
-                            child: valueUser.isLoading
-                                ? Shimmer.fromColors(
-                                    baseColor: greyColor.withOpacity(0.2),
-                                    highlightColor: whiteColor,
-                                    child: Container(
-                                      height: 54,
-                                      width: 54,
-                                      decoration: BoxDecoration(
-                                          color: greyColor,
-                                          shape: BoxShape.circle),
-                                    ))
-                                : valueUser.dataUser?.image != null
-                                    ? ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(100),
-                                        child: Image.network(
-                                          "${valueUser.dataUser?.image}",
-                                          width: 56,
-                                          height: 56,
-                                          fit: BoxFit.fill,
-                                          errorBuilder: (BuildContext context,
-                                              Object exception,
-                                              StackTrace? stackTrace) {
-                                            // Tampilkan gambar placeholder jika terjadi error
-                                            return Image.asset(
-                                              'images/default_user.png', // Path ke gambar placeholder lokal
-                                              width: 56,
-                                              height: 56,
-                                              fit: BoxFit.fill,
-                                            );
-                                          },
-                                          loadingBuilder: (context, child,
-                                              loadingProgress) {
-                                            if (loadingProgress == null) {
-                                              return child;
-                                            }
-
-                                            return Shimmer.fromColors(
-                                                baseColor:
-                                                    greyColor.withOpacity(0.2),
-                                                highlightColor: whiteColor,
-                                                child: Container(
-                                                  height: 56,
-                                                  width: 56,
-                                                  decoration: BoxDecoration(
-                                                      color: greyColor,
-                                                      shape: BoxShape.circle),
-                                                ));
-                                          },
-                                        ),
-                                      )
-                                    : ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(100),
-                                        child: Image.asset(
-                                          "images/default_user.png",
-                                          width: 56,
-                                          height: 56,
-                                          color: whiteColor,
-                                        ),
-                                      ),
-                          )
-                        ],
+      providers: [
+        ChangeNotifierProvider(
+            create: (context) => ProviderBook.initHomeBook(context)),
+      ],
+      child:
+          // Consumer<ProviderBook>(
+          //   builder: (BuildContext context, value, Widget? child) =>
+          Consumer<ProviderProfiling>(
+        builder: (BuildContext context, valuePro, Widget? child) =>
+            Consumer<ProviderAffiliate>(
+          builder: (BuildContext context, valueAffiliate, Widget? child) =>
+              Consumer<ProviderUser>(
+                  builder: (BuildContext context, valueUser, Widget? child) {
+            return Scaffold(
+              appBar: PreferredSize(
+                preferredSize: const Size.fromHeight(75.0),
+                child: AppBar(
+                  automaticallyImplyLeading: false,
+                  flexibleSpace: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          primaryColor,
+                          Colors.white
+                        ], // Gradasi biru ke putih
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
                       ),
                     ),
                   ),
-                  backgroundColor: Colors.white,
-                  body: Consumer<ProviderPayment>(
-                      builder: (BuildContext context, valueDep, Widget? child) {
-                    eventBalanceStream ??= eventBalance.listen(onChanges: () {
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Image.asset(
+                        "images/logo_coolapp_new.png",
+                        height: 36,
+                        width: 115,
+                      ),
+                      // Container(
+                      //     width: 28,
+                      //     height: 28,
+                      //     decoration: BoxDecoration(
+                      //         color: Colors.white,
+                      //         borderRadius: BorderRadius.circular(5)),
+                      //     child: InkWell(
+                      //       onTap: () {},
+                      //       child: Icon(
+                      //         Icons.qr_code_scanner_rounded,
+                      //         color: primaryColor,
+                      //         size: 23,
+                      //       ),
+                      //     )),
+                      Container(
+                          height: 35,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(5)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Provider.of<ProviderPayment>(context,
+                                            listen: false)
+                                        .isLoading
+                                    ? const ShimmerLoadingWidget(
+                                        height: 24,
+                                        width: 100,
+                                      )
+                                    : GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      DetailSaldoPage()));
+                                        },
+                                        child: Text(
+                                          valueUser.totalDeposit,
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w600,
+                                          ),
+                                        ),
+                                      ),
+                                gapW10,
+                                Consumer<ProviderUser>(
+                                    builder: (context, stateUser, __) {
+                                  return InkWell(
+                                      onTap: () async {
+                                        if (stateUser.dataUser?.isAffiliate
+                                                .toString() ==
+                                            "1") {
+                                          debugPrint("tes topup1");
+                                          NotificationUtils.showDialogError(
+                                              context, () {
+                                            Nav.back();
+                                          },
+                                              widget: Text(
+                                                S
+                                                    .of(context)
+                                                    .feature_unavailable_affiliate,
+                                                textAlign: TextAlign.center,
+                                              ));
+                                        } else {
+                                          //
+                                          debugPrint("tes topup2");
+
+                                          context
+                                              .read<ProviderPayment>()
+                                              .getListTopUp(context);
+                                        }
+                                      },
+                                      child: Icon(
+                                        CupertinoIcons.plus_circle_fill,
+                                        color: primaryColor,
+                                        size: 23,
+                                      ));
+                                })
+                              ],
+                            ),
+                          )),
+                      GestureDetector(
+                        onTap: () {
+                          widget.klickTab(3);
+                        },
+                        child: valueUser.isLoading
+                            ? Shimmer.fromColors(
+                                baseColor: greyColor.withOpacity(0.2),
+                                highlightColor: whiteColor,
+                                child: Container(
+                                  height: 54,
+                                  width: 54,
+                                  decoration: BoxDecoration(
+                                      color: greyColor, shape: BoxShape.circle),
+                                ))
+                            : valueUser.dataUser?.image != null
+                                ? ClipRRect(
+                                    borderRadius: BorderRadius.circular(100),
+                                    child: Image.network(
+                                      "${valueUser.dataUser?.image}",
+                                      width: 56,
+                                      height: 56,
+                                      fit: BoxFit.fill,
+                                      errorBuilder: (BuildContext context,
+                                          Object exception,
+                                          StackTrace? stackTrace) {
+                                        // Tampilkan gambar placeholder jika terjadi error
+                                        return Image.asset(
+                                          'images/default_user.png', // Path ke gambar placeholder lokal
+                                          width: 56,
+                                          height: 56,
+                                          fit: BoxFit.fill,
+                                        );
+                                      },
+                                      loadingBuilder:
+                                          (context, child, loadingProgress) {
+                                        if (loadingProgress == null) {
+                                          return child;
+                                        }
+
+                                        return Shimmer.fromColors(
+                                            baseColor:
+                                                greyColor.withOpacity(0.2),
+                                            highlightColor: whiteColor,
+                                            child: Container(
+                                              height: 56,
+                                              width: 56,
+                                              decoration: BoxDecoration(
+                                                  color: greyColor,
+                                                  shape: BoxShape.circle),
+                                            ));
+                                      },
+                                    ),
+                                  )
+                                : ClipRRect(
+                                    borderRadius: BorderRadius.circular(100),
+                                    child: Image.asset(
+                                      "images/default_user.png",
+                                      width: 56,
+                                      height: 56,
+                                      color: whiteColor,
+                                    ),
+                                  ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              backgroundColor: Colors.white,
+              body: Consumer<ProviderPayment>(
+                  builder: (BuildContext context, valueDep, Widget? child) {
+                eventBalanceStream ??= eventBalance.listen(onChanges: () {
+                  Provider.of<ProviderUser>(context, listen: false)
+                      .getTotalSaldo(context);
+                });
+                // valueDep.getAmoutDeposit(context);
+                return CustomMaterialIndicator(
+                  key: _refreshIndicatorKey,
+                  onRefresh: () {
+                    Provider.of<ProviderUser>(context, listen: false)
+                        .getUser(context);
+                    // Provider.of<ProviderBook>(context, listen: false)
+                    //     .getListEbook(context);
+                    // Provider.of<ProviderPayment>(context, listen: false)
+                    //     .getAmoutDeposit(context);
+                    Provider.of<ProviderUser>(context, listen: false)
+                        .getTotalSaldo(context);
+                    Provider.of<ProviderProfiling>(context, listen: false)
+                        .getListProfiling(context);
+
+                    Timer(const Duration(seconds: 1), () {
                       Provider.of<ProviderUser>(context, listen: false)
                           .getTotalSaldo(context);
                     });
-                    // valueDep.getAmoutDeposit(context);
-                    return CustomMaterialIndicator(
-                      key: _refreshIndicatorKey,
-                      onRefresh: () {
-                        Provider.of<ProviderUser>(context, listen: false)
-                            .getUser(context);
-                        Provider.of<ProviderBook>(context, listen: false)
-                            .getListEbook(context);
-                        // Provider.of<ProviderPayment>(context, listen: false)
-                        //     .getAmoutDeposit(context);
-                        Provider.of<ProviderUser>(context, listen: false)
-                            .getTotalSaldo(context);
-                        Provider.of<ProviderProfiling>(context, listen: false)
-                            .getListProfiling(context);
-
-                        Timer(const Duration(seconds: 1), () {
-                          Provider.of<ProviderUser>(context, listen: false)
-                              .getTotalSaldo(context);
-                        });
-                        return Future<void>.delayed(const Duration(seconds: 1));
-                      },
-                      indicatorBuilder: (BuildContext context,
-                          IndicatorController controller) {
-                        return const RefreshIconWidget();
-                      },
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height,
-                        child: SingleChildScrollView(
-                          physics: const AlwaysScrollableScrollPhysics(),
-                          child: Padding(
-                            padding: const EdgeInsets.all(20),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                    return Future<void>.delayed(const Duration(seconds: 1));
+                  },
+                  indicatorBuilder:
+                      (BuildContext context, IndicatorController controller) {
+                    return const RefreshIconWidget();
+                  },
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    child: SingleChildScrollView(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      child: Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Row(
                               mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
-                                Container(
-                                    width: 50,
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(5)),
-                                    child: InkWell(
-                                      onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    QRCodePage()));
-                                      },
-                                      child: Icon(
-                                        Icons.qr_code_scanner_rounded,
-                                        color: primaryColor,
-                                        size: 23,
-                                      ),
-                                    )),
-                                gapH10,
-                                Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    ContainerYellowHome(
-                                      onTap: () {
-                                        Nav.to(CurhatDashboard());
-                                      },
-                                      icon: CupertinoIcons.chat_bubble_text,
-                                      title: S.of(context).Curhat,
-                                      iconColor: BlueColor,
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    ContainerYellowHome(
-                                      onTap: () {
-                                        Nav.to(const HomeEbook());
-                                      },
-                                      icon: Icons.book,
-                                      title: S.of(context).ebook,
-                                      iconColor: BlueColor,
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    ContainerYellowHome(
-                                      onTap: () {
-                                        Nav.to(KonsultasiPage());
-                                      },
-                                      icon: CupertinoIcons.chat_bubble_2_fill,
-                                      title: S.of(context).Consultation,
-                                      iconColor: BlueColor,
-                                    ),
-                                  ],
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 30, bottom: 10),
-                                  child: Text(
-                                    S.of(context).News_From_COOL,
-                                    style: const TextStyle(
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w600),
-                                  ),
+                                ContainerYellowHome(
+                                  onTap: () {
+                                    Nav.to(CurhatDashboard());
+                                  },
+                                  icon: AppAsset.icCurhat,
+                                  title: S.of(context).Curhat,
+                                  iconColor: BlueColor,
                                 ),
                                 SizedBox(
-                                  height: 140, // Batasi tinggi PageView
-                                  child: PageView.builder(
-                                    itemCount: sliderData.length,
-                                    itemBuilder: (context, index) {
-                                      final item = sliderData[index];
-                                      return ContainerSliderHome(
-                                        text: item['text'],
-                                        imageUrl: item['imageUrl'],
-                                        containerColor: item['containerColor'],
-                                        textColor: item['textColor'],
-                                      );
-                                    },
-                                  ),
+                                  width: 10,
                                 ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      S.of(context).My_Profiling,
-                                      style: TextStyle(
-                                          color: BlueColor,
-                                          fontSize: 20,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    TextButton(
-                                        onPressed: () async {
-                                          await valuePro.cekAvailableProfiling(
-                                              context, codeReferralC);
-                                          codeReferralC.clear();
-                                          Nav.to(
-                                              const ScreenFeatureKepribadian());
-                                        },
-                                        child: Text(
-                                          S.of(context).see_all,
-                                          style: TextStyle(
-                                              color: BlueColor, fontSize: 18),
-                                        )),
-                                  ],
+                                ContainerYellowHome(
+                                  onTap: () {
+                                    Nav.to(const HomeEbook());
+                                  },
+                                  icon: AppAsset.icBuku,
+                                  title: S.of(context).ebook,
+                                  iconColor: BlueColor,
                                 ),
                                 SizedBox(
-                                  height: 100, // Sesuaikan tinggi widget
-                                  child: SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: Row(
-                                      children: [
-                                        ListProfilingContainer(
-                                          leading: Icon(
-                                            CupertinoIcons.plus,
-                                            color: Colors.white,
-                                          ),
-                                          onTap: () {
-                                            debugPrint(
-                                                "${valuePro.listProfiling.length}");
-                                            Nav.to(ScreenTambahProfiling(
-                                              onAdd: () async {
-                                                await valuePro
-                                                    .getListProfiling(context);
-                                              },
-                                            ));
-                                          },
-                                        ),
-                                        gapW10,
-                                        if (valuePro.listProfiling.isNotEmpty)
-                                          SizedBox(
-                                            height:
-                                                100, // Sesuaikan dengan tinggi parent
-                                            child: ListView.builder(
-                                              shrinkWrap: true,
-                                              physics: ClampingScrollPhysics(),
-                                              scrollDirection: Axis.horizontal,
-                                              itemCount:
-                                                  valuePro.listProfiling.length,
-                                              itemBuilder: (context, index) {
-                                                DataProfiling data = valuePro
-                                                    .listProfiling[index];
-                                                return Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8.0),
-                                                  child: ListProfilingContainer(
-                                                    title: data.typeBrain,
-                                                    subtitle:
-                                                        data.profilingName,
-                                                    onTap: () {
-                                                      // Tambahkan aksi saat item ditekan
-                                                    },
-                                                  ),
-                                                );
-                                              },
-                                            ),
-                                          ),
-                                      ],
-                                    ),
-                                  ),
+                                  width: 10,
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      bottom: 10, top: 20),
-                                  child: Text(
-                                    S.of(context).Ayo_kenali_diri_anda,
-                                    style: TextStyle(
-                                        color: BlueColor,
-                                        fontSize: 20,
-                                        fontWeight: FontWeight.w600),
-                                  ),
+                                ContainerYellowHome(
+                                  onTap: () {
+                                    Nav.to(KonsultasiPage());
+                                  },
+                                  icon: AppAsset.icKonsultasi,
+                                  title: S.of(context).Consultation,
+                                  iconColor: BlueColor,
                                 ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    ContainerProfiling(
-                                      backgroundColor: Colors.lightBlueAccent,
-                                      borderColor: Colors.blue,
-                                      leading:
-                                          Image.asset('images/HeadIcon1.png'),
-                                      title: '${S.of(context).profiling} x1',
-                                      subtitle: 'RP. 10.000',
-                                    ),
-                                    SizedBox(
-                                      width: 10,
-                                    ),
-                                    ContainerProfiling(
-                                      backgroundColor: Color(0xFFF8DB1C),
-                                      borderColor: YellowColor,
-                                      leading:
-                                          Image.asset('images/HeadIcon2.png'),
-                                      title: '${S.of(context).profiling} x10',
-                                      subtitle: 'RP. 100.000',
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Container(
-                                  height: 70,
-                                  width: double.maxFinite,
-                                  decoration: BoxDecoration(
-                                    color: BlueColor,
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Consumer<ProviderAuthAffiliate>(
-                                    builder: (context, provider, child) {
-                                      return provider.isCheckAffiliate
-                                          ? Center(
-                                              child: CircularProgressIndicator(
-                                                color: YellowColor,
-                                              ),
-                                            )
-                                          : InkWell(
-                                              onTap: () async {
-                                                // initHome();
-
-                                                if (valueAffiliate
-                                                        .resCheckTopupAffiliate
-                                                        ?.data
-                                                        ?.notif !=
-                                                    5) {
-                                                  await context
-                                                      .read<
-                                                          ProviderAuthAffiliate>()
-                                                      .checkIsAffiliate(
-                                                          context);
-                                                }
-                                              },
-                                              child: ListTile(
-                                                leading: Icon(
-                                                  CupertinoIcons.person_2_fill,
-                                                  color: YellowColor,
-                                                ),
-                                                title: Text(
-                                                  S
-                                                      .of(context)
-                                                      .Become_Affiliator,
-                                                  style: TextStyle(
-                                                      color: Colors.white),
-                                                ),
-                                                subtitle: Text(
-                                                  S
-                                                      .of(context)
-                                                      .Earn_money_by_becoming_an_affiliator,
-                                                  style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 12.5),
-                                                ),
-                                                trailing: Icon(
-                                                  CupertinoIcons.forward,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                            );
-                                    },
-                                  ),
-                                )
                               ],
                             ),
-                          ),
+                            gapH20,
+                            Container(
+                                width: 50,
+                                height: 50,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(5)),
+                                child: InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                QRCodePage()));
+                                  },
+                                  child: Icon(
+                                    Icons.qr_code_scanner_rounded,
+                                    color: primaryColor,
+                                    size: 23,
+                                  ),
+                                )),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 30, bottom: 10),
+                              child: Text(
+                                S.of(context).News_From_COOL,
+                                style: const TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.w600),
+                              ),
+                            ),
+                            SizedBox(
+                              height: 140, // Batasi tinggi PageView
+                              child: PageView.builder(
+                                itemCount: sliderData.length,
+                                itemBuilder: (context, index) {
+                                  final item = sliderData[index];
+                                  return ContainerSliderHome(
+                                    text: item['text'],
+                                    imageUrl: item['imageUrl'],
+                                    containerColor: item['containerColor'],
+                                    textColor: item['textColor'],
+                                  );
+                                },
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  S.of(context).My_Profiling,
+                                  style: TextStyle(
+                                      color: BlueColor,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                TextButton(
+                                    onPressed: () async {
+                                      Nav.to(const ProfilingDashboard());
+                                    },
+                                    child: Text(
+                                      "${S.of(context).see_all} >",
+                                      style: TextStyle(
+                                          color: BlueColor, fontSize: 18),
+                                    )),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 100, // Sesuaikan tinggi widget
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  children: [
+                                    if (valuePro
+                                        .isLoadingget) // Jika sedang memuat data
+                                      Expanded(
+                                        child: Center(
+                                          child:
+                                              CircularProgressIndicator(), // Tampilkan loading spinner
+                                        ),
+                                      )
+                                    else if (valuePro.listProfiling.isNotEmpty)
+                                      ListView.builder(
+                                        shrinkWrap: true,
+                                        physics: ClampingScrollPhysics(),
+                                        scrollDirection: Axis.horizontal,
+                                        itemCount:
+                                            valuePro.listProfiling.length,
+                                        itemBuilder: (context, index) {
+                                          DataProfiling data =
+                                              valuePro.listProfiling[index];
+                                          return Padding(
+                                            padding: const EdgeInsets.only(
+                                                right: 10),
+                                            child: InkWell(
+                                              onTap: () {
+                                                Nav.to(ScreenHasilKepribadian(
+                                                    data: data));
+                                              },
+                                              child: Container(
+                                                width: 100,
+                                                height: 100,
+                                                decoration: BoxDecoration(
+                                                  color: BlueColor,
+                                                  borderRadius:
+                                                      BorderRadius.circular(15),
+                                                ),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Column(
+                                                    children: [
+                                                      Text(
+                                                        data.typeBrain ??
+                                                            S
+                                                                .of(context)
+                                                                .no_data,
+                                                        style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 16,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                                      ),
+                                                      Spacer(),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceEvenly,
+                                                        children: [
+                                                          SizedBox(
+                                                            width: 50,
+                                                            child: Text(
+                                                              data.profilingName ??
+                                                                  "Data tidak ditemukan",
+                                                              style: TextStyle(
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 14,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400,
+                                                              ),
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                            ),
+                                                          ),
+                                                          Icon(
+                                                            CupertinoIcons
+                                                                .heart_fill,
+                                                            color: Colors.white,
+                                                            size: 18,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ListProfilingContainer(
+                                      leading: Icon(
+                                        CupertinoIcons.plus,
+                                        color: Colors.white,
+                                      ),
+                                      title: S.of(context).profiling,
+                                      onTap: () {
+                                        debugPrint(
+                                            "${valuePro.listProfiling.length}");
+                                        Nav.to(ScreenTambahProfiling(
+                                          onAdd: () async {
+                                            await valuePro
+                                                .getListProfiling(context);
+                                          },
+                                        ));
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(bottom: 10, top: 20),
+                              child: Text(
+                                S.of(context).Ayo_kenali_diri_anda,
+                                style: TextStyle(
+                                    color: BlueColor,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                ContainerProfiling(
+                                  onTap: () {
+                                    Nav.to(ScreenTambahProfiling(
+                                      onAdd: () async {
+                                        await valuePro
+                                            .getListProfiling(context);
+                                      },
+                                    ));
+                                  },
+                                  backgroundColor: Colors.lightBlueAccent,
+                                  borderColor: Colors.blue,
+                                  leading: Image.asset('images/HeadIcon1.png'),
+                                  title: '${S.of(context).profiling} x1',
+                                  subtitle: 'RP. 10.000',
+                                ),
+                                SizedBox(
+                                  width: 15,
+                                ),
+                                ContainerProfiling(
+                                  // onTap: () async {
+                                  //   Nav.to(AddMultipleProfiling(
+                                  //     int.parse('10'),
+                                  //     int.parse('10' ?? '0',
+                                  //     )
+                                  //   ));
+                                  // },
+                                  backgroundColor: Color(0xFFF8DB1C),
+                                  borderColor: YellowColor,
+                                  leading: Image.asset('images/HeadIcon2.png'),
+                                  title: '${S.of(context).profiling} x10',
+                                  subtitle: 'RP. 100.000',
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 15,
+                            ),
+                            Container(
+                              height: 80,
+                              width: double.maxFinite,
+                              decoration: BoxDecoration(
+                                color: BlueColor,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Consumer<ProviderAuthAffiliate>(
+                                builder: (context, provider, child) {
+                                  return provider.isCheckAffiliate
+                                      ? Center(
+                                          child: CircularProgressIndicator(
+                                            color: YellowColor,
+                                          ),
+                                        )
+                                      : InkWell(
+                                          onTap: () async {
+                                            // initHome();
+
+                                            if (valueAffiliate
+                                                    .resCheckTopupAffiliate
+                                                    ?.data
+                                                    ?.notif !=
+                                                5) {
+                                              await context
+                                                  .read<ProviderAuthAffiliate>()
+                                                  .checkIsAffiliate(context);
+                                            }
+                                          },
+                                          child: ListTile(
+                                            leading: Icon(
+                                              CupertinoIcons.person_2_fill,
+                                              color: YellowColor,
+                                            ),
+                                            title: Text(
+                                              S.of(context).Become_Affiliator,
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            ),
+                                            subtitle: Text(
+                                              S
+                                                  .of(context)
+                                                  .Earn_money_by_becoming_an_affiliator,
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 12.5),
+                                            ),
+                                            trailing: Icon(
+                                              CupertinoIcons.forward,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        );
+                                },
+                              ),
+                            )
+                          ],
                         ),
                       ),
-                    );
-                  }),
+                    ),
+                  ),
                 );
               }),
-            ),
-          ),
-        ));
+            );
+          }),
+        ),
+      ),
+    );
   }
 }
 

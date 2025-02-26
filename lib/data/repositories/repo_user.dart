@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:coolappflutter/data/data_global.dart';
 import 'package:coolappflutter/data/helpers/either.dart';
 import 'package:coolappflutter/data/helpers/failure.dart';
@@ -223,18 +225,25 @@ class RepoUser {
   }
 
   Future<Either<Failure, ResReportBug>> ReportBugByUser(
-      List<int> categories, String body) async {
+      List<int> categories, String body, File media) async {
+    Map<String, dynamic> data = {};
+    data["category_id"] = categories; // Pastikan categories adalah array
+    data["body"] = body;
+    data["media"] = await MultipartFile.fromFile(
+      media.path,
+      filename: basename(media.path),
+    );
+
     try {
       Response res = await dio.post(
         ApiEndpoint.ReportBugByUser,
-        data: {
-          "category": categories, // Mengirimkan data kategori sebagai array
-          "body": body,
-        },
+        data: FormData.fromMap(data),
         options: Options(
           validateStatus: (status) {
             return status == 200 || status == 400;
           },
+          contentType: Headers.jsonContentType,
+          responseType: ResponseType.json,
           headers: {'Authorization': dataGlobal.token},
         ),
       );
@@ -247,4 +256,11 @@ class RepoUser {
       return Either.error(ErrorHandler.handle(e).failure);
     }
   }
+
+
+
+
+
+
+
 }

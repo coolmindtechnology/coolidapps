@@ -5,6 +5,7 @@ import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
 import 'package:coolappflutter/data/networks/error_handler.dart';
 import 'package:coolappflutter/data/response/consultant/res_approval_by_consultant.dart';
 import 'package:coolappflutter/data/response/consultant/res_approval_summary.dart';
+import 'package:coolappflutter/data/response/consultant/res_check_session.dart';
 import 'package:coolappflutter/data/response/consultant/res_dashboard_consultant.dart';
 import 'package:coolappflutter/data/response/consultant/res_get_comissen.dart';
 import 'package:coolappflutter/data/response/consultant/res_get_participant.dart';
@@ -233,4 +234,25 @@ class RepoConsultant {
       return Either.error(ErrorHandler.handle(e).failure);
     }
   }
+
+  Future<Either<Failure, ResCheckSession>> checkSession(
+      {String? token}) async {
+    try {
+      Response res = await dio.get(ApiEndpoint.checkSession,
+          options: Options(
+            validateStatus: (status) {
+              return status == 200 || status == 400;
+            },
+            headers: {'Authorization': dataGlobal.token},
+          ));
+
+      return Either.success(ResCheckSession.fromJson(res.data));
+    } catch (e, st) {
+      if (kDebugMode) {
+        print(st);
+      }
+      return Either.error(ErrorHandler.handle(e).failure);
+    }
+  }
+
 }

@@ -65,7 +65,7 @@ class _NavMenuScreenState extends State<NavMenuScreen> {
 
   void pengecekanIsProfiling() async {
     await context.read<ProviderUser>().getUser(context);
-    if (context.read<ProviderUser>().dataUser?.isProfiling != "1") {
+    if (context.read<ProviderUser>().dataUser?.isProfiling != '1') {
       NotificationUtils.showDialogError(
         context,
         () {
