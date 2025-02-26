@@ -418,17 +418,10 @@ class _ProfilingDashboardState extends State<ProfilingDashboard> with SingleTick
                 Expanded(
                   child: GlobalButton(
                     onPressed: () async {
-                      await showDialog(
-                        context: context,
-                        builder: (context) =>
-                            InputAmountProfilingDialog(
-                              maxProfiling: '10',
-                              onAdd: () async {
-                                await value
-                                    .getListMutipleProfiling(context);
-                              },
-                            ),
-                      );
+                      Nav.to(AddMultipleProfiling(
+                        int.parse('1'),
+                        int.parse('10'),
+                      ));
                     },
                     color: primaryColor,
                     text: S.of(context).new_profiling,
@@ -688,7 +681,6 @@ class InputAmountProfilingDialog extends StatelessWidget {
                     Nav.to(AddMultipleProfiling(
                       int.parse(_controllerJumlahProfiling.text),
                       int.parse(maxProfiling ?? '0'),
-                      onAdd,
                     ));
                   }
                 },

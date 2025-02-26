@@ -13,14 +13,22 @@ class BrainTypeWidget extends StatelessWidget {
     // Map warna berdasarkan typeBrain
     final Map<String, Color> brainColors = {
       "emotion_in": Colors.green,
+      "emotion_out": Colors.green,
+      "emotion": Colors.green,
       "action_in": Colors.red,
+      "action_out": Colors.red,
+      "action": Colors.red,
       "creative_in": Colors.orange,
+      "creative_out": Colors.orange,
+      "creative": Colors.orange,
       "master": Colors.black,
       "logic_in": Colors.yellow,
+      "logic_out": Colors.yellow,
+      "logic": Colors.yellow,
     };
 
     // Tentukan warna berdasarkan typeBrain, default hitam jika tidak ditemukan
-    Color borderColor = brainColors[typeBrain] ?? Colors.black;
+    Color borderColor = brainColors[typeBrain] ?? Colors.white;
     Color textColor = borderColor;
 
     // Ubah format teks (replace "_" dengan spasi dan uppercase)

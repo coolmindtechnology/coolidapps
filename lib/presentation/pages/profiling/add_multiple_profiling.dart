@@ -18,12 +18,10 @@ import 'package:provider/provider.dart';
 class AddMultipleProfiling extends StatefulWidget {
   int jumlahProfiling;
   int maxJumlahProfiling;
-  Function? onAdd;
 
   AddMultipleProfiling(
     this.jumlahProfiling,
-    this.maxJumlahProfiling,
-    this.onAdd, {
+    this.maxJumlahProfiling, {
     super.key,
   });
 
@@ -557,7 +555,8 @@ class _AddMultipleProfilingState extends State<AddMultipleProfiling> {
                                         }
                                         await value.createMultipleProfiling(
                                             context, formData,
-                                            onAdd: widget.onAdd);
+                                            // onAdd: widget.onAdd
+                                            );
                                       },
                                 onPress2: value.isCreateMultipleProfiling
                                     ? () {}

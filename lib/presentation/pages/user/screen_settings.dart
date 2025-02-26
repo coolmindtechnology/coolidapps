@@ -467,6 +467,7 @@ import 'package:coolappflutter/data/provider/provider_user.dart';
 import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/pages/afiliate/screen_total_member.dart';
 import 'package:coolappflutter/presentation/pages/auth/login_screen.dart';
+import 'package:coolappflutter/presentation/pages/main/qrcode/qr_code.dart';
 import 'package:coolappflutter/presentation/pages/payments/top_up_page.dart';
 import 'package:coolappflutter/presentation/pages/transakction/transaksi_affiliate.dart';
 import 'package:coolappflutter/presentation/pages/user/change_language.dart';
@@ -541,10 +542,18 @@ class _ScreenSettingsState extends State<ScreenSettings> {
   Widget build(BuildContext context) {
     final Map<String, Color> brainColors = {
       "emotion_in": Colors.green,
+      "emotion_out": Colors.green,
+      "emotion": Colors.green,
       "action_in": Colors.red,
+      "action_out": Colors.red,
+      "action": Colors.red,
       "creative_in": Colors.orange,
+      "creative_out": Colors.orange,
+      "creative": Colors.orange,
       "master": Colors.black,
       "logic_in": Colors.yellow,
+      "logic_out": Colors.yellow,
+      "logic": Colors.yellow,
     };
 
     return ChangeNotifierProvider(
@@ -659,7 +668,7 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                               SizedBox(
                                 height: 10,
                               ),
-                              if (dataGlobal.dataUser!.typeBrain == null || dataGlobal.dataUser!.typeBrain.isEmpty)
+                              // if (dataGlobal.dataUser!.typeBrain == null || dataGlobal.dataUser!.typeBrain.isEmpty)
                               BrainTypeWidget(typeBrain:  dataGlobal.dataUser!.typeBrain.toString(),)
                             ],
                           )
@@ -761,45 +770,49 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                       children: [
                         if (dataGlobal.dataUser?.isAffiliate == 1)
                         Expanded(
-                          child: InkWell(
-                            onTap: () {
-                              Nav.to(const ScreenTotalMember());
-                            },
-                            child: Container(
-                              height: 60,
-                              width: 175,
-                              decoration: BoxDecoration(
-                                color: primaryColor,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Icon(
-                                      CupertinoIcons.person_2_fill,
-                                      color: BlueColor,
-                                    ),
-                                    Text(S.of(context).Member,
-                                        style: TextStyle(
-                                            color: BlueColor,
-                                            fontSize: 15,
-                                            fontWeight: FontWeight.w600))
-                                  ],
+                          child: Padding(
+                            padding: const EdgeInsets.only(right: 20),
+                            child: InkWell(
+                              onTap: () {
+                                Nav.to(const ScreenTotalMember());
+                              },
+                              child: Container(
+                                height: 60,
+                                width: 175,
+                                decoration: BoxDecoration(
+                                  color: primaryColor,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Icon(
+                                        CupertinoIcons.person_2_fill,
+                                        color: BlueColor,
+                                      ),
+                                      Text(S.of(context).Member,
+                                          style: TextStyle(
+                                              color: BlueColor,
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w600))
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
                           ),
                         ),
-                        SizedBox(
-                          width: 20,
-                        ),
                         Expanded(
                           child: InkWell(
                             onTap: () async {
-                              Nav.to(const ScreenQr());
+                              Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      QRCodePage()));
                             },
                             child: Container(
                               height: 60,

@@ -5952,7 +5952,7 @@ class S {
   }
 
   String get congratulationsYou {
-    return Intl.message('CONGRATULATIONS!! YOU \n ARE A',
+    return Intl.message('CONGRATULATIONS!! YOU \nARE A',
         name: 'congratulationsYou',
         desc: '',
         args: []);

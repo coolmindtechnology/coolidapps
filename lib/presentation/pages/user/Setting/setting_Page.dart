@@ -62,18 +62,18 @@ class _Setting_pageState extends State<Setting_page> {
               //   title: S.of(context).Notification_Settings,
               //   onTap: () {},
               // ),
-              ItemSetting(
-                title: S.of(context).language,
-                onTap: () {
-                  Nav.to(ChangeLanguange(
-                    onChanged: () {
-                      setState(() {
-                        widget.onLanguageChanged!();
-                      });
-                    },
-                  ));
-                },
-              ),
+              // ItemSetting(
+              //   title: S.of(context).language,
+              //   onTap: () {
+              //     Nav.to(ChangeLanguange(
+              //       onChanged: () {
+              //         setState(() {
+              //           widget.onLanguageChanged!();
+              //         });
+              //       },
+              //     ));
+              //   },
+              // ),
               ItemSetting(
                 title: S.of(context).bank_account,
                 onTap: () {

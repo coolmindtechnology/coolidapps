@@ -380,27 +380,27 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ],
                             ),
-                            gapH20,
-                            Container(
-                                width: 50,
-                                height: 50,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(5)),
-                                child: InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                QRCodePage()));
-                                  },
-                                  child: Icon(
-                                    Icons.qr_code_scanner_rounded,
-                                    color: primaryColor,
-                                    size: 23,
-                                  ),
-                                )),
+                            // gapH20,
+                            // Container(
+                            //     width: 50,
+                            //     height: 50,
+                            //     decoration: BoxDecoration(
+                            //         color: Colors.white,
+                            //         borderRadius: BorderRadius.circular(5)),
+                            //     child: InkWell(
+                            //       onTap: () {
+                            //         Navigator.push(
+                            //             context,
+                            //             MaterialPageRoute(
+                            //                 builder: (context) =>
+                            //                     QRCodePage()));
+                            //       },
+                            //       child: Icon(
+                            //         Icons.qr_code_scanner_rounded,
+                            //         color: primaryColor,
+                            //         size: 23,
+                            //       ),
+                            //     )),
                             Padding(
                               padding:
                                   const EdgeInsets.only(top: 30, bottom: 10),
@@ -550,13 +550,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                       title: S.of(context).profiling,
                                       onTap: () {
-                                        debugPrint(
-                                            "${valuePro.listProfiling.length}");
-                                        Nav.to(ScreenTambahProfiling(
-                                          onAdd: () async {
-                                            await valuePro
-                                                .getListProfiling(context);
-                                          },
+                                        Nav.to(AddMultipleProfiling(
+                                          int.parse('1'),
+                                          int.parse('10'),
                                         ));
                                       },
                                     ),
@@ -580,11 +576,9 @@ class _HomeScreenState extends State<HomeScreen> {
                               children: [
                                 ContainerProfiling(
                                   onTap: () {
-                                    Nav.to(ScreenTambahProfiling(
-                                      onAdd: () async {
-                                        await valuePro
-                                            .getListProfiling(context);
-                                      },
+                                    Nav.to(AddMultipleProfiling(
+                                      int.parse('1'),
+                                      int.parse('10'),
                                     ));
                                   },
                                   backgroundColor: Colors.lightBlueAccent,
@@ -597,13 +591,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                   width: 15,
                                 ),
                                 ContainerProfiling(
-                                  // onTap: () async {
-                                  //   Nav.to(AddMultipleProfiling(
-                                  //     int.parse('10'),
-                                  //     int.parse('10' ?? '0',
-                                  //     )
-                                  //   ));
-                                  // },
+                                  onTap: () async {
+                                    Nav.to(AddMultipleProfiling(
+                                      int.parse('10'),
+                                      int.parse('10'),
+                                    ));
+                                  },
                                   backgroundColor: Color(0xFFF8DB1C),
                                   borderColor: YellowColor,
                                   leading: Image.asset('images/HeadIcon2.png'),

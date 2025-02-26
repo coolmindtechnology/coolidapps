@@ -240,28 +240,31 @@ class _ScreenHasilKepribadianState extends State<ScreenHasilKepribadian> {
                                   color: lightBlue,
                                   borderRadius: BorderRadius.circular(15),
                                   border: Border.all(color: Colors.green)),
-                              child: Image.asset('images/icEmotioin.png'),
+                              child: Padding(
+                                padding: const EdgeInsets.all(3),
+                                child: Image.network(value.dataShowDetail?.imagetypebrain ?? "",fit: BoxFit.cover,),
+                              ),
                             ),
                             gapW20,
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  S.of(context).congratulationsYou,
-                                  maxLines: 2,
-                                ),
-                                gapH10,
-                                Text(
-                                  value.dataShowDetail?.result ?? "",
-                                  style: TextStyle(
-                                      color: _getColorForType(value.dataShowDetail?.result),
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                gapH10,
-                                SizedBox(
-                                  width: 200,
-                                  child: GlobalButton(
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    S.of(context).congratulationsYou,
+                                    maxLines: 2,
+                                    style: TextStyle(fontSize: 14),
+                                  ),
+                                  gapH10,
+                                  Text(
+                                    value.dataShowDetail?.result ?? "",
+                                    style: TextStyle(
+                                        color: _getColorForType(value.dataShowDetail?.result),
+                                        fontWeight: FontWeight.bold,),
+                                  ),
+                                  gapH10,
+                                  GlobalButton(
                                     onPressed : () async {
                                       String? isLanguage =
                                       await PreferenceHandler.retrieveId();
@@ -301,9 +304,9 @@ class _ScreenHasilKepribadianState extends State<ScreenHasilKepribadian> {
                                     color: primaryColor,
                                     text: S.of(context).download_result,
                                     icon: Image.asset('images/icDownload.png'),
-                                  ),
-                                )
-                              ],
+                                  )
+                                ],
+                              ),
                             )
                           ],
                         ),

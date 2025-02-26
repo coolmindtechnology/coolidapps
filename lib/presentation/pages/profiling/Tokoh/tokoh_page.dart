@@ -62,55 +62,55 @@ class _TokohPageState extends State<TokohPage> {
                           ),
                           title: Text(tokoh.name ?? "Tanpa Nama",
                               style: TextStyle(fontWeight: FontWeight.bold)),
-                          trailing: Icon(
-                            isExpanded ? CupertinoIcons.chevron_down : CupertinoIcons.forward,
-                            color: Colors.grey,
-                          ),
-                          onTap: () {
-                            setState(() {
-                              _selectedIndex = isExpanded ? null : index;
-                            });
-                          },
+                          // trailing: Icon(
+                          //   isExpanded ? CupertinoIcons.chevron_down : CupertinoIcons.forward,
+                          //   color: Colors.grey,
+                          // ),
+                          // onTap: () {
+                          //   setState(() {
+                          //     _selectedIndex = isExpanded ? null : index;
+                          //   });
+                          // },
                         ),
-                        if (isExpanded) // Detail muncul hanya jika item diklik
-                          Padding(
-                            padding: const EdgeInsets.all(16),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                // Gambar Besar
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(12),
-                                  child: Image.network(
-                                    tokoh.image ?? '',
-                                    width: double.infinity,
-                                    height: 200,
-                                    fit: BoxFit.cover,
-                                    errorBuilder: (context, error, stackTrace) =>
-                                        Container(
-                                          width: double.infinity,
-                                          height: 200,
-                                          color: Colors.grey[300], // Placeholder jika gambar gagal dimuat
-                                          child: Icon(Icons.image_not_supported, size: 50, color: Colors.grey),
-                                        ),
-                                  ),
-                                ),
-                                SizedBox(height: 12),
-                                if (tokoh.description != null)
-                                  Text(S.of(context).biodata,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18),),
-                                  gapH10,
-                                  Text("${tokoh.description}",
-                                      style: TextStyle(fontSize: 14)),
-                                gapH20,
-                                if (tokoh.career != null)
-                                  Text(S.of(context).career,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18),),
-                                gapH10,
-                                  Text("${tokoh.career}",
-                                      style: TextStyle(fontSize: 14)),
-                                SizedBox(height: 10),
-                              ],
-                            ),
-                          ),
+                        // if (isExpanded) // Detail muncul hanya jika item diklik
+                        //   Padding(
+                        //     padding: const EdgeInsets.all(16),
+                        //     child: Column(
+                        //       crossAxisAlignment: CrossAxisAlignment.start,
+                        //       children: [
+                        //         // Gambar Besar
+                        //         ClipRRect(
+                        //           borderRadius: BorderRadius.circular(12),
+                        //           child: Image.network(
+                        //             tokoh.image ?? '',
+                        //             width: double.infinity,
+                        //             height: 200,
+                        //             fit: BoxFit.cover,
+                        //             errorBuilder: (context, error, stackTrace) =>
+                        //                 Container(
+                        //                   width: double.infinity,
+                        //                   height: 200,
+                        //                   color: Colors.grey[300], // Placeholder jika gambar gagal dimuat
+                        //                   child: Icon(Icons.image_not_supported, size: 50, color: Colors.grey),
+                        //                 ),
+                        //           ),
+                        //         ),
+                        //         SizedBox(height: 12),
+                        //         if (tokoh.description != null)
+                        //           Text(S.of(context).biodata,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18),),
+                        //           gapH10,
+                        //           Text("${tokoh.description}",
+                        //               style: TextStyle(fontSize: 14)),
+                        //         gapH20,
+                        //         if (tokoh.career != null)
+                        //           Text(S.of(context).career,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 18),),
+                        //         gapH10,
+                        //           Text("${tokoh.career}",
+                        //               style: TextStyle(fontSize: 14)),
+                        //         SizedBox(height: 10),
+                        //       ],
+                        //     ),
+                        //   ),
                       ],
                     ),
                   );
