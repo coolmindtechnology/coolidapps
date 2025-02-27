@@ -66,12 +66,28 @@ class _AddMultipleProfilingState extends State<AddMultipleProfiling> {
   }
 
   void scrollToForm(int index) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double separatorWidth = 10.0; // Sesuai dengan separator
+
+    double itemWidth = screenWidth + separatorWidth;
+    double targetPosition = index * itemWidth;
+
+    // Batasi agar tidak melebihi batas scroll maksimum
+    double maxScroll = _scrollController.position.maxScrollExtent;
+    targetPosition = targetPosition.clamp(0, maxScroll);
+
+    print("Scrolling to: $targetPosition (index: $index)");
+
     _scrollController.animateTo(
-      index * 220.0, // Sesuaikan dengan tinggi setiap form
-      duration: Duration(milliseconds: 500),
+      targetPosition,
+      duration: const Duration(milliseconds: 600),
       curve: Curves.easeInOut,
     );
   }
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -96,40 +112,38 @@ class _AddMultipleProfilingState extends State<AddMultipleProfiling> {
                       gapW10,
                       Expanded(
                         child: ListView.builder(
-                          controller: _scrollController,
                           scrollDirection: Axis.horizontal,
-                          itemCount: widget.jumlahProfiling,
+                          itemCount: controllersName.length, // Gunakan panjang list yang dinamis
                           itemBuilder: (context, index) {
                             return GestureDetector(
-                                onTap: () => scrollToForm(index),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  child: Container(
-                                    width: 90,
-                                    height: 10,
-                                    decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(
-                                          color: primaryColor,
-                                        )),
-                                    child: Center(
-                                      child: TextButton(
-                                        onPressed: () => scrollToForm(index),
-                                        style: TextButton.styleFrom(
-                                            foregroundColor: BlueColor),
-                                        child: Text(
-                                          S.of(context).profile+ " " + "${index + 1}",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold),
-                                        ),
+                              onTap: () => scrollToForm(index),
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 10),
+                                child: Container(
+                                  width: 90,
+                                  height: 50, // Ubah tinggi agar ada ruang untuk tombol delete
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(color: primaryColor),
+                                  ),
+                                  child: Center(
+                                    child: TextButton(
+                                      onPressed: () => scrollToForm(index),
+                                      style: TextButton.styleFrom(foregroundColor: BlueColor),
+                                      child: Text(
+                                        S.of(context).profile + " " + "${index + 1}",
+                                        style: const TextStyle(fontWeight: FontWeight.bold),
                                       ),
                                     ),
                                   ),
-                                ));
+                                ),
+                              ),
+                            );
                           },
                         ),
                       ),
+
                       IconButton(onPressed: () {
                         if (widget.jumlahProfiling == widget.maxJumlahProfiling) {
                           NotificationUtils.showDialogError(context, () {
@@ -155,23 +169,44 @@ class _AddMultipleProfilingState extends State<AddMultipleProfiling> {
                 ),
               ),
               Expanded(
-                child: ListView.separated(
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
                   controller: _scrollController,
-                  itemCount: widget.jumlahProfiling,
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(width: 10),
+                  itemCount: controllersName.length, // Menggunakan panjang list yang dinamis
                   itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () => scrollToForm(index),
+                    return SizedBox(
+                      width: MediaQuery.of(context).size.width,
                       child: Card(
-                        margin: const EdgeInsets.all(8.0),
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 16,left: 16,right: 16,bottom: 30),
+                          padding: const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 30),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(S.of(context).profile+ " " +'${index + 1}',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 20),),
-                              gapH10,
+                              // Baris atas (judul + tombol hapus)
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Profil ${index + 1}",
+                                    style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+                                  ),
+                                  IconButton(
+                                    icon: const Icon(Icons.delete, color: Colors.red),
+                                    onPressed: () {
+                                      setState(() {
+                                        // Hapus data berdasarkan index
+                                        controllersName.removeAt(index);
+                                        controllersDateOfBirth.removeAt(index);
+                                        controllersAge.removeAt(index);
+                                        controllersResidence.removeAt(index);
+                                        selectedBloodType.removeAt(index);
+                                        selectedDate.removeAt(index);
+                                      });
+                                    },
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 10),
                               CustomInputField(
                                 title: S.of(context).name,
                                 textEditingController: controllersName[index],
@@ -183,10 +218,10 @@ class _AddMultipleProfilingState extends State<AddMultipleProfiling> {
                               CustomInputField(
                                 title: S.of(context).date_of_birth,
                                 textEditingController:
-                                    controllersDateOfBirth[index],
+                                controllersDateOfBirth[index],
                                 isReadOnly: true,
                                 suffixIcon:
-                                    const Icon(Icons.calendar_month_outlined),
+                                const Icon(Icons.calendar_month_outlined),
                                 validator: (val) => val!.isEmpty
                                     ? S.of(context).cannot_be_empty
                                     : null,
@@ -221,60 +256,60 @@ class _AddMultipleProfilingState extends State<AddMultipleProfiling> {
                                 isReadOnly: true,
                               ),
                               const SizedBox(height: 8.0),
-                              CustomInputField(
-                                title: S.of(context).residence,
-                                textEditingController:
-                                    controllersResidence[index],
-                                validator: (val) => val!.isEmpty
-                                    ? S.of(context).cannot_be_empty
-                                    : null,
+                          CustomInputField(
+                            title: S.of(context).residence,
+                            textEditingController:
+                            controllersResidence[index],
+                            validator: (val) => val!.isEmpty
+                                ? S.of(context).cannot_be_empty
+                                : null,
+                          ),
+                          const SizedBox(height: 8.0),
+                          Text(S.of(context).blood_type,
+                              style: const TextStyle(fontSize: 14)),
+                          const SizedBox(height: 8),
+                          Container(
+                            height: 50,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border:
+                              Border.all(width: 1, color: greyColor),
+                            ),
+                            child: DropdownButton<String>(
+                              value: selectedBloodType[index],
+                              hint: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(S.of(context).choose),
                               ),
-                              const SizedBox(height: 8.0),
-                              Text(S.of(context).blood_type,
-                                  style: const TextStyle(fontSize: 14)),
-                              const SizedBox(height: 8),
-                              Container(
-                                height: 50,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border:
-                                      Border.all(width: 1, color: greyColor),
-                                ),
-                                child: DropdownButton<String>(
-                                  value: selectedBloodType[index],
-                                  hint: Padding(
+                              underline: Container(),
+                              isExpanded: true,
+                              items: [
+                                if (controllersAge[index].text.isEmpty ||
+                                    (int.tryParse(controllersAge[index]
+                                        .text) ??
+                                        0) <
+                                        17)
+                                  "-",
+                                "A",
+                                "B",
+                                "AB",
+                                "O"
+                              ].map((e) {
+                                return DropdownMenuItem(
+                                  value: e,
+                                  child: Padding(
                                     padding: const EdgeInsets.all(8.0),
-                                    child: Text(S.of(context).choose),
+                                    child: Text(e.toString()),
                                   ),
-                                  underline: Container(),
-                                  isExpanded: true,
-                                  items: [
-                                    if (controllersAge[index].text.isEmpty ||
-                                        (int.tryParse(controllersAge[index]
-                                                    .text) ??
-                                                0) <
-                                            17)
-                                      "-",
-                                    "A",
-                                    "B",
-                                    "AB",
-                                    "O"
-                                  ].map((e) {
-                                    return DropdownMenuItem(
-                                      value: e,
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(e.toString()),
-                                      ),
-                                    );
-                                  }).toList(),
-                                  onChanged: (val) {
-                                    setState(() {
-                                      selectedBloodType[index] = val!;
-                                    });
-                                  },
-                                ),
-                              ),
+                                );
+                              }).toList(),
+                              onChanged: (val) {
+                                setState(() {
+                                  selectedBloodType[index] = val!;
+                                });
+                              },
+                            ),
+                          ),
                             ],
                           ),
                         ),
@@ -283,6 +318,9 @@ class _AddMultipleProfilingState extends State<AddMultipleProfiling> {
                   },
                 ),
               ),
+
+
+
 
               gapH10,
               // Expanded(

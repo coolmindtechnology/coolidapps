@@ -677,11 +677,11 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                     ),
                     ContainerFollower(
                       title1: S.of(context).Post,
-                      subtitle1: '0',
+                      subtitle1: dataGlobal.dataUser?.total_post ?? "0",
                       title2: S.of(context).Follower,
-                      subtitle2: '0',
+                      subtitle2: dataGlobal.dataUser?.total_follower ?? "0",
                       title3: S.of(context).following,
-                      subtitle3: '0',
+                      subtitle3: dataGlobal.dataUser?.total_following ?? "0",
                     ),
                     SizedBox(
                       height: 20,

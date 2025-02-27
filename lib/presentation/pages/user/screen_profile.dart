@@ -697,6 +697,7 @@ class ScreenProfile extends StatefulWidget {
 class _ScreenProfileState extends State<ScreenProfile> {
   final _formKey = GlobalKey<FormState>();
   bool isImageSelected = false;
+  TextEditingController modifiedController = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -710,6 +711,19 @@ class _ScreenProfileState extends State<ScreenProfile> {
       Provider.of<ProviderUser>(context, listen: false).getLocalePhonenumber();
       Provider.of<ProviderUser>(context, listen: false)
           .setInitialValues(widget.phone.toString());
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        final providerUser = Provider.of<ProviderUser>(context, listen: false); // Ambil provider
+
+        String originalText = providerUser.phoneController.text;
+        print("Original Text: $originalText"); // Debugging
+
+        String modifiedText = originalText.length > 2 ? originalText.substring(2) : "";
+        print("Modified Text: $modifiedText"); // Debugging
+
+        setState(() {
+          modifiedController.text = modifiedText;
+        });
+      });
 
       // provider.setSelectedCountryId(int.parse(
       //     Provider.of<ProviderUser>(context, listen: false)
@@ -954,7 +968,7 @@ class _ScreenProfileState extends State<ScreenProfile> {
                         child: TextFormField(
                           readOnly: true,
                           enabled: false,
-                          controller: providerUser.phoneController,
+                          controller: modifiedController,
                           keyboardType: TextInputType.phone,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(

@@ -136,7 +136,7 @@ class ApiEndpoint {
   static String checkSession = "${_consultationUrlApi}check-sessions";
 
   static String getTermConsultant =
-      "${_baseUrlApi}terms-and-condition/consultant";
+      "${_baseUrlApi}terms-and-condition";
   static String getHistoryCommission = "${_consultantUrlApi}get-comission";
   static String updateAvailable(id) =>
       "${_consultantUrlApi}update-available/$id";

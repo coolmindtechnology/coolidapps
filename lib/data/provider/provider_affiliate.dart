@@ -92,7 +92,7 @@ class ProviderAffiliate extends ChangeNotifier {
         if (pilihRek != null) {
           nameBank = TextEditingController(text: dataAffiliasi?.bankName);
         }
-        // getListRekening(context);
+        getListRekening(context);
         if (kDebugMode) {
           print("data aff ${dataOverview?.toJson()}");
         }

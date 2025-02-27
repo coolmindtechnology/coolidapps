@@ -20,6 +20,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:coolappflutter/generated/l10n.dart';
 import 'package:provider/provider.dart';
+import 'package:shimmer/shimmer.dart';
 
 class ProfilingDashboard extends StatefulWidget {
   const ProfilingDashboard({super.key});
@@ -38,6 +39,11 @@ class _ProfilingDashboardState extends State<ProfilingDashboard> with SingleTick
     tabController = TabController(length: 6, vsync: this, initialIndex: 0);
     // Filter data untuk index awal (semua data)
     context.read<ProviderProfiling>().filterProfilingData(_selectedIndex);
+   initHome();
+
+  }
+  initHome() async {
+    await context.read<ProviderProfiling>().getListProfiling(context);
   }
 
   void _onTabSelected(int index) {
@@ -57,10 +63,13 @@ class _ProfilingDashboardState extends State<ProfilingDashboard> with SingleTick
     {
       return CustomMaterialIndicator(
         key: _refreshIndicatorKey,
-        onRefresh: () => Provider.of<ProviderProfiling>(context, listen: false)
-              .getListProfiling(context),
-        indicatorBuilder: (BuildContext context,
-            IndicatorController controller) {
+        onRefresh: () {
+          value.getListProfiling(context);
+          value.getListMutipleProfiling(context);
+          return Future<void>.delayed(const Duration(seconds: 1));
+        },
+        indicatorBuilder:
+            (BuildContext context, IndicatorController controller) {
           return const RefreshIconWidget();
         },
       child: Scaffold(
@@ -191,7 +200,23 @@ class _ProfilingDashboardState extends State<ProfilingDashboard> with SingleTick
                     // print(provider.filteredProfiling.toString());
                     // print("================ data filter =================");
                     return Expanded(
-                      child: ListView.builder(
+                      child: value.isLoading
+                          ? ListView.separated(
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) => Shimmer.fromColors(
+                          baseColor: Colors.grey[300]!,
+                          highlightColor: Colors.grey[100]!,
+                          child: Container(
+                            height: 156,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                        ),
+                        separatorBuilder: (context, index) => const SizedBox(height: 10),
+                        itemCount: 5, // Jumlah shimmer yang ditampilkan
+                      ) : ListView.builder(
 
                         itemCount: dataToDisplay.length,
                         itemBuilder: (context, index) {

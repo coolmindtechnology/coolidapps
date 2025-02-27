@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:coolappflutter/data/apps/app_assets.dart';
 import 'package:coolappflutter/data/apps/app_sizes.dart';
+import 'package:coolappflutter/data/models/data_checkout_transaction.dart';
 
 import 'package:coolappflutter/data/provider/provider_payment.dart';
 import 'package:coolappflutter/data/provider/provider_profiling.dart';
@@ -28,6 +29,7 @@ import 'package:coolappflutter/presentation/pages/profiling/screen_hasil_kepriba
 
 import 'package:coolappflutter/presentation/pages/transakction/transaksi_affiliate.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/utils/notification_utils.dart';
 
 import 'package:coolappflutter/presentation/widgets/Container/Continer_profiling.dart';
 import 'package:coolappflutter/presentation/widgets/Container/card_homekonsultant.dart';
@@ -80,6 +82,8 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
   initHome() async {
     await context.read<ProviderAffiliate>().getHomeAff(context);
     await context.read<ProviderProfiling>().getListProfiling(context);
+    context.read<ProviderUser>().checkProfile(context);
+    context.read<ProviderUser>().getTotalSaldo(context);
   }
 
   @override
@@ -125,8 +129,8 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                         Provider.of<ProviderAffiliate>(context, listen: false).getHomeAff(context);
                         // Provider.of<ProviderPayment>(context, listen: false)
                         //     .getAmoutDeposit(context);
-                        // Provider.of<ProviderUser>(context, listen: false)
-                        //     .getTotalSaldo(context);
+                        Provider.of<ProviderUser>(context, listen: false)
+                            .getTotalSaldo(context);
                         Provider.of<ProviderProfiling>(context, listen: false)
                             .getListProfiling(context);
 
@@ -710,10 +714,182 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                                               return Padding(
                                                 padding: const EdgeInsets.only(
                                                     right: 10),
-                                                child: InkWell(
+                                                child: GestureDetector(
                                                   onTap: () {
-                                                    Nav.to(ScreenHasilKepribadian(
-                                                        data: data));
+                                                    if (data.status.toString() ==
+                                                        "0") {
+                                                      NotificationUtils
+                                                          .showSimpleDialog2(
+                                                          context,
+                                                          S
+                                                              .of(context)
+                                                              .pay_to_see_more,
+                                                          textButton1: S
+                                                              .of(context)
+                                                              .yes_continue,
+                                                          textButton2:
+                                                          S.of(context).no,
+                                                          onPress2: () {
+                                                            Nav.back();
+                                                          }, onPress1: () async {
+                                                        Nav.back();
+                                                        await NotificationUtils
+                                                            .showSimpleDialog2(
+                                                            context,
+                                                            S
+                                                                .of(context)
+                                                                .pay_with_your_cool_balance,
+                                                            textButton1: S
+                                                                .of(context)
+                                                                .yes_continue,
+                                                            textButton2: S
+                                                                .of(context)
+                                                                .other_pay,
+                                                            onPress2: () async {
+                                                              Nav.back();
+                                                              await valuePro.payProfiling(
+                                                                  context,
+                                                                  [
+                                                                    int.tryParse(data
+                                                                        .idLogResult
+                                                                        .toString() ??
+                                                                        "0") ??
+                                                                        0
+                                                                  ],
+                                                                  "0",
+                                                                  "transaction_type",
+                                                                  1,
+                                                                  onUpdate: () async {
+                                                                    await valuePro
+                                                                        .getListProfiling(
+                                                                        context);
+                                                                  }, fromPage: "profiling");
+                                                            }, onPress1: () async {
+                                                          Nav.back();
+                                                          await valuePro
+                                                              .createTransactionProfiling(
+                                                              context,
+                                                              DataCheckoutTransaction(
+                                                                  idLogs: [
+                                                                    int.parse(data
+                                                                        .idLogResult
+                                                                        .toString() ??
+                                                                        "0")
+                                                                  ],
+                                                                  discount: "0",
+                                                                  idItemPayments:
+                                                                  "1",
+                                                                  qty: 1,
+                                                                  gateway:
+                                                                  "paypal"),
+                                                                  () async {
+                                                                await valuePro
+                                                                    .getListProfiling(
+                                                                    context);
+                                                              });
+                                                        },
+                                                            colorButon1:
+                                                            primaryColor,
+                                                            colorButton2:
+                                                            Colors.white);
+                                                      },
+                                                          colorButon1:
+                                                          primaryColor,
+                                                          colorButton2:
+                                                          Colors.white);
+                                                    } else {
+
+                                                      // Nav.to(DetailProfiling(
+                                                      //     data: data));
+                                                      Nav.to(ScreenHasilKepribadian(
+                                                          data: data));
+                                                    }
+                                                  },
+                                                  onDoubleTap: () {
+                                                    if (data.status.toString() ==
+                                                        "0") {
+                                                      NotificationUtils
+                                                          .showSimpleDialog2(
+                                                          context,
+                                                          S
+                                                              .of(context)
+                                                              .pay_to_see_more,
+                                                          textButton1: S
+                                                              .of(context)
+                                                              .yes_continue,
+                                                          textButton2:
+                                                          S.of(context).no,
+                                                          onPress2: () {
+                                                            Nav.back();
+                                                          }, onPress1: () async {
+                                                        Nav.back();
+                                                        await NotificationUtils
+                                                            .showSimpleDialog2(
+                                                            context,
+                                                            S
+                                                                .of(context)
+                                                                .pay_with_your_cool_balance,
+                                                            textButton1: S
+                                                                .of(context)
+                                                                .yes_continue,
+                                                            textButton2: S
+                                                                .of(context)
+                                                                .other,
+                                                            onPress2: () async {
+                                                              await valuePro.payProfiling(
+                                                                context,
+                                                                [
+                                                                  int.tryParse(data
+                                                                      .idLogResult
+                                                                      .toString() ??
+                                                                      "0") ??
+                                                                      0
+                                                                ],
+                                                                "0",
+                                                                "transaction_type",
+                                                                1,
+                                                                onUpdate: () async {
+                                                                  await valuePro
+                                                                      .getListProfiling(
+                                                                      context);
+                                                                },
+                                                                fromPage: "profiling",
+                                                              );
+                                                            }, onPress1: () async {
+                                                          Nav.back();
+                                                          await valuePro
+                                                              .createTransactionProfiling(
+                                                              context,
+                                                              DataCheckoutTransaction(
+                                                                idLogs: [
+                                                                  int.parse(data
+                                                                      .idLogResult
+                                                                      .toString() ??
+                                                                      "0")
+                                                                ],
+                                                                discount: "0",
+                                                                idItemPayments:
+                                                                "1",
+                                                                qty: 1,
+                                                              ), () async {
+                                                            await valuePro
+                                                                .getListProfiling(
+                                                                context);
+                                                          });
+                                                        },
+                                                            colorButon1:
+                                                            primaryColor,
+                                                            colorButton2:
+                                                            Colors.white);
+                                                      },
+                                                          colorButon1:
+                                                          primaryColor,
+                                                          colorButton2:
+                                                          Colors.white);
+                                                    } else {
+                                                      Nav.to(ScreenHasilKepribadian(
+                                                          data: data));
+                                                    }
                                                   },
                                                   child: Container(
                                                     width: 100,

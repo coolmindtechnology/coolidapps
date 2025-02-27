@@ -62,6 +62,9 @@ class DataUser {
   dynamic firebaseUid;
   dynamic isConsultationsFree;
   dynamic typeBrain;
+  dynamic total_post;
+  dynamic total_following;
+  dynamic total_follower;
 
   DataUser({
     required this.id,
@@ -96,6 +99,9 @@ class DataUser {
     this.firebaseUid,
     this.isConsultationsFree,
     this.typeBrain,
+    this.total_post,
+    this.total_following,
+    this.total_follower
   });
 
   factory DataUser.fromJson(Map<String, dynamic> json) => DataUser(
@@ -136,6 +142,9 @@ class DataUser {
     firebaseUid: json["firebase_uid"],
     isConsultationsFree: json["is_consulations_free"],
     typeBrain: json["type_brain"],
+    total_post: json["total_post"],
+    total_follower: json["total_follower"],
+    total_following: json["total_following"]
   );
 
   Map<String, dynamic> toJson() => {
@@ -171,5 +180,8 @@ class DataUser {
     "firebase_uid": firebaseUid,
     "is_consulations_free": isConsultationsFree,
     "type_brain": typeBrain,
+    "total_post": total_post,
+    "total_follower": total_follower,
+    "total_following": total_following
   };
 }

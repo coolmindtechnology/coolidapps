@@ -21,6 +21,7 @@ import 'package:coolappflutter/data/response/profiling/res_update_transaction_pr
 import 'package:coolappflutter/data/response/profiling/res_upgrade_member.dart';
 import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/pages/main/components/input_code_ref_profilling.dart';
+import 'package:coolappflutter/presentation/pages/main/nav_home.dart';
 import 'package:coolappflutter/presentation/pages/profiling/screen_feature_kepribadian.dart';
 import 'package:coolappflutter/data/response/profiling/res_share_result_detail.dart';
 import 'package:coolappflutter/data/response/profiling/res_show_detail.dart';
@@ -837,6 +838,7 @@ class ProviderProfiling extends ChangeNotifier {
         ),
       );
     }, success: (res) async {
+      Nav.toAll(NavMenuScreen());
       Nav.back();
       showDialog(
           context: context,
