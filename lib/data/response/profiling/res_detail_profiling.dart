@@ -48,6 +48,12 @@ class DataDetailProfiling {
   Tipe? tipeKaya;
   Tipe? tipeDarah;
   Personality? personality;
+  Personality? karir;
+  Personality? polaBahagia;
+  Personality? polaInteraksi;
+  Personality? family;
+  Personality? polaHealing;
+  Personality? spiritual;
   dynamic picture;
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -74,6 +80,13 @@ class DataDetailProfiling {
     this.publicFigure,
     this.profilingName,
     this.shareCode,
+    this.karir,
+    this.polaBahagia,
+    this.polaInteraksi,
+    this.family,
+    this.polaHealing,
+    this.spiritual,
+
   });
 
   factory DataDetailProfiling.fromJson(Map<String, dynamic> json) =>
@@ -96,6 +109,25 @@ class DataDetailProfiling {
         personality: json["personality"] == null
             ? null
             : Personality.fromJson(json["personality"]),
+        karir: json["karir"] == null
+            ? null
+            : Personality.fromJson(json["karir"]),
+        polaBahagia: json["pola_bahagia"] == null
+            ? null
+            : Personality.fromJson(json["pola_bahagia"]),
+        polaInteraksi: json["pola_interaksi_sosial"] == null
+            ? null
+            : Personality.fromJson(json["pola_interaksi_sosial"]),
+        family: json["family"] == null
+            ? null
+            : Personality.fromJson(json["family"]),
+         polaHealing: json["pola_healing"] == null
+            ? null
+            : Personality.fromJson(json["pola_healing"]),
+        spiritual: json["spiritual"] == null
+            ? null
+            : Personality.fromJson(json["spiritual"]),
+
         picture: json["picture"],
         createdAt: json["created_at"] == null
             ? null
@@ -123,6 +155,12 @@ class DataDetailProfiling {
         "tipe_kaya": tipeKaya?.toJson(),
         "tipe_darah": tipeDarah?.toJson(),
         "personality": personality?.toJson(),
+        "karir": karir?.toJson(),
+        "pola_bahagia": polaBahagia?.toJson(),
+        "pola_interaksi_sosial": polaInteraksi?.toJson(),
+        "family": family?.toJson(),
+        "pola_healing": polaHealing?.toJson(),
+        "spiritual": spiritual?.toJson(),
         "picture": picture,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),

@@ -74,12 +74,12 @@ class _Setting_pageState extends State<Setting_page> {
               //     ));
               //   },
               // ),
-              ItemSetting(
-                title: S.of(context).bank_account,
-                onTap: () {
-                  Nav.to(HomeAffiliate());
-                },
-              ),
+              // ItemSetting(
+              //   title: S.of(context).bank_account,
+              //   onTap: () {
+              //     Nav.to(HomeAffiliate());
+              //   },
+              // ),
               ItemSetting(
                 title: S.of(context).change_password,
                 onTap: () {

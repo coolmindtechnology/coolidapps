@@ -73,20 +73,20 @@ class _MenuTentangProfilState extends State<MenuTentangProfil> {
               //   text: S.of(context).communication,
               //   imagePath: 'images/profiling/icKomunikasi.png',
               // ),
-              // ItemButton(
-              //   onTap: () {
-              //     Nav.to(ResultDetail(data: widget.data, type: 'karir'));
-              //   },
-              //   text: S.of(context).career,
-              //   imagePath: 'images/profiling/icKarir.png',
-              // ),
-              // ItemButton(
-              //   onTap: () {
-              //     Nav.to(ResultDetail(data: widget.data, type: 'polaBahagia'));
-              //   },
-              //   text: S.of(context).happiness_pattern,
-              //   imagePath: 'images/profiling/icPolaBahagia.png',
-              // ),
+              ItemButton(
+                onTap: () {
+                  Nav.to(ResultDetail(data: widget.data, type: 'karir'));
+                },
+                text: S.of(context).career,
+                imagePath: 'images/profiling/icKarir.png',
+              ),
+              ItemButton(
+                onTap: () {
+                  Nav.to(ResultDetail(data: widget.data, type: 'polaBahagia'));
+                },
+                text: S.of(context).happiness_pattern,
+                imagePath: 'images/profiling/icPolaBahagia.png',
+              ),
               // ItemButton(
               //   onTap: () {
               //     Nav.to(ResultDetail(data: widget.data, type: 'finansial'));
@@ -94,34 +94,34 @@ class _MenuTentangProfilState extends State<MenuTentangProfil> {
               //   text: S.of(context).financial,
               //   imagePath: 'images/profiling/icFinansial.png',
               // ),
-              // ItemButton(
-              //   onTap: () {
-              //     Nav.to(ResultDetail(data: widget.data, type: 'polaInteraksi'));
-              //   },
-              //   text: S.of(context).social_interaction_pattern,
-              //   imagePath: 'images/profiling/icPolaInteraksi.png',
-              // ),
-              // ItemButton(
-              //   onTap: () {
-              //     Nav.to(ResultDetail(data: widget.data, type: 'family'));
-              //   },
-              //   text: S.of(context).family,
-              //   imagePath: 'images/profiling/icFamily.png',
-              // ),
-              // ItemButton(
-              //   onTap: () {
-              //     Nav.to(ResultDetail(data: widget.data, type: 'polaHealing'));
-              //   },
-              //   text: S.of(context).healing_pattern,
-              //   imagePath: 'images/profiling/IcPolaHealing.png',
-              // ),
-              // ItemButton(
-              //   onTap: () {
-              //     Nav.to(ResultDetail(data: widget.data, type: 'spiritual'));
-              //   },
-              //   text: S.of(context).spiritual,
-              //   imagePath: 'images/profiling/icSpiritual.png',
-              // ),
+              ItemButton(
+                onTap: () {
+                  Nav.to(ResultDetail(data: widget.data, type: 'polaInteraksi'));
+                },
+                text: S.of(context).social_interaction_pattern,
+                imagePath: 'images/profiling/icPolaInteraksi.png',
+              ),
+              ItemButton(
+                onTap: () {
+                  Nav.to(ResultDetail(data: widget.data, type: 'family'));
+                },
+                text: S.of(context).family,
+                imagePath: 'images/profiling/icFamily.png',
+              ),
+              ItemButton(
+                onTap: () {
+                  Nav.to(ResultDetail(data: widget.data, type: 'polaHealing'));
+                },
+                text: S.of(context).healing_pattern,
+                imagePath: 'images/profiling/IcPolaHealing.png',
+              ),
+              ItemButton(
+                onTap: () {
+                  Nav.to(ResultDetail(data: widget.data, type: 'spiritual'));
+                },
+                text: S.of(context).spiritual,
+                imagePath: 'images/profiling/icSpiritual.png',
+              ),
 
 
 

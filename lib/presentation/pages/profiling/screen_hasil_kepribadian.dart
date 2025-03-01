@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:coolappflutter/data/apps/app_sizes.dart';
 import 'package:coolappflutter/data/helpers/check_language.dart';
 import 'package:coolappflutter/data/provider/provider_profiling.dart';
@@ -239,7 +239,7 @@ class _ScreenHasilKepribadianState extends State<ScreenHasilKepribadian> {
                               decoration: BoxDecoration(
                                   color: lightBlue,
                                   borderRadius: BorderRadius.circular(15),
-                                  border: Border.all(color: Colors.green)),
+                                  border: Border.all(color: _getColorForType(value.dataShowDetail?.result))),
                               child: Padding(
                                 padding: const EdgeInsets.all(3),
                                 child: Image.network(value.dataShowDetail?.imagetypebrain ?? "",fit: BoxFit.cover,),
@@ -303,7 +303,7 @@ class _ScreenHasilKepribadianState extends State<ScreenHasilKepribadian> {
                                     },
                                     color: primaryColor,
                                     text: S.of(context).download_result,
-                                    icon: Image.asset('images/icDownload.png'),
+                                    icon: Image.asset('images/icDownload.png',width: 30.sp,),
                                   )
                                 ],
                               ),
@@ -394,6 +394,7 @@ class _ScreenHasilKepribadianState extends State<ScreenHasilKepribadian> {
                               imagePath: 'images/profiling/icTipeKaya.png',
                               text: S.of(context).wealth_type,
                             ),
+                            gapW10,
                             CustomIconButton(
                               onTap: () {
                                 Nav.to(ResultDetail(data: widget.data,type: 'tipeOtak',));
@@ -401,49 +402,49 @@ class _ScreenHasilKepribadianState extends State<ScreenHasilKepribadian> {
                               imagePath: 'images/profiling/icTipeOtak.png',
                               text: S.of(context).brain_type,
                             ),
+                            gapW10,
                             CustomIconButton(
                               onTap: () {Nav.to(ResultDetail(data: widget.data,type: 'personality',));},
                               imagePath: 'images/profiling/icPersonality.png',
                               text: S.of(context).personality,
                             ),
+                            gapW10,
                             CustomIconButton(
-                                  onTap: () {Nav.to(MenuTentangProfil(data: widget.data,));},
-                                  imagePath: 'images/profiling/icLainnya.png',
-                                  text: S.of(context).others,
-                                ),
-                            // CustomIconButton(
-                            //   onTap: () {},
-                            //   imagePath: 'images/profiling/icFamily.png',
-                            //   text: S.of(context).family,
-                            // ),
+                              onTap: () { Nav.to(ResultDetail(data: widget.data, type: 'family'));},
+                              imagePath: 'images/profiling/icFamily.png',
+                              text: S.of(context).family,
+                            ),
                           ],
                         ),
-                        // gapH10,
-                        // isLoading ? shimmerButton(): Row(
-                        //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        //   children: [
-                        //     CustomIconButton(
-                        //       onTap: () {},
-                        //       imagePath: 'images/profiling/icKomunikasi.png',
-                        //       text: S.of(context).communication,
-                        //     ),
-                        //     CustomIconButton(
-                        //       onTap: () {},
-                        //       imagePath: 'images/profiling/icKarir.png',
-                        //       text: S.of(context).career,
-                        //     ),
-                        //     CustomIconButton(
-                        //       onTap: () {},
-                        //       imagePath: 'images/profiling/icFinansial.png',
-                        //       text: S.of(context).financial,
-                        //     ),
-                        //     CustomIconButton(
-                        //       onTap: () {Nav.to(MenuTentangProfil(data: widget.data,));},
-                        //       imagePath: 'images/profiling/icLainnya.png',
-                        //       text: S.of(context).others,
-                        //     ),
-                        //   ],
-                        // ),
+                        gapH10,
+                        isLoading ? shimmerButton(): Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            CustomIconButton(
+                              onTap: () {Nav.to(ResultDetail(data: widget.data, type: 'polaBahagia'));},
+                              imagePath: 'images/profiling/icPolaBahagia.png',
+                              text: S.of(context).happiness_pattern,
+                            ),
+                            gapW10,
+                            CustomIconButton(
+                              onTap: () {Nav.to(ResultDetail(data: widget.data, type: 'karir'));},
+                              imagePath: 'images/profiling/icKarir.png',
+                              text: S.of(context).career,
+                            ),
+                            gapW10,
+                            CustomIconButton(
+                              onTap: () {Nav.to(ResultDetail(data: widget.data, type: 'polaBahagia'));},
+                              imagePath: 'images/profiling/icPolaInteraksi.png',
+                              text: S.of(context).social_interaction_pattern,
+                            ),
+                            gapW10,
+                            CustomIconButton(
+                              onTap: () {Nav.to(MenuTentangProfil(data: widget.data,));},
+                              imagePath: 'images/profiling/icLainnya.png',
+                              text: S.of(context).others,
+                            ),
+                          ],
+                        ),
                         gapH20,
                         Text(S.of(context).figures,style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
@@ -717,6 +718,7 @@ class CustomIconButton extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
             height: 50,
@@ -729,7 +731,7 @@ class CustomIconButton extends StatelessWidget {
           ),
           SizedBox(
               width: 80,
-              child: Text(text,overflow: TextOverflow.ellipsis,))
+              child: Text(text,overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: 12.sp),))
         ],
       ),
     );

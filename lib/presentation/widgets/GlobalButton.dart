@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class GlobalButton extends StatelessWidget {
   final VoidCallback? onPressed; // Fungsi saat tombol ditekan
@@ -43,6 +44,7 @@ class GlobalButton extends StatelessWidget {
                       ? Colors.grey.shade600
                       : Colors.white,
                   fontWeight: FontWeight.w500,
+                    fontSize: 14.sp
                 ),
             overflow: TextOverflow.ellipsis,
           ),

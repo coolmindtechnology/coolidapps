@@ -439,7 +439,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                                 TextButton(
                                     onPressed: () async {
-                                      Nav.to(const ProfilingDashboard());
+                                      await valuePro
+                                          .cekAvailableProfiling(
+                                          context, codeReferralC,"seeall");
+                                      codeReferralC.clear();
                                     },
                                     child: Text(
                                       "${S.of(context).see_all} >",
@@ -723,11 +726,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                         color: Colors.white,
                                       ),
                                       title: S.of(context).profiling,
-                                      onTap: () {
-                                        Nav.to(AddMultipleProfiling(
-                                          int.parse('1'),
-                                          int.parse('10'),
-                                        ));
+                                      onTap: () async {
+                                        await valuePro
+                                            .cekAvailableProfiling(
+                                            context, codeReferralC,"plus");
+                                        codeReferralC.clear();
+                                        // Nav.to(AddMultipleProfiling(
+                                        //   int.parse('1'),
+                                        //   int.parse('10'),
+                                        // ));
                                       },
                                     ),
                                   ],
@@ -749,11 +756,18 @@ class _HomeScreenState extends State<HomeScreen> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 ContainerProfiling(
-                                  onTap: () {
-                                    Nav.to(AddMultipleProfiling(
-                                      int.parse('1'),
-                                      int.parse('10'),
-                                    ));
+                                  // onTap: () {
+                                  //   Nav.to(AddMultipleProfiling(
+                                  //     int.parse('1'),
+                                  //     int.parse('10'),
+                                  //   ));
+                                  // },
+                                  onTap: () async {
+                                    await valuePro
+                                        .cekAvailableProfiling(
+                                        context, codeReferralC,"profiling1");
+                                    codeReferralC.clear();
+
                                   },
                                   backgroundColor: Colors.lightBlueAccent,
                                   borderColor: Colors.blue,
@@ -766,10 +780,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                                 ContainerProfiling(
                                   onTap: () async {
-                                    Nav.to(AddMultipleProfiling(
-                                      int.parse('10'),
-                                      int.parse('10'),
-                                    ));
+                                    await valuePro
+                                        .cekAvailableProfiling(
+                                        context, codeReferralC,"profiling10");
+                                    codeReferralC.clear();
                                   },
                                   backgroundColor: Color(0xFFF8DB1C),
                                   borderColor: YellowColor,

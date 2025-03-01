@@ -213,6 +213,7 @@ class _ResultDetailState extends State<ResultDetail> {
                   )
                 : Container(
               color: Colors.white,
+              height: MediaQuery.of(context).size.height,
                   child: SingleChildScrollView(
                       child: Padding(
                         padding: const EdgeInsets.all(10),
@@ -241,6 +242,24 @@ class _ResultDetailState extends State<ResultDetail> {
                                 ],
                                 if (widget.type == "personality" && value.detailProfiling?.personality != null) ...[
                                   _Personality(value: value),
+                                ],
+                                if (widget.type == "karir" && value.detailProfiling?.karir != null) ...[
+                                  _classtipe(data: value.detailProfiling?.karir),
+                                ],
+                                if (widget.type == "polaBahagia" && value.detailProfiling?.polaBahagia != null) ...[
+                                  _classtipe(data: value.detailProfiling?.polaBahagia),
+                                ],
+                                if (widget.type == "polaInteraksi" && value.detailProfiling?.polaInteraksi != null) ...[
+                                  _classtipe(data: value.detailProfiling?.polaInteraksi),
+                                ],
+                                if (widget.type == "family" && value.detailProfiling?.family != null) ...[
+                                  _classtipe(data: value.detailProfiling?.family),
+                                ],
+                                if (widget.type == "polaHealing" && value.detailProfiling?.polaHealing != null) ...[
+                                  _classtipe(data: value.detailProfiling?.polaHealing),
+                                ],
+                                if (widget.type == "spiritual" && value.detailProfiling?.spiritual != null) ...[
+                                  _classtipe(data: value.detailProfiling?.spiritual),
                                 ],
 
                                 // Center(
@@ -503,7 +522,7 @@ class _Personality extends StatelessWidget {
           width: double.infinity,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              color: value.detailProfiling?.tipeDarah != null ? Colors.white : imageBlue
+              color: value.detailProfiling?.tipeDarah != null ? imageBlue : Colors.white
           ),
           child: Image.network(
             "${value.detailProfiling?.personality?.picture}",
@@ -544,6 +563,57 @@ class _Personality extends StatelessWidget {
   }
 }
 
+class _classtipe extends StatelessWidget {
+  const _classtipe({
+    required this.data, // Langsung instance dari Personality
+  });
+
+  final Personality? data;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          height: 160,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            color: data != null ? Colors.white : imageBlue,
+          ),
+          child: data?.picture != null
+              ? Image.network("${data?.picture}")
+              : const SizedBox(), // Placeholder jika gambar null
+        ),
+        gapH20,
+        Container(
+          width: double.infinity,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            color: Colors.white,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                gapH10,
+                Text(
+                  data?.description ?? "Deskripsi tidak tersedia",
+                  textAlign: TextAlign.justify,
+                  style: const TextStyle(fontWeight: FontWeight.w300),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+
 class _TipeOtak extends StatelessWidget {
   const _TipeOtak({
     required this.value,
@@ -560,7 +630,7 @@ class _TipeOtak extends StatelessWidget {
           width: double.infinity,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              color: value.detailProfiling?.tipeDarah != null ? Colors.white : imageBlue
+              color: value.detailProfiling?.tipeDarah != null ? imageBlue : Colors.white
           ),
           child: Image.network(
             "${value.detailProfiling?.tipeOtak?.picture}",
@@ -617,7 +687,7 @@ class _TipeAura extends StatelessWidget {
           width: double.infinity,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              color: value.detailProfiling?.tipeDarah != null ? Colors.white : imageBlue
+              color: value.detailProfiling?.tipeDarah != null ? imageBlue : Colors.white
           ),
           child: Image.network(
             "${value.detailProfiling?.tipeAura?.picture}",
@@ -689,7 +759,7 @@ class _TipeKaya extends StatelessWidget {
             width: double.infinity,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              color: value.detailProfiling?.tipeDarah != null ? Colors.white : imageBlue
+                color: value.detailProfiling?.tipeDarah != null ? imageBlue : Colors.white
             ),
             child: Image.network(
               "${value.detailProfiling?.tipeKaya?.picture}",
@@ -760,7 +830,7 @@ class _TipeDarah extends StatelessWidget {
           width: double.infinity,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
-              color: value.detailProfiling?.tipeDarah != null ? Colors.white : imageBlue
+              color: value.detailProfiling?.tipeDarah != null ? imageBlue : Colors.white
           ),
           child: Image.network(
             "${value.detailProfiling?.tipeDarah?.picture}",

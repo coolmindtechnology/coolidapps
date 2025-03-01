@@ -22,6 +22,8 @@ import 'package:coolappflutter/data/response/profiling/res_upgrade_member.dart';
 import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/pages/main/components/input_code_ref_profilling.dart';
 import 'package:coolappflutter/presentation/pages/main/nav_home.dart';
+import 'package:coolappflutter/presentation/pages/profiling/add_multiple_profiling.dart';
+import 'package:coolappflutter/presentation/pages/profiling/profiling%20dashboard.dart';
 import 'package:coolappflutter/presentation/pages/profiling/screen_feature_kepribadian.dart';
 import 'package:coolappflutter/data/response/profiling/res_share_result_detail.dart';
 import 'package:coolappflutter/data/response/profiling/res_show_detail.dart';
@@ -630,7 +632,7 @@ class ProviderProfiling extends ChangeNotifier {
   ResPermiteProfiling? cekAvailable;
 
   Future<void> cekAvailableProfiling(
-      BuildContext context, TextEditingController controller) async {
+      BuildContext context, TextEditingController controller, String param) async {
     isCekAvailable = true;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       notifyListeners();
@@ -652,7 +654,24 @@ class ProviderProfiling extends ChangeNotifier {
           ));
     }, success: (res) async {
       if (res.success == true) {
-        Nav.to(const ScreenFeatureKepribadian());
+        if(param == "plus")
+          Nav.to(AddMultipleProfiling(
+            int.parse('1'),
+            int.parse('10'),
+          ));
+        else if(param == "seeall")
+          Nav.to(const ProfilingDashboard());
+        else if(param == "profiling1")
+          Nav.to(AddMultipleProfiling(
+            int.parse('1'),
+            int.parse('10'),
+          ));
+        else if(param == "profiling10")
+          Nav.to(AddMultipleProfiling(
+            int.parse('10'),
+            int.parse('10'),
+          ));
+
         if (kDebugMode) {
           print("cek available $cekAvailable");
         }
@@ -838,8 +857,10 @@ class ProviderProfiling extends ChangeNotifier {
         ),
       );
     }, success: (res) async {
+      print("Navigasi ke NavMenuScreen...");
       Nav.toAll(NavMenuScreen());
-      Nav.back();
+      print("Navigasi berhasil.");
+      // Nav.back();
       showDialog(
           context: context,
           builder: (context) {
@@ -849,7 +870,9 @@ class ProviderProfiling extends ChangeNotifier {
             );
           });
 
-      onAdd!();
+      if (onAdd != null) {
+        onAdd!();
+      }
       notifyListeners();
     });
 
