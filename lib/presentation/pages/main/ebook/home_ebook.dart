@@ -246,12 +246,12 @@ class _HomeEbookState extends State<HomeEbook> {
                       DataBook data = value.display[index];
                       return GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => DetailEbookNew(
-                                        isPay: 'false',
-                                      )));
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) => DetailEbookNew(
+                          //               isPay: 'false',
+                          //             )));
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(5.0),
@@ -406,12 +406,12 @@ class _HomeEbookState extends State<HomeEbook> {
                       DataBook data = value.displayFree[index];
                       return GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => DetailEbookNew(
-                                        isPay: 'false',
-                                      )));
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) => DetailEbookNew(
+                          //               isPay: 'false',
+                          //             )));
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(5.0),
@@ -536,12 +536,12 @@ class _HomeEbookState extends State<HomeEbook> {
                       DataBook data = value.displayPremium[index];
                       return GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => DetailEbookNew(
-                                        isPay: 'false',
-                                      )));
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) => DetailEbookNew(
+                          //               isPay: 'false',
+                          //             )));
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(5.0),
