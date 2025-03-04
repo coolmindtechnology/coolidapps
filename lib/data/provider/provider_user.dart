@@ -291,8 +291,9 @@ class ProviderUser extends ChangeNotifier {
         );
       }
       if (res.success == true) {
-        await getUser(context);
-        NotificationUtils.showDialogSuccess(context, () {
+        // await getUser(context);
+        NotificationUtils.showDialogSuccess(context, () async{
+          await getUser(context);
           Nav.back();
           Nav.back();
         },

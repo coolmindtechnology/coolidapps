@@ -42,6 +42,7 @@ class _RoomsPageState extends State<RoomsPageKonsultan> {
           if (user != null) {
             FirebaseChatCore.instance.rooms().first.then((rooms) {
               debugPrint('Rooms fetched: $rooms');
+              debugPrint('User ID: ${user.uid}');
             });
           }
         }

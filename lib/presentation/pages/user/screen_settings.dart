@@ -491,6 +491,7 @@ import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -556,282 +557,240 @@ class _ScreenSettingsState extends State<ScreenSettings> {
       "logic": Colors.yellow,
     };
 
-    return ChangeNotifierProvider(
-      create: (BuildContext context) {
-        return ProviderUser.initMemberArea(context);
-      },
-      child: Consumer<ProviderUser>(builder: (context, value, child) {
-        return Scaffold(
-          appBar: AppBar(
-            centerTitle: false,
-            title: Text(
-              S.of(context).setting,
-              style: const TextStyle(color: Colors.white),
-            ),
-            iconTheme: const IconThemeData(color: Colors.white),
-            backgroundColor: primaryColor,
+    return Consumer<ProviderUser>(builder: (context, value, child) {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: false,
+          title: Text(
+            S.of(context).setting,
+            style: const TextStyle(color: Colors.white),
           ),
-          body: CustomMaterialIndicator(
-            key: _refreshIndicatorKey,
-            onRefresh: () {
-              Provider.of<ProviderUser>(context, listen: false)
-                  .getUser(context);
-              return Future<void>.delayed(const Duration(seconds: 1));
-            },
-            indicatorBuilder:
-                (BuildContext context, IndicatorController controller) {
-              return const RefreshIconWidget();
-            },
-            child: SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 20, right: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(vertical: 32),
-                      color: Colors.white,
+          iconTheme: const IconThemeData(color: Colors.white),
+          backgroundColor: primaryColor,
+        ),
+        body: CustomMaterialIndicator(
+          key: _refreshIndicatorKey,
+          onRefresh: () {
+            Provider.of<ProviderUser>(context, listen: false)
+                .getUser(context);
+            return Future<void>.delayed(const Duration(seconds: 1));
+          },
+          indicatorBuilder:
+              (BuildContext context, IndicatorController controller) {
+            return const RefreshIconWidget();
+          },
+          child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(vertical: 32),
+                    color: Colors.white,
+                    child: Row(
+                      children: [
+                        value.isLoading
+                            ? Shimmer.fromColors(
+                            baseColor: greyColor.withOpacity(0.2),
+                            highlightColor: whiteColor,
+                            child: Container(
+                              width: 80.sp,
+                              height: 80.sp,
+                              decoration: BoxDecoration(
+                                  color: greyColor,
+                                  shape: BoxShape.circle),
+                            ))
+                            : value.dataUser?.image != null
+                            ? Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color:
+                              brainColors[dataGlobal.dataUser?.typeBrain] ?? Colors.white, // Warna garis tepi
+                              width: 4, // Lebar garis tepi
+                            ),
+                            borderRadius:
+                            BorderRadius.circular(100),
+                          ),
+                          child: ClipRRect(
+                            borderRadius:
+                            BorderRadius.circular(100),
+                            child: Image.network(
+                              "${value.dataUser?.image}",
+                              width: 80.sp,
+                              height: 80.sp,
+                              fit: BoxFit.fill,
+                              errorBuilder: (BuildContext context,
+                                  Object exception,
+                                  StackTrace? stackTrace) {
+                                // Tampilkan gambar placeholder jika terjadi error
+                                return Image.asset(
+                                  'images/default_user.png', // Path ke gambar placeholder lokal
+                                  width: 56.sp,
+                                  height: 56.sp,
+                                  fit: BoxFit.fill,
+                                );
+                              },
+                            ),
+                          ),
+                        )
+                            : ClipRRect(
+                          borderRadius: BorderRadius.circular(100),
+                          child: Image.asset(
+                            "images/default_user.png",
+                            width: 80.sp,
+                            height: 80.sp,
+                            color: greyColor,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 16,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              dataGlobal.dataUser?.name == null
+                                  ? dataGlobal.dataUser?.phoneNumber != null
+                                  ? dataGlobal.dataUser?.phoneNumber
+                                  .toString()
+                                  : ""
+                                  : dataGlobal.dataUser?.name ?? "",
+                              style: TextStyle(
+                                fontSize: 20.sp,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            // if (dataGlobal.dataUser!.typeBrain == null || dataGlobal.dataUser!.typeBrain.isEmpty)
+                            BrainTypeWidget(typeBrain:  dataGlobal.dataUser!.typeBrain.toString(),)
+                          ],
+                        )
+                      ],
+                    ),
+                  ),
+                  ContainerFollower(
+                    title1: S.of(context).Post,
+                    subtitle1: dataGlobal.dataUser?.total_post.toString() ?? "0",
+                    title2: S.of(context).Follower,
+                    subtitle2: dataGlobal.dataUser?.total_follower.toString() ?? "0",
+                    title3: S.of(context).following,
+                    subtitle3: dataGlobal.dataUser?.total_following.toString() ?? "0",
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+
+                  InkWell(
+                    onTap: () {
+                      if(dataGlobal.dataUser?.isAffiliate == 1){
+                        Nav.to(TransaksiAffiliatePage(
+                          initialTab: () =>
+                          0, // Menentukan tab kedua sebagai tab awal
+                          tabChanger: (changeTabAffiliate) {
+                            // Dapat digunakan untuk mengubah tab dari luar
+                          },
+                        ));
+                      } else {
+                        Nav.to(const TopUpPage());
+                      }
+
+                    },
+                    child: Container(
+                      height: 80,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Colors.lightBlueAccent.shade100,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          value.isLoading
-                              ? Shimmer.fromColors(
-                              baseColor: greyColor.withOpacity(0.2),
-                              highlightColor: whiteColor,
-                              child: Container(
-                                width: 80,
-                                height: 80,
-                                decoration: BoxDecoration(
-                                    color: greyColor,
-                                    shape: BoxShape.circle),
-                              ))
-                              : value.dataUser?.image != null
-                              ? Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color:
-                                brainColors[dataGlobal.dataUser?.typeBrain] ?? Colors.white, // Warna garis tepi
-                                width: 4, // Lebar garis tepi
-                              ),
-                              borderRadius:
-                              BorderRadius.circular(100),
-                            ),
-                            child: ClipRRect(
-                              borderRadius:
-                              BorderRadius.circular(100),
-                              child: Image.network(
-                                "${value.dataUser?.image}",
-                                width: 80,
-                                height: 80,
-                                fit: BoxFit.fill,
-                                errorBuilder: (BuildContext context,
-                                    Object exception,
-                                    StackTrace? stackTrace) {
-                                  // Tampilkan gambar placeholder jika terjadi error
-                                  return Image.asset(
-                                    'images/default_user.png', // Path ke gambar placeholder lokal
-                                    width: 56,
-                                    height: 56,
-                                    fit: BoxFit.fill,
-                                  );
-                                },
-                              ),
-                            ),
-                          )
-                              : ClipRRect(
-                            borderRadius: BorderRadius.circular(100),
-                            child: Image.asset(
-                              "images/default_user.png",
-                              width: 80,
-                              height: 80,
-                              color: greyColor,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 16,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                dataGlobal.dataUser?.name == null
-                                    ? dataGlobal.dataUser?.phoneNumber != null
-                                    ? dataGlobal.dataUser?.phoneNumber
-                                    .toString()
-                                    : ""
-                                    : dataGlobal.dataUser?.name ?? "",
-                                style: const TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600,
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                Text(
+                                  S.of(context).my_balance,
+                                  style: TextStyle(
+                                      color: BlueColor,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600),
                                 ),
-                              ),
-                              SizedBox(
-                                height: 10,
-                              ),
-                              // if (dataGlobal.dataUser!.typeBrain == null || dataGlobal.dataUser!.typeBrain.isEmpty)
-                              BrainTypeWidget(typeBrain:  dataGlobal.dataUser!.typeBrain.toString(),)
-                            ],
-                          )
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.wallet,
+                                      color: BlueColor,
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                        'IDR ${(dataGlobal.dataAff?.totalSaldoAffiliate == null || dataGlobal.dataAff?.totalSaldoAffiliate == '') ? "0" : dataGlobal.dataAff?.totalSaldoAffiliate}',
+                                        style: TextStyle(
+                                            color: BlueColor,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w600))
+                                  ],
+                                )
+                              ],
+                            ),
+                          ),
+                          IconButton(
+                              onPressed: () {
+                                Nav.to(TransaksiAffiliatePage(
+                                  initialTab: () =>
+                                  0, // Menentukan tab kedua sebagai tab awal
+                                  tabChanger: (changeTabAffiliate) {
+                                    // Dapat digunakan untuk mengubah tab dari luar
+                                  },
+                                ));
+                              },
+                              icon: Icon(
+                                Icons.arrow_forward_ios,
+                                color: BlueColor,
+                              ))
                         ],
                       ),
                     ),
-                    ContainerFollower(
-                      title1: S.of(context).Post,
-                      subtitle1: dataGlobal.dataUser?.total_post.toString() ?? "0",
-                      title2: S.of(context).Follower,
-                      subtitle2: dataGlobal.dataUser?.total_follower.toString() ?? "0",
-                      title3: S.of(context).following,
-                      subtitle3: dataGlobal.dataUser?.total_following.toString() ?? "0",
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
 
-                    InkWell(
-                      onTap: () {
-                        if(dataGlobal.dataUser?.isAffiliate == 1){
-                          Nav.to(TransaksiAffiliatePage(
-                            initialTab: () =>
-                            0, // Menentukan tab kedua sebagai tab awal
-                            tabChanger: (changeTabAffiliate) {
-                              // Dapat digunakan untuk mengubah tab dari luar
-                            },
-                          ));
-                        } else {
-                          Nav.to(const TopUpPage());
-                        }
-
-                      },
-                      child: Container(
-                        height: 80,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Colors.lightBlueAccent.shade100,
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Text(
-                                    S.of(context).my_balance,
-                                    style: TextStyle(
-                                        color: BlueColor,
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w600),
-                                  ),
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        Icons.wallet,
-                                        color: BlueColor,
-                                      ),
-                                      SizedBox(
-                                        width: 10,
-                                      ),
-                                      Text(
-                                          'IDR ${(dataGlobal.dataAff?.totalSaldoAffiliate == null || dataGlobal.dataAff?.totalSaldoAffiliate == '') ? "0" : dataGlobal.dataAff?.totalSaldoAffiliate}',
-                                          style: TextStyle(
-                                              color: BlueColor,
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w600))
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                            IconButton(
-                                onPressed: () {
-                                  Nav.to(TransaksiAffiliatePage(
-                                    initialTab: () =>
-                                    0, // Menentukan tab kedua sebagai tab awal
-                                    tabChanger: (changeTabAffiliate) {
-                                      // Dapat digunakan untuk mengubah tab dari luar
-                                    },
-                                  ));
-                                },
-                                icon: Icon(
-                                  Icons.arrow_forward_ios,
-                                  color: BlueColor,
-                                ))
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        if (dataGlobal.dataUser?.isAffiliate == 1)
-                        Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 20),
-                            child: InkWell(
-                              onTap: () {
-                                Nav.to(const ScreenTotalMember());
-                              },
-                              child: Container(
-                                height: 60,
-                                width: 175,
-                                decoration: BoxDecoration(
-                                  color: primaryColor,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Icon(
-                                        CupertinoIcons.person_2_fill,
-                                        color: BlueColor,
-                                      ),
-                                      Text(S.of(context).Member,
-                                          style: TextStyle(
-                                              color: BlueColor,
-                                              fontSize: 15,
-                                              fontWeight: FontWeight.w600))
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      if (dataGlobal.dataUser?.isAffiliate == 1)
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 20),
                           child: InkWell(
-                            onTap: () async {
-                              Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      QRCodePage()));
+                            onTap: () {
+                              Nav.to(const ScreenTotalMember());
                             },
                             child: Container(
                               height: 60,
                               width: 175,
                               decoration: BoxDecoration(
-                                color: Colors.lightBlueAccent.shade100,
+                                color: primaryColor,
                                 borderRadius: BorderRadius.circular(10),
                               ),
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
                                     Icon(
-                                      CupertinoIcons.qrcode_viewfinder,
+                                      CupertinoIcons.person_2_fill,
                                       color: BlueColor,
                                     ),
-                                    gapW10,
-                                    Text(S.of(context).digital_ID,
+                                    Text(S.of(context).Member,
                                         style: TextStyle(
                                             color: BlueColor,
                                             fontSize: 15,
@@ -842,175 +801,213 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                             ),
                           ),
                         ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(S.of(context).Others,
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w800)),
-
-                    ItemSetting(
-                      title: S.of(context).Edit_profile,
-                      image: "edit_profile.png",
-                      onTap: () {
-                        Nav.to(ScreenProfile(
-                          phone: dataGlobal.dataUser?.phoneNumber,
-                        ));
-                      },
-                    ),
-                    // ItemSetting(
-                    //   title: S.of(context).profiling_results,
-                    //   image: "profiling_setting.png",
-                    //   onTap: () {},
-                    // ),
-                    ItemSetting(
-                      title: S.of(context).setting,
-                      image: "setting_setting.png",
-                      onTap: () {
-                        Nav.to(Setting_page());
-                      },
-                    ),
-                    if (dataGlobal.dataUser?.isAffiliate == 0)
-                      ItemSetting(
-                        title: S.of(context).affiliate,
-                        image: "icon_affiliate.png",
-                        onTap: () async {
-                          await context
-                              .read<ProviderAuthAffiliate>()
-                              .checkIsAffiliate(context);
-                        },
                       ),
-
-                    // DropdownHistory(isExpanded: isExpanded),
-                    ItemSetting(
-                      title: S.of(context).logout,
-                      image: "logout.png",
-                      onTap: () {
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                scrollable: true,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15)),
-                                insetPadding: const EdgeInsets.all(20),
-                                title: SizedBox(
-                                  width: MediaQuery.of(context).size.width,
-                                  child: Center(
-                                    child: Image.asset(
-                                      "images/disclaimer.png",
-                                      width: 37.5,
-                                      height: 37.5,
-                                    ),
+                      Expanded(
+                        child: InkWell(
+                          onTap: () async {
+                            Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    QRCodePage()));
+                          },
+                          child: Container(
+                            height: 60,
+                            width: 175,
+                            decoration: BoxDecoration(
+                              color: Colors.lightBlueAccent.shade100,
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    CupertinoIcons.qrcode_viewfinder,
+                                    color: BlueColor,
                                   ),
-                                ),
-                                content: Center(
-                                  child: Column(
-                                    children: [
-                                      Text(
-                                        S.of(context).exit_confirmation,
-                                        style: const TextStyle(fontSize: 16),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      const SizedBox(
-                                        height: 25,
-                                      ),
-                                      Row(
-                                        children: [
-                                          Expanded(
-                                            child: SizedBox(
-                                              height: 54,
-                                              child: ButtonPrimary(
-                                                S.of(context).no,
-                                                onPress: () {
-                                                  Nav.back();
-                                                },
-                                                negativeColor: true,
-                                                border: 1,
-                                                radius: 10,
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 16,
-                                          ),
-                                          Expanded(
-                                            child: SizedBox(
-                                              height: 54,
-                                              child: ButtonPrimary(
-                                                S.of(context).yes_exit,
-                                                onPress: () async {
-                                                  await Prefs().clearSession();
-                                                  Nav.toAll(
-                                                      const LoginScreen());
-
-                                                  // Provider.of<ProviderAuth>(
-                                                  //         context,
-                                                  //         listen: false)
-                                                  //     .logout(context);
-                                                },
-                                                radius: 10,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              );
-                            });
-                      },
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    if (dataGlobal.dataUser?.isAffiliate == 0)
-                      InkWell(
-                        onTap: () async {
-                          await context
-                              .read<ProviderAuthAffiliate>()
-                              .checkIsAffiliate(context);
-                        },
-                        child: Container(
-                          height: 40,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: Colors.lightBlueAccent.shade100,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Icon(
-                                  Icons.person,
-                                  color: BlueColor,
-                                ),
-                                Text(S.of(context).Become_Affiliator,
-                                    style: TextStyle(
-                                        color: BlueColor,
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w600))
-                              ],
+                                  gapW10,
+                                  Text(S.of(context).digital_ID,
+                                      style: TextStyle(
+                                          color: BlueColor,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w600))
+                                ],
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    SizedBox(
-                      height: 10,
-                    )
-                  ],
-                ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(S.of(context).Others,
+                      style: TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.w800)),
+
+                  ItemSetting(
+                    title: S.of(context).Edit_profile,
+                    image: "edit_profile.png",
+                    onTap: () {
+                      Nav.to(ScreenProfile(
+                        phone: dataGlobal.dataUser?.phoneNumber,
+                      ));
+                    },
+                  ),
+                  DropdownHistory(isExpanded: isExpanded),
+                  // ItemSetting(
+                  //   title: S.of(context).profiling_results,
+                  //   image: "profiling_setting.png",
+                  //   onTap: () {},
+                  // ),
+                  ItemSetting(
+                    title: S.of(context).setting,
+                    image: "setting_setting.png",
+                    onTap: () {
+                      Nav.to(Setting_page());
+                    },
+                  ),
+                  if (dataGlobal.dataUser?.isAffiliate == 0)
+                    ItemSetting(
+                      title: S.of(context).affiliate,
+                      image: "icon_affiliate.png",
+                      onTap: () async {
+                        await context
+                            .read<ProviderAuthAffiliate>()
+                            .checkIsAffiliate(context);
+                      },
+                    ),
+
+                  // DropdownHistory(isExpanded: isExpanded),
+                  ItemSetting(
+                    title: S.of(context).logout,
+                    image: "logout.png",
+                    onTap: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              scrollable: true,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15)),
+                              insetPadding: const EdgeInsets.all(20),
+                              title: SizedBox(
+                                width: MediaQuery.of(context).size.width,
+                                child: Center(
+                                  child: Image.asset(
+                                    "images/disclaimer.png",
+                                    width: 37.5,
+                                    height: 37.5,
+                                  ),
+                                ),
+                              ),
+                              content: Center(
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      S.of(context).exit_confirmation,
+                                      style: const TextStyle(fontSize: 16),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    const SizedBox(
+                                      height: 25,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: SizedBox(
+                                            height: 54,
+                                            child: ButtonPrimary(
+                                              S.of(context).no,
+                                              onPress: () {
+                                                Nav.back();
+                                              },
+                                              negativeColor: true,
+                                              border: 1,
+                                              radius: 10,
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 16,
+                                        ),
+                                        Expanded(
+                                          child: SizedBox(
+                                            height: 54,
+                                            child: ButtonPrimary(
+                                              S.of(context).yes_exit,
+                                              onPress: () async {
+                                                await Prefs().clearSession();
+                                                Nav.toAll(
+                                                    const LoginScreen());
+
+                                                // Provider.of<ProviderAuth>(
+                                                //         context,
+                                                //         listen: false)
+                                                //     .logout(context);
+                                              },
+                                              radius: 10,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ),
+                            );
+                          });
+                    },
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  if (dataGlobal.dataUser?.isAffiliate == 0)
+                    InkWell(
+                      onTap: () async {
+                        await context
+                            .read<ProviderAuthAffiliate>()
+                            .checkIsAffiliate(context);
+                      },
+                      child: Container(
+                        height: 40,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Colors.lightBlueAccent.shade100,
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              Icon(
+                                Icons.person,
+                                color: BlueColor,
+                              ),
+                              Text(S.of(context).Become_Affiliator,
+                                  style: TextStyle(
+                                      color: BlueColor,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600))
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  SizedBox(
+                    height: 10,
+                  )
+                ],
               ),
             ),
           ),
-        );
-      }),
-    );
+        ),
+      );
+    });
   }
 }
 

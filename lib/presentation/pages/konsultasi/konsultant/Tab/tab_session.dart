@@ -1,6 +1,7 @@
 import 'package:coolappflutter/data/apps/app_sizes.dart';
 import 'package:coolappflutter/data/provider/provider_consultant.dart';
 import 'package:coolappflutter/generated/l10n.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/detil_consultant.dart';
 import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/pop-upwarning.dart';
 import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/profile_card.dart';
@@ -37,20 +38,39 @@ class _TabSesiKonsultantState extends State<TabSesiKonsultant> {
 
   void _handlePressed(
       types.User otherUser, BuildContext context, String id) async {
-    final navigator = Navigator.of(context);
-    final room = await FirebaseChatCore.instance.createRoom(otherUser);
-    debugPrint("cek id users ${room.id}");
 
-    navigator.pop();
-    await navigator.push(
-      MaterialPageRoute(
-        builder: (context) => ChatPageConsultant(
-          idUser: id,
-          room: room,
+    final navigator = Navigator.of(context);
+
+    // Cek apakah pengguna ada di Firestore
+    var userDoc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(otherUser.id)
+        .get();
+
+    if (!userDoc.exists) {
+      debugPrint("❌ User ${otherUser.id} belum terdaftar di Firestore!");
+      return;
+    }
+
+    try {
+      final room = await FirebaseChatCore.instance.createRoom(otherUser);
+      debugPrint("✅ Room berhasil dibuat! Room ID: ${room.id}");
+
+      navigator.pop();
+      await navigator.push(
+        MaterialPageRoute(
+          builder: (context) => ChatPageConsultant(
+            idUser: id,
+            room: room,
+          ),
         ),
-      ),
-    );
+      );
+    } catch (e) {
+      debugPrint("❌ Gagal membuat room: $e");
+    }
   }
+
+
 
   @override
   Widget build(BuildContext context) {

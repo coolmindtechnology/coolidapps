@@ -3,6 +3,7 @@
 import 'dart:async';
 
 import 'package:coolappflutter/data/provider/provider_book.dart';
+import 'package:coolappflutter/data/provider/provider_profiling.dart';
 import 'package:coolappflutter/data/provider/provider_user.dart';
 import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/pages/main/nav_home.dart';
@@ -24,9 +25,11 @@ class PreHomeScreen extends StatefulWidget {
 
 class _PreHomeScreenState extends State<PreHomeScreen> {
   ProviderUser? providerUser;
+  ProviderProfiling? providerProfiling;
 
   Future<void> _initializeData() async {
     await providerUser?.getUser(context);
+    await providerProfiling?.getListProfiling(context);
     await providerUser?.getMemberArea(context);
   }
 
@@ -38,7 +41,7 @@ class _PreHomeScreenState extends State<PreHomeScreen> {
     });
     cekSession();
     providerUser = Provider.of<ProviderUser>(context, listen: false);
-
+    providerProfiling = Provider.of<ProviderProfiling>(context, listen: false);
     _initializeData();
   }
 

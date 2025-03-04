@@ -31,6 +31,7 @@ import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../data/networks/endpoint/api_endpoint.dart';
@@ -67,8 +68,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    Provider.of<ProviderProfiling>(context, listen: false)
-        .getListProfiling(context);
+    // Provider.of<ProviderProfiling>(context, listen: false)
+    //     .getListProfiling(context);
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       context.read<ProviderUser>().checkProfile(context);
       context.read<ProviderUser>().getTotalSaldo(context);
@@ -145,12 +146,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   title: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Image.asset(
-                        "images/logo_coolapp_new.png",
-                        height: 36,
-                        width: 115,
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Image.asset(
+                          "images/logo_coolapp_new.png",
+                          height: 28.sp,
+                        ),
                       ),
                       // Container(
                       //     width: 28,
@@ -166,138 +168,144 @@ class _HomeScreenState extends State<HomeScreen> {
                       //         size: 23,
                       //       ),
                       //     )),
-                      Container(
-                          height: 35,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(5)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Provider.of<ProviderPayment>(context,
-                                            listen: false)
-                                        .isLoading
-                                    ? const ShimmerLoadingWidget(
-                                        height: 24,
-                                        width: 100,
-                                      )
-                                    : GestureDetector(
-                                        onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      DetailSaldoPage()));
-                                        },
-                                        child: Text(
-                                          valueUser.totalDeposit,
-                                          style: const TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600,
+                      Padding(
+                        padding: const EdgeInsets.only(right: 10,bottom: 8,left: 15,top: 8),
+                        child: Container(
+                            height: 32.sp,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(5)),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Provider.of<ProviderPayment>(context,
+                                              listen: false)
+                                          .isLoading
+                                      ?  ShimmerLoadingWidget(
+                                          height: 24.sp,
+                                          width: 100.sp,
+                                        )
+                                      : GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        DetailSaldoPage()));
+                                          },
+                                          child: Text(
+                                            valueUser.totalDeposit,
+                                            style: TextStyle(
+                                              fontSize: 13.sp,
+                                              fontWeight: FontWeight.w600,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                gapW10,
-                                Consumer<ProviderUser>(
-                                    builder: (context, stateUser, __) {
-                                  return InkWell(
-                                      onTap: () async {
-                                        if (stateUser.dataUser?.isAffiliate
-                                                .toString() ==
-                                            "1") {
-                                          debugPrint("tes topup1");
-                                          NotificationUtils.showDialogError(
-                                              context, () {
-                                            Nav.back();
-                                          },
-                                              widget: Text(
-                                                S
-                                                    .of(context)
-                                                    .feature_unavailable_affiliate,
-                                                textAlign: TextAlign.center,
+                                  gapW10,
+                                  Consumer<ProviderUser>(
+                                      builder: (context, stateUser, __) {
+                                    return InkWell(
+                                        onTap: () async {
+                                          if (stateUser.dataUser?.isAffiliate
+                                                  .toString() ==
+                                              "1") {
+                                            debugPrint("tes topup1");
+                                            NotificationUtils.showDialogError(
+                                                context, () {
+                                              Nav.back();
+                                            },
+                                                widget: Text(
+                                                  S
+                                                      .of(context)
+                                                      .feature_unavailable_affiliate,
+                                                  textAlign: TextAlign.center,
+                                                ));
+                                          } else {
+                                            //
+                                            debugPrint("tes topup2");
+
+                                            context
+                                                .read<ProviderPayment>()
+                                                .getListTopUp(context);
+                                          }
+                                        },
+                                        child: Icon(
+                                          CupertinoIcons.plus_circle_fill,
+                                          color: primaryColor,
+                                          size: 20.sp,
+                                        ));
+                                  })
+                                ],
+                              ),
+                            )),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 8,bottom: 8,right: 8),
+                        child: GestureDetector(
+                          onTap: () {
+                            widget.klickTab(3);
+                          },
+                          child: valueUser.isLoading
+                              ? Shimmer.fromColors(
+                                  baseColor: greyColor.withOpacity(0.2),
+                                  highlightColor: whiteColor,
+                                  child: Container(
+                                    height: 45.sp,
+                                    width: 45.sp,
+                                    decoration: BoxDecoration(
+                                        color: greyColor, shape: BoxShape.circle),
+                                  ))
+                              : valueUser.dataUser?.image != null
+                                  ? ClipRRect(
+                                      borderRadius: BorderRadius.circular(100),
+                                      child: Image.network(
+                                        "${valueUser.dataUser?.image}",
+                                        width: 45.sp,
+                                        height: 45.sp,
+                                        fit: BoxFit.fill,
+                                        errorBuilder: (BuildContext context,
+                                            Object exception,
+                                            StackTrace? stackTrace) {
+                                          // Tampilkan gambar placeholder jika terjadi error
+                                          return Image.asset(
+                                            'images/default_user.png', // Path ke gambar placeholder lokal
+                                            width: 45.sp,
+                                            height: 45.sp,
+                                            fit: BoxFit.fill,
+                                          );
+                                        },
+                                        loadingBuilder:
+                                            (context, child, loadingProgress) {
+                                          if (loadingProgress == null) {
+                                            return child;
+                                          }
+
+                                          return Shimmer.fromColors(
+                                              baseColor:
+                                                  greyColor.withOpacity(0.2),
+                                              highlightColor: whiteColor,
+                                              child: Container(
+                                                height: 45.sp,
+                                                width: 45.sp,
+                                                decoration: BoxDecoration(
+                                                    color: greyColor,
+                                                    shape: BoxShape.circle),
                                               ));
-                                        } else {
-                                          //
-                                          debugPrint("tes topup2");
-
-                                          context
-                                              .read<ProviderPayment>()
-                                              .getListTopUp(context);
-                                        }
-                                      },
-                                      child: Icon(
-                                        CupertinoIcons.plus_circle_fill,
-                                        color: primaryColor,
-                                        size: 23,
-                                      ));
-                                })
-                              ],
-                            ),
-                          )),
-                      GestureDetector(
-                        onTap: () {
-                          widget.klickTab(3);
-                        },
-                        child: valueUser.isLoading
-                            ? Shimmer.fromColors(
-                                baseColor: greyColor.withOpacity(0.2),
-                                highlightColor: whiteColor,
-                                child: Container(
-                                  height: 54,
-                                  width: 54,
-                                  decoration: BoxDecoration(
-                                      color: greyColor, shape: BoxShape.circle),
-                                ))
-                            : valueUser.dataUser?.image != null
-                                ? ClipRRect(
-                                    borderRadius: BorderRadius.circular(100),
-                                    child: Image.network(
-                                      "${valueUser.dataUser?.image}",
-                                      width: 56,
-                                      height: 56,
-                                      fit: BoxFit.fill,
-                                      errorBuilder: (BuildContext context,
-                                          Object exception,
-                                          StackTrace? stackTrace) {
-                                        // Tampilkan gambar placeholder jika terjadi error
-                                        return Image.asset(
-                                          'images/default_user.png', // Path ke gambar placeholder lokal
-                                          width: 56,
-                                          height: 56,
-                                          fit: BoxFit.fill,
-                                        );
-                                      },
-                                      loadingBuilder:
-                                          (context, child, loadingProgress) {
-                                        if (loadingProgress == null) {
-                                          return child;
-                                        }
-
-                                        return Shimmer.fromColors(
-                                            baseColor:
-                                                greyColor.withOpacity(0.2),
-                                            highlightColor: whiteColor,
-                                            child: Container(
-                                              height: 56,
-                                              width: 56,
-                                              decoration: BoxDecoration(
-                                                  color: greyColor,
-                                                  shape: BoxShape.circle),
-                                            ));
-                                      },
+                                        },
+                                      ),
+                                    )
+                                  : ClipRRect(
+                                      borderRadius: BorderRadius.circular(100),
+                                      child: Image.asset(
+                                        "images/default_user.png",
+                                        width: 56,
+                                        height: 56,
+                                        color: whiteColor,
+                                      ),
                                     ),
-                                  )
-                                : ClipRRect(
-                                    borderRadius: BorderRadius.circular(100),
-                                    child: Image.asset(
-                                      "images/default_user.png",
-                                      width: 56,
-                                      height: 56,
-                                      color: whiteColor,
-                                    ),
-                                  ),
+                        ),
                       )
                     ],
                   ),
