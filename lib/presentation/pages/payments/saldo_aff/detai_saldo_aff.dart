@@ -186,7 +186,7 @@ class _DetailSaldoAffState extends State<DetailSaldoAff> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 2,
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -215,13 +215,13 @@ class _DetailSaldoAffState extends State<DetailSaldoAff> {
                   Nav.to(const TopupSaldoPage());
                 },
               ),
-              gapH40,
-              RekeningInfoWidget(
-                nama: 'Fadlan Zholifunnas Soemarta',
-                tanggal: '12/09/2024',
-                namaBank: 'Bank Central Asia',
-                nomorRekening: '0918373103284210',
-              ),
+              // gapH40,
+              // RekeningInfoWidget(
+              //   nama: 'Fadlan Zholifunnas Soemarta',
+              //   tanggal: '12/09/2024',
+              //   namaBank: 'Bank Central Asia',
+              //   nomorRekening: '0918373103284210',
+              // ),
               gapH20,
 
               // Tombol Filter (Pop-up Dialog)
@@ -244,7 +244,7 @@ class _DetailSaldoAffState extends State<DetailSaldoAff> {
                 tabs: [
                   Tab(text: 'Semua'),
                   Tab(text: 'Penambahan'),
-                  Tab(text: 'Penarikan'),
+                  // Tab(text: 'Penarikan'),
                 ],
               ),
               Expanded(
@@ -253,8 +253,8 @@ class _DetailSaldoAffState extends State<DetailSaldoAff> {
                     buildTransactionList(_getFilteredTransactions()),
                     buildTransactionList(_getFilteredTransactions()
                         .where((t) => t["type"] == "Top Up").toList()),
-                    buildTransactionList(_getFilteredTransactions()
-                        .where((t) => t["type"] == "Pengurangan").toList()),
+                    // buildTransactionList(_getFilteredTransactions()
+                    //     .where((t) => t["type"] == "Pengurangan").toList()),
                   ],
                 ),
               ),

@@ -190,6 +190,17 @@ class ProviderAuth extends ChangeNotifier {
         debugPrint("Login berhasil: ${credential.user?.email}");
         debugPrint("Login berhasil: ${password.trim()}");
       } on FirebaseAuthException catch (e) {
+        NotificationUtils.showDialogError(
+          context,
+              () {
+            Nav.back();
+          },
+          widget: Text(
+            res.message ?? "",
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 16),
+          ),
+        );
         // **Jika Error 'user-not-found', Buat Akun Baru**
         debugPrint("Login gagal: $e");
         debugPrint("Login gagal: ${res.data?.email.trim()}");

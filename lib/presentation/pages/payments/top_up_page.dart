@@ -30,7 +30,7 @@ class _TopUpPageState extends State<TopUpPage> {
 
   DataListTopUp? dataListTopUpCheckout;
 
-  double lowestPrice = 0.0, highestPrice = 0.0;
+  double lowestPrice = 0.0, highestPrice = 10000000;
   bool hasId2 = false, hasId3 = false;
 
   String? validateInput(String? value) {
@@ -348,48 +348,48 @@ class _TopUpPageState extends State<TopUpPage> {
                     const SizedBox(
                       height: 8,
                     ),
-                    islainnya == true
-                        ? TextFormField(
-                            validator: (val) {
-                              return validateInput(val);
-                            },
-                            controller: amountController,
-                            onChanged: (val) {
-                              setState(() {
-                                double enteredValue =
-                                    double.tryParse(val) ?? 0.0;
-
-                                int moduloResult = enteredValue ~/ lowestPrice;
-
-                                if (moduloResult != 0) {
-                                  dataListTopUpCheckout?.qty =
-                                      moduloResult.toString();
-                                }
-                              });
-                            },
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10)),
-                              hintText: S.of(context).manual_input,
-                              hintStyle:
-                                  const TextStyle(fontWeight: FontWeight.w300),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 16),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: greyColor),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: greyColor),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                          )
-                        : const SizedBox(
-                            height: 0,
-                            width: 0,
-                          ),
+                    // islainnya == true
+                    //     ? TextFormField(
+                    //         validator: (val) {
+                    //           return validateInput(val);
+                    //         },
+                    //         controller: amountController,
+                    //         onChanged: (val) {
+                    //           setState(() {
+                    //             double enteredValue =
+                    //                 double.tryParse(val) ?? 0.0;
+                    //
+                    //             int moduloResult = enteredValue ~/ lowestPrice;
+                    //
+                    //             if (moduloResult != 0) {
+                    //               dataListTopUpCheckout?.qty =
+                    //                   moduloResult.toString();
+                    //             }
+                    //           });
+                    //         },
+                    //         keyboardType: TextInputType.number,
+                    //         decoration: InputDecoration(
+                    //           border: OutlineInputBorder(
+                    //               borderRadius: BorderRadius.circular(10)),
+                    //           hintText: S.of(context).manual_input,
+                    //           hintStyle:
+                    //               const TextStyle(fontWeight: FontWeight.w300),
+                    //           contentPadding: const EdgeInsets.symmetric(
+                    //               horizontal: 16, vertical: 16),
+                    //           enabledBorder: OutlineInputBorder(
+                    //             borderSide: BorderSide(color: greyColor),
+                    //             borderRadius: BorderRadius.circular(10),
+                    //           ),
+                    //           focusedBorder: OutlineInputBorder(
+                    //             borderSide: BorderSide(color: greyColor),
+                    //             borderRadius: BorderRadius.circular(10),
+                    //           ),
+                    //         ),
+                    //       )
+                    //     : const SizedBox(
+                    //         height: 0,
+                    //         width: 0,
+                    //       ),
                     const SizedBox(
                       height: 16,
                     ),
