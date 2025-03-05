@@ -8,9 +8,6 @@ class ApiEndpoint {
 
   static void setDev() {
     baseUrl = "https://cool-new.dschazy.com";
-    // baseUrl = "https://cool-staging.dschazy.com";
-
-    // baseUrl = "https://staging-cool.hantrr.com";
   }
 
   /// Sets the base URL to "https://cool-compass.mycool.id" for production environment.
