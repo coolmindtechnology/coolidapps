@@ -1,4 +1,6 @@
 import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/konsultasi/konsultant/chat/New_Chat.dart';
+import 'package:coolappflutter/presentation/pages/konsultasi/normal_user/chat/New_UserChat.dart';
 
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
@@ -109,7 +111,7 @@ class _TabSesiState extends State<TabSesi> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(body:
-    Consumer<ProviderConsultation>(builder: (context, provider, child) {
+        Consumer<ProviderConsultation>(builder: (context, provider, child) {
       if (provider.isLoading) {
         return Center(child: CircularProgressIndicator());
       }
@@ -152,30 +154,40 @@ class _TabSesiState extends State<TabSesi> {
                   location: consultation.consultantAddress ?? '-',
                   time: "${consultation.timeSelected}",
                   timeRemaining:
-                  '${consultation.remainingMinutes ?? '-'} ${S.of(context).Minutes_Left}',
+                      '${consultation.remainingMinutes ?? '-'} ${S.of(context).Minutes_Left}',
                   timeColor: BlueColor,
                   status: S.of(context).Session_Begins_In,
                   warnastatus: Colors.lightBlueAccent.shade100,
                   onTap: () {
-                    _handlePressed(
-                        user,
-                        context,
-                        consultation.id.toString(),
-                        user,
-                        consultation.consultantId.toString(),
-                        consultation.consultantImage ?? '-',
-                        consultation.consultantName ?? '-',
-                        consultation.consultantTypeBrain ?? '-',
-                        consultation.consultantBloodType ?? '-',
-                        consultation.consultantAddress ?? '-',
-                        "${consultation.timeSelected}",
-                        '${consultation.remainingMinutes ?? '-'} ${S.of(context).Minutes_Left}',
-                        BlueColor,
-                        consultation.status.toString(),
-                        Colors.lightBlueAccent.shade100,
-                        consultation.theme.toString(),
-                        consultation.sessionStatus.toString(),
-                        consultation.explanation.toString());
+                    Nav.to(NewUserChatPage(
+                      reciverUserID:
+                          consultation.firebaseConf!.consultantIds.toString(),
+                      nama: consultation!.consultantName.toString(),
+                      tipeotak: consultation.consultantTypeBrain ?? '-',
+                      waktu: consultation.timeSelected.toString(),
+                      Tema: consultation.theme.toString(),
+                      image: consultation.consultantImage.toString(),
+                    ));
+                    // _handlePressed(
+                    //     user,
+                    //     context,
+                    //     consultation.id.toString(),
+                    //     user,
+                    //     consultation.consultantId.toString(),
+                    //     consultation.consultantImage ?? '-',
+                    //     consultation.consultantName ?? '-',
+                    //     consultation.consultantTypeBrain ?? '-',
+                    //     consultation.consultantBloodType ?? '-',
+                    //     consultation.consultantAddress ?? '-',
+                    //     "${consultation.timeSelected}",
+                    //     '${consultation.remainingMinutes ?? '-'} ${S.of(context).Minutes_Left}',
+                    //     BlueColor,
+                    //     consultation.status.toString(),
+                    //     Colors.lightBlueAccent.shade100,
+                    //     consultation.theme.toString(),
+                    //     consultation.sessionStatus.toString(),
+                    //     consultation.explanation.toString());
+
                     // Navigator.push(
                     //     context,
                     //     MaterialPageRoute(

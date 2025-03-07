@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-ResponseListConsultation responseListConsultationromJson(String str) =>
+ResponseListConsultation responseListConsultationFromJson(String str) =>
     ResponseListConsultation.fromJson(json.decode(str));
 
 String responseListConsultationToJson(ResponseListConsultation data) =>
@@ -47,18 +47,18 @@ class Datas {
 
   Datas(
       {this.currentPage,
-      this.data,
-      this.firstPageUrl,
-      this.from,
-      this.lastPage,
-      this.lastPageUrl,
-      this.links,
-      this.nextPageUrl,
-      this.path,
-      this.perPage,
-      this.prevPageUrl,
-      this.to,
-      this.total});
+        this.data,
+        this.firstPageUrl,
+        this.from,
+        this.lastPage,
+        this.lastPageUrl,
+        this.links,
+        this.nextPageUrl,
+        this.path,
+        this.perPage,
+        this.prevPageUrl,
+        this.to,
+        this.total});
 
   Datas.fromJson(Map<String, dynamic> json) {
     currentPage = json['current_page'];
@@ -118,7 +118,7 @@ class Data {
   String? consultantTypeBrain;
   String? consultantAddress;
   String? sessionStatus;
-  int? rating;
+  double? rating;
   int? remainingMinutes;
   String? sessionStart;
   String? sessionEnd;
@@ -126,24 +126,28 @@ class Data {
   bool? status;
   String? theme;
   String? explanation;
+  String? price;
+  FirebaseConf? firebaseConf;
 
   Data(
       {this.id,
-      this.consultantId,
-      this.consultantImage,
-      this.consultantName,
-      this.consultantBloodType,
-      this.consultantTypeBrain,
-      this.consultantAddress,
-      this.sessionStatus,
-      this.rating,
-      this.remainingMinutes,
-      this.sessionStart,
-      this.sessionEnd,
-      this.timeSelected,
-      this.status,
-      this.theme,
-      this.explanation});
+        this.consultantId,
+        this.consultantImage,
+        this.consultantName,
+        this.consultantBloodType,
+        this.consultantTypeBrain,
+        this.consultantAddress,
+        this.sessionStatus,
+        this.rating,
+        this.remainingMinutes,
+        this.sessionStart,
+        this.sessionEnd,
+        this.timeSelected,
+        this.status,
+        this.theme,
+        this.explanation,
+        this.price,
+        this.firebaseConf});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -154,7 +158,7 @@ class Data {
     consultantTypeBrain = json['consultant_type_brain'];
     consultantAddress = json['consultant_address'];
     sessionStatus = json['session_status'];
-    rating = json['rating'];
+    rating = (json['rating'] ?? 0).toDouble();
     remainingMinutes = json['remaining_minutes'];
     sessionStart = json['session_start'];
     sessionEnd = json['session_end'];
@@ -162,6 +166,10 @@ class Data {
     status = json['status'];
     theme = json['theme'];
     explanation = json['explanation'];
+    price = json['price'];
+    firebaseConf = json['firebase_conf'] != null
+        ? FirebaseConf.fromJson(json['firebase_conf'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -182,6 +190,32 @@ class Data {
     data['status'] = status;
     data['theme'] = theme;
     data['explanation'] = explanation;
+    data['price'] = price;
+    if (firebaseConf != null) {
+      data['firebase_conf'] = firebaseConf!.toJson();
+    }
+    return data;
+  }
+}
+
+class FirebaseConf {
+  String? participantIds;
+  String? consultantIds;
+  String? roomIds;
+
+  FirebaseConf({this.participantIds, this.consultantIds, this.roomIds});
+
+  FirebaseConf.fromJson(Map<String, dynamic> json) {
+    participantIds = json['participant_ids'];
+    consultantIds = json['consultant_ids'];
+    roomIds = json['room_ids'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['participant_ids'] = participantIds;
+    data['consultant_ids'] = consultantIds;
+    data['room_ids'] = roomIds;
     return data;
   }
 }

@@ -6,6 +6,7 @@ import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/detil_c
 import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/pop-upwarning.dart';
 import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/profile_card.dart';
 import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/non_konsultasi.dart';
+import 'package:coolappflutter/presentation/pages/konsultasi/konsultant/chat/New_Chat.dart';
 import 'package:coolappflutter/presentation/pages/konsultasi/konsultant/chat/chat_consultant.dart';
 import 'package:coolappflutter/presentation/pages/konsultasi/konsultant/chat/chatbox.dart';
 import 'package:coolappflutter/presentation/pages/konsultasi/konsultant/chat/rooms_konsultant.dart';
@@ -38,7 +39,6 @@ class _TabSesiKonsultantState extends State<TabSesiKonsultant> {
 
   void _handlePressed(
       types.User otherUser, BuildContext context, String id) async {
-
     final navigator = Navigator.of(context);
 
     // Cek apakah pengguna ada di Firestore
@@ -69,8 +69,6 @@ class _TabSesiKonsultantState extends State<TabSesiKonsultant> {
       debugPrint("❌ Gagal membuat room: $e");
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -110,7 +108,7 @@ class _TabSesiKonsultantState extends State<TabSesiKonsultant> {
                                         .profilePicture, // Gambar profil
                                     name: participant.participantName ??
                                         '', // Nama peserta
-                                    title: participant.personalityType ??
+                                    title: participant.type ??
                                         '', // Jenis konsultasi
                                     bloodType: participant.bloodType ??
                                         'Unknown', // Golongan darah
@@ -124,32 +122,47 @@ class _TabSesiKonsultantState extends State<TabSesiKonsultant> {
                                     warnastatus:
                                         Colors.lightBlueAccent.shade100,
                                     onTap: () {
+                                      Nav.to(NewChatPage(
+                                        reciverUserID: participant
+                                                .firebaseConf?.participantIds
+                                                .toString() ??
+                                            'data kosong',
+                                        nama: participant.participantName
+                                            .toString(),
+                                        image: participant.profilePicture
+                                            .toString(),
+                                        Tema: participant.theme.toString(),
+                                        waktu: participant.consultationTime
+                                            .toString(),
+                                        tipeotak: participant.personalityType.toString(),
+                                      ));
+
                                       // Nav.to(RoomsPageKonsultan(idUser: ""));
-                                      _handlePressed(
-                                          user,
-                                          context,
-                                          provider.listParticipant[index]
-                                              .consultationId
-                                              .toString());
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return Dialog(
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(15.0),
-                                            ),
-                                            child: SizedBox(
-                                                height: 380,
-                                                child: WarningStartSession(
-                                                  idUser: provider
-                                                      .listParticipant[index]
-                                                      .consultationId
-                                                      .toString(),
-                                                )),
-                                          );
-                                        },
-                                      );
+                                      // _handlePressed(
+                                      //     user,
+                                      //     context,
+                                      //     provider.listParticipant[index]
+                                      //         .consultationId
+                                      //         .toString());
+                                      // showDialog(
+                                      //   context: context,
+                                      //   builder: (BuildContext context) {
+                                      //     return Dialog(
+                                      //       shape: RoundedRectangleBorder(
+                                      //         borderRadius:
+                                      //             BorderRadius.circular(15.0),
+                                      //       ),
+                                      //       child: SizedBox(
+                                      //           height: 380,
+                                      //           child: WarningStartSession(
+                                      //             idUser: provider
+                                      //                 .listParticipant[index]
+                                      //                 .consultationId
+                                      //                 .toString(),
+                                      //           )),
+                                      //     );
+                                      //   },
+                                      // );
                                     }, // Aksi jika ada
                                   ),
                                   RequestContainer(
