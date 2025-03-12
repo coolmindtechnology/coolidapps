@@ -30,7 +30,7 @@ class _TopUpPageState extends State<TopUpPage> {
 
   DataListTopUp? dataListTopUpCheckout;
 
-  double lowestPrice = 0.0, highestPrice = 10000000;
+  double lowestPrice = 0.0, highestPrice = 0.0;
   bool hasId2 = false, hasId3 = false;
 
   String? validateInput(String? value) {
@@ -148,13 +148,13 @@ class _TopUpPageState extends State<TopUpPage> {
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
                           DataListTopUp dataListTopUp =
-                              value.listDataListTopUp![index];
+                          value.listDataListTopUp![index];
 
                           for (final item in value.listDataListTopUp!) {
                             final int id = item.id ?? 0;
 
                             final double price =
-                                double.parse(item.price ?? "0");
+                            double.parse(item.price ?? "0");
 
                             if (id == 3) {
                               lowestPrice = price;
@@ -175,27 +175,27 @@ class _TopUpPageState extends State<TopUpPage> {
                             return GestureDetector(
                               onTap: dataListTopUp.status == "AKTIF"
                                   ? () {
-                                      if (dataListTopUp.id == 1) {
-                                        setState(() {
-                                          islainnya = true;
-                                        });
+                                if (dataListTopUp.id == 1) {
+                                  setState(() {
+                                    islainnya = true;
+                                  });
 
-                                        amountController.clear();
-                                      } else {
-                                        setState(() {
-                                          islainnya = false;
-                                        });
-                                        amountController.clear();
-                                        amountController.text = (double.parse(
-                                                dataListTopUp.price ?? "0"))
-                                            .toString();
-                                      }
-                                      selected = index;
+                                  amountController.clear();
+                                } else {
+                                  setState(() {
+                                    islainnya = false;
+                                  });
+                                  amountController.clear();
+                                  amountController.text = (double.parse(
+                                      dataListTopUp.price ?? "0"))
+                                      .toString();
+                                }
+                                selected = index;
 
-                                      setState(() {
-                                        dataListTopUpCheckout = dataListTopUp;
-                                      });
-                                    }
+                                setState(() {
+                                  dataListTopUpCheckout = dataListTopUp;
+                                });
+                              }
                                   : null,
                               // color: dataListTopUp.status != "AKTIF"
                               //     ? greyColor
@@ -208,30 +208,30 @@ class _TopUpPageState extends State<TopUpPage> {
                                   borderRadius: BorderRadius.circular(10),
                                   gradient: index == 0
                                       ? LinearGradient(
-                                          colors: [
-                                            Color(0xFF44BBFE),
-                                            Color(0xFF1E78FE)
-                                          ],
-                                          begin: Alignment.topCenter,
-                                          end: Alignment.bottomCenter,
-                                        )
+                                    colors: [
+                                      Color(0xFF44BBFE),
+                                      Color(0xFF1E78FE)
+                                    ],
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                  )
                                       : index == 1
-                                          ? LinearGradient(
-                                              colors: [
-                                                Color(0xFFFFCF53),
-                                                Color(0xFFFF9900)
-                                              ],
-                                              begin: Alignment.topCenter,
-                                              end: Alignment.bottomCenter,
-                                            )
-                                          : LinearGradient(
-                                              colors: [
-                                                Color(0xFFFF9252),
-                                                Color(0xFFFF3F15)
-                                              ],
-                                              begin: Alignment.topCenter,
-                                              end: Alignment.bottomCenter,
-                                            ),
+                                      ? LinearGradient(
+                                    colors: [
+                                      Color(0xFFFFCF53),
+                                      Color(0xFFFF9900)
+                                    ],
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                  )
+                                      : LinearGradient(
+                                    colors: [
+                                      Color(0xFFFF9252),
+                                      Color(0xFFFF3F15)
+                                    ],
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                  ),
                                   boxShadow: [
                                     BoxShadow(
                                       color: Colors.black.withOpacity(0.2),
@@ -251,18 +251,18 @@ class _TopUpPageState extends State<TopUpPage> {
                                     ),
                                     SizedBox(
                                         width:
-                                            12), // Jarak antara gambar dan teks
+                                        12), // Jarak antara gambar dan teks
 
                                     // Kolom teks
                                     Column(
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                      CrossAxisAlignment.start,
                                       mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      MainAxisAlignment.center,
                                       children: [
                                         Text(
                                           value.listDataListTopUp?[index]
-                                                  .name ??
+                                              .name ??
                                               "",
                                           style: TextStyle(
                                             fontSize: 16,
@@ -348,62 +348,62 @@ class _TopUpPageState extends State<TopUpPage> {
                     const SizedBox(
                       height: 8,
                     ),
-                    // islainnya == true
-                    //     ? TextFormField(
-                    //         validator: (val) {
-                    //           return validateInput(val);
-                    //         },
-                    //         controller: amountController,
-                    //         onChanged: (val) {
-                    //           setState(() {
-                    //             double enteredValue =
-                    //                 double.tryParse(val) ?? 0.0;
-                    //
-                    //             int moduloResult = enteredValue ~/ lowestPrice;
-                    //
-                    //             if (moduloResult != 0) {
-                    //               dataListTopUpCheckout?.qty =
-                    //                   moduloResult.toString();
-                    //             }
-                    //           });
-                    //         },
-                    //         keyboardType: TextInputType.number,
-                    //         decoration: InputDecoration(
-                    //           border: OutlineInputBorder(
-                    //               borderRadius: BorderRadius.circular(10)),
-                    //           hintText: S.of(context).manual_input,
-                    //           hintStyle:
-                    //               const TextStyle(fontWeight: FontWeight.w300),
-                    //           contentPadding: const EdgeInsets.symmetric(
-                    //               horizontal: 16, vertical: 16),
-                    //           enabledBorder: OutlineInputBorder(
-                    //             borderSide: BorderSide(color: greyColor),
-                    //             borderRadius: BorderRadius.circular(10),
-                    //           ),
-                    //           focusedBorder: OutlineInputBorder(
-                    //             borderSide: BorderSide(color: greyColor),
-                    //             borderRadius: BorderRadius.circular(10),
-                    //           ),
-                    //         ),
-                    //       )
-                    //     : const SizedBox(
-                    //         height: 0,
-                    //         width: 0,
-                    //       ),
+                    islainnya == true
+                        ? TextFormField(
+                      validator: (val) {
+                        return validateInput(val);
+                      },
+                      controller: amountController,
+                      onChanged: (val) {
+                        setState(() {
+                          double enteredValue =
+                              double.tryParse(val) ?? 0.0;
+
+                          int moduloResult = enteredValue ~/ lowestPrice;
+
+                          if (moduloResult != 0) {
+                            dataListTopUpCheckout?.qty =
+                                moduloResult.toString();
+                          }
+                        });
+                      },
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        hintText: S.of(context).manual_input,
+                        hintStyle:
+                        const TextStyle(fontWeight: FontWeight.w300),
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 16),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: greyColor),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: greyColor),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                    )
+                        : const SizedBox(
+                      height: 0,
+                      width: 0,
+                    ),
                     const SizedBox(
                       height: 16,
                     ),
                     if (amountController.text.isNotEmpty) ...[
                       if (hasId2 && hasId3) ...[
                         if (double.tryParse(amountController.text)! %
-                                lowestPrice ==
+                            lowestPrice ==
                             0) ...[
                           RichText(
                             text: TextSpan(
                               children: <TextSpan>[
                                 TextSpan(
                                     text:
-                                        "${S.of(context).the_amount_of_money_that_will_be_paid} ${S.of(context).is_adalah} ",
+                                    "${S.of(context).the_amount_of_money_that_will_be_paid} ${S.of(context).is_adalah} ",
                                     style: TextStyle(
                                         color: greyColor,
                                         fontSize: 14,
@@ -424,14 +424,14 @@ class _TopUpPageState extends State<TopUpPage> {
                         ] else ...[
                           Text(
                             "${S.of(context).the_minimum_amount_that_must_be(
-                                  MoneyFormatter.formatMoney(
-                                    lowestPrice,
-                                    true,
-                                  ).toString(),
-                                )} ${S.of(context).paid_and_the_maximum_amount(MoneyFormatter.formatMoney(
-                                  highestPrice,
-                                  true,
-                                ).toString())} ${S.of(context).if_it_is_less_than_maximum_amount_and_more_than_minimum_amount}",
+                              MoneyFormatter.formatMoney(
+                                lowestPrice,
+                                true,
+                              ).toString(),
+                            )} ${S.of(context).paid_and_the_maximum_amount(MoneyFormatter.formatMoney(
+                              highestPrice,
+                              true,
+                            ).toString())} ${S.of(context).if_it_is_less_than_maximum_amount_and_more_than_minimum_amount}",
                             style: const TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.w400,
@@ -445,7 +445,7 @@ class _TopUpPageState extends State<TopUpPage> {
                             children: <TextSpan>[
                               TextSpan(
                                   text:
-                                      "${S.of(context).the_amount_of_money_that_will_be_paid} ${S.of(context).is_adalah} ",
+                                  "${S.of(context).the_amount_of_money_that_will_be_paid} ${S.of(context).is_adalah} ",
                                   style: TextStyle(
                                       color: greyColor,
                                       fontSize: 14,
@@ -470,7 +470,7 @@ class _TopUpPageState extends State<TopUpPage> {
                             children: <TextSpan>[
                               TextSpan(
                                   text:
-                                      "${S.of(context).the_amount_of_money_that_will_be_paid} ${S.of(context).is_adalah} ",
+                                  "${S.of(context).the_amount_of_money_that_will_be_paid} ${S.of(context).is_adalah} ",
                                   style: TextStyle(
                                       color: greyColor,
                                       fontSize: 14,
@@ -495,7 +495,7 @@ class _TopUpPageState extends State<TopUpPage> {
                       width: 360,
                       height: 138,
                       padding:
-                          EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+                      EdgeInsets.symmetric(vertical: 12, horizontal: 20),
                       decoration: BoxDecoration(
                         color: Color(0xFFDBFEFD),
                         borderRadius: BorderRadius.circular(
@@ -571,41 +571,41 @@ class _TopUpPageState extends State<TopUpPage> {
                       height: 54,
                       child: value.isCreatePayment
                           ? CircularProgressWidget(
-                              color: primaryColor,
-                            )
+                        color: primaryColor,
+                      )
                           : ButtonPrimary(
-                              S.of(context).next,
-                              expand: true,
-                              radius: 10,
-                              onPress: () {
-                                if (formKey.currentState!.validate()) {
-                                  setState(() {
-                                    dataCheckoutTransaction =
-                                        DataCheckoutTransaction(
-                                            price: Decimal.parse(
-                                              amountController.text,
-                                            ),
-                                            idItemPayments:
-                                                dataListTopUpCheckout
-                                                    ?.idItemPayments
-                                                    .toString(),
-                                            qty: int.parse(dataListTopUpCheckout
-                                                    ?.qty
-                                                    .toString() ??
-                                                "0"),
-                                            transactionType: "Topup Deposit",
-                                            discount: dataListTopUpCheckout
-                                                ?.discount
-                                                .toString(),
-                                            gateway: dataGlobal.isIndonesia
-                                                ? 'midrans'
-                                                : "paypal");
-                                  });
-                                  value.createTopupTransaction(
-                                      context, dataCheckoutTransaction);
-                                }
-                              },
-                            ),
+                        S.of(context).next,
+                        expand: true,
+                        radius: 10,
+                        onPress: () {
+                          if (formKey.currentState!.validate()) {
+                            setState(() {
+                              dataCheckoutTransaction =
+                                  DataCheckoutTransaction(
+                                      price: Decimal.parse(
+                                        amountController.text,
+                                      ),
+                                      idItemPayments:
+                                      dataListTopUpCheckout
+                                          ?.idItemPayments
+                                          .toString(),
+                                      qty: int.parse(dataListTopUpCheckout
+                                          ?.qty
+                                          .toString() ??
+                                          "0"),
+                                      transactionType: "Topup Deposit",
+                                      discount: dataListTopUpCheckout
+                                          ?.discount
+                                          .toString(),
+                                      gateway: dataGlobal.isIndonesia
+                                          ? 'midrans'
+                                          : "paypal");
+                            });
+                            value.createTopupTransaction(
+                                context, dataCheckoutTransaction);
+                          }
+                        },
+                      ),
                     )
                   ],
                 ],

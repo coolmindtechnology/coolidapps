@@ -37,14 +37,17 @@ class _ProfilingDashboardState extends State<ProfilingDashboard> with SingleTick
   void initState() {
     super.initState();
     tabController = TabController(length: 6, vsync: this, initialIndex: 0);
-    // Filter data untuk index awal (semua data)
-    context.read<ProviderProfiling>().filterProfilingData(_selectedIndex);
-   initHome();
 
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<ProviderProfiling>().filterProfilingData(_selectedIndex);
+      initHome();
+    });
   }
-  initHome() async {
+
+  void initHome() async {
     await context.read<ProviderProfiling>().getListProfiling(context);
   }
+
 
   void _onTabSelected(int index) {
     setState(() {

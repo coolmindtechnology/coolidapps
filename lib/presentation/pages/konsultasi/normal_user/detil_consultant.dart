@@ -1,3 +1,4 @@
+import 'package:coolappflutter/presentation/pages/konsultasi/normal_user/chat/New_UserChat.dart';
 import 'package:coolappflutter/presentation/pages/konsultasi/normal_user/chat/firebase_chat/rooms.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,8 @@ class DetailConsultant extends StatefulWidget {
   final String idUser;
   final types.User? user;
   final String? idConsultant;
+  final String? idConsultation;
+  final String? idreciver;
 
   const DetailConsultant(
       {super.key,
@@ -47,8 +50,7 @@ class DetailConsultant extends StatefulWidget {
       required this.statusSession,
       required this.deskripsi,
       required this.idUser,
-      this.user,
-      this.idConsultant});
+      this.user, required this.idConsultant,required this.idConsultation,required this.idreciver,});
 
   @override
   State<DetailConsultant> createState() => _DetailConsultantState();
@@ -63,22 +65,22 @@ class _DetailConsultantState extends State<DetailConsultant> {
     super.initState();
   }
 
-  void _handlePressed(types.User otherUser, BuildContext context) async {
-    final navigator = Navigator.of(context);
-    final room = await FirebaseChatCore.instance.createRoom(otherUser);
-    debugPrint("cek id users ${room.id}");
-
-    navigator.pop();
-    await navigator.push(
-      MaterialPageRoute(
-        builder: (context) => ChatPage(
-          idUser: widget.idUser,
-          room: room,
-          idConsultation: widget.idConsultant,
-        ),
-      ),
-    );
-  }
+  // void _handlePressed(types.User otherUser, BuildContext context) async {
+  //   final navigator = Navigator.of(context);
+  //   final room = await FirebaseChatCore.instance.createRoom(otherUser);
+  //   debugPrint("cek id users ${room.id}");
+  //
+  //   navigator.pop();
+  //   await navigator.push(
+  //     MaterialPageRoute(
+  //       builder: (context) => ChatPage(
+  //         idUser: widget.idUser,
+  //         room: room,
+  //         idConsultation: widget.idConsultant,
+  //       ),
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -205,12 +207,23 @@ class _DetailConsultantState extends State<DetailConsultant> {
                       if (widget.statusSession.toString() == "waiting") {
                         Navigator.pop(context);
                       } else {
+                        // Future.delayed(Duration(seconds: 3), () {
+                        //   _handlePressed(widget.user!, context);
+                        //   // Nav.to(RoomsPage(idUser: widget.idUser));
+                        //   // ChatPage(status: true),
+                        // });
                         Future.delayed(Duration(seconds: 3), () {
-                          _handlePressed(widget.user!, context);
-                          // Nav.to(RoomsPage(idUser: widget.idUser));
-                          // ChatPage(status: true),
-                        });
-                      }
+                            Nav.toAll(NewUserChatPage(
+                            consultantID: widget.idConsultant.toString(),
+                            consultationID: widget.idConsultation.toString(),
+                            reciverUserID: widget.idreciver.toString(),
+                            nama: widget.name,
+                            tipeotak: widget.title,
+                            waktu: widget.time,
+                            Tema: widget.getTopik,
+                            image: widget.imagePath, status: true,
+                            ));
+                        }); }
 
                       return Dialog(
                         shape: RoundedRectangleBorder(

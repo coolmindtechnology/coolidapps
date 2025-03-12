@@ -51,7 +51,7 @@ class _TabRequestState extends State<TabRequest> {
   @override
   void initState() {
     Provider.of<ProviderConsultation>(context, listen: false)
-        .getListConsultations(context, "requested");
+        .getListConsultations(context, "requested","consultation");
     super.initState();
   }
 
@@ -92,22 +92,32 @@ class _TabRequestState extends State<TabRequest> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => DetailConsultant(
-                          idUser: consultation.id.toString(),
-                          imagePath: consultation.consultantImage ?? '-',
-                          name: consultation.consultantName ?? '-',
-                          title: consultation.consultantTypeBrain ?? '-',
-                          bloodType: consultation.consultantBloodType ?? '-',
-                          location: consultation.consultantAddress ?? '-',
-                          time: "${consultation.timeSelected}",
-                          timeRemaining:
-                              '${consultation.remainingMinutes ?? '-'} ${S.of(context).Minutes_Left}',
-                          timeColor: BlueColor,
-                          status: consultation.status.toString(),
-                          warnastatus: Colors.lightBlueAccent.shade100,
-                          getTopik: consultation.theme.toString(),
-                          statusSession: consultation.sessionStatus.toString(),
-                          deskripsi: consultation.explanation.toString())));
+                    builder: (context) => DetailConsultant(
+                      idUser: consultation.id.toString(),
+                      imagePath: consultation.consultantImage ?? '-',
+                      name: consultation.consultantName ?? '-',
+                      title: consultation.consultantTypeBrain ?? '-',
+                      bloodType:
+                      consultation.consultantBloodType ?? '-',
+                      location: consultation.consultantAddress ?? '-',
+                      time: "${consultation.timeSelected}",
+                      timeRemaining:
+                      '${consultation.remainingMinutes ?? '-'} ${S.of(context).Minutes_Left}',
+                      timeColor: BlueColor,
+                      status: consultation.status.toString(),
+                      warnastatus: Colors.lightBlueAccent.shade100,
+                      getTopik: consultation.theme.toString(),
+                      statusSession:
+                      consultation.sessionStatus.toString(),
+                      deskripsi:
+                      consultation.explanation.toString(),
+                      idConsultation: consultation.id.toString(),
+                      idConsultant: consultation.consultantId.toString(),
+                      idreciver: consultation.firebaseConf!.consultantIds.toString(),
+
+                    ),
+
+                  ));
             }, // Aksi jika ada
           );
         },

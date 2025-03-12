@@ -1,6 +1,7 @@
 import 'package:coolappflutter/generated/l10n.dart';
 
 import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/konsultasi_page.dart';
+import 'package:coolappflutter/presentation/pages/main/nav_home.dart';
 
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
@@ -17,17 +18,17 @@ import 'profile_card.dart';
 class SummaryConsultant extends StatefulWidget {
   const SummaryConsultant(
       {super.key,
-      required this.consultId,
-      required this.themeId,
-      required this.partisipant,
-      required this.typeSession,
-      required this.time,
-      required this.imagePath,
-      required this.name,
-      required this.title,
-      required this.bloodType,
-      required this.location,
-      required this.getSesi});
+        required this.consultId,
+        required this.themeId,
+        required this.partisipant,
+        required this.typeSession,
+        required this.time,
+        required this.imagePath,
+        required this.name,
+        required this.title,
+        required this.bloodType,
+        required this.location,
+        required this.getSesi});
   final String consultId;
   final String themeId;
   final String partisipant;
@@ -174,7 +175,7 @@ class _SummaryConsultantState extends State<SummaryConsultant> {
                         builder: (BuildContext context) {
                           // Timer untuk navigasi otomatis setelah 3 detik
                           Future.delayed(Duration(seconds: 3), () {
-                            Nav.toAll(KonsultasiPage()); // Ganti ke rute tujuan
+                            Nav.toAll(NavMenuScreen()); // Ganti ke rute tujuan
                           });
 
                           return Dialog(

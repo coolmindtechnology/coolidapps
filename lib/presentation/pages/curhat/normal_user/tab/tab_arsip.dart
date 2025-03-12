@@ -47,6 +47,13 @@ class _TabArsipCurhatState extends State<TabArsipCurhat> {
   ];
 
   @override
+  void initState() {
+    Provider.of<ProviderConsultation>(context, listen: false)
+        .getListConsultations(context, "archive","consultation");
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(body:
         Consumer<ProviderConsultation>(builder: (context, provider, child) {

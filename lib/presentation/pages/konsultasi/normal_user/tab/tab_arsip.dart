@@ -50,7 +50,7 @@ class _TabArsipState extends State<TabArsip> {
   @override
   void initState() {
     Provider.of<ProviderConsultation>(context, listen: false)
-        .getListConsultations(context, "archive");
+        .getListConsultations(context, "archive","consultation");
     super.initState();
   }
 
@@ -88,26 +88,26 @@ class _TabArsipState extends State<TabArsip> {
               status: S.of(context).Completed_On,
               warnastatus: Colors.lightBlueAccent.shade100,
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => DetailConsultant(
-                            idUser: consultation.id.toString(),
-                            imagePath: consultation.consultantImage ?? '-',
-                            name: consultation.consultantName ?? '-',
-                            title: consultation.consultantTypeBrain ?? '-',
-                            bloodType: consultation.consultantBloodType ?? '-',
-                            location: consultation.consultantAddress ?? '-',
-                            time: "${consultation.timeSelected}",
-                            timeRemaining:
-                                '${consultation.remainingMinutes ?? '-'} ${S.of(context).Minutes_Left}',
-                            timeColor: BlueColor,
-                            status: consultation.status.toString(),
-                            warnastatus: Colors.lightBlueAccent.shade100,
-                            getTopik: consultation.theme.toString(),
-                            statusSession:
-                                consultation.sessionStatus.toString(),
-                            deskripsi: consultation.explanation.toString())));
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (context) => DetailConsultant(
+                //             idUser: consultation.id.toString(),
+                //             imagePath: consultation.consultantImage ?? '-',
+                //             name: consultation.consultantName ?? '-',
+                //             title: consultation.consultantTypeBrain ?? '-',
+                //             bloodType: consultation.consultantBloodType ?? '-',
+                //             location: consultation.consultantAddress ?? '-',
+                //             time: "${consultation.timeSelected}",
+                //             timeRemaining:
+                //                 '${consultation.remainingMinutes ?? '-'} ${S.of(context).Minutes_Left}',
+                //             timeColor: BlueColor,
+                //             status: consultation.status.toString(),
+                //             warnastatus: Colors.lightBlueAccent.shade100,
+                //             getTopik: consultation.theme.toString(),
+                //             statusSession:
+                //                 consultation.sessionStatus.toString(),
+                //             deskripsi: consultation.explanation.toString())));
               }, // Aksi jika ada
             );
           },

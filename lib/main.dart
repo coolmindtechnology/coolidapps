@@ -9,9 +9,11 @@ import 'package:coolappflutter/data/provider/provider_auth_affiliate.dart';
 import 'package:coolappflutter/data/provider/provider_boarding.dart';
 import 'package:coolappflutter/data/provider/provider_book.dart';
 import 'package:coolappflutter/data/provider/provider_brain_activation.dart';
+import 'package:coolappflutter/data/provider/provider_chat.dart';
 import 'package:coolappflutter/data/provider/provider_consultant.dart';
 import 'package:coolappflutter/data/provider/provider_consultation.dart';
 import 'package:coolappflutter/data/provider/provider_cool_chat.dart';
+import 'package:coolappflutter/data/provider/provider_curhat.dart';
 import 'package:coolappflutter/data/provider/provider_payment.dart';
 import 'package:coolappflutter/data/provider/provider_profiling.dart';
 import 'package:coolappflutter/data/provider/provider_transaksi_affiliate.dart';
@@ -366,6 +368,12 @@ class _MainAppState extends State<MainApp> {
               ),
               ChangeNotifierProvider(
                 create: (context) => ConsultantProvider(),
+              ),
+              ChangeNotifierProvider(
+                create: (context) => ChatService(),
+              ),
+              ChangeNotifierProvider(
+                create: (context) => CurhatProvider(),
               ),
             ],
             child: MaterialApp(

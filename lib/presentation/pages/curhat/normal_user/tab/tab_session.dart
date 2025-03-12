@@ -14,6 +14,8 @@ import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:provider/provider.dart';
 
+import '../../../Konsultasi/Normal_User/detil_consultant.dart';
+
 class TabSesiCurhat extends StatefulWidget {
   const TabSesiCurhat({super.key});
 
@@ -22,48 +24,11 @@ class TabSesiCurhat extends StatefulWidget {
 }
 
 class _TabSesiCurhatState extends State<TabSesiCurhat> {
-  final List<Map<String, dynamic>> profileData = [
-    {
-      "imagePath": 'images/konsultasi/profile3.png',
-      "name": 'Alice Smith',
-      "title": 'Innovator',
-      "timeRemaining": '11',
-      "subtitle":
-          'Membuka usaha sendiri tidak butuh ijazah dan latar belakang pendidikan management'
-    },
-    {
-      "imagePath": 'images/konsultasi/profile1.png',
-      "name": 'Vivian Entira',
-      "title": 'Creative',
-      "timeRemaining": '10',
-      "subtitle":
-          'Membuka usaha sendiri tidak butuh ijazah dan latar belakang pendidikan management'
-    },
-    {
-      "imagePath": 'images/konsultasi/profile2.png',
-      "name": 'John Doe',
-      "title": 'Strategist',
-      "timeRemaining": '10',
-      "subtitle":
-          'Membuka usaha sendiri tidak butuh ijazah dan latar belakang pendidikan management'
-    },
-  ];
-
-  void _handlePressed(
-      types.User otherUser, BuildContext context, String id) async {
-    final navigator = Navigator.of(context);
-    final room = await FirebaseChatCore.instance.createRoom(otherUser);
-    debugPrint("cek id users ${room.id}");
-
-    navigator.pop();
-    await navigator.push(
-      MaterialPageRoute(
-        builder: (context) => ChatPage(
-          idUser: id,
-          room: room,
-        ),
-      ),
-    );
+  @override
+  void initState() {
+    Provider.of<ProviderConsultation>(context, listen: false)
+        .getListConsultations(context, "active","curhat");
+    super.initState();
   }
 
   @override
@@ -116,35 +81,63 @@ class _TabSesiCurhatState extends State<TabSesiCurhat> {
                   status: S.of(context).Session_Begins_In,
                   warnastatus: Colors.lightBlueAccent.shade100,
                   onTap: () {
-                    _handlePressed(
-                      user,
-                      context,
-                      consultation.id.toString(),
-                    );
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => DetailConsultant(
-                    //             user: user,
-                    //             idUser: consultation.id.toString(),
-                    //             imagePath: consultation.consultantImage ?? '-',
-                    //             name: consultation.consultantName ?? '-',
-                    //             title: consultation.consultantTypeBrain ?? '-',
-                    //             bloodType:
-                    //                 consultation.consultantBloodType ?? '-',
-                    //             location: consultation.consultantAddress ?? '-',
-                    //             time: "${consultation.timeSelected}",
-                    //             timeRemaining:
-                    //                 '${consultation.remainingMinutes ?? '-'} ${S.of(context).Minutes_Left}',
-                    //             timeColor: BlueColor,
-                    //             status: consultation.status.toString(),
-                    //             warnastatus: Colors.lightBlueAccent.shade100,
-                    //             getTopik: consultation.theme.toString(),
-                    //             statusSession:
-                    //                 consultation.sessionStatus.toString(),
-                    //             deskripsi:
-                    //                 consultation.explanation.toString())));
-                  }, // Aksi jika ada
+                    int remainingMinutes = 0;
+
+                    if (consultation.remainingMinutes is int) {
+                      remainingMinutes = consultation.remainingMinutes as int;
+                    } else if (consultation.remainingMinutes is String) {
+                      remainingMinutes = int.tryParse(consultation.remainingMinutes as String) ?? 0;
+                    }
+                    if (remainingMinutes == 0) {
+                      // Jika sesi sudah bisa dimulai, pindah ke halaman DetailConsultant
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetailConsultant(
+                            user: user,
+                            idUser: consultation.id.toString(),
+                            imagePath: consultation.consultantImage ?? '-',
+                            name: consultation.consultantName ?? '-',
+                            title: consultation.consultantTypeBrain ?? '-',
+                            bloodType: consultation.consultantBloodType ?? '-',
+                            location: consultation.consultantAddress ?? '-',
+                            time: "${consultation.timeSelected}",
+                            timeRemaining:
+                            '${consultation.remainingMinutes ?? '-'} ${S.of(context).Minutes_Left}',
+                            timeColor: BlueColor,
+                            status: consultation.status.toString(),
+                            warnastatus: Colors.lightBlueAccent.shade100,
+                            getTopik: consultation.theme.toString(),
+                            statusSession: consultation.sessionStatus.toString(),
+                            deskripsi: consultation.explanation.toString(),
+                            idConsultation: consultation.id.toString(),
+                            idConsultant: consultation.consultantId.toString(),
+                            idreciver: consultation.firebaseConf!.consultantIds.toString(),
+                          ),
+                        ),
+                      );
+                    } else {
+                      // Jika sesi belum bisa dimulai, tampilkan alert dialog
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: Text("Sesi Belum Dimulai"),
+                          content: Text(
+                            "Sesi akan dimulai dalam ${consultation.remainingMinutes.toString()} menit. Silakan tunggu!",
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text("OK"),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+                  },
+                  // Aksi jika ada
                 );
               },
             );
@@ -152,31 +145,3 @@ class _TabSesiCurhatState extends State<TabSesiCurhat> {
     }));
   }
 }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: ListView.builder(
-//         itemCount: profileData.length,
-//         itemBuilder: (context, index) {
-//           final profile = profileData[index];
-//           return Column(
-//             children: [
-//               CurhatConsultantCrad(
-//                 imagePath: profile['imagePath'],
-//                 name: profile['name'],
-//                 title: profile['title'],
-//                 subtitle: profile['subtitle'],
-//                 timeRemaining:
-//                     profile['timeRemaining'] + ' ' + S.of(context).Minutes_Left,
-//                 onTap: () {
-//                   Nav.to(DetailSessionCurhat());
-//                 }, // Aksi jika ada
-//               ),
-//             ],
-//           );
-//         },
-//       ),
-//     );
-//   }
-// }

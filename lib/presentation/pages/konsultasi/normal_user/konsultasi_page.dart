@@ -7,6 +7,7 @@ import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/new_konsultasi.dart';
 import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/Tab/tab_arsip.dart';
 import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/Tab/tab_request.dart';
+import 'package:coolappflutter/presentation/pages/main/nav_home.dart';
 import 'package:coolappflutter/presentation/pages/main/promo_page.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
@@ -31,8 +32,8 @@ class _KonsultasiPageState extends State<KonsultasiPage> {
   @override
   void initState() {
     super.initState();
-    Provider.of<ProviderConsultation>(context, listen: false)
-        .getListConsultations(context, "active");
+    // Provider.of<ProviderConsultation>(context, listen: false)
+    //     .getListConsultations(context, "active",);
     // Menampilkan dialog setelah halaman pertama kali dirender
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _showPromoDialog();
@@ -79,7 +80,7 @@ class _KonsultasiPageState extends State<KonsultasiPage> {
                 backgroundColor: primaryColor,
                 leading: IconButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                     Nav.to(NavMenuScreen());
                     },
                     icon: Icon(Icons.arrow_back)),
                 title: Row(
@@ -92,13 +93,13 @@ class _KonsultasiPageState extends State<KonsultasiPage> {
                   ],
                 ),
                 actions: [
-                  Padding(
-                      padding: const EdgeInsets.only(
-                          right: 10), // Memberikan jarak dari kanan
-                      child: Image.asset(
-                        'images/konsultasi/mark.png',
-                        height: 40,
-                      )),
+                  // Padding(
+                  //     padding: const EdgeInsets.only(
+                  //         right: 10), // Memberikan jarak dari kanan
+                  //     child: Image.asset(
+                  //       'images/konsultasi/mark.png',
+                  //       height: 40,
+                  //     )),
                 ],
               ),
               body: Padding(

@@ -34,7 +34,18 @@ class ProfileCard extends StatelessWidget {
     return Column(
       children: [
         ListTile(
-          leading: imagePath != null ? Image.network(imagePath!) : null,
+          leading: Container(
+            width: 50, // Perbesar ukuran sesuai kebutuhan
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                image: imagePath != null && imagePath!.isNotEmpty
+                    ? NetworkImage(imagePath!)
+                    : AssetImage('images/default_user.png') as ImageProvider,
+                fit: BoxFit.cover, // Pastikan gambar terisi penuh dalam lingkaran
+              ),
+            ),
+          ),
           title: Row(
             children: [
               if (name != null)

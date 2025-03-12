@@ -90,97 +90,128 @@ class _TabSesiKonsultantState extends State<TabSesiKonsultant> {
 
             return provider.isLoadingParticipant
                 ? const Center(
-                    child: CircularProgressIndicator(),
-                  )
+              child: CircularProgressIndicator(),
+            )
                 : provider.listParticipant.isEmpty
-                    ? Center(child: NoneKonsul())
-                    : ListView.builder(
-                        itemCount: provider.listParticipant.length,
-                        itemBuilder: (context, index) {
-                          final user = snapshot.data![index];
-                          final participant = provider.listParticipant[index];
-                          return Column(
-                            children: [
-                              Column(
-                                children: [
-                                  ProfileCard(
-                                    imagePath: participant
-                                        .profilePicture, // Gambar profil
-                                    name: participant.participantName ??
-                                        '', // Nama peserta
-                                    title: participant.type ??
-                                        '', // Jenis konsultasi
-                                    bloodType: participant.bloodType ??
-                                        'Unknown', // Golongan darah
-                                    location: participant.theme ??
-                                        'No theme', // Tema konsultasi
-                                    time: participant.consultationTime ??
-                                        '', // Waktu konsultasi
-                                    timeRemaining:
-                                        '${participant.remainingMinutes ?? "0"} ${S.of(context).Minutes_Left}',
-                                    timeColor: BlueColor,
-                                    warnastatus:
-                                        Colors.lightBlueAccent.shade100,
-                                    onTap: () {
-                                      Nav.to(NewChatPage(
-                                        reciverUserID: participant
-                                                .firebaseConf?.participantIds
-                                                .toString() ??
-                                            'data kosong',
-                                        nama: participant.participantName
-                                            .toString(),
-                                        image: participant.profilePicture
-                                            .toString(),
-                                        Tema: participant.theme.toString(),
-                                        waktu: participant.consultationTime
-                                            .toString(),
-                                        tipeotak: participant.personalityType.toString(),
-                                      ));
+                ? Center(child: NoneKonsul())
+                : ListView.builder(
+              itemCount: provider.listParticipant.length,
+              itemBuilder: (context, index) {
+                final user = snapshot.data![index];
+                final participant = provider.listParticipant[index];
+                return Column(
+                  children: [
+                    Column(
+                      children: [
+                        ProfileCard(
+                          imagePath: participant
+                              .profilePicture, // Gambar profil
+                          name: participant.participantName ??
+                              '', // Nama peserta
+                          title: participant.type ??
+                              '', // Jenis konsultasi
+                          bloodType: participant.bloodType ??
+                              'Unknown', // Golongan darah
+                          location: participant.theme ??
+                              'No theme', // Tema konsultasi
+                          time: participant.consultationTime ??
+                              '', // Waktu konsultasi
+                          timeRemaining:
+                          '${participant.remainingMinutes ?? "0"} ${S.of(context).Minutes_Left}',
+                          timeColor: BlueColor,
+                          warnastatus:
+                          Colors.lightBlueAccent.shade100,
+                          onTap: () {
+                            int remainingMinutes = 0;
 
-                                      // Nav.to(RoomsPageKonsultan(idUser: ""));
-                                      // _handlePressed(
-                                      //     user,
-                                      //     context,
-                                      //     provider.listParticipant[index]
-                                      //         .consultationId
-                                      //         .toString());
-                                      // showDialog(
-                                      //   context: context,
-                                      //   builder: (BuildContext context) {
-                                      //     return Dialog(
-                                      //       shape: RoundedRectangleBorder(
-                                      //         borderRadius:
-                                      //             BorderRadius.circular(15.0),
-                                      //       ),
-                                      //       child: SizedBox(
-                                      //           height: 380,
-                                      //           child: WarningStartSession(
-                                      //             idUser: provider
-                                      //                 .listParticipant[index]
-                                      //                 .consultationId
-                                      //                 .toString(),
-                                      //           )),
-                                      //     );
-                                      //   },
-                                      // );
-                                    }, // Aksi jika ada
+                            if (participant.remainingMinutes is int) {
+                              remainingMinutes = participant.remainingMinutes as int;
+                            } else if (participant.remainingMinutes is String) {
+                              remainingMinutes = int.tryParse(participant.remainingMinutes as String) ?? 0;
+                            }
+
+                            if (remainingMinutes == 0) {
+                            Nav.to(NewChatPage(
+                              consultationID:  participant.consultationId.toString(),
+                              status: true,
+                              reciverUserID: participant
+                                  .firebaseConf?.participantIds
+                                  .toString() ??
+                                  'data kosong',
+                              nama: participant.participantName
+                                  .toString(),
+                              image: participant.profilePicture
+                                  .toString(),
+                              Tema: participant.theme.toString(),
+                              waktu: participant.consultationTime
+                                  .toString(),
+                              tipeotak: participant.personalityType.toString(),
+                            ));
+                            } else {
+                              // Jika sesi belum bisa dimulai, tampilkan alert dialog
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title: Text("Sesi Belum Dimulai"),
+                                  content: Text(
+                                    "Sesi akan dimulai dalam ${participant.remainingMinutes.toString()} menit. Silakan tunggu!",
                                   ),
-                                  RequestContainer(
-                                    dataRequest: participant.type ?? '',
-                                  ),
-                                  gapH10,
-                                  RequestContainer(
-                                    typeKeperluan:
-                                        S.of(context).Session_Begins_In,
-                                    dataRequest:
-                                        participant.remainingMinutes ?? "00.00",
-                                  ),
-                                ],
-                              ),
-                            ],
-                          );
-                        },
-                      );
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text("OK"),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
+
+                            // Nav.to(RoomsPageKonsultan(idUser: ""));
+                            // _handlePressed(
+                            //     user,
+                            //     context,
+                            //     provider.listParticipant[index]
+                            //         .consultationId
+                            //         .toString());
+                            // showDialog(
+                            //   context: context,
+                            //   builder: (BuildContext context) {
+                            //     return Dialog(
+                            //       shape: RoundedRectangleBorder(
+                            //         borderRadius:
+                            //             BorderRadius.circular(15.0),
+                            //       ),
+                            //       child: SizedBox(
+                            //           height: 380,
+                            //           child: WarningStartSession(
+                            //             idUser: provider
+                            //                 .listParticipant[index]
+                            //                 .consultationId
+                            //                 .toString(),
+                            //           )),
+                            //     );
+                            //   },
+                            // );
+                          }, // Aksi jika ada
+                        ),
+                        RequestContainer(
+                          dataRequest: participant.type ?? '',
+                        ),
+                        gapH10,
+                        RequestContainer(
+                          typeKeperluan:
+                          S.of(context).Session_Begins_In,
+                          dataRequest:
+                          participant.remainingMinutes ?? "00.00",
+                        ),
+                      ],
+                    ),
+                  ],
+                );
+              },
+            );
           }),
     );
   }

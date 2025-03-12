@@ -52,13 +52,13 @@ class _CurhatDashboardState extends State<CurhatDashboard> {
           ],
         ),
         actions: [
-          Padding(
-              padding: const EdgeInsets.only(
-                  right: 10), // Memberikan jarak dari kanan
-              child: Image.asset(
-                AppAsset.icMark,
-                height: 40,
-              )),
+          // Padding(
+          //     padding: const EdgeInsets.only(
+          //         right: 10), // Memberikan jarak dari kanan
+          //     child: Image.asset(
+          //       AppAsset.icMark,
+          //       height: 40,
+          //     )),
         ],
       ),
       body: Padding(
@@ -130,16 +130,16 @@ class _CurhatDashboardState extends State<CurhatDashboard> {
                 ),
                 _buildTab(index: 1, text: S.of(context).Requests),
                 _buildTab(index: 2, text: S.of(context).Archives),
-                Spacer(),
-                TextButton(
-                  onPressed: () {
-                    Nav.to(Archive_Curhat());
-                  },
-                  style: TextButton.styleFrom(
-                    foregroundColor: BlueColor,
-                  ),
-                  child: Text(S.of(context).see_all),
-                )
+                // Spacer(),
+                // TextButton(
+                //   onPressed: () {
+                //     Nav.to(Archive_Curhat());
+                //   },
+                //   style: TextButton.styleFrom(
+                //     foregroundColor: BlueColor,
+                //   ),
+                //   child: Text(S.of(context).see_all),
+                // )
               ],
             ),
             Expanded(

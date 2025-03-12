@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 
-class SaldoWidget extends StatelessWidget {
+class SaldoWidgetContainer extends StatelessWidget {
   final String saldo;
   final String title;
   final String subtitle;
@@ -10,9 +10,9 @@ class SaldoWidget extends StatelessWidget {
   final TextStyle? saldoStyle;
   final Color backgroundColor;
   final String assetImage;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
-  const SaldoWidget({
+  const SaldoWidgetContainer({
     super.key,
     required this.title,
     required this.subtitle,
@@ -22,13 +22,13 @@ class SaldoWidget extends StatelessWidget {
     required this.saldo,
     required this.backgroundColor,
     required this.assetImage,
-    required this.onTap,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: onTap ?? () {},
       child: Container(
         width: double.infinity,
         height: 100,
@@ -72,8 +72,8 @@ class SaldoWidget extends StatelessWidget {
               right: 0,
               child: FractionallySizedBox(
                 alignment: Alignment.center,
-                widthFactor: sizeImage ?? 0.9,
-                heightFactor: sizeImage ?? 0.9,
+                widthFactor: (sizeImage != null && sizeImage! <= 1) ? sizeImage! : 0.9,
+                heightFactor: (sizeImage != null && sizeImage! <= 1) ? sizeImage! : 0.9,
                 child: Image.asset(
                   assetImage,
                   fit: BoxFit.cover,

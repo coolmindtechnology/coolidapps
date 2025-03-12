@@ -552,7 +552,13 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                                 children: [
                                   InkWell(
                                     onTap: () {
-                                      Nav.to(DetailSaldoAff());
+                                      Nav.to(DetailSaldoAff(
+                                        initialTab: () =>
+                                        1, // Menentukan tab kedua sebagai tab awal
+                                        tabChanger: (changeTabAffiliate) {
+                                          // Dapat digunakan untuk mengubah tab dari luar
+                                        },
+                                      ));
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(
@@ -594,7 +600,20 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                                   SizedBox(height: 10),
                                   InkWell(
                                     onTap: () {
-                                      Nav.to(DetailRealMoneyAff());
+                                      Nav.to(DetailRealMoneyAff(
+                                          initialTab: () =>
+                                          1, // Menentukan tab kedua sebagai tab awal
+                                          tabChanger: (changeTabAffiliate) {
+                                            // Dapat digunakan untuk mengubah tab dari luar
+                                          },
+                                      ));
+                                      // Nav.to(TransaksiAffiliatePage(
+                                      //   initialTab: () =>
+                                      //   1, // Menentukan tab kedua sebagai tab awal
+                                      //   tabChanger: (changeTabAffiliate) {
+                                      //     // Dapat digunakan untuk mengubah tab dari luar
+                                      //   },
+                                      // ));
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(

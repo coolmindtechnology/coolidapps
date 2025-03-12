@@ -53,10 +53,16 @@ class _ScreenFeatureKepribadianState extends State<ScreenFeatureKepribadian>
   void initState() {
     super.initState();
     tabController = TabController(length: 2, vsync: this, initialIndex: 0);
-    Timer(Duration(seconds: 2), () async {
-      await context.read<ProviderUser>().getUser(context);
+
+    Timer(Duration(seconds: 2), () {
+      if (mounted) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          context.read<ProviderUser>().getUser(context);
+        });
+      }
     });
   }
+
 
   @override
   void dispose() {

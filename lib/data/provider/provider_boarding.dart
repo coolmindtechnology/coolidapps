@@ -146,7 +146,7 @@ class ProviderBoarding extends ChangeNotifier {
         int vDb = int.parse(numericDb);
 
         //get version from android
-        int vApp = 183;
+        int vApp = 184;
 
         int logicVersion = vDb - vApp;
         debugPrint("Versi db $vDb");

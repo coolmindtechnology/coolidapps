@@ -168,6 +168,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       //         size: 23,
                       //       ),
                       //     )),
+                      Spacer(),
                       Padding(
                         padding: const EdgeInsets.only(right: 10,bottom: 8,left: 15,top: 8),
                         child: Container(
@@ -241,6 +242,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             )),
                       ),
+                      SizedBox(width: 10,),
                       Padding(
                         padding: const EdgeInsets.only(top: 8,bottom: 8,right: 8),
                         child: GestureDetector(

@@ -468,6 +468,7 @@ import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/pages/afiliate/screen_total_member.dart';
 import 'package:coolappflutter/presentation/pages/auth/login_screen.dart';
 import 'package:coolappflutter/presentation/pages/main/qrcode/qr_code.dart';
+import 'package:coolappflutter/presentation/pages/payments/saldo_aff/detai_saldo_aff.dart';
 import 'package:coolappflutter/presentation/pages/payments/top_up_page.dart';
 import 'package:coolappflutter/presentation/pages/transakction/transaksi_affiliate.dart';
 import 'package:coolappflutter/presentation/pages/user/change_language.dart';
@@ -687,7 +688,7 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                   InkWell(
                     onTap: () {
                       if(dataGlobal.dataUser?.isAffiliate == 1){
-                        Nav.to(TransaksiAffiliatePage(
+                        Nav.to(DetailSaldoAff(
                           initialTab: () =>
                           0, // Menentukan tab kedua sebagai tab awal
                           tabChanger: (changeTabAffiliate) {
@@ -742,7 +743,7 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                           ),
                           IconButton(
                               onPressed: () {
-                                Nav.to(TransaksiAffiliatePage(
+                                Nav.to(DetailSaldoAff(
                                   initialTab: () =>
                                   0, // Menentukan tab kedua sebagai tab awal
                                   tabChanger: (changeTabAffiliate) {

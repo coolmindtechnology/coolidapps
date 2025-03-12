@@ -188,7 +188,7 @@ class _DetailSaldoPageState extends State<DetailSaldoPage>
                             //   borderRadius: BorderRadius.circular(10),
                             // ),
                             tabs: [
-                              Tab(text: "Semua"),
+                              Tab(text: S.of(context).all),
                               Tab(text: "Penambahan"),
                               Tab(text: "Penarikan"),
                             ],

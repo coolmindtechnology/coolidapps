@@ -15,9 +15,9 @@ import '../response/consultation/res_list_consultant_person.dart';
 class ProviderConsultation extends ChangeNotifier {
   ProviderConsultation();
 
-  ProviderConsultation.initList(BuildContext context, String type) {
-    getListConsultations(context, "active");
-  }
+  // ProviderConsultation.initList(BuildContext context, String type) {
+  //   getListConsultations(context, "active");
+  // }
 
   List<Data> _consultations = [];
   List<Themes> _getThemes = [];
@@ -29,13 +29,14 @@ class ProviderConsultation extends ChangeNotifier {
 
   bool get isLoading => _isLoading;
 
-  Future<void> getListConsultations(BuildContext context, String type) async {
+  Future<void> getListConsultations(BuildContext context, String type,String typekonsult) async {
     _isLoading = true;
     notifyListeners();
 
     final String? token = await Prefs().getToken();
     final Dio dio = Dio();
-    final String url = "${ApiEndpoint.getListConsultation}/?type=$type";
+    // final String url = "${ApiEndpoint.getListConsultation}/?type=$type";
+    final String url = "${ApiEndpoint.getListConsultation}/?type=$type&type_sesion=$typekonsult";
 
     try {
       final response = await dio.get(

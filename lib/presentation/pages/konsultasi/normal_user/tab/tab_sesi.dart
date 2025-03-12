@@ -25,7 +25,7 @@ class _TabSesiState extends State<TabSesi> {
   @override
   void initState() {
     Provider.of<ProviderConsultation>(context, listen: false)
-        .getListConsultations(context, "active");
+        .getListConsultations(context, "active","consultation");
     super.initState();
   }
 
@@ -60,58 +60,58 @@ class _TabSesiState extends State<TabSesi> {
   //     "timeRemaining": '10',
   //   },
   // ];
-  void _handlePressed(
-      types.User otherUser,
-      BuildContext context,
-      String id,
-      dynamic user,
-      String idConsultant,
-      String imagePath,
-      String name,
-      String title,
-      String bloodType,
-      String location,
-      String time,
-      String timeRemaining,
-      Color timeColor,
-      String status,
-      Color warnastatus,
-      String getTopik,
-      String statusSession,
-      String deskripsi) async {
-    final navigator = Navigator.of(context);
-    final room = await FirebaseChatCore.instance.createRoom(otherUser);
-    debugPrint("cek id users ${room.id}");
-
-    // navigator.pop();
-    await navigator.push(
-      MaterialPageRoute(
-        builder: (context) => DetailConsultant(
-          user: user,
-          idUser: id,
-          imagePath: imagePath,
-          name: name,
-          title: title,
-          bloodType: bloodType,
-          location: location,
-          time: time,
-          timeRemaining: timeRemaining,
-          timeColor: timeColor,
-          status: status,
-          warnastatus: warnastatus,
-          getTopik: getTopik,
-          statusSession: statusSession,
-          deskripsi: deskripsi,
-          idConsultant: idConsultant,
-        ),
-      ),
-    );
-  }
+  // void _handlePressed(
+  //     types.User otherUser,
+  //     BuildContext context,
+  //     String id,
+  //     dynamic user,
+  //     String idConsultant,
+  //     String imagePath,
+  //     String name,
+  //     String title,
+  //     String bloodType,
+  //     String location,
+  //     String time,
+  //     String timeRemaining,
+  //     Color timeColor,
+  //     String status,
+  //     Color warnastatus,
+  //     String getTopik,
+  //     String statusSession,
+  //     String deskripsi) async {
+  //   final navigator = Navigator.of(context);
+  //   final room = await FirebaseChatCore.instance.createRoom(otherUser);
+  //   debugPrint("cek id users ${room.id}");
+  //
+  //   // navigator.pop();
+  //   await navigator.push(
+  //     MaterialPageRoute(
+  //       builder: (context) => DetailConsultant(
+  //         user: user,
+  //         idUser: id,
+  //         imagePath: imagePath,
+  //         name: name,
+  //         title: title,
+  //         bloodType: bloodType,
+  //         location: location,
+  //         time: time,
+  //         timeRemaining: timeRemaining,
+  //         timeColor: timeColor,
+  //         status: status,
+  //         warnastatus: warnastatus,
+  //         getTopik: getTopik,
+  //         statusSession: statusSession,
+  //         deskripsi: deskripsi,
+  //         idConsultant: idConsultant,
+  //       ),
+  //     ),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(body:
-        Consumer<ProviderConsultation>(builder: (context, provider, child) {
+    Consumer<ProviderConsultation>(builder: (context, provider, child) {
       if (provider.isLoading) {
         return Center(child: CircularProgressIndicator());
       }
@@ -136,8 +136,11 @@ class _TabSesiState extends State<TabSesi> {
             }
 
             return ListView.builder(
-              itemCount: consultations.length,
+              itemCount: provider.consultations.length,
               itemBuilder: (context, index) {
+                if (index >= snapshot.data!.length) {
+                  return SizedBox(); // Hindari error jika data tidak cukup
+                }
                 final user = snapshot.data![index];
                 if (index >= provider.consultations.length) return SizedBox();
                 final consultation = consultations[index];
@@ -154,63 +157,66 @@ class _TabSesiState extends State<TabSesi> {
                   location: consultation.consultantAddress ?? '-',
                   time: "${consultation.timeSelected}",
                   timeRemaining:
-                      '${consultation.remainingMinutes ?? '-'} ${S.of(context).Minutes_Left}',
+                  '${consultation.remainingMinutes ?? '-'} ${S.of(context).Minutes_Left}',
                   timeColor: BlueColor,
                   status: S.of(context).Session_Begins_In,
                   warnastatus: Colors.lightBlueAccent.shade100,
                   onTap: () {
-                    Nav.to(NewUserChatPage(
-                      reciverUserID:
-                          consultation.firebaseConf!.consultantIds.toString(),
-                      nama: consultation!.consultantName.toString(),
-                      tipeotak: consultation.consultantTypeBrain ?? '-',
-                      waktu: consultation.timeSelected.toString(),
-                      Tema: consultation.theme.toString(),
-                      image: consultation.consultantImage.toString(),
-                    ));
-                    // _handlePressed(
-                    //     user,
-                    //     context,
-                    //     consultation.id.toString(),
-                    //     user,
-                    //     consultation.consultantId.toString(),
-                    //     consultation.consultantImage ?? '-',
-                    //     consultation.consultantName ?? '-',
-                    //     consultation.consultantTypeBrain ?? '-',
-                    //     consultation.consultantBloodType ?? '-',
-                    //     consultation.consultantAddress ?? '-',
-                    //     "${consultation.timeSelected}",
-                    //     '${consultation.remainingMinutes ?? '-'} ${S.of(context).Minutes_Left}',
-                    //     BlueColor,
-                    //     consultation.status.toString(),
-                    //     Colors.lightBlueAccent.shade100,
-                    //     consultation.theme.toString(),
-                    //     consultation.sessionStatus.toString(),
-                    //     consultation.explanation.toString());
+                    int remainingMinutes = 0;
 
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => DetailConsultant(
-                    //             user: user,
-                    //             idUser: consultation.id.toString(),
-                    //             imagePath: consultation.consultantImage ?? '-',
-                    //             name: consultation.consultantName ?? '-',
-                    //             title: consultation.consultantTypeBrain ?? '-',
-                    //             bloodType:
-                    //                 consultation.consultantBloodType ?? '-',
-                    //             location: consultation.consultantAddress ?? '-',
-                    //             time: "${consultation.timeSelected}",
-                    //             timeRemaining:
-                    //                 '${consultation.remainingMinutes ?? '-'} ${S.of(context).Minutes_Left}',
-                    //             timeColor: BlueColor,
-                    //             status: consultation.status.toString(),
-                    //             warnastatus: Colors.lightBlueAccent.shade100,
-                    //             getTopik: consultation.theme.toString(),
-                    //             statusSession:
-                    //                 consultation.sessionStatus.toString(),
-                    //             deskripsi:
-                    //                 consultation.explanation.toString())));
+                    if (consultation.remainingMinutes is int) {
+                      remainingMinutes = consultation.remainingMinutes as int;
+                    } else if (consultation.remainingMinutes is String) {
+                      remainingMinutes = int.tryParse(consultation.remainingMinutes as String) ?? 0;
+                    }
+                    if (remainingMinutes == 0) {
+                      // Jika sesi sudah bisa dimulai, pindah ke halaman DetailConsultant
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetailConsultant(
+                            user: user,
+                            idUser: consultation.id.toString(),
+                            imagePath: consultation.consultantImage ?? '-',
+                            name: consultation.consultantName ?? '-',
+                            title: consultation.consultantTypeBrain ?? '-',
+                            bloodType: consultation.consultantBloodType ?? '-',
+                            location: consultation.consultantAddress ?? '-',
+                            time: "${consultation.timeSelected}",
+                            timeRemaining:
+                            '${consultation.remainingMinutes ?? '-'} ${S.of(context).Minutes_Left}',
+                            timeColor: BlueColor,
+                            status: consultation.status.toString(),
+                            warnastatus: Colors.lightBlueAccent.shade100,
+                            getTopik: consultation.theme.toString(),
+                            statusSession: consultation.sessionStatus.toString(),
+                            deskripsi: consultation.explanation.toString(),
+                            idConsultation: consultation.id.toString(),
+                            idConsultant: consultation.consultantId.toString(),
+                            idreciver: consultation.firebaseConf!.consultantIds.toString(),
+                          ),
+                        ),
+                      );
+                    } else {
+                      // Jika sesi belum bisa dimulai, tampilkan alert dialog
+                      showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: Text("Sesi Belum Dimulai"),
+                          content: Text(
+                            "Sesi akan dimulai dalam ${consultation.remainingMinutes.toString()} menit. Silakan tunggu!",
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Text("OK"),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
                   }, // Aksi jika ada
                 );
               },
