@@ -66,6 +66,7 @@ class Data {
   dynamic statusApprovalConsultant;
   dynamic idConsultant;
   dynamic totalEbook;
+  dynamic linkreferalcode;
   Data({
     this.id,
     this.idUser,
@@ -100,6 +101,7 @@ class Data {
     this.statusApprovalConsultant,
     this.idConsultant,
     this.totalEbook,
+    this.linkreferalcode,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
@@ -136,6 +138,7 @@ class Data {
     statusApprovalConsultant: json["status_approval_consultant"],
     idConsultant: json["id_consultant"],
     totalEbook: json["total_ebook"],
+    linkreferalcode: json["link_refferal_code"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -172,6 +175,7 @@ class Data {
     "status_approval_consultant": statusApprovalConsultant,
     "id_consultant": idConsultant,
     "total_ebook": totalEbook,
+    "link_refferal_code": linkreferalcode,
   };
 }
 

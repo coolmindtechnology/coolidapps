@@ -8,10 +8,12 @@ import 'package:coolappflutter/presentation/pages/curhat/normal_user/tab/tab_req
 import 'package:coolappflutter/presentation/pages/curhat/normal_user/tab/tab_session.dart';
 import 'package:coolappflutter/presentation/pages/curhat/session_time_curhat.dart';
 import 'package:coolappflutter/presentation/pages/konsultasi/normal_user/sessions_time.dart';
+import 'package:coolappflutter/presentation/pages/user/Setting/Report/Report_Page.dart';
 
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:coolappflutter/presentation/widgets/Container/container_slider_home.dart';
+import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -148,6 +150,7 @@ class _CurhatDashboardState extends State<CurhatDashboard> {
           ],
         ),
       ),
+      floatingActionButton: const CustomFAB(),
     );
   }
 

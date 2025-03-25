@@ -260,7 +260,7 @@ class RepoTransaksiAffiliate {
   Future<Either<Failure, ResGetAffiliateManagement>>
       getAffiliateManagement() async {
     try {
-      Response res = await dio.get(ApiEndpoint.affiliateManagement,
+      Response res = await dio.get('${ApiEndpoint.affiliateManagement}'+'?customer=${dataGlobal.dataUser!.id}',
           options: Options(
             validateStatus: (status) {
               return status == 200 || status == 400;

@@ -36,7 +36,7 @@ class _Setting_pageState extends State<Setting_page> {
         appBar: AppBar(
           centerTitle: false,
           title: Text(
-            S.of(context).setting,
+            S.of(context).conflictingSession,
             style: const TextStyle(color: Colors.white),
           ),
           iconTheme: const IconThemeData(color: Colors.white),

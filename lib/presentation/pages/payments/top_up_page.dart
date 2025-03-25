@@ -11,6 +11,7 @@ import 'package:coolappflutter/presentation/widgets/button_primary.dart';
 import 'package:coolappflutter/presentation/widgets/shimmer_loading.dart';
 import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class TopUpPage extends StatefulWidget {
@@ -99,7 +100,15 @@ class _TopUpPageState extends State<TopUpPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<ProviderPayment>(builder: (context, value, child) {
+    return Consumer<ProviderPayment>(builder: (context, value, child) {String getPrice(DataListTopUp? data, bool isIndonesia) {
+      if (data == null) return 'N/A';
+
+      // Pastikan harga dalam format angka, lalu format dengan pemisah ribuan
+      double? priceValue = double.tryParse(isIndonesia ? data.price : data.intlPrice);
+      if (priceValue == null) return 'N/A';
+
+      return NumberFormat("#,###", "id_ID").format(priceValue);
+    }
       return Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -166,8 +175,8 @@ class _TopUpPageState extends State<TopUpPage> {
                           // Mengecek apakah ada item dengan id 2 atau 3
                           hasId2 = value.listDataListTopUp!
                               .any((item) => item.id == 2);
-                          hasId3 = value.listDataListTopUp!
-                              .any((item) => item.id == 3);
+                          // hasId3 = value.listDataListTopUp!
+                          //     .any((item) => item.id == 3);
 
                           if (dataListTopUp.id == 2 ||
                               dataListTopUp.id == 3 ||
@@ -271,8 +280,7 @@ class _TopUpPageState extends State<TopUpPage> {
                                           ),
                                         ),
                                         SizedBox(height: 4),
-                                        Text(
-                                          "Rp250.000",
+                                        Text(getPrice(value.listDataListTopUp?[index], dataGlobal.isIndonesia),
                                           style: TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.bold,
@@ -285,56 +293,6 @@ class _TopUpPageState extends State<TopUpPage> {
                                 ),
                               ),
                             );
-
-                            ///
-                            // MaterialButton(
-                            //   elevation: 0,
-                            //   height: 54,
-                            //   minWidth: MediaQuery.of(context).size.width,
-                            //   textColor: greyColor,
-                            //   shape: RoundedRectangleBorder(
-                            //       borderRadius: BorderRadius.circular(10),
-                            //       side: BorderSide(
-                            //           width: 1,
-                            //           color: selected == index
-                            //               ? primaryColor
-                            //               : greyColor)),
-                            //   onPressed: dataListTopUp.status == "AKTIF"
-                            //       ? () {
-                            //           if (dataListTopUp.id == 1) {
-                            //             setState(() {
-                            //               islainnya = true;
-                            //             });
-
-                            //             amountController.clear();
-                            //           } else {
-                            //             setState(() {
-                            //               islainnya = false;
-                            //             });
-                            //             amountController.clear();
-                            //             amountController.text = (double.parse(
-                            //                     dataListTopUp.price ?? "0"))
-                            //                 .toString();
-                            //           }
-                            //           selected = index;
-
-                            //           setState(() {
-                            //             dataListTopUpCheckout = dataListTopUp;
-                            //           });
-                            //         }
-                            //       : null,
-                            //   color: dataListTopUp.status != "AKTIF"
-                            //       ? greyColor
-                            //       : selected == index
-                            //           ? primaryColor.withOpacity(0.2)
-                            //           : whiteColor,
-                            //   child: Text(
-                            //     value.listDataListTopUp?[index].name ?? "",
-                            //     style: TextStyle(color: greyColor),
-                            //   ),
-                            // );
-
-                            /////
                           } else {
                             return Container();
                           }
@@ -345,51 +303,51 @@ class _TopUpPageState extends State<TopUpPage> {
                           );
                         },
                         itemCount: value.listDataListTopUp?.length ?? 0),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    islainnya == true
-                        ? TextFormField(
-                      validator: (val) {
-                        return validateInput(val);
-                      },
-                      controller: amountController,
-                      onChanged: (val) {
-                        setState(() {
-                          double enteredValue =
-                              double.tryParse(val) ?? 0.0;
-
-                          int moduloResult = enteredValue ~/ lowestPrice;
-
-                          if (moduloResult != 0) {
-                            dataListTopUpCheckout?.qty =
-                                moduloResult.toString();
-                          }
-                        });
-                      },
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10)),
-                        hintText: S.of(context).manual_input,
-                        hintStyle:
-                        const TextStyle(fontWeight: FontWeight.w300),
-                        contentPadding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 16),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: greyColor),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(color: greyColor),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                    )
-                        : const SizedBox(
-                      height: 0,
-                      width: 0,
-                    ),
+                    // const SizedBox(
+                    //   height: 8,
+                    // ),
+                    // islainnya == true
+                    //     ? TextFormField(
+                    //   validator: (val) {
+                    //     return validateInput(val);
+                    //   },
+                    //   controller: amountController,
+                    //   onChanged: (val) {
+                    //     setState(() {
+                    //       double enteredValue =
+                    //           double.tryParse(val) ?? 0.0;
+                    //
+                    //       int moduloResult = enteredValue ~/ lowestPrice;
+                    //
+                    //       if (moduloResult != 0) {
+                    //         dataListTopUpCheckout?.qty =
+                    //             moduloResult.toString();
+                    //       }
+                    //     });
+                    //   },
+                    //   keyboardType: TextInputType.number,
+                    //   decoration: InputDecoration(
+                    //     border: OutlineInputBorder(
+                    //         borderRadius: BorderRadius.circular(10)),
+                    //     hintText: S.of(context).manual_input,
+                    //     hintStyle:
+                    //     const TextStyle(fontWeight: FontWeight.w300),
+                    //     contentPadding: const EdgeInsets.symmetric(
+                    //         horizontal: 16, vertical: 16),
+                    //     enabledBorder: OutlineInputBorder(
+                    //       borderSide: BorderSide(color: greyColor),
+                    //       borderRadius: BorderRadius.circular(10),
+                    //     ),
+                    //     focusedBorder: OutlineInputBorder(
+                    //       borderSide: BorderSide(color: greyColor),
+                    //       borderRadius: BorderRadius.circular(10),
+                    //     ),
+                    //   ),
+                    // )
+                    //     : const SizedBox(
+                    //   height: 0,
+                    //   width: 0,
+                    // ),
                     const SizedBox(
                       height: 16,
                     ),

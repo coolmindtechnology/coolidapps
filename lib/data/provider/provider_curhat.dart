@@ -14,7 +14,11 @@ import 'package:flutter/material.dart';
 class CurhatProvider extends ChangeNotifier {
   // Inisialisasi RepoConsultant
   final RepoCurhat repoCurhat = RepoCurhat();
-  List<curhat.Datum>? curhatdata;
+  // List<curhat.Datum>? curhatdata;
+  // List<curhat.Datum> get listCurhat => curhatdata ?? [];
+  List<curhat.Datum>? curhatdata = [];
+
+
   List<curhat.Datum> get listCurhat => curhatdata ?? [];
 
 
@@ -60,7 +64,7 @@ class CurhatProvider extends ChangeNotifier {
       success: (res) {
         debugPrint("Curhat data fetched successfully");
         if (res.success == true) {
-          curhatdata = res.data as List<Datum>?;
+          curhatdata = res.data?.data ?? [];
           debugPrint("API response sukses: ${res.data}");
           notifyListeners();
         } else {

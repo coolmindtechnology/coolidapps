@@ -15,6 +15,7 @@ import 'package:coolappflutter/presentation/pages/profiling/screen_tambah_profil
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:coolappflutter/presentation/widgets/button_primary.dart';
+import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
 import 'package:coolappflutter/presentation/widgets/no_data_widget.dart';
 import 'package:coolappflutter/presentation/widgets/refresh_icon_widget.dart';
 import 'package:coolappflutter/presentation/widgets/shimmer_loading_widget_many.dart';
@@ -532,6 +533,7 @@ class _ScreenFeatureKepribadianState extends State<ScreenFeatureKepribadian>
                       ],
                     ),
                   ),
+                  floatingActionButton: const CustomFAB(),
                 ),
               ),
         ));

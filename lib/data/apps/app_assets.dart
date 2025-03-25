@@ -4,6 +4,7 @@ class AppAsset {
   // Image Asset
   static const imgNewLogo = "assets/images/new-logo.png";
   static const imgNewCoolLogo = "images/logo_coolapp_new.png";
+  static const imgNewCoolLogo2 = "images/coologo.png";
   static const imgGirlBrain = "assets/images/girl-brain.png";
   static const imgBoyBrain = "assets/images/boy-brain.png";
   static const imgBlueBrain = "assets/images/blue-brain.png";

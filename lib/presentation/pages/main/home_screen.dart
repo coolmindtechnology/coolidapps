@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:coolappflutter/data/apps/app_assets.dart';
 import 'package:coolappflutter/data/apps/app_sizes.dart';
+import 'package:coolappflutter/data/data_global.dart';
 import 'package:coolappflutter/data/models/data_checkout_transaction.dart';
 import 'package:coolappflutter/data/provider/provider_auth_affiliate.dart';
 import 'package:coolappflutter/data/provider/provider_payment.dart';
@@ -17,11 +18,13 @@ import 'package:coolappflutter/main.dart';
 import 'package:coolappflutter/presentation/pages/main/detail_saldo/detail_saldo.dart';
 import 'package:coolappflutter/presentation/pages/main/ebook/home_ebook.dart';
 import 'package:coolappflutter/presentation/pages/main/qrcode/qr_code.dart';
+import 'package:coolappflutter/presentation/pages/meet/MeetDashboard.dart';
 import 'package:coolappflutter/presentation/pages/profiling/add_multiple_profiling.dart';
 import 'package:coolappflutter/presentation/pages/profiling/profiling%20dashboard.dart';
 
 import 'package:coolappflutter/presentation/pages/profiling/screen_feature_kepribadian.dart';
 import 'package:coolappflutter/presentation/pages/profiling/screen_hasil_kepribadian.dart';
+import 'package:coolappflutter/presentation/pages/profiling/screen_hasil_kepribadian_dibawah17.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:coolappflutter/presentation/utils/notification_utils.dart';
 
@@ -32,6 +35,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../data/networks/endpoint/api_endpoint.dart';
@@ -73,6 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       context.read<ProviderUser>().checkProfile(context);
       context.read<ProviderUser>().getTotalSaldo(context);
+      context.read<ProviderPayment>().getListTopUp(context);
 
 
       // // _pengecekanIsAffiliate();
@@ -113,6 +118,11 @@ class _HomeScreenState extends State<HomeScreen> {
         'textColor': whiteColor,
       },
     ];
+
+    String formatRupiah(String price) {
+      final formatter = NumberFormat.currency(locale: 'id_ID', symbol: 'Rp ', decimalDigits: 0);
+      return formatter.format(double.tryParse(price) ?? 0);
+    }
 
     return MultiProvider(
       providers: [
@@ -188,22 +198,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                           height: 24.sp,
                                           width: 100.sp,
                                         )
-                                      : GestureDetector(
-                                          onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        DetailSaldoPage()));
-                                          },
-                                          child: Text(
-                                            valueUser.totalDeposit,
-                                            style: TextStyle(
-                                              fontSize: 13.sp,
-                                              fontWeight: FontWeight.w600,
-                                            ),
-                                          ),
+                                      : Text(
+                                        valueUser.totalDeposit,
+                                        style: TextStyle(
+                                          fontSize: 13.sp,
+                                          fontWeight: FontWeight.w600,
                                         ),
+                                      ),
                                   gapW10,
                                   Consumer<ProviderUser>(
                                       builder: (context, stateUser, __) {
@@ -229,7 +230,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                                             context
                                                 .read<ProviderPayment>()
-                                                .getListTopUp(context);
+                                                .cekListTopUp(context);
                                           }
                                         },
                                         child: Icon(
@@ -316,6 +317,21 @@ class _HomeScreenState extends State<HomeScreen> {
               backgroundColor: Colors.white,
               body: Consumer<ProviderPayment>(
                   builder: (BuildContext context, valueDep, Widget? child) {
+                    bool isLoadingprice = valueDep.isLoadingListPro; // Tambahkan indikator loading
+
+                    final itemQty1 = valueDep.listDataListTopUp
+                        ?.firstWhere((item) => item.qty == 1);
+                    final nameQty1 = itemQty1?.name ?? "Profiling x1";
+                    final priceQty1 = dataGlobal.isIndonesia == true
+                        ? (itemQty1?.price?.toString() ?? "250.000")
+                        : (itemQty1?.intlPrice?.toString() ?? "365.000");
+
+                    final itemQty10 = valueDep.listDataListTopUp
+                        ?.firstWhere((item) => item.qty == 10);
+                    final nameQty10 = itemQty10?.name ?? "Profiling x10";
+                    final priceQty10 = dataGlobal.isIndonesia == true ?
+                    (itemQty10?.price?.toString() ?? "2.500.000"):(itemQty10?.intlPrice?.toString() ?? "3.600.000");
+
                 eventBalanceStream ??= eventBalance.listen(onChanges: () {
                   Provider.of<ProviderUser>(context, listen: false)
                       .getTotalSaldo(context);
@@ -392,6 +408,57 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                               ],
                             ),
+                            // Row(
+                            //   mainAxisSize: MainAxisSize.min,
+                            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            //   children: [
+                            //     ContainerYellowHome(
+                            //       onTap: () {
+                            //         Nav.to(CurhatDashboard());
+                            //       },
+                            //       icon: AppAsset.icCurhat,
+                            //       title: S.of(context).Curhat,
+                            //       iconColor: BlueColor,
+                            //     ),
+                            //     SizedBox(
+                            //       width: 10,
+                            //     ),
+                            //     ContainerYellowHome(
+                            //       onTap: () {
+                            //         Nav.to(const HomeEbook());
+                            //       },
+                            //       icon: AppAsset.icBuku,
+                            //       title: S.of(context).ebook,
+                            //       iconColor: BlueColor,
+                            //     ),
+                            //   ],
+                            // ),
+                            // gapH10,
+                            // Row(
+                            //   mainAxisSize: MainAxisSize.min,
+                            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            //   children: [
+                            //     ContainerYellowHome(
+                            //       onTap: () {
+                            //         Nav.to(KonsultasiPage());
+                            //       },
+                            //       icon: AppAsset.icKonsultasi,
+                            //       title: S.of(context).Consultation,
+                            //       iconColor: BlueColor,
+                            //     ),
+                            //     SizedBox(
+                            //       width: 10,
+                            //     ),
+                            //     ContainerYellowHome(
+                            //       onTap: () {
+                            //         Nav.to(MeetingDashboard());
+                            //       },
+                            //       icon: 'images/icmeet.png',
+                            //       title: 'CoolMeet',
+                            //       iconColor: BlueColor,
+                            //     ),
+                            //   ],
+                            // ),
                             // gapH20,
                             // Container(
                             //     width: 50,
@@ -572,11 +639,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       colorButton2:
                                                       Colors.white);
                                                 } else {
-
-                                                  // Nav.to(DetailProfiling(
-                                                  //     data: data));
-                                                  Nav.to(ScreenHasilKepribadian(
-                                                      data: data));
+                                                  if(data.isAboveseventeen == true){
+                                                    Nav.to(ScreenHasilKepribadian(
+                                                        data: data));
+                                                  }else{
+                                                    Nav.to(ScreenHasilKepribadianBawah17(
+                                                        data: data));
+                                                  }
                                                 }
                                               },
                                               onDoubleTap: () {
@@ -661,8 +730,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       colorButton2:
                                                       Colors.white);
                                                 } else {
-                                                  Nav.to(ScreenHasilKepribadian(
-                                                      data: data));
+                                                  if(data.isAboveseventeen == true){
+                                                    Nav.to(ScreenHasilKepribadian(
+                                                        data: data));
+                                                  }else{
+                                                    Nav.to(ScreenHasilKepribadianBawah17(
+                                                        data: data));
+                                                  }
                                                 }
                                               },
                                               child: Container(
@@ -765,41 +839,46 @@ class _HomeScreenState extends State<HomeScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                ContainerProfiling(
-                                  // onTap: () {
-                                  //   Nav.to(AddMultipleProfiling(
-                                  //     int.parse('1'),
-                                  //     int.parse('10'),
-                                  //   ));
-                                  // },
+                                isLoadingprice
+                                    ? Shimmer.fromColors(
+                                  baseColor: Colors.grey.withOpacity(0.2),
+                                  highlightColor: Colors.white,
+                                  child: Container(
+                                    height: 80,width: 160,
+                                    decoration: BoxDecoration(color: Colors.grey, borderRadius: BorderRadius.circular(8)),
+                                  ),
+                                )
+                                    : ContainerProfiling(
                                   onTap: () async {
-                                    await valuePro
-                                        .cekAvailableProfiling(
-                                        context, codeReferralC,"profiling1");
+                                    await valuePro.cekAvailableProfiling(context, codeReferralC, "profiling1");
                                     codeReferralC.clear();
-
                                   },
                                   backgroundColor: Colors.lightBlueAccent,
                                   borderColor: Colors.blue,
                                   leading: Image.asset('images/HeadIcon1.png'),
-                                  title: '${S.of(context).profiling} x1',
-                                  subtitle: 'RP. 10.000',
+                                  title: nameQty1,
+                                  subtitle: formatRupiah(priceQty1),
                                 ),
-                                SizedBox(
-                                  width: 15,
-                                ),
-                                ContainerProfiling(
+                                SizedBox(width: 15),
+                                isLoadingprice
+                                    ? Shimmer.fromColors(
+                                  baseColor: Colors.grey.withOpacity(0.2),
+                                  highlightColor: Colors.white,
+                                  child: Container(
+                                    height: 80,width: 160,
+                                    decoration: BoxDecoration(color: Colors.grey, borderRadius: BorderRadius.circular(8)),
+                                  ),
+                                )
+                                    : ContainerProfiling(
                                   onTap: () async {
-                                    await valuePro
-                                        .cekAvailableProfiling(
-                                        context, codeReferralC,"profiling10");
+                                    await valuePro.cekAvailableProfiling(context, codeReferralC, "profiling10");
                                     codeReferralC.clear();
                                   },
                                   backgroundColor: Color(0xFFF8DB1C),
                                   borderColor: YellowColor,
                                   leading: Image.asset('images/HeadIcon2.png'),
-                                  title: '${S.of(context).profiling} x10',
-                                  subtitle: 'RP. 100.000',
+                                  title: nameQty10,
+                                  subtitle: formatRupiah(priceQty10),
                                 ),
                               ],
                             ),

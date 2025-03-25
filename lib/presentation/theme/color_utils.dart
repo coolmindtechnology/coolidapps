@@ -19,3 +19,4 @@ Color lightBlue = const Color(0xFFDBFEFD);
 Color borderBlue = const Color(0xFF4CCBF4);
 Color imageBlue = const Color(0xFF5FC6EF);
 Color blueContainer = const Color(0xFF4CCBF4);
+Color blueContainer2 = const Color(0xFF93F1FB);

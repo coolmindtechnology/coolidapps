@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:coolappflutter/data/helpers/check_language.dart';
 import 'package:coolappflutter/presentation/widgets/GlobalButton.dart';
+import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart'; // Ganti library PDF
@@ -20,7 +21,8 @@ import 'package:provider/provider.dart';
 class CertificateScreen extends StatefulWidget {
   final DataProfiling? data;
   final String? shareCode;
-  const CertificateScreen({super.key, this.data, this.shareCode});
+  final bool isUnder17;
+  const CertificateScreen({super.key, this.data, this.shareCode, required this.isUnder17,});
 
   @override
   State<CertificateScreen> createState() => _CertificateScreenState();
@@ -169,63 +171,91 @@ class _CertificateScreenState extends State<CertificateScreen> {
                   )
                 ],
               ),
-              body: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: Column(
-                  children: [
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    Center(
-                      child: _isLoading
-                          ? const Center(child: CircularProgressIndicator())
-                          : SizedBox(
-                              height: 400,
-                              child: SfPdfViewer.network(
-                                pdfUrl!,
-                                key: _pdfViewerKey,
-                                headers: {"Authorization": dataGlobal.token},
+              body:  Stack(
+                children: [
+                  /// **Background Fullscreen**
+                  Container(
+                    width: double.infinity,
+                    height: double.infinity,
+                    color: widget.isUnder17 ? Color(0xFF93F1FB) : Colors.white,
+                  ),
+
+                  /// **Container Putih Sesuai Konten**
+                  SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+                      child: Container(
+                        padding: EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(12), // Opsional: Tambahkan border radius
+                          boxShadow: widget.isUnder17
+                              ? [
+                            BoxShadow(
+                              color: primaryColor, // Warna bayangan
+                              offset: Offset(4, 6), // Bayangan ke kanan
+                              blurRadius: 2, // Efek blur
+                              spreadRadius: 4, // Ukuran bayangan
+                            ),
+                          ] : [
+                            BoxShadow()
+                          ], ),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min, // Tinggi hanya sesuai konten
+                          children: [
+                            const SizedBox(height: 16),
+
+                            /// **PDF Viewer**
+                            Center(
+                              child: _isLoading
+                                  ? const CircularProgressIndicator()
+                                  : SizedBox(
+                                height: 350,
+                                child: SfPdfViewer.network(
+                                  pdfUrl!,
+                                  key: _pdfViewerKey,
+                                  headers: {"Authorization": dataGlobal.token},
+                                ),
                               ),
                             ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    GlobalButton(
-                      onPressed: () {
-                        showModalBottomSheet(
-                          shape: const RoundedRectangleBorder(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(25),
-                              topRight: Radius.circular(25),
+                            const SizedBox(height: 16),
+
+                            /// **Download Button**
+                            GlobalButton(
+                              onPressed: () {
+                                showModalBottomSheet(
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                      topLeft: Radius.circular(25),
+                                      topRight: Radius.circular(25),
+                                    ),
+                                  ),
+                                  isDismissible: false,
+                                  context: context,
+                                  builder: (context) {
+                                    return DownloadProgressDialog(
+                                      url: ApiEndpoint.donwnloadCertificatrPdf(
+                                          widget.data?.idLogResult ?? ""),
+                                      name:
+                                      "${widget.data?.profilingName}_CoolProfiling_Certificate.pdf",
+                                    );
+                                  },
+                                );
+                              },
+                              color:  widget.isUnder17 ? primaryColor : Colors.white,
+                              text: S.of(context).download,
+                              textStyle: TextStyle(color: widget.isUnder17 ? Colors.white : primaryColor),
+                              icon: Icon(Icons.file_download_outlined, color: widget.isUnder17 ? Colors.white : primaryColor),
                             ),
-                          ),
-                          isDismissible: false,
-                          context: context,
-                          builder: (context) {
-                            return DownloadProgressDialog(
-                              url: ApiEndpoint.donwnloadCertificatrPdf(
-                                  widget.data?.idLogResult ?? ""),
-                              name:
-                                  "${widget.data?.profilingName}_CoolProfiling_Certificate.pdf",
-                            );
-                          },
-                        );
-                      },
-                      color: Colors.white,
-                      text: S.of(context).download,
-                      textStyle: TextStyle(color: primaryColor),
-                      icon: Icon(
-                        Icons.file_download_outlined,
-                        color: primaryColor,
+                            const SizedBox(height: 16),
+                          ],
+                        ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
+              floatingActionButton: const CustomFAB(),
               // bottomNavigationBar: Padding(
               //   padding: const EdgeInsets.all(24.0),
               //   child: Column(

@@ -18,31 +18,28 @@ class S {
   static S? _current;
 
   static S get current {
-    assert(_current != null,
-        'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.');
+    assert(_current != null, 'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.');
     return _current!;
   }
 
-  static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
+  static const AppLocalizationDelegate delegate =
+    AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name = (locale.countryCode?.isEmpty ?? false)
-        ? locale.languageCode
-        : locale.toString();
-    final localeName = Intl.canonicalizedLocale(name);
+    final name = (locale.countryCode?.isEmpty ?? false) ? locale.languageCode : locale.toString();
+    final localeName = Intl.canonicalizedLocale(name); 
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
       final instance = S();
       S._current = instance;
-
+ 
       return instance;
     });
-  }
+  } 
 
   static S of(BuildContext context) {
     final instance = S.maybeOf(context);
-    assert(instance != null,
-        'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?');
+    assert(instance != null, 'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?');
     return instance!;
   }
 
@@ -640,16 +637,6 @@ class S {
     );
   }
 
-  /// `Back`
-  String get back {
-    return Intl.message(
-      'Back',
-      name: 'back',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Bedah Diri`
   String get self_surgery {
     return Intl.message(
@@ -675,16 +662,6 @@ class S {
     return Intl.message(
       'Password Confirmation',
       name: 'password_confirmation',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Notification`
-  String get notification {
-    return Intl.message(
-      'Notification',
-      name: 'notification',
       desc: '',
       args: [],
     );
@@ -1971,12 +1948,10 @@ class S {
   }
 
   /// `The file is too large, please upload a file less than 30 MB`
-  String
-      get the_file_is_too_large_please_upload_a_file_with_a_size_of_less_than_30_mb {
+  String get the_file_is_too_large_please_upload_a_file_with_a_size_of_less_than_30_mb {
     return Intl.message(
       'The file is too large, please upload a file less than 30 MB',
-      name:
-          'the_file_is_too_large_please_upload_a_file_with_a_size_of_less_than_30_mb',
+      name: 'the_file_is_too_large_please_upload_a_file_with_a_size_of_less_than_30_mb',
       desc: '',
       args: [],
     );
@@ -2813,12 +2788,10 @@ class S {
   }
 
   /// `Password must include uppercase letters lowercase letters digits and special characters`
-  String
-      get password_must_include_uppercase_letters_lowercase_letters_digits_and_special_characters {
+  String get password_must_include_uppercase_letters_lowercase_letters_digits_and_special_characters {
     return Intl.message(
       'Password must include uppercase letters lowercase letters digits and special characters',
-      name:
-          'password_must_include_uppercase_letters_lowercase_letters_digits_and_special_characters',
+      name: 'password_must_include_uppercase_letters_lowercase_letters_digits_and_special_characters',
       desc: '',
       args: [],
     );
@@ -2869,6 +2842,16 @@ class S {
     return Intl.message(
       'Home',
       name: 'home',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Notification`
+  String get notification {
+    return Intl.message(
+      'Notification',
+      name: 'notification',
       desc: '',
       args: [],
     );
@@ -2939,6 +2922,16 @@ class S {
     return Intl.message(
       'Next',
       name: 'lanjut',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Back`
+  String get back {
+    return Intl.message(
+      'Back',
+      name: 'back',
       desc: '',
       args: [],
     );
@@ -3214,106 +3207,6 @@ class S {
     );
   }
 
-  /// `Edit Profile`
-  String get Edit_profile {
-    return Intl.message(
-      'Edit Profile',
-      name: 'Edit_profile',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Emotion In`
-  String get Emotion_in {
-    return Intl.message(
-      'Emotion In',
-      name: 'Emotion_in',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Post`
-  String get Post {
-    return Intl.message(
-      'Post',
-      name: 'Post',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Following`
-  String get Following {
-    return Intl.message(
-      'Following',
-      name: 'Following',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Follower`
-  String get Follower {
-    return Intl.message(
-      'Follower',
-      name: 'Follower',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `My Subscription`
-  String get My_Subscription {
-    return Intl.message(
-      'My Subscription',
-      name: 'My_Subscription',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `digital ID`
-  String get digital_ID {
-    return Intl.message(
-      'digital ID',
-      name: 'digital_ID',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `My Profiling Results`
-  String get My_Profiling_Results {
-    return Intl.message(
-      'My Profiling Results',
-      name: 'My_Profiling_Results',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Setting`
-  String get Setting {
-    return Intl.message(
-      'Setting',
-      name: 'Setting',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Others`
-  String get Others {
-    return Intl.message(
-      'Others',
-      name: 'Others',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Account`
   String get Account {
     return Intl.message(
@@ -3464,16 +3357,6 @@ class S {
     );
   }
 
-  /// `Request Account Deletion`
-  String get Request_Account_Deletion {
-    return Intl.message(
-      'Request Account Deletion',
-      name: 'Request_Account_Deletion',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Report Issue`
   String get Report_Issue {
     return Intl.message(
@@ -3569,6 +3452,16 @@ class S {
     return Intl.message(
       'Choose Your Language',
       name: 'Choose_Your_Language',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Request Account Deletion`
+  String get Request_Account_Deletion {
+    return Intl.message(
+      'Request Account Deletion',
+      name: 'Request_Account_Deletion',
       desc: '',
       args: [],
     );
@@ -4035,10 +3928,10 @@ class S {
   }
 
   /// `Choose your consultant carefully, you will work with them for the next 3 days`
-  String get Choose_your_consultant {
+  String get Choose_yprofil_miripour_consultant {
     return Intl.message(
       'Choose your consultant carefully, you will work with them for the next 3 days',
-      name: 'Choose_your_consultant',
+      name: 'Choose_yprofil_miripour_consultant',
       desc: '',
       args: [],
     );
@@ -4084,10 +3977,10 @@ class S {
     );
   }
 
-  /// `Share your feelings`
+  /// `Confession`
   String get Curhat {
     return Intl.message(
-      'Share your feelings',
+      'Confession',
       name: 'Curhat',
       desc: '',
       args: [],
@@ -4129,16 +4022,6 @@ class S {
     return Intl.message(
       'Session Completed',
       name: 'Session_Completed',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Your Explanation`
-  String get Your_Explanation {
-    return Intl.message(
-      'Your Explanation',
-      name: 'Your_Explanation',
       desc: '',
       args: [],
     );
@@ -4464,6 +4347,16 @@ class S {
     );
   }
 
+  /// `Your Explanation`
+  String get Your_Explanation {
+    return Intl.message(
+      'Your Explanation',
+      name: 'Your_Explanation',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Rating Given`
   String get Rating_Given {
     return Intl.message(
@@ -4694,16 +4587,6 @@ class S {
     );
   }
 
-  /// `Real Money :`
-  String get Real_Money {
-    return Intl.message(
-      'Real Money :',
-      name: 'Real_Money',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Review your session`
   String get Review_Session {
     return Intl.message(
@@ -4809,6 +4692,16 @@ class S {
     return Intl.message(
       'Your Balance :',
       name: 'Your_Balance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Real Money :`
+  String get Real_Money {
+    return Intl.message(
+      'Real Money :',
+      name: 'Real_Money',
       desc: '',
       args: [],
     );
@@ -5594,6 +5487,7 @@ class S {
     );
   }
 
+  /// `approve`
   String get approve {
     return Intl.message(
       'approve',
@@ -5603,6 +5497,7 @@ class S {
     );
   }
 
+  /// `Complete profiling & get Free consultation`
   String get complete_profiling {
     return Intl.message(
       'Complete profiling & get Free consultation',
@@ -5612,7 +5507,8 @@ class S {
     );
   }
 
-  String get affiliatorCode {
+  /// `Affiliator Code`
+  String get affiliator_code {
     return Intl.message(
       'Affiliator Code',
       name: 'affiliator_code',
@@ -5621,7 +5517,8 @@ class S {
     );
   }
 
-  String get welcomeAffiliatorProgram {
+  /// `Welcome to the Affiliator Program`
+  String get welcome_affiliator_program {
     return Intl.message(
       'Welcome to the Affiliator Program',
       name: 'welcome_affiliator_program',
@@ -5630,7 +5527,8 @@ class S {
     );
   }
 
-  String get invalidAgentCode {
+  /// `Invalid agent code!`
+  String get invalid_agent_code {
     return Intl.message(
       'Invalid agent code!',
       name: 'invalid_agent_code',
@@ -5639,25 +5537,28 @@ class S {
     );
   }
 
-  String get agentMaxMembers {
+  /// `The agent already has the maximum number of members`
+  String get agent_max_members {
     return Intl.message(
-      'Agent already has the maximum number of members',
+      'The agent already has the maximum number of members',
       name: 'agent_max_members',
       desc: '',
       args: [],
     );
   }
 
-  String get enterAgentCode {
+  /// `Enter the Agent Code`
+  String get enter_agent_code {
     return Intl.message(
-      'Enter agent code',
+      'Enter the Agent Code',
       name: 'enter_agent_code',
       desc: '',
       args: [],
     );
   }
 
-  String get agreeTermsConditions {
+  /// `By reading this, I agree to the terms & conditions`
+  String get agree_terms_conditions {
     return Intl.message(
       'By reading this, I agree to the terms & conditions',
       name: 'agree_terms_conditions',
@@ -5666,16 +5567,18 @@ class S {
     );
   }
 
-  String get readTermsConditions {
+  /// `Please read the terms & conditions until the end`
+  String get read_terms_conditions {
     return Intl.message(
-      'Please read the terms & conditions completely',
+      'Please read the terms & conditions until the end',
       name: 'read_terms_conditions',
       desc: '',
       args: [],
     );
   }
 
-  String get iUnderstand {
+  /// `I Understand`
+  String get i_understand {
     return Intl.message(
       'I Understand',
       name: 'i_understand',
@@ -5684,15 +5587,17 @@ class S {
     );
   }
 
-  String get affiliatorAccountNotice {
+  /// `An account that has become an affiliator CANNOT be used for NEW profiling`
+  String get affiliator_account_notice {
     return Intl.message(
-      'An account that has become an affiliator CANNOT be used to create a NEW profile',
+      'An account that has become an affiliator CANNOT be used for NEW profiling',
       name: 'affiliator_account_notice',
       desc: '',
       args: [],
     );
   }
 
+  /// `ATTENTION!`
   String get attention {
     return Intl.message(
       'ATTENTION!',
@@ -5702,16 +5607,18 @@ class S {
     );
   }
 
-  String get viewOldProfiling {
+  /// `You can still view the results of previous profiling`
+  String get view_old_profiling {
     return Intl.message(
-      'You can still view old profiling results',
+      'You can still view the results of previous profiling',
       name: 'view_old_profiling',
       desc: '',
       args: [],
     );
   }
 
-  String get continueText {
+  /// `Continue`
+  String get continiu {
     return Intl.message(
       'Continue',
       name: 'continue',
@@ -5720,7 +5627,18 @@ class S {
     );
   }
 
-  String get useAnotherAccount {
+  /// `Choose_your_consultant`
+  String get Choose_your_consultant {
+    return Intl.message(
+      'Choose_your_consultant',
+      name: 'Choose_your_consultant',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Use another account`
+  String get use_another_account {
     return Intl.message(
       'Use another account',
       name: 'use_another_account',
@@ -5729,7 +5647,8 @@ class S {
     );
   }
 
-  String get confirmBankAccount {
+  /// `Are you sure about this bank account number?`
+  String get confirm_bank_account {
     return Intl.message(
       'Are you sure about this bank account number?',
       name: 'confirm_bank_account',
@@ -5738,15 +5657,17 @@ class S {
     );
   }
 
-  String get doubleCheckBankNumber {
+  /// `Make sure the entered number is yours. You can change the bank account number in settings.`
+  String get double_check_bank_number {
     return Intl.message(
-      'Make sure the entered number is yours. You can change your bank account number in the settings.',
+      'Make sure the entered number is yours. You can change the bank account number in settings.',
       name: 'double_check_bank_number',
       desc: '',
       args: [],
     );
   }
 
+  /// `From`
   String get from {
     return Intl.message(
       'From',
@@ -5756,7 +5677,8 @@ class S {
     );
   }
 
-  String get yesIamSure {
+  /// `Yes, I am sure`
+  String get yes_i_am_sure {
     return Intl.message(
       'Yes, I am sure',
       name: 'yes_i_am_sure',
@@ -5765,6 +5687,7 @@ class S {
     );
   }
 
+  /// `Proceed`
   String get proceed {
     return Intl.message(
       'Proceed',
@@ -5774,6 +5697,7 @@ class S {
     );
   }
 
+  /// `Invoice`
   String get invoice {
     return Intl.message(
       'Invoice',
@@ -5783,6 +5707,7 @@ class S {
     );
   }
 
+  /// `ID:`
   String get id {
     return Intl.message(
       'ID:',
@@ -5792,7 +5717,8 @@ class S {
     );
   }
 
-  String get affiliateProgram {
+  /// `Affiliate Program:`
+  String get affiliate_program {
     return Intl.message(
       'Affiliate Program:',
       name: 'affiliate_program',
@@ -5801,16 +5727,18 @@ class S {
     );
   }
 
-  String get welcomeAffiliateProgram {
+  /// `Welcome to our Affiliate Program! By joining, you can earn extra income by referring our products or services to others.`
+  String get welcome_affiliate_program {
     return Intl.message(
-      'Welcome to our Affiliate Program! By joining, you can earn additional income by referring our products or services to others.',
+      'Welcome to our Affiliate Program! By joining, you can earn extra income by referring our products or services to others.',
       name: 'welcome_affiliate_program',
       desc: '',
       args: [],
     );
   }
 
-  String get affiliateAgreement {
+  /// `Affiliate Program Agreement:`
+  String get affiliate_agreement {
     return Intl.message(
       'Affiliate Program Agreement:',
       name: 'affiliate_agreement',
@@ -5819,7 +5747,8 @@ class S {
     );
   }
 
-  String get depositInfo {
+  /// `Deposit: A deposit of 2,000,000 IDR is required to join.`
+  String get deposit_info {
     return Intl.message(
       'Deposit: A deposit of 2,000,000 IDR is required to join.',
       name: 'deposit_info',
@@ -5828,7 +5757,8 @@ class S {
     );
   }
 
-  String get commissionInfo {
+  /// `Commission: Paid based on actions generated from your affiliate link.`
+  String get commission_info {
     return Intl.message(
       'Commission: Paid based on actions generated from your affiliate link.',
       name: 'commission_info',
@@ -5837,43 +5767,48 @@ class S {
     );
   }
 
-  String get rightsResponsibilities {
+  /// `Rights and Responsibilities: You are responsible for ethical promotion, and we reserve the right to terminate your account if terms are violated.`
+  String get rights_responsibilities {
     return Intl.message(
-      'Rights & Responsibilities: You are responsible for ethical promotion, and we reserve the right to cancel your account if terms are violated.',
+      'Rights and Responsibilities: You are responsible for ethical promotion, and we reserve the right to terminate your account if terms are violated.',
       name: 'rights_responsibilities',
       desc: '',
       args: [],
     );
   }
 
-  String get cancellationChanges {
+  /// `Cancellation and Changes: We reserve the right to modify or cancel the agreement with notice.`
+  String get cancellation_changes {
     return Intl.message(
-      'Cancellation & Changes: We reserve the right to modify or cancel the agreement with prior notice.',
+      'Cancellation and Changes: We reserve the right to modify or cancel the agreement with notice.',
       name: 'cancellation_changes',
       desc: '',
       args: [],
     );
   }
 
-  String get joinNow {
+  /// `Join now and start earning extra income!`
+  String get join_now {
     return Intl.message(
-      'Join now and start earning additional income!',
+      'Join now and start earning extra income!',
       name: 'join_now',
       desc: '',
       args: [],
     );
   }
 
-  String get welcomeAffiliator {
+  /// `Welcome Affiliator`
+  String get welcome_affiliator {
     return Intl.message(
-      'Welcome, Affiliator',
+      'Welcome Affiliator',
       name: 'welcome_affiliator',
       desc: '',
       args: [],
     );
   }
 
-  String get congratulationsAffiliator {
+  /// `Congratulations! You are now part of our contributors`
+  String get congratulations_affiliator {
     return Intl.message(
       'Congratulations! You are now part of our contributors',
       name: 'congratulations_affiliator',
@@ -5882,243 +5817,606 @@ class S {
     );
   }
 
+  /// `What is Profiling?`
   String get what_is_profiling {
-    return Intl.message('what is profiling ?',
-        name: 'what_is_profiling',
-        desc: '',
-        args: []);
+    return Intl.message(
+      'What is Profiling?',
+      name: 'what_is_profiling',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `New Profiling`
   String get new_profiling {
-    return Intl.message('New Profiling',
-        name: 'new_profiling',
-        desc: '',
-        args: []);
+    return Intl.message(
+      'New Profiling',
+      name: 'new_profiling',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `Identity Confirmation`
   String get identity_confirmation {
-    return Intl.message('Identity Confirmation',
-        name: 'identity_confirmation',
-        desc: '',
-        args: []);
+    return Intl.message(
+      'Identity Confirmation',
+      name: 'identity_confirmation',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `Your Profiling`
   String get your_profiling {
-    return Intl.message('Your Profiling',
-        name: 'your_profiling', desc: '', args: []);
+    return Intl.message(
+      'Your Profiling',
+      name: 'your_profiling',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `Let's review the profiling data you want to create, we don't want any mistakes, do we?`
   String get check_profiling_data {
     return Intl.message(
-        "Let's review the profiling data you want to create, we don't want any mistakes, do we?",
-        name: 'check_profiling_data',
-        desc: '',
-        args: []);
+      'Let\'s review the profiling data you want to create, we don\'t want any mistakes, do we?',
+      name: 'check_profiling_data',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `Add Profile`
   String get add_profile {
-    return Intl.message('Add Profile',
-        name: 'add_profile',
-        desc: '',
-        args: []);
+    return Intl.message(
+      'Add Profile',
+      name: 'add_profile',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `DELETE PROFILING DATA?`
   String get delete_profiling_data {
-    return Intl.message('DELETE PROFILING DATA?',
-        name: 'delete_profiling_data',
-        desc: '',
-        args: []);
+    return Intl.message(
+      'DELETE PROFILING DATA?',
+      name: 'delete_profiling_data',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `Deleted data cannot be recovered, are you sure?`
   String get data_deletion_warning {
-    return Intl.message('Deleted data cannot be recovered, are you sure?',
-        name: 'data_deletion_warning',
-        desc: '',
-        args: []);
+    return Intl.message(
+      'Deleted data cannot be recovered, are you sure?',
+      name: 'data_deletion_warning',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `Yes, Delete`
   String get yes_delete {
-    return Intl.message('Yes, Delete',
-        name: 'yes_delete',
-        desc: '',
-        args: []);
+    return Intl.message(
+      'Yes, Delete',
+      name: 'yes_delete',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `No, Don't`
   String get no_dont {
-    return Intl.message("No, Don't",
-        name: 'no_dont',
-        desc: '',
-        args: []);
+    return Intl.message(
+      'No, Don\'t',
+      name: 'no_dont',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `CONGRATULATIONS!! YOU ARE A \n`
   String get congratulationsYou {
-    return Intl.message('CONGRATULATIONS!! YOU \nARE A',
-        name: 'congratulationsYou',
-        desc: '',
-        args: []);
+    return Intl.message(
+      'CONGRATULATIONS!! YOU ARE A \n',
+      name: 'congratulationsYou',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `Download Result`
   String get download_result {
-    return Intl.message('Download Result',
-        name: 'download_result',
-        desc: '',
-        args: []);
+    return Intl.message(
+      'Download Result',
+      name: 'download_result',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `Brain`
   String get brain {
-    return Intl.message('Brain',
-        name: 'brain',
-        desc: '',
-        args: []);
+    return Intl.message(
+      'Brain',
+      name: 'brain',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `FREE CONSULTATION 3x`
   String get free_consultation {
-    return Intl.message('FREE CONSULTATION 3x',
-        name: 'free_consultation',
-        desc: '',
-        args: []);
+    return Intl.message(
+      'FREE CONSULTATION 3x',
+      name: 'free_consultation',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `Get free consultation up to 3 times in 3 days`
   String get free_consultation_details {
-    return Intl.message('Get free consultation up to 3 times in 3 days',
-        name: 'free_consultation_details',
-        desc: '',
-        args: []);
+    return Intl.message(
+      'Get free consultation up to 3 times in 3 days',
+      name: 'free_consultation_details',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `About your profile`
   String get about_your_profile {
-    return Intl.message('About your profile',
-        name: 'about_your_profile',
-        desc: '',
-        args: []);
+    return Intl.message(
+      'About your profile',
+      name: 'about_your_profile',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `Wealth Type`
   String get wealth_type {
-    return Intl.message('Wealth Type',
-        name: 'wealth_type',
-        desc: '',
-        args: []);
+    return Intl.message(
+      'Wealth Type',
+      name: 'wealth_type',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `Family`
   String get family {
-    return Intl.message('Family',
-        name: 'family',
-        desc: '',
-        args: []);
+    return Intl.message(
+      'Family',
+      name: 'family',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `Communication`
   String get communication {
-    return Intl.message('Communication',
-        name: 'communication',
-        desc: '',
-        args: []);
+    return Intl.message(
+      'Communication',
+      name: 'communication',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `Career`
   String get career {
-    return Intl.message('Career',
-        name: 'career', desc: '',
-        args: []);
+    return Intl.message(
+      'Career',
+      name: 'career',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `Financial`
   String get financial {
-    return Intl.message('Financial', name: 'financial', desc: '', args: []);
+    return Intl.message(
+      'Financial',
+      name: 'financial',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `Others`
   String get others {
-    return Intl.message('Others', name: 'others', desc: '', args: []);
+    return Intl.message(
+      'Others',
+      name: 'others',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `Figures`
   String get figures {
-    return Intl.message('Figures', name: 'figures', desc: '', args: []);
+    return Intl.message(
+      'Figures',
+      name: 'figures',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `Figures with the same type`
   String get figures_with_same_type {
-    return Intl.message('Figures with the same type',
-        name: 'figures_with_same_type', desc: '', args: []);
+    return Intl.message(
+      'Figures with the same type',
+      name: 'figures_with_same_type',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `Now Listening:`
   String get now_listening {
-    return Intl.message('Now Listening:',
-        name: 'now_listening', desc: '', args: []);
+    return Intl.message(
+      'Now Listening:',
+      name: 'now_listening',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `Asset Type`
   String get asset_type {
-    return Intl.message('Asset Type', name: 'asset_type', desc: '', args: []);
+    return Intl.message(
+      'Asset Type',
+      name: 'asset_type',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `Brain Type`
   String get brain_type_label {
-    return Intl.message('Brain Type',
-        name: 'brain_type_label', desc: '', args: []);
+    return Intl.message(
+      'Brain Type',
+      name: 'brain_type_label',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `Blood Group`
   String get blood_group {
-    return Intl.message('Blood Group', name: 'blood_group', desc: '', args: []);
+    return Intl.message(
+      'Blood Group',
+      name: 'blood_group',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `Happiness Pattern`
   String get happiness_pattern {
-    return Intl.message('Happiness Pattern',
-        name: 'happiness_pattern', desc: '', args: []);
+    return Intl.message(
+      'Happiness Pattern',
+      name: 'happiness_pattern',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `Social Interaction Pattern`
   String get social_interaction_pattern {
-    return Intl.message('Social Interaction Pattern',
-        name: 'social_interaction_pattern', desc: '', args: []);
+    return Intl.message(
+      'Social Interaction Pattern',
+      name: 'social_interaction_pattern',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `Healing Pattern`
   String get healing_pattern {
-    return Intl.message('Healing Pattern',
-        name: 'healing_pattern', desc: '', args: []);
+    return Intl.message(
+      'Healing Pattern',
+      name: 'healing_pattern',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `Spiritual`
   String get spiritual {
-    return Intl.message('Spiritual', name: 'spiritual', desc: '', args: []);
+    return Intl.message(
+      'Spiritual',
+      name: 'spiritual',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `Figures with the same brain type`
   String get figures_with_same_brain_type {
-    return Intl.message('Figures with the same brain type',
-        name: 'figures_with_same_brain_type', desc: '', args: []);
+    return Intl.message(
+      'Figures with the same brain type',
+      name: 'figures_with_same_brain_type',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `Figures with the same personality`
   String get figures_with_same_personality {
-    return Intl.message('Figures with the same personality',
-        name: 'figures_with_same_personality', desc: '', args: []);
+    return Intl.message(
+      'Figures with the same personality',
+      name: 'figures_with_same_personality',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `Great! There are figures with the same brain type as you`
   String get great_figures_with_same_brain_type {
     return Intl.message(
-        'Great! There are figures with the same brain type as you',
-        name: 'great_figures_with_same_brain_type',
-        desc: '',
-        args: []);
+      'Great! There are figures with the same brain type as you',
+      name: 'great_figures_with_same_brain_type',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `Biodata`
   String get biodata {
-    return Intl.message('Biodata', name: 'biodata', desc: '', args: []);
+    return Intl.message(
+      'Biodata',
+      name: 'biodata',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `Add Icon for your profiling!`
   String get add_icon_for_profiling {
-    return Intl.message('Add Icon for your profiling!',
-        name: 'add_icon_for_profiling', desc: '', args: []);
+    return Intl.message(
+      'Add Icon for your profiling!',
+      name: 'add_icon_for_profiling',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `Green`
   String get green {
-    return Intl.message('Green', name: 'green', desc: '', args: []);
+    return Intl.message(
+      'Green',
+      name: 'green',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `Yellow`
   String get yellow {
-    return Intl.message('Yellow', name: 'yellow', desc: '', args: []);
+    return Intl.message(
+      'Yellow',
+      name: 'yellow',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `White`
   String get white {
-    return Intl.message('White', name: 'white', desc: '', args: []);
+    return Intl.message(
+      'White',
+      name: 'white',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `Orange`
   String get orange {
-    return Intl.message('Orange', name: 'orange', desc: '', args: []);
+    return Intl.message(
+      'Orange',
+      name: 'orange',
+      desc: '',
+      args: [],
+    );
   }
 
+  /// `Red`
   String get red {
-    return Intl.message('Red', name: 'red', desc: '', args: []);
+    return Intl.message(
+      'Red',
+      name: 'red',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Congratulations! You are a....`
+  String get pesan_selamat {
+    return Intl.message(
+      'Congratulations! You are a....',
+      name: 'pesan_selamat',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Let's get to know yourself better`
+  String get ajakan_mengenal_diri {
+    return Intl.message(
+      'Let\'s get to know yourself better',
+      name: 'ajakan_mengenal_diri',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Who does my profile resemble?`
+  String get profil_mirip {
+    return Intl.message(
+      'Who does my profile resemble?',
+      name: 'profil_mirip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Who does my profile resemble?`
+  String get profil_mirip_duplikat {
+    return Intl.message(
+      'Who does my profile resemble?',
+      name: 'profil_mirip_duplikat',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pattern Type`
+  String get tipe_pola {
+    return Intl.message(
+      'Pattern Type',
+      name: 'tipe_pola',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `KEYWORDS`
+  String get kata_kunci {
+    return Intl.message(
+      'KEYWORDS',
+      name: 'kata_kunci',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `1. Motivation`
+  String get motivasi {
+    return Intl.message(
+      '1. Motivation',
+      name: 'motivasi',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `2. Character`
+  String get karakter {
+    return Intl.message(
+      '2. Character',
+      name: 'karakter',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `3. Strengths`
+  String get kelebihan {
+    return Intl.message(
+      '3. Strengths',
+      name: 'kelebihan',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `4. Weaknesses`
+  String get kelemahan {
+    return Intl.message(
+      '4. Weaknesses',
+      name: 'kelemahan',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My Wealth Type!`
+  String get tipe_harta {
+    return Intl.message(
+      'My Wealth Type!',
+      name: 'tipe_harta',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My Brain Type!`
+  String get tipe_otak {
+    return Intl.message(
+      'My Brain Type!',
+      name: 'tipe_otak',
+      desc: '',
+      args: [],
+    );
+  }
+
+  // skipped getter for the 'personality!' key
+
+  /// `Unrecognized Type`
+  String get tipe_tidak_dikenali {
+    return Intl.message(
+      'Unrecognized Type',
+      name: 'tipe_tidak_dikenali',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My Code`
+  String get kode_saya {
+    return Intl.message(
+      'My Code',
+      name: 'kode_saya',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Scan QR`
+  String get scan_qr {
+    return Intl.message(
+      'Scan QR',
+      name: 'scan_qr',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please Scan the QR Code Using CoolApp`
+  String get instruksi_scan_qr {
+    return Intl.message(
+      'Please Scan the QR Code Using CoolApp',
+      name: 'instruksi_scan_qr',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show this QR Code to facilitate your affiliation process.`
+  String get petunjuk_qr {
+    return Intl.message(
+      'Show this QR Code to facilitate your affiliation process.',
+      name: 'petunjuk_qr',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your Code`
+  String get kode_anda {
+    return Intl.message(
+      'Your Code',
+      name: 'kode_anda',
+      desc: '',
+      args: [],
+    );
   }
 }
 

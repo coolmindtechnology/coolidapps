@@ -18,7 +18,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 # of the product and file versions while build-number is used as the build suffix.
 # version: 1.8.5+50
 
-version: 1.8.8+53
+version: 1.9.0+55
 
 environment:
   sdk: ">=3.3.4 <4.0.0"
@@ -35,6 +35,7 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
+  zego_uikit_prebuilt_video_conference: ^2.9.6
   flutter_typeahead: ^5.2.0
   cupertino_icons: ^1.0.6
   syncfusion_flutter_pdf: ^28.1.39
@@ -106,7 +107,6 @@ dependencies:
   geolocator: ^13.0.2
   geocoding: ^3.0.0
   flutter_screenutil: ^5.9.3
-  file_picker: ^9.0.2
   flutter_sound: ^9.2.13
 
   faker: ^2.1.0
@@ -132,7 +132,13 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-  flutter_lints: ^5.0.0
+dependency_overrides:
+  file_picker:
+    git:
+      url: https://github.com/abdelaziz-mahdy/flutter_file_picker
+      ref: fix-flutter-3.27-compile-error
+
+flutter_lints: ^5.0.0
 
 flutter_icons:
   android: "launcher_icon"

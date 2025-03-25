@@ -10,22 +10,33 @@ import '../helpers/failure.dart';
 import '../networks/endpoint/api_endpoint.dart';
 
 class RepoConsultation {
-  Future<Either<Failure, ResponseListConsultation>>
-      getListColcultation() async {
-    Response res = await dio.get(ApiEndpoint.getListConsultation,
+
+
+  Future<Either<Failure, ResponseListConsultation>> getlistConsultation(
+      {String? parameter}) async {
+    try {
+      // Membentuk URL dengan menambahkan parameter category ke query string jika parameter tidak null
+      String url =
+          '${ApiEndpoint.getListConsultation}/?type=$parameter&type_sesion=consultation';
+
+      // Melakukan request GET
+      Response res = await dio.get(
+        url,
         options: Options(
           validateStatus: (status) {
             return status == 200 || status == 400;
           },
-          contentType: Headers.jsonContentType,
-          responseType: ResponseType.json,
-          headers: {'Authorization': dataGlobal.token},
-        ));
-    try {
+          headers: {
+            'Authorization': dataGlobal.token, // Header Authorization
+          },
+        ),
+      );
+
+      // Mengembalikan hasil response dari API
       return Either.success(ResponseListConsultation.fromJson(res.data));
     } catch (e, st) {
       if (kDebugMode) {
-        print(st);
+        print(st); // Menampilkan error jika ada
       }
       return Either.error(ErrorHandler.handle(e).failure);
     }

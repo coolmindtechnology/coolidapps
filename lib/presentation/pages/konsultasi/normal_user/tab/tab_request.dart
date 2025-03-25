@@ -1,5 +1,6 @@
 import 'package:coolappflutter/data/provider/provider_consultation.dart';
 import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/non_konsultasi.dart';
 
 import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/profile_consultant.dart';
 import 'package:coolappflutter/presentation/pages/konsultasi/normal_user/detil_consultant.dart';
@@ -51,7 +52,7 @@ class _TabRequestState extends State<TabRequest> {
   @override
   void initState() {
     Provider.of<ProviderConsultation>(context, listen: false)
-        .getListConsultations(context, "requested","consultation");
+        .getListConsultations(context, "requested");
     super.initState();
   }
 
@@ -59,13 +60,13 @@ class _TabRequestState extends State<TabRequest> {
   Widget build(BuildContext context) {
     return Scaffold(body:
         Consumer<ProviderConsultation>(builder: (context, provider, child) {
-      if (provider.isLoading) {
+      if (provider.isLoadingConsultation) {
         return Center(child: CircularProgressIndicator());
       }
 
       final consultations = provider.consultations;
       if (consultations.isEmpty) {
-        return Center(child: Text('No consultations available'));
+        return const Center(child: NoneKonsul());
       }
 
       return ListView.builder(

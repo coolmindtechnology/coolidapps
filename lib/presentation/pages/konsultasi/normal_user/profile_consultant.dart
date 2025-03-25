@@ -71,9 +71,9 @@ class _ProfileConsultantState extends State<ProfileConsultant> {
                       status: '',
                       warnastatus: Colors.white),
                   ContainerFollower(
-                    title1: S.of(context).Post,
+                    title1: S.of(context).post,
                     subtitle1: '5',
-                    title2: S.of(context).Follower,
+                    title2: S.of(context).followers,
                     subtitle2: '6',
                     title3: S.of(context).following,
                     subtitle3: '6',

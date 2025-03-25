@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:coolappflutter/data/apps/app_sizes.dart';
 import 'package:coolappflutter/data/helpers/check_language.dart';
@@ -321,7 +322,7 @@ class _ScreenHasilKepribadianState extends State<ScreenHasilKepribadian> {
                                 onPressed: () {
                                   Nav.to(CertificateScreen(
                                       data: widget.data,
-                                      shareCode: value.dataShowDetail?.shareCode ?? ""));
+                                      shareCode: value.dataShowDetail?.shareCode ?? "",isUnder17: false,));
                                 },
                                 color: Colors.green,
                                 text: S.of(context).certificate,
@@ -453,7 +454,7 @@ class _ScreenHasilKepribadianState extends State<ScreenHasilKepribadian> {
                             onTap: () {
                               if (value.detailProfiling?.publicFigure != null &&
                               value.detailProfiling!.publicFigure!.isNotEmpty) {
-                              Nav.to(TokohPage(publicFigures: value.detailProfiling!.publicFigure!,));
+                              Nav.to(TokohPage(publicFigures: value.detailProfiling!.publicFigure!,isUnder17: false,));
                               }
                               },
                             child: isLoading  ? shimmerIconRow() : Row(
@@ -673,6 +674,7 @@ class _ScreenHasilKepribadianState extends State<ScreenHasilKepribadian> {
                     ],
                   ),
                 ),
+                floatingActionButton: const CustomFAB(),
               ),
             );
           }

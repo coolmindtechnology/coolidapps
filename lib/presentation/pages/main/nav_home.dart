@@ -8,11 +8,13 @@ import 'package:coolappflutter/presentation/pages/chat/home_chat.dart';
 import 'package:coolappflutter/presentation/pages/main/home_konsultant.dart';
 import 'package:coolappflutter/presentation/pages/main/home_screen.dart';
 import 'package:coolappflutter/presentation/pages/notification/notification_screen.dart';
+import 'package:coolappflutter/presentation/pages/user/Setting/Report/Report_Page.dart';
 
 import 'package:coolappflutter/presentation/pages/user/screen_settings.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:coolappflutter/presentation/utils/notification_utils.dart';
+import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -184,6 +186,7 @@ class _NavMenuScreenState extends State<NavMenuScreen> {
           );
         }).toList(),
       ),
+      floatingActionButton: const CustomFAB(),
     );
   }
 }

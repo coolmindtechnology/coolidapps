@@ -1,3 +1,4 @@
+import 'package:coolappflutter/data/data_global.dart';
 import 'package:coolappflutter/data/helpers/either.dart';
 import 'package:coolappflutter/data/helpers/failure.dart';
 import 'package:coolappflutter/data/repositories/repo_transaksi_affiliate.dart';
@@ -584,11 +585,10 @@ class ProviderTransaksiAffiliate extends ChangeNotifier {
 
     Either<ResCreateWithdraw, ResCreateWithdraw> response =
         await repoTransaksiAffiliate.createWithdraw(
-      amount,
-      dataBank?.bankNumber ?? "",
-      dataBank?.bankAccountName ?? "",
-      dataBank?.bankName ?? "",
-      dataBank?.user?.email ?? "",
+      amount, dataGlobal.dataAff?.bankNumber ?? "",
+          dataGlobal.dataAff?.bankAccountName ?? "",
+          dataGlobal.dataAff?.bankName ?? "",
+          dataGlobal.dataAff?.user?.email ?? "",
     );
     isCreateWithdraw = false;
     notifyListeners();
@@ -652,6 +652,7 @@ class ProviderTransaksiAffiliate extends ChangeNotifier {
         await repoTransaksiAffiliate.getAffiliateManagement();
     isGetAffiliateManagement = false;
     notifyListeners();
+    print("prikitiw");
     response.when(error: (e) {
       NotificationUtils.showDialogError(context, () {
         Nav.back();

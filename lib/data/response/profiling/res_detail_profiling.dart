@@ -61,6 +61,7 @@ class DataDetailProfiling {
   List<PublicFigure>? publicFigure;
   dynamic profilingName;
   dynamic shareCode;
+  KeyUnderAge? keyUnderAge;
 
   DataDetailProfiling({
     this.id,
@@ -86,6 +87,7 @@ class DataDetailProfiling {
     this.family,
     this.polaHealing,
     this.spiritual,
+    this.keyUnderAge,
 
   });
 
@@ -142,6 +144,9 @@ class DataDetailProfiling {
                 json["public_figure"]!.map((x) => PublicFigure.fromJson(x))),
         profilingName: json["profiling_name"],
         shareCode: json["share_code"],
+        keyUnderAge: json["key_under_age"] == null
+            ? null
+            : KeyUnderAge.fromJson(json["key_under_age"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -255,4 +260,88 @@ class PublicFigure {
         "career": career,
         "image": image,
       };
+}
+
+class KeyUnderAge {
+  dynamic motivasi;
+  dynamic karakter;
+  dynamic kelebihan;
+  dynamic kelemahan;
+  dynamic polaKomunikasi;
+  dynamic relasi;
+  dynamic polaPendekatanDanAsuh;
+  dynamic polaKesehatan;
+  dynamic polaBintang;
+  dynamic polaKetahanan;
+  dynamic potensiBakatDanMinat;
+  dynamic tipeKecerdasan;
+  dynamic polaIngatan;
+  dynamic polaBelajarMengajar;
+  dynamic polaPendekatan;
+  dynamic jalurPendidikan;
+  dynamic jalurKarir;
+  dynamic potensiBisnis;
+
+  KeyUnderAge({
+    this.motivasi,
+    this.karakter,
+    this.kelebihan,
+    this.kelemahan,
+    this.polaKomunikasi,
+    this.relasi,
+    this.polaPendekatanDanAsuh,
+    this.polaKesehatan,
+    this.polaBintang,
+    this.polaKetahanan,
+    this.potensiBakatDanMinat,
+    this.tipeKecerdasan,
+    this.polaIngatan,
+    this.polaBelajarMengajar,
+    this.polaPendekatan,
+    this.jalurPendidikan,
+    this.jalurKarir,
+    this.potensiBisnis,
+  });
+
+  factory KeyUnderAge.fromJson(Map<String, dynamic> json) => KeyUnderAge(
+    motivasi: json["motivate"],
+    karakter: json["character"],
+    kelebihan: json["strengths"],
+    kelemahan: json["weaknesses"],
+    polaKomunikasi: json["pola_komunikasi"],
+    relasi: json["relasi"],
+    polaPendekatanDanAsuh: json["pola_pendekatan_dan_pola_asuh"],
+    polaKesehatan: json["pola_kesehatan"],
+    polaBintang: json["pola_bintang"],
+    polaKetahanan: json["pola_ketahanan"],
+    potensiBakatDanMinat: json["potensi_bakat_dan_minat"],
+    tipeKecerdasan: json["tipe_kecerdasan"],
+    polaIngatan: json["pola_ingatan"],
+    polaBelajarMengajar: json["pola_belajar_mengajar"],
+    polaPendekatan: json["pola_pendekatan"],
+    jalurPendidikan: json["jalur_pendidikan"],
+    jalurKarir: json["jalur_karir"],
+    potensiBisnis: json["potensi_bisnis"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "motivate": motivasi,
+    "character": karakter,
+    "strengths": kelebihan,
+    "weaknesses": kelemahan,
+    "pola_komunikasi": polaKomunikasi,
+    "relasi": relasi,
+    "pola_pendekatan_dan_pola_asuh": polaPendekatanDanAsuh,
+    "pola_kesehatan": polaKesehatan,
+    "pola_bintang": polaBintang,
+    "pola_ketahanan": polaKetahanan,
+    "potensi_bakat_dan_minat": potensiBakatDanMinat,
+    "tipe_kecerdasan": tipeKecerdasan,
+    "pola_ingatan": polaIngatan,
+    "pola_belajar_mengajar": polaBelajarMengajar,
+    "pola_pendekatan": polaPendekatan,
+    "jalur_pendidikan": jalurPendidikan,
+    "jalur_karir": jalurKarir,
+    "potensi_bisnis": potensiBisnis,
+  };
 }

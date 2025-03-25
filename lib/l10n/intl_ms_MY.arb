@@ -627,6 +627,25 @@
   "yellow": "Kuning",
   "white": "Putih",
   "orange": "Oren",
-  "red": "Merah"
+  "red": "Merah",
+  "pesan_selamat": "Tahniah! Anda adalah seorang....",
+  "ajakan_mengenal_diri": "Jom, kenali diri anda dengan lebih mendalam",
+  "profil_mirip": "Profil saya serupa dengan siapa?",
+  "profil_mirip_duplikat": "Profil saya serupa dengan siapa?",
+  "tipe_pola": "Jenis Pola",
+  "kata_kunci": "KATA KUNCI",
+  "motivasi": "1. Motivasi",
+  "karakter": "2. Karakter",
+  "kelebihan": "3. Kelebihan",
+  "kelemahan": "4. Kelemahan",
+  "tipe_harta": "Jenis Harta Saya!",
+  "tipe_otak": "Jenis Otak Saya!",
+  "personality!": "Personaliti Saya!",
+  "tipe_tidak_dikenali": "Jenis tidak dikenali",
+  "kode_saya": "Kod Saya",
+  "scan_qr": "Imbas QR",
+  "instruksi_scan_qr": "Sila imbas kod QR menggunakan CoolApp",
+  "petunjuk_qr": "Tunjukkan kod QR ini untuk memudahkan proses afiliasi anda.",
+  "kode_anda": "Kod Anda"
 
 }

@@ -9,6 +9,7 @@ import 'package:coolappflutter/presentation/utils/date_util.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:coolappflutter/presentation/utils/notification_utils.dart';
 import 'package:coolappflutter/presentation/widgets/button_primary.dart';
+import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
 import 'package:coolappflutter/presentation/widgets/custom_input_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -607,6 +608,7 @@ class _AddMultipleProfilingState extends State<AddMultipleProfiling> {
               ],
             ),
           ),
+          floatingActionButton: const CustomFAB(),
         );
       }),
     );

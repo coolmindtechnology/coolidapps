@@ -7,6 +7,7 @@ import 'package:coolappflutter/data/response/consultant/res_get_comissen.dart';
 import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/non_konsultasi.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
@@ -206,6 +207,7 @@ class _HistoryKomisenState extends State<HistoryKomisen>
                 ],
               ),
             ),
+            floatingActionButton: const CustomFAB(),
           ),
         );
       },

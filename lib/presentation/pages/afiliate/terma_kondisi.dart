@@ -77,7 +77,7 @@ class _TermaAffState extends State<TermaAff> {
                      'Aenean venenatis finibus orci, id sollicitudin neque tincidunt quis. Cras ante lacus, venenatis et malesuada gravida, dapibus maximus neque. Quisque tempus pellentesque pretium. Integer luctus ullamcorper '
                      'quam at dapibus. Vivamus faucibus velit eu accumsan faucibus. Pellentesque euismod blandit elementum. Integer tristique enim ligula, a mollis neque suscipit ut. S',style: TextStyle(fontWeight: FontWeight.w400,fontSize: 17),),
                 Spacer(),
-                Text(S.of(context).enterAgentCode,style: TextStyle(fontWeight: FontWeight.w600,color: primaryColor,fontSize: 18),),
+                Text(S.of(context).enter_agent_code,style: TextStyle(fontWeight: FontWeight.w600,color: primaryColor,fontSize: 18),),
                 Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [

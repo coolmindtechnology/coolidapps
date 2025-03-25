@@ -655,7 +655,8 @@ class ProviderUser extends ChangeNotifier {
       //     },
       //   ),
       // );
-      debugPrint("okkkk:");
+      debugPrint("okkkk hit api");
+      debugPrint("id yang dikirim : $id");
       Dio dio = DioHandler().dio;
       Response res = await dio.get(
           "${ApiEndpoint.baseUrl}/api/user/detail-list-history-profiling/$id",

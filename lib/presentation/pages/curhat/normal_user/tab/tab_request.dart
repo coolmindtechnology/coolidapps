@@ -1,4 +1,4 @@
-import 'package:coolappflutter/data/provider/provider_consultation.dart';
+import 'package:coolappflutter/data/provider/provider_curhat.dart';
 import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/profile_consultant.dart';
 import 'package:coolappflutter/presentation/pages/curhat/card_status.dart';
@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../Konsultasi/Normal_User/non_konsultasi.dart';
 import '../../../konsultasi/normal_user/profile_card.dart';
 
 class TabRequestCurhat extends StatefulWidget {
@@ -21,80 +22,42 @@ class TabRequestCurhat extends StatefulWidget {
 class _TabRequestCurhatState extends State<TabRequestCurhat> {
   @override
   void initState() {
-    Provider.of<ProviderConsultation>(context, listen: false)
-        .getListConsultations(context, "requested","curhat");
+    Provider.of<CurhatProvider>(context, listen: false)
+        .getListCurhat(context, parameter: "requested");
     super.initState();
   }
-
-
-  // final List<Map<String, dynamic>> profileData = [
-  //   {
-  //     "imagePath": 'images/konsultasi/profile2.png',
-  //     "name": 'John Doe',
-  //     "title": 'Strategist',
-  //     "bloodType": 'O',
-  //     "location": 'Cirebon, jawabarat',
-  //     "time": '10:00 - 10:30',
-  //     "timeRemaining": 'Dimulai dalam',
-  //     "request": 'Diterima',
-  //   },
-  //   {
-  //     "imagePath": 'images/konsultasi/profile1.png',
-  //     "name": 'Vivian Entira',
-  //     "title": 'Creative',
-  //     "bloodType": 'B',
-  //     "location": 'Manado, Sulawesi Utara ',
-  //     "time": '09:00 - 09:30',
-  //     "timeRemaining": '20 August 2024 / 10:00 - 10:30',
-  //     "request": 'Menunggu',
-  //   },
-  //   {
-  //     "imagePath": 'images/konsultasi/profile3.png',
-  //     "name": 'Alice Smith',
-  //     "title": 'Innovator',
-  //     "bloodType": 'A',
-  //     "location": 'Batam , Kepulauan Riau',
-  //     "time": '11:00 - 11:30',
-  //     "request": 'Ditolak'
-  //   },
-  // ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(body:
-        Consumer<ProviderConsultation>(builder: (context, provider, child) {
-      if (provider.isLoading) {
+    Consumer<CurhatProvider>(builder: (context, provider, child) {
+      if (provider.isLoadingCurhat) {
         return Center(child: CircularProgressIndicator());
       }
 
-      final consultations = provider.consultations;
-      if (consultations.isEmpty) {
-        return Center(child: Text('No consultations available'));
+      final curhats = provider.curhatdata;
+      if (curhats!.isEmpty) {
+        return const Center(child: NoneKonsul());
       }
 
       return ListView.builder(
-          itemCount: consultations.length,
+          itemCount: curhats.length,
           itemBuilder: (context, index) {
-            final consultation = consultations[index];
-            final sessionStart =
-                consultation.sessionStart?.substring(0, 5) ?? '-';
-            final sessionEnd = consultation.sessionEnd?.substring(0, 5) ?? '-';
-            // final profile = profileData[index];
+            final curhat = curhats[index];
             return ProfileCard(
-              imagePath: consultation.consultantImage ?? '-',
-              name: consultation.consultantName ?? '-',
-              title: consultation.consultantTypeBrain ?? '-',
-              bloodType: consultation.consultantBloodType ?? '-',
-              location: consultation.consultantAddress ?? '-',
-              time: "${consultation.timeSelected}",
-              timeRemaining: consultation.sessionStatus,
-              // '${consultation.remainingMinutes ?? '-'} ${S.of(context).Minutes_Left}',
+              imagePath: curhat.consultantImage ?? '-',
+              name: curhat.consultantName ?? '-',
+              title: curhat.consultantTypeBrain ?? '-',
+              bloodType: curhat.consultantBloodType ?? '-',
+              location: curhat.consultantAddress ?? '-',
+              time: "${curhat.timeSelected}",
+              timeRemaining: curhat.sessionStatus,
               timeColor: Colors.green,
               status: S.of(context).Status,
               warnastatus: Colors.lightGreen.shade100,
               onTap: () {
                 Nav.to(ProfileConsultant());
-              }, // Aksi jika ada
+              },
             );
           });
     }));

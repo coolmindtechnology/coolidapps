@@ -28,7 +28,7 @@ class _WarningPopState extends State<WarningPop> {
           children: [
             Image.asset(AppAsset.imgTerm,fit: BoxFit.cover,),
             gapH20,
-            Text(S.of(context).readTermsConditions,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 16),textAlign: TextAlign.center,),
+            Text(S.of(context).read_terms_conditions,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 16),textAlign: TextAlign.center,),
             gapH20,
             GlobalButton(onPressed: () {
               Navigator.pop(context);

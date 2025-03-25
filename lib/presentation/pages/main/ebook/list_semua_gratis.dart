@@ -1,0 +1,157 @@
+import 'package:coolappflutter/data/apps/app_sizes.dart';
+import 'package:coolappflutter/data/provider/provider_book.dart';
+import 'package:coolappflutter/data/response/res_list_ebook.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/main/ebook/detail_ebook.dart';
+import 'package:coolappflutter/presentation/pages/main/ebook/favorite_saya.dart';
+import 'package:coolappflutter/presentation/pages/main/ebook/list_semua_ebook.dart';
+import 'package:coolappflutter/presentation/pages/main/ebook/notes.dart';
+import 'package:coolappflutter/presentation/pages/main/ebook/ratings.dart';
+import 'package:coolappflutter/presentation/pages/main/read_book.dart';
+import 'package:coolappflutter/presentation/pages/user/Setting/Report/Report_Page.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/utils/notification_utils.dart';
+import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+class ListSemuaGratis extends StatefulWidget {
+  const ListSemuaGratis({super.key});
+
+  @override
+  State<ListSemuaGratis> createState() => _ListSemuaGratisState();
+}
+
+class _ListSemuaGratisState extends State<ListSemuaGratis> {
+  @override
+  Widget build(BuildContext context) {
+    ProviderBook provider = ProviderBook();
+    return ChangeNotifierProvider(create: (BuildContext context) {
+      return ProviderBook.initAllBook(context);
+    }, child: Consumer<ProviderBook>(
+        builder: (BuildContext context, value, Widget? child) {
+          return Scaffold(
+            appBar: AppBar(
+              leading: IconButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Image.asset("images/buku/arrowleft.png")),
+              title: const Text(
+                "List Semua Buku Gratis",
+                style: TextStyle(color: Colors.white),
+              ),
+              centerTitle: false,
+              actions: const [],
+            ),
+            body: SingleChildScrollView(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      height: 50,
+                      width: double.infinity,
+                      child: TextField(
+                        controller: value.searchController,
+                        onChanged: (text) {
+                          value.updateSearchController(text);
+                        },
+                        decoration: InputDecoration(
+                            prefixIcon: GestureDetector(
+                              onTap: () {
+                                value.updateSearchController("");
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(1.0),
+                                child: Image.asset(
+                                  "images/buku/search-buku.png",
+                                  color: blueContainer,
+                                  width: 10,
+                                  height: 10,
+                                ),
+                              ),
+                            ),
+                            hintText: "Cari Judul Buku",
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(Sizes.p10),
+                              borderSide: const BorderSide(
+                                color: Colors.grey,
+                              ),
+                            )),
+                      ),
+                    ),
+                  ),
+                  gapH16,
+                  SizedBox(
+                    child: GridView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 0.8,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                      ),
+                      itemCount: value.displayFree.length,
+                      itemBuilder: (context, index) {
+                        DataBook data = value.displayFree[index];
+                        return GestureDetector(
+                          onTap: () {
+                            Nav.to(ReadBook("${data.filePath}", "${data.title}"));
+                          },
+                          child: Card(
+                            color: Colors.white,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: SizedBox(
+                                    height: 150,
+                                    width: double.infinity,
+                                    child: Image.network(
+                                      "${data.imagePath ?? ""}",
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                                gapH20,
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(left: 5, right: 5),
+                                  child: Center(
+                                    child: Text(
+                                      data.title.toString().length > 15
+                                          ? data.title
+                                              .toString()
+                                              .substring(0, 15) +
+                                              '...'
+                                          : data.title.toString(),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        fontSize: 19,
+                                        fontWeight: FontWeight.w600
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            floatingActionButton: const CustomFAB(),
+          );
+        }));
+  }
+}

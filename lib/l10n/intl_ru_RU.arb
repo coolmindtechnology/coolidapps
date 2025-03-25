@@ -627,7 +627,26 @@
   "yellow": "Желтый",
   "white": "Белый",
   "orange": "Оранжевый",
-  "red": "Красный"
+  "red": "Красный",
+  "pesan_selamat": "Поздравляем! Вы....",
+  "ajakan_mengenal_diri": "Давайте узнаем себя лучше",
+  "profil_mirip": "На кого похож мой профиль?",
+  "profil_mirip_duplikat": "На кого похож мой профиль?",
+  "tipe_pola": "Тип шаблона",
+  "kata_kunci": "КЛЮЧЕВЫЕ СЛОВА",
+  "motivasi": "1. Мотивация",
+  "karakter": "2. Характер",
+  "kelebihan": "3. Достоинства",
+  "kelemahan": "4. Недостатки",
+  "tipe_harta": "Мой тип богатства!",
+  "tipe_otak": "Мой тип мозга!",
+  "personality!": "Моя личность!",
+  "tipe_tidak_dikenali": "Неопознанный тип",
+  "kode_saya": "Мой код",
+  "scan_qr": "Сканировать QR",
+  "instruksi_scan_qr": "Пожалуйста, отсканируйте QR-код с помощью CoolApp",
+  "petunjuk_qr": "Покажите этот QR-код для упрощения процесса аффилиации.",
+  "kode_anda": "Ваш код"
 
 
 }

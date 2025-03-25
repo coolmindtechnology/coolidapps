@@ -123,31 +123,31 @@ class ProfileCard extends StatelessWidget {
             timeColor != null)
           status != "false"
               ? Container(
-                  width: double.infinity,
-                  height: 20,
-                  decoration: BoxDecoration(
-                    color: warnastatus,
-                    borderRadius: BorderRadius.circular(5),
+            width: double.infinity,
+            height: 20,
+            decoration: BoxDecoration(
+              color: warnastatus,
+              borderRadius: BorderRadius.circular(5),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(right: 10, left: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    status != "false" ? status! : "",
+                    style: TextStyle(
+                        color: timeColor, fontWeight: FontWeight.w500),
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 10, left: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          status != "false" ? status! : "",
-                          style: TextStyle(
-                              color: timeColor, fontWeight: FontWeight.w500),
-                        ),
-                        Text(
-                          status != "false" ? timeRemaining! : "",
-                          style: TextStyle(
-                              color: timeColor, fontWeight: FontWeight.w500),
-                        ),
-                      ],
-                    ),
+                  Text(
+                    status != "false" ? timeRemaining! : "",
+                    style: TextStyle(
+                        color: timeColor, fontWeight: FontWeight.w500),
                   ),
-                )
+                ],
+              ),
+            ),
+          )
               : Container()
       ],
     );

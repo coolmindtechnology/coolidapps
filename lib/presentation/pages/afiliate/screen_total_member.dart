@@ -1,6 +1,7 @@
 import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/pages/afiliate/screen_detail_member.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
 import 'package:coolappflutter/presentation/widgets/shimmer_loading_widget_many.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
@@ -107,6 +108,7 @@ class _ScreenTotalMemberState extends State<ScreenTotalMember> {
                       ),
           ),
         ),
+        floatingActionButton: const CustomFAB(),
       ),
     );
   }

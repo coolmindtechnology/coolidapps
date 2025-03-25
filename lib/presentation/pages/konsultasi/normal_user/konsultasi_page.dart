@@ -9,9 +9,11 @@ import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/Tab/tab
 import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/Tab/tab_request.dart';
 import 'package:coolappflutter/presentation/pages/main/nav_home.dart';
 import 'package:coolappflutter/presentation/pages/main/promo_page.dart';
+import 'package:coolappflutter/presentation/pages/user/Setting/Report/Report_Page.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:coolappflutter/presentation/widgets/Container/container_slider_home.dart';
+import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -182,8 +184,12 @@ class _KonsultasiPageState extends State<KonsultasiPage> {
                     ),
                   ],
                 ),
-              ));
+              ),
+            floatingActionButton: const CustomFAB(),
+
+          );
         });
+
   }
 
   Widget _buildTab({required int index, required String text}) {

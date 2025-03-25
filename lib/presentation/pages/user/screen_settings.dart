@@ -468,6 +468,7 @@ import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/pages/afiliate/screen_total_member.dart';
 import 'package:coolappflutter/presentation/pages/auth/login_screen.dart';
 import 'package:coolappflutter/presentation/pages/main/qrcode/qr_code.dart';
+import 'package:coolappflutter/presentation/pages/meet/HisotryMeet.dart';
 import 'package:coolappflutter/presentation/pages/payments/saldo_aff/detai_saldo_aff.dart';
 import 'package:coolappflutter/presentation/pages/payments/top_up_page.dart';
 import 'package:coolappflutter/presentation/pages/transakction/transaksi_affiliate.dart';
@@ -674,9 +675,9 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                     ),
                   ),
                   ContainerFollower(
-                    title1: S.of(context).Post,
+                    title1: S.of(context).post,
                     subtitle1: dataGlobal.dataUser?.total_post.toString() ?? "0",
-                    title2: S.of(context).Follower,
+                    title2: S.of(context).followers,
                     subtitle2: dataGlobal.dataUser?.total_follower.toString() ?? "0",
                     title3: S.of(context).following,
                     subtitle3: dataGlobal.dataUser?.total_following.toString() ?? "0",
@@ -730,12 +731,21 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                                     SizedBox(
                                       width: 10,
                                     ),
+                                    if(dataGlobal.dataUser?.isAffiliate == 1)
                                     Text(
-                                        'IDR ${(dataGlobal.dataAff?.totalSaldoAffiliate == null || dataGlobal.dataAff?.totalSaldoAffiliate == '') ? "0" : dataGlobal.dataAff?.totalSaldoAffiliate}',
+                                        '${dataGlobal.dataAff?.totalSaldoAffiliate ?? '0'}',
+                                        style: TextStyle(
+                                            color: BlueColor,
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w600)),
+                                    if(dataGlobal.dataUser?.isAffiliate == 0)
+                                    Text(
+                                        '${dataGlobal.dataUser?.totalDeposit.toString() ?? '0'}',
                                         style: TextStyle(
                                             color: BlueColor,
                                             fontSize: 18,
                                             fontWeight: FontWeight.w600))
+
                                   ],
                                 )
                               ],
@@ -762,7 +772,6 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                   SizedBox(
                     height: 20,
                   ),
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -829,7 +838,7 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                                     color: BlueColor,
                                   ),
                                   gapW10,
-                                  Text(S.of(context).digital_ID,
+                                  Text(S.of(context).qr_code,
                                       style: TextStyle(
                                           color: BlueColor,
                                           fontSize: 15,
@@ -845,12 +854,12 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                   SizedBox(
                     height: 20,
                   ),
-                  Text(S.of(context).Others,
+                  Text(S.of(context).other,
                       style: TextStyle(
                           fontSize: 20, fontWeight: FontWeight.w800)),
 
                   ItemSetting(
-                    title: S.of(context).Edit_profile,
+                    title: S.of(context).profile,
                     image: "edit_profile.png",
                     onTap: () {
                       Nav.to(ScreenProfile(
@@ -1088,6 +1097,13 @@ class _DropdownHistoryState extends State<DropdownHistory> {
             setState(() {});
           },
         ),
+        // ItemSetting(
+        //   title: 'CoolMeet',
+        //   onTap: () {
+        //     Nav.to(RiwayatMeetingPage());
+        //     setState(() {});
+        //   },
+        // ),
       ],
     );
   }

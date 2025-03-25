@@ -90,7 +90,7 @@ class ProviderAffiliate extends ChangeNotifier {
         checkCompleteBank(context);
 
         if (pilihRek != null) {
-          nameBank = TextEditingController(text: dataAffiliasi?.bankName);
+          nameBank = TextEditingController(text: dataOverview?.bankName);
         }
         getListRekening(context);
         if (kDebugMode) {

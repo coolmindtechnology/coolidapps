@@ -1,5 +1,6 @@
 import 'package:coolappflutter/presentation/pages/konsultasi/normal_user/chat/New_UserChat.dart';
 import 'package:coolappflutter/presentation/pages/konsultasi/normal_user/chat/firebase_chat/rooms.dart';
+import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:coolappflutter/generated/l10n.dart';
@@ -242,6 +243,7 @@ class _DetailConsultantState extends State<DetailConsultant> {
           ],
         ),
       ),
+      floatingActionButton: const CustomFAB(),
     );
   }
 }

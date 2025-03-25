@@ -8,12 +8,15 @@ import 'package:coolappflutter/presentation/pages/profiling/add_multiple_profili
 import 'package:coolappflutter/presentation/pages/profiling/detail_profiling.dart';
 import 'package:coolappflutter/presentation/pages/profiling/konfrimasi%20identitas.dart';
 import 'package:coolappflutter/presentation/pages/profiling/screen_hasil_kepribadian.dart';
+import 'package:coolappflutter/presentation/pages/profiling/screen_hasil_kepribadian_dibawah17.dart';
+import 'package:coolappflutter/presentation/pages/user/Setting/Report/Report_Page.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:coolappflutter/presentation/utils/notification_utils.dart';
 import 'package:coolappflutter/presentation/widgets/Container/container_slider_home.dart';
 import 'package:coolappflutter/presentation/widgets/GlobalButton.dart';
 import 'package:coolappflutter/presentation/widgets/button_primary.dart';
+import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
 import 'package:coolappflutter/presentation/widgets/refresh_icon_widget.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
@@ -110,35 +113,6 @@ class _ProfilingDashboardState extends State<ProfilingDashboard> with SingleTick
                 containerColor: BlueColor,
                 textColor: whiteColor,
               ),
-              gapH10,
-              // Container(
-              //   height: 50,
-              //   width: double.infinity,
-              //   decoration: BoxDecoration(
-              //     color: BlueColor,
-              //     borderRadius: BorderRadius.circular(15),
-              //   ),
-              //   child: Padding(
-              //     padding: const EdgeInsets.only(
-              //         bottom: 10, left: 10, right: 20, top: 10),
-              //     child: Row(
-              //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //       children: [
-              //         Text(
-              //           S.of(context).what_is_profiling,
-              //           style: TextStyle(
-              //               color: Colors.white,
-              //               fontWeight: FontWeight.bold),
-              //         ),
-              //         Image.asset(
-              //           'images/IcArrow.png',
-              //           fit: BoxFit.cover,
-              //           width: 30,
-              //         )
-              //       ],
-              //     ),
-              //   ),
-              // ),
               gapH20,
               Text(
                 S.of(context).My_Profiling,
@@ -159,39 +133,39 @@ class _ProfilingDashboardState extends State<ProfilingDashboard> with SingleTick
                           textColor: primaryColor),
                       gapW10,
                       _buildTab(
-                          index: 1,
-                          text: S.of(context).green,
-                          textColor: Colors.white,
-                          borderColor: Colors.green,
-                          backgroundColor: greenColor),
-                      gapW10,
-                      _buildTab(
-                          index: 2,
-                          text: S.of(context).yellow,
-                          textColor: Colors.white,
-                          backgroundColor: Colors.yellow,
-                          borderColor: Colors.yellow),
-                      gapW10,
-                      _buildTab(
-                          index: 3,
-                          text: S.of(context).white,
-                          borderColor: Colors.white,
-                          backgroundColor: Colors.white,
-                          textColor: Colors.black),
-                      gapW10,
-                      _buildTab(
                           index: 4,
-                          text: S.of(context).orange,
+                          text: 'Creative',
                           textColor: Colors.white,
                           backgroundColor: Colors.orange,
                           borderColor: Colors.orange),
                       gapW10,
                       _buildTab(
                           index: 5,
-                          text: S.of(context).red,
+                          text: 'Action',
                           textColor: Colors.white,
                           borderColor: Colors.red,
                           backgroundColor: Colors.red),
+                      gapW10,
+                      _buildTab(
+                          index: 3,
+                          text: 'Master',
+                          borderColor: Colors.white,
+                          backgroundColor: Colors.white,
+                          textColor: Colors.black),
+                      gapW10,
+                      _buildTab(
+                          index: 1,
+                          text: 'Emotion',
+                          textColor: Colors.white,
+                          borderColor: Colors.green,
+                          backgroundColor: greenColor),
+                      gapW10,
+                      _buildTab(
+                          index: 2,
+                          text: 'Logic',
+                          textColor: Colors.white,
+                          backgroundColor: Colors.yellow,
+                          borderColor: Colors.yellow),
                     ],
                   ),
                 ),
@@ -311,11 +285,16 @@ class _ProfilingDashboardState extends State<ProfilingDashboard> with SingleTick
                                     colorButton2:
                                     Colors.white);
                               } else {
-
+                                if(data.isAboveseventeen == true){
+                                  Nav.to(ScreenHasilKepribadian(
+                                      data: data));
+                                }else{
+                                  Nav.to(ScreenHasilKepribadianBawah17(
+                                      data: data));
+                                }
                                 // Nav.to(DetailProfiling(
                                 //     data: data));
-                                Nav.to(ScreenHasilKepribadian(
-                                    data: data));
+
                               }
                             },
                             onDoubleTap: () {
@@ -400,8 +379,13 @@ class _ProfilingDashboardState extends State<ProfilingDashboard> with SingleTick
                                     colorButton2:
                                     Colors.white);
                               } else {
-                                Nav.to(ScreenHasilKepribadian(
-                                    data: data));
+                                if(data.isAboveseventeen == true){
+                                  Nav.to(ScreenHasilKepribadian(
+                                      data: data));
+                                }else{
+                                  Nav.to(ScreenHasilKepribadianBawah17(
+                                      data: data));
+                                }
                               }
                             },
                             child: CardListProfilingWidget(
@@ -443,6 +427,7 @@ class _ProfilingDashboardState extends State<ProfilingDashboard> with SingleTick
                 // SizedBox(width: 10), // Spasi antar tombol
 
                 // Tombol Simpan
+                if(dataGlobal.dataUser!.isAffiliate == "0")
                 Expanded(
                   child: GlobalButton(
                     onPressed: () async {
@@ -459,6 +444,7 @@ class _ProfilingDashboardState extends State<ProfilingDashboard> with SingleTick
             ),
           ),
         ),
+        floatingActionButton: const CustomFAB(),
       ),
     ); });
 

@@ -7,6 +7,7 @@ import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 
 import 'package:coolappflutter/presentation/widgets/GlobalButton.dart';
+import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -201,6 +202,7 @@ class _SummaryConsultantState extends State<SummaryConsultant> {
             ],
           ),
         ),
+        floatingActionButton: const CustomFAB(),
       );
     });
   }

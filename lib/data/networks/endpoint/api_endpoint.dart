@@ -279,6 +279,7 @@ class ApiEndpoint {
   static String updateTopupNotif = "${_affiliateUrlApi}update-topup-notif";
   static String checkCompleteBank = "${_affiliateUrlApi}cek-complete-bank";
 
+
   ///Affiliate
   static String homeAffiliate(id) => "${baseUrlApi}affiliate/overview/$id";
 
@@ -301,6 +302,12 @@ class ApiEndpoint {
 
   //Convert Currency
   static String convertCurrency = "${baseUrlApi}convert-currency";
+
+  //meet
+  //base endpoint meet
+  static final String _meetapiUrl = "${baseUrlApi}meeting/";
+  static String getallsessionmeet = "${_meetapiUrl}session-all";
+  static String getlogmeet = "${_meetapiUrl}get-log-session";
 
   ///api soung opening
   // static String apiOpeningCool = "${_baseUrlApi}boarding/get-sound";

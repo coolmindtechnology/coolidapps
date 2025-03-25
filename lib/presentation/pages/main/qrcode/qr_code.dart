@@ -3,6 +3,7 @@ import 'package:coolappflutter/data/data_global.dart';
 import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
 import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/utils/circular_progress_widget.dart';
+import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
 import 'package:coolappflutter/presentation/widgets/refresh_icon_widget.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class QRCodePage extends StatefulWidget {
 class _QRCodePageState extends State<QRCodePage>
     with SingleTickerProviderStateMixin {
 
-   String imageUrl = 'https://cool-new.dschazy.com/api/generate-qrcode?size=300&margin=10&text=https://cool-app.udadeveloper.com/login';
+   String imageUrl = '${ApiEndpoint.baseUrlApi}api/generate-qrcode?size=300&margin=10&text=https://cool-app.udadeveloper.com/login';
 String token = dataGlobal.token;
   late TabController _tabController;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
@@ -71,23 +72,6 @@ String token = dataGlobal.token;
         ),
         centerTitle: false,
         backgroundColor: Color(0xFF4CCBF4),
-        // bottom: TabBar(
-        //   controller: _tabController,
-        //   indicatorColor: Colors.white,
-        //   labelColor: Colors.black,
-        //   unselectedLabelColor: Colors.black54,
-        //   labelStyle: TextStyle(fontWeight: FontWeight.bold),
-        //   tabs: [
-        //     Tab(
-        //       icon: Icon(Icons.qr_code, color: Colors.black),
-        //       text: 'Kode Saya',
-        //     ),
-        //     Tab(
-        //       icon: Icon(Icons.qr_code_scanner, color: Colors.black),
-        //       text: 'Scan QR',
-        //     ),
-        //   ],
-        // ),
       ),
       body: CustomMaterialIndicator(
         key: _refreshIndicatorKey,
@@ -114,12 +98,7 @@ String token = dataGlobal.token;
           ],
         ),
       ),
-      // bottomNavigationBar: FloatingActionButton(
-      //   onPressed: () {
-      //     _refreshImage();
-      //   },
-      //   child: const Icon(Icons.refresh),
-      // )
+      floatingActionButton: const CustomFAB()
     );
   }
 
@@ -130,9 +109,8 @@ String token = dataGlobal.token;
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          _buildTabButton("Kode Saya", Icons.qr_code, 0),
-          // SizedBox(width: 10),
-          _buildTabButton("Scan QR", Icons.qr_code_scanner, 1),
+          _buildTabButton(S.of(context).kode_anda, Icons.qr_code, 0),
+          _buildTabButton(S.of(context).scan_qr, Icons.qr_code_scanner, 1),
         ],
       ),
     );
@@ -176,14 +154,14 @@ String token = dataGlobal.token;
   }
 
   Widget _buildMyQRCodeTab() {
-
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        SizedBox(height: 30,),
         Text(
-          "Silakan Scan QR Gunakan CoolApp",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          S.of(context).instruksi_scan_qr,
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),textAlign: TextAlign.center,
         ),
         Container(
           margin: EdgeInsets.all(20),
@@ -234,15 +212,6 @@ String token = dataGlobal.token;
                           ],
                         ));
                   },
-                  // placeholderBuilder: (context) {
-                  //   return const Center(
-                  //     child: SizedBox(
-                  //       height: 200,
-                  //       width: 200,
-                  //       child: CircularProgressWidget(),
-                  //     ),
-                  //   );
-                  // },
                 ),
               ),
               if (dataGlobal.dataUser?.isAffiliate == 0)
@@ -259,18 +228,12 @@ String token = dataGlobal.token;
                     );
                   },
                 ),
-              // QrImageView(
-              //   embeddedImage: AssetImage("images/qrcode/logoqr.png"),
-              //   data: "Nama: Budi",
-              //   version: QrVersions.auto,
-              //   size: 300.0,
-              // ),
               gapH16,
               // Row(
               //     mainAxisAlignment: MainAxisAlignment.center,
               //     crossAxisAlignment: CrossAxisAlignment.center,
               //     children: [
-              //       Text("Kode User Anda : KAYH2829"),
+              //       Text("Kode Anda : ${dataGlobal.dataAff.}"),
               //       gapW10,
               //       Icon(
               //         Icons.copy_sharp,
@@ -281,13 +244,14 @@ String token = dataGlobal.token;
               Padding(
                 padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
                 child: Text(
-                    "Tunjukan QR Code Ini untuk mempermudah proses affiliasi anda."),
+                    S.of(context).petunjuk_qr),
               ),
               gapH10,
             ],
           ),
         ),
         gapH20,
+        if (dataGlobal.dataUser?.isAffiliate == 1)
         _buildInviteCard(),
       ],
     );
@@ -307,7 +271,7 @@ String token = dataGlobal.token;
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Undang teman anda!",
+                S.of(context).UndangTeman,
                 style: TextStyle(
                   color: Colors.black,
                   // fontWeight: FontWeight.bold,
@@ -337,7 +301,7 @@ String token = dataGlobal.token;
   }
 
   Widget _buildUrlBox() {
-    String url = "https://affiliate/cool.com";
+    String url = dataGlobal.dataAff?.linkreferalcode ?? "";
 
     return Container(
       margin: EdgeInsets.only(top: 10),
@@ -370,7 +334,7 @@ String token = dataGlobal.token;
             onTap: () {
               Clipboard.setData(ClipboardData(text: url));
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text("URL disalin!")),
+                SnackBar(content: Text(S.of(context).copy)),
               );
             },
           ),
@@ -394,6 +358,7 @@ String token = dataGlobal.token;
           ),
         ),
         gapH20,
+        if (dataGlobal.dataUser?.isAffiliate == 1)
         Positioned(left: 10, right: 10, bottom: 10, child: _buildInviteCard()),
       ],
     );

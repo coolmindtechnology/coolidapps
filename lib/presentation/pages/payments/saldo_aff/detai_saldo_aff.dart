@@ -298,7 +298,10 @@ import 'package:coolappflutter/presentation/pages/transakction/real_money_widget
 as real_money;
 import 'package:coolappflutter/presentation/pages/transakction/saldo_widget.dart'
 as saldo;
+import 'package:coolappflutter/presentation/pages/user/Setting/Report/Report_Page.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
 import 'package:flutter/material.dart';
 
 class DetailSaldoAff extends StatefulWidget {
@@ -365,6 +368,7 @@ class _DetailSaldoAffState extends State<DetailSaldoAff>
               ]))
         ],
       ),
+      floatingActionButton: const CustomFAB(),
     );
   }
 }

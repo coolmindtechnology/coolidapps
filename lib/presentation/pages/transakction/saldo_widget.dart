@@ -174,6 +174,7 @@ class _SaldoWidgetState extends State<SaldoWidget>
                       context
                           .read<ProviderTransaksiAffiliate>()
                           .refreshHistoryIncomeSaldo(context, filter);
+
                     }
                   }
                 },

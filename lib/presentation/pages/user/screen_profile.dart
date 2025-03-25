@@ -681,6 +681,7 @@ import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/circular_progress_widget.dart';
 import 'package:coolappflutter/presentation/utils/notification_utils.dart';
 import 'package:coolappflutter/presentation/utils/takeimage_utils.dart';
+import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:provider/provider.dart';
@@ -1247,7 +1248,9 @@ class _ScreenProfileState extends State<ScreenProfile> {
                 ),
               ),
             ),
-          ));
+          ),
+        floatingActionButton: const CustomFAB(),
+      );
     });
   }
 
