@@ -271,16 +271,6 @@ class _ScreenHasilKepribadianState extends State<ScreenHasilKepribadian> {
                                       await PreferenceHandler.retrieveId();
                                       String? isID =
                                       await PreferenceHandler.retrieveIdLanguage();
-                                      // showDialog(
-                                      //     context: context,
-                                      //     barrierDismissible: false,
-                                      //     builder: (dialogcontext) {
-                                      //       return DownloadProgressDialog(
-                                      //           url: ApiEndpoint.donwnloadDetailPdf(
-                                      //               widget.data?.idLogResult ?? ""),
-                                      //           name:
-                                      //               "${widget.data?.profilingName}_CoolProfiling_Result.pdf");
-                                      //     });
                                       showModalBottomSheet(
                                           shape: const RoundedRectangleBorder(
                                             borderRadius: BorderRadius.only(
@@ -303,7 +293,7 @@ class _ScreenHasilKepribadianState extends State<ScreenHasilKepribadian> {
                                           });
                                     },
                                     color: primaryColor,
-                                    text: S.of(context).download_result,
+                                    text: S.of(context).download_pdf,
                                     icon: Image.asset('images/icDownload.png',width: 30.sp,),
                                   )
                                 ],
@@ -717,24 +707,26 @@ class CustomIconButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            height: 50,
-            width: 50,
-            decoration: BoxDecoration(
-              color: lightBlue,
-              borderRadius: BorderRadius.circular(15),
+    return Expanded(
+      child: InkWell(
+        onTap: onTap,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              height: 50,
+              width: 50,
+              decoration: BoxDecoration(
+                color: lightBlue,
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Image.asset(imagePath),
             ),
-            child: Image.asset(imagePath),
-          ),
-          SizedBox(
-              width: 80,
-              child: Text(text,overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: 12.sp),))
-        ],
+            SizedBox(
+                width: 80,
+                child: Text(text,overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: 12.sp),textAlign: TextAlign.center,))
+          ],
+        ),
       ),
     );
   }

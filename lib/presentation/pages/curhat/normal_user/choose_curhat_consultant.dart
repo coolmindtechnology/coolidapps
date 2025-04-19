@@ -73,7 +73,7 @@ class _ChooseCurhatConsultantState extends State<ChooseCurhatConsultant> {
             ),
             SizedBox(height: 8.0),
             Text(
-              S.of(context).Choose_your_consultant,
+              S.of(context).choose,
               overflow: TextOverflow.ellipsis,
               maxLines: 2,
               style: TextStyle(fontSize: 14.0, color: Colors.black54),

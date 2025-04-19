@@ -28,27 +28,32 @@ class GlobalButton extends StatelessWidget {
       ),
       height: 50,
       disabledColor: Colors.grey.shade300,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center, // Tengahkan isi tombol
-        mainAxisSize: MainAxisSize.min, // Ukuran minimum agar tidak berlebihan
-        children: [
-          if (icon != null) ...[
-            icon!, // Menampilkan ikon jika ada
-            const SizedBox(width: 8), // Jarak antara ikon dan teks
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center, // Tengahkan isi tombol
+          mainAxisSize: MainAxisSize.min, // Ukuran minimum agar tidak berlebihan
+          children: [
+            if (icon != null) ...[
+              icon!, // Menampilkan ikon jika ada
+              const SizedBox(width: 8), // Jarak antara ikon dan teks
+            ],
+            Flexible(
+              child: Text(
+                text,
+                style: textStyle ??
+                    TextStyle(
+                      color: onPressed == null
+                          ? Colors.grey.shade600
+                          : Colors.white,
+                      fontWeight: FontWeight.w500,
+                        fontSize: 14.sp
+                    ),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
           ],
-          Text(
-            text,
-            style: textStyle ??
-                TextStyle(
-                  color: onPressed == null
-                      ? Colors.grey.shade600
-                      : Colors.white,
-                  fontWeight: FontWeight.w500,
-                    fontSize: 14.sp
-                ),
-            overflow: TextOverflow.ellipsis,
-          ),
-        ],
+        ),
       ),
     );
   }

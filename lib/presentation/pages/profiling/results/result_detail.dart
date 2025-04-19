@@ -256,37 +256,43 @@ class _ResultDetailState extends State<ResultDetail> {
                                 if (widget.type == "karir" &&
                                     value.detailProfiling?.karir != null) ...[
                                   _classtipe(
-                                      data: value.detailProfiling?.karir),
+                                      data: value.detailProfiling?.karir,judul: S.of(context).career,),
                                 ],
                                 if (widget.type == "polaBahagia" &&
                                     value.detailProfiling?.polaBahagia !=
                                         null) ...[
                                   _classtipe(
-                                      data: value.detailProfiling?.polaBahagia),
+                                      data: value.detailProfiling?.polaBahagia,judul: S.of(context).happiness_pattern),
                                 ],
                                 if (widget.type == "polaInteraksi" &&
                                     value.detailProfiling?.polaInteraksi !=
                                         null) ...[
                                   _classtipe(
                                       data:
-                                          value.detailProfiling?.polaInteraksi),
+                                          value.detailProfiling?.polaInteraksi,judul: S.of(context).social_interaction_pattern),
                                 ],
                                 if (widget.type == "family" &&
                                     value.detailProfiling?.family != null) ...[
                                   _classtipe(
-                                      data: value.detailProfiling?.family),
+                                      data: value.detailProfiling?.family,judul: S.of(context).family),
                                 ],
                                 if (widget.type == "polaHealing" &&
                                     value.detailProfiling?.polaHealing !=
                                         null) ...[
                                   _classtipe(
-                                      data: value.detailProfiling?.polaHealing),
+                                      data: value.detailProfiling?.polaHealing,judul: S.of(context).healing_pattern),
                                 ],
-                                if (widget.type == "spiritual" &&
-                                    value.detailProfiling?.spiritual !=
+                                if (widget.type == "kebutuhan" &&
+                                    value.detailProfiling?.kebutuhan !=
                                         null) ...[
                                   _classtipe(
-                                      data: value.detailProfiling?.spiritual),
+                                      data: value.detailProfiling?.kebutuhan,judul: S.of(context).kebutuhan),
+                                ],
+                                if (widget.type == "finansial" &&
+                                    value.detailProfiling?.finansial !=
+                                        null) ...[
+                                  _classtipe(
+                                      data: value.detailProfiling?.finansial,judul: S.of(context).financial),
                                 ],
 
                                 // Center(
@@ -379,7 +385,7 @@ class _ResultDetailState extends State<ResultDetail> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Akan Didengar :'),
+                        Text(S.of(context).akandidengar),
                         Text(
                           value.dataShowDetail?.result ?? "",
                           style: TextStyle(fontWeight: FontWeight.w600),
@@ -554,8 +560,8 @@ class _Personality extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             color: value.detailProfiling?.tipeDarah == null
-                ? Colors.white
-                : imageBlue,
+                ? imageBlue
+                : Colors.white,
           ),
           child: Image.network(
             "${value.detailProfiling?.personality?.picture}",
@@ -623,10 +629,12 @@ class _Personality extends StatelessWidget {
 
 class _classtipe extends StatelessWidget {
   const _classtipe({
-    required this.data, // Langsung instance dari Personality
+    required this.data,
+    required this.judul// Langsung instance dari Personality
   });
 
   final Personality? data;
+  final dynamic judul;
 
   @override
   Widget build(BuildContext context) {
@@ -638,10 +646,13 @@ class _classtipe extends StatelessWidget {
           width: double.infinity,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
-            color: data != null ? imageBlue : Colors.white,
+            color: Colors.white,
           ),
           child: data?.picture != null
-              ? Image.network("${data?.picture}")
+              ? Padding(
+                padding: const EdgeInsets.all(35),
+                child: Image.network("${data?.picture}"),
+              )
               : const SizedBox(), // Placeholder jika gambar null
         ),
         gapH20,
@@ -677,6 +688,10 @@ class _classtipe extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min, // Menyesuaikan ukuran konten
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Text(
+                         judul,
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                        ),
                         gapH10,
                         Text(
                           data?.description ?? "Deskripsi tidak tersedia",
@@ -714,8 +729,8 @@ class _TipeOtak extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             color: value.detailProfiling?.tipeDarah == null
-                ? Colors.white
-                : imageBlue,
+                ? imageBlue
+                : Colors.white,
           ),
           child: Image.network(
             "${value.detailProfiling?.tipeOtak?.picture}",
@@ -795,8 +810,8 @@ class _TipeAura extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             color: value.detailProfiling?.tipeDarah == null
-                ? Colors.white
-                : imageBlue,
+                ? imageBlue
+                : Colors.white,
           ),
           child: Image.network(
             "${value.detailProfiling?.tipeAura?.picture}",
@@ -894,8 +909,8 @@ class _TipeKaya extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
                 color: value.detailProfiling?.tipeDarah == null
-                    ? Colors.white
-                    : imageBlue),
+                    ? imageBlue
+                    : Colors.white,),
             child: Image.network(
               "${value.detailProfiling?.tipeKaya?.picture}",
               loadingBuilder: (BuildContext context, Widget image,
@@ -989,8 +1004,8 @@ class _TipeDarah extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             color: value.detailProfiling?.tipeDarah == null
-                ? Colors.white
-                : imageBlue,
+                ? imageBlue
+                : Colors.white,
           ),
           child: Image.network(
             "${value.detailProfiling?.tipeDarah?.picture}",

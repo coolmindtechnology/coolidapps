@@ -332,7 +332,7 @@
   "About_Us_And_Help": "Tentang Kami & Bantuan",
   "Report_Issue_Usage": "Laporkan Masalah Penggunaan",
   "Help": "Bantuan",
-  "Terms_and_Conditions": "Terma & Syarat",
+  "Terms_and_Conditions": "Terma dan Syarat",
   "App_Version": "Versi Aplikasi V2.4.93",
   "Old_Email": "Emel Lama Anda",
   "New_Email_Input": "Masukkan Emel Baru",
@@ -476,7 +476,7 @@
   "Member": "Ahli",
   "Your_Balance": "Baki Anda :",
   "Real_Money": "Wang Sebenar :",
-  "Share_Link": "Kongsi pautan",
+  "Share_Link": "Kod Rujukan Kongsi",
   "Terms_Conditions": "Terma & Syarat",
   "Welcome_Consultation_Program": "Selamat datang ke Program Konsultasi",
   "Waiting_Approval": "Menunggu Kelulusan",
@@ -567,7 +567,6 @@
   "affiliator_account_notice": "Akaun yang telah menjadi affiliator TIDAK boleh digunakan untuk membuat profil baru",
   "attention": "PERHATIAN!",
   "view_old_profiling": "Anda masih boleh melihat hasil pemprofilan yang lama",
-  "continue": "Teruskan",
   "use_another_account": "Gunakan akaun lain",
   "confirm_bank_account": "Adakah anda pasti dengan nombor akaun bank ini?",
   "double_check_bank_number": "Pastikan nombor yang dimasukkan adalah nombor anda. Anda boleh menukar nombor akaun bank di tetapan.",
@@ -640,12 +639,18 @@
   "kelemahan": "4. Kelemahan",
   "tipe_harta": "Jenis Harta Saya!",
   "tipe_otak": "Jenis Otak Saya!",
-  "personality!": "Personaliti Saya!",
+  "personalityy": "Personaliti Saya!",
   "tipe_tidak_dikenali": "Jenis tidak dikenali",
   "kode_saya": "Kod Saya",
   "scan_qr": "Imbas QR",
   "instruksi_scan_qr": "Sila imbas kod QR menggunakan CoolApp",
   "petunjuk_qr": "Tunjukkan kod QR ini untuk memudahkan proses afiliasi anda.",
-  "kode_anda": "Kod Anda"
+  "kode_anda": "Kod Anda",
+  "minimumWdCommision" : "Jumlah pengeluaran minimum: 10x Komisen",
+  "kebutuhan" : "Perlukan",
+  "download_pdf": "Muat turun PDF",
+  "akandidengar": "Akan Mendengar :",
+  "digitalid" : "ID Digital"
+
 
 }

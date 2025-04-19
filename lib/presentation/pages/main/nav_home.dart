@@ -66,7 +66,6 @@ class _NavMenuScreenState extends State<NavMenuScreen> {
   }
 
   void pengecekanIsProfiling() async {
-    await context.read<ProviderUser>().getUser(context);
     if (context.read<ProviderUser>().dataUser?.isProfiling != '1') {
       NotificationUtils.showDialogError(
         context,
@@ -99,8 +98,6 @@ class _NavMenuScreenState extends State<NavMenuScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await context.read<ProviderUser>().getUser(context);
-      // Periksa nilai is_affiliate untuk menentukan halaman Home
       final homePage = (dataGlobal.dataUser?.isAffiliate == 1)
           ? HomeKonsultant(klickTab: klikTab)
           : HomeScreen(klickTab: klikTab);

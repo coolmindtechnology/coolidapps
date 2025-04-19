@@ -1069,7 +1069,7 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                                       _showReferralPopup(
                                           context,
                                           valueAffiliate.dataOverview
-                                                  ?.linkRefferalCode ??
+                                                  ?.referralCode ??
                                               "kesalahann teknis harap coba lagi");
                                     },
                                   ),
@@ -1115,182 +1115,182 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                                 ],
                               ),
                             ),
-                            if ((valueAffiliate.dataAffiliasi
-                                        ?.totalSaldoAffiliate?.isNotEmpty ??
-                                    false) ||
-                                (valueAffiliate.dataAffiliasi
-                                        ?.totalSaldoAffiliate?.isEmpty ??
-                                    false)) ...[
-                              if ((valueAffiliate.dataAffiliasi
-                                          ?.totalSaldoAffiliate?.isEmpty ??
-                                      false) ||
-                                  (int.parse(valueAffiliate.dataAffiliasi
-                                              ?.totalSaldoAffiliate
-                                              .toString() ??
-                                          "0") <=
-                                      minSaldo)) ...[
-                                const SizedBox(
-                                  height: 8,
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: const Color(0xffFFF3cd),
-                                    border: Border.all(
-                                        color: const Color(0x00ffeeba),
-                                        width: 1.0),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  margin: const EdgeInsets.symmetric(
-                                      horizontal: 10),
-                                  padding: const EdgeInsets.all(10),
-                                  child: Row(
-                                    children: [
-                                      const Icon(Icons.warning_outlined,
-                                          color: Color(0xFF856404)),
-                                      const SizedBox(width: 8),
-                                      Text(
-                                        S.of(context).topup_first,
-                                        style: const TextStyle(
-                                            color: Color(0xFF856404)),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ],
-                            if (valueAffiliate
-                                    .resCheckTopupAffiliate?.data?.notif ==
-                                5)
-                              logicAffiliate5(),
-                            if (valueAffiliate
-                                    .resCheckTopupAffiliate?.data?.notif ==
-                                2) ...[
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                    color: const Color(0xffFFF3cd),
-                                    border: Border.all(
-                                        color: const Color(0x00ffeeba),
-                                        width: 1.0),
-                                    borderRadius: BorderRadius.circular(10)),
-                                margin:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                padding: const EdgeInsets.all(10),
-                                child: Stack(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        const Icon(Icons.warning_outlined,
-                                            color: Color(0xFF856404)),
-                                        const SizedBox(
-                                          width: 8,
-                                        ),
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                valueAffiliate
-                                                        .resCheckTopupAffiliate
-                                                        ?.message ??
-                                                    "",
-                                                style: const TextStyle(
-                                                    color: Color(0xFF856404)),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 24,
-                                        ),
-                                      ],
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        valueAffiliate.resCheckTopupAffiliate =
-                                            null;
-                                      },
-                                      behavior: HitTestBehavior.translucent,
-                                      child: const Align(
-                                        alignment: Alignment.topRight,
-                                        child: Icon(
-                                          Icons.close_rounded,
-                                          size: 20,
-                                          color: Color(0xFF856404),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                            if (valueAffiliate
-                                    .dataAffiliasi?.totalSaldoAffiliate
-                                    ?.contains("-") ==
-                                true) ...[
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                    color: const Color(0xffFFF3cd),
-                                    border: Border.all(
-                                        color: const Color(0x00ffeeba),
-                                        width: 1.0),
-                                    borderRadius: BorderRadius.circular(10)),
-                                margin:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                child: ListTileTheme(
-                                  contentPadding: EdgeInsets
-                                      .zero, // this also removes horizontal padding
-                                  minVerticalPadding: 0.0,
-                                  child: ExpansionTile(
-                                    tilePadding: EdgeInsets.zero,
-                                    childrenPadding: EdgeInsets.zero,
-                                    trailing: const Icon(
-                                      Icons.info_outline_rounded,
-                                      color: Color(
-                                        0xFF856404,
-                                      ),
-                                    ),
-                                    title: Text(
-                                      S.of(context).what_is_negative_balance,
-                                      style: const TextStyle(
-                                          color: Color(
-                                            0xFF856404,
-                                          ),
-                                          fontSize: 14),
-                                    ),
-                                    collapsedShape:
-                                        const RoundedRectangleBorder(
-                                      side: BorderSide.none,
-                                    ),
-                                    shape: const RoundedRectangleBorder(
-                                      side: BorderSide.none,
-                                    ),
-                                    children: <Widget>[
-                                      ListTile(
-                                          title: Text(
-                                        S
-                                            .of(context)
-                                            .negative_balance_description,
-                                        style: const TextStyle(
-                                            color: Color(0xFF856404),
-                                            fontSize: 14),
-                                      )),
-                                      const SizedBox(
-                                        height: 8,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
+                            // if ((valueAffiliate.dataAffiliasi
+                            //             ?.totalSaldoAffiliate?.isNotEmpty ??
+                            //         false) ||
+                            //     (valueAffiliate.dataAffiliasi
+                            //             ?.totalSaldoAffiliate?.isEmpty ??
+                            //         false)) ...[
+                            //   if ((valueAffiliate.dataAffiliasi
+                            //               ?.totalSaldoAffiliate?.isEmpty ??
+                            //           false) ||
+                            //       (int.parse(valueAffiliate.dataAffiliasi
+                            //                   ?.totalSaldoAffiliate
+                            //                   .toString() ??
+                            //               "0") <=
+                            //           minSaldo)) ...[
+                            //     const SizedBox(
+                            //       height: 8,
+                            //     ),
+                            //     Container(
+                            //       decoration: BoxDecoration(
+                            //         color: const Color(0xffFFF3cd),
+                            //         border: Border.all(
+                            //             color: const Color(0x00ffeeba),
+                            //             width: 1.0),
+                            //         borderRadius: BorderRadius.circular(10),
+                            //       ),
+                            //       margin: const EdgeInsets.symmetric(
+                            //           horizontal: 10),
+                            //       padding: const EdgeInsets.all(10),
+                            //       child: Row(
+                            //         children: [
+                            //           const Icon(Icons.warning_outlined,
+                            //               color: Color(0xFF856404)),
+                            //           const SizedBox(width: 8),
+                            //           Text(
+                            //             S.of(context).topup_first,
+                            //             style: const TextStyle(
+                            //                 color: Color(0xFF856404)),
+                            //           ),
+                            //         ],
+                            //       ),
+                            //     ),
+                            //   ],
+                            // ],
+                            // // if (valueAffiliate
+                            // //         .resCheckTopupAffiliate?.data?.notif ==
+                            // //     5)
+                            // //   logicAffiliate5(),
+                            // if (valueAffiliate
+                            //         .resCheckTopupAffiliate?.data?.notif ==
+                            //     2) ...[
+                            //   const SizedBox(
+                            //     height: 8,
+                            //   ),
+                            //   Container(
+                            //     decoration: BoxDecoration(
+                            //         color: const Color(0xffFFF3cd),
+                            //         border: Border.all(
+                            //             color: const Color(0x00ffeeba),
+                            //             width: 1.0),
+                            //         borderRadius: BorderRadius.circular(10)),
+                            //     margin:
+                            //         const EdgeInsets.symmetric(horizontal: 10),
+                            //     padding: const EdgeInsets.all(10),
+                            //     child: Stack(
+                            //       children: [
+                            //         Row(
+                            //           children: [
+                            //             const Icon(Icons.warning_outlined,
+                            //                 color: Color(0xFF856404)),
+                            //             const SizedBox(
+                            //               width: 8,
+                            //             ),
+                            //             Expanded(
+                            //               child: Column(
+                            //                 crossAxisAlignment:
+                            //                     CrossAxisAlignment.start,
+                            //                 children: [
+                            //                   Text(
+                            //                     valueAffiliate
+                            //                             .resCheckTopupAffiliate
+                            //                             ?.message ??
+                            //                         "",
+                            //                     style: const TextStyle(
+                            //                         color: Color(0xFF856404)),
+                            //                   ),
+                            //                 ],
+                            //               ),
+                            //             ),
+                            //             const SizedBox(
+                            //               width: 24,
+                            //             ),
+                            //           ],
+                            //         ),
+                            //         GestureDetector(
+                            //           onTap: () {
+                            //             valueAffiliate.resCheckTopupAffiliate =
+                            //                 null;
+                            //           },
+                            //           behavior: HitTestBehavior.translucent,
+                            //           child: const Align(
+                            //             alignment: Alignment.topRight,
+                            //             child: Icon(
+                            //               Icons.close_rounded,
+                            //               size: 20,
+                            //               color: Color(0xFF856404),
+                            //             ),
+                            //           ),
+                            //         ),
+                            //       ],
+                            //     ),
+                            //   ),
+                            // ],
+                            // if (valueAffiliate
+                            //         .dataAffiliasi?.totalSaldoAffiliate
+                            //         ?.contains("-") ==
+                            //     true) ...[
+                            //   const SizedBox(
+                            //     height: 8,
+                            //   ),
+                            //   Container(
+                            //     decoration: BoxDecoration(
+                            //         color: const Color(0xffFFF3cd),
+                            //         border: Border.all(
+                            //             color: const Color(0x00ffeeba),
+                            //             width: 1.0),
+                            //         borderRadius: BorderRadius.circular(10)),
+                            //     margin:
+                            //         const EdgeInsets.symmetric(horizontal: 10),
+                            //     padding:
+                            //         const EdgeInsets.symmetric(horizontal: 10),
+                            //     child: ListTileTheme(
+                            //       contentPadding: EdgeInsets
+                            //           .zero, // this also removes horizontal padding
+                            //       minVerticalPadding: 0.0,
+                            //       child: ExpansionTile(
+                            //         tilePadding: EdgeInsets.zero,
+                            //         childrenPadding: EdgeInsets.zero,
+                            //         trailing: const Icon(
+                            //           Icons.info_outline_rounded,
+                            //           color: Color(
+                            //             0xFF856404,
+                            //           ),
+                            //         ),
+                            //         title: Text(
+                            //           S.of(context).what_is_negative_balance,
+                            //           style: const TextStyle(
+                            //               color: Color(
+                            //                 0xFF856404,
+                            //               ),
+                            //               fontSize: 14),
+                            //         ),
+                            //         collapsedShape:
+                            //             const RoundedRectangleBorder(
+                            //           side: BorderSide.none,
+                            //         ),
+                            //         shape: const RoundedRectangleBorder(
+                            //           side: BorderSide.none,
+                            //         ),
+                            //         children: <Widget>[
+                            //           ListTile(
+                            //               title: Text(
+                            //             S
+                            //                 .of(context)
+                            //                 .negative_balance_description,
+                            //             style: const TextStyle(
+                            //                 color: Color(0xFF856404),
+                            //                 fontSize: 14),
+                            //           )),
+                            //           const SizedBox(
+                            //             height: 8,
+                            //           ),
+                            //         ],
+                            //       ),
+                            //     ),
+                            //   ),
+                            // ],
                           ],
                         ),
                       ),
@@ -1327,8 +1327,9 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
               child: Text(
                 linkReferralCode,
                 style:
-                    const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 maxLines: 5,
+                textAlign: TextAlign.center,
               ),
             ),
             gapH20,

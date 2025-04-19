@@ -80,6 +80,7 @@ class ProviderPayment extends ChangeNotifier {
     }, success: (res) async {
       if (res.success == true) {
         listDataListTopUp = res.data;
+        dataGlobal.dataTopUp = res;
         notifyListeners();
       }
     });

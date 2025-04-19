@@ -768,7 +768,7 @@ class InputAmountProfilingDialog extends StatelessWidget {
                     Nav.back();
                     Nav.to(AddMultipleProfiling(
                       int.parse(_controllerJumlahProfiling.text),
-                      int.parse(maxProfiling ?? '0'),
+                      int.parse(maxProfiling ?? '0'),null
                       // onAdd,
                     ));
                   }

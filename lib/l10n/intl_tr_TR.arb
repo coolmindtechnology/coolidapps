@@ -476,7 +476,7 @@
   "Total_Members": "Toplam Üye :",
   "Member": "Üye",
   "Your_Balance": "Bakiyeniz :",
-  "Share_Link": "Bağlantıyı paylaş",
+  "Share_Link": "Referans Kodunu Paylaş",
   "Terms_Conditions": "Şartlar ve Koşullar",
   "Welcome_Consultation_Program": "Danışmanlık Programına Hoş Geldiniz",
   "Waiting_Approval": "Onay Bekleniyor",
@@ -567,7 +567,6 @@
   "affiliator_account_notice": "Ortaklık hesabı oluşturulduktan sonra YENİ bir profil oluşturmak için kullanılamaz",
   "attention": "DİKKAT!",
   "view_old_profiling": "Önceki profil sonuçlarını hala görüntüleyebilirsiniz",
-  "continue": "Devam et",
   "use_another_account": "Başka bir hesap kullan",
   "confirm_bank_account": "Bu banka hesabı numarasından emin misiniz?",
   "double_check_bank_number": "Girilen numaranın size ait olduğundan emin olun. Banka hesap numaranızı ayarlardan değiştirebilirsiniz.",
@@ -640,12 +639,20 @@
   "kelemahan": "4. Zayıf Yönler",
   "tipe_harta": "Benim Servet Türüm!",
   "tipe_otak": "Benim Beyin Türüm!",
-  "personality!": "Benim Kişiliğim!",
+  "personalityy": "Benim Kişiliğim!",
   "tipe_tidak_dikenali": "Tanımlanamayan Tür",
   "kode_saya": "Benim Kodum",
   "scan_qr": "QR Kodunu Tara",
   "instruksi_scan_qr": "Lütfen QR kodunu CoolApp ile tarayın",
   "petunjuk_qr": "Bağlılık sürecinizi kolaylaştırmak için bu QR kodunu gösterin.",
-  "kode_anda": "Sizin Kodunuz"
+  "kode_anda": "Sizin Kodunuz",
+  "minimumWdCommision" : "Minimum para çekme: 10x Komisyon",
+  "kebutuhan" : "ihtiyaç",
+  "download_pdf": "PDF'yi indir",
+  "akandidengar": "Duyacaklarım :",
+  "digitalid" : "Dijital Kimlik"
+
+
+
 
 }

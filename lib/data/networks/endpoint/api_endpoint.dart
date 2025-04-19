@@ -1,8 +1,8 @@
 class ApiEndpoint {
-  // static String baseUrl = "https://cool-compass.mycool.id";
+  static String baseUrl = "https://cool-compass.mycool.id";
   // static String baseUrl = "https://staging-cool.hantrr.com";
   // static String baseUrl = "https://cool-staging.dschazy.com";
-  static String baseUrl = "https://cool-new.dschazy.com";
+  // static String baseUrl = "https://cool-new.dschazy.com";
 
   // static String baseUrl = "https://coolcompas-staging.mycool.id";
 
@@ -308,6 +308,13 @@ class ApiEndpoint {
   static final String _meetapiUrl = "${baseUrlApi}meeting/";
   static String getallsessionmeet = "${_meetapiUrl}session-all";
   static String getlogmeet = "${_meetapiUrl}get-log-session";
+
+  ///komisi/promote user
+  static final String _promotionapiUrl = "${baseUrlApi}promotion/";
+  static String getoverviewpromotion = "${_promotionapiUrl}overview";
+  static String qrPromotion = "${_promotionapiUrl}generate-qr";
+  static String WdPromotion = "${_promotionapiUrl}withdrawl";
+
 
   ///api soung opening
   // static String apiOpeningCool = "${_baseUrlApi}boarding/get-sound";

@@ -657,19 +657,19 @@ class ProviderProfiling extends ChangeNotifier {
         if(param == "plus")
           Nav.to(AddMultipleProfiling(
             int.parse('1'),
-            int.parse('10'),
+            int.parse('10'),null
           ));
         else if(param == "seeall")
           Nav.to(const ProfilingDashboard());
         else if(param == "profiling1")
           Nav.to(AddMultipleProfiling(
             int.parse('1'),
-            int.parse('10'),
+            int.parse('10'),null
           ));
         else if(param == "profiling10")
           Nav.to(AddMultipleProfiling(
             int.parse('10'),
-            int.parse('10'),
+            int.parse('10'),null
           ));
 
         if (kDebugMode) {

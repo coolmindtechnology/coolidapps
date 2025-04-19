@@ -53,7 +53,8 @@ class DataDetailProfiling {
   Personality? polaInteraksi;
   Personality? family;
   Personality? polaHealing;
-  Personality? spiritual;
+  Personality? kebutuhan;
+  Personality? finansial;
   dynamic picture;
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -86,7 +87,8 @@ class DataDetailProfiling {
     this.polaInteraksi,
     this.family,
     this.polaHealing,
-    this.spiritual,
+    this.kebutuhan,
+    this.finansial,
     this.keyUnderAge,
 
   });
@@ -126,9 +128,12 @@ class DataDetailProfiling {
          polaHealing: json["pola_healing"] == null
             ? null
             : Personality.fromJson(json["pola_healing"]),
-        spiritual: json["spiritual"] == null
+        kebutuhan: json["kebutuhan"] == null
             ? null
-            : Personality.fromJson(json["spiritual"]),
+            : Personality.fromJson(json["kebutuhan"]),
+        finansial: json["finansial"] == null
+                    ? null
+                    : Personality.fromJson(json["finansial"]),
 
         picture: json["picture"],
         createdAt: json["created_at"] == null
@@ -165,7 +170,8 @@ class DataDetailProfiling {
         "pola_interaksi_sosial": polaInteraksi?.toJson(),
         "family": family?.toJson(),
         "pola_healing": polaHealing?.toJson(),
-        "spiritual": spiritual?.toJson(),
+        "kebutuhan": kebutuhan?.toJson(),
+        "finansial": finansial?.toJson(),
         "picture": picture,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),

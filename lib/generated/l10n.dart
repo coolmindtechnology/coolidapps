@@ -18,28 +18,31 @@ class S {
   static S? _current;
 
   static S get current {
-    assert(_current != null, 'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.');
+    assert(_current != null,
+        'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.');
     return _current!;
   }
 
-  static const AppLocalizationDelegate delegate =
-    AppLocalizationDelegate();
+  static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name = (locale.countryCode?.isEmpty ?? false) ? locale.languageCode : locale.toString();
-    final localeName = Intl.canonicalizedLocale(name); 
+    final name = (locale.countryCode?.isEmpty ?? false)
+        ? locale.languageCode
+        : locale.toString();
+    final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
       final instance = S();
       S._current = instance;
- 
+
       return instance;
     });
-  } 
+  }
 
   static S of(BuildContext context) {
     final instance = S.maybeOf(context);
-    assert(instance != null, 'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?');
+    assert(instance != null,
+        'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?');
     return instance!;
   }
 
@@ -1948,10 +1951,12 @@ class S {
   }
 
   /// `The file is too large, please upload a file less than 30 MB`
-  String get the_file_is_too_large_please_upload_a_file_with_a_size_of_less_than_30_mb {
+  String
+      get the_file_is_too_large_please_upload_a_file_with_a_size_of_less_than_30_mb {
     return Intl.message(
       'The file is too large, please upload a file less than 30 MB',
-      name: 'the_file_is_too_large_please_upload_a_file_with_a_size_of_less_than_30_mb',
+      name:
+          'the_file_is_too_large_please_upload_a_file_with_a_size_of_less_than_30_mb',
       desc: '',
       args: [],
     );
@@ -2788,10 +2793,12 @@ class S {
   }
 
   /// `Password must include uppercase letters lowercase letters digits and special characters`
-  String get password_must_include_uppercase_letters_lowercase_letters_digits_and_special_characters {
+  String
+      get password_must_include_uppercase_letters_lowercase_letters_digits_and_special_characters {
     return Intl.message(
       'Password must include uppercase letters lowercase letters digits and special characters',
-      name: 'password_must_include_uppercase_letters_lowercase_letters_digits_and_special_characters',
+      name:
+          'password_must_include_uppercase_letters_lowercase_letters_digits_and_special_characters',
       desc: '',
       args: [],
     );
@@ -3267,10 +3274,10 @@ class S {
     );
   }
 
-  /// `Terms & Conditions`
+  /// `Terms and Conditions`
   String get Terms_and_Conditions {
     return Intl.message(
-      'Terms & Conditions',
+      'Terms and Conditions',
       name: 'Terms_and_Conditions',
       desc: '',
       args: [],
@@ -4707,20 +4714,20 @@ class S {
     );
   }
 
-  /// `Share link`
+  /// `Share Refferal Code`
   String get Share_Link {
     return Intl.message(
-      'Share link',
+      'Share Refferal Code',
       name: 'Share_Link',
       desc: '',
       args: [],
     );
   }
 
-  /// `Terms & Conditions`
+  /// `Terms and Conditions`
   String get Terms_Conditions {
     return Intl.message(
-      'Terms & Conditions',
+      'Terms and Conditions',
       name: 'Terms_Conditions',
       desc: '',
       args: [],
@@ -5617,26 +5624,6 @@ class S {
     );
   }
 
-  /// `Continue`
-  String get continiu {
-    return Intl.message(
-      'Continue',
-      name: 'continue',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Choose_your_consultant`
-  String get Choose_your_consultant {
-    return Intl.message(
-      'Choose_your_consultant',
-      name: 'Choose_your_consultant',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Use another account`
   String get use_another_account {
     return Intl.message(
@@ -6357,7 +6344,15 @@ class S {
     );
   }
 
-  // skipped getter for the 'personality!' key
+  /// `My Personality!`
+  String get personalityy {
+    return Intl.message(
+      'My Personality!',
+      name: 'personalityy',
+      desc: '',
+      args: [],
+    );
+  }
 
   /// `Unrecognized Type`
   String get tipe_tidak_dikenali {
@@ -6414,6 +6409,56 @@ class S {
     return Intl.message(
       'Your Code',
       name: 'kode_anda',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Minimum withdrawal amount: 10x Commision`
+  String get minimumWdCommision {
+    return Intl.message(
+      'Minimum withdrawal amount: 10x Commision',
+      name: 'minimumWdCommision',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Need`
+  String get kebutuhan {
+    return Intl.message(
+      'Need',
+      name: 'kebutuhan',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Download PDF`
+  String get download_pdf {
+    return Intl.message(
+      'Download PDF',
+      name: 'download_pdf',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Will Hear :`
+  String get akandidengar {
+    return Intl.message(
+      'Will Hear :',
+      name: 'akandidengar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Digital ID`
+  String get digitalid {
+    return Intl.message(
+      'Digital ID',
+      name: 'digitalid',
       desc: '',
       args: [],
     );

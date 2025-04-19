@@ -1,9 +1,15 @@
 // ignore_for_file: library_private_types_in_public_api
 
+import 'dart:async';
+
 import 'package:coolappflutter/data/data_global.dart';
 import 'package:coolappflutter/data/helpers/check_language.dart';
+import 'package:coolappflutter/data/locals/preference_handler.dart';
+import 'package:coolappflutter/data/locals/shared_pref.dart';
 import 'package:coolappflutter/data/response/payments/res_update_transaction_profiling.dart';
 import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/afiliate/on_board/onboard_aff1.dart';
+import 'package:coolappflutter/presentation/pages/main/pre_home_screen.dart';
 import 'package:coolappflutter/presentation/pages/payments/midtrans_screen.dart';
 import 'package:coolappflutter/presentation/pages/afiliate/naf_afiliate.dart';
 import 'package:coolappflutter/presentation/pages/user/reusable_invoice_screen.dart';
@@ -125,9 +131,42 @@ By joining, you can earn additional income by referring our products or services
   @override
   void initState() {
     // getIsIndonesia();
-
+    cekSession();
     super.initState();
     initLocale();
+  }
+
+  cekSession() async {
+    dynamic ceklanguage = await PreferenceHandler.retrieveISelectLanguage();
+    if (ceklanguage == null) {
+      Prefs().setLocale('en_US', () {
+        setState(() {
+          S.load(Locale('en_US'));
+          setState(() {});
+        });
+      });
+      Timer(Duration(seconds: 2), () {
+        Prefs().getLocale().then((locale) {
+          debugPrint(locale);
+
+          S.load(Locale(locale)).then((value) {});
+        });
+      });
+    } else {
+      Prefs().setLocale('$ceklanguage', () {
+        setState(() {
+          S.load(Locale('$ceklanguage'));
+          setState(() {});
+        });
+      });
+      Timer(Duration(seconds: 2), () {
+        Prefs().getLocale().then((locale) {
+          debugPrint(locale);
+
+          S.load(Locale(locale)).then((value) {});
+        });
+      });
+    }
   }
 
   Future<void> cancelAffiliator() async {
@@ -208,8 +247,8 @@ By joining, you can earn additional income by referring our products or services
               widget.date != null
                   ? itemPayment(
                       S.of(context).date,
-                      DateFormat("dd MMM yyyy")
-                          .format(widget.date ?? DateTime.now()))
+                  DateFormat("dd MMM yyyy", Localizations.localeOf(context).toString())
+                      .format(widget.date ?? DateTime.now()))
                   : const SizedBox(),
               const SizedBox(
                 height: 16,
@@ -289,7 +328,7 @@ By joining, you can earn additional income by referring our products or services
                           ));
 
                           if (data == "affiliate") {
-                            Nav.to(const NafAffiliate());
+                            Nav.to(const PreHomeScreen());
                           }
                         },
                         expand: false,

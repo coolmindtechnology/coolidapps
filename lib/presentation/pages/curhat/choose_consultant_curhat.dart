@@ -93,14 +93,14 @@ class _ChooseConsultantCurhatState extends State<ChooseConsultantCurhat> {
               ),
               SizedBox(height: 8.0),
               Text(
-                S.of(context).Choose_your_consultant,
+                S.of(context).choose,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
                 style: TextStyle(fontSize: 14.0, color: Colors.black54),
               ),
               SizedBox(height: 16.0),
               CardConsultant(
-                topic: S.of(context).Choose_your_consultant,
+                topic: S.of(context).choose,
                 topicSelected: widget.getTopik,
                 consultationTime: S.of(context).Consultation_time,
                 consultationTimeSelected: widget.getTime,

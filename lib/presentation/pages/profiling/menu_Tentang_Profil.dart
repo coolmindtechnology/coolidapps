@@ -117,10 +117,17 @@ class _MenuTentangProfilState extends State<MenuTentangProfil> {
               ),
               ItemButton(
                 onTap: () {
-                  Nav.to(ResultDetail(data: widget.data, type: 'spiritual'));
+                  Nav.to(ResultDetail(data: widget.data, type: 'kebutuhan'));
                 },
-                text: S.of(context).spiritual,
+                text: S.of(context).kebutuhan,
                 imagePath: 'images/profiling/icSpiritual.png',
+              ),
+              ItemButton(
+                onTap: () {
+                  Nav.to(ResultDetail(data: widget.data,type: 'finansial',));
+                },
+                text: S.of(context).financial,
+                imagePath: 'images/profiling/icFinansial.png',
               ),
 
 

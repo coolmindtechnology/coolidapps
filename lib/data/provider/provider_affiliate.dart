@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:coolappflutter/data/data_global.dart';
+import 'package:coolappflutter/data/provider/provider_auth_affiliate.dart';
 import 'package:coolappflutter/data/provider/provider_profiling.dart';
 import 'package:coolappflutter/data/provider/provider_transaksi_affiliate.dart';
 import 'package:coolappflutter/data/repositories/repo_affiliate.dart';
@@ -22,6 +23,7 @@ import 'package:coolappflutter/presentation/pages/konsultasi/konsultant/konsulta
 import 'package:coolappflutter/presentation/pages/konsultasi/konsultant/terma_konsultan.dart';
 import 'package:coolappflutter/presentation/pages/main/nav_home.dart';
 import 'package:coolappflutter/presentation/pages/main/nav_home.dart';
+import 'package:coolappflutter/presentation/pages/main/term_affiliasi.dart';
 import 'package:coolappflutter/presentation/pages/transakction/topup_saldo.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:flutter/foundation.dart';
@@ -43,6 +45,7 @@ class ProviderAffiliate extends ChangeNotifier {
   DataAffiliasi? dataAffiliasi;
   affiliasiover.Data? dataOverview;
   bool isLoading = false;
+  bool isCektopup = false;
   RepoAffiliate repo = RepoAffiliate();
 
   /// Retrieves the home affiliate data and performs necessary actions based on the response.
@@ -80,6 +83,7 @@ class ProviderAffiliate extends ChangeNotifier {
       if (res.success == true) {
         dataOverview = res.data;
         dataGlobal.dataAff = res.data;
+        dataOverview = res.data;
         notifyListeners();
         // Provider.of<ProviderProfiling>(context, listen: false)
         //     .getListProfiling(context);
@@ -88,6 +92,7 @@ class ProviderAffiliate extends ChangeNotifier {
             dataAffiliasi;
         debugPrint("cekmm");
         checkCompleteBank(context);
+        checkTopupAffiliate(context);
 
         if (pilihRek != null) {
           nameBank = TextEditingController(text: dataOverview?.bankName);
@@ -442,9 +447,14 @@ class ProviderAffiliate extends ChangeNotifier {
   Future<void> checkTopupAffiliate(
     BuildContext context,
   ) async {
+    isCektopup = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      notifyListeners();
+    });
     Either<Failure, ResCheckTopupAffiliate> response =
-        await repo.checkTopupAffiliate(dataAffiliasi?.idUser ?? "");
-
+        await repo.checkTopupAffiliate(dataGlobal.dataUser?.id.toString() ?? 'kosong cek id');
+    isCektopup = false;
+    notifyListeners();
     response.when(error: (e) {
       debugPrint("masuk eeee?");
       NotificationUtils.showDialogError(context, () {
@@ -520,50 +530,51 @@ class ProviderAffiliate extends ChangeNotifier {
                   Nav.back();
                 },
               );
-              //   break;
-              // case 4:
-              //   await NotificationUtils.showSimpleDialog2(
-              //     context,
-              //     resCheckTopupAffiliate?.message ?? "",
-              //     textButton1: S.of(context).top_up,
-              //     textButton2: S.of(context).back,
-              //     onPress1: () async {
-              //       Nav.back();
-              //       var data = await Nav.to(const TopupSaldoPage());
-              //       if (data != null) {
-              //         checkTopupAffiliate(context);
-              //       }
-              //     },
-              //     onPress2: () {
-              //       Nav.back();
-              //     },
-              //   );
-              // await NotificationUtils.showDialogSuccess(
-              //   context,
-              //   () {
-              //     Nav.back();
-              //     //update notif top up to false
-              //     updateNotifTopupAffiliate(context);
-              //   },
-              //   widget: Text(
-              //     "${res.message}",
-              //     style: const TextStyle(fontSize: 16),
-              //     textAlign: TextAlign.center,
-              //   ),
-              // );
-              break;
-            case 5:
-              await NotificationUtils.showDialogError5(
+                break;
+              case 4:
+                await NotificationUtils.showSimpleDialog2(
+                  context,
+                  resCheckTopupAffiliate?.message ?? "",
+                  textButton1: S.of(context).top_up,
+                  textButton2: S.of(context).back,
+                  onPress1: () async {
+                    Nav.back();
+                    var data = await Nav.to(const TopupSaldoPage());
+                    if (data != null) {
+                      checkTopupAffiliate(context);
+                    }
+                  },
+                  onPress2: () {
+                    Nav.back();
+                  },
+                );
+              await NotificationUtils.showDialogSuccess(
                 context,
                 () {
                   Nav.back();
+                  //update notif top up to false
+                  updateNotifTopupAffiliate(context);
                 },
                 widget: Text(
                   "${res.message}",
                   style: const TextStyle(fontSize: 16),
-                  textAlign: TextAlign.justify,
+                  textAlign: TextAlign.center,
                 ),
               );
+              break;
+            // case 5:
+            //   await NotificationUtils.showDialogError5(
+            //     context,
+            //     () {
+            //       updateNotifTopupAffiliate(context);
+            //       Nav.back();
+            //     },
+            //     widget: Text(
+            //       "${res.message}",
+            //       style: const TextStyle(fontSize: 16),
+            //       textAlign: TextAlign.justify,
+            //     ),
+            //   );
               // await NotificationUtils.showSimpleDialog2(
               //   context,
               //   "${res.message}",
@@ -655,9 +666,8 @@ class ProviderAffiliate extends ChangeNotifier {
             case 10:
               await NotificationUtils.showDialogSuccess(
                 context,
-                () {
+                    () {
                   Nav.back();
-                  //update notif top up to false
                   updateNotifTopupAffiliate(context);
                 },
                 widget: Text(
@@ -666,17 +676,29 @@ class ProviderAffiliate extends ChangeNotifier {
                   textAlign: TextAlign.center,
                 ),
               );
-              // await NotificationUtils.showDialogError(
-              //   context,
-              //   () {
-              //     Nav.back();
-              //   },
-              //   widget: Text(
-              //     "${res.message}",
-              //     style: const TextStyle(fontSize: 16),
-              //     textAlign: TextAlign.center,
-              //   ),
-              // );
+              break;
+              case 11:
+              await NotificationUtils.showSimpleDialog2(
+                context,
+                resCheckTopupAffiliate?.message ?? "",
+                textButton1: S.of(context).register_affiliate,
+                textButton2: S.of(context).back,
+                onPress1: () async {
+                  if ( resCheckTopupAffiliate
+                      ?.data
+                      ?.notif !=
+                      5) {
+                    updateNotifTopupAffiliate(context);
+                    Nav.back();
+                    Nav.toAll(const TermHomeAffiliasi());
+                  }
+
+                },
+                onPress2: () {
+                  Nav.back();
+                  updateNotifTopupAffiliate(context);
+                },
+              );
               break;
             default:
               // Handle other cases if needed
@@ -697,7 +719,7 @@ class ProviderAffiliate extends ChangeNotifier {
     BuildContext context,
   ) async {
     Either<Failure, ResCheckTopupAffiliate> response =
-        await repo.updateNotifTopupAffiliate(dataAffiliasi?.idUser ?? "");
+        await repo.updateNotifTopupAffiliate(dataGlobal.dataAff!.idUser);
     response.when(error: (e) {
       NotificationUtils.showDialogError(context, () {
         Nav.back();

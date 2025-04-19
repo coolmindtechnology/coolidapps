@@ -55,12 +55,9 @@ class ProviderUser extends ChangeNotifier {
 
   ProviderUser.initMemberArea(BuildContext context) {
     getMemberArea(context);
-    getUser(context);
+    // getUser(context);
   }
 
-  ProviderUser.initUser(BuildContext context) {
-    getUser(context);
-  }
   RepoUser repo = RepoUser();
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -573,7 +570,7 @@ class ProviderUser extends ChangeNotifier {
             await Nav.to(ScreenProfile(
               phone: dataGlobal.dataUser?.phoneNumber.toString(),
             ));
-            checkProfile(context);
+            // checkProfile(context);
           },
               widget: Text(
                 res.message ?? "",

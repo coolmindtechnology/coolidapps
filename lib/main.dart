@@ -17,6 +17,7 @@ import 'package:coolappflutter/data/provider/provider_curhat.dart';
 import 'package:coolappflutter/data/provider/provider_meet.dart';
 import 'package:coolappflutter/data/provider/provider_payment.dart';
 import 'package:coolappflutter/data/provider/provider_profiling.dart';
+import 'package:coolappflutter/data/provider/provider_promotion.dart';
 import 'package:coolappflutter/data/provider/provider_transaksi_affiliate.dart';
 import 'package:coolappflutter/data/provider/provider_user.dart';
 import 'package:coolappflutter/data/provider/proviider_notification.dart';
@@ -378,6 +379,9 @@ class _MainAppState extends State<MainApp> {
               ),
               ChangeNotifierProvider(
                 create: (context) => MeetProvider(),
+              ),
+              ChangeNotifierProvider(
+                  create: (context) => PromotionProvider()
               ),
             ],
             child: MaterialApp(

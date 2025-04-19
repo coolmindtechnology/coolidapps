@@ -136,7 +136,7 @@ class _ReportPageState extends State<ReportPage> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 30),
+                const SizedBox(height: 15),
 
 
                 Text(
@@ -158,7 +158,11 @@ class _ReportPageState extends State<ReportPage> {
                 const Spacer(),
 
                 // Tombol kirim
-                GlobalButton(
+               provider.isLoadingReportBug ? Container(
+                   width: double.infinity,
+                   color: primaryColor,
+                   height: 50,
+                   child: const Center(child: CircularProgressIndicator(color: Colors.white,))) : GlobalButton(
                   onPressed: () async {
                     // Pastikan kategori dan body sudah diisi
                     if (selectedItem != null && bodyController.text.isNotEmpty) {
