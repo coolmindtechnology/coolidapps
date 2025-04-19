@@ -21,6 +21,9 @@ import 'package:coolappflutter/data/response/profiling/res_update_transaction_pr
 import 'package:coolappflutter/data/response/profiling/res_upgrade_member.dart';
 import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/pages/main/components/input_code_ref_profilling.dart';
+import 'package:coolappflutter/presentation/pages/main/nav_home.dart';
+import 'package:coolappflutter/presentation/pages/profiling/add_multiple_profiling.dart';
+import 'package:coolappflutter/presentation/pages/profiling/profiling%20dashboard.dart';
 import 'package:coolappflutter/presentation/pages/profiling/screen_feature_kepribadian.dart';
 import 'package:coolappflutter/data/response/profiling/res_share_result_detail.dart';
 import 'package:coolappflutter/data/response/profiling/res_show_detail.dart';
@@ -77,10 +80,11 @@ class ProviderProfiling extends ChangeNotifier {
   }
 
   ProviderPayment payment = ProviderPayment();
-
+  bool isLoadingget = false;
   bool isLoading = false;
   RepoProfiling repo = RepoProfiling();
   List<DataProfiling> listProfiling = [], listDisable = [];
+  List<DataProfiling> filteredProfiling = [];
   DataDetailProfiling? detailProfiling;
   DataShowDetail? dataShowDetail;
   TextEditingController controllerProfillingCode = TextEditingController();
@@ -99,6 +103,43 @@ class ProviderProfiling extends ChangeNotifier {
   void setSelectedIndex(int index) {
     selectedIndex = index;
     notifyListeners();
+  }
+
+  void filterProfilingData(int selectedIndex) {
+    switch (selectedIndex) {
+      case 0:  // Semua data
+        filteredProfiling = List.from(listProfiling);
+        break;
+      case 1:  // Hijau: "emotion in" atau "emotion out"
+        filteredProfiling = listProfiling.where((profiling) =>
+        profiling.typeBrain == "emotion in" || profiling.typeBrain == "emotion out"
+        ).toList();
+        break;
+      case 2:  // Kuning: "logic in" atau "logic out"
+        filteredProfiling = listProfiling.where((profiling) =>
+        profiling.typeBrain == "logic in" || profiling.typeBrain == "logic out"
+        ).toList();
+        break;
+      case 3:  // Putih: "master"
+        filteredProfiling = listProfiling.where((profiling) =>
+        profiling.typeBrain == "master"
+        ).toList();
+        break;
+      case 4:  // Orange: "creative in" atau "creative out"
+        filteredProfiling = listProfiling.where((profiling) =>
+        profiling.typeBrain == "creative in" || profiling.typeBrain == "creative out"
+        ).toList();
+        break;
+      case 5:  // Merah: "action in" atau "action out"
+        filteredProfiling = listProfiling.where((profiling) =>
+        profiling.typeBrain == "action in" || profiling.typeBrain == "action out"
+        ).toList();
+        break;
+      default:
+        filteredProfiling = List.from(listProfiling);
+        break;
+    }
+    notifyListeners();  // Memberitahukan UI untuk diperbarui
   }
 
   Future<void> getListProfiling(BuildContext context) async {
@@ -591,7 +632,7 @@ class ProviderProfiling extends ChangeNotifier {
   ResPermiteProfiling? cekAvailable;
 
   Future<void> cekAvailableProfiling(
-      BuildContext context, TextEditingController controller) async {
+      BuildContext context, TextEditingController controller, String param) async {
     isCekAvailable = true;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       notifyListeners();
@@ -613,7 +654,24 @@ class ProviderProfiling extends ChangeNotifier {
           ));
     }, success: (res) async {
       if (res.success == true) {
-        Nav.to(const ScreenFeatureKepribadian());
+        if(param == "plus")
+          Nav.to(AddMultipleProfiling(
+            int.parse('1'),
+            int.parse('10'),null
+          ));
+        else if(param == "seeall")
+          Nav.to(const ProfilingDashboard());
+        else if(param == "profiling1")
+          Nav.to(AddMultipleProfiling(
+            int.parse('1'),
+            int.parse('10'),null
+          ));
+        else if(param == "profiling10")
+          Nav.to(AddMultipleProfiling(
+            int.parse('10'),
+            int.parse('10'),null
+          ));
+
         if (kDebugMode) {
           print("cek available $cekAvailable");
         }
@@ -799,7 +857,10 @@ class ProviderProfiling extends ChangeNotifier {
         ),
       );
     }, success: (res) async {
-      Nav.back();
+      print("Navigasi ke NavMenuScreen...");
+      Nav.toAll(NavMenuScreen());
+      print("Navigasi berhasil.");
+      // Nav.back();
       showDialog(
           context: context,
           builder: (context) {
@@ -809,7 +870,9 @@ class ProviderProfiling extends ChangeNotifier {
             );
           });
 
-      onAdd!();
+      if (onAdd != null) {
+        onAdd!();
+      }
       notifyListeners();
     });
 

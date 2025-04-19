@@ -43,21 +43,24 @@ class DataBook {
   dynamic isPremium;
   dynamic status;
   LogEbook? logEbook;
+  String? favStatus;
+  String? rating;
 
-  DataBook({
-    this.id,
-    this.title,
-    this.summary,
-    this.image,
-    this.imagePath,
-    this.content,
-    this.file,
-    this.filePath,
-    this.price,
-    this.isPremium,
-    this.status,
-    this.logEbook,
-  });
+  DataBook(
+      {this.id,
+      this.title,
+      this.summary,
+      this.image,
+      this.imagePath,
+      this.content,
+      this.file,
+      this.filePath,
+      this.price,
+      this.isPremium,
+      this.status,
+      this.logEbook,
+      this.favStatus,
+      this.rating});
 
   factory DataBook.fromJson(Map<String, dynamic> json) => DataBook(
         id: json["id"],
@@ -71,9 +74,13 @@ class DataBook {
         price: json["price"],
         isPremium: json["is_premium"],
         status: json["status"],
+        favStatus: json['fav_status'],
+        rating: json['rating'],
         logEbook: json["log_ebook"] == null
             ? null
-            : LogEbook.fromJson(json["log_ebook"]),
+            : LogEbook.fromJson(
+                json["log_ebook"],
+              ),
       );
 
   Map<String, dynamic> toJson() => {
@@ -89,6 +96,8 @@ class DataBook {
         "is_premium": isPremium,
         "status": status,
         "log_ebook": logEbook?.toJson(),
+        "fav_status": favStatus,
+        "rating": rating
       };
 }
 

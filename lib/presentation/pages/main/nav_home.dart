@@ -1,16 +1,20 @@
 //rev
 import 'dart:async';
 
+import 'package:coolappflutter/data/data_global.dart';
 import 'package:coolappflutter/data/provider/provider_user.dart';
 import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/pages/chat/home_chat.dart';
+import 'package:coolappflutter/presentation/pages/main/home_konsultant.dart';
 import 'package:coolappflutter/presentation/pages/main/home_screen.dart';
 import 'package:coolappflutter/presentation/pages/notification/notification_screen.dart';
+import 'package:coolappflutter/presentation/pages/user/Setting/Report/Report_Page.dart';
 
 import 'package:coolappflutter/presentation/pages/user/screen_settings.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:coolappflutter/presentation/utils/notification_utils.dart';
+import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -62,8 +66,7 @@ class _NavMenuScreenState extends State<NavMenuScreen> {
   }
 
   void pengecekanIsProfiling() async {
-    await context.read<ProviderUser>().getUser(context);
-    if (context.read<ProviderUser>().dataUser?.isProfiling != "1") {
+    if (context.read<ProviderUser>().dataUser?.isProfiling != '1') {
       NotificationUtils.showDialogError(
         context,
         () {
@@ -94,8 +97,36 @@ class _NavMenuScreenState extends State<NavMenuScreen> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final homePage = (dataGlobal.dataUser?.isAffiliate == 1)
+          ? HomeKonsultant(klickTab: klikTab)
+          : HomeScreen(klickTab: klikTab);
+
+      // Perbarui viewMenu dengan halaman Home yang sesuai
+      setState(() {
+        viewMenu = [
+          homePage, // Halaman Home dinamis berdasarkan is_affiliate
+          NotificationScreen(),
+          Container(), // Placeholder untuk tab Chat
+          ScreenSettings(
+            onLanguageChanged: () {
+              Timer(const Duration(seconds: 3), () {
+                debugPrint("cek screeen setting states");
+                setState(() {
+                  Provider.of<ProviderUser>(context, listen: false)
+                      .getUser(context);
+                });
+              });
+              setState(() {});
+            },
+          ),
+        ];
+      });
+    });
     viewMenu = [
-      HomeScreen(klickTab: klikTab),
+      dataGlobal.dataUser?.isAffiliate == 1
+          ? HomeKonsultant(klickTab: klikTab)
+          : HomeScreen(klickTab: klikTab),
       const NotificationScreen(),
       Container(), // Placeholder untuk tab Chat
       ScreenSettings(
@@ -152,10 +183,10 @@ class _NavMenuScreenState extends State<NavMenuScreen> {
           );
         }).toList(),
       ),
+      floatingActionButton: const CustomFAB(),
     );
   }
 }
-
 
 // import 'package:coolappflutter/data/provider/provider_profiling.dart';
 // import 'package:coolappflutter/presentation/pages/chat/home_chat.dart';

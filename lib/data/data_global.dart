@@ -1,11 +1,22 @@
+import 'package:coolappflutter/data/response/payments/res_get_data_top_up.dart';
 import 'package:coolappflutter/data/response/res_opening_cool.dart';
 import 'package:coolappflutter/data/response/user/res_get_location_member.dart';
 import 'package:coolappflutter/data/response/user/res_get_user.dart';
+import 'package:coolappflutter/data/response/consultant/res_dashboard_consultant.dart'
+    as consultant;
+import 'package:coolappflutter/data/response/affiliate/res_overview.dart'
+    as Aff;
 import 'package:flutter/foundation.dart';
+import 'package:coolappflutter/data/response/promotion/res_getlist_promotion.dart';
+
 
 class DataGlobal extends ChangeNotifier {
   DataGlobal();
   DataUser? dataUser;
+  consultant.Data? dataConsultant;
+  ResListPromotion? dataPromotion;
+  ResGetDataTopUp? dataTopUp;
+  Aff.Data? dataAff;
   MemberArea? dataMember;
   DataOpening? dataOpening;
   bool isIndonesia = true;

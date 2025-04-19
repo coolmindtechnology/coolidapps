@@ -28,8 +28,11 @@ import 'package:coolappflutter/presentation/pages/otp/otp_screen.dart';
 import 'package:coolappflutter/presentation/utils/get_country.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:coolappflutter/presentation/utils/notification_utils.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 
 class ProviderAuth extends ChangeNotifier {
   ProviderAuth() {
@@ -62,7 +65,6 @@ class ProviderAuth extends ChangeNotifier {
 
   //register
 
-  TextEditingController phoneNumberReg = TextEditingController();
   TextEditingController passwordReg = TextEditingController();
   TextEditingController confirmPasswordReg = TextEditingController();
 
@@ -177,7 +179,49 @@ class ProviderAuth extends ChangeNotifier {
         ),
       );
     }, success: (res) async {
-      // debugPrint("masukk4 ${res.data?.idRole}");
+      try {
+        // **Coba Login dengan Firebase**
+        final credential =
+            await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: res.data?.email.trim() ?? "",
+          password: password.trim(),
+        );
+
+        debugPrint("Login berhasil: ${credential.user?.email}");
+        debugPrint("Login berhasil: ${password.trim()}");
+      } on FirebaseAuthException catch (e) {
+        NotificationUtils.showDialogError(
+          context,
+              () {
+            Nav.back();
+          },
+          widget: Text(
+            res.message ?? "",
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 16),
+          ),
+        );
+        // **Jika Error 'user-not-found', Buat Akun Baru**
+        debugPrint("Login gagal: $e");
+        debugPrint("Login gagal: ${res.data?.email.trim()}");
+        debugPrint("Login gagal: ${password.trim()}");
+        final credential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: res.data?.email.trim() ?? "",
+          password: password.trim(),
+        );
+
+        await FirebaseChatCore.instance.createUserInFirestore(
+          types.User(
+            firstName: res.data?.email.toString().substring(0, 3).trim(),
+            id: credential.user!.uid,
+            imageUrl:
+                'https://i.pravatar.cc/300?u=${res.data?.email.toString().substring(0, 2).trim()}',
+            lastName: res.data?.email.toString().substring(0, 2).trim(),
+          ),
+        );
+      }
+
       if (res.success == true) {
         if (res.data?.idRole.toString() == "2") {
           isLoading = false;
@@ -280,22 +324,22 @@ class ProviderAuth extends ChangeNotifier {
 
   // register
   Future<void> register(
-    BuildContext context,
-    String channel,
-    String emailReg,
-    String codeReferal,
-    String countryId,
-    String stateId,
-    String cityId,
-    String districtId,
-    String longitude,
-    String latitude,
-  ) async {
+      BuildContext context,
+      String channel,
+      String emailReg,
+      String codeReferal,
+      String countryId,
+      String stateId,
+      String cityId,
+      String districtId,
+      String longitude,
+      String latitude,
+      String phoneNumberReg) async {
     isLoading = true;
     notifyListeners();
 
     Either<FailedModel, ResRegister> response = await auth.register(
-        phoneNumber: phoneNumberReg.text,
+        phoneNumber: phoneNumberReg.toString(),
         password: passwordReg.text,
         confirmPassword: confirmPasswordReg.text,
         channel: channel,
@@ -328,7 +372,23 @@ class ProviderAuth extends ChangeNotifier {
             : Text(removeBrackets(
                 '${e.message.toString()}  ${e.errorCode.toString()}')),
       );
-    }, success: (res) {
+    }, success: (res) async {
+      try {
+        final credential =
+            await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: emailReg.trim(),
+          password: passwordReg.text.trim(),
+        );
+
+        await FirebaseChatCore.instance.createUserInFirestore(
+          types.User(
+            firstName: emailReg.toString().substring(0, 3).trim(),
+            id: credential.user!.uid,
+            imageUrl: 'https://i.pravatar.cc/300?u=${emailReg.trim()}',
+            lastName: emailReg.toString().substring(0, 2).trim(),
+          ),
+        );
+      } catch (e) {}
       if (res.success == false && res.data == null) {
         NotificationUtils.showDialogError(context, () {
           Nav.back();

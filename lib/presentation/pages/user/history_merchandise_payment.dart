@@ -27,8 +27,9 @@ class _HistoryMerchandisePayementState
         builder: (BuildContext context, value, Widget? child) => Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            title: const Text(
-              "History Merchandise Payment",
+            title: Text(
+              S.of(context).history,
+              // "History Merchandise Payment",
               style: TextStyle(color: Colors.white),
             ),
             iconTheme: const IconThemeData(color: Colors.white),

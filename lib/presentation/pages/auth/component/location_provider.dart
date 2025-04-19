@@ -31,7 +31,7 @@ class LocationProvider with ChangeNotifier {
     try {
       final response = await http.get(
         Uri.parse(
-          'https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyCEzlMiV5qYGt5xY2wNpFjoakFT42r0ZVI&input=',
+          'https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyAUwYqwfekzl72dvGkyFE7irzZdh4Qa9fk&input=',
         ),
       );
       if (response.statusCode == 200) {
@@ -61,7 +61,7 @@ class LocationProvider with ChangeNotifier {
 
   //       final response = await http.get(
   //         Uri.parse(
-  //             'https://maps.googleapis.com/maps/api/geocode/json?latlng=$_latitude,$_longitude&key=AIzaSyCEzlMiV5qYGt5xY2wNpFjoakFT42r0ZVI'),
+  //             'https://maps.googleapis.com/maps/api/geocode/json?latlng=$_latitude,$_longitude&key=AIzaSyAUwYqwfekzl72dvGkyFE7irzZdh4Qa9fk'),
   //       );
   //       if (response.statusCode == 200) {
   //         final data = jsonDecode(response.body);
@@ -106,7 +106,7 @@ class LocationProvider with ChangeNotifier {
     try {
       final response = await http.get(
         Uri.parse(
-            'https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyCEzlMiV5qYGt5xY2wNpFjoakFT42r0ZVI&input=$country'),
+            'https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyAUwYqwfekzl72dvGkyFE7irzZdh4Qa9fk&input=$country'),
       );
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
@@ -129,7 +129,7 @@ class LocationProvider with ChangeNotifier {
     try {
       final response = await http.get(
         Uri.parse(
-            'https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyCEzlMiV5qYGt5xY2wNpFjoakFT42r0ZVI&input=$state'),
+            'https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyAUwYqwfekzl72dvGkyFE7irzZdh4Qa9fk&input=$state'),
       );
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
@@ -232,7 +232,7 @@ class LocationProvider with ChangeNotifier {
   String? selectedState;
   String? selectedCity;
   String googleApiKey =
-      "AIzaSyCEzlMiV5qYGt5xY2wNpFjoakFT42r0ZVI"; // Ganti dengan API Key Anda
+      "AIzaSyAUwYqwfekzl72dvGkyFE7irzZdh4Qa9fk"; // Ganti dengan API Key Anda
   double? selectedLatitude;
   double? selectedLongitude;
 
@@ -319,7 +319,7 @@ class LocationProvider with ChangeNotifier {
 //     try {
 //       final response = await http.get(
 //         Uri.parse(
-//           'https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyCEzlMiV5qYGt5xY2wNpFjoakFT42r0ZVI&input=a',
+//           'https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyAUwYqwfekzl72dvGkyFE7irzZdh4Qa9fk&input=a',
 //         ),
 //       );
 //       if (response.statusCode == 200) {
@@ -344,7 +344,7 @@ class LocationProvider with ChangeNotifier {
 //     try {
 //       final response = await http.get(
 //         Uri.parse(
-//             'https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyCEzlMiV5qYGt5xY2wNpFjoakFT42r0ZVI&input=$country'),
+//             'https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyAUwYqwfekzl72dvGkyFE7irzZdh4Qa9fk&input=$country'),
 //       );
 //       if (response.statusCode == 200) {
 //         final data = jsonDecode(response.body);
@@ -367,7 +367,7 @@ class LocationProvider with ChangeNotifier {
 //     try {
 //       final response = await http.get(
 //         Uri.parse(
-//             'https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyCEzlMiV5qYGt5xY2wNpFjoakFT42r0ZVI&input=$state'),
+//             'https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyAUwYqwfekzl72dvGkyFE7irzZdh4Qa9fk&input=$state'),
 //       );
 //       if (response.statusCode == 200) {
 //         final data = jsonDecode(response.body);

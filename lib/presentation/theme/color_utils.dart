@@ -7,3 +7,16 @@ Color whiteColor = const Color(0xffffffff);
 Color brownColor = const Color.fromRGBO(125, 93, 93, 1);
 Color greenColor = const Color(0xff27AE60);
 Color naturalGrey = const Color(0xffD9D9D9);
+
+Color BlueColor = const Color(0xFF267AAF);
+Color YellowColor = const Color(0xFFFBF008);
+Color DarkYellow = const Color(0xFFB4AB04);
+Color LightBlue = const Color(0xFFDBFEFD);
+Color LightRed = const Color(0xFFFCE4D0);
+Color Darkred = const Color(0xFF960D11);
+Color blueSlider = const Color(0xFF93F1FB);
+Color lightBlue = const Color(0xFFDBFEFD);
+Color borderBlue = const Color(0xFF4CCBF4);
+Color imageBlue = const Color(0xFF5FC6EF);
+Color blueContainer = const Color(0xFF4CCBF4);
+Color blueContainer2 = const Color(0xFF93F1FB);

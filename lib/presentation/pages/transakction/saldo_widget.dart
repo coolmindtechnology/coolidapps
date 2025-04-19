@@ -1,7 +1,12 @@
 // ignore_for_file: use_build_context_synchronously, must_be_immutable
 
+import 'dart:async';
+
+import 'package:coolappflutter/data/locals/preference_handler.dart';
+import 'package:coolappflutter/data/locals/shared_pref.dart';
 import 'package:coolappflutter/data/provider/provider_transaksi_affiliate.dart';
 import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/payments/componen/saldo_widget.dart';
 import 'package:coolappflutter/presentation/pages/transakction/component/transaction_filter_date.dart';
 import 'package:coolappflutter/presentation/pages/transakction/topup_saldo.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
@@ -55,6 +60,7 @@ class _SaldoWidgetState extends State<SaldoWidget>
 
   @override
   void initState() {
+    cekSession();
     _tabController = TabController(
       length: 2,
       vsync: this,
@@ -74,6 +80,39 @@ class _SaldoWidgetState extends State<SaldoWidget>
     });
 
     super.initState();
+  }
+
+  cekSession() async {
+    dynamic ceklanguage = await PreferenceHandler.retrieveISelectLanguage();
+    if (ceklanguage == null) {
+      Prefs().setLocale('en_US', () {
+        setState(() {
+          S.load(Locale('en_US'));
+          setState(() {});
+        });
+      });
+      Timer(Duration(seconds: 2), () {
+        Prefs().getLocale().then((locale) {
+          debugPrint(locale);
+
+          S.load(Locale(locale)).then((value) {});
+        });
+      });
+    } else {
+      Prefs().setLocale('$ceklanguage', () {
+        setState(() {
+          S.load(Locale('$ceklanguage'));
+          setState(() {});
+        });
+      });
+      Timer(Duration(seconds: 2), () {
+        Prefs().getLocale().then((locale) {
+          debugPrint(locale);
+
+          S.load(Locale(locale)).then((value) {});
+        });
+      });
+    }
   }
 
   @override
@@ -119,26 +158,47 @@ class _SaldoWidgetState extends State<SaldoWidget>
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  HeaderTopupWidget(
-                    title: S.of(context).total_balance,
-                    isLoading: state.isGetSingleTotalSaldoAffiliate,
-                    textButton: S.of(context).top_up,
-                    nominal:
-                        "${MoneyFormatter.formatMoney(state.dataSingleTotalSaldoAffiliate?.totalSaldoAffiliate.toString(), true)}",
-                    onPress: () async {
-                      var data = await Nav.to(const TopupSaldoPage());
-                      if (data != null) {
-                        if (data == "topup_affiliate") {
-                          context
-                              .read<ProviderTransaksiAffiliate>()
-                              .getSingleTotalSaldoAffiliate(context);
-                          context
-                              .read<ProviderTransaksiAffiliate>()
-                              .refreshHistoryIncomeSaldo(context, filter);
-                        }
-                      }
-                    },
-                  ),
+                  SaldoWidgetContainer(
+                title: S.of(context).Your_Balance,
+                subtitle: S.of(context).top_up + "+",
+                saldo:  "${MoneyFormatter.formatMoney(state.dataSingleTotalSaldoAffiliate?.totalSaldoAffiliate.toString(), true)}",
+                backgroundColor: primaryColor,
+                assetImage: 'images/IcWallet.png',
+                onTap: () async {
+                  var data = await Nav.to(const TopupSaldoPage());
+                  if (data != null) {
+                    if (data == "topup_affiliate") {
+                      context
+                          .read<ProviderTransaksiAffiliate>()
+                          .getSingleTotalSaldoAffiliate(context);
+                      context
+                          .read<ProviderTransaksiAffiliate>()
+                          .refreshHistoryIncomeSaldo(context, filter);
+
+                    }
+                  }
+                },
+              ),
+                  // HeaderTopupWidget(
+                  //   title: S.of(context).total_balance,
+                  //   isLoading: state.isGetSingleTotalSaldoAffiliate,
+                  //   textButton: S.of(context).top_up,
+                  //   nominal:
+                  //       "${MoneyFormatter.formatMoney(state.dataSingleTotalSaldoAffiliate?.totalSaldoAffiliate.toString(), true)}",
+                  //   onPress: () async {
+                  //     var data = await Nav.to(const TopupSaldoPage());
+                  //     if (data != null) {
+                  //       if (data == "topup_affiliate") {
+                  //         context
+                  //             .read<ProviderTransaksiAffiliate>()
+                  //             .getSingleTotalSaldoAffiliate(context);
+                  //         context
+                  //             .read<ProviderTransaksiAffiliate>()
+                  //             .refreshHistoryIncomeSaldo(context, filter);
+                  //       }
+                  //     }
+                  //   },
+                  // ),
                   const SizedBox(
                     height: 16,
                   ),

@@ -50,6 +50,12 @@ class _TransaksiAffiliatePageState extends State<TransaksiAffiliatePage>
           S.of(context).transaction,
           style: TextStyle(color: whiteColor),
         ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back, color: whiteColor), // Ikon Back
+          onPressed: () {
+            Navigator.pop(context); // Fungsi kembali ke halaman sebelumnya
+          },
+        ),
         iconTheme: IconThemeData(color: whiteColor),
         backgroundColor: primaryColor,
       ),
@@ -80,9 +86,9 @@ class TabbarTransaksiWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return TabBar(
       controller: tabController,
-      tabs: const [
-        Tab(text: "Saldo"),
-        Tab(text: "Real Money"),
+      tabs: [
+        Tab(text: S.of(context).Balance),
+        Tab(text: S.of(context).Real_Money),
       ],
       labelColor: primaryColor,
       unselectedLabelColor: primaryColor,

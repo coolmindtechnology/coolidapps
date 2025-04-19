@@ -31,8 +31,8 @@ class PushNotifications {
         AndroidInitializationSettings('@mipmap/launcher_icon');
     final DarwinInitializationSettings initializationSettingsDarwin =
         DarwinInitializationSettings(
-      onDidReceiveLocalNotification: (id, title, body, payload) {},
-    );
+            // onDidReceiveLocalNotification: (id, title, body, payload) {},
+            );
     const LinuxInitializationSettings initializationSettingsLinux =
         LinuxInitializationSettings(defaultActionName: 'Open notification');
     final InitializationSettings initializationSettings =
@@ -82,17 +82,6 @@ class PushNotifications {
       String? body,
       String? payLoad,
       required DateTime scheduledNotificationDateTime}) async {
-    return _flutterLocalNotificationsPlugin.zonedSchedule(
-        id,
-        title,
-        body,
-        tz.TZDateTime.from(
-          scheduledNotificationDateTime,
-          tz.local,
-        ),
-        await notificationDetails(),
-        androidAllowWhileIdle: true,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime);
+    return _flutterLocalNotificationsPlugin;
   }
 }

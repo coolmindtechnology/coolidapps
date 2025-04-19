@@ -1,3 +1,4 @@
+import 'package:coolappflutter/data/apps/app_sizes.dart';
 import 'package:coolappflutter/data/data_global.dart';
 import 'package:coolappflutter/data/models/data_checkout_transaction.dart';
 import 'package:coolappflutter/data/provider/provider_payment.dart';
@@ -10,6 +11,7 @@ import 'package:coolappflutter/presentation/widgets/button_primary.dart';
 import 'package:coolappflutter/presentation/widgets/shimmer_loading.dart';
 import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class TopUpPage extends StatefulWidget {
@@ -22,10 +24,14 @@ class TopUpPage extends StatefulWidget {
 class _TopUpPageState extends State<TopUpPage> {
   TextEditingController amountController = TextEditingController();
 
+
   int? selected;
   bool islainnya = false;
   final formKey = GlobalKey<FormState>();
   Color buttonColor = Colors.white;
+  int defaultKelipatan = 0;
+  bool isCustomInput = false;
+
 
   DataListTopUp? dataListTopUpCheckout;
 
@@ -64,18 +70,81 @@ class _TopUpPageState extends State<TopUpPage> {
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      var provider = Provider.of<ProviderPayment>(context, listen: false);
+      if (provider.listDataListTopUp != null && provider.listDataListTopUp!.length >= 3) {
+        try {
+          double parsedPrice = double.parse(provider.listDataListTopUp![2].price ?? "0");
+          if (mounted) {
+            setState(() {
+              defaultKelipatan = parsedPrice.toInt(); // Konversi ke int
+            });
+          }
+        } catch (e) {
+          print("Error parsing price: $e");
+        }
+      }
+    });
+  }
+
+
+
+  String removeLastDigit(String value) {
+    if (value.isNotEmpty) {
+      // Hapus karakter terakhir
+      value = value.substring(0, value.length - 1);
+
+      // Jika karakter terakhir setelah pemotongan adalah titik, hapus juga
+      if (value.endsWith(".")) {
+        value = value.substring(0, value.length - 1);
+      }
+    }
+    return value; // Kembalikan string hasil perubahan
+  }
+
+  int count = 1; // Mulai dari 1 paket
+
+
+  void _increment() {
+    setState(() {
+      count++;
+    });
+  }
+
+  void _decrement() {
+    if (count > 1) {
+      setState(() {
+        count--;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Consumer<ProviderPayment>(builder: (context, value, child) {
+      String getPrice(DataListTopUp? data, bool isIndonesia) {
+        if (data == null) return 'N/A';
+
+        // Pastikan harga dalam format angka, lalu format dengan pemisah ribuan
+        double? priceValue =
+            double.tryParse(isIndonesia ? data.price : data.intlPrice);
+        if (priceValue == null) return 'N/A';
+
+        return NumberFormat("#,###", "id_ID").format(priceValue);
+      }
+
       return Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Image.asset("images/buku/arrowleft.png")),
           iconTheme: IconThemeData(
             color: whiteColor,
           ),
           backgroundColor: primaryColor,
-          centerTitle: true,
+          centerTitle: false,
           title: Text(
             S.of(context).top_up,
             style: TextStyle(color: whiteColor),
@@ -109,134 +178,124 @@ class _TopUpPageState extends State<TopUpPage> {
                         height: 54, width: MediaQuery.of(context).size.width)
                   ] else ...[
                     ListView.separated(
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          DataListTopUp dataListTopUp =
-                              value.listDataListTopUp![index];
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        if (value.listDataListTopUp == null || value.listDataListTopUp!.isEmpty) {
+                          return Center(child: Text("Data tidak tersedia"));
+                        }
 
-                          for (final item in value.listDataListTopUp!) {
-                            final int id = item.id ?? 0;
+                        // Filter data: Hapus item dengan id == 3
+                        List<DataListTopUp> filteredList = value.listDataListTopUp!
+                            .where((item) => item.id != 1)
+                            .toList()
+                            .reversed
+                            .toList();
 
-                            final double price =
-                                double.parse(item.price ?? "0");
+                        if (index >= filteredList.length) return SizedBox();
 
-                            if (id == 3) {
-                              lowestPrice = price;
-                            } else if (id == 2) {
-                              highestPrice = price;
+                        DataListTopUp dataListTopUp = filteredList[index];
+
+                        return GestureDetector(
+                          onTap: dataListTopUp.status == "AKTIF"
+                              ? () {
+                            setState(() {
+                              islainnya = dataListTopUp.id == 1;
+                              amountController.clear();
+                              if (!islainnya) {
+                                amountController.text =
+                                    (double.parse(dataListTopUp.price ?? "0")).toString();
+                              }
+                              selected = index;
+                              dataListTopUpCheckout = dataListTopUp;
+                            });
+
+                            // **Jalankan fungsi onPress**
+                            if (formKey.currentState!.validate()) {
+                              setState(() {
+                                dataCheckoutTransaction = DataCheckoutTransaction(
+                                  price: Decimal.parse(amountController.text),
+                                  idItemPayments: dataListTopUpCheckout?.idItemPayments.toString(),
+                                  qty: int.parse(dataListTopUpCheckout?.qty.toString() ?? "0"),
+                                  transactionType: "Topup Deposit",
+                                  discount: dataListTopUpCheckout?.discount.toString(),
+                                  gateway: dataGlobal.isIndonesia ? 'midrans' : "paypal",
+                                );
+                              });
+
+                              // **Proses transaksi**
+                              value.createTopupTransaction(context, dataCheckoutTransaction);
                             }
                           }
-
-                          // Mengecek apakah ada item dengan id 2 atau 3
-                          hasId2 = value.listDataListTopUp!
-                              .any((item) => item.id == 2);
-                          hasId3 = value.listDataListTopUp!
-                              .any((item) => item.id == 3);
-
-                          if (dataListTopUp.id == 2 ||
-                              dataListTopUp.id == 3 ||
-                              (dataListTopUp.id == 1 && (hasId2 && hasId3))) {
-                            return MaterialButton(
-                              elevation: 0,
-                              height: 54,
-                              minWidth: MediaQuery.of(context).size.width,
-                              textColor: greyColor,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                  side: BorderSide(
-                                      width: 1,
-                                      color: selected == index
-                                          ? primaryColor
-                                          : greyColor)),
-                              onPressed: dataListTopUp.status == "AKTIF"
-                                  ? () {
-                                      if (dataListTopUp.id == 1) {
-                                        setState(() {
-                                          islainnya = true;
-                                        });
-
-                                        amountController.clear();
-                                      } else {
-                                        setState(() {
-                                          islainnya = false;
-                                        });
-                                        amountController.clear();
-                                        amountController.text = (double.parse(
-                                                dataListTopUp.price ?? "0"))
-                                            .toString();
-                                      }
-                                      selected = index;
-
-                                      setState(() {
-                                        dataListTopUpCheckout = dataListTopUp;
-                                      });
-                                    }
-                                  : null,
-                              color: dataListTopUp.status != "AKTIF"
-                                  ? greyColor
-                                  : selected == index
-                                      ? primaryColor.withOpacity(0.2)
-                                      : whiteColor,
-                              child: Text(
-                                value.listDataListTopUp?[index].name ?? "",
-                                style: TextStyle(color: greyColor),
+                              : null,
+                          child: Container(
+                            padding: EdgeInsets.fromLTRB(22, 15, 22, 15),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              gradient: index == 0
+                                  ? LinearGradient(
+                                colors: [Color(0xFF44BBFE), Color(0xFF1E78FE)],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                              )
+                                  : LinearGradient(
+                                colors: [Color(0xFFFFCF53), Color(0xFFFF9900)],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
                               ),
-                            );
-                          } else {
-                            return Container();
-                          }
-                        },
-                        separatorBuilder: (context, index) {
-                          return const SizedBox(
-                            height: 8,
-                          );
-                        },
-                        itemCount: value.listDataListTopUp?.length ?? 0),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    islainnya == true
-                        ? TextFormField(
-                            validator: (val) {
-                              return validateInput(val);
-                            },
-                            controller: amountController,
-                            onChanged: (val) {
-                              setState(() {
-                                double enteredValue =
-                                    double.tryParse(val) ?? 0.0;
-
-                                int moduloResult = enteredValue ~/ lowestPrice;
-
-                                if (moduloResult != 0) {
-                                  dataListTopUpCheckout?.qty =
-                                      moduloResult.toString();
-                                }
-                              });
-                            },
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10)),
-                              hintText: S.of(context).manual_input,
-                              hintStyle:
-                                  const TextStyle(fontWeight: FontWeight.w300),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 16),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: greyColor),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: greyColor),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.2),
+                                  blurRadius: 5,
+                                  offset: Offset(0, 3),
+                                ),
+                              ],
                             ),
-                          )
-                        : const SizedBox(
-                            height: 0,
-                            width: 0,
+                            child: Row(
+                              children: [
+                                Image.asset(
+                                  'images/head-w.png',
+                                  width: 40,
+                                  height: 40,
+                                  fit: BoxFit.contain,
+                                ),
+                                SizedBox(width: 12),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      dataListTopUp.name ?? "",
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                    SizedBox(height: 4),
+                                    Text(
+                                      getPrice(dataListTopUp, dataGlobal.isIndonesia),
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return const SizedBox(height: 8);
+                      },
+                      itemCount: value.listDataListTopUp == null
+                          ? 0
+                          : value.listDataListTopUp!.where((item) => item.id != 3).length,
+                    ),
+
+
                     const SizedBox(
                       height: 16,
                     ),
@@ -337,9 +396,79 @@ class _TopUpPageState extends State<TopUpPage> {
                         )
                       ]
                     ],
-                    const SizedBox(
-                      height: 24,
+                    gapH24,
+                    Container(
+                      width: 360,
+                      height: 138,
+                      padding:
+                          EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+                      decoration: BoxDecoration(
+                        color: Color(0xFFDBFEFD),
+                        borderRadius: BorderRadius.circular(
+                            8), // Tambahkan radius untuk tampilan lebih halus
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // Judul Paket
+                          Text(
+                            "Paket Custom",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                            ),
+                          ),
+                          SizedBox(height: 4),
+                          // Deskripsi Harga
+                          Text(
+                            '*Kelipatan ${MoneyFormatter.formatMoney(defaultKelipatan.toString(), true)} ',
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black54,
+                            ),
+                          ),
+
+                          SizedBox(height: 12),
+
+                          // Box Counter
+                          Container(
+                            width: double.infinity,
+                            height: 50,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(color: Colors.grey.shade300),
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                // Tombol Minus
+                                IconButton(
+                                  icon: Icon(Icons.remove, color: Colors.red),
+                                  onPressed: _decrement,
+                                ),
+
+                                // Harga di tengah
+                                Text(
+                                  "${MoneyFormatter.formatMoney("${count * defaultKelipatan}", false)} ",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
+                                ),
+
+                                // Tombol Plus
+                                IconButton(
+                                  icon: Icon(Icons.add, color: Colors.green),
+                                  onPressed: _increment,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
+                    gapH24,
                     SizedBox(
                       height: 54,
                       child: value.isCreatePayment
@@ -350,35 +479,49 @@ class _TopUpPageState extends State<TopUpPage> {
                               S.of(context).next,
                               expand: true,
                               radius: 10,
-                              onPress: () {
-                                if (formKey.currentState!.validate()) {
-                                  setState(() {
-                                    dataCheckoutTransaction =
-                                        DataCheckoutTransaction(
-                                            price: Decimal.parse(
-                                              amountController.text,
-                                            ),
-                                            idItemPayments:
-                                                dataListTopUpCheckout
-                                                    ?.idItemPayments
-                                                    .toString(),
-                                            qty: int.parse(dataListTopUpCheckout
-                                                    ?.qty
-                                                    .toString() ??
-                                                "0"),
-                                            transactionType: "Topup Deposit",
-                                            discount: dataListTopUpCheckout
-                                                ?.discount
-                                                .toString(),
-                                            gateway: dataGlobal.isIndonesia
-                                                ? 'midrans'
-                                                : "paypal");
-                                  });
-                                  value.createTopupTransaction(
-                                      context, dataCheckoutTransaction);
-                                }
-                              },
-                            ),
+                        onPress: () {
+                          int totalPrice = count * defaultKelipatan;
+                          if (formKey.currentState!.validate()) {
+                            setState(() {
+                              // Ambil teks dari controller
+                              String amountText = totalPrice.toString();
+
+                              // Pastikan input hanya angka
+                              if (amountText.isEmpty || int.tryParse(amountText) == null) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text("Masukkan jumlah yang valid")),
+                                );
+                                return;
+                              }
+
+                              // Tentukan apakah input manual
+                              isCustomInput = dataListTopUpCheckout == null;
+
+                              // Gunakan harga sesuai kelipatan dari defaultKelipatan
+                              Decimal priceToSend = Decimal.parse(amountText);
+
+                              // Jika input manual, kalikan dengan defaultKelipatan
+                              if (isCustomInput) {
+                                priceToSend = Decimal.parse((totalPrice.toString()).toString());
+                              }
+
+                              dataCheckoutTransaction = DataCheckoutTransaction(
+                                price: priceToSend,
+                                idItemPayments: dataListTopUpCheckout?.idItemPayments.toString(),
+                                qty: int.parse(dataListTopUpCheckout?.qty.toString() ?? "1"),
+                                transactionType: "Topup Deposit",
+                                discount: dataListTopUpCheckout?.discount.toString(),
+                                gateway: dataGlobal.isIndonesia ? 'midrans' : "paypal",
+                              );
+                            });
+
+                            value.createTopupTransaction(context, dataCheckoutTransaction);
+                          }
+                        },
+
+
+
+                      ),
                     )
                   ],
                 ],

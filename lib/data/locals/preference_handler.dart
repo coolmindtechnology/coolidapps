@@ -54,4 +54,32 @@ class PreferenceHandler {
     String? result = preferences.getString("cek");
     return result;
   }
+
+  static Future<void> storingISelectLanguage(String idSelect) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString("idSelect", idSelect);
+  }
+
+  static Future<String?> retrieveISelectLanguage() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String? result = preferences.getString("idSelect");
+    return result;
+  }
+
+  static Future<void> storingCekDialogKonsultan(String dialog) async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString("dialog", dialog);
+  }
+
+  static Future<String?> retrieveCekDialogKonsultan() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String? result = preferences.getString("dialog");
+    return result;
+  }
+
+  static Future<String?> retrieveCekDialogCommision() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String? result = preferences.getString("isCommisionpop");
+    return result;
+  }
 }

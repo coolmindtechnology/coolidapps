@@ -33,7 +33,7 @@ class _InvoiceScreenState extends State<InvoiceScreen> {
       return Scaffold(
         appBar: AppBar(
             title: Text(
-          "Receipt",
+          S.of(context).Receipt,
           style: TextStyle(color: whiteColor),
         )),
         body: value.isLoadingInvoice

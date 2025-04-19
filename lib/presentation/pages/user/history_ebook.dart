@@ -1,6 +1,7 @@
 import 'package:coolappflutter/data/provider/provider_book.dart';
 import 'package:coolappflutter/data/response/payments/res_history_ebook.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
 import 'package:coolappflutter/presentation/widgets/shimmer_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -25,7 +26,7 @@ class _HistoryEbookState extends State<HistoryEbook> {
           appBar: AppBar(
             centerTitle: true,
             title: Text(
-              "${S.of(context).history} Ebook",
+              "${S.of(context).history} ${S.of(context).ebook}",
               style: const TextStyle(color: Colors.white),
             ),
             iconTheme: const IconThemeData(color: Colors.white),
@@ -113,6 +114,7 @@ class _HistoryEbookState extends State<HistoryEbook> {
                         // },
                         itemCount: value.dataHistoryEbook.length),
           ),
+          floatingActionButton: const CustomFAB(),
         ),
       ),
     );

@@ -1,5 +1,5 @@
 class LocaleModel {
-  final String numbLocale;
+  final dynamic numbLocale;
   final String name;
   final String locale;
 

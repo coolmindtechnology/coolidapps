@@ -40,6 +40,8 @@ class DataShowDetail {
   dynamic result;
   dynamic birthDate;
   dynamic shareCode;
+  dynamic consultationQuota;
+  dynamic imagetypebrain;
 
   DataShowDetail({
     this.idResult,
@@ -47,6 +49,8 @@ class DataShowDetail {
     this.result,
     this.birthDate,
     this.shareCode,
+    this.consultationQuota,
+    this.imagetypebrain
   });
 
   factory DataShowDetail.fromJson(Map<String, dynamic> json) => DataShowDetail(
@@ -55,6 +59,8 @@ class DataShowDetail {
         result: json["result"],
         birthDate: json["birth_date"],
         shareCode: json["share_code"],
+        consultationQuota: json["consultation_quota"],
+        imagetypebrain: json["image_type_brain"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -63,5 +69,7 @@ class DataShowDetail {
         "result": result,
         "birth_date": birthDate,
         "share_code": shareCode,
+        "consultation_quota": consultationQuota,
+        "image_type_brain": imagetypebrain,
       };
 }

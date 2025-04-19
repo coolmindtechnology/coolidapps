@@ -169,7 +169,8 @@ class _HomeAffiliateState extends State<HomeAffiliate> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  "Syarat dan ketentuan Program Affiliasi",
+                                  S.of(context).Terms_and_Conditions,
+                                  // "Syarat dan ketentuan Program Affiliasi",
                                   style: TextStyle(color: greyColor),
                                 ),
                                 Icon(Icons.info_outline_rounded,
@@ -178,10 +179,10 @@ class _HomeAffiliateState extends State<HomeAffiliate> {
                             ),
                           ),
                         ),
-                        const Padding(
+                        Padding(
                           padding: EdgeInsets.only(left: 16, top: 16),
                           child: Text(
-                            "Overview",
+                            S.of(context).Overview,
                             style: TextStyle(fontSize: 16),
                           ),
                         ),
@@ -237,7 +238,9 @@ class _HomeAffiliateState extends State<HomeAffiliate> {
                                                         ? S
                                                             .of(context)
                                                             .total_real_money
-                                                        : "Total Point",
+                                                        : S
+                                                            .of(context)
+                                                            .Total_Point,
                                             style: TextStyle(
                                               fontSize: 12,
                                               color: tappedStates[index]

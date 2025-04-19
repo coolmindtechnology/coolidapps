@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously, must_be_immutable
 
 import 'package:coolappflutter/data/provider/provider_transaksi_affiliate.dart';
+import 'package:coolappflutter/presentation/pages/payments/componen/saldo_widget.dart';
 import 'package:coolappflutter/presentation/pages/transakction/component/transaction_filter_date.dart';
 import 'package:coolappflutter/presentation/pages/transakction/withdraw.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
@@ -121,22 +122,42 @@ class _RealMoneyWidgetState extends State<RealMoneyWidget>
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  HeaderTopupWidget(
-                    title: S.of(context).total_real_money,
-                    textButton: S.of(context).withdraw,
-                    isLoading: state.isGetSingleTotalRealMoney,
-                    nominal:
-                        "${MoneyFormatter.formatMoney(state.dataSingleTotalRealMoney?.totalRealMoney, true)}",
-                    onPress: () async {
-                      var data = await Nav.to(const Withdraw());
-                      if (data == "withdraw") {
-                        state.getSingleTotalRealMoney(context);
-                        state.refreshHistoryIncomeRealMoney(context, filter);
-                        state.refreshHistoryRealMoneyWithdrawal(
-                            context, filterWithdrawal);
-                      }
-                    },
-                  ),
+                  SaldoWidgetContainer(
+                  title: S.of(context).Real_Money,
+                  subtitle: S.of(context).withdraw,
+                  saldoStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.w600),
+                  titleStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.w600),
+                  saldo: "${MoneyFormatter.formatMoney(state.dataSingleTotalRealMoney?.totalRealMoney, true)}",
+                  sizeImage: 0.9,
+                  backgroundColor: Color(0xFFFBF008),
+                  assetImage: 'images/icRealMoney.png',
+                  onTap: () async {
+                    // Nav.to(const ChangeReward());
+                    var data = await Nav.to(const Withdraw());
+                    if (data == "withdraw") {
+                      state.getSingleTotalRealMoney(context);
+                      state.refreshHistoryIncomeRealMoney(context, filter);
+                      state.refreshHistoryRealMoneyWithdrawal(
+                          context, filterWithdrawal);
+                    }
+                  },
+                ),
+                //   // HeaderTopupWidget(
+                //   //   title: S.of(context).total_real_money,
+                //   //   textButton: S.of(context).withdraw,
+                //   //   isLoading: state.isGetSingleTotalRealMoney,
+                //   //   nominal:
+                //   //       "${MoneyFormatter.formatMoney(state.dataSingleTotalRealMoney?.totalRealMoney, true)}",
+                //   //   onPress: () async {
+                //   //     var data = await Nav.to(const Withdraw());
+                //   //     if (data == "withdraw") {
+                //   //       state.getSingleTotalRealMoney(context);
+                //   //       state.refreshHistoryIncomeRealMoney(context, filter);
+                //   //       state.refreshHistoryRealMoneyWithdrawal(
+                //   //           context, filterWithdrawal);
+                //   //     }
+                //   //   },
+                  // ),
                   const SizedBox(height: 16),
                   TabbarSaldoWidget(
                     tabController: _tabController,
