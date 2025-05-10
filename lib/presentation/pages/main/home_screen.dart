@@ -82,8 +82,8 @@ class _HomeScreenState extends State<HomeScreen> {
       context.read<ProviderUser>().getTotalSaldo(context);
       context.read<ProviderPayment>().getListTopUp(context);
       context.read<ProviderAffiliate>().checkTopupAffiliate(context);
-
-
+      Provider.of<ProviderProfiling>(context, listen: false)
+          .getListProfiling(context);
       // // _pengecekanIsAffiliate();
       // context.read<ProviderPayment>().getAmoutDeposit(context);
     });
@@ -782,11 +782,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       const EdgeInsets.all(8.0),
                                                   child: Column(
                                                     children: [
-                                                      Text(
-                                                        data.typeBrain ??
-                                                            S
-                                                                .of(context)
-                                                                .no_data,
+                                                      Text(data.status.toString() ==
+                                                      "0" ? S.of(context).pending :
+                                                        data.typeBrain,
                                                         style: TextStyle(
                                                           color: Colors.white,
                                                           fontSize: 16,

@@ -400,6 +400,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Hesap Başarılı"),
         "achieve_success_in_life": MessageLookupByLibrary.simpleMessage(
             "Hayatta Başarıyı Elde Edin\nEn İyi Kişilik Uygulaması ile"),
+        "ada": MessageLookupByLibrary.simpleMessage("Var"),
         "add": MessageLookupByLibrary.simpleMessage("Ekle"),
         "add_data_first": MessageLookupByLibrary.simpleMessage(
             "Öncelikle aşağıdaki düğmeyi kullanarak veri ekleyin"),
@@ -431,6 +432,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "approvalSuccessful":
             MessageLookupByLibrary.simpleMessage("Onay Başarılı"),
         "approve": MessageLookupByLibrary.simpleMessage("onaylamak"),
+        "assetNotAvailable":
+            MessageLookupByLibrary.simpleMessage("Varlık mevcut değil"),
         "asset_type": MessageLookupByLibrary.simpleMessage("Varlık Türü"),
         "attention": MessageLookupByLibrary.simpleMessage("DİKKAT!"),
         "aura_type": MessageLookupByLibrary.simpleMessage("Aura Tipi"),
@@ -461,6 +464,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Danışmanlık kabul edilemiyor"),
         "cannot_be_empty": MessageLookupByLibrary.simpleMessage("Boş olamaz"),
         "career": MessageLookupByLibrary.simpleMessage("Kariyer"),
+        "ceritaAnda": MessageLookupByLibrary.simpleMessage("Hikayeniz"),
         "certificate": MessageLookupByLibrary.simpleMessage("Sertifika"),
         "change_language":
             MessageLookupByLibrary.simpleMessage("Dili Değiştir"),
@@ -542,6 +546,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("PROFİL VERİLERİNİ SİL?"),
         "deposit_info": MessageLookupByLibrary.simpleMessage(
             "Depozito: Katılmak için 2.000.000 IDR depozito gereklidir."),
+        "detailLogError":
+            MessageLookupByLibrary.simpleMessage("Hata Günlüğü Detayı"),
         "develop_yourself_by_exploring": MessageLookupByLibrary.simpleMessage(
             "Kendini, mevcut çevrimiçi kitapları keşfederek geliştir. Her zaman ve her yerde daha iyi bir versiyonun ol."),
         "digitalid": MessageLookupByLibrary.simpleMessage("Dijital Kimlik"),
@@ -610,6 +616,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "free_version_limit": MessageLookupByLibrary.simpleMessage(
             "Ücretsiz sürüm yalnızca ilk 5 dakika dinlenebilir. Tamamını dinlemek için abonelik yapın."),
         "from": MessageLookupByLibrary.simpleMessage("Kimden"),
+        "gambar": MessageLookupByLibrary.simpleMessage("Resim:"),
         "get_know_yourself": MessageLookupByLibrary.simpleMessage(
             "Kendinizi Daha Hızlı, Doğru ve Kesin Tanıyın"),
         "get_lots_of_benefits_by_subcribing":
@@ -642,6 +649,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Eğer bu, maksimum tutardan daha az ve minimum tutardan fazla ise, bu durumda gün sayısına göre bir kat tutar uygulanır."),
         "income": MessageLookupByLibrary.simpleMessage("Gelir"),
+        "inputfavcode": MessageLookupByLibrary.simpleMessage(
+            "Favori kullanıcı promosyon kodunuzu girin"),
         "instruksi_scan_qr": MessageLookupByLibrary.simpleMessage(
             "Lütfen QR kodunu CoolApp ile tarayın"),
         "internal_server_error": MessageLookupByLibrary.simpleMessage(
@@ -656,6 +665,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "is_adalah": MessageLookupByLibrary.simpleMessage("şudur"),
         "is_the_data_entered_correct":
             MessageLookupByLibrary.simpleMessage("Girilen veri doğru mu?"),
+        "isiSemuaKolom": MessageLookupByLibrary.simpleMessage(
+            "Lütfen tüm alanları doldurun!"),
         "join_now": MessageLookupByLibrary.simpleMessage(
             "Şimdi katılın ve ek gelir kazanmaya başlayın!"),
         "just": MessageLookupByLibrary.simpleMessage("sadece"),
@@ -665,10 +676,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "kelebihan": MessageLookupByLibrary.simpleMessage("3. Güçlü Yönler"),
         "kelemahan": MessageLookupByLibrary.simpleMessage("4. Zayıf Yönler"),
         "keyword": MessageLookupByLibrary.simpleMessage("Anahtar Kelime"),
+        "kirimLaporanBaru":
+            MessageLookupByLibrary.simpleMessage("Yeni Rapor Gönder"),
         "kode_anda": MessageLookupByLibrary.simpleMessage("Sizin Kodunuz"),
         "kode_saya": MessageLookupByLibrary.simpleMessage("Benim Kodum"),
+        "kodepromosi": MessageLookupByLibrary.simpleMessage("Promosyon Kodu"),
+        "komisi": MessageLookupByLibrary.simpleMessage("Komisyon"),
+        "komisiKu": MessageLookupByLibrary.simpleMessage("Komisyonum"),
+        "komisiku": MessageLookupByLibrary.simpleMessage("Komisyonum"),
         "language": MessageLookupByLibrary.simpleMessage("Dil"),
         "lanjut": MessageLookupByLibrary.simpleMessage("Devam Et"),
+        "lanjutt": MessageLookupByLibrary.simpleMessage("Devam Et"),
+        "lanjuttampa": MessageLookupByLibrary.simpleMessage("Kodsuz Devam Et"),
         "latest_book": MessageLookupByLibrary.simpleMessage("Son Kitap"),
         "lets_develop_ourselves":
             MessageLookupByLibrary.simpleMessage("Hadi kendimizi geliştirelim"),
@@ -676,6 +695,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "listen_brain_40_times": MessageLookupByLibrary.simpleMessage(
             "Lütfen beyninizi 40 kez dinleyin. Ardından diğer abonelik seçenekleri sunulacaktır."),
         "loading": MessageLookupByLibrary.simpleMessage("Yükleniyor..."),
+        "logLaporan": MessageLookupByLibrary.simpleMessage("Rapor Günlüğü"),
+        "logPermasalahanAnda":
+            MessageLookupByLibrary.simpleMessage("Sorunlarınızın Günlüğü"),
         "logging_in":
             MessageLookupByLibrary.simpleMessage("Giriş Yapılıyor..."),
         "logout": MessageLookupByLibrary.simpleMessage("Çıkış Yap"),
@@ -694,6 +716,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("En az 8 karakter"),
         "min_deposit": MessageLookupByLibrary.simpleMessage("Minimum Yatırım"),
         "min_withdrawal": MessageLookupByLibrary.simpleMessage("Minimum Çekim"),
+        "minimalwd":
+            MessageLookupByLibrary.simpleMessage("Minimum Çekim Tutarı"),
         "minimumWdCommision": MessageLookupByLibrary.simpleMessage(
             "Minimum para çekme: 10x Komisyon"),
         "monthly": MessageLookupByLibrary.simpleMessage("Aylık"),
@@ -774,6 +798,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "payment_with_cool_balance_was_successful":
             MessageLookupByLibrary.simpleMessage(
                 "Cool bakiyesi ile ödeme başarıyla yapıldı"),
+        "pending": MessageLookupByLibrary.simpleMessage("Bekliyor"),
         "personality": MessageLookupByLibrary.simpleMessage("Kişilik"),
         "personalityy":
             MessageLookupByLibrary.simpleMessage("Benim Kişiliğim!"),
@@ -783,6 +808,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Bağlılık sürecinizi kolaylaştırmak için bu QR kodunu gösterin."),
         "phone_number":
             MessageLookupByLibrary.simpleMessage("Telefon Numarası"),
+        "pilihGambar": MessageLookupByLibrary.simpleMessage(
+            "Galeri veya kameradan resim seçin"),
+        "pilihKategoriDanDeskripsi": MessageLookupByLibrary.simpleMessage(
+            "Lütfen kategori seçin ve açıklama girin"),
         "play_audio": MessageLookupByLibrary.simpleMessage("Ses Çal"),
         "please_check_again_on_form": MessageLookupByLibrary.simpleMessage(
             "Lütfen formu tekrar kontrol edin"),
@@ -858,6 +887,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "reset_password":
             MessageLookupByLibrary.simpleMessage("Şifreyi Sıfırla"),
         "residence": MessageLookupByLibrary.simpleMessage("İkamet"),
+        "responseDariCool":
+            MessageLookupByLibrary.simpleMessage("Cool tarafından yanıt"),
         "response_timeout":
             MessageLookupByLibrary.simpleMessage("Yanıt zaman aşımına uğradı."),
         "result_detail": MessageLookupByLibrary.simpleMessage("Sonuç Detayı"),
@@ -910,6 +941,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "show_qr_code_to_affiliate": MessageLookupByLibrary.simpleMessage(
             "Afiliasyon sürecinizi kolaylaştırmak için bu QR kodunu gösterin."),
         "sign_in": MessageLookupByLibrary.simpleMessage("Giriş Yap"),
+        "silahkanPilihLokasi":
+            MessageLookupByLibrary.simpleMessage("Lütfen Konumunuzu Seçin"),
         "single": MessageLookupByLibrary.simpleMessage("Tek"),
         "skip": MessageLookupByLibrary.simpleMessage("Atla"),
         "social_interaction_pattern":
@@ -924,6 +957,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Beyin potansiyelini aktif etmeye başla"),
         "state": MessageLookupByLibrary.simpleMessage("Eyalet"),
+        "status": MessageLookupByLibrary.simpleMessage("Durum:"),
         "subcription_all_type":
             MessageLookupByLibrary.simpleMessage("Tüm tipler için abonelik"),
         "subscribe": MessageLookupByLibrary.simpleMessage("Abone Ol"),
@@ -943,6 +977,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Uygulamanın en son sürümü mevcut. Yeni özellikler ve performans iyileştirmeleri için uygulamayı güncelleyin."),
         "thirty_days_ago": MessageLookupByLibrary.simpleMessage("30 Gün Önce"),
+        "tidakAda": MessageLookupByLibrary.simpleMessage("Yok"),
+        "tidakTersedia": MessageLookupByLibrary.simpleMessage("Mevcut değil"),
         "tipe_harta":
             MessageLookupByLibrary.simpleMessage("Benim Servet Türüm!"),
         "tipe_otak": MessageLookupByLibrary.simpleMessage("Benim Beyin Türüm!"),
@@ -995,6 +1031,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "use_your_user_account": MessageLookupByLibrary.simpleMessage(
             "Lütfen kullanıcı hesabınızı kullanın"),
         "user": MessageLookupByLibrary.simpleMessage("Kullanıcı"),
+        "versiAplikasi":
+            MessageLookupByLibrary.simpleMessage("Uygulama Versiyonu:"),
         "viewArchive": MessageLookupByLibrary.simpleMessage("Arşivi Görüntüle"),
         "view_old_profiling": MessageLookupByLibrary.simpleMessage(
             "Önceki profil sonuçlarını hala görüntüleyebilirsiniz"),
@@ -1023,6 +1061,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "withdrawal": MessageLookupByLibrary.simpleMessage("Çekim"),
         "withdrawal_amount":
             MessageLookupByLibrary.simpleMessage("Çekim Miktarı"),
+        "yakinWithdrawal": MessageLookupByLibrary.simpleMessage(
+            "Bu kadar para çekmek istediğinizden emin misiniz?"),
+        "yakinbayar": MessageLookupByLibrary.simpleMessage(
+            "Bu miktarda ödeme yapmak istediğinizden emin misiniz"),
         "year": MessageLookupByLibrary.simpleMessage("Yıl"),
         "yearly": MessageLookupByLibrary.simpleMessage("Yıllık"),
         "yellow": MessageLookupByLibrary.simpleMessage("Sarı"),

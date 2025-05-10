@@ -41,7 +41,7 @@ class _MenuTentangProfilState extends State<MenuTentangProfil> {
                 onTap: () {
                   Nav.to(ResultDetail(data: widget.data,type: 'tipeKaya',));
                 },
-                text: S.of(context).wealth_type,
+                text: S.of(context).rich_type,
                 imagePath: 'images/profiling/icTipeKaya.png',
               ),
               ItemButton(

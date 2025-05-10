@@ -48,11 +48,37 @@ class BrainTypeWidget extends StatelessWidget {
         child: Text(
           displayText,
           style: TextStyle(
-            color: textColor,
+            color: _getColorForText(typeBrain),
+            fontSize: 13,
             fontWeight: FontWeight.w600,
           ),
         ),
       ),
     );
+  }
+}
+
+Color _getColorForText(String type) {
+  switch (type) {
+    case 'emotion_in':
+    case 'emotion_out':
+    case 'emotion':
+      return Colors.green;
+    case 'action_in':
+    case 'action_out':
+    case 'action':
+      return Colors.red;
+    case 'master':
+      return Colors.black;
+    case 'creative_in':
+    case 'creative_out':
+    case 'creative':
+      return Colors.orange;
+    case 'logic_in':
+    case 'logic_out':
+    case 'logic':
+      return Colors.black;
+    default:
+      return Colors.white; // Warna default jika type tidak cocok
   }
 }

@@ -160,7 +160,7 @@ class _InputCodeRefPofillingState extends State<InputCodeRefPofilling> {
                                                   valuePro.controllerProfillingCode
                                                           .text =
                                                       affiliate[
-                                                          'refferal_code'];
+                                                          'referral_code'];
                                                 },
                                                 leading: CircleAvatar(
                                                   backgroundImage: NetworkImage(
@@ -266,12 +266,12 @@ class _InputCodeRefPofillingState extends State<InputCodeRefPofilling> {
                       CustomInputField(
                         textEditingController:
                             valuePro.controllerProfillingCode,
-                        validator: (val) {
-                          if (val!.isEmpty) {
-                            return S.of(context).cannot_be_empty;
-                          }
-                          return null;
-                        },
+                        // validator: (val) {
+                        //   if (val!.isEmpty) {
+                        //     return S.of(context).cannot_be_empty;
+                        //   }
+                        //   return null;
+                        // },
                       ),
                       const SizedBox(
                         height: 16,
@@ -279,21 +279,26 @@ class _InputCodeRefPofillingState extends State<InputCodeRefPofilling> {
                       Center(
                         child: SizedBox(
                           height: 50,
-                          child: ButtonPrimary(
+                          child: valuePro.isUpgradeToMember ? SizedBox(
+                              width: 50,
+                              height: 50,
+                              child: CircularProgressIndicator(backgroundColor: primaryColor,)) : ButtonPrimary(
                             S.of(context).next,
                             expand: true,
                             radius: 8,
                             elevation: 0.0,
                             onPress: () async {
-                              if (valuePro
-                                  .controllerProfillingCode.text.isNotEmpty) {
-                                await valuePro.upgradeToMember(
-                                    context, valuePro.controllerProfillingCode);
-                              } else {
-                                NotificationUtils.showSnackbar(
-                                    S.of(context).cannot_be_empty,
-                                    backgroundColor: primaryColor);
-                              }
+                              await valuePro.upgradeToMember(
+                                  context, valuePro.controllerProfillingCode);
+                              // if (valuePro
+                              //     .controllerProfillingCode.text.isNotEmpty) {
+                              //   await valuePro.upgradeToMember(
+                              //       context, valuePro.controllerProfillingCode);
+                              // } else {
+                              //   NotificationUtils.showSnackbar(
+                              //       S.of(context).cannot_be_empty,
+                              //       backgroundColor: primaryColor);
+                              // }
                             },
                           ),
                         ),

@@ -408,6 +408,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Аккаунт успешен"),
         "achieve_success_in_life": MessageLookupByLibrary.simpleMessage(
             "Добейтесь успеха в жизни\nс лучшим приложением для личности"),
+        "ada": MessageLookupByLibrary.simpleMessage("Есть"),
         "add": MessageLookupByLibrary.simpleMessage("Добавить"),
         "add_data_first": MessageLookupByLibrary.simpleMessage(
             "Пожалуйста, добавьте данные сначала\nчерез кнопку ниже"),
@@ -439,6 +440,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "approvalSuccessful":
             MessageLookupByLibrary.simpleMessage("Успешное одобрение"),
         "approve": MessageLookupByLibrary.simpleMessage("утвердить"),
+        "assetNotAvailable":
+            MessageLookupByLibrary.simpleMessage("Актив не доступен"),
         "asset_type": MessageLookupByLibrary.simpleMessage("Тип активов"),
         "attention": MessageLookupByLibrary.simpleMessage("ВНИМАНИЕ!"),
         "aura_type": MessageLookupByLibrary.simpleMessage("Тип ауры"),
@@ -472,6 +475,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "cannot_be_empty":
             MessageLookupByLibrary.simpleMessage("Не может быть пустым"),
         "career": MessageLookupByLibrary.simpleMessage("Карьера"),
+        "ceritaAnda": MessageLookupByLibrary.simpleMessage("Ваша история"),
         "certificate": MessageLookupByLibrary.simpleMessage("Сертификат"),
         "change_language":
             MessageLookupByLibrary.simpleMessage("Изменить язык"),
@@ -555,6 +559,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "УДАЛИТЬ ДАННЫЕ ПРОФИЛИРОВАНИЯ?"),
         "deposit_info": MessageLookupByLibrary.simpleMessage(
             "Депозит: Требуется депозит в размере 2 000 000 IDR для участия."),
+        "detailLogError":
+            MessageLookupByLibrary.simpleMessage("Детализированный лог ошибок"),
         "develop_yourself_by_exploring": MessageLookupByLibrary.simpleMessage(
             "Развивайтесь, изучая доступные онлайн-книги. Станьте лучшей версией себя, где бы вы ни находились и когда бы ни пожелали."),
         "digitalid":
@@ -625,6 +631,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "free_version_limit": MessageLookupByLibrary.simpleMessage(
             "Бесплатная версия доступна только для первых 5 минут. Подпишитесь, чтобы прослушать полное содержимое."),
         "from": MessageLookupByLibrary.simpleMessage("От"),
+        "gambar": MessageLookupByLibrary.simpleMessage("Изображение:"),
         "get_know_yourself": MessageLookupByLibrary.simpleMessage(
             "Узнайте себя быстрее, точно и надежно"),
         "get_lots_of_benefits_by_subcribing":
@@ -657,6 +664,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Если меньше максимума и больше минимума, используется кратное значение минимальной суммы."),
         "income": MessageLookupByLibrary.simpleMessage("Доход"),
+        "inputfavcode": MessageLookupByLibrary.simpleMessage(
+            "Введите промокод вашего любимого пользователя"),
         "instruksi_scan_qr": MessageLookupByLibrary.simpleMessage(
             "Пожалуйста, отсканируйте QR-код с помощью CoolApp"),
         "internal_server_error": MessageLookupByLibrary.simpleMessage(
@@ -671,6 +680,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "is_adalah": MessageLookupByLibrary.simpleMessage("является"),
         "is_the_data_entered_correct":
             MessageLookupByLibrary.simpleMessage("введенные данные верны?"),
+        "isiSemuaKolom": MessageLookupByLibrary.simpleMessage(
+            "Пожалуйста, заполните все поля!"),
         "join_now": MessageLookupByLibrary.simpleMessage(
             "Присоединяйтесь сейчас и начните зарабатывать дополнительные доходы!"),
         "just": MessageLookupByLibrary.simpleMessage("только"),
@@ -680,10 +691,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "kelebihan": MessageLookupByLibrary.simpleMessage("3. Достоинства"),
         "kelemahan": MessageLookupByLibrary.simpleMessage("4. Недостатки"),
         "keyword": MessageLookupByLibrary.simpleMessage("Ключевое слово"),
+        "kirimLaporanBaru":
+            MessageLookupByLibrary.simpleMessage("Отправить новый отчет"),
         "kode_anda": MessageLookupByLibrary.simpleMessage("Ваш код"),
         "kode_saya": MessageLookupByLibrary.simpleMessage("Мой код"),
+        "kodepromosi": MessageLookupByLibrary.simpleMessage("Промокод"),
+        "komisi": MessageLookupByLibrary.simpleMessage("Комиссия"),
+        "komisiKu": MessageLookupByLibrary.simpleMessage("Моя комиссия"),
+        "komisiku": MessageLookupByLibrary.simpleMessage("Моя комиссия"),
         "language": MessageLookupByLibrary.simpleMessage("Язык"),
         "lanjut": MessageLookupByLibrary.simpleMessage("Продолжить"),
+        "lanjutt": MessageLookupByLibrary.simpleMessage("Продолжить"),
+        "lanjuttampa":
+            MessageLookupByLibrary.simpleMessage("Продолжить без кода"),
         "latest_book": MessageLookupByLibrary.simpleMessage("Последняя книга"),
         "lets_develop_ourselves":
             MessageLookupByLibrary.simpleMessage("Давайте развиваться вместе"),
@@ -691,6 +711,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "listen_brain_40_times": MessageLookupByLibrary.simpleMessage(
             "Прослушайте brain в соответствии с вашим характером 40 раз, затем вы сможете подписаться на другие."),
         "loading": MessageLookupByLibrary.simpleMessage("Загрузка..."),
+        "logLaporan": MessageLookupByLibrary.simpleMessage("Журнал отчетов"),
+        "logPermasalahanAnda":
+            MessageLookupByLibrary.simpleMessage("Журнал ваших проблем"),
         "logging_in": MessageLookupByLibrary.simpleMessage("Вход..."),
         "logout": MessageLookupByLibrary.simpleMessage("Выйти"),
         "manual_input": MessageLookupByLibrary.simpleMessage("Ручной ввод"),
@@ -712,6 +735,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Минимальный депозит"),
         "min_withdrawal":
             MessageLookupByLibrary.simpleMessage("Минимальная сумма снятия"),
+        "minimalwd": MessageLookupByLibrary.simpleMessage(
+            "Минимальная сумма для вывода"),
         "minimumWdCommision": MessageLookupByLibrary.simpleMessage(
             "Минимальная сумма вывода: 10x комиссия."),
         "monthly": MessageLookupByLibrary.simpleMessage("Ежемесячно"),
@@ -793,6 +818,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "payment_with_cool_balance_was_successful":
             MessageLookupByLibrary.simpleMessage(
                 "Оплата с помощью Cool баланса прошла успешно"),
+        "pending": MessageLookupByLibrary.simpleMessage("Ожидает"),
         "personality": MessageLookupByLibrary.simpleMessage("Личность"),
         "personalityy": MessageLookupByLibrary.simpleMessage("Моя личность!"),
         "pesan_selamat":
@@ -800,6 +826,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "petunjuk_qr": MessageLookupByLibrary.simpleMessage(
             "Покажите этот QR-код для упрощения процесса аффилиации"),
         "phone_number": MessageLookupByLibrary.simpleMessage("Номер телефона"),
+        "pilihGambar": MessageLookupByLibrary.simpleMessage(
+            "Выберите изображение из галереи или камеры"),
+        "pilihKategoriDanDeskripsi": MessageLookupByLibrary.simpleMessage(
+            "Пожалуйста, выберите категорию и введите описание"),
         "play_audio":
             MessageLookupByLibrary.simpleMessage("Воспроизвести аудио"),
         "please_check_again_on_form": MessageLookupByLibrary.simpleMessage(
@@ -877,6 +907,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "reset_password":
             MessageLookupByLibrary.simpleMessage("Сбросить пароль"),
         "residence": MessageLookupByLibrary.simpleMessage("Место жительства"),
+        "responseDariCool":
+            MessageLookupByLibrary.simpleMessage("Ответ от стороны Cool"),
         "response_timeout": MessageLookupByLibrary.simpleMessage(
             "Время ожидания ответа истекло."),
         "result_detail":
@@ -933,6 +965,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "show_qr_code_to_affiliate": MessageLookupByLibrary.simpleMessage(
             "Покажите этот QR-код для упрощения процесса аффилиации."),
         "sign_in": MessageLookupByLibrary.simpleMessage("Войти"),
+        "silahkanPilihLokasi": MessageLookupByLibrary.simpleMessage(
+            "Пожалуйста, выберите ваше местоположение"),
         "single": MessageLookupByLibrary.simpleMessage("Одиночный"),
         "skip": MessageLookupByLibrary.simpleMessage("Пропустить"),
         "social_interaction_pattern": MessageLookupByLibrary.simpleMessage(
@@ -946,6 +980,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Начните активировать потенциал мозга"),
         "state": MessageLookupByLibrary.simpleMessage("Регион"),
+        "status": MessageLookupByLibrary.simpleMessage("Статус:"),
         "subcription_all_type":
             MessageLookupByLibrary.simpleMessage("Подписка на все типы"),
         "subscribe": MessageLookupByLibrary.simpleMessage("Подписаться"),
@@ -967,6 +1002,8 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Доступна последняя версия приложения. Обновите приложение, чтобы получить новые функции и улучшения."),
         "thirty_days_ago":
             MessageLookupByLibrary.simpleMessage("30 дней назад"),
+        "tidakAda": MessageLookupByLibrary.simpleMessage("Нет"),
+        "tidakTersedia": MessageLookupByLibrary.simpleMessage("Не доступно"),
         "tipe_harta":
             MessageLookupByLibrary.simpleMessage("Мой тип богатства!"),
         "tipe_otak": MessageLookupByLibrary.simpleMessage("Мой тип мозга!"),
@@ -1021,6 +1058,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "use_your_user_account": MessageLookupByLibrary.simpleMessage(
             "Пожалуйста, используйте свой аккаунт"),
         "user": MessageLookupByLibrary.simpleMessage("Пользователь"),
+        "versiAplikasi":
+            MessageLookupByLibrary.simpleMessage("Версия приложения:"),
         "viewArchive":
             MessageLookupByLibrary.simpleMessage("Просмотреть архив"),
         "view_old_profiling": MessageLookupByLibrary.simpleMessage(
@@ -1051,6 +1090,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "withdrawal": MessageLookupByLibrary.simpleMessage("Снятие средств"),
         "withdrawal_amount":
             MessageLookupByLibrary.simpleMessage("Сумма снятия"),
+        "yakinWithdrawal": MessageLookupByLibrary.simpleMessage(
+            "Вы уверены, что хотите вывести сумму"),
+        "yakinbayar": MessageLookupByLibrary.simpleMessage(
+            "Вы уверены, что хотите произвести оплату на сумму"),
         "year": MessageLookupByLibrary.simpleMessage("Год"),
         "yearly": MessageLookupByLibrary.simpleMessage("Ежегодно"),
         "yellow": MessageLookupByLibrary.simpleMessage("Желтый"),

@@ -195,6 +195,7 @@ class ApiEndpoint {
   //// Feature
   // Api Profiling
   static String listProfiling = "${_featureUrlApi}list_profiling";
+  static String getPriceProfiling = "${_featureUrlApi}get-price-by-qty";
   static String detailProfiling(id) => "${_featureUrlApi}detail_profiling/$id";
   static String updateProfiling(id) => "${_featureUrlApi}edit_profiling/$id";
   static String deleteProfiling(id) => "${_featureUrlApi}delete_profiling/$id";

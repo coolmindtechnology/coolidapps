@@ -6463,6 +6463,286 @@ class S {
       args: [],
     );
   }
+
+  /// `Continue`
+  String get lanjutt {
+    return Intl.message(
+      'Continue',
+      name: 'lanjutt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Continue Without Code`
+  String get lanjuttampa {
+    return Intl.message(
+      'Continue Without Code',
+      name: 'lanjuttampa',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your favorite user's promo code`
+  String get inputfavcode {
+    return Intl.message(
+      'Enter your favorite user\'s promo code',
+      name: 'inputfavcode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Promo Code`
+  String get kodepromosi {
+    return Intl.message(
+      'Promo Code',
+      name: 'kodepromosi',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My Commission`
+  String get komisiku {
+    return Intl.message(
+      'My Commission',
+      name: 'komisiku',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Minimum Withdrawal`
+  String get minimalwd {
+    return Intl.message(
+      'Minimum Withdrawal',
+      name: 'minimalwd',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your Story`
+  String get ceritaAnda {
+    return Intl.message(
+      'Your Story',
+      name: 'ceritaAnda',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Response from Cool Team`
+  String get responseDariCool {
+    return Intl.message(
+      'Response from Cool Team',
+      name: 'responseDariCool',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Asset Not Available`
+  String get assetNotAvailable {
+    return Intl.message(
+      'Asset Not Available',
+      name: 'assetNotAvailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Not Available`
+  String get tidakTersedia {
+    return Intl.message(
+      'Not Available',
+      name: 'tidakTersedia',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `App Version:`
+  String get versiAplikasi {
+    return Intl.message(
+      'App Version:',
+      name: 'versiAplikasi',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `None`
+  String get tidakAda {
+    return Intl.message(
+      'None',
+      name: 'tidakAda',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Available`
+  String get ada {
+    return Intl.message(
+      'Available',
+      name: 'ada',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Image:`
+  String get gambar {
+    return Intl.message(
+      'Image:',
+      name: 'gambar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Status:`
+  String get status {
+    return Intl.message(
+      'Status:',
+      name: 'status',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Error Log Detail`
+  String get detailLogError {
+    return Intl.message(
+      'Error Log Detail',
+      name: 'detailLogError',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Report Log`
+  String get logLaporan {
+    return Intl.message(
+      'Report Log',
+      name: 'logLaporan',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Submit New Report`
+  String get kirimLaporanBaru {
+    return Intl.message(
+      'Submit New Report',
+      name: 'kirimLaporanBaru',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please Select Your Location`
+  String get silahkanPilihLokasi {
+    return Intl.message(
+      'Please Select Your Location',
+      name: 'silahkanPilihLokasi',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Commission`
+  String get komisi {
+    return Intl.message(
+      'Commission',
+      name: 'komisi',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are You Sure to Withdraw`
+  String get yakinWithdrawal {
+    return Intl.message(
+      'Are You Sure to Withdraw',
+      name: 'yakinWithdrawal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please fill in all fields!`
+  String get isiSemuaKolom {
+    return Intl.message(
+      'Please fill in all fields!',
+      name: 'isiSemuaKolom',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My Commission`
+  String get komisiKu {
+    return Intl.message(
+      'My Commission',
+      name: 'komisiKu',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pending`
+  String get pending {
+    return Intl.message(
+      'Pending',
+      name: 'pending',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your Problem Report Log`
+  String get logPermasalahanAnda {
+    return Intl.message(
+      'Your Problem Report Log',
+      name: 'logPermasalahanAnda',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose image from gallery or camera`
+  String get pilihGambar {
+    return Intl.message(
+      'Choose image from gallery or camera',
+      name: 'pilihGambar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please select category and enter description`
+  String get pilihKategoriDanDeskripsi {
+    return Intl.message(
+      'Please select category and enter description',
+      name: 'pilihKategoriDanDeskripsi',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to make a payment of`
+  String get yakinbayar {
+    return Intl.message(
+      'Are you sure you want to make a payment of',
+      name: 'yakinbayar',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

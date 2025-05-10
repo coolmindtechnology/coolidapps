@@ -49,37 +49,7 @@ class LocationProvider with ChangeNotifier {
       notifyListeners();
     }
   }
-
-  // Future<String?> getNearestCountry() async {
-  //   try {
-  //     if (_latitude != null && _longitude != null) {
-  //           // Mendapatkan alamat terformat berdasarkan lat, long
-  //     List<Placemark> placemarks = await placemarkFromCoordinates(_latitude!, _longitude!);
-
-  //     // Mendapatkan negara dari hasil geocoding
-  //     String country = placemarks.isNotEmpty ? placemarks[0].country ?? "Unknown" : "Unknown";
-
-  //       final response = await http.get(
-  //         Uri.parse(
-  //             'https://maps.googleapis.com/maps/api/geocode/json?latlng=$_latitude,$_longitude&key=AIzaSyAUwYqwfekzl72dvGkyFE7irzZdh4Qa9fk'),
-  //       );
-  //       if (response.statusCode == 200) {
-  //         final data = jsonDecode(response.body);
-  //         final country = data['results']?.firstWhere(
-  //           (result) => result['types']?.contains('country') ?? false,
-  //           orElse: () => null,
-  //         )?['formatted_address'];
-  //         return country;
-  //       } else {
-  //         throw Exception("Failed to fetch nearest country");
-  //       }
-  //     }
-  //   } catch (e) {
-  //     debugPrint("Error getting nearest country: $e");
-  //   }
-  //   return null;
-  // }
-
+  
   Future<String?> getNearestCountry() async {
     debugPrint("Mauk Nerest");
     try {
@@ -173,27 +143,6 @@ class LocationProvider with ChangeNotifier {
       debugPrint("Error getting location: $e");
     }
   }
-
-  // Future<void> fetchCurrentLocationAndUpdateCountry() async {
-  //   try {
-  //     // Mendapatkan latitude dan longitude saat ini
-  //     await fetchCurrentLocation();
-
-  //     // Mendapatkan negara terdekat dari lat, long
-  //     final nearestCountry = await getNearestCountry();
-
-  //     if (nearestCountry != null) {
-  //       // Memasukkan negara terdekat ke dalam list
-  //       _countries = [nearestCountry];
-  //       notifyListeners(); // Men-trigger pembaruan UI
-  //     } else {
-  //       // Jika tidak ada negara yang ditemukan, beri pesan atau lakukan tindakan lain
-  //       debugPrint("No country found for the given coordinates.");
-  //     }
-  //   } catch (e) {
-  //     debugPrint("Error fetching and updating country: $e");
-  //   }
-  // }
 
   Future<void> fetchCurrentLocationAndUpdateCountry() async {
     try {
@@ -301,86 +250,4 @@ class LocationProvider with ChangeNotifier {
     }
   }
 }
-// class LocationProvider with ChangeNotifier {
-//   List<String> _countries = [];
-//   List<String> _states = [];
-//   List<String> _provinces = [];
 
-//   List<String> get countries => _countries;
-//   List<String> get states => _states;
-//   List<String> get provinces => _provinces;
-
-//   bool _isLoading = false;
-//   bool get isLoading => _isLoading;
-
-//   Future<void> fetchCountries() async {
-//     _isLoading = true;
-//     notifyListeners();
-//     try {
-//       final response = await http.get(
-//         Uri.parse(
-//           'https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyAUwYqwfekzl72dvGkyFE7irzZdh4Qa9fk&input=a',
-//         ),
-//       );
-//       if (response.statusCode == 200) {
-//         final data = jsonDecode(response.body);
-//         _countries = List<String>.from(
-//           data['predictions']?.map((item) => item['description']) ?? [],
-//         );
-//       } else {
-//         throw Exception("Failed to load countries");
-//       }
-//     } catch (e) {
-//       debugPrint("Error fetching countries: $e");
-//     } finally {
-//       _isLoading = false;
-//       notifyListeners();
-//     }
-//   }
-
-//   Future<void> fetchStates(String country) async {
-//     _isLoading = true;
-//     notifyListeners();
-//     try {
-//       final response = await http.get(
-//         Uri.parse(
-//             'https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyAUwYqwfekzl72dvGkyFE7irzZdh4Qa9fk&input=$country'),
-//       );
-//       if (response.statusCode == 200) {
-//         final data = jsonDecode(response.body);
-//         _states = List<String>.from(
-//             data['predictions'].map((item) => item['description']));
-//       } else {
-//         throw Exception("Failed to load states");
-//       }
-//     } catch (e) {
-//       debugPrint("Error fetching states: $e");
-//     } finally {
-//       _isLoading = false;
-//       notifyListeners();
-//     }
-//   }
-
-//   Future<void> fetchProvinces(String state) async {
-//     _isLoading = true;
-//     notifyListeners();
-//     try {
-//       final response = await http.get(
-//         Uri.parse(
-//             'https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyAUwYqwfekzl72dvGkyFE7irzZdh4Qa9fk&input=$state'),
-//       );
-//       if (response.statusCode == 200) {
-//         final data = jsonDecode(response.body);
-//         _provinces = List<String>.from(
-//             data['predictions'].map((item) => item['description']));
-//       } else {
-//         throw Exception("Failed to load provinces");
-//       }
-//     } catch (e) {
-//       debugPrint("Error fetching provinces: $e");
-//     } finally {
-//       _isLoading = false;
-//       notifyListeners();
-//     }
-//   }
-// }

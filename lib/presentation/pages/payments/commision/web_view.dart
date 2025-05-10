@@ -17,6 +17,7 @@ class WebViewPage extends StatefulWidget {
 
 class _WebViewPageState extends State<WebViewPage> {
   late InAppWebViewController webViewController;
+  bool isPageLoaded = false;
 
   @override
   Widget build(BuildContext context) {
@@ -29,18 +30,26 @@ class _WebViewPageState extends State<WebViewPage> {
               onWebViewCreated: (controller) {
                 webViewController = controller;
               },
+              onTitleChanged: (controller, title) {
+                if (title?.trim() == 'Successfully Withdrawal Process') {
+                  setState(() {
+                    isPageLoaded = true;
+                  });
+                }
+              },
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: GlobalButton(
-              onPressed: () {
+              onPressed: isPageLoaded
+                  ? () {
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => CommisionDashboard()),
                 );
-              },
-              color: primaryColor,
+              } : null,
+              color: isPageLoaded ? primaryColor : Colors.grey,
               text: S.of(context).next,
             ),
           ),

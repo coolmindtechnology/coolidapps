@@ -165,7 +165,7 @@ Padding itemPaymentDetail(String? title, String? subtitle) {
 
 Padding itemPaymentTotal(String? title, String? subtitle) {
   return Padding(
-    padding: const EdgeInsets.all(16.0),
+    padding: const EdgeInsets.all(10.0),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [

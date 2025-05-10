@@ -334,11 +334,15 @@ class ProviderAuth extends ChangeNotifier {
       String districtId,
       String longitude,
       String latitude,
-      String phoneNumberReg) async {
+      String phoneNumberReg
+      ) async {
     isLoading = true;
     notifyListeners();
 
-    Either<FailedModel, ResRegister> response = await auth.register(
+    // Menambahkan timeout pada Future API
+    try {
+      // Menggunakan timeout secara langsung pada API request
+      Either<FailedModel, ResRegister> response = await auth.register(
         phoneNumber: phoneNumberReg.toString(),
         password: passwordReg.text,
         confirmPassword: confirmPasswordReg.text,
@@ -350,235 +354,527 @@ class ProviderAuth extends ChangeNotifier {
         cityId: cityId,
         districtId: districtId,
         latitude: latitude,
-        longitude: longitude);
+        longitude: longitude,
+      ).timeout(Duration(seconds: 30), onTimeout: () {
+        throw TimeoutException("Request timed out. Please try again.");
+      });
 
-    isLoading = false;
-    notifyListeners();
-    response.when(error: (e) {
-      debugPrint("ee $e");
+      // Menyelesaikan proses setelah mendapatkan hasil dari API
       isLoading = false;
       notifyListeners();
-      NotificationUtils.showDialogError(
-        context,
-        () {
-          Nav.back();
-        },
-        widget: e.message == "Validasi gagal"
-            ? Text(
-                "${e.errors!.email!.toString() != "" ? removeBrackets(e.errors!.email.toString()) : ""}  ${e.errors!.phoneNumber!.toString() != "" ? removeBrackets(e.errors!.phoneNumber.toString()) : ""} ${e.errors!.password.toString() != "" ? removeBrackets(e.errors!.password.toString()) : ""}  ${e.errors!.passwordConfirmation.toString() != "" ? removeBrackets(e.errors!.passwordConfirmation.toString()) : ""} ${e.errors!.codeReferal.toString() != "" ? removeBrackets(e.errors!.codeReferal.toString()) : ""}",
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 16),
-              )
-            : Text(removeBrackets(
-                '${e.message.toString()}  ${e.errorCode.toString()}')),
-      );
-    }, success: (res) async {
-      try {
-        final credential =
-            await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: emailReg.trim(),
-          password: passwordReg.text.trim(),
-        );
 
-        await FirebaseChatCore.instance.createUserInFirestore(
-          types.User(
-            firstName: emailReg.toString().substring(0, 3).trim(),
-            id: credential.user!.uid,
-            imageUrl: 'https://i.pravatar.cc/300?u=${emailReg.trim()}',
-            lastName: emailReg.toString().substring(0, 2).trim(),
-          ),
+      // Handling response error
+      response.when(error: (e) {
+        debugPrint("ee $e");
+        isLoading = false;
+        notifyListeners();
+        NotificationUtils.showDialogError(
+          context,
+              () {
+            Nav.back();
+          },
+          widget: e.message == "Validasi gagal"
+              ? Text(
+            "${e.errors!.email!.toString() != "" ? removeBrackets(e.errors!.email.toString()) : ""}  ${e.errors!.phoneNumber!.toString() != "" ? removeBrackets(e.errors!.phoneNumber.toString()) : ""} ${e.errors!.password.toString() != "" ? removeBrackets(e.errors!.password.toString()) : ""}  ${e.errors!.passwordConfirmation.toString() != "" ? removeBrackets(e.errors!.passwordConfirmation.toString()) : ""} ${e.errors!.codeReferal.toString() != "" ? removeBrackets(e.errors!.codeReferal.toString()) : ""}",
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 16),
+          )
+              : Text(removeBrackets(
+              '${e.message.toString()}  ${e.errorCode.toString()}')),
         );
-      } catch (e) {}
-      if (res.success == false && res.data == null) {
-        NotificationUtils.showDialogError(context, () {
-          Nav.back();
-        },
+      }, success: (res) async {
+        // Proses setelah registrasi berhasil
+        try {
+          // Mendaftar user di Firebase Authentication
+          final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+            email: emailReg.trim(),
+            password: passwordReg.text.trim(),
+          );
+
+          // Menambahkan user ke Firestore menggunakan FirebaseChatCore
+          await FirebaseChatCore.instance.createUserInFirestore(
+            types.User(
+              firstName: emailReg.toString().substring(0, 3).trim(),
+              id: credential.user!.uid,
+              imageUrl: 'https://i.pravatar.cc/300?u=${emailReg.trim()}',
+              lastName: emailReg.toString().substring(0, 2).trim(),
+            ),
+          );
+        } catch (e) {
+          debugPrint("Error creating user in Firebase: $e");
+        }
+
+        // Mengecek apakah data berhasil terdaftar
+        if (res.success == false && res.data == null) {
+          NotificationUtils.showDialogError(
+            context,
+                () {
+              Nav.back();
+            },
             widget: Text(
               "${res.message}",
               textAlign: TextAlign.center,
               style: const TextStyle(fontSize: 16),
-            ));
-      } else if (res.data?.errors != null) {
+            ),
+          );
+        } else if (res.data?.errors != null) {
+          // Menampilkan error validation jika ada
+          NotificationUtils.showDialogError(
+            context,
+                () {
+              Nav.back();
+            },
+            widget: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (res.data?.errors?.phoneNumber != null) ...[
+                  ...res.data!.errors!.phoneNumber!.map((value) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "•",
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          Expanded(
+                            child: Column(
+                              children: [
+                                Text(
+                                  value,
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  }),
+                ],
+                if (res.data?.errors?.password?.isNotEmpty ?? false) ...[
+                  ...res.data!.errors!.password!.map((value) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "•",
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          Expanded(
+                            child: Column(
+                              children: [
+                                Text(
+                                  value,
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  }),
+                ],
+                if (res.data?.errors?.passwordConfirmation?.isNotEmpty ?? false) ...[
+                  ...res.data!.errors!.passwordConfirmation!.map((value) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "•",
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          Expanded(
+                            child: Column(
+                              children: [
+                                Text(
+                                  value,
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  }),
+                ],
+                if (res.data?.errors?.codeReferal?.isNotEmpty ?? false) ...[
+                  ...res.data!.errors!.codeReferal!.map((value) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "•",
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          Expanded(
+                            child: Column(
+                              children: [
+                                Text(
+                                  value,
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  }),
+                ],
+                if (res.data?.errors?.email?.isNotEmpty ?? false) ...[
+                  ...res.data!.errors!.email!.map((value) {
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "•",
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          Expanded(
+                            child: Column(
+                              children: [
+                                Text(
+                                  value,
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  }),
+                ],
+              ],
+            ),
+          );
+        } else if (res.success == true) {
+          // Sukses Registrasi
+          dataRegister = res.data;
+          sendOtp(
+            context,
+            dataRegister?.userId.toString() ?? "",
+            channel,
+          );
+        }
+      });
+
+    } catch (e) {
+      if (e is TimeoutException) {
+        // Menampilkan error jika timeout
         NotificationUtils.showDialogError(
           context,
-          () {
+              () {
             Nav.back();
           },
-          widget: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (res.data?.errors?.phoneNumber != null) ...[
-                ...res.data!.errors!.phoneNumber!.map((value) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          "•",
-                          style: TextStyle(fontSize: 16),
-                        ),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        Expanded(
-                          child: Column(
-                            children: [
-                              Text(
-                                value,
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                }),
-              ],
-              if (res.data?.errors?.password?.isNotEmpty ?? false) ...[
-                ...res.data!.errors!.password!.map((value) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          "•",
-                          style: TextStyle(fontSize: 16),
-                        ),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        Expanded(
-                          child: Column(
-                            children: [
-                              Text(
-                                value,
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                }),
-              ],
-              if (res.data?.errors?.passwordConfirmation?.isNotEmpty ??
-                  false) ...[
-                ...res.data!.errors!.passwordConfirmation!.map((value) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          "•",
-                          style: TextStyle(fontSize: 16),
-                        ),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        Expanded(
-                          child: Column(
-                            children: [
-                              Text(
-                                value,
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                }),
-              ],
-              if (res.data?.errors?.codeReferal?.isNotEmpty ?? false) ...[
-                ...res.data!.errors!.codeReferal!.map((value) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          "•",
-                          style: TextStyle(fontSize: 16),
-                        ),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        Expanded(
-                          child: Column(
-                            children: [
-                              Text(
-                                value,
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                }),
-              ],
-              if (res.data?.errors?.email?.isNotEmpty ?? false) ...[
-                ...res.data!.errors!.email!.map((value) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          "•",
-                          style: TextStyle(fontSize: 16),
-                        ),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        Expanded(
-                          child: Column(
-                            children: [
-                              Text(
-                                value,
-                                style: const TextStyle(fontSize: 16),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                }),
-              ],
-            ],
+          widget: Text(
+            "Request timed out. Please try again.",
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 16),
           ),
         );
-      } else if (res.success == true) {
-        dataRegister = res.data;
-        sendOtp(
+      } else {
+        debugPrint("Unexpected error: $e");
+        NotificationUtils.showDialogError(
           context,
-          dataRegister?.userId.toString() ?? "",
-          channel,
+              () {
+            Nav.back();
+          },
+          widget: Text(
+            "Gagal Registrasi coba lagi nanti",
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 16),
+          ),
         );
-        // NotificationUtils.showDialogSuccess(context, () {
-        //   Nav.back();
-        //   sendOtp(
-        //     context,
-        //     dataRegister?.userId.toString() ?? "",
-        //     channel,
-        //   );
-        // },
-        //     widget: Center(
-        //       child: Text(S.of(context).registration_success),
-        //     ));
       }
-    });
-
-    notifyListeners();
+      isLoading = false;
+      notifyListeners();
+    }
   }
+
+  // Future<void> register(
+  //     BuildContext context,
+  //     String channel,
+  //     String emailReg,
+  //     String codeReferal,
+  //     String countryId,
+  //     String stateId,
+  //     String cityId,
+  //     String districtId,
+  //     String longitude,
+  //     String latitude,
+  //     String phoneNumberReg) async {
+  //   isLoading = true;
+  //   notifyListeners();
+  //
+  //   Either<FailedModel, ResRegister> response = await auth.register(
+  //       phoneNumber: phoneNumberReg.toString(),
+  //       password: passwordReg.text,
+  //       confirmPassword: confirmPasswordReg.text,
+  //       channel: channel,
+  //       email: emailReg,
+  //       codeReferal: codeReferal,
+  //       countryId: countryId,
+  //       stateId: stateId,
+  //       cityId: cityId,
+  //       districtId: districtId,
+  //       latitude: latitude,
+  //       longitude: longitude);
+  //
+  //   isLoading = false;
+  //   notifyListeners();
+  //   response.when(error: (e) {
+  //     debugPrint("ee $e");
+  //     isLoading = false;
+  //     notifyListeners();
+  //     NotificationUtils.showDialogError(
+  //       context,
+  //       () {
+  //         Nav.back();
+  //       },
+  //       widget: e.message == "Validasi gagal"
+  //           ? Text(
+  //               "${e.errors!.email!.toString() != "" ? removeBrackets(e.errors!.email.toString()) : ""}  ${e.errors!.phoneNumber!.toString() != "" ? removeBrackets(e.errors!.phoneNumber.toString()) : ""} ${e.errors!.password.toString() != "" ? removeBrackets(e.errors!.password.toString()) : ""}  ${e.errors!.passwordConfirmation.toString() != "" ? removeBrackets(e.errors!.passwordConfirmation.toString()) : ""} ${e.errors!.codeReferal.toString() != "" ? removeBrackets(e.errors!.codeReferal.toString()) : ""}",
+  //               textAlign: TextAlign.center,
+  //               style: const TextStyle(fontSize: 16),
+  //             )
+  //           : Text(removeBrackets(
+  //               '${e.message.toString()}  ${e.errorCode.toString()}')),
+  //     );
+  //   }, success: (res) async {
+  //     try {
+  //       final credential =
+  //           await FirebaseAuth.instance.createUserWithEmailAndPassword(
+  //         email: emailReg.trim(),
+  //         password: passwordReg.text.trim(),
+  //       );
+  //
+  //       await FirebaseChatCore.instance.createUserInFirestore(
+  //         types.User(
+  //           firstName: emailReg.toString().substring(0, 3).trim(),
+  //           id: credential.user!.uid,
+  //           imageUrl: 'https://i.pravatar.cc/300?u=${emailReg.trim()}',
+  //           lastName: emailReg.toString().substring(0, 2).trim(),
+  //         ),
+  //       );
+  //     } catch (e) {}
+  //     if (res.success == false && res.data == null) {
+  //       NotificationUtils.showDialogError(context, () {
+  //         Nav.back();
+  //       },
+  //           widget: Text(
+  //             "${res.message}",
+  //             textAlign: TextAlign.center,
+  //             style: const TextStyle(fontSize: 16),
+  //           ));
+  //     } else if (res.data?.errors != null) {
+  //       NotificationUtils.showDialogError(
+  //         context,
+  //         () {
+  //           Nav.back();
+  //         },
+  //         widget: Column(
+  //           mainAxisSize: MainAxisSize.min,
+  //           children: [
+  //             if (res.data?.errors?.phoneNumber != null) ...[
+  //               ...res.data!.errors!.phoneNumber!.map((value) {
+  //                 return Padding(
+  //                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
+  //                   child: Row(
+  //                     crossAxisAlignment: CrossAxisAlignment.start,
+  //                     children: [
+  //                       const Text(
+  //                         "•",
+  //                         style: TextStyle(fontSize: 16),
+  //                       ),
+  //                       const SizedBox(
+  //                         width: 8,
+  //                       ),
+  //                       Expanded(
+  //                         child: Column(
+  //                           children: [
+  //                             Text(
+  //                               value,
+  //                               style: const TextStyle(fontSize: 16),
+  //                             ),
+  //                           ],
+  //                         ),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 );
+  //               }),
+  //             ],
+  //             if (res.data?.errors?.password?.isNotEmpty ?? false) ...[
+  //               ...res.data!.errors!.password!.map((value) {
+  //                 return Padding(
+  //                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
+  //                   child: Row(
+  //                     crossAxisAlignment: CrossAxisAlignment.start,
+  //                     children: [
+  //                       const Text(
+  //                         "•",
+  //                         style: TextStyle(fontSize: 16),
+  //                       ),
+  //                       const SizedBox(
+  //                         width: 8,
+  //                       ),
+  //                       Expanded(
+  //                         child: Column(
+  //                           children: [
+  //                             Text(
+  //                               value,
+  //                               style: const TextStyle(fontSize: 16),
+  //                             ),
+  //                           ],
+  //                         ),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 );
+  //               }),
+  //             ],
+  //             if (res.data?.errors?.passwordConfirmation?.isNotEmpty ??
+  //                 false) ...[
+  //               ...res.data!.errors!.passwordConfirmation!.map((value) {
+  //                 return Padding(
+  //                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
+  //                   child: Row(
+  //                     crossAxisAlignment: CrossAxisAlignment.start,
+  //                     children: [
+  //                       const Text(
+  //                         "•",
+  //                         style: TextStyle(fontSize: 16),
+  //                       ),
+  //                       const SizedBox(
+  //                         width: 8,
+  //                       ),
+  //                       Expanded(
+  //                         child: Column(
+  //                           children: [
+  //                             Text(
+  //                               value,
+  //                               style: const TextStyle(fontSize: 16),
+  //                             ),
+  //                           ],
+  //                         ),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 );
+  //               }),
+  //             ],
+  //             if (res.data?.errors?.codeReferal?.isNotEmpty ?? false) ...[
+  //               ...res.data!.errors!.codeReferal!.map((value) {
+  //                 return Padding(
+  //                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
+  //                   child: Row(
+  //                     crossAxisAlignment: CrossAxisAlignment.start,
+  //                     children: [
+  //                       const Text(
+  //                         "•",
+  //                         style: TextStyle(fontSize: 16),
+  //                       ),
+  //                       const SizedBox(
+  //                         width: 8,
+  //                       ),
+  //                       Expanded(
+  //                         child: Column(
+  //                           children: [
+  //                             Text(
+  //                               value,
+  //                               style: const TextStyle(fontSize: 16),
+  //                             ),
+  //                           ],
+  //                         ),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 );
+  //               }),
+  //             ],
+  //             if (res.data?.errors?.email?.isNotEmpty ?? false) ...[
+  //               ...res.data!.errors!.email!.map((value) {
+  //                 return Padding(
+  //                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
+  //                   child: Row(
+  //                     crossAxisAlignment: CrossAxisAlignment.start,
+  //                     children: [
+  //                       const Text(
+  //                         "•",
+  //                         style: TextStyle(fontSize: 16),
+  //                       ),
+  //                       const SizedBox(
+  //                         width: 8,
+  //                       ),
+  //                       Expanded(
+  //                         child: Column(
+  //                           children: [
+  //                             Text(
+  //                               value,
+  //                               style: const TextStyle(fontSize: 16),
+  //                             ),
+  //                           ],
+  //                         ),
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 );
+  //               }),
+  //             ],
+  //           ],
+  //         ),
+  //       );
+  //     } else if (res.success == true) {
+  //       dataRegister = res.data;
+  //       sendOtp(
+  //         context,
+  //         dataRegister?.userId.toString() ?? "",
+  //         channel,
+  //       );
+  //       // NotificationUtils.showDialogSuccess(context, () {
+  //       //   Nav.back();
+  //       //   sendOtp(
+  //       //     context,
+  //       //     dataRegister?.userId.toString() ?? "",
+  //       //     channel,
+  //       //   );
+  //       // },
+  //       //     widget: Center(
+  //       //       child: Text(S.of(context).registration_success),
+  //       //     ));
+  //     }
+  //   });
+  //
+  //   notifyListeners();
+  // }
 
   //logout
   Future<void> logout(BuildContext context) async {

@@ -46,12 +46,9 @@ class _ProfilingDashboardState extends State<ProfilingDashboard>
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<ProviderProfiling>().filterProfilingData(_selectedIndex);
-      initHome();
+      Provider.of<ProviderProfiling>(context, listen: false)
+          .getListProfiling(context);
     });
-  }
-
-  void initHome() async {
-    await context.read<ProviderProfiling>().getListProfiling(context);
   }
 
   void _onTabSelected(int index) {
@@ -71,10 +68,11 @@ class _ProfilingDashboardState extends State<ProfilingDashboard>
         builder: (BuildContext context, value, Widget? child) {
       return CustomMaterialIndicator(
         key: _refreshIndicatorKey,
-        onRefresh: () {
-          value.getListProfiling(context);
-          value.getListMutipleProfiling(context);
-          return Future<void>.delayed(const Duration(seconds: 1));
+        onRefresh: () async {
+          await value.getListProfiling(context);
+          await value.getListMutipleProfiling(context);
+          value.filterProfilingData(_selectedIndex);
+          setState(() {}); // Tambahkan ini kalau masih tidak update
         },
         indicatorBuilder:
             (BuildContext context, IndicatorController controller) {
@@ -90,146 +88,223 @@ class _ProfilingDashboardState extends State<ProfilingDashboard>
             iconTheme: const IconThemeData(color: Colors.white),
             backgroundColor: primaryColor,
           ),
-          body: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [primaryColor, Colors.white], // Gradasi biru ke putih
-                begin: Alignment.topCenter,
-                end: Alignment.center,
+          body: SingleChildScrollView(
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [primaryColor, Colors.white], // Gradasi biru ke putih
+                  begin: Alignment.topCenter,
+                  end: Alignment.center,
+                ),
               ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ContainerSliderHome(
-                    ContainerSize: 170,
-                    text: S.of(context).Go_test_profiling,
-                    imageUrl: 'images/Slider1.png',
-                    containerColor: BlueColor,
-                    textColor: whiteColor,
-                  ),
-                  gapH20,
-                  Text(
-                    S.of(context).My_Profiling,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  ),
-                  gapH10,
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        _buildTab(
-                            index: 0,
-                            text: S.of(context).all,
-                            backgroundColor: Colors.white,
-                            borderColor: primaryColor,
-                            textColor: primaryColor),
-                        gapW10,
-                        _buildTab(
-                            index: 4,
-                            text: 'Creative',
-                            textColor: Colors.white,
-                            backgroundColor: Colors.orange,
-                            borderColor: Colors.orange),
-                        gapW10,
-                        _buildTab(
-                            index: 5,
-                            text: 'Action',
-                            textColor: Colors.white,
-                            borderColor: Colors.red,
-                            backgroundColor: Colors.red),
-                        gapW10,
-                        _buildTab(
-                            index: 3,
-                            text: 'Master',
-                            borderColor: Colors.white,
-                            backgroundColor: Colors.white,
-                            textColor: Colors.black),
-                        gapW10,
-                        _buildTab(
-                            index: 1,
-                            text: 'Emotion',
-                            textColor: Colors.white,
-                            borderColor: Colors.green,
-                            backgroundColor: greenColor),
-                        gapW10,
-                        _buildTab(
-                            index: 2,
-                            text: 'Logic',
-                            textColor: Colors.black,
-                            backgroundColor: Colors.yellow,
-                            borderColor: Colors.yellow),
-                      ],
+              child: Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ContainerSliderHome(
+                      ContainerSize: 170,
+                      text: S.of(context).Go_test_profiling,
+                      imageUrl: 'images/Slider1.png',
+                      containerColor: BlueColor,
+                      textColor: whiteColor,
                     ),
-                  ),
-                  // Menggunakan Consumer untuk mendengarkan perubahan pada data yang difilter
-                  Consumer<ProviderProfiling>(
-                    // Menggunakan Consumer untuk mendengarkan perubahan
-                    builder: (context, provider, child) {
-                      List<DataProfiling> dataToDisplay =
-                          provider.filteredProfiling;
-                      // print("================ data filter =================");
-                      // print(provider.filteredProfiling.toString());
-                      // print("================ data filter =================");
-                      return Expanded(
-                        child: value.isLoading
-                            ? ListView.separated(
-                                shrinkWrap: true,
-                                itemBuilder: (context, index) =>
-                                    Shimmer.fromColors(
-                                  baseColor: Colors.grey[300]!,
-                                  highlightColor: Colors.grey[100]!,
-                                  child: Container(
-                                    height: 156,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(20),
+                    gapH20,
+                    Text(
+                      S.of(context).My_Profiling,
+                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                    ),
+                    gapH10,
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          _buildTab(
+                              index: 0,
+                              text: S.of(context).all,
+                              backgroundColor: Colors.white,
+                              borderColor: primaryColor,
+                              textColor: primaryColor),
+                          gapW10,
+                          _buildTab(
+                              index: 4,
+                              text: 'Creative',
+                              textColor: Colors.white,
+                              backgroundColor: Colors.orange,
+                              borderColor: Colors.orange),
+                          gapW10,
+                          _buildTab(
+                              index: 5,
+                              text: 'Action',
+                              textColor: Colors.white,
+                              borderColor: Colors.red,
+                              backgroundColor: Colors.red),
+                          gapW10,
+                          _buildTab(
+                              index: 3,
+                              text: 'Master',
+                              borderColor: Colors.white,
+                              backgroundColor: Colors.white,
+                              textColor: Colors.black),
+                          gapW10,
+                          _buildTab(
+                              index: 1,
+                              text: 'Emotion',
+                              textColor: Colors.white,
+                              borderColor: Colors.green,
+                              backgroundColor: greenColor),
+                          gapW10,
+                          _buildTab(
+                              index: 2,
+                              text: 'Logic',
+                              textColor: Colors.black,
+                              backgroundColor: Colors.yellow,
+                              borderColor: Colors.yellow),
+                        ],
+                      ),
+                    ),
+                    // Menggunakan Consumer untuk mendengarkan perubahan pada data yang difilter
+                    Consumer<ProviderProfiling>(
+                      // Menggunakan Consumer untuk mendengarkan perubahan
+                      builder: (context, provider, child) {
+                        List<DataProfiling> dataToDisplay =
+                            provider.filteredProfiling;
+                        // print("================ data filter =================");
+                        // print(provider.filteredProfiling.toString());
+                        // print("================ data filter =================");
+                        return Expanded(
+                          child: value.isLoading
+                              ? ListView.separated(
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) =>
+                                      Shimmer.fromColors(
+                                    baseColor: Colors.grey[300]!,
+                                    highlightColor: Colors.grey[100]!,
+                                    child: Container(
+                                      height: 156,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
                                     ),
                                   ),
-                                ),
-                                separatorBuilder: (context, index) =>
-                                    const SizedBox(height: 10),
-                                itemCount: 5, // Jumlah shimmer yang ditampilkan
-                              )
-                            : ListView.builder(
-                                itemCount: dataToDisplay.length,
-                                itemBuilder: (context, index) {
-                                  DataProfiling data = dataToDisplay[index];
-                                  return GestureDetector(
-                                    // onTap: () {
-                                    //   Nav.to(KonfirmasiIdentitiasPage());
-                                    // },
-                                    onTap: () {
-                                      if (data.status.toString() == "0") {
-                                        NotificationUtils.showSimpleDialog2(
-                                            context,
-                                            S.of(context).pay_to_see_more,
-                                            textButton1:
-                                                S.of(context).yes_continue,
-                                            textButton2: S.of(context).no,
-                                            onPress2: () {
-                                          Nav.back();
-                                        }, onPress1: () async {
-                                          Nav.back();
-                                          await NotificationUtils
-                                              .showSimpleDialog2(
-                                                  context,
-                                                  S
-                                                      .of(context)
-                                                      .pay_with_your_cool_balance,
-                                                  textButton1: S
-                                                      .of(context)
-                                                      .yes_continue,
-                                                  textButton2:
-                                                      S.of(context).other_pay,
-                                                  onPress2: () async {
+                                  separatorBuilder: (context, index) =>
+                                      const SizedBox(height: 10),
+                                  itemCount: 5, // Jumlah shimmer yang ditampilkan
+                                )
+                              : ListView.builder(
+                                  itemCount: dataToDisplay.length,
+                                  itemBuilder: (context, index) {
+                                    DataProfiling data = dataToDisplay[index];
+                                    return GestureDetector(
+                                      // onTap: () {
+                                      //   Nav.to(KonfirmasiIdentitiasPage());
+                                      // },
+                                      onTap: () {
+                                        if (data.status.toString() == "0") {
+                                          NotificationUtils.showSimpleDialog2(
+                                              context,
+                                              S.of(context).pay_to_see_more,
+                                              textButton1:
+                                                  S.of(context).yes_continue,
+                                              textButton2: S.of(context).no,
+                                              onPress2: () {
                                             Nav.back();
-                                            await provider.payProfiling(
+                                          }, onPress1: () async {
+                                            Nav.back();
+                                            await NotificationUtils
+                                                .showSimpleDialog2(
+                                                    context,
+                                                    S
+                                                        .of(context)
+                                                        .pay_with_your_cool_balance,
+                                                    textButton1: S
+                                                        .of(context)
+                                                        .yes_continue,
+                                                    textButton2:
+                                                        S.of(context).other_pay,
+                                                    onPress2: () async {
+                                              Nav.back();
+                                              await provider.payProfiling(
+                                                  context,
+                                                  [
+                                                    int.tryParse(data.idLogResult
+                                                                .toString() ??
+                                                            "0") ??
+                                                        0
+                                                  ],
+                                                  "0",
+                                                  "transaction_type",
+                                                  1, onUpdate: () async {
+                                                await provider
+                                                    .getListProfiling(context);
+                                              }, fromPage: "profiling");
+                                            }, onPress1: () async {
+                                              Nav.back();
+                                              await provider
+                                                  .createTransactionProfiling(
+                                                      context,
+                                                      DataCheckoutTransaction(
+                                                          idLogs: [
+                                                            int.parse(data
+                                                                    .idLogResult
+                                                                    .toString() ??
+                                                                "0")
+                                                          ],
+                                                          discount: "0",
+                                                          idItemPayments: "1",
+                                                          qty: 1,
+                                                          gateway: "paypal"),
+                                                      () async {
+                                                await provider
+                                                    .getListProfiling(context);
+                                              });
+                                            },
+                                                    colorButon1: primaryColor,
+                                                    colorButton2: Colors.white);
+                                          },
+                                              colorButon1: primaryColor,
+                                              colorButton2: Colors.white);
+                                        } else {
+                                          if (data.isAboveseventeen == true) {
+                                            Nav.to(ScreenHasilKepribadian(
+                                                data: data));
+                                          } else {
+                                            Nav.to(ScreenHasilKepribadianBawah17(
+                                                data: data));
+                                          }
+                                          // Nav.to(DetailProfiling(
+                                          //     data: data));
+                                        }
+                                      },
+                                      onDoubleTap: () {
+                                        if (data.status.toString() == "0") {
+                                          NotificationUtils.showSimpleDialog2(
+                                              context,
+                                              S.of(context).pay_to_see_more,
+                                              textButton1:
+                                                  S.of(context).yes_continue,
+                                              textButton2: S.of(context).no,
+                                              onPress2: () {
+                                            Nav.back();
+                                          }, onPress1: () async {
+                                            Nav.back();
+                                            await NotificationUtils
+                                                .showSimpleDialog2(
+                                                    context,
+                                                    S
+                                                        .of(context)
+                                                        .pay_with_your_cool_balance,
+                                                    textButton1: S
+                                                        .of(context)
+                                                        .yes_continue,
+                                                    textButton2:
+                                                        S.of(context).other,
+                                                    onPress2: () async {
+                                              await provider.payProfiling(
                                                 context,
                                                 [
                                                   int.tryParse(data.idLogResult
@@ -239,16 +314,19 @@ class _ProfilingDashboardState extends State<ProfilingDashboard>
                                                 ],
                                                 "0",
                                                 "transaction_type",
-                                                1, onUpdate: () async {
+                                                1,
+                                                onUpdate: () async {
+                                                  await provider
+                                                      .getListProfiling(context);
+                                                },
+                                                fromPage: "profiling",
+                                              );
+                                            }, onPress1: () async {
+                                              Nav.back();
                                               await provider
-                                                  .getListProfiling(context);
-                                            }, fromPage: "profiling");
-                                          }, onPress1: () async {
-                                            Nav.back();
-                                            await provider
-                                                .createTransactionProfiling(
-                                                    context,
-                                                    DataCheckoutTransaction(
+                                                  .createTransactionProfiling(
+                                                      context,
+                                                      DataCheckoutTransaction(
                                                         idLogs: [
                                                           int.parse(data
                                                                   .idLogResult
@@ -258,113 +336,35 @@ class _ProfilingDashboardState extends State<ProfilingDashboard>
                                                         discount: "0",
                                                         idItemPayments: "1",
                                                         qty: 1,
-                                                        gateway: "paypal"),
-                                                    () async {
-                                              await provider
-                                                  .getListProfiling(context);
-                                            });
-                                          },
-                                                  colorButon1: primaryColor,
-                                                  colorButton2: Colors.white);
-                                        },
-                                            colorButon1: primaryColor,
-                                            colorButton2: Colors.white);
-                                      } else {
-                                        if (data.isAboveseventeen == true) {
-                                          Nav.to(ScreenHasilKepribadian(
-                                              data: data));
-                                        } else {
-                                          Nav.to(ScreenHasilKepribadianBawah17(
-                                              data: data));
-                                        }
-                                        // Nav.to(DetailProfiling(
-                                        //     data: data));
-                                      }
-                                    },
-                                    onDoubleTap: () {
-                                      if (data.status.toString() == "0") {
-                                        NotificationUtils.showSimpleDialog2(
-                                            context,
-                                            S.of(context).pay_to_see_more,
-                                            textButton1:
-                                                S.of(context).yes_continue,
-                                            textButton2: S.of(context).no,
-                                            onPress2: () {
-                                          Nav.back();
-                                        }, onPress1: () async {
-                                          Nav.back();
-                                          await NotificationUtils
-                                              .showSimpleDialog2(
-                                                  context,
-                                                  S
-                                                      .of(context)
-                                                      .pay_with_your_cool_balance,
-                                                  textButton1: S
-                                                      .of(context)
-                                                      .yes_continue,
-                                                  textButton2:
-                                                      S.of(context).other,
-                                                  onPress2: () async {
-                                            await provider.payProfiling(
-                                              context,
-                                              [
-                                                int.tryParse(data.idLogResult
-                                                            .toString() ??
-                                                        "0") ??
-                                                    0
-                                              ],
-                                              "0",
-                                              "transaction_type",
-                                              1,
-                                              onUpdate: () async {
+                                                      ), () async {
                                                 await provider
                                                     .getListProfiling(context);
-                                              },
-                                              fromPage: "profiling",
-                                            );
-                                          }, onPress1: () async {
-                                            Nav.back();
-                                            await provider
-                                                .createTransactionProfiling(
-                                                    context,
-                                                    DataCheckoutTransaction(
-                                                      idLogs: [
-                                                        int.parse(data
-                                                                .idLogResult
-                                                                .toString() ??
-                                                            "0")
-                                                      ],
-                                                      discount: "0",
-                                                      idItemPayments: "1",
-                                                      qty: 1,
-                                                    ), () async {
-                                              await provider
-                                                  .getListProfiling(context);
-                                            });
+                                              });
+                                            },
+                                                    colorButon1: primaryColor,
+                                                    colorButton2: Colors.white);
                                           },
-                                                  colorButon1: primaryColor,
-                                                  colorButton2: Colors.white);
-                                        },
-                                            colorButon1: primaryColor,
-                                            colorButton2: Colors.white);
-                                      } else {
-                                        if (data.isAboveseventeen == true) {
-                                          Nav.to(ScreenHasilKepribadian(
-                                              data: data));
+                                              colorButon1: primaryColor,
+                                              colorButton2: Colors.white);
                                         } else {
-                                          Nav.to(ScreenHasilKepribadianBawah17(
-                                              data: data));
+                                          if (data.isAboveseventeen == true) {
+                                            Nav.to(ScreenHasilKepribadian(
+                                                data: data));
+                                          } else {
+                                            Nav.to(ScreenHasilKepribadianBawah17(
+                                                data: data));
+                                          }
                                         }
-                                      }
-                                    },
-                                    child: CardListProfilingWidget(data: data),
-                                  );
-                                },
-                              ),
-                      );
-                    },
-                  ),
-                ],
+                                      },
+                                      child: CardListProfilingWidget(data: data),
+                                    );
+                                  },
+                                ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -399,30 +399,32 @@ class _ProfilingDashboardState extends State<ProfilingDashboard>
                     Expanded(
                       child: GlobalButton(
                         onPressed: () async {
-                          Nav.to(AddMultipleProfiling(
-                            int.parse('1'),
-                            int.parse('10'),
-                            '', // Kirimkan code ref jika ada
-                          ));
-                          // // Tampilkan pop-up dan dapatkan nilai coderef
-                          // String? coderef = await showCodeRefDialog(context);
-                          //
-                          // // Hanya lakukan navigasi jika coderef sudah diterima
-                          // if (coderef != null) {
-                          //   // Jika ada code ref, lanjutkan ke halaman AddMultipleProfiling
-                          //   Nav.to(AddMultipleProfiling(
-                          //     int.parse('1'),
-                          //     int.parse('10'),
-                          //     coderef, // Kirimkan code ref jika ada
-                          //   ));
-                          // } else {
-                          //   // Jika tidak ada code ref, kirimkan null ke halaman AddMultipleProfiling
-                          //   Nav.to(AddMultipleProfiling(
-                          //     int.parse('1'),
-                          //     int.parse('10'),
-                          //     null, // Kirimkan null jika tidak ada code ref
-                          //   ));
-                          // }
+                          if(dataGlobal.isIndonesia == true){
+                            Nav.to(AddMultipleProfiling(
+                              int.parse('1'),
+                              int.parse('10'),
+                              null, // Kirimkan code ref jika ada
+                            ));
+                          }else{
+                            // Tampilkan pop-up dan dapatkan nilai coderef
+                            String? coderef = await showCodeRefDialog(context);
+                            // Hanya lakukan navigasi jika coderef sudah diterima
+                            if (coderef != null) {
+                              // Jika ada code ref, lanjutkan ke halaman AddMultipleProfiling
+                              Nav.to(AddMultipleProfiling(
+                                int.parse('1'),
+                                int.parse('10'),
+                                coderef, // Kirimkan code ref jika ada
+                              ));
+                            } else {
+                              // Jika tidak ada code ref, kirimkan null ke halaman AddMultipleProfiling
+                              Nav.to(AddMultipleProfiling(
+                                int.parse('1'),
+                                int.parse('10'),
+                                null, // Kirimkan null jika tidak ada code ref
+                              ));
+                            }
+                          }
                         },
                         color: primaryColor,
                         text: S.of(context).new_profiling,
@@ -568,16 +570,14 @@ class CardListProfilingWidget extends StatelessWidget {
               width: double.infinity,
               height: 30,
               decoration: BoxDecoration(
-                color: _getColorForType(data.typeBrain),
+                color: data.status == "0" ? Colors.black :_getColorForType(data.typeBrain),
                 borderRadius: BorderRadius.circular(10),
               ),
               child: Center(
                 child: Text(
-                  data.typeBrain,
+                  data.status == "0" ? S.of(context).pending : data.typeBrain,
                   style: TextStyle(
-                      color: data.typeBrain == "master"
-                          ? Colors.black
-                          : Colors.white,
+                      color: data.status == "0" ? Colors.white : _getColorForText(data.typeBrain),
                       fontSize: 15,
                       fontWeight: FontWeight.w600),
                 ),
@@ -607,6 +607,27 @@ class CardListProfilingWidget extends StatelessWidget {
         return Colors.red;
       default:
         return Colors.grey; // Warna default jika type tidak cocok
+    }
+  }
+
+  Color _getColorForText(String type) {
+    switch (type) {
+      case 'emotion in':
+      case 'emotion out':
+        return Colors.white;
+      case 'logic in':
+      case 'logic out':
+        return Colors.black;
+      case 'master':
+        return Colors.black;
+      case 'creative in':
+      case 'creative out':
+        return Colors.white;
+      case 'action in':
+      case 'action out':
+        return Colors.white;
+      default:
+        return Colors.white; // Warna default jika type tidak cocok
     }
   }
 }

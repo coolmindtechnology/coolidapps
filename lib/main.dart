@@ -39,6 +39,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -81,6 +82,7 @@ void onDidReceiveNotificationResponse(NotificationResponse response) {
 }
 
 void main() async {
+  Intl.defaultLocale = 'en_US';
   WidgetsFlutterBinding.ensureInitialized();
   if (Firebase.apps.isEmpty) {
     await Firebase.initializeApp(); // Inisialisasi hanya sekali

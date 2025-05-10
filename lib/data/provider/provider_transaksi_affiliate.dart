@@ -293,6 +293,7 @@ class ProviderTransaksiAffiliate extends ChangeNotifier {
     String nominal,
     String source,
     String fromPage,
+      String isRegister,
   ) async {
     isTransactionTopupDeposit = true;
 
@@ -300,7 +301,7 @@ class ProviderTransaksiAffiliate extends ChangeNotifier {
 
     Either<Failure, ResTransactionTopupDeposit> response =
         await repoTransaksiAffiliate.transactionTopupDeposit(
-            id, nominal, source);
+            id, nominal, source, isRegister);
 
     isTransactionTopupDeposit = false;
     notifyListeners();
@@ -322,18 +323,22 @@ class ProviderTransaksiAffiliate extends ChangeNotifier {
           name: data?.customer,
           orderId: data?.orderId,
           date: data?.createdAt,
-          amount: data?.amount,
+          amount: data?.totalAmount.toString(),
+          price: data?.amount.toString(),
           paymentType: data?.item,
           snapToken: data?.snapToken,
+          admin: data?.beaAdmin.toString(),
         ));
       } else if (fromPage == "deposit") {
         Nav.to(InvoiceRegisterAffiliate(
           name: data?.customer,
           orderId: data?.orderId,
           date: data?.createdAt,
-          amount: data?.amount,
+          amount: data?.totalAmount.toString(),
+          price: data?.amount.toString(),
           paymentType: data?.item,
           snapToken: data?.snapToken,
+          admin: data?.beaAdmin,
         ));
       } else if (fromPage == "topup") {
         Nav.to(VoucherPage(

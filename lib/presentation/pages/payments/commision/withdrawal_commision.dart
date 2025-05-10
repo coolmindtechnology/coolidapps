@@ -3,6 +3,8 @@ import 'package:coolappflutter/data/apps/app_sizes.dart';
 import 'package:coolappflutter/data/provider/provider_promotion.dart';
 import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/utils/notification_utils.dart';
 import 'package:coolappflutter/presentation/widgets/GlobalButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -79,20 +81,28 @@ class _WithdrawalCommisionState extends State<WithdrawalCommision> {
                 return GlobalButton(
                     onPressed: provider.isWithdrawing
                         ? null
-                        : () {
-                      if (emailController.text.isNotEmpty &&
-                          amountController.text.isNotEmpty) {
-                        provider.withdrawCommission(
-                          email: emailController.text,
-                          amount: amountController.text,
-                          context: context
-                        );
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text("Isi semua kolom!")),
-                        );
+                        : () {NotificationUtils.showSimpleDialog2(context, S.of(context).yakinWithdrawal + ' ${amountController.text} USD ?',
+                        textButton1: S.of(context).yes,
+                        textButton2: S.of(context).no,
+                      onPress1: () {
+                        if (emailController.text.isNotEmpty &&
+                            amountController.text.isNotEmpty) {
+                          provider.withdrawCommission(
+                              email: emailController.text,
+                              amount: amountController.text,
+                              context: context
+                          );
+                          Nav.back();
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(S.of(context).isiSemuaKolom)),
+                          );
+                        }
+                      },
+                      onPress2: () {
+                          Nav.back();
                       }
-                    },
+                    );},
                     color: primaryColor,
                     text: S.of(context).Next);
               })
@@ -122,7 +132,7 @@ class _WithdrawalCommisionState extends State<WithdrawalCommision> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'My Commision',
+                  S.of(context).komisiKu,
                   style: TextStyle(
                     color: DarkYellow,
                     fontSize: 17,
@@ -231,7 +241,7 @@ class _WithdrawalCommisionState extends State<WithdrawalCommision> {
             controller: amountController,
             focusNode: _focusNode, // Tambahkan FocusNode
             decoration: InputDecoration(
-              prefixText: "IDR ",
+              prefixText: "USD ",
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
               ),

@@ -9,6 +9,8 @@ import 'package:coolappflutter/data/networks/error_handler.dart';
 import 'package:coolappflutter/data/response/user/res_address.dart';
 import 'package:coolappflutter/data/response/user/res_category_bug.dart';
 import 'package:coolappflutter/data/response/user/res_check_profile.dart';
+import 'package:coolappflutter/data/response/user/res_get_deetail_report.dart';
+import 'package:coolappflutter/data/response/user/res_get_log_report.dart';
 import 'package:coolappflutter/data/response/user/res_get_total_saldo.dart';
 import 'package:coolappflutter/data/response/user/res_get_user.dart';
 import 'package:coolappflutter/data/response/user/res_report_bug.dart';
@@ -17,6 +19,7 @@ import 'package:coolappflutter/data/response/user/res_update_user.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import '../response/user/res_get_location_member.dart';
 import 'package:path/path.dart';
@@ -33,6 +36,8 @@ class RepoUser {
     required String state,
     required String city,
     required String district,
+    required String longtitude,
+    required String latitude,
   }) async {
     Response res = await dio.post(ApiEndpoint.updateUser,
         data: {
@@ -41,10 +46,12 @@ class RepoUser {
           'phone_number': phoneNumber,
           'id_card_number': idCardNumber,
           'address': address,
-          'country_id': country,
-          'state_id': state,
-          'city_id': city,
-          'district_id': district
+          'country': country,
+          'state': state,
+          'city': city,
+          'district': district,
+          'longtitude' : longtitude,
+          'latitude' : latitude,
         },
         options: Options(
           validateStatus: (status) {
@@ -204,8 +211,7 @@ class RepoUser {
     }
   }
 
-  Future<Either<Failure, ResGetCategory>> getCategoryBug(
-      {String? token}) async {
+  Future<Either<Failure, ResGetCategory>> getCategoryBug() async {
     try {
       Response res = await dio.get(ApiEndpoint.getCategoryBug,
           options: Options(
@@ -225,15 +231,19 @@ class RepoUser {
   }
 
   Future<Either<Failure, ResReportBug>> ReportBugByUser(
-      List<int> categories, String body, File media) async {
+      List<int> categories, String body, File? media) async {
+    final PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    final String versionNumber = packageInfo.version;
     Map<String, dynamic> data = {};
     data["category_id"] = categories; // Pastikan categories adalah array
+    data["app_version"] = versionNumber; // Pastikan categories adalah array
     data["body"] = body;
-    data["media"] = await MultipartFile.fromFile(
-      media.path,
-      filename: basename(media.path),
-    );
-
+    if (media != null) {
+      data["media"] = await MultipartFile.fromFile(
+        media.path,
+        filename: basename(media.path),
+      );
+    }
     try {
       Response res = await dio.post(
         ApiEndpoint.ReportBugByUser,
@@ -249,6 +259,46 @@ class RepoUser {
       );
 
       return Either.success(ResReportBug.fromJson(res.data));
+    } catch (e, st) {
+      if (kDebugMode) {
+        print(st);
+      }
+      return Either.error(ErrorHandler.handle(e).failure);
+    }
+  }
+
+  Future<Either<Failure, ResGetLogReport>> getLogReport() async {
+    try {
+      Response res = await dio.get(ApiEndpoint.ReportBugByUser,
+          options: Options(
+            validateStatus: (status) {
+              return status == 200 || status == 400;
+            },
+            headers: {'Authorization': dataGlobal.token},
+          ));
+
+      return Either.success(ResGetLogReport.fromJson(res.data));
+    } catch (e, st) {
+      if (kDebugMode) {
+        print(st);
+      }
+      return Either.error(ErrorHandler.handle(e).failure);
+    }
+  }
+
+ Future<Either<Failure, ResGetDetailLogReport>> getDetailLogReport(String? id) async {
+    try {
+      Response res = await dio.get(ApiEndpoint.ReportBugByUser+'?report_id=$id',
+          options: Options(
+            validateStatus: (status) {
+              return status == 200 || status == 400;
+            },
+            headers: {
+              'Authorization': dataGlobal.token
+            },
+          ));
+
+      return Either.success(ResGetDetailLogReport.fromJson(res.data));
     } catch (e, st) {
       if (kDebugMode) {
         print(st);

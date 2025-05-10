@@ -113,6 +113,9 @@
                 <category android:name="${applicationId}"/>
             </intent-filter>
         </receiver>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyA6KFLLoyBmZISMJUZpFZ4PxuLxQ0YqucY"/>
 
     </application>
 </manifest>

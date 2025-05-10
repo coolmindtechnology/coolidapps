@@ -383,7 +383,7 @@ class _ScreenHasilKepribadianState extends State<ScreenHasilKepribadian> {
                                 Nav.to(ResultDetail(data: widget.data,type: 'tipeKaya',));
                               },
                               imagePath: 'images/profiling/icTipeKaya.png',
-                              text: S.of(context).wealth_type,
+                              text: S.of(context).rich_type,
                             ),
                             gapW10,
                             CustomIconButton(

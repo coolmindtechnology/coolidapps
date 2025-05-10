@@ -35,6 +35,8 @@ class InvoiceRegisterAffiliate extends StatefulWidget {
   final String? quantity;
   final String? discount;
   final String? amount;
+  final String? price;
+  final String? admin;
   final Function? onUpdate;
   final bool isWithSaldo;
   final String? id;
@@ -54,6 +56,8 @@ class InvoiceRegisterAffiliate extends StatefulWidget {
       this.quantity,
       this.discount,
       this.amount,
+      this.price,
+      this.admin,
       this.onUpdate,
       this.isWithSaldo = false,
       this.id,
@@ -265,6 +269,21 @@ By joining, you can earn additional income by referring our products or services
                           S.of(context).payment, widget.paymentType ?? "-"),
                       Divider(height: 0.0, color: greyColor.withOpacity(0.5)),
                     ],
+                    widget.price != null
+                        ? itemPaymentTotal(
+                        S.of(context).Price,
+                            MoneyFormatter.formatMoney(
+                                    widget.price, widget.isIndonesia)
+                                .toString())
+                        : const SizedBox(),
+
+                    widget.admin != null
+                        ? itemPaymentTotal(
+                            "Bea Admin",
+                            MoneyFormatter.formatMoney(
+                                    widget.admin, widget.isIndonesia)
+                                .toString())
+                        : const SizedBox(),
                     widget.amount != null
                         ? itemPaymentTotal(
                             S.of(context).amount,

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:coolappflutter/presentation/pages/profiling/menu_tentang_profile_under17.dart';
 import 'package:coolappflutter/presentation/pages/profiling/results/result_under17.dart';
 import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -212,7 +213,7 @@ class _ScreenHasilKepribadianBawah17State
                                     "No Name", // Jika null, tampilkan default
                                 style: TextStyle(
                                   fontWeight: FontWeight.w600,
-                                  color: _getColorForType(
+                                  color: _getColorForText(
                                       value.dataShowDetail?.result),
                                 ),
                               ),
@@ -255,7 +256,7 @@ class _ScreenHasilKepribadianBawah17State
                                       top: 10),
                                   child: Text(
                                     value.dataShowDetail?.result ?? "",
-                                    style: TextStyle(color: Colors.white),
+                                    style: TextStyle(color: _getColorForText(value.dataShowDetail?.result)),
                                   ),
                                 ),
                               ),
@@ -385,7 +386,7 @@ class _ScreenHasilKepribadianBawah17State
                                     ));
                                   },
                                   imagePath: 'images/tipeKaya17.png',
-                                  text: S.of(context).wealth_type,
+                                  text: S.of(context).rich_type,
                                 ),
                                 gapW10,
                                 CustomIconButton(
@@ -408,6 +409,16 @@ class _ScreenHasilKepribadianBawah17State
                                   },
                                   imagePath: 'images/personality17.png',
                                   text: S.of(context).personality,
+                                ),
+                                gapW10,
+                                CustomIconButton(
+                                  onTap: () {
+                                    Nav.to(MenuTentangProfilUnder17(
+                                      data: widget.data,
+                                    ));
+                                  },
+                                  imagePath: 'images/lainnyaunder17.png',
+                                  text: S.of(context).others,
                                 ),
                               ],
                             ),
@@ -735,6 +746,27 @@ class _ScreenHasilKepribadianBawah17State
     }
   }
 
+  Color _getColorForText(String type) {
+    switch (type) {
+      case 'EMOTION IN':
+      case 'EMOTION OUT':
+        return Colors.white;
+      case 'LOGIC IN':
+      case 'LOGIC OUT':
+        return Colors.black;
+      case 'MASTER':
+        return Colors.black;
+      case 'CREATIVE IN':
+      case 'CREATIVE OUT':
+        return Colors.white;
+      case 'ACTION IN':
+      case 'ACTION OUT':
+        return Colors.white;
+      default:
+        return Colors.white; // Warna default jika type tidak cocok
+    }
+  }
+
   Color _getColorForContainer(String type) {
     switch (type) {
       case 'EMOTION IN':
@@ -777,8 +809,8 @@ class CustomIconButton extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            height: 100,
-            width: 100,
+            height: 70,
+            width: 70,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
             ),
@@ -788,9 +820,10 @@ class CustomIconButton extends StatelessWidget {
               width: 80,
               child: Text(
                 text,
+                textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
-                    fontSize: 12.sp,
+                    fontSize: 10.sp,
                     color: BlueColor,
                     fontWeight: FontWeight.bold),
               ))

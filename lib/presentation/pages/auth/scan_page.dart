@@ -1,13 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:coolappflutter/data/locals/preference_handler.dart';
 import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-
 import '../../../data/locals/shared_pref.dart';
 
 class ScanPage extends StatefulWidget {
@@ -28,7 +26,7 @@ class _ScanPageState extends State<ScanPage> {
 
   @override
   void initState() {
-    Timer(Duration(seconds: 3), () {
+    Timer(const Duration(seconds: 3), () {
       cekSession();
     });
     cekSession();
@@ -40,14 +38,13 @@ class _ScanPageState extends State<ScanPage> {
     Prefs().setLocale('$ceklanguage', () {
       setState(() {
         S.load(Locale('$ceklanguage'));
-        setState(() {});
       });
     });
-    Timer(Duration(seconds: 2), () {
+
+    Timer(const Duration(seconds: 2), () {
       Prefs().getLocale().then((locale) {
         debugPrint(locale);
-
-        S.load(Locale(locale)).then((value) {});
+        S.load(Locale(locale));
       });
     });
   }
@@ -63,22 +60,81 @@ class _ScanPageState extends State<ScanPage> {
         iconTheme: IconThemeData(color: whiteColor),
         backgroundColor: primaryColor,
       ),
-      body: MobileScanner(
-        // fit: BoxFit.contain,
-        controller: scannerController,
-        onDetect: (capture) async {
-          //auto nav back bawa hasil dari qr code
+      body: Stack(
+        children: [
+          MobileScanner(
+            controller: scannerController,
+              onDetect: (capture) async {
+                if (capture.barcodes.first.rawValue == null) {
+                  debugPrint("Failed to scan Barcode");
+                } else {
+                  final String code = capture.barcodes.first.rawValue!;
 
-          if (capture.barcodes.first.rawValue == null) {
-            debugPrint("Failed to scan Barcode");
-          } else {
-            final String code = capture.barcodes.first.rawValue!;
-            String decode = jsonDecode(code)['referral_code'];
+                  try {
+                    // Coba decode sebagai JSON jika string dimulai dengan '{'
+                    if (code.trim().startsWith('{')) {
+                      String referralCode = jsonDecode(code)['referral_code'];
+                      Nav.back(data: referralCode);
+                    } else {
+                      // Kalau bukan JSON, anggap itu URL
+                      Uri uri = Uri.parse(code);
+                      String? referralCode = uri.queryParameters['ref'];
+                      if (referralCode != null) {
+                        Nav.back(data: referralCode);
+                      } else {
+                        debugPrint("Referral code tidak ditemukan di dalam URL");
+                      }
+                    }
 
-            Nav.back(data: decode);
-            await scannerController.stop();
-          }
-        },
+                    await scannerController.stop();
+                  } catch (e) {
+                    debugPrint("Terjadi error saat parsing QR: $e");
+                  }
+                }
+              }
+
+
+          ),
+          Center(
+            child: Container(
+              width: 250,
+              height: 250,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.white, width: 2),
+                color: Colors.transparent,
+              ),
+            ),
+          ),
+          // Optional overlay hitam di sekeliling kotak
+          IgnorePointer(
+            child: Container(
+              color: Colors.black.withOpacity(0.5),
+              child: Stack(
+                children: [
+                  Center(
+                    child: Container(
+                      width: 250,
+                      height: 250,
+                      decoration: const BoxDecoration(
+                        color: Colors.transparent,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          // Clear kotak tengah agar scanner tetap berfungsi
+          Center(
+            child: Container(
+              width: 250,
+              height: 250,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.white, width: 2),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

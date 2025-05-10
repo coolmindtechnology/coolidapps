@@ -33,8 +33,8 @@ class ResPostWithDrawlCommision {
 }
 
 class Data {
-  double? amountWithdrawn;
-  double? newBalance;
+  int? amountWithdrawn;
+  dynamic? newBalance;
   String? batchId;
   String? status;
   String? url;

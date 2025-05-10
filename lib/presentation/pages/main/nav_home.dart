@@ -19,14 +19,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class NavMenuScreen extends StatefulWidget {
-  const NavMenuScreen({super.key});
+  final int initialIndex;
+  const NavMenuScreen({super.key, this.initialIndex = 0});
 
   @override
   State<NavMenuScreen> createState() => _NavMenuScreenState();
 }
 
 class _NavMenuScreenState extends State<NavMenuScreen> {
-  int currentIndex = 0;
+  // int currentIndex = 0;
+  late int currentIndex;
 
   // Menggunakan lazy loading untuk HomeChat
   HomeChat? homeChatPage;
@@ -97,6 +99,7 @@ class _NavMenuScreenState extends State<NavMenuScreen> {
   @override
   void initState() {
     super.initState();
+    currentIndex = widget.initialIndex;
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final homePage = (dataGlobal.dataUser?.isAffiliate == 1)
           ? HomeKonsultant(klickTab: klikTab)

@@ -58,13 +58,13 @@ class _ScreenSettingsState extends State<ScreenSettings> {
         Provider.of<PromotionProvider>(context, listen: false).fetchListPromotion();
       });
     });
-    Timer(const Duration(seconds: 6), () {
-      debugPrint("cek screeen setting state");
-      setState(() {
-        tes = "oke 2";
-        Provider.of<ProviderUser>(context, listen: false).getUser(context);
-      });
-    });
+    // Timer(const Duration(seconds: 6), () {
+    //   debugPrint("cek screeen setting state");
+    //   setState(() {
+    //     tes = "oke 2";
+    //     Provider.of<ProviderUser>(context, listen: false).getUser(context);
+    //   });
+    // });
 
     super.initState();
   }
@@ -99,7 +99,7 @@ class _ScreenSettingsState extends State<ScreenSettings> {
 
     return Consumer<ProviderUser>(builder: (context, value, child) {
       return Consumer<PromotionProvider>(builder: (context, valuep, child) {
-        bool isLoading = value.isLoading == true || valuep.isLoadingPromotion == true;
+        bool isLoading = value.isLoading == true && valuep.isLoadingPromotion == true;
         return Scaffold(
           appBar: AppBar(
             centerTitle: false,
@@ -214,16 +214,20 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                dataGlobal.dataUser?.name == null
-                                    ? dataGlobal.dataUser?.phoneNumber != null
-                                        ? dataGlobal.dataUser?.phoneNumber
-                                            .toString()
-                                        : ""
-                                    : dataGlobal.dataUser?.name ?? "",
-                                style: TextStyle(
-                                  fontSize: 20.sp,
-                                  fontWeight: FontWeight.w600,
+                              SizedBox(
+                                width: 200,
+                                child: Text(
+                                  dataGlobal.dataUser?.name == null
+                                      ? dataGlobal.dataUser?.phoneNumber != null
+                                          ? dataGlobal.dataUser?.phoneNumber
+                                              .toString()
+                                          : ""
+                                      : dataGlobal.dataUser?.name ?? "",
+                                  style: TextStyle(
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
                                 ),
                               ),
                               SizedBox(
@@ -232,15 +236,6 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(right: 10),
-                                      child: SizedBox(
-                                          child: BrainTypeWidget(
-                                        typeBrain: dataGlobal
-                                            .dataUser!.typeBrain
-                                            .toString(),
-                                      )),
-                                    ),
                                   InkWell(
                                     onTap: () async {
                                       Navigator.push(
@@ -270,7 +265,7 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                                             Text(S.of(context).digitalid,
                                                 style: TextStyle(
                                                     color: BlueColor,
-                                                    fontSize: 15,
+                                                    fontSize: 13,
                                                     fontWeight:
                                                         FontWeight.w600))
                                           ],
@@ -278,6 +273,17 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                                       ),
                                     ),
                                   ),
+                                  gapW10,
+                                  dataGlobal
+                                      .dataUser!.typeBrain.toString().isNotEmpty ? Padding(
+                                    padding: const EdgeInsets.only(right: 10),
+                                    child: SizedBox(
+                                        child: BrainTypeWidget(
+                                          typeBrain: dataGlobal
+                                              .dataUser!.typeBrain
+                                              .toString(),
+                                        )),
+                                  ) : SizedBox(),
                                 ],
                               ),
                             ],
@@ -323,20 +329,20 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                       },
                     ),
                     gapH20,
-                    // if (dataGlobal.dataUser?.isAffiliate == 0 &&
-                    //     dataGlobal.isIndonesia == false)
-                    //   CustomBalanceCard(
-                    //     title: "My Commission",
-                    //     icon: Image.asset(AppAsset.icRealMoney,
-                    //         width: 30), // Pakai Gambar
-                    //     saldo:
-                    //         "${(dataGlobal.dataPromotion?.totalComission == null || dataGlobal.dataPromotion?.totalComission.toString().isEmpty == true) ? '0' : dataGlobal.dataPromotion?.totalComission.toString()}",
-                    //     bgColor: const Color(0xFFFEFDCD),
-                    //     textColor: DarkYellow,
-                    //     onTap: () {
-                    //       Nav.to(CommisionDashboard());
-                    //     },
-                    //   ),
+                    if (dataGlobal.dataUser?.isAffiliate == 0 &&
+                        dataGlobal.isIndonesia == false)
+                      CustomBalanceCard(
+                        title: "My Commission",
+                        icon: Image.asset(AppAsset.icRealMoney,
+                            width: 30), // Pakai Gambar
+                        saldo:
+                            "${(dataGlobal.dataPromotion?.totalComission == null || dataGlobal.dataPromotion?.totalComission.toString().isEmpty == true) ? '0' : dataGlobal.dataPromotion?.totalComission.toString()}",
+                        bgColor: const Color(0xFFFEFDCD),
+                        textColor: DarkYellow,
+                        onTap: () {
+                          Nav.to(CommisionDashboard());
+                        },
+                      ),
                     if (dataGlobal.dataUser?.isAffiliate == 1)
                       InkWell(
                         onTap: () {
@@ -395,7 +401,12 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                       title: S.of(context).setting,
                       image: "setting_setting.png",
                       onTap: () {
-                        Nav.to(Setting_page());
+                        Nav.to(Setting_page(onLanguageChanged : () {
+                          setState(() {
+                            if (widget.onLanguageChanged != null) {
+                            }
+                          });
+                        },));
                       },
                     ),
                     if (dataGlobal.dataUser?.isAffiliate == 0)

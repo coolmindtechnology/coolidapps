@@ -56,6 +56,7 @@ class DataTransactionTopupDeposit {
   dynamic item;
   dynamic customer;
   dynamic source;
+  dynamic beaAdmin;
 
   DataTransactionTopupDeposit({
     this.id,
@@ -76,33 +77,34 @@ class DataTransactionTopupDeposit {
     this.item,
     this.customer,
     this.source,
+    this.beaAdmin,
   });
 
   factory DataTransactionTopupDeposit.fromJson(Map<String, dynamic> json) =>
       DataTransactionTopupDeposit(
-        id: json["id"],
-        orderId: json["order_id"],
-        idLogs: json["id_logs"],
-        idItemPayments: json["id_item_payments"],
-        idUser: json["id_user"],
-        amount: json["amount"],
-        discount: json["discount"],
-        totalAmount: json["total_amount"],
-        transactionType: json["transaction_type"],
-        paymentType: json["payment_type"],
-        status: json["status"],
-        snapToken: json["snap_token"],
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
-        deletedAt: json["deleted_at"],
-        item: json["item"],
-        customer: json["customer"],
-        source: json["source"],
-      );
+          id: json["id"],
+          orderId: json["order_id"],
+          idLogs: json["id_logs"],
+          idItemPayments: json["id_item_payments"],
+          idUser: json["id_user"],
+          amount: json["amount"],
+          discount: json["discount"],
+          totalAmount: json["total_amount"],
+          transactionType: json["transaction_type"],
+          paymentType: json["payment_type"],
+          status: json["status"],
+          snapToken: json["snap_token"],
+          createdAt: json["created_at"] == null
+              ? null
+              : DateTime.parse(json["created_at"]),
+          updatedAt: json["updated_at"] == null
+              ? null
+              : DateTime.parse(json["updated_at"]),
+          deletedAt: json["deleted_at"],
+          item: json["item"],
+          customer: json["customer"],
+          source: json["source"],
+          beaAdmin: json["bea_admin"]);
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -123,5 +125,6 @@ class DataTransactionTopupDeposit {
         "item": item,
         "customer": customer,
         "source": source,
+        "bea_admin": beaAdmin
       };
 }

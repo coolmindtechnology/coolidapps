@@ -976,16 +976,14 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                                                             8.0),
                                                     child: Column(
                                                       children: [
-                                                        Text(
-                                                          data.typeBrain ??
-                                                              S
-                                                                  .of(context)
-                                                                  .no_data,
+                                                        Text(data.status.toString() ==
+                                                            "0" ? S.of(context).pending :
+                                                        data.typeBrain,
                                                           style: TextStyle(
                                                             color: Colors.white,
                                                             fontSize: 16,
                                                             fontWeight:
-                                                                FontWeight.w600,
+                                                            FontWeight.w600,
                                                           ),
                                                         ),
                                                         Spacer(),

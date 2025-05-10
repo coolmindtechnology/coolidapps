@@ -7,6 +7,7 @@ import 'package:coolappflutter/data/response/profiling/res_add_profiling.dart';
 import 'package:coolappflutter/data/response/profiling/res_check_maximum_profiling.dart';
 import 'package:coolappflutter/data/response/profiling/res_create_multiple_profiling.dart';
 import 'package:coolappflutter/data/response/profiling/res_detail_profiling.dart';
+import 'package:coolappflutter/data/response/profiling/res_get_price.dart';
 import 'package:coolappflutter/data/response/profiling/res_get_user_profiling.dart';
 import 'package:coolappflutter/data/response/profiling/res_list_multiple_profiling.dart';
 import 'package:coolappflutter/data/response/profiling/res_list_profiling.dart';
@@ -416,6 +417,26 @@ class RepoProfiling {
           ));
       return Either.success(ResUpgradeMember.fromJson(res.data));
     } catch (e) {
+      return Either.error(ErrorHandler.handle(e).failure);
+    }
+  }
+
+  Future<Either<Failure, ResPriceProfiling>> getPriceProfiling(String qty) async {
+    Response res = await dio.get(ApiEndpoint.getPriceProfiling+"?qty=$qty",
+        options: Options(
+          validateStatus: (status) {
+            return status == 200 || status == 400;
+          },
+          contentType: Headers.jsonContentType,
+          responseType: ResponseType.json,
+          headers: {'Authorization': dataGlobal.token},
+        ));
+    try {
+      return Either.success(ResPriceProfiling.fromJson(res.data));
+    } catch (e, st) {
+      if (kDebugMode) {
+        print(st);
+      }
       return Either.error(ErrorHandler.handle(e).failure);
     }
   }

@@ -640,5 +640,37 @@
   "minimumWdCommision" : "Minimum penarikan sebanyak: 10x Komisi",
   "kebutuhan" : "Kebutuhan",
   "akandidengar": "Akan Didengar :",
-  "digitalid" : "Digital ID"
+  "digitalid" : "Digital ID",
+  "lanjutt" : "Lanjut",
+  "lanjuttampa" : "Lanjut Tanpa Code",
+  "inputfavcode" : "Masukkan kode promosi pengguna favorit Anda",
+  "kodepromosi" : "Kode Promosi",
+  "komisiku" : "Komisi Ku",
+  "minimalwd" : "Minimal Penarikan",
+  "ceritaAnda": "Cerita Anda",
+  "responseDariCool": "Response dari pihak Cool",
+  "assetNotAvailable": "Asset Not Available",
+  "tidakTersedia": "Tidak Tersedia",
+  "versiAplikasi": "Versi Aplikasi :",
+  "tidakAda": "Tidak ada",
+  "ada": "Ada",
+  "gambar": "Gambar :",
+  "status": "Status :",
+  "detailLogError": "Detail Log Error",
+  "logLaporan": "Log Laporan",
+  "kirimLaporanBaru": "Kirim Laporan Baru",
+  "silahkanPilihLokasi": "Silahkan Pilih Lokasi Anda",
+  "komisi": "Komisi",
+  "yakinWithdrawal": "Apakah Anda Yakin Withdrawal Sebanyak",
+  "isiSemuaKolom": "Isi semua kolom!",
+  "komisiKu": "KomisiKu",
+  "pending": "Pending",
+  "logPermasalahanAnda": "Log Laporan Permasalahan anda",
+  "pilihGambar": "Pilih gambar dari galeri atau kamera",
+  "pilihKategoriDanDeskripsi": "Harap pilih kategori dan masukkan deskripsi",
+  "yakinbayar" : "Apakah Anda yakin ingin melakukan pembayaran sebesar"
+
+
+
+
 }

@@ -12,7 +12,9 @@ import 'package:coolappflutter/data/repositories/repo_user.dart';
 import 'package:coolappflutter/data/response/user/res_address.dart';
 import 'package:coolappflutter/data/response/user/res_category_bug.dart';
 import 'package:coolappflutter/data/response/user/res_check_profile.dart';
+import 'package:coolappflutter/data/response/user/res_get_deetail_report.dart';
 import 'package:coolappflutter/data/response/user/res_get_location_member.dart';
+import 'package:coolappflutter/data/response/user/res_get_log_report.dart';
 import 'package:coolappflutter/data/response/user/res_get_total_saldo.dart';
 import 'package:coolappflutter/data/response/user/res_get_user.dart';
 import 'package:coolappflutter/data/response/user/res_report_bug.dart';
@@ -68,11 +70,16 @@ class ProviderUser extends ChangeNotifier {
   TextEditingController stateController = TextEditingController();
   TextEditingController cityController = TextEditingController();
   TextEditingController districtController = TextEditingController();
+  TextEditingController SelectedCountryController = TextEditingController();
+  TextEditingController SelectedStateController = TextEditingController();
+  TextEditingController SelectedCityController = TextEditingController();
+  TextEditingController SelectedDistrictController = TextEditingController();
+  TextEditingController SelectedLongtitudeController = TextEditingController();
+  TextEditingController SelectedLatitudeController = TextEditingController();
   int countryssId = 0;
   int stateId = 0;
   int cityssId = 0;
   int disctrictId = 0;
-
 
 
   dynamic initialCodeCountry = "ID";
@@ -90,14 +97,11 @@ class ProviderUser extends ChangeNotifier {
     emailController.text = dataGlobal.dataUser?.email ?? "";
     idCardController.text = dataGlobal.dataUser?.idCardNumber ?? "";
     addressController.text = dataGlobal.dataUser?.address ?? "";
-    countryController.text = dataAddress!.countrys!.name ?? "";
-    stateController.text = dataAddress!.state!.name ?? "";
-    cityController.text = dataAddress!.city!.name ?? "";
-    districtController.text = dataAddress!.district!.name ?? "";
-    countryssId = int.parse(dataAddress!.countrys!.id.toString());
-    stateId = int.parse(dataAddress!.state!.id.toString());
-    cityssId = int.parse(dataAddress!.city!.id.toString());
-    disctrictId = int.parse(dataAddress!.district!.id.toString());
+    SelectedCountryController.text = dataAddress?.country?.toString() ?? "";
+    SelectedStateController.text = dataAddress?.state?.toString() ?? "";
+    SelectedCityController.text = dataAddress?.city?.toString() ?? "";
+    SelectedDistrictController.text = dataAddress?.district?.toString() ?? "";
+
 
     setPhoneNumber(value);
   }
@@ -145,7 +149,8 @@ class ProviderUser extends ChangeNotifier {
     final LatLng? result = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const MapSelectionScreen(
+        builder: (context) =>
+        const MapSelectionScreen(
           initialPosition: LatLng(-6.1751, 106.8650), // Default position
         ),
       ),
@@ -171,8 +176,8 @@ class ProviderUser extends ChangeNotifier {
   bool isIndonesia() {
     getLocalePhonenumber();
     if (initialCodeCountry == "ID"
-        // && ipCountry == "Indonesia"
-        ) {
+    // && ipCountry == "Indonesia"
+    ) {
       return true;
     } else {
       return false;
@@ -246,6 +251,7 @@ class ProviderUser extends ChangeNotifier {
   ///   - Calls `getUser` if the user is updated successfully.
   ///   - Notifies listeners.
   bool isLoadingUpdateUser = false;
+
   Future<void> updateUser(BuildContext context) async {
     isLoadingUpdateUser = true;
     notifyListeners();
@@ -255,12 +261,20 @@ class ProviderUser extends ChangeNotifier {
         phoneNumber: phoneController.text,
         idCardNumber: idCardController.text,
         address: addressController.text,
-        country: countryssId.toString(),
-        state: stateId.toString(),
-        city: cityssId.toString(),
-        district: disctrictId.toString());
+        country: SelectedCountryController.text,
+        state: SelectedStateController.text,
+        city: SelectedCityController.text,
+        district: SelectedDistrictController.text,
+        longtitude: SelectedLongtitudeController.text,
+        latitude: SelectedLatitudeController.text,
+    );
+
 
     isLoadingUpdateUser = false;
+    debugPrint("negara yang di pilih ${SelectedCountryController.text}");
+    debugPrint("state yang di pilih ${SelectedStateController.text}");
+    debugPrint("city yang di pilih ${SelectedCityController.text}");
+    debugPrint("distrik yang di pilih ${SelectedDistrictController.text}");
     notifyListeners();
     response.when(error: (e) {
       NotificationUtils.showDialogError(context, () {
@@ -271,15 +285,19 @@ class ProviderUser extends ChangeNotifier {
             textAlign: TextAlign.center,
             style: const TextStyle(fontSize: 16),
           ),
-          textButton: S.of(context).back);
+          textButton: S
+              .of(context)
+              .back);
     }, success: (res) async {
       if (res.errors != null) {
         NotificationUtils.showDialogError(
           context,
-          () {
+              () {
             Nav.back();
           },
-          textButton: S.of(context).back,
+          textButton: S
+              .of(context)
+              .back,
           widget: Text(
             res.message ?? "",
             textAlign: TextAlign.center,
@@ -289,14 +307,16 @@ class ProviderUser extends ChangeNotifier {
       }
       if (res.success == true) {
         // await getUser(context);
-        NotificationUtils.showDialogSuccess(context, () async{
+        NotificationUtils.showDialogSuccess(context, () async {
           await getUser(context);
           Nav.back();
           Nav.back();
         },
             widget: Center(
               child: Text(
-                S.of(context).successfully_updated_user,
+                S
+                    .of(context)
+                    .successfully_updated_user,
                 textAlign: TextAlign.center,
                 style: const TextStyle(fontSize: 16),
               ),
@@ -310,7 +330,9 @@ class ProviderUser extends ChangeNotifier {
               textAlign: TextAlign.center,
               style: const TextStyle(fontSize: 16),
             ),
-            textButton: S.of(context).back);
+            textButton: S
+                .of(context)
+                .back);
       }
     });
 
@@ -333,9 +355,7 @@ class ProviderUser extends ChangeNotifier {
   ///   - Shows a dialog error if there is an error retrieving the user data.
   ///   - Updates the `dataUser` and `dataGlobal.dataUser` with the retrieved user data.
   ///   - Notifies listeners.
-  Future<void> getUser(
-    BuildContext context,
-  ) async {
+  Future<void> getUser(BuildContext context,) async {
     isLoading = true;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       notifyListeners();
@@ -355,7 +375,9 @@ class ProviderUser extends ChangeNotifier {
             textAlign: TextAlign.center,
             style: const TextStyle(fontSize: 16),
           ),
-          textButton: S.of(context).back);
+          textButton: S
+              .of(context)
+              .back);
     }, success: (res) async {
       if (res.success == true) {
         dataUser = res.data;
@@ -374,9 +396,7 @@ class ProviderUser extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> getAddress(
-    BuildContext context,
-  ) async {
+  Future<void> getAddress(BuildContext context,) async {
     isLoading = true;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       notifyListeners();
@@ -392,11 +412,11 @@ class ProviderUser extends ChangeNotifier {
         Nav.back();
       },
           widget: Text(
-            e.message,
+            'Silahkan pin Lokasi Anda',
             textAlign: TextAlign.center,
             style: const TextStyle(fontSize: 16),
           ),
-          textButton: S.of(context).back);
+          textButton: 'Oke');
     }, success: (res) async {
       if (res.success == true) {
         dataAddress = res.data;
@@ -431,7 +451,9 @@ class ProviderUser extends ChangeNotifier {
             textAlign: TextAlign.center,
             style: const TextStyle(fontSize: 16),
           ),
-          textButton: S.of(context).back);
+          textButton: S
+              .of(context)
+              .back);
     }, success: (res) async {
       if (res.success == true) {
         memberArea = res.data;
@@ -469,7 +491,7 @@ class ProviderUser extends ChangeNotifier {
     isProfileUser = true;
     notifyListeners();
     Either<Failure, ResUpdateProfile> response =
-        await repo.updatePhotoUser(photo);
+    await repo.updatePhotoUser(photo);
 
     isProfileUser = false;
     notifyListeners();
@@ -482,15 +504,19 @@ class ProviderUser extends ChangeNotifier {
             textAlign: TextAlign.center,
             style: const TextStyle(fontSize: 16),
           ),
-          textButton: S.of(context).back);
+          textButton: S
+              .of(context)
+              .back);
     }, success: (res) async {
       if (res.success == false) {
         NotificationUtils.showDialogError(
           context,
-          () {
+              () {
             Nav.back();
           },
-          textButton: S.of(context).back,
+          textButton: S
+              .of(context)
+              .back,
           widget: Text(
             res.message ?? "",
             textAlign: TextAlign.center,
@@ -500,7 +526,9 @@ class ProviderUser extends ChangeNotifier {
       }
       if (res.success == true) {
         NotificationUtils.showSnackbar(
-            S.of(context).update_photo_profile_success,
+            S
+                .of(context)
+                .update_photo_profile_success,
             backgroundColor: primaryColor);
         await getUser(context);
       } else {
@@ -512,7 +540,9 @@ class ProviderUser extends ChangeNotifier {
               textAlign: TextAlign.center,
               style: const TextStyle(fontSize: 16),
             ),
-            textButton: S.of(context).back);
+            textButton: S
+                .of(context)
+                .back);
       }
     });
 
@@ -600,16 +630,15 @@ class ProviderUser extends ChangeNotifier {
   }
 
   DataTotalSaldo? dataTotalSaldo;
+
   // Retrieves the total saldo asynchronously and updates the UI accordingly.
-  Future<void> getTotalSaldo(
-    BuildContext context,
-  ) async {
+  Future<void> getTotalSaldo(BuildContext context,) async {
     isLoadingGetTotalSaldo = true;
 
     // notifyListeners();
 
     Either<Failure, ResGetTotalSaldo> response =
-        await repo.getTotalSaldo(isIndonesia());
+    await repo.getTotalSaldo(isIndonesia());
 
     isLoadingGetTotalSaldo = false;
     // notifyListeners();
@@ -636,6 +665,7 @@ class ProviderUser extends ChangeNotifier {
   Map<String, dynamic> _invoiceData = {};
 
   bool get isLoadings => _isLoadingss;
+
   Map<String, dynamic> get invoiceData => _invoiceData;
 
   Future<void> fetchInvoiceDetail(String id) async {
@@ -679,9 +709,8 @@ class ProviderUser extends ChangeNotifier {
 
   ResGetCategory? categoryData;
   bool isLoadingCategory = false;
-  Future<void> getCategroyBug(
-    BuildContext context,
-  ) async {
+
+  Future<void> getCategroyBug(BuildContext context,) async {
     isLoadingCategory = true;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       notifyListeners();
@@ -698,7 +727,7 @@ class ProviderUser extends ChangeNotifier {
         // Tampilkan dialog error jika gagal
         NotificationUtils.showDialogError(
           context,
-          () {
+              () {
             Nav.back(); // Kembali ke layar sebelumnya
           },
           widget: Text(
@@ -737,13 +766,14 @@ class ProviderUser extends ChangeNotifier {
     notifyListeners();
 
     try {
-
-      // Mengirim data ke repository
+      // Tambahkan timeout di sini
       Either<Failure, ResReportBug> response = await repo.ReportBugByUser(
-        categories,
-        body,
-        media!
-      );
+          categories,
+          body,
+          media
+      ).timeout(Duration(seconds: 30), onTimeout: () {
+        throw TimeoutException('Request timed out. Please try again.');
+      });
 
       isLoadingReportBug = false;
       notifyListeners();
@@ -759,10 +789,108 @@ class ProviderUser extends ChangeNotifier {
           }
         },
       );
+    } on TimeoutException catch (_) {
+      isLoadingReportBug = false;
+      notifyListeners();
+      throw Exception('Request timed out. Please try again.');
     } catch (e) {
       isLoadingReportBug = false;
       notifyListeners();
       throw Exception('Error during report: $e');
     }
   }
+
+  ResGetLogReport? logReportData;
+  bool  isLoadingLogReport = false;
+  Future<void> getLogReport(BuildContext context) async {
+    isLoadingLogReport = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      notifyListeners();
+    });
+
+    Either<Failure, ResGetLogReport> response = await repo.getLogReport();
+
+    isLoadingLogReport = false;
+    notifyListeners();
+
+    response.when(
+      error: (failure) {
+        debugPrint("Error fetching log report");
+        NotificationUtils.showDialogError(
+          context,
+              () {
+            Nav.back();
+          },
+          widget: Text(
+            failure.message,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 16),
+          ),
+          textButton: "Back",
+        );
+      },
+      success: (res) {
+        debugPrint("Log report fetched successfully");
+        if (res.success == true) {
+          logReportData = res;
+          notifyListeners();
+          if (kDebugMode) {
+            print("Log report data: ${logReportData?.toJson()}");
+          }
+        } else {
+          debugPrint("Failed to fetch log report");
+        }
+      },
+    );
+
+    notifyListeners();
+  }
+
+  bool isLoadingDetailLog = false;
+  ResGetDetailLogReport? detailLogReportData;
+  Future<void> getDetailLogReport(BuildContext context, String? id) async {
+    isLoadingDetailLog = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      notifyListeners();
+    });
+
+    Either<Failure, ResGetDetailLogReport> response = await repo.getDetailLogReport(id);
+
+    isLoadingDetailLog = false;
+    notifyListeners();
+
+    response.when(
+      error: (failure) {
+        debugPrint("Error fetching detail log report");
+        NotificationUtils.showDialogError(
+          context,
+              () {
+            Nav.back();
+          },
+          widget: Text(
+            failure.message,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 16),
+          ),
+          textButton: "Back",
+        );
+      },
+      success: (res) {
+        debugPrint("Detail log report fetched successfully");
+        if (res.success == true) {
+          detailLogReportData = res;
+          notifyListeners();
+          if (kDebugMode) {
+            print("Detail log report data: ${detailLogReportData?.toJson()}");
+          }
+        } else {
+          debugPrint("Failed to fetch detail log report");
+        }
+      },
+    );
+
+    notifyListeners();
+  }
+
+
 }
