@@ -669,6 +669,21 @@
   "logPermasalahanAnda": "سجل مشاكلك",
   "pilihGambar": "اختر صورة من المعرض أو الكاميرا",
   "pilihKategoriDanDeskripsi": "يرجى اختيار الفئة وإدخال الوصف",
-  "yakinbayar" : "هل أنت متأكد أنك تريد إجراء دفعة بمقدار"
+  "yakinbayar" : "هل أنت متأكد أنك تريد إجراء دفعة بمقدار",
+  "lakukan_pembayaran_pertanyaan": "هل تريد إجراء الدفع؟",
+  "profiling_dibuat": "تم إنشاء الملف التعريفي",
+  "lakukan_pembayaran": "قم بالدفع",
+  "peringatan_penghapusan_profiling": "سيتم حذف بيانات الملف التعريفي في",
+  "peringatan_pembayaran_belum_dilakukan": "إذا لم يتم إجراء الدفع",
+  "anggota_terbaru": "أحدث الأعضاء",
+  "jadi_anggota_pada": "انضم في",
+  "aktivitas_terbaru": "النشاطات الأخيرة",
+  "aktivitas_bulan_ini": "نشاطات هذا الشهر",
+  "detail_aktivitas": "تفاصيل النشاط",
+  "aktivitas": "النشاط",
+  "reward_point": "نقاط المكافأة",
+  "reward_total": "إجمالي المكافآت",
+  "points": "النقاط",
+  "semua_anggota": "جميع الأعضاء"
 
 }

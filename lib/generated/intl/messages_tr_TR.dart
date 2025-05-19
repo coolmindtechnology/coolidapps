@@ -425,10 +425,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "ajakan_mengenal_diri": MessageLookupByLibrary.simpleMessage(
             "Haydi, kendinizi daha yakından tanıyın"),
         "akandidengar": MessageLookupByLibrary.simpleMessage("Duyacaklarım :"),
+        "aktivitas": MessageLookupByLibrary.simpleMessage("Aktivite"),
+        "aktivitas_bulan_ini":
+            MessageLookupByLibrary.simpleMessage("Bu Ayın Aktivitesi"),
+        "aktivitas_terbaru":
+            MessageLookupByLibrary.simpleMessage("Son Aktivite"),
         "all": MessageLookupByLibrary.simpleMessage("Hepsi"),
         "already_have_an_account":
             MessageLookupByLibrary.simpleMessage("Zaten Hesabınız Var Mı?"),
         "amount": MessageLookupByLibrary.simpleMessage("Tutar"),
+        "anggota_terbaru": MessageLookupByLibrary.simpleMessage("Yeni Üyeler"),
         "approvalSuccessful":
             MessageLookupByLibrary.simpleMessage("Onay Başarılı"),
         "approve": MessageLookupByLibrary.simpleMessage("onaylamak"),
@@ -548,6 +554,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Depozito: Katılmak için 2.000.000 IDR depozito gereklidir."),
         "detailLogError":
             MessageLookupByLibrary.simpleMessage("Hata Günlüğü Detayı"),
+        "detail_aktivitas":
+            MessageLookupByLibrary.simpleMessage("Aktivite Detayı"),
         "develop_yourself_by_exploring": MessageLookupByLibrary.simpleMessage(
             "Kendini, mevcut çevrimiçi kitapları keşfederek geliştir. Her zaman ve her yerde daha iyi bir versiyonun ol."),
         "digitalid": MessageLookupByLibrary.simpleMessage("Dijital Kimlik"),
@@ -667,6 +675,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Girilen veri doğru mu?"),
         "isiSemuaKolom": MessageLookupByLibrary.simpleMessage(
             "Lütfen tüm alanları doldurun!"),
+        "jadi_anggota_pada":
+            MessageLookupByLibrary.simpleMessage("Katılım Tarihi"),
         "join_now": MessageLookupByLibrary.simpleMessage(
             "Şimdi katılın ve ek gelir kazanmaya başlayın!"),
         "just": MessageLookupByLibrary.simpleMessage("sadece"),
@@ -684,6 +694,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "komisi": MessageLookupByLibrary.simpleMessage("Komisyon"),
         "komisiKu": MessageLookupByLibrary.simpleMessage("Komisyonum"),
         "komisiku": MessageLookupByLibrary.simpleMessage("Komisyonum"),
+        "lakukan_pembayaran": MessageLookupByLibrary.simpleMessage("Ödeme Yap"),
+        "lakukan_pembayaran_pertanyaan":
+            MessageLookupByLibrary.simpleMessage("Ödeme Yapılsın mı?"),
         "language": MessageLookupByLibrary.simpleMessage("Dil"),
         "lanjut": MessageLookupByLibrary.simpleMessage("Devam Et"),
         "lanjutt": MessageLookupByLibrary.simpleMessage("Devam Et"),
@@ -799,6 +812,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Cool bakiyesi ile ödeme başarıyla yapıldı"),
         "pending": MessageLookupByLibrary.simpleMessage("Bekliyor"),
+        "peringatan_pembayaran_belum_dilakukan":
+            MessageLookupByLibrary.simpleMessage("ödeme yapılmadıysa"),
+        "peringatan_penghapusan_profiling":
+            MessageLookupByLibrary.simpleMessage(
+                "Profil verileri şu tarihte silinecek"),
         "personality": MessageLookupByLibrary.simpleMessage("Kişilik"),
         "personalityy":
             MessageLookupByLibrary.simpleMessage("Benim Kişiliğim!"),
@@ -831,6 +849,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "plese_profiling_first_before_joining_coolchat":
             MessageLookupByLibrary.simpleMessage(
                 "Lütfen Coolchat\'a katılmadan önce profilinizi oluşturun"),
+        "points": MessageLookupByLibrary.simpleMessage("Puanlar"),
         "post": MessageLookupByLibrary.simpleMessage("Paylaş"),
         "posting": MessageLookupByLibrary.simpleMessage("Paylaşım"),
         "premium": MessageLookupByLibrary.simpleMessage("Premium"),
@@ -842,6 +861,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Profilim kime benziyor?"),
         "profile": MessageLookupByLibrary.simpleMessage("Profil"),
         "profiling": MessageLookupByLibrary.simpleMessage("Profiling"),
+        "profiling_dibuat":
+            MessageLookupByLibrary.simpleMessage("Profil Oluşturuldu"),
         "profiling_results":
             MessageLookupByLibrary.simpleMessage("Profiling Sonuçları"),
         "program_cancelled": MessageLookupByLibrary.simpleMessage(
@@ -894,6 +915,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "result_detail": MessageLookupByLibrary.simpleMessage("Sonuç Detayı"),
         "returnIn3Seconds":
             MessageLookupByLibrary.simpleMessage("3 saniye içinde geri dön..."),
+        "reward_point": MessageLookupByLibrary.simpleMessage("Ödül Puanı"),
+        "reward_total": MessageLookupByLibrary.simpleMessage("Toplam Ödül"),
         "rich_type": MessageLookupByLibrary.simpleMessage("Zengin Tipi"),
         "rights_responsibilities": MessageLookupByLibrary.simpleMessage(
             "Haklar ve Sorumluluklar: Etik tanıtımdan siz sorumlusunuz, şartları ihlal etmeniz durumunda hesabınızı iptal etme hakkımız saklıdır."),
@@ -919,6 +942,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Kendi Kendine Ameliyat"),
         "self_surgery_solution_surgery": MessageLookupByLibrary.simpleMessage(
             "KENDİNİZİ AMELİYAT EDİN,\nÇÖZÜM AMELİYATINI YAPIN"),
+        "semua_anggota": MessageLookupByLibrary.simpleMessage("Tüm Üyeler"),
         "send": MessageLookupByLibrary.simpleMessage("Gönder"),
         "sending": MessageLookupByLibrary.simpleMessage("Gönderiliyor ..."),
         "sessionCompleted":

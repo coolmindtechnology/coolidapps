@@ -668,5 +668,20 @@
   "logPermasalahanAnda": "Your Problem Report Log",
   "pilihGambar": "Choose image from gallery or camera",
   "pilihKategoriDanDeskripsi": "Please select category and enter description",
-  "yakinbayar" : "Are you sure you want to make a payment of"
+  "yakinbayar" : "Are you sure you want to make a payment of",
+  "lakukan_pembayaran_pertanyaan": "Make a Payment?",
+  "profiling_dibuat": "Profiling Created",
+  "lakukan_pembayaran": "Make Payment",
+  "peringatan_penghapusan_profiling": "Profiling data will be deleted after",
+  "peringatan_pembayaran_belum_dilakukan": "if payment has not been made",
+  "anggota_terbaru": "Newest Member",
+  "jadi_anggota_pada": "Joined on",
+  "aktivitas_terbaru": "Latest Activity",
+  "aktivitas_bulan_ini": "This Month's Activity",
+  "detail_aktivitas": "Activity Detail",
+  "aktivitas": "Activity",
+  "reward_point": "Reward Point",
+  "reward_total": "Total Reward",
+  "points": "Points",
+  "semua_anggota": "All Members"
 }

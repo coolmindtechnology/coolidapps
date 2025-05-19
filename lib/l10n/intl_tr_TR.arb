@@ -678,7 +678,22 @@
   "logPermasalahanAnda": "Sorunlarınızın Günlüğü",
   "pilihGambar": "Galeri veya kameradan resim seçin",
   "pilihKategoriDanDeskripsi": "Lütfen kategori seçin ve açıklama girin",
-  "yakinbayar" : "Bu miktarda ödeme yapmak istediğinizden emin misiniz"
+  "yakinbayar" : "Bu miktarda ödeme yapmak istediğinizden emin misiniz",
+  "lakukan_pembayaran_pertanyaan": "Ödeme Yapılsın mı?",
+  "profiling_dibuat": "Profil Oluşturuldu",
+  "lakukan_pembayaran": "Ödeme Yap",
+  "peringatan_penghapusan_profiling": "Profil verileri şu tarihte silinecek",
+  "peringatan_pembayaran_belum_dilakukan": "ödeme yapılmadıysa",
+  "anggota_terbaru": "Yeni Üyeler",
+  "jadi_anggota_pada": "Katılım Tarihi",
+  "aktivitas_terbaru": "Son Aktivite",
+  "aktivitas_bulan_ini": "Bu Ayın Aktivitesi",
+  "detail_aktivitas": "Aktivite Detayı",
+  "aktivitas": "Aktivite",
+  "reward_point": "Ödül Puanı",
+  "reward_total": "Toplam Ödül",
+  "points": "Puanlar",
+  "semua_anggota": "Tüm Üyeler"
 
 
 

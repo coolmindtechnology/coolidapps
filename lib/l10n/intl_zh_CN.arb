@@ -678,5 +678,20 @@
   "logPermasalahanAnda": "您的问题日志",
   "pilihGambar": "从相册或相机选择图片",
   "pilihKategoriDanDeskripsi": "请选择类别并输入描述",
-  "yakinbayar" : "您确定要支付金额为"
+  "yakinbayar" : "您确定要支付金额为",
+  "lakukan_pembayaran_pertanyaan": "进行付款？",
+  "profiling_dibuat": "已创建档案",
+  "lakukan_pembayaran": "进行付款",
+  "peringatan_penghapusan_profiling": "档案数据将在以下日期删除",
+  "peringatan_pembayaran_belum_dilakukan": "如果尚未付款",
+  "anggota_terbaru": "最新成员",
+  "jadi_anggota_pada": "加入于",
+  "aktivitas_terbaru": "最新活动",
+  "aktivitas_bulan_ini": "本月活动",
+  "detail_aktivitas": "活动详情",
+  "aktivitas": "活动",
+  "reward_point": "奖励积分",
+  "reward_total": "总奖励",
+  "points": "积分",
+  "semua_anggota": "所有成员"
 }

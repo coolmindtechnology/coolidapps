@@ -126,8 +126,9 @@ class _TopUpPageState extends State<TopUpPage> {
         if (data == null) return 'N/A';
 
         // Pastikan harga dalam format angka, lalu format dengan pemisah ribuan
-        double? priceValue =
-            double.tryParse(isIndonesia ? data.price : data.intlPrice);
+        double? priceValue = double.tryParse(
+            (isIndonesia ? data.price : data.intlPrice).toString()
+        );
         if (priceValue == null) return 'N/A';
 
         return NumberFormat("#,###", "id_ID").format(priceValue);
@@ -202,8 +203,7 @@ class _TopUpPageState extends State<TopUpPage> {
                               islainnya = dataListTopUp.id == 1;
                               amountController.clear();
                               if (!islainnya) {
-                                amountController.text =
-                                    (double.parse(dataListTopUp.price ?? "0")).toString();
+                                amountController.text = dataListTopUp.price.toString();
                               }
                               selected = index;
                               dataListTopUpCheckout = dataListTopUp;

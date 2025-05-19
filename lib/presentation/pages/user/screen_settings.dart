@@ -8,6 +8,7 @@ import 'package:coolappflutter/data/provider/provider_auth_affiliate.dart';
 import 'package:coolappflutter/data/provider/provider_promotion.dart';
 import 'package:coolappflutter/data/provider/provider_user.dart';
 import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/afiliate/member/anggota_saya.dart';
 import 'package:coolappflutter/presentation/pages/afiliate/screen_total_member.dart';
 import 'package:coolappflutter/presentation/pages/auth/login_screen.dart';
 import 'package:coolappflutter/presentation/pages/main/qrcode/qr_code.dart';
@@ -273,10 +274,9 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                                       ),
                                     ),
                                   ),
-                                  gapW10,
                                   dataGlobal
                                       .dataUser!.typeBrain.toString().isNotEmpty ? Padding(
-                                    padding: const EdgeInsets.only(right: 10),
+                                    padding: const EdgeInsets.only(left: 10),
                                     child: SizedBox(
                                         child: BrainTypeWidget(
                                           typeBrain: dataGlobal
@@ -332,7 +332,7 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                     if (dataGlobal.dataUser?.isAffiliate == 0 &&
                         dataGlobal.isIndonesia == false)
                       CustomBalanceCard(
-                        title: "My Commission",
+                        title: S.of(context).komisiKu,
                         icon: Image.asset(AppAsset.icRealMoney,
                             width: 30), // Pakai Gambar
                         saldo:
@@ -346,7 +346,7 @@ class _ScreenSettingsState extends State<ScreenSettings> {
                     if (dataGlobal.dataUser?.isAffiliate == 1)
                       InkWell(
                         onTap: () {
-                          Nav.to(const ScreenTotalMember());
+                          Nav.to(AnggotaSayaPage());
                         },
                         child: Container(
                           height: 60,

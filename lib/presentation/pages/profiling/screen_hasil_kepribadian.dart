@@ -359,7 +359,7 @@ class _ScreenHasilKepribadianState extends State<ScreenHasilKepribadian> {
                                     style: TextStyle(fontWeight: FontWeight.w600),
                                   ),
                                   SizedBox(
-                                    width: 300,
+                                    width: 280,
                                     child: Text(
                                         S.of(context).free_consultation_details,maxLines: 2,overflow: TextOverflow.ellipsis,),
                                   ),

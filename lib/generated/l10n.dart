@@ -6743,6 +6743,156 @@ class S {
       args: [],
     );
   }
+
+  /// `Make a Payment?`
+  String get lakukan_pembayaran_pertanyaan {
+    return Intl.message(
+      'Make a Payment?',
+      name: 'lakukan_pembayaran_pertanyaan',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Profiling Created`
+  String get profiling_dibuat {
+    return Intl.message(
+      'Profiling Created',
+      name: 'profiling_dibuat',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Make Payment`
+  String get lakukan_pembayaran {
+    return Intl.message(
+      'Make Payment',
+      name: 'lakukan_pembayaran',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Profiling data will be deleted after`
+  String get peringatan_penghapusan_profiling {
+    return Intl.message(
+      'Profiling data will be deleted after',
+      name: 'peringatan_penghapusan_profiling',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `if payment has not been made`
+  String get peringatan_pembayaran_belum_dilakukan {
+    return Intl.message(
+      'if payment has not been made',
+      name: 'peringatan_pembayaran_belum_dilakukan',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Newest Member`
+  String get anggota_terbaru {
+    return Intl.message(
+      'Newest Member',
+      name: 'anggota_terbaru',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Joined on`
+  String get jadi_anggota_pada {
+    return Intl.message(
+      'Joined on',
+      name: 'jadi_anggota_pada',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Latest Activity`
+  String get aktivitas_terbaru {
+    return Intl.message(
+      'Latest Activity',
+      name: 'aktivitas_terbaru',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This Month's Activity`
+  String get aktivitas_bulan_ini {
+    return Intl.message(
+      'This Month\'s Activity',
+      name: 'aktivitas_bulan_ini',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Activity Detail`
+  String get detail_aktivitas {
+    return Intl.message(
+      'Activity Detail',
+      name: 'detail_aktivitas',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Activity`
+  String get aktivitas {
+    return Intl.message(
+      'Activity',
+      name: 'aktivitas',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reward Point`
+  String get reward_point {
+    return Intl.message(
+      'Reward Point',
+      name: 'reward_point',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Total Reward`
+  String get reward_total {
+    return Intl.message(
+      'Total Reward',
+      name: 'reward_total',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Points`
+  String get points {
+    return Intl.message(
+      'Points',
+      name: 'points',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All Members`
+  String get semua_anggota {
+    return Intl.message(
+      'All Members',
+      name: 'semua_anggota',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

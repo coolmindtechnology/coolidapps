@@ -1,8 +1,8 @@
 class ApiEndpoint {
-  static String baseUrl = "https://cool-compass.mycool.id";
+  // static String baseUrl = "https://cool-compass.mycool.id";
   // static String baseUrl = "https://staging-cool.hantrr.com";
   // static String baseUrl = "https://cool-staging.dschazy.com";
-  // static String baseUrl = "https://cool-new.dschazy.com";
+  static String baseUrl = "https://cool-new.dschazy.com";
 
   // static String baseUrl = "https://coolcompas-staging.mycool.id";
 
@@ -287,6 +287,7 @@ class ApiEndpoint {
   static String apiListMember = "${baseUrlApi}affiliate/getMember";
 
   static String apiDetailMember(id) => "${baseUrlApi}affiliate/getMember/$id";
+  static String apiDetailActivity(id) => "${baseUrlApi}affiliate/getActivityDetail/$id";
 
   //transaction real money
 

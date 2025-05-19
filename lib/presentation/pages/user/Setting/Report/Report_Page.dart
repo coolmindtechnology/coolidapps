@@ -226,8 +226,8 @@ class _ReportPageState extends State<ReportPage> {
                   // Tombol kirim
                                  provider.isLoadingReportBug ? Container(
                      width: double.infinity,
-                     color: primaryColor,
                      decoration: BoxDecoration(
+                         color: primaryColor,
                        borderRadius: BorderRadius.circular(10)
                      ),
                      height: 50,

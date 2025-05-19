@@ -678,7 +678,22 @@
   "logPermasalahanAnda": "Log Masalah Anda",
   "pilihGambar": "Pilih gambar dari galeri atau kamera",
   "pilihKategoriDanDeskripsi": "Sila pilih kategori dan masukkan deskripsi",
-  "yakinbayar" : "Adakah anda pasti ingin membuat bayaran sebanyak"
+  "yakinbayar" : "Adakah anda pasti ingin membuat bayaran sebanyak",
+  "lakukan_pembayaran_pertanyaan": "Buat Pembayaran?",
+  "profiling_dibuat": "Profiling Dibuat",
+  "lakukan_pembayaran": "Buat Pembayaran",
+  "peringatan_penghapusan_profiling": "Data profiling akan dipadamkan setelah",
+  "peringatan_pembayaran_belum_dilakukan": "sekiranya pembayaran belum dibuat",
+  "anggota_terbaru": "Ahli Terkini",
+  "jadi_anggota_pada": "Menjadi ahli pada",
+  "aktivitas_terbaru": "Aktiviti Terkini",
+  "aktivitas_bulan_ini": "Aktiviti Bulan Ini",
+  "detail_aktivitas": "Perincian Aktiviti",
+  "aktivitas": "Aktiviti",
+  "reward_point": "Mata Ganjaran",
+  "reward_total": "Jumlah Ganjaran",
+  "points": "Mata",
+  "semua_anggota": "Semua Ahli"
 
 
 }

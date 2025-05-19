@@ -663,5 +663,21 @@
   "logPermasalahanAnda": "Registro de sus problemas",
   "pilihGambar": "Elija una imagen de la galería o la cámara",
   "pilihKategoriDanDeskripsi": "Seleccione una categoría e introduzca una descripción",
-  "yakinbayar" : "¿Está seguro de que desea realizar un pago de"
+  "yakinbayar" : "¿Está seguro de que desea realizar un pago de",
+  "lakukan_pembayaran_pertanyaan": "¿Realizar pago?",
+  "profiling_dibuat": "Perfil creado",
+  "lakukan_pembayaran": "Realizar pago",
+  "peringatan_penghapusan_profiling": "Los datos del perfil se eliminarán el",
+  "peringatan_pembayaran_belum_dilakukan": "si no se ha realizado el pago",
+  "anggota_terbaru": "Últimos miembros",
+  "jadi_anggota_pada": "Se unió el",
+  "aktivitas_terbaru": "Actividad reciente",
+  "aktivitas_bulan_ini": "Actividad de este mes",
+  "detail_aktivitas": "Detalle de la actividad",
+  "aktivitas": "Actividad",
+  "reward_point": "Puntos de recompensa",
+  "reward_total": "Recompensa total",
+  "points": "Puntos",
+  "semua_anggota": "Todos los miembros"
+
 }

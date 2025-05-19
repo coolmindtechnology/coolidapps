@@ -1,134 +1,38 @@
 // To parse this JSON data, do
 //
-//     final resDetailMember = resDetailMemberFromJson(jsonString);
+//     final resListActivity = resListActivityFromJson(jsonString);
 
 import 'dart:convert';
 
-ResDetailMember resDetailMemberFromJson(String str) => ResDetailMember.fromJson(json.decode(str));
+ResListActivity resListActivityFromJson(String str) => ResListActivity.fromJson(json.decode(str));
 
-String resDetailMemberToJson(ResDetailMember data) => json.encode(data.toJson());
+String resListActivityToJson(ResListActivity data) => json.encode(data.toJson());
 
-class ResDetailMember {
+class ResListActivity {
   bool? success;
   String? message;
-  Data? data;
+  List<Datum>? data;
 
-  ResDetailMember({
+  ResListActivity({
     this.success,
     this.message,
     this.data,
   });
 
-  factory ResDetailMember.fromJson(Map<String, dynamic> json) => ResDetailMember(
+  factory ResListActivity.fromJson(Map<String, dynamic> json) => ResListActivity(
     success: json["success"],
     message: json["message"],
-    data: json["data"] == null ? null : Data.fromJson(json["data"]),
+    data: json["data"] == null ? [] : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
     "success": success,
     "message": message,
-    "data": data?.toJson(),
+    "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x.toJson())),
   };
 }
 
-class Data {
-  int? id;
-  String? name;
-  String? image;
-  int? activity;
-  int? activityInMonth;
-  int? totalIncomePoint;
-  String? resultName;
-  List<ActivityDatum>? activityData;
-
-  Data({
-    this.id,
-    this.name,
-    this.image,
-    this.activity,
-    this.activityInMonth,
-    this.totalIncomePoint,
-    this.resultName,
-    this.activityData,
-  });
-
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
-    id: json["id"],
-    name: json["name"],
-    image: json["image"],
-    activity: json["activity"],
-    activityInMonth: json["activity_in_month"],
-    totalIncomePoint: json["total_income_point"],
-    resultName: json["result_name"],
-    activityData: json["activity_data"] == null ? [] : List<ActivityDatum>.from(json["activity_data"]!.map((x) => ActivityDatum.fromJson(x))),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "image": image,
-    "activity": activity,
-    "activity_in_month": activityInMonth,
-    "total_income_point": totalIncomePoint,
-    "result_name": resultName,
-    "activity_data": activityData == null ? [] : List<dynamic>.from(activityData!.map((x) => x.toJson())),
-  };
-}
-
-class ActivityDatum {
-  int? id;
-  String? orderId;
-  String? affiliatorId;
-  String? userMemberId;
-  dynamic? point;
-  String? status;
-  dynamic deletedAt;
-  DateTime? createdAt;
-  DateTime? updatedAt;
-  Member? member;
-
-  ActivityDatum({
-    this.id,
-    this.orderId,
-    this.affiliatorId,
-    this.userMemberId,
-    this.point,
-    this.status,
-    this.deletedAt,
-    this.createdAt,
-    this.updatedAt,
-    this.member,
-  });
-
-  factory ActivityDatum.fromJson(Map<String, dynamic> json) => ActivityDatum(
-    id: json["id"],
-    orderId: json["order_id"],
-    affiliatorId: json["affiliator_id"],
-    userMemberId: json["user_member_id"],
-    point: json["point"],
-    status: json["status"],
-    deletedAt: json["deleted_at"],
-    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
-    member: json["member"] == null ? null : Member.fromJson(json["member"]),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "order_id": orderId,
-    "affiliator_id": affiliatorId,
-    "user_member_id": userMemberId,
-    "point": point,
-    "status": status,
-    "deleted_at": deletedAt,
-    "created_at": createdAt?.toIso8601String(),
-    "updated_at": updatedAt?.toIso8601String(),
-    "member": member?.toJson(),
-  };
-}
-
-class Member {
+class Datum {
   int? id;
   String? idRole;
   String? name;
@@ -144,7 +48,7 @@ class Member {
   String? isVerified;
   String? isDeposit;
   String? totalDeposit;
-  dynamic totalRealComission;
+  String? totalRealComission;
   String? status;
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -161,8 +65,10 @@ class Member {
   String? localeId;
   String? firebaseUid;
   String? myRefCode;
+  String? profilingsCount;
+  List<AffPoint>? affPoint;
 
-  Member({
+  Datum({
     this.id,
     this.idRole,
     this.name,
@@ -195,9 +101,11 @@ class Member {
     this.localeId,
     this.firebaseUid,
     this.myRefCode,
+    this.profilingsCount,
+    this.affPoint,
   });
 
-  factory Member.fromJson(Map<String, dynamic> json) => Member(
+  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
     id: json["id"],
     idRole: json["id_role"],
     name: json["name"],
@@ -230,6 +138,8 @@ class Member {
     localeId: json["locale_id"],
     firebaseUid: json["firebase_uid"],
     myRefCode: json["my_ref_code"],
+    profilingsCount: json["profilings_count"],
+    affPoint: json["aff_point"] == null ? [] : List<AffPoint>.from(json["aff_point"]!.map((x) => AffPoint.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -265,5 +175,55 @@ class Member {
     "locale_id": localeId,
     "firebase_uid": firebaseUid,
     "my_ref_code": myRefCode,
+    "profilings_count": profilingsCount,
+    "aff_point": affPoint == null ? [] : List<dynamic>.from(affPoint!.map((x) => x.toJson())),
+  };
+}
+
+class AffPoint {
+  int? id;
+  String? orderId;
+  String? affiliatorId;
+  String? userMemberId;
+  dynamic? point;
+  String? status;
+  dynamic deletedAt;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+
+  AffPoint({
+    this.id,
+    this.orderId,
+    this.affiliatorId,
+    this.userMemberId,
+    this.point,
+    this.status,
+    this.deletedAt,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  factory AffPoint.fromJson(Map<String, dynamic> json) => AffPoint(
+    id: json["id"],
+    orderId: json["order_id"],
+    affiliatorId: json["affiliator_id"],
+    userMemberId: json["user_member_id"],
+    point: json["point"],
+    status: json["status"],
+    deletedAt: json["deleted_at"],
+    createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+    updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "order_id": orderId,
+    "affiliator_id": affiliatorId,
+    "user_member_id": userMemberId,
+    "point": point,
+    "status": status,
+    "deleted_at": deletedAt,
+    "created_at": createdAt?.toIso8601String(),
+    "updated_at": updatedAt?.toIso8601String(),
   };
 }

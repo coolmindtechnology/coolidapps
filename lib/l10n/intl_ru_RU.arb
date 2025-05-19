@@ -678,8 +678,21 @@
   "logPermasalahanAnda": "Журнал ваших проблем",
   "pilihGambar": "Выберите изображение из галереи или камеры",
   "pilihKategoriDanDeskripsi": "Пожалуйста, выберите категорию и введите описание",
-  "yakinbayar" : "Вы уверены, что хотите произвести оплату на сумму"
-
-
+  "yakinbayar" : "Вы уверены, что хотите произвести оплату на сумму",
+  "lakukan_pembayaran_pertanyaan": "Выполнить оплату?",
+  "profiling_dibuat": "Профиль создан",
+  "lakukan_pembayaran": "Выполнить оплату",
+  "peringatan_penghapusan_profiling": "Данные профиля будут удалены",
+  "peringatan_pembayaran_belum_dilakukan": "если оплата не была произведена",
+  "anggota_terbaru": "Новые участники",
+  "jadi_anggota_pada": "Присоединился к",
+  "aktivitas_terbaru": "Последняя активность",
+  "aktivitas_bulan_ini": "Активность за этот месяц",
+  "detail_aktivitas": "Детали активности",
+  "aktivitas": "Активность",
+  "reward_point": "Бонусные баллы",
+  "reward_total": "Общая награда",
+  "points": "Баллы",
+  "semua_anggota": "Все участники"
 
 }

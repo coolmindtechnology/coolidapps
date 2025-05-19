@@ -11,7 +11,7 @@ class PopUpReport extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 340,
+      height: 370,
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10)
@@ -23,7 +23,7 @@ class PopUpReport extends StatelessWidget {
           children: [
             Image.asset('images/Hand_icon.png'),
             SizedBox(height: 20,),
-            Text(S.of(context).Thank_You_For_Your_Report,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 17),),
+            Text(S.of(context).Thank_You_For_Your_Report,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 17),textAlign: TextAlign.center,),
             SizedBox(height: 10,),
             Text(S.of(context).We_Appreciate_Your_Feedback,style: TextStyle(fontSize: 14),textAlign: TextAlign.center,),
             SizedBox(height: 20,),

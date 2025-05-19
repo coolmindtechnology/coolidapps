@@ -434,10 +434,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "ajakan_mengenal_diri": MessageLookupByLibrary.simpleMessage(
             "Let\'s get to know yourself better"),
         "akandidengar": MessageLookupByLibrary.simpleMessage("Will Hear :"),
+        "aktivitas": MessageLookupByLibrary.simpleMessage("Activity"),
+        "aktivitas_bulan_ini":
+            MessageLookupByLibrary.simpleMessage("This Month\'s Activity"),
+        "aktivitas_terbaru":
+            MessageLookupByLibrary.simpleMessage("Latest Activity"),
         "all": MessageLookupByLibrary.simpleMessage("All"),
         "already_have_an_account":
             MessageLookupByLibrary.simpleMessage("Already have an account?"),
         "amount": MessageLookupByLibrary.simpleMessage("Total"),
+        "anggota_terbaru":
+            MessageLookupByLibrary.simpleMessage("Newest Member"),
         "approvalSuccessful":
             MessageLookupByLibrary.simpleMessage("Approval Successful"),
         "approve": MessageLookupByLibrary.simpleMessage("approve"),
@@ -561,6 +568,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Deposit: A deposit of 2,000,000 IDR is required to join."),
         "detailLogError":
             MessageLookupByLibrary.simpleMessage("Error Log Detail"),
+        "detail_aktivitas":
+            MessageLookupByLibrary.simpleMessage("Activity Detail"),
         "develop_yourself_by_exploring": MessageLookupByLibrary.simpleMessage(
             "Develop yourself by exploring the available online books. Be a better version of yourself, anytime and anywhere."),
         "digitalid": MessageLookupByLibrary.simpleMessage("Digital ID"),
@@ -682,6 +691,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "isiSemuaKolom":
             MessageLookupByLibrary.simpleMessage("Please fill in all fields!"),
         "items": MessageLookupByLibrary.simpleMessage("Items"),
+        "jadi_anggota_pada": MessageLookupByLibrary.simpleMessage("Joined on"),
         "join_now": MessageLookupByLibrary.simpleMessage(
             "Join now and start earning extra income!"),
         "just": MessageLookupByLibrary.simpleMessage("just"),
@@ -699,6 +709,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "komisi": MessageLookupByLibrary.simpleMessage("Commission"),
         "komisiKu": MessageLookupByLibrary.simpleMessage("My Commission"),
         "komisiku": MessageLookupByLibrary.simpleMessage("My Commission"),
+        "lakukan_pembayaran":
+            MessageLookupByLibrary.simpleMessage("Make Payment"),
+        "lakukan_pembayaran_pertanyaan":
+            MessageLookupByLibrary.simpleMessage("Make a Payment?"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "lanjut": MessageLookupByLibrary.simpleMessage("Next"),
         "lanjutt": MessageLookupByLibrary.simpleMessage("Continue"),
@@ -816,6 +830,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Payment with Cool balance was successful"),
         "pending": MessageLookupByLibrary.simpleMessage("Pending"),
+        "peringatan_pembayaran_belum_dilakukan":
+            MessageLookupByLibrary.simpleMessage(
+                "if payment has not been made"),
+        "peringatan_penghapusan_profiling":
+            MessageLookupByLibrary.simpleMessage(
+                "Profiling data will be deleted after"),
         "personality": MessageLookupByLibrary.simpleMessage("Personality"),
         "personalityy": MessageLookupByLibrary.simpleMessage("My Personality!"),
         "pesan_selamat": MessageLookupByLibrary.simpleMessage(
@@ -848,6 +868,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "plese_profiling_first_before_joining_coolchat":
             MessageLookupByLibrary.simpleMessage(
                 "Please profile first before joining Coolchat"),
+        "points": MessageLookupByLibrary.simpleMessage("Points"),
         "post": MessageLookupByLibrary.simpleMessage("Post"),
         "posting": MessageLookupByLibrary.simpleMessage("Posting"),
         "premium": MessageLookupByLibrary.simpleMessage("Premium"),
@@ -859,6 +880,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Who does my profile resemble?"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "profiling": MessageLookupByLibrary.simpleMessage("Profiling"),
+        "profiling_dibuat":
+            MessageLookupByLibrary.simpleMessage("Profiling Created"),
         "profiling_results":
             MessageLookupByLibrary.simpleMessage("Profiling Results"),
         "program_cancelled": MessageLookupByLibrary.simpleMessage(
@@ -911,6 +934,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "result_detail": MessageLookupByLibrary.simpleMessage("Result Details"),
         "returnIn3Seconds":
             MessageLookupByLibrary.simpleMessage("Returning in 3 seconds..."),
+        "reward_point": MessageLookupByLibrary.simpleMessage("Reward Point"),
+        "reward_total": MessageLookupByLibrary.simpleMessage("Total Reward"),
         "rich_type": MessageLookupByLibrary.simpleMessage("Rich Type"),
         "rights_responsibilities": MessageLookupByLibrary.simpleMessage(
             "Rights and Responsibilities: You are responsible for ethical promotion, and we reserve the right to terminate your account if terms are violated."),
@@ -936,6 +961,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "self_surgery": MessageLookupByLibrary.simpleMessage("Bedah Diri"),
         "self_surgery_solution_surgery": MessageLookupByLibrary.simpleMessage(
             "SELF Surgery,\nSOLUTION Surgery"),
+        "semua_anggota": MessageLookupByLibrary.simpleMessage("All Members"),
         "send": MessageLookupByLibrary.simpleMessage("Send"),
         "sending": MessageLookupByLibrary.simpleMessage("Sending ..."),
         "sessionCompleted":

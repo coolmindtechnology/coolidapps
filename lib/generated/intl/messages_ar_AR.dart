@@ -414,10 +414,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "ajakan_mengenal_diri": MessageLookupByLibrary.simpleMessage(
             "هيا، تعرف على نفسك بشكل أعمق"),
         "akandidengar": MessageLookupByLibrary.simpleMessage("سوف تسمع :"),
+        "aktivitas": MessageLookupByLibrary.simpleMessage("النشاط"),
+        "aktivitas_bulan_ini":
+            MessageLookupByLibrary.simpleMessage("نشاطات هذا الشهر"),
+        "aktivitas_terbaru":
+            MessageLookupByLibrary.simpleMessage("النشاطات الأخيرة"),
         "all": MessageLookupByLibrary.simpleMessage("الكل"),
         "already_have_an_account":
             MessageLookupByLibrary.simpleMessage("هل لديك حساب بالفعل؟"),
         "amount": MessageLookupByLibrary.simpleMessage("المبلغ"),
+        "anggota_terbaru": MessageLookupByLibrary.simpleMessage("أحدث الأعضاء"),
         "approvalSuccessful":
             MessageLookupByLibrary.simpleMessage("تمت الموافقة بنجاح"),
         "approve": MessageLookupByLibrary.simpleMessage("موافقة"),
@@ -535,6 +541,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "الإيداع: يتطلب الانضمام إيداعًا قدره 2,000,000 IDR."),
         "detailLogError":
             MessageLookupByLibrary.simpleMessage("تفاصيل سجل الأخطاء"),
+        "detail_aktivitas":
+            MessageLookupByLibrary.simpleMessage("تفاصيل النشاط"),
         "develop_yourself_by_exploring": MessageLookupByLibrary.simpleMessage(
             "طور نفسك من خلال استكشاف الكتب الإلكترونية المتوفرة. كن أفضل نسخة منك، في أي وقت وفي أي مكان."),
         "digitalid": MessageLookupByLibrary.simpleMessage("الهوية الرقمية"),
@@ -655,6 +663,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("هل البيانات المدخلة صحيحة؟"),
         "isiSemuaKolom":
             MessageLookupByLibrary.simpleMessage("يرجى ملء جميع الحقول!"),
+        "jadi_anggota_pada": MessageLookupByLibrary.simpleMessage("انضم في"),
         "join_now": MessageLookupByLibrary.simpleMessage(
             "انضم الآن وابدأ في تحقيق دخل إضافي!"),
         "just": MessageLookupByLibrary.simpleMessage("فقط"),
@@ -672,6 +681,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "komisi": MessageLookupByLibrary.simpleMessage("العمولة"),
         "komisiKu": MessageLookupByLibrary.simpleMessage("عمولتي"),
         "komisiku": MessageLookupByLibrary.simpleMessage("عمولتي"),
+        "lakukan_pembayaran": MessageLookupByLibrary.simpleMessage("قم بالدفع"),
+        "lakukan_pembayaran_pertanyaan":
+            MessageLookupByLibrary.simpleMessage("هل تريد إجراء الدفع؟"),
         "language": MessageLookupByLibrary.simpleMessage("اللغة"),
         "lanjut": MessageLookupByLibrary.simpleMessage("استمر"),
         "lanjutt": MessageLookupByLibrary.simpleMessage("متابعة"),
@@ -784,6 +796,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "تمت عملية الدفع باستخدام رصيد Cool بنجاح"),
         "pending": MessageLookupByLibrary.simpleMessage("قيد الانتظار"),
+        "peringatan_pembayaran_belum_dilakukan":
+            MessageLookupByLibrary.simpleMessage("إذا لم يتم إجراء الدفع"),
+        "peringatan_penghapusan_profiling":
+            MessageLookupByLibrary.simpleMessage(
+                "سيتم حذف بيانات الملف التعريفي في"),
         "personality": MessageLookupByLibrary.simpleMessage("الشخصية"),
         "personalityy": MessageLookupByLibrary.simpleMessage("شخصيتي!"),
         "pesan_selamat": MessageLookupByLibrary.simpleMessage("مبروك! أنت...."),
@@ -813,6 +830,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "plese_profiling_first_before_joining_coolchat":
             MessageLookupByLibrary.simpleMessage(
                 "يرجى التصنيف أولاً قبل الانضمام إلى Coolchat"),
+        "points": MessageLookupByLibrary.simpleMessage("النقاط"),
         "post": MessageLookupByLibrary.simpleMessage("مشاركة"),
         "posting": MessageLookupByLibrary.simpleMessage("نشر"),
         "premium": MessageLookupByLibrary.simpleMessage("متميز"),
@@ -824,6 +842,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("بروفايلي يشبه من؟"),
         "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
         "profiling": MessageLookupByLibrary.simpleMessage("التصنيف"),
+        "profiling_dibuat":
+            MessageLookupByLibrary.simpleMessage("تم إنشاء الملف التعريفي"),
         "profiling_results":
             MessageLookupByLibrary.simpleMessage("نتائج التصنيف"),
         "program_cancelled": MessageLookupByLibrary.simpleMessage(
@@ -874,6 +894,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "result_detail": MessageLookupByLibrary.simpleMessage("تفاصيل النتيجة"),
         "returnIn3Seconds":
             MessageLookupByLibrary.simpleMessage("العودة خلال 3 ثوان..."),
+        "reward_point": MessageLookupByLibrary.simpleMessage("نقاط المكافأة"),
+        "reward_total": MessageLookupByLibrary.simpleMessage("إجمالي المكافآت"),
         "rich_type": MessageLookupByLibrary.simpleMessage("نوع ثري"),
         "rights_responsibilities": MessageLookupByLibrary.simpleMessage(
             "الحقوق والمسؤوليات: أنت مسؤول عن الترويج الأخلاقي، ونحتفظ بالحق في إلغاء حسابك إذا انتهكت الشروط."),
@@ -897,6 +919,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "self_surgery": MessageLookupByLibrary.simpleMessage("الجراحة الذاتية"),
         "self_surgery_solution_surgery":
             MessageLookupByLibrary.simpleMessage("جراحة الذات،\nجراحة الحل"),
+        "semua_anggota": MessageLookupByLibrary.simpleMessage("جميع الأعضاء"),
         "send": MessageLookupByLibrary.simpleMessage("إرسال"),
         "sending": MessageLookupByLibrary.simpleMessage("جارٍ الإرسال..."),
         "sessionCompleted":

@@ -108,7 +108,7 @@ class CategoryReports {
   String? name;
   DateTime? createdAt;
   DateTime? updatedAt;
-  int? status;
+  dynamic? status;
 
   CategoryReports({
     this.id,

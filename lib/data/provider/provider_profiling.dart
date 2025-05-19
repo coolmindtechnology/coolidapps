@@ -18,6 +18,7 @@ import 'package:coolappflutter/data/response/profiling/res_detail_profiling.dart
 import 'package:coolappflutter/data/response/profiling/res_get_price.dart';
 import 'package:coolappflutter/data/response/profiling/res_get_user_profiling.dart';
 import 'package:coolappflutter/data/response/profiling/res_list_multiple_profiling.dart';
+import 'package:coolappflutter/data/response/profiling/res_list_profiling_false.dart';
 import 'package:coolappflutter/data/response/profiling/res_pay_profiling.dart';
 import 'package:coolappflutter/data/response/profiling/res_update_transaction_profiling.dart';
 import 'package:coolappflutter/data/response/profiling/res_upgrade_member.dart';
@@ -86,9 +87,11 @@ class ProviderProfiling extends ChangeNotifier {
   ProviderPayment payment = ProviderPayment();
   bool isLoadingget = false;
   bool isLoading = false;
+  bool isLoadingFalse = false;
   RepoProfiling repo = RepoProfiling();
   List<DataProfiling> listProfiling = [], listDisable = [];
   List<DataProfiling> filteredProfiling = [];
+  List<ProfilingData> listFalseProfiling = [];
   DataDetailProfiling? detailProfiling;
   DataShowDetail? dataShowDetail;
   TextEditingController controllerProfillingCode = TextEditingController();
@@ -177,6 +180,38 @@ class ProviderProfiling extends ChangeNotifier {
     });
     notifyListeners();
   }
+
+  Future<void> getListFalseProfiling(BuildContext context) async {
+    isLoadingFalse = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      notifyListeners();
+    });
+
+    Either<Failure, ProfilingResponseFalse> response = await repo.getFalseProfiling();
+
+    isLoadingFalse = false;
+    notifyListeners();
+
+    response.when(error: (e) {
+      listFalseProfiling = [];
+      notifyListeners();
+      // NotificationUtils.showDialogError(context, () {
+      //   Nav.back();
+      // },
+      //     widget: Text(
+      //       e.message,
+      //       textAlign: TextAlign.center,
+      //     ));
+    }, success: (res) async {
+      if (res.success == true) {
+        listFalseProfiling = res.data ?? [];
+        notifyListeners();
+      }
+    });
+    notifyListeners();
+  }
+
+
 
   String _textToSpeech = "";
   String get textToSpeech {
@@ -812,6 +847,7 @@ class ProviderProfiling extends ChangeNotifier {
           context,
           () {
             Nav.back();
+            Nav.toAll(ProfilingDashboard());
           },
           widget: Text(
             resTransactionProfiling?.message ?? "",
@@ -819,6 +855,8 @@ class ProviderProfiling extends ChangeNotifier {
             style: const TextStyle(fontSize: 16),
           ),
         );
+        isCreatePayment = false;
+        notifyListeners();
       }
 
       notifyListeners();

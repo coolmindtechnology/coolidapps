@@ -755,11 +755,12 @@ class _ScreenHasilKepribadianBawah17State
       case 'LOGIC OUT':
         return Colors.black;
       case 'MASTER':
-        return Colors.black;
+        return Colors.white;
       case 'CREATIVE IN':
       case 'CREATIVE OUT':
         return Colors.white;
       case 'ACTION IN':
+
       case 'ACTION OUT':
         return Colors.white;
       default:

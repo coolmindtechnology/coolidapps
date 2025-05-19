@@ -124,50 +124,53 @@ class _LogLaporanPageState extends State<LogLaporanPage> {
                 itemCount: provider.logReportData?.data?.length ?? 0, // jumlah dummy
                 itemBuilder: (context, index) {
                   final item = provider.logReportData!.data![index];
-                  return InkWell(
-                    onTap: () {
-                      Nav.to(DetailReportLog(ReportId: item.id.toString()));
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.only(bottom: 16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Text(
-                                item.categoryReports?.name ?? "" ,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 17
+                  return Container(
+                    color: _getColorForContainer(item?.status.toString() ?? ""),
+                    child: InkWell(
+                      onTap: () {
+                        Nav.to(DetailReportLog(ReportId: item.id.toString()));
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                                  item.categoryReports?.name ?? "" ,
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 17
+                                  ),
                                 ),
-                              ),
-                              Spacer(),
-                              Text(
-                                DateFormat('dd MM yyyy').format(DateTime.parse(item.updatedAt.toString())),
-                                style: TextStyle(
-                                  fontSize: 12,
+                                Spacer(),
+                                Text(
+                                  DateFormat('dd MM yyyy').format(DateTime.parse(item.updatedAt.toString())),
+                                  style: TextStyle(
+                                    fontSize: 12,
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                          gapH10,
-                          statusRow(S.of(context).status, item?.status.toString() ?? ""),
-                          statusRow(S.of(context).gambar, item?.media != null ? S.of(context).ada : S.of(context).tidakAda),
-                          statusRow(S.of(context).versiAplikasi, item?.appVersion?.toString() ?? S.of(context).tidakTersedia),
-                          SizedBox(height: 8),
-                          Text(
-                            item.body.toString(),
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Colors.black87,
+                              ],
                             ),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 3,
-                          ),
-                          gapH10,
-                          Divider()
-                        ],
+                            gapH10,
+                            statusRow(S.of(context).status, item?.status.toString() ?? ""),
+                            statusRow(S.of(context).gambar, item?.media != null ? S.of(context).ada : S.of(context).tidakAda),
+                            statusRow(S.of(context).versiAplikasi, item?.appVersion?.toString() ?? S.of(context).tidakTersedia),
+                            SizedBox(height: 8),
+                            Text(
+                              item.body.toString(),
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.black87,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 3,
+                            ),
+                            gapH10,
+                            Divider()
+                          ],
+                        ),
                       ),
                     ),
                   );
@@ -210,4 +213,19 @@ class _LogLaporanPageState extends State<LogLaporanPage> {
       ),
     );
   }
+  Color _getColorForContainer(String type) {
+    switch (type) {
+      case 'on_progress':
+        return Colors.white;
+      case 'done':
+        return Color(0xFFCCFBD3);
+      case 'sent_to_admin':
+        return Color(0xFFFCE4D0);
+      case 'closed':
+        return Colors.red.shade100;
+      default:
+        return Colors.white; // Warna default jika type tidak cocok
+    }
+  }
+
 }

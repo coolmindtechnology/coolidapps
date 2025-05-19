@@ -1,5 +1,6 @@
 import 'package:coolappflutter/data/provider/provider_profiling.dart';
 import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/profiling/profiling%20dashboard.dart';
 import 'package:coolappflutter/presentation/pages/profiling/screen_feature_kepribadian.dart';
 import 'package:coolappflutter/presentation/pages/main/nav_home.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
@@ -42,7 +43,7 @@ class _LoadingPaymentSaldoState extends State<LoadingPaymentSaldo> {
 
             Future.delayed(const Duration(seconds: 3), () {
               widget.onUpdate();
-              Nav.toAll(NavMenuScreen());
+              Nav.toAll(ProfilingDashboard());
             });
           });
           return _buildSuccessWidget(context);
