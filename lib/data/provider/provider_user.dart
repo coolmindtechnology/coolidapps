@@ -8,6 +8,7 @@ import 'package:coolappflutter/data/helpers/either.dart';
 import 'package:coolappflutter/data/helpers/failure.dart';
 import 'package:coolappflutter/data/networks/dio_handler.dart';
 import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
+import 'package:coolappflutter/data/provider/provider_adress.dart';
 import 'package:coolappflutter/data/repositories/repo_user.dart';
 import 'package:coolappflutter/data/response/user/res_address.dart';
 import 'package:coolappflutter/data/response/user/res_category_bug.dart';
@@ -15,12 +16,19 @@ import 'package:coolappflutter/data/response/user/res_check_profile.dart';
 import 'package:coolappflutter/data/response/user/res_get_deetail_report.dart';
 import 'package:coolappflutter/data/response/user/res_get_location_member.dart';
 import 'package:coolappflutter/data/response/user/res_get_log_report.dart';
+import 'package:coolappflutter/data/response/user/res_get_massage.dart';
 import 'package:coolappflutter/data/response/user/res_get_total_saldo.dart';
 import 'package:coolappflutter/data/response/user/res_get_user.dart';
+import 'package:coolappflutter/data/response/user/res_post_close_massage.dart';
 import 'package:coolappflutter/data/response/user/res_report_bug.dart';
+import 'package:coolappflutter/data/response/user/res_send_massage.dart';
 import 'package:coolappflutter/data/response/user/res_update_photo_user.dart';
 import 'package:coolappflutter/data/response/user/res_update_user.dart';
 import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/on_boarding/on_boarding_isi_foto.dart';
+import 'package:coolappflutter/presentation/on_boarding/on_boarding_isi_ktp.dart';
+import 'package:coolappflutter/presentation/pages/main/components/input_code_ref_profilling.dart';
+import 'package:coolappflutter/presentation/pages/user/Setting/Report/log_report.dart';
 import 'package:coolappflutter/presentation/pages/user/screen_profile.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/get_country.dart';
@@ -37,6 +45,7 @@ import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/phone_number.dart';
 import 'package:provider/provider.dart';
 
+import '../../presentation/on_boarding/on_boarding_preview.dart';
 import '../../presentation/pages/auth/component/country_state_city_provider.dart';
 import '../../presentation/pages/auth/component/map_selection.dart';
 import '../locals/preference_handler.dart';
@@ -252,7 +261,7 @@ class ProviderUser extends ChangeNotifier {
   ///   - Notifies listeners.
   bool isLoadingUpdateUser = false;
 
-  Future<void> updateUser(BuildContext context) async {
+  Future<void> updateUser(BuildContext context, String route) async {
     isLoadingUpdateUser = true;
     notifyListeners();
     Either<Failure, ResUpdateUser> response = await repo.updateUser(
@@ -307,20 +316,28 @@ class ProviderUser extends ChangeNotifier {
       }
       if (res.success == true) {
         // await getUser(context);
-        NotificationUtils.showDialogSuccess(context, () async {
-          await getUser(context);
-          Nav.back();
-          Nav.back();
-        },
-            widget: Center(
-              child: Text(
-                S
-                    .of(context)
-                    .successfully_updated_user,
-                textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 16),
-              ),
-            ));
+        if(route == 'updateprofile'){
+          NotificationUtils.showDialogSuccess(context, () async {
+            await getUser(context);
+            Nav.back();
+            Nav.back();
+          },
+              widget: Center(
+                child: Text(
+                  S
+                      .of(context)
+                      .successfully_updated_user,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(fontSize: 16),
+                ),
+              ));
+        } else if (route == 'registrasi'){
+          await AddressPreferences.clearAddress();
+          addressController.text = '';
+          Nav.to(OnboardingKtp());
+        } else if (route == 'identitas'){
+          Nav.to(FotoPage());
+        }
       } else {
         NotificationUtils.showDialogError(context, () {
           Nav.back();
@@ -487,14 +504,11 @@ class ProviderUser extends ChangeNotifier {
   ///   - Calls `getUser` if the update is successful.
   ///   - Notifies listeners.
   Future<void> updateProfileUser(BuildContext context, XFile photo,
-      {Function? onUpdate}) async {
+      {Function? onUpdate, String? route}) async {
     isProfileUser = true;
     notifyListeners();
     Either<Failure, ResUpdateProfile> response =
     await repo.updatePhotoUser(photo);
-
-    isProfileUser = false;
-    notifyListeners();
     response.when(error: (e) {
       NotificationUtils.showDialogError(context, () {
         Nav.back();
@@ -523,14 +537,30 @@ class ProviderUser extends ChangeNotifier {
             style: const TextStyle(fontSize: 16),
           ),
         );
+        isProfileUser = false;
+        notifyListeners();
       }
       if (res.success == true) {
-        NotificationUtils.showSnackbar(
-            S
-                .of(context)
-                .update_photo_profile_success,
-            backgroundColor: primaryColor);
-        await getUser(context);
+        if (route == 'register') {
+          // Nav.toAll(const OnBoardingPreview());
+          Nav.toAll(const InputCodeRefPofilling(route: 'register',));
+          NotificationUtils.showSnackbar(
+              S
+                  .of(context)
+                  .update_photo_profile_success,
+              backgroundColor: primaryColor);
+          await getUser(context);
+          isProfileUser = false;
+          notifyListeners();
+        }
+        // NotificationUtils.showSnackbar(
+        //     S
+        //         .of(context)
+        //         .update_photo_profile_success,
+        //     backgroundColor: primaryColor);
+        // await getUser(context);
+        isProfileUser = false;
+        notifyListeners();
       } else {
         NotificationUtils.showDialogError(context, () {
           Nav.back();
@@ -543,9 +573,11 @@ class ProviderUser extends ChangeNotifier {
             textButton: S
                 .of(context)
                 .back);
+        isProfileUser = false;
+        notifyListeners();
       }
     });
-
+    isProfileUser = false;
     notifyListeners();
   }
 
@@ -891,6 +923,162 @@ class ProviderUser extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  bool isLoadingMassageReport = false;
+  ResGetMassageReport? massageReportData;
+
+  Future<void> getMassageReport(BuildContext context, String? idLog) async {
+    isLoadingMassageReport = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      notifyListeners();
+    });
+
+    Either<Failure, ResGetMassageReport> response = await repo.getMassageRepot(idLog);
+
+    isLoadingMassageReport = false;
+    notifyListeners();
+
+    response.when(
+      error: (failure) {
+        debugPrint("Error fetching massage report");
+        // NotificationUtils.showDialogError(
+        //   context,
+        //       () {
+        //     Nav.back();
+        //   },
+        //   widget: Text(
+        //     failure.message,
+        //     textAlign: TextAlign.center,
+        //     style: const TextStyle(fontSize: 16),
+        //   ),
+        //   textButton: "Back",
+        // );
+      },
+      success: (res) {
+        debugPrint("Massage report fetched successfully");
+        if (res.success == true) {
+          massageReportData = res;
+          notifyListeners();
+          if (kDebugMode) {
+            print("Massage report data: ${massageReportData?.toJson()}");
+          }
+        } else {
+          debugPrint("Failed to fetch massage report");
+        }
+      },
+    );
+
+    notifyListeners();
+  }
+
+
+  bool isLoadingSendMassage = false;
+  ResGetMassage? sendMassageResponse;
+  Future<void> sendMassageReportProvider(
+      BuildContext context, {
+        required String idLog,
+        required String idReceiver,
+        required String message,
+        required File? image,
+      }) async {
+    isLoadingSendMassage = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      notifyListeners();
+    });
+
+    Either<Failure, ResGetMassage> response = await repo.sendMassageReport(
+      idLog: idLog,
+      idReceiver: idReceiver,
+      message: message,
+      image: image,
+    );
+
+    isLoadingSendMassage = false;
+    notifyListeners();
+
+    response.when(
+      error: (failure) {
+        debugPrint("Error sending massage report");
+        NotificationUtils.showDialogError(
+          context,
+              () {
+            Nav.back();
+          },
+          widget: Text(
+            failure.message,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 16),
+          ),
+          textButton: "Back",
+        );
+      },
+      success: (res) {
+        debugPrint("Massage report sent successfully");
+        if (res.success == true) {
+          sendMassageResponse = res;
+          notifyListeners();
+          if (kDebugMode) {
+            print("Send massage response data: ${sendMassageResponse?.toJson()}");
+          }
+        } else {
+          debugPrint("Failed to send massage report");
+        }
+      },
+    );
+
+    notifyListeners();
+  }
+
+  bool isLoadingCloseMassage = false;
+  ResPostCloseMassage? closeMassageResponse;
+
+  Future<void> closeMassageReportProvider(BuildContext context, String? id) async {
+    isLoadingCloseMassage = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      notifyListeners();
+    });
+
+    Either<Failure, ResPostCloseMassage> response = await repo.closeMassageRepot(id);
+
+    isLoadingCloseMassage = false;
+    notifyListeners();
+
+    response.when(
+      error: (failure) {
+        debugPrint("Error closing massage report");
+        NotificationUtils.showDialogError(
+          context,
+              () {
+            Nav.back();
+          },
+          widget: Text(
+            failure.message,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 16),
+          ),
+          textButton: "Back",
+        );
+      },
+      success: (res) {
+        debugPrint("Massage report closed successfully");
+        if (res.success == true) {
+          closeMassageResponse = res;
+          Nav.toAll(LogLaporanPage());
+          notifyListeners();
+          if (kDebugMode) {
+            print("Close massage response data: ${closeMassageResponse?.toJson()}");
+          }
+        } else {
+          debugPrint("Failed to close massage report");
+        }
+      },
+    );
+
+    notifyListeners();
+  }
+
+
+
 
 
 }

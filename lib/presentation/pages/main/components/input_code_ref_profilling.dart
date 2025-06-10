@@ -12,7 +12,8 @@ import '../../../widgets/button_primary.dart';
 import '../../../widgets/custom_input_field.dart';
 
 class InputCodeRefPofilling extends StatefulWidget {
-  const InputCodeRefPofilling({super.key});
+  final String? route;
+  const InputCodeRefPofilling({super.key,this.route});
 
   @override
   State<InputCodeRefPofilling> createState() => _InputCodeRefPofillingState();
@@ -200,7 +201,7 @@ class _InputCodeRefPofillingState extends State<InputCodeRefPofilling> {
                                           },
                                         )
                                       : Center(
-                                          child: Text(S.of(context).no_data),
+                                          child: Text(S.of(context).tidakadaaff),
                                         )),
                             ),
                       Stack(
@@ -288,8 +289,14 @@ class _InputCodeRefPofillingState extends State<InputCodeRefPofilling> {
                             radius: 8,
                             elevation: 0.0,
                             onPress: () async {
-                              await valuePro.upgradeToMember(
-                                  context, valuePro.controllerProfillingCode);
+                              if(widget.route == "register"){
+                                await valuePro.upgradeToMember(
+                                    context, valuePro.controllerProfillingCode,route: 'register');
+                              }else{
+                                await valuePro.upgradeToMember(
+                                    context, valuePro.controllerProfillingCode);
+                              }
+
                               // if (valuePro
                               //     .controllerProfillingCode.text.isNotEmpty) {
                               //   await valuePro.upgradeToMember(

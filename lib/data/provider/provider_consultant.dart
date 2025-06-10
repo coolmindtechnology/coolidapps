@@ -9,13 +9,16 @@ import 'package:coolappflutter/data/response/consultant/res_check_session.dart';
 import 'package:coolappflutter/data/response/consultant/res_dashboard_consultant.dart'
     as dashboard;
 import 'package:coolappflutter/data/response/consultant/res_dashboard_consultant.dart';
+import 'package:coolappflutter/data/response/consultant/res_follow_consultant.dart';
 import 'package:coolappflutter/data/response/consultant/res_get_comissen.dart';
 import 'package:coolappflutter/data/response/consultant/res_get_participant.dart';
 import 'package:coolappflutter/data/response/consultant/res_get_participant.dart'
     as participantlist;
 import 'package:coolappflutter/data/response/consultant/res_get_term.dart';
+import 'package:coolappflutter/data/response/consultant/res_get_topic.dart';
 import 'package:coolappflutter/data/response/consultant/res_regist_consultant.dart';
 import 'package:coolappflutter/data/response/consultant/res_update_status.dart';
+import 'package:coolappflutter/data/response/consultation/res_detail_consultant.dart';
 import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/pages/konsultasi/konsultant/konsultant_dashboard.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
@@ -254,6 +257,195 @@ class ConsultantProvider extends ChangeNotifier {
     );
     notifyListeners();
   }
+
+  //===========================================fungsi get detail konsultant==========================================/
+  bool isLoadingDetailConsultant = false;
+  DataDetailConsultant? detailConsultantData;
+  Future<void> getDetailConsultantData(BuildContext context, String id) async {
+    // Set loading state
+    isLoadingDetailConsultant = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      notifyListeners();
+    });
+
+    // Debug log
+    debugPrint("Fetching detail consultant data from API...");
+
+    // Call API (repo)
+    Either<Failure, ResponseDetailConsultant> response =
+    await repoConsultant.getDetailConsultant(id);
+
+    // Update loading state
+    isLoadingDetailConsultant = false;
+    notifyListeners();
+
+    // Handle response
+    response.when(
+      error: (failure) {
+        debugPrint("Error fetching detail consultant data");
+        NotificationUtils.showDialogError(
+          context,
+              () {
+            Nav.back();
+          },
+          widget: Text(
+            failure.message,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 16),
+          ),
+          textButton: "Back",
+        );
+      },
+      success: (res) async {
+        debugPrint("Detail consultant data fetched successfully");
+        if (res.success == true) {
+          detailConsultantData = res.data;
+          debugPrint("API response sukses: ${res.data?.toJson()}");
+          notifyListeners();
+        } else {
+          debugPrint("API response gagal: ${res.data}");
+          debugPrint("Failed to fetch detail consultant data");
+        }
+      },
+    );
+
+    // Final notify
+    notifyListeners();
+  }
+
+
+  //=========================================fungsi get topic consultant =============================================/
+  bool isLoadingTopicConsultant = false;
+  List<RecommendedTopic>? topicConsultantData;
+  Future<void> getTopicConsultantData(BuildContext context, String id) async {
+    // Set loading state
+    isLoadingTopicConsultant = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      notifyListeners();
+    });
+
+    // Debug log
+    debugPrint("Fetching topic consultant data from API...");
+
+    // Call API (repo)
+    Either<Failure, ResponseGetTopic> response =
+    await repoConsultant.getTopicConsultant(id);
+
+    // Update loading state
+    isLoadingTopicConsultant = false;
+    notifyListeners();
+
+    // Handle response
+    response.when(
+      error: (failure) {
+        debugPrint("Error fetching topic consultant data");
+        NotificationUtils.showDialogError(
+          context,
+              () {
+            Nav.back();
+          },
+          widget: Text(
+            failure.message,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 16),
+          ),
+          textButton: "Back",
+        );
+      },
+      success: (res) async {
+        debugPrint("Topic consultant data fetched successfully");
+        if (res.success == true) {
+          topicConsultantData = res.data;
+          debugPrint("API response sukses: ${res.data}");
+          notifyListeners();
+        } else {
+          debugPrint("API response gagal: ${res.data}");
+          debugPrint("Failed to fetch topic consultant data");
+        }
+      },
+    );
+
+    // Final notify
+    notifyListeners();
+  }
+
+
+  //=========================================fungsi follow konsultant ============================================//
+  bool isLoadingFollow = false;
+  DataFollowConsultant? followData;
+  Future<void> followConsultant(BuildContext context, String id) async {
+    // Set loading state
+    isLoadingFollow = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      notifyListeners();
+    });
+
+    // Panggil repo
+    debugPrint("Calling API to follow consultant...");
+    Either<Failure, ResponseFollowConsultant> response =
+    await repoConsultant.followConsultant(id);
+
+    // Update loading state
+    isLoadingFollow = false;
+    notifyListeners();
+
+    // Handle response
+    response.when(
+      error: (failure) {
+        debugPrint("Error following consultant: ${failure.message}");
+        NotificationUtils.showDialogError(
+          context,
+              () {
+            Nav.back();
+          },
+          widget: Text(
+            failure.message,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 16),
+          ),
+          textButton: "Back", // Ganti l10n jika ada
+        );
+      },
+      success: (res) async {
+        debugPrint("Follow consultant response fetched successfully");
+        if (res.success == true) {
+          followData = res.data;
+          debugPrint("API response sukses: ${res.data}");
+          NotificationUtils.showDialogSuccess(
+            context,
+                () {
+              Nav.back();
+            },
+            widget: Text(
+              res?.message ?? "",
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 16),
+            ),
+            textButton: "Back", // Ganti l10n jika ada
+          );
+          notifyListeners();
+        } else {
+          debugPrint("API response gagal: ${res.message}");
+          NotificationUtils.showDialogError(
+            context,
+                () {
+              Nav.back();
+            },
+            widget: Text(
+              res.message ?? "Gagal follow consultant",
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 16),
+            ),
+            textButton: "Back", // Ganti l10n jika ada
+          );
+        }
+      },
+    );
+    notifyListeners();
+  }
+
+
+
 
   //==========================================fungsi get data term and condition ====================================/
   Future<void> getTermsAndConditions(BuildContext context) async {

@@ -349,6 +349,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Cuenta Creada Exitosamente"),
         "achieve_success_in_life": MessageLookupByLibrary.simpleMessage(
             "Alcanza el éxito en la vida\na través de la mejor aplicación de personalidad"),
+        "action": MessageLookupByLibrary.simpleMessage("Activo"),
         "ada": MessageLookupByLibrary.simpleMessage("Disponible"),
         "add": MessageLookupByLibrary.simpleMessage("Añadir"),
         "add_data_first": MessageLookupByLibrary.simpleMessage(
@@ -371,6 +372,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "El agente ya tiene el número máximo de miembros"),
         "agree_terms_conditions": MessageLookupByLibrary.simpleMessage(
             "Al leer esto, acepto los términos y condiciones"),
+        "ajakan": MessageLookupByLibrary.simpleMessage(
+            "¿Quieres saber qué tipo de cerebro tienes? ¡Crea tu perfil ahora!"),
         "ajakan_mengenal_diri":
             MessageLookupByLibrary.simpleMessage("Vamos a conocernos mejor"),
         "akandidengar": MessageLookupByLibrary.simpleMessage("Escuchará : "),
@@ -393,7 +396,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "asset_type": MessageLookupByLibrary.simpleMessage("Tipo de Activo"),
         "attention": MessageLookupByLibrary.simpleMessage("¡ATENCIÓN!"),
         "aura_type": MessageLookupByLibrary.simpleMessage("Tipo de Aura"),
+        "ayo_selfie": MessageLookupByLibrary.simpleMessage(
+            "¡Vamos a tomarnos una selfie!"),
+        "baca_buku": MessageLookupByLibrary.simpleMessage("Leer libro"),
         "back": MessageLookupByLibrary.simpleMessage("Atrás"),
+        "balas": MessageLookupByLibrary.simpleMessage("Responder"),
         "bank_account": MessageLookupByLibrary.simpleMessage("Cuenta bancaria"),
         "bank_account_not_found": MessageLookupByLibrary.simpleMessage(
             "Cuenta bancaria no encontrada"),
@@ -413,6 +420,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "brain_type": MessageLookupByLibrary.simpleMessage("Tipo de Cerebro"),
         "brain_type_label":
             MessageLookupByLibrary.simpleMessage("Tipo de Cerebro"),
+        "buku_premium": MessageLookupByLibrary.simpleMessage("Libro premium"),
         "calculation_results":
             MessageLookupByLibrary.simpleMessage("Resultados del Perfil"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancelar"),
@@ -423,6 +431,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "cannot_be_empty":
             MessageLookupByLibrary.simpleMessage("No puede estar vacío"),
         "career": MessageLookupByLibrary.simpleMessage("Carrera"),
+        "cari_judul_buku":
+            MessageLookupByLibrary.simpleMessage("Buscar título del libro"),
+        "cek_form_register": MessageLookupByLibrary.simpleMessage(
+            "Por favor, revise nuevamente el formulario de registro"),
         "ceritaAnda": MessageLookupByLibrary.simpleMessage("Tu historia"),
         "certificate": MessageLookupByLibrary.simpleMessage("Certificado"),
         "change_language":
@@ -490,6 +502,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Crea una nueva contraseña para\niniciar sesión en la aplicación"),
         "create_password":
             MessageLookupByLibrary.simpleMessage("Crear Contraseña"),
+        "creative": MessageLookupByLibrary.simpleMessage("Creativo"),
         "credit_card":
             MessageLookupByLibrary.simpleMessage("Tarjeta de Crédito"),
         "currency": MessageLookupByLibrary.simpleMessage("Pts"),
@@ -538,6 +551,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Correo Electrónico"),
         "email_not_registered": MessageLookupByLibrary.simpleMessage(
             "El correo electrónico ingresado no está registrado en el sistema"),
+        "emotion": MessageLookupByLibrary.simpleMessage("Emocional"),
         "enjoy_all_access":
             MessageLookupByLibrary.simpleMessage("Disfruta de todo el acceso"),
         "enter_a_value_between_2_and_10":
@@ -588,11 +602,14 @@ class MessageLookup extends MessageLookupByLibrary {
             "La versión gratuita solo permite escuchar los primeros 5 minutos. Por favor, suscríbete para escuchar la versión completa."),
         "from": MessageLookupByLibrary.simpleMessage("De"),
         "gambar": MessageLookupByLibrary.simpleMessage("Imagen:"),
+        "ganti_foto": MessageLookupByLibrary.simpleMessage("Cambiar foto"),
         "get_know_yourself": MessageLookupByLibrary.simpleMessage(
             "Conócete más rápido, con precisión y exactitud"),
         "get_lots_of_benefits_by_subcribing":
             MessageLookupByLibrary.simpleMessage(
                 "Obtén muchos beneficios al suscribirte"),
+        "gratis_untuk_kamu":
+            MessageLookupByLibrary.simpleMessage("¡Gratis para ti!"),
         "great_figures_with_same_brain_type":
             MessageLookupByLibrary.simpleMessage(
                 "¡Genial! Hay figuras con el mismo tipo de cerebro que tú"),
@@ -637,8 +654,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "is_adalah": MessageLookupByLibrary.simpleMessage("es"),
         "is_the_data_entered_correct": MessageLookupByLibrary.simpleMessage(
             "¿Son correctos los datos ingresados?"),
+        "isiIdentitas":
+            MessageLookupByLibrary.simpleMessage("Complete su identidad"),
         "isiSemuaKolom":
             MessageLookupByLibrary.simpleMessage("¡Complete todos los campos!"),
+        "isiTanggalLahir": MessageLookupByLibrary.simpleMessage(
+            "Introduce tu fecha de nacimiento"),
+        "isi_identitas":
+            MessageLookupByLibrary.simpleMessage("Ingrese su identidad"),
+        "isi_ktp": MessageLookupByLibrary.simpleMessage(
+            "Ingrese su número de identificación"),
+        "isi_nama_lengkap":
+            MessageLookupByLibrary.simpleMessage("Ingrese su nombre completo"),
         "jadi_anggota_pada": MessageLookupByLibrary.simpleMessage("Se unió el"),
         "join_now": MessageLookupByLibrary.simpleMessage(
             "¡Únase ahora y comience a ganar ingresos adicionales!"),
@@ -658,6 +685,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "komisi": MessageLookupByLibrary.simpleMessage("Comisión"),
         "komisiKu": MessageLookupByLibrary.simpleMessage("Mi Comisión"),
         "komisiku": MessageLookupByLibrary.simpleMessage("Mi Comisión"),
+        "lakukanSekarang": MessageLookupByLibrary.simpleMessage("Hazlo ahora"),
         "lakukan_pembayaran":
             MessageLookupByLibrary.simpleMessage("Realizar pago"),
         "lakukan_pembayaran_pertanyaan":
@@ -671,6 +699,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "lets_develop_ourselves":
             MessageLookupByLibrary.simpleMessage("Desarrollemos juntos"),
         "list": MessageLookupByLibrary.simpleMessage("Lista"),
+        "list_semua_buku_gratis": MessageLookupByLibrary.simpleMessage(
+            "Lista de todos los libros gratis"),
+        "list_semua_buku_premium": MessageLookupByLibrary.simpleMessage(
+            "Lista de todos los libros premium"),
         "listen_brain_40_times": MessageLookupByLibrary.simpleMessage(
             "Por favor, escucha Brain según tu perfil 40 veces primero. Luego podrás suscribirte a otras opciones."),
         "loading": MessageLookupByLibrary.simpleMessage("Cargando..."),
@@ -680,8 +712,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Registro de sus problemas"),
         "logging_in":
             MessageLookupByLibrary.simpleMessage("Iniciando sesión..."),
+        "logic": MessageLookupByLibrary.simpleMessage("Lógico"),
         "logout": MessageLookupByLibrary.simpleMessage("Cerrar Sesión"),
         "manual_input": MessageLookupByLibrary.simpleMessage("Entrada manual"),
+        "master": MessageLookupByLibrary.simpleMessage("Experto"),
         "max_deposit": MessageLookupByLibrary.simpleMessage("Depósito máximo"),
         "max_withdrawal": MessageLookupByLibrary.simpleMessage("Retiro máximo"),
         "maximum_10_profiling_data_for_1x_transaction": m0,
@@ -701,9 +735,13 @@ class MessageLookup extends MessageLookupByLibrary {
             "Monto mínimo de retiro: 10x Comisión"),
         "monthly": MessageLookupByLibrary.simpleMessage("Mensual"),
         "motivasi": MessageLookupByLibrary.simpleMessage("1. Motivación"),
+        "mulai": MessageLookupByLibrary.simpleMessage(
+            "Empieza a conocer tu personalidad"),
         "multiple": MessageLookupByLibrary.simpleMessage("Múltiple"),
         "my_balance": MessageLookupByLibrary.simpleMessage("Mi Saldo"),
         "name": MessageLookupByLibrary.simpleMessage("Nombre"),
+        "nanti": MessageLookupByLibrary.simpleMessage("Más tarde"),
+        "nantiSaja": MessageLookupByLibrary.simpleMessage("Más tarde"),
         "negative_balance_description": MessageLookupByLibrary.simpleMessage(
             "El saldo negativo se obtiene cuando un miembro realiza un perfilado pero excede el saldo disponible del afiliado. Esta diferencia se considera como una deuda (saldo negativo). Cuando el afiliado recarga, su saldo se deduce automáticamente según el saldo negativo."),
         "new_profiling":
@@ -729,6 +767,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Escuchando ahora:"),
         "number_not_registered": MessageLookupByLibrary.simpleMessage(
             "El número ingresado no está registrado en el sistema"),
+        "oke": MessageLookupByLibrary.simpleMessage("De acuerdo"),
         "orange": MessageLookupByLibrary.simpleMessage("Naranja"),
         "order_id": MessageLookupByLibrary.simpleMessage("ID de Pedido"),
         "other": MessageLookupByLibrary.simpleMessage("Otros"),
@@ -795,8 +834,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "phone_number": MessageLookupByLibrary.simpleMessage("No. de Teléfono"),
         "pilihGambar": MessageLookupByLibrary.simpleMessage(
             "Elija una imagen de la galería o la cámara"),
+        "pilihGolonganDarah":
+            MessageLookupByLibrary.simpleMessage("Elige tu tipo de sangre"),
         "pilihKategoriDanDeskripsi": MessageLookupByLibrary.simpleMessage(
             "Seleccione una categoría e introduzca una descripción"),
+        "pin_lokasi": MessageLookupByLibrary.simpleMessage(
+            "Por favor, fije primero su ubicación"),
         "play_audio": MessageLookupByLibrary.simpleMessage("Reproducir Audio"),
         "please_check_again_on_form": MessageLookupByLibrary.simpleMessage(
             "Por favor, revisa nuevamente el formulario"),
@@ -820,6 +863,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "post": MessageLookupByLibrary.simpleMessage("Publicar"),
         "posting": MessageLookupByLibrary.simpleMessage("Publicando"),
         "premium": MessageLookupByLibrary.simpleMessage("Premium"),
+        "preview": MessageLookupByLibrary.simpleMessage("Vista previa"),
         "proceed": MessageLookupByLibrary.simpleMessage("Seguir"),
         "process": MessageLookupByLibrary.simpleMessage("Procesar"),
         "profil_mirip": MessageLookupByLibrary.simpleMessage(
@@ -837,6 +881,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "provideYourReason":
             MessageLookupByLibrary.simpleMessage("Proporcione su razón"),
         "qr_code": MessageLookupByLibrary.simpleMessage("Código QR"),
+        "rating": MessageLookupByLibrary.simpleMessage("Calificación"),
         "reach_your_brains_maximum_potential": MessageLookupByLibrary.simpleMessage(
             "Alcanza el máximo potencial de tu cerebro escuchando grabaciones de audio especiales que estimulan y mejoran diversas funciones cognitivas. Escúchalas diariamente de forma gratuita."),
         "read": MessageLookupByLibrary.simpleMessage("Leer"),
@@ -897,6 +942,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "scan_qr_code":
             MessageLookupByLibrary.simpleMessage("Escanear código QR"),
         "see_all": MessageLookupByLibrary.simpleMessage("Ver todo"),
+        "selangkahLagi": MessageLookupByLibrary.simpleMessage(
+            "Un paso más para conocer más sobre ti"),
         "select": MessageLookupByLibrary.simpleMessage("Seleccionar"),
         "select_bank":
             MessageLookupByLibrary.simpleMessage("Seleccionar tipo de banco"),
@@ -979,6 +1026,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "thirty_days_ago": MessageLookupByLibrary.simpleMessage("Hace 30 días"),
         "tidakAda": MessageLookupByLibrary.simpleMessage("No hay"),
         "tidakTersedia": MessageLookupByLibrary.simpleMessage("No disponible"),
+        "tidakadaaff": MessageLookupByLibrary.simpleMessage(
+            "No hay ningún afiliado cerca, continúa"),
         "tipe_harta":
             MessageLookupByLibrary.simpleMessage("¡Mi Tipo de Riqueza!"),
         "tipe_otak":
@@ -1005,6 +1054,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Total de dinero real"),
         "transaction": MessageLookupByLibrary.simpleMessage("Transacción"),
         "treasure_type": MessageLookupByLibrary.simpleMessage("Tipo de Tesoro"),
+        "tutup_laporan": MessageLookupByLibrary.simpleMessage("Cerrar informe"),
         "type_ex":
             MessageLookupByLibrary.simpleMessage("Escribe, por ejemplo."),
         "type_figure": m4,

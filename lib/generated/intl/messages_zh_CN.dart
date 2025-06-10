@@ -319,6 +319,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "account_success": MessageLookupByLibrary.simpleMessage("账号成功"),
         "achieve_success_in_life":
             MessageLookupByLibrary.simpleMessage("通过最佳性格应用，获得人生成功"),
+        "action": MessageLookupByLibrary.simpleMessage("行动力强"),
         "ada": MessageLookupByLibrary.simpleMessage("有"),
         "add": MessageLookupByLibrary.simpleMessage("添加"),
         "add_data_first":
@@ -337,6 +338,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "agent_max_members": MessageLookupByLibrary.simpleMessage("代理已达到最大成员数"),
         "agree_terms_conditions":
             MessageLookupByLibrary.simpleMessage("阅读此内容即表示我同意条款和条件"),
+        "ajakan":
+            MessageLookupByLibrary.simpleMessage("想知道你的大脑类型吗？立即创建你的个人档案吧！"),
         "ajakan_mengenal_diri":
             MessageLookupByLibrary.simpleMessage("来吧，更深入地了解自己"),
         "akandidengar": MessageLookupByLibrary.simpleMessage("即将被听见"),
@@ -354,7 +357,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "asset_type": MessageLookupByLibrary.simpleMessage("资产类型"),
         "attention": MessageLookupByLibrary.simpleMessage("注意！"),
         "aura_type": MessageLookupByLibrary.simpleMessage("气场类型"),
+        "ayo_selfie": MessageLookupByLibrary.simpleMessage("来拍张自拍吧！"),
+        "baca_buku": MessageLookupByLibrary.simpleMessage("阅读书籍"),
         "back": MessageLookupByLibrary.simpleMessage("返回"),
+        "balas": MessageLookupByLibrary.simpleMessage("回复"),
         "bank_account": MessageLookupByLibrary.simpleMessage("银行账户"),
         "bank_account_not_found":
             MessageLookupByLibrary.simpleMessage("未找到银行账户"),
@@ -369,6 +375,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "brain_subscription": MessageLookupByLibrary.simpleMessage("脑部订阅"),
         "brain_type": MessageLookupByLibrary.simpleMessage("大脑类型"),
         "brain_type_label": MessageLookupByLibrary.simpleMessage("大脑类型"),
+        "buku_premium": MessageLookupByLibrary.simpleMessage("高级书籍"),
         "calculation_results": MessageLookupByLibrary.simpleMessage("分析结果"),
         "cancel": MessageLookupByLibrary.simpleMessage("取消"),
         "cancellation_changes": MessageLookupByLibrary.simpleMessage(
@@ -377,6 +384,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("无法接受咨询"),
         "cannot_be_empty": MessageLookupByLibrary.simpleMessage("不能为空"),
         "career": MessageLookupByLibrary.simpleMessage("职业"),
+        "cari_judul_buku": MessageLookupByLibrary.simpleMessage("搜索书名"),
+        "cek_form_register": MessageLookupByLibrary.simpleMessage("请再次检查注册表格"),
         "ceritaAnda": MessageLookupByLibrary.simpleMessage("您的故事"),
         "certificate": MessageLookupByLibrary.simpleMessage("证书"),
         "change_language": MessageLookupByLibrary.simpleMessage("更改语言"),
@@ -430,6 +439,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "create_new_password":
             MessageLookupByLibrary.simpleMessage("创建您的新密码以\n登录应用"),
         "create_password": MessageLookupByLibrary.simpleMessage("创建密码"),
+        "creative": MessageLookupByLibrary.simpleMessage("有创造力"),
         "credit_card": MessageLookupByLibrary.simpleMessage("信用卡"),
         "current_password": MessageLookupByLibrary.simpleMessage("当前密码"),
         "customer": MessageLookupByLibrary.simpleMessage("客户"),
@@ -466,6 +476,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("电子邮件"),
         "email_not_registered":
             MessageLookupByLibrary.simpleMessage("输入的电子邮件未在系统中注册"),
+        "emotion": MessageLookupByLibrary.simpleMessage("情感丰富"),
         "enjoy_all_access": MessageLookupByLibrary.simpleMessage("享受所有访问权限"),
         "enter_a_value_between_2_and_10":
             MessageLookupByLibrary.simpleMessage("请输入2到10之间的值"),
@@ -507,10 +518,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("免费版仅可听前5分钟，订阅后可听完整内容"),
         "from": MessageLookupByLibrary.simpleMessage("来自"),
         "gambar": MessageLookupByLibrary.simpleMessage("图片："),
+        "ganti_foto": MessageLookupByLibrary.simpleMessage("更换照片"),
         "get_know_yourself":
             MessageLookupByLibrary.simpleMessage("更快、更准、更精确地了解自己"),
         "get_lots_of_benefits_by_subcribing":
             MessageLookupByLibrary.simpleMessage("通过订阅获取大量福利"),
+        "gratis_untuk_kamu": MessageLookupByLibrary.simpleMessage("免费送给你！"),
         "great_figures_with_same_brain_type":
             MessageLookupByLibrary.simpleMessage("太棒了！有与您相同大脑类型的人物！"),
         "green": MessageLookupByLibrary.simpleMessage("绿色"),
@@ -545,7 +558,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "is_adalah": MessageLookupByLibrary.simpleMessage("是"),
         "is_the_data_entered_correct":
             MessageLookupByLibrary.simpleMessage("输入的数据是否正确？"),
+        "isiIdentitas": MessageLookupByLibrary.simpleMessage("填写您的身份信息"),
         "isiSemuaKolom": MessageLookupByLibrary.simpleMessage("请填写所有字段！"),
+        "isiTanggalLahir": MessageLookupByLibrary.simpleMessage("输入你的出生日期"),
+        "isi_identitas": MessageLookupByLibrary.simpleMessage("填写您的身份信息"),
+        "isi_ktp": MessageLookupByLibrary.simpleMessage("填写您的身份证号码"),
+        "isi_nama_lengkap": MessageLookupByLibrary.simpleMessage("填写您的全名"),
         "jadi_anggota_pada": MessageLookupByLibrary.simpleMessage("加入于"),
         "join_now": MessageLookupByLibrary.simpleMessage("立即加入，开始赚取额外收入！"),
         "just": MessageLookupByLibrary.simpleMessage("仅"),
@@ -562,6 +580,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "komisi": MessageLookupByLibrary.simpleMessage("佣金"),
         "komisiKu": MessageLookupByLibrary.simpleMessage("我的佣金"),
         "komisiku": MessageLookupByLibrary.simpleMessage("我的佣金"),
+        "lakukanSekarang": MessageLookupByLibrary.simpleMessage("现在就做"),
         "lakukan_pembayaran": MessageLookupByLibrary.simpleMessage("进行付款"),
         "lakukan_pembayaran_pertanyaan":
             MessageLookupByLibrary.simpleMessage("进行付款？"),
@@ -573,14 +592,20 @@ class MessageLookup extends MessageLookupByLibrary {
         "lets_develop_ourselves":
             MessageLookupByLibrary.simpleMessage("让我们一起发展"),
         "list": MessageLookupByLibrary.simpleMessage("列表"),
+        "list_semua_buku_gratis":
+            MessageLookupByLibrary.simpleMessage("所有免费书籍列表"),
+        "list_semua_buku_premium":
+            MessageLookupByLibrary.simpleMessage("所有高级书籍列表"),
         "listen_brain_40_times": MessageLookupByLibrary.simpleMessage(
             "请先根据您的性格听40次脑部内容，然后您可以订阅其他内容。"),
         "loading": MessageLookupByLibrary.simpleMessage("加载中..."),
         "logLaporan": MessageLookupByLibrary.simpleMessage("日志报告"),
         "logPermasalahanAnda": MessageLookupByLibrary.simpleMessage("您的问题日志"),
         "logging_in": MessageLookupByLibrary.simpleMessage("正在登录..."),
+        "logic": MessageLookupByLibrary.simpleMessage("逻辑性强"),
         "logout": MessageLookupByLibrary.simpleMessage("登出"),
         "manual_input": MessageLookupByLibrary.simpleMessage("手动输入"),
+        "master": MessageLookupByLibrary.simpleMessage("大师"),
         "max_deposit": MessageLookupByLibrary.simpleMessage("最高存款"),
         "max_withdrawal": MessageLookupByLibrary.simpleMessage("最高提现"),
         "maximum_10_profiling_data_for_1x_transaction": m0,
@@ -597,9 +622,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("最低提款金额：10倍佣金"),
         "monthly": MessageLookupByLibrary.simpleMessage("每月"),
         "motivasi": MessageLookupByLibrary.simpleMessage("1. 动力"),
+        "mulai": MessageLookupByLibrary.simpleMessage("开始了解你的个性"),
         "multiple": MessageLookupByLibrary.simpleMessage("多个"),
         "my_balance": MessageLookupByLibrary.simpleMessage("我的余额"),
         "name": MessageLookupByLibrary.simpleMessage("姓名"),
+        "nanti": MessageLookupByLibrary.simpleMessage("稍后"),
+        "nantiSaja": MessageLookupByLibrary.simpleMessage("稍后"),
         "negative_balance_description": MessageLookupByLibrary.simpleMessage(
             "负余额是会员分析时余额不足所产生的债务。当联盟成员充值时，余额会自动扣除负余额。"),
         "new_profiling": MessageLookupByLibrary.simpleMessage("新建画像"),
@@ -621,6 +649,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "now_listening": MessageLookupByLibrary.simpleMessage("当前正在收听："),
         "number_not_registered":
             MessageLookupByLibrary.simpleMessage("输入的号码未在系统中注册"),
+        "oke": MessageLookupByLibrary.simpleMessage("好的"),
         "orange": MessageLookupByLibrary.simpleMessage("橙色"),
         "order_id": MessageLookupByLibrary.simpleMessage("订单编号"),
         "other": MessageLookupByLibrary.simpleMessage("其他"),
@@ -671,8 +700,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("请出示此二维码，以便简化您的关联流程。"),
         "phone_number": MessageLookupByLibrary.simpleMessage("手机号"),
         "pilihGambar": MessageLookupByLibrary.simpleMessage("从相册或相机选择图片"),
+        "pilihGolonganDarah": MessageLookupByLibrary.simpleMessage("选择你的血型"),
         "pilihKategoriDanDeskripsi":
             MessageLookupByLibrary.simpleMessage("请选择类别并输入描述"),
+        "pin_lokasi": MessageLookupByLibrary.simpleMessage("请先标记您的位置"),
         "play_audio": MessageLookupByLibrary.simpleMessage("播放音频"),
         "please_check_again_on_form":
             MessageLookupByLibrary.simpleMessage("请再次检查表单"),
@@ -693,6 +724,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "post": MessageLookupByLibrary.simpleMessage("帖子"),
         "posting": MessageLookupByLibrary.simpleMessage("发布"),
         "premium": MessageLookupByLibrary.simpleMessage("高级"),
+        "preview": MessageLookupByLibrary.simpleMessage("预览"),
         "proceed": MessageLookupByLibrary.simpleMessage("继续"),
         "process": MessageLookupByLibrary.simpleMessage("处理"),
         "profil_mirip": MessageLookupByLibrary.simpleMessage("我的档案像谁？"),
@@ -706,6 +738,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("您已成功取消参与CoolApp联盟计划"),
         "provideYourReason": MessageLookupByLibrary.simpleMessage("提供您的理由"),
         "qr_code": MessageLookupByLibrary.simpleMessage("二维码"),
+        "rating": MessageLookupByLibrary.simpleMessage("评分"),
         "reach_your_brains_maximum_potential":
             MessageLookupByLibrary.simpleMessage(
                 "通过收听特殊的音频录音来激发和增强各种认知功能，释放大脑的最大潜能。每天免费收听。"),
@@ -749,6 +782,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "scan_qr": MessageLookupByLibrary.simpleMessage("扫描二维码"),
         "scan_qr_code": MessageLookupByLibrary.simpleMessage("扫描二维码"),
         "see_all": MessageLookupByLibrary.simpleMessage("查看全部"),
+        "selangkahLagi":
+            MessageLookupByLibrary.simpleMessage("只差一步即可了解更多关于自己的信息"),
         "select": MessageLookupByLibrary.simpleMessage("选择"),
         "select_bank": MessageLookupByLibrary.simpleMessage("选择银行"),
         "select_bank_account": MessageLookupByLibrary.simpleMessage("选择银行账户"),
@@ -813,6 +848,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "thirty_days_ago": MessageLookupByLibrary.simpleMessage("30天前"),
         "tidakAda": MessageLookupByLibrary.simpleMessage("没有"),
         "tidakTersedia": MessageLookupByLibrary.simpleMessage("不可用"),
+        "tidakadaaff": MessageLookupByLibrary.simpleMessage("附近没有推荐人，请继续。"),
         "tipe_harta": MessageLookupByLibrary.simpleMessage("我的财富类型！"),
         "tipe_otak": MessageLookupByLibrary.simpleMessage("我的大脑类型！"),
         "tipe_pola": MessageLookupByLibrary.simpleMessage("模式类型"),
@@ -830,6 +866,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "total_real_money": MessageLookupByLibrary.simpleMessage("总真实货币"),
         "transaction": MessageLookupByLibrary.simpleMessage("交易"),
         "treasure_type": MessageLookupByLibrary.simpleMessage("财富类型"),
+        "tutup_laporan": MessageLookupByLibrary.simpleMessage("关闭报告"),
         "type_ex": MessageLookupByLibrary.simpleMessage("输入，例如。"),
         "type_figure": m4,
         "unauthorized": MessageLookupByLibrary.simpleMessage("未授权，请重新登录。"),

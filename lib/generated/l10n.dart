@@ -6893,6 +6893,336 @@ class S {
       args: [],
     );
   }
+
+  /// `Input your Identity`
+  String get isiIdentitas {
+    return Intl.message(
+      'Input your Identity',
+      name: 'isiIdentitas',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `There is no affiliate nearby, please continue`
+  String get tidakadaaff {
+    return Intl.message(
+      'There is no affiliate nearby, please continue',
+      name: 'tidakadaaff',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Creative`
+  String get creative {
+    return Intl.message(
+      'Creative',
+      name: 'creative',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Action`
+  String get action {
+    return Intl.message(
+      'Action',
+      name: 'action',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Master`
+  String get master {
+    return Intl.message(
+      'Master',
+      name: 'master',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Emotion`
+  String get emotion {
+    return Intl.message(
+      'Emotion',
+      name: 'emotion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Logic`
+  String get logic {
+    return Intl.message(
+      'Logic',
+      name: 'logic',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start to Recognize Your Personality`
+  String get mulai {
+    return Intl.message(
+      'Start to Recognize Your Personality',
+      name: 'mulai',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Want to know your brain type? Let's create your profile now!`
+  String get ajakan {
+    return Intl.message(
+      'Want to know your brain type? Let\'s create your profile now!',
+      name: 'ajakan',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Later`
+  String get nantiSaja {
+    return Intl.message(
+      'Later',
+      name: 'nantiSaja',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Do it Now`
+  String get lakukanSekarang {
+    return Intl.message(
+      'Do it Now',
+      name: 'lakukanSekarang',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your birth date`
+  String get isiTanggalLahir {
+    return Intl.message(
+      'Enter your birth date',
+      name: 'isiTanggalLahir',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `One more step to learn about yourself`
+  String get selangkahLagi {
+    return Intl.message(
+      'One more step to learn about yourself',
+      name: 'selangkahLagi',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose your blood type`
+  String get pilihGolonganDarah {
+    return Intl.message(
+      'Choose your blood type',
+      name: 'pilihGolonganDarah',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Later`
+  String get nanti {
+    return Intl.message(
+      'Later',
+      name: 'nanti',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Let's take a selfie!`
+  String get ayo_selfie {
+    return Intl.message(
+      'Let\'s take a selfie!',
+      name: 'ayo_selfie',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your identity`
+  String get isi_identitas {
+    return Intl.message(
+      'Enter your identity',
+      name: 'isi_identitas',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your ID number`
+  String get isi_ktp {
+    return Intl.message(
+      'Enter your ID number',
+      name: 'isi_ktp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please pin your location first`
+  String get pin_lokasi {
+    return Intl.message(
+      'Please pin your location first',
+      name: 'pin_lokasi',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Okay`
+  String get oke {
+    return Intl.message(
+      'Okay',
+      name: 'oke',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please check the registration form again`
+  String get cek_form_register {
+    return Intl.message(
+      'Please check the registration form again',
+      name: 'cek_form_register',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Preview`
+  String get preview {
+    return Intl.message(
+      'Preview',
+      name: 'preview',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change Photo`
+  String get ganti_foto {
+    return Intl.message(
+      'Change Photo',
+      name: 'ganti_foto',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter your full name`
+  String get isi_nama_lengkap {
+    return Intl.message(
+      'Enter your full name',
+      name: 'isi_nama_lengkap',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rating`
+  String get rating {
+    return Intl.message(
+      'Rating',
+      name: 'rating',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reply`
+  String get balas {
+    return Intl.message(
+      'Reply',
+      name: 'balas',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Close Report`
+  String get tutup_laporan {
+    return Intl.message(
+      'Close Report',
+      name: 'tutup_laporan',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Read Book`
+  String get baca_buku {
+    return Intl.message(
+      'Read Book',
+      name: 'baca_buku',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Free for you!`
+  String get gratis_untuk_kamu {
+    return Intl.message(
+      'Free for you!',
+      name: 'gratis_untuk_kamu',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Premium Book`
+  String get buku_premium {
+    return Intl.message(
+      'Premium Book',
+      name: 'buku_premium',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `List All Premium Books`
+  String get list_semua_buku_premium {
+    return Intl.message(
+      'List All Premium Books',
+      name: 'list_semua_buku_premium',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search Book Title`
+  String get cari_judul_buku {
+    return Intl.message(
+      'Search Book Title',
+      name: 'cari_judul_buku',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `List All Free Books`
+  String get list_semua_buku_gratis {
+    return Intl.message(
+      'List All Free Books',
+      name: 'list_semua_buku_gratis',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

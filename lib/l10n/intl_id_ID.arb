@@ -683,9 +683,38 @@
   "reward_point": "Reward Point",
   "reward_total": "Reward Total",
   "points": "Points",
-  "semua_anggota": "Semua Anggota"
-
-
-
-
+  "semua_anggota": "Semua Anggota",
+  "isiIdentitas" : "Isi Identitas Anda",
+  "tidakadaaff" : "Tidak ada Affiliator terdekat, Silahkan Lanjut",
+  "creative": "Creative",
+  "action": "Action",
+  "master": "Master",
+  "emotion": "Emotion",
+  "logic": "Logic",
+  "mulai": "Mulai Kenali Kepribadian diri",
+  "ajakan": "Ingin tahu tipe otak anda? ayo buat profil diri anda sekarang!",
+  "nantiSaja": "Nanti Saja",
+  "lakukanSekarang": "Lakukan Sekarang",
+  "isiTanggalLahir": "Isi tanggal lahir anda",
+  "selangkahLagi": "Selangkah lagi untuk mengetahui tentang diri anda",
+  "pilihGolonganDarah": "Pilih golongan darah anda",
+  "nanti": "Nanti",
+  "ayo_selfie": "Ayo Selfie!",
+  "isi_identitas": "Isi identitas anda",
+  "isi_ktp": "Isi no. KTP anda",
+  "pin_lokasi": "Silahkan pin lokasi terlebih dahulu",
+  "oke": "Oke",
+  "cek_form_register": "Silahkan cek kembali form register",
+  "preview": "Preview",
+  "ganti_foto": "Ganti Foto",
+  "isi_nama_lengkap": "Isi nama lengkap anda",
+  "rating": "Rating",
+  "balas": "Balas",
+  "tutup_laporan": "Tutup Laporan",
+  "baca_buku": "Baca Buku",
+  "gratis_untuk_kamu": "Gratis untuk kamu!",
+  "buku_premium": "Buku Premium",
+  "list_semua_buku_premium": "List Semua Buku Premium",
+  "cari_judul_buku": "Cari Judul Buku",
+  "list_semua_buku_gratis": "List Semua Buku Gratis"
 }

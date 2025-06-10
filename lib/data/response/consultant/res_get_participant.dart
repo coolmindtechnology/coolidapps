@@ -51,7 +51,7 @@ class Datum {
   String? participantExplanation;
   String? amount;
   String? theme;
-  int? duration;
+  dynamic? duration;
   String? type;
   FirebaseData? firebaseConf; // ✅ Disesuaikan dengan JSON
 

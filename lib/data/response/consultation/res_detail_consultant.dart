@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-ResponseDetailConsultant responseDetailConsultantromJson(String str) =>
+ResponseDetailConsultant responseDetailConsultantFromJson(String str) =>
     ResponseDetailConsultant.fromJson(json.decode(str));
 
 String responseDetailConsultantToJson(ResponseDetailConsultant data) =>
@@ -41,16 +41,19 @@ class DataDetailConsultant {
   String? address;
   int? sessionSuccess;
   dynamic rating;
+  int? follower; // Tambahan follower
 
-  DataDetailConsultant(
-      {this.id,
-      this.image,
-      this.name,
-      this.typeBlood,
-      this.typeBrain,
-      this.address,
-      this.sessionSuccess,
-      this.rating});
+  DataDetailConsultant({
+    this.id,
+    this.image,
+    this.name,
+    this.typeBlood,
+    this.typeBrain,
+    this.address,
+    this.sessionSuccess,
+    this.rating,
+    this.follower, // Inisialisasi follower
+  });
 
   DataDetailConsultant.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -61,6 +64,7 @@ class DataDetailConsultant {
     address = json['address'];
     sessionSuccess = json['session_success'];
     rating = json['rating'];
+    follower = json['follower']; // Parsing follower
   }
 
   Map<String, dynamic> toJson() {
@@ -73,6 +77,7 @@ class DataDetailConsultant {
     data['address'] = address;
     data['session_success'] = sessionSuccess;
     data['rating'] = rating;
+    data['follower'] = follower; // Tambahkan follower
     return data;
   }
 }

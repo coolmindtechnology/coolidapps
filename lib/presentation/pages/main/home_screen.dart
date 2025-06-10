@@ -12,6 +12,7 @@ import 'package:coolappflutter/data/response/profiling/res_list_profiling.dart';
 import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/data/provider/provider_book.dart';
 import 'package:coolappflutter/main.dart';
+import 'package:coolappflutter/presentation/pages/main/components/input_code_ref_profilling.dart';
 import 'package:coolappflutter/presentation/pages/main/detail_saldo/detail_saldo.dart';
 import 'package:coolappflutter/presentation/pages/main/ebook/home_ebook.dart';
 import 'package:coolappflutter/presentation/pages/payments/commision/commision_dashboard.dart';
@@ -29,6 +30,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../data/provider/provider_affiliate.dart';
+import '../../on_boarding/on_boarding_isi_foto.dart';
 import '../../theme/color_utils.dart';
 import '../../widgets/Container/container_list_profiling.dart';
 import '../../widgets/Container/container_yellow_home.dart';
@@ -575,6 +577,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                       fontSize: 20,
                                       fontWeight: FontWeight.w600),
                                 ),
+                                TextButton(
+                                    onPressed: () async {
+                                      Nav.to(const InputCodeRefPofilling(route: 'register',));
+                                    },
+                                    child: Text(
+                                      "bypass",
+                                      style: TextStyle(
+                                          color: BlueColor, fontSize: 18),
+                                    )),
                                 TextButton(
                                     onPressed: () async {
                                       await valuePro

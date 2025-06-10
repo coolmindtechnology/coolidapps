@@ -56,7 +56,7 @@ class ProfileCard extends StatelessWidget {
                   title!,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
-                    color: Colors.orange,
+                    color: _getColorForType(title!),
                     fontSize: 15,
                   ),
                 ),
@@ -112,7 +112,7 @@ class ProfileCard extends StatelessWidget {
                 ),
             ],
           ),
-          trailing: Icon(CupertinoIcons.forward),
+          trailing: onTap != null ? Icon(CupertinoIcons.forward) : null,
           onTap: onTap,
         ),
         // Tampilkan Container hanya jika status, warnastatus, timeRemaining, dan timeColor tidak null
@@ -151,5 +151,30 @@ class ProfileCard extends StatelessWidget {
               : Container()
       ],
     );
+  }
+
+  Color _getColorForType(String type) {
+    switch (type) {
+      case 'emotion in':
+      case 'emotion out':
+      case 'emotion':
+        return Colors.green;
+      case 'logic in':
+      case 'logic out':
+      case 'logic':
+        return Colors.yellow;
+      case 'master':
+        return Colors.black;
+      case 'creative in':
+      case 'creative out':
+      case 'creative':
+        return Colors.orange;
+      case 'action in':
+      case 'action out':
+      case 'action':
+        return Colors.red;
+      default:
+        return Colors.grey; // Warna default jika type tidak cocok
+    }
   }
 }

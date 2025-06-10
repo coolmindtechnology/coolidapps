@@ -25,7 +25,8 @@
         </intent>
     </queries>
 
-    <application 
+    <application
+
         android:requestLegacyExternalStorage="true" 
         android:label="Cool App"
         tools:replace="android:label,android:usesCleartextTraffic"

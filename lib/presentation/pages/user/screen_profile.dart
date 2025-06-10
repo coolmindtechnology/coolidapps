@@ -818,7 +818,7 @@ class _ScreenProfileState extends State<ScreenProfile> {
                           backgroundColor: Colors.red,
                         );
                       } else {
-                        await providerUser.updateUser(context);
+                        await providerUser.updateUser(context,'updateprofile');
                       }
                     }
                   },

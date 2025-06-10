@@ -38,8 +38,8 @@ class _ListSemuaPremiumState extends State<ListSemuaPremium> {
                     Navigator.pop(context);
                   },
                   icon: Image.asset("images/buku/arrowleft.png")),
-              title: const Text(
-                "List Semua Buku Gratis",
+              title:  Text(
+                S.of(context).list_semua_buku_premium,
                 style: TextStyle(color: Colors.white),
               ),
               centerTitle: false,
@@ -75,7 +75,7 @@ class _ListSemuaPremiumState extends State<ListSemuaPremium> {
                                 ),
                               ),
                             ),
-                            hintText: "Cari Judul Buku",
+                            hintText: S.of(context).cari_judul_buku,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(Sizes.p10),
                               borderSide: const BorderSide(
@@ -91,10 +91,10 @@ class _ListSemuaPremiumState extends State<ListSemuaPremium> {
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 0.8,
-                        crossAxisSpacing: 10,
+                        crossAxisCount: 2, // jumlah item per baris, sesuaikan dengan lebar layar
                         mainAxisSpacing: 10,
+                        crossAxisSpacing: 10,
+                        childAspectRatio: 100 / 200, // lebar : tinggi
                       ),
                       itemCount: value.displayPremium.length,
                       itemBuilder: (context, index) {
@@ -129,42 +129,42 @@ class _ListSemuaPremiumState extends State<ListSemuaPremium> {
                           },
                           child: Card(
                             color: Colors.white,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: SizedBox(
-                                    height: 150,
-                                    width: double.infinity,
-                                    child: Image.network(
-                                      "${data.imagePath ?? ""}",
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                                gapH20,
-                                Padding(
-                                  padding:
-                                  const EdgeInsets.only(left: 5, right: 5),
-                                  child: Center(
-                                    child: Text(
-                                      data.title.toString().length > 15
-                                          ? data.title
-                                          .toString()
-                                          .substring(0, 15) +
-                                          '...'
-                                          : data.title.toString(),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w600
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: SizedBox(
+                                      height: 150,
+                                      width: double.infinity,
+                                      child: Image.network(
+                                        "${data.imagePath ?? ""}",
+                                        fit: BoxFit.cover,
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                  Spacer(),
+                                  Padding(
+                                    padding:
+                                    const EdgeInsets.only(left: 5, right: 5),
+                                    child: Center(
+                                      child: Text(
+                                        data.title.toString(),
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w600
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  gapH10
+                                ],
+                              ),
                             ),
                           ),
                         );

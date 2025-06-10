@@ -54,8 +54,8 @@ class _HomeEbookState extends State<HomeEbook> {
                 Navigator.pop(context);
               },
               icon: Image.asset("images/buku/arrowleft.png")),
-          title: const Text(
-            "Book",
+          title:  Text(
+              S.of(context).ebook,
             style: TextStyle(color: Colors.white),
           ),
           centerTitle: false,
@@ -90,7 +90,7 @@ class _HomeEbookState extends State<HomeEbook> {
                             ),
                           ),
                         ),
-                        hintText: "Cari Judul Buku",
+                        hintText: S.of(context).cari_judul_buku,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(Sizes.p10),
                           borderSide: const BorderSide(
@@ -380,7 +380,7 @@ class _HomeEbookState extends State<HomeEbook> {
                 child: Row(
                   children: [
                     Text(
-                      "Gratis untuk kamu!",
+                      S.of(context).gratis_untuk_kamu,
                       style:
                           TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                     ),
@@ -393,7 +393,7 @@ class _HomeEbookState extends State<HomeEbook> {
                                 builder: (context) => ListSemuaGratis()));
                       },
                       child: Text(
-                        "Lihat Semua",
+                        S.of(context).see_all,
                         style: TextStyle(fontSize: 13, color: primaryColor),
                       ),
                     )
@@ -401,7 +401,7 @@ class _HomeEbookState extends State<HomeEbook> {
                 ),
               ),
               SizedBox(
-                height: 210,
+                height: 350,
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: value.displayFree.length,
@@ -420,7 +420,7 @@ class _HomeEbookState extends State<HomeEbook> {
                           padding: const EdgeInsets.all(5.0),
                           child: SizedBox(
                             height: 100,
-                            width: 120,
+                            width: 170,
                             child: Card(
                               color: Colors.white,
                               child: Column(
@@ -428,7 +428,6 @@ class _HomeEbookState extends State<HomeEbook> {
                                   Padding(
                                     padding: const EdgeInsets.all(4.0),
                                     child: SizedBox(
-                                      height: 90,
                                       width: double.infinity,
                                       child: Image.network(
                                         "${data.imagePath ?? ""}",
@@ -440,9 +439,7 @@ class _HomeEbookState extends State<HomeEbook> {
                                   Padding(
                                     padding: const EdgeInsets.only(
                                         left: 5, right: 5),
-                                    child: Text(data.title.toString().length > 9
-                                        ? data.title.toString().substring(0, 10)
-                                        : data.title.toString()),
+                                    child: Text(data.title.toString(),style: TextStyle(fontSize: 12),textAlign: TextAlign.center,maxLines: 2,overflow: TextOverflow.ellipsis,),
                                   ),
                                   // Padding(
                                   //   padding: const EdgeInsets.all(6.0),
@@ -469,31 +466,46 @@ class _HomeEbookState extends State<HomeEbook> {
                                   //     ],
                                   //   ),
                                   // ),
-                                  Expanded(
-                                    child: SizedBox(
-                                      height: 30,
-                                      child: ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(
-                                                    5), // Menghilangkan border radius
-                                                side: BorderSide(
-                                                    color: Colors
-                                                        .transparent), // Menghilangkan border
-                                              ),
-                                              backgroundColor:
-                                                  const Color.fromARGB(
-                                                      210, 255, 255, 255)),
-                                          onPressed: () {
-                                            Nav.to(ReadBook("${data.filePath}",
-                                                "${data.title}"));
-                                          },
-                                          child: Text(
-                                            "Baca Buku",
-                                            style: TextStyle(fontSize: 10),
-                                          )),
+                                  Spacer(),
+                                  SizedBox(
+                                    height: 50,
+                                    width: 140,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: MaterialButton(
+                                        color: Colors.white,
+                                        child: Text(S.of(context).baca_buku,style: TextStyle(color: primaryColor),),
+                                        onPressed: () {
+                                          Nav.to(ReadBook("${data.filePath}",
+                                              "${data.title}"));
+                                      },),
                                     ),
                                   ),
+                                  // Expanded(
+                                  //   child: SizedBox(
+                                  //     height: 20,
+                                  //     child: ElevatedButton(
+                                  //         style: ElevatedButton.styleFrom(
+                                  //             shape: RoundedRectangleBorder(
+                                  //               borderRadius: BorderRadius.circular(
+                                  //                   5), // Menghilangkan border radius
+                                  //               side: BorderSide(
+                                  //                   color: Colors
+                                  //                       .transparent), // Menghilangkan border
+                                  //             ),
+                                  //             backgroundColor:
+                                  //                 const Color.fromARGB(
+                                  //                     210, 255, 255, 255)),
+                                  //         onPressed: () {
+                                  //           Nav.to(ReadBook("${data.filePath}",
+                                  //               "${data.title}"));
+                                  //         },
+                                  //         child: Text(
+                                  //           "Baca Buku",
+                                  //           style: TextStyle(fontSize: 10),
+                                  //         )),
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             ),
@@ -508,7 +520,7 @@ class _HomeEbookState extends State<HomeEbook> {
                 child: Row(
                   children: [
                     Text(
-                      "Buku Premium",
+                    S.of(context).buku_premium,
                       style:
                           TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                     ),
@@ -521,7 +533,7 @@ class _HomeEbookState extends State<HomeEbook> {
                                 builder: (context) => ListSemuaPremium()));
                       },
                       child: Text(
-                        "Lihat Semua",
+                        S.of(context).see_all,
                         style: TextStyle(fontSize: 13, color: primaryColor),
                       ),
                     )
@@ -529,7 +541,7 @@ class _HomeEbookState extends State<HomeEbook> {
                 ),
               ),
               SizedBox(
-                height: 210,
+                height: 360,
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: value.displayPremium.length,
@@ -548,7 +560,7 @@ class _HomeEbookState extends State<HomeEbook> {
                           padding: const EdgeInsets.all(5.0),
                           child: SizedBox(
                             height: 100,
-                            width: 120,
+                            width: 170,
                             child: Card(
                               color: Colors.white,
                               child: Column(
@@ -556,7 +568,6 @@ class _HomeEbookState extends State<HomeEbook> {
                                   Padding(
                                     padding: const EdgeInsets.all(4.0),
                                     child: SizedBox(
-                                      height: 90,
                                       width: double.infinity,
                                       child: Image.network(
                                         "${data.imagePath ?? ""}",
@@ -568,9 +579,7 @@ class _HomeEbookState extends State<HomeEbook> {
                                   Padding(
                                     padding: const EdgeInsets.only(
                                         left: 5, right: 5),
-                                    child: Text(data.title.toString().length > 9
-                                        ? data.title.toString().substring(0, 10)
-                                        : data.title.toString()),
+                                    child: Text(data.title.toString(),style: TextStyle(fontSize: 12),textAlign: TextAlign.center,maxLines: 2,overflow: TextOverflow.ellipsis,),
                                   ),
                                   // Padding(
                                   //   padding: const EdgeInsets.all(6.0),
@@ -597,53 +606,90 @@ class _HomeEbookState extends State<HomeEbook> {
                                   //     ],
                                   //   ),
                                   // ),
-                                  Expanded(
-                                    child: SizedBox(
-                                      height: 30,
-                                      child: ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(
-                                                    5), // Menghilangkan border radius
-                                                side: BorderSide(
-                                                    color: Colors
-                                                        .transparent), // Menghilangkan border
-                                              ),
-                                              backgroundColor:
-                                                  const Color.fromARGB(
-                                                      210, 255, 255, 255)),
-                                          onPressed: () {
-                                            NotificationUtils.showSimpleDialog2(
-                                                context,
-                                                "${S.of(context).pay_to_see_more}, ${S.of(context).just} Rp ${data.price ?? ""}",
-                                                textButton1:
-                                                    S.of(context).yes_continue,
-                                                textButton2: S.of(context).no,
-                                                onPress2: () {
-                                              Nav.back();
-                                            }, onPress1: () async {
-                                              Nav.back();
-                                              await provider
-                                                  .createLogEbook(
-                                                      context, data.id ?? 0)
-                                                  .then((_) {
-                                                provider.paymentEbook(
-                                                    context,
-                                                    data.id ?? 0,
-                                                    data.price ?? "",
-                                                    "Ebook - ${data.title}",
-                                                    onUpdate: () {});
-                                              });
-                                            },
-                                                colorButon1: primaryColor,
-                                                colorButton2: Colors.white);
+                                  Spacer(),
+                                  SizedBox(
+                                    height: 50,
+                                    width: 140,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: MaterialButton(
+                                        color: Colors.white,
+                                        child: Text(S.of(context).baca_buku,style: TextStyle(color: primaryColor),),
+                                        onPressed: () {
+
+                                          NotificationUtils.showSimpleDialog2(
+                                              context,
+                                              "${S.of(context).pay_to_see_more}, ${S.of(context).just} Rp ${data.price ?? ""}",
+                                              textButton1:
+                                              S.of(context).yes_continue,
+                                              textButton2: S.of(context).no,
+                                              onPress2: () {
+                                                Nav.back();
+                                              }, onPress1: () async {
+                                            Nav.back();
+                                            await provider
+                                                .createLogEbook(
+                                                context, data.id ?? 0)
+                                                .then((_) {
+                                              provider.paymentEbook(
+                                                  context,
+                                                  data.id ?? 0,
+                                                  data.price ?? "",
+                                                  "Ebook - ${data.title}",
+                                                  onUpdate: () {});
+                                            });
                                           },
-                                          child: Text(
-                                            "Baca Buku",
-                                            style: TextStyle(fontSize: 10),
-                                          )),
+                                              colorButon1: primaryColor,
+                                              colorButton2: Colors.white);},),
                                     ),
                                   ),
+                                  // Expanded(
+                                  //   child: SizedBox(
+                                  //     height: 30,
+                                  //     child: ElevatedButton(
+                                  //         style: ElevatedButton.styleFrom(
+                                  //             shape: RoundedRectangleBorder(
+                                  //               borderRadius: BorderRadius.circular(
+                                  //                   5), // Menghilangkan border radius
+                                  //               side: BorderSide(
+                                  //                   color: Colors
+                                  //                       .transparent), // Menghilangkan border
+                                  //             ),
+                                  //             backgroundColor:
+                                  //                 const Color.fromARGB(
+                                  //                     210, 255, 255, 255)),
+                                  //         onPressed: () {
+                                  //           NotificationUtils.showSimpleDialog2(
+                                  //               context,
+                                  //               "${S.of(context).pay_to_see_more}, ${S.of(context).just} Rp ${data.price ?? ""}",
+                                  //               textButton1:
+                                  //                   S.of(context).yes_continue,
+                                  //               textButton2: S.of(context).no,
+                                  //               onPress2: () {
+                                  //             Nav.back();
+                                  //           }, onPress1: () async {
+                                  //             Nav.back();
+                                  //             await provider
+                                  //                 .createLogEbook(
+                                  //                     context, data.id ?? 0)
+                                  //                 .then((_) {
+                                  //               provider.paymentEbook(
+                                  //                   context,
+                                  //                   data.id ?? 0,
+                                  //                   data.price ?? "",
+                                  //                   "Ebook - ${data.title}",
+                                  //                   onUpdate: () {});
+                                  //             });
+                                  //           },
+                                  //               colorButon1: primaryColor,
+                                  //               colorButton2: Colors.white);
+                                  //         },
+                                  //         child: Text(
+                                  //           "Baca Buku",
+                                  //           style: TextStyle(fontSize: 10),
+                                  //         )),
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             ),

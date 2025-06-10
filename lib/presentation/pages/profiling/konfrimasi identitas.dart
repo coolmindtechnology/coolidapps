@@ -5,6 +5,8 @@ import 'package:coolappflutter/data/locals/shared_pref.dart';
 import 'package:coolappflutter/data/provider/provider_profiling.dart';
 import 'package:coolappflutter/data/response/profiling/res_form.dart';
 import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/main/nav_home.dart';
+import 'package:coolappflutter/presentation/pages/profiling/profiling%20dashboard.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/circular_progress_widget.dart';
 import 'package:coolappflutter/presentation/utils/date_util.dart';
@@ -24,8 +26,9 @@ import '../../../data/models/data_checkout_transaction.dart';
 class KonfirmasiIdentitiasPage extends StatefulWidget {
   final List<ProfilData> profiles;
   final String? coderef;
+  final String? route;
   const KonfirmasiIdentitiasPage(this.coderef,
-      {Key? key, required this.profiles})
+      {Key? key, required this.profiles,this.route,})
       : super(key: key);
 
   @override
@@ -101,7 +104,6 @@ class _KonfirmasiIdentitiasPageState extends State<KonfirmasiIdentitiasPage> {
         return 'Rp ${NumberFormat("#,##0", "id_ID").format(value.priceProfiling!.data)}';
       }
       bool isLoading = value.isCreateMultipleProfiling || value.isPayProfiling || value.isCreatePayment;
-
       return Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -260,154 +262,155 @@ class _KonfirmasiIdentitiasPageState extends State<KonfirmasiIdentitiasPage> {
                         radius: 10,
                         elevation: 0.0, onPress: () async {
                         bool invalidAge = false;
-                        if (!invalidAge) {
-                          NotificationUtils.showSimpleDialog2(context,
-                              S.of(context).yakinbayar + '${_getFormattedPrice()}',
-                              textButton1: S.of(context).yes,
-                              textButton2: S.of(context).no,
-                              onPress1: value.isCreateMultipleProfiling
-                                  ? () {}
-                                  : () async {
-                                      Nav.back();
-                                      List<Map<String, dynamic>> formData = [];
-                                      for (int i = 0;
-                                          i < allProfiles.length;
-                                          i++) {
-                                        Map<String, dynamic> formDataItem = {
-                                          'name': allProfiles[i].name,
-                                          'birth_date': allProfiles[i]
-                                              .dateOfBirth
-                                              .toString(),
-                                          'month_date': allProfiles[i]
-                                              .monthDate
-                                              .toString(),
-                                          'year_date': allProfiles[i]
-                                              .yearDate
-                                              .toString(),
-                                          'blood_type':
-                                              allProfiles[i].bloodType == "-"
-                                                  ? ""
-                                                  : allProfiles[i].bloodType ??
-                                                      "",
-                                          'domicile': allProfiles[i].residence,
-                                          "ref_code": widget.coderef,
-                                        };
+                        if(widget.route == 'register') {
+                          List<Map<String, dynamic>> formData = [];
+                          for (int i = 0;
+                          i < allProfiles.length;
+                          i++) {
+                            Map<String, dynamic> formDataItem = {
+                              'name': allProfiles[i].name,
+                              'birth_date': allProfiles[i]
+                                  .dateOfBirth
+                                  .toString(),
+                              'month_date': allProfiles[i]
+                                  .monthDate
+                                  .toString(),
+                              'year_date': allProfiles[i]
+                                  .yearDate
+                                  .toString(),
+                              'blood_type':
+                              allProfiles[i].bloodType == "-"
+                                  ? ""
+                                  : allProfiles[i].bloodType ??
+                                  "",
+                              'domicile': allProfiles[i].residence,
+                              "ref_code": widget.coderef,
+                            };
 
-                                        formData.add(formDataItem);
-                                      }
-                                      await value.createMultipleProfiling(
-                                        context, formData, );
-                                      if(value.multipleProfilingResult!.success == true){
-                                        int qty = value.qty;
-                                        List<int> idLogs = value.parsedIdLogs;
-                                        await NotificationUtils
-                                            .showSimpleDialog2(
-                                            context,
-                                            S
-                                                .of(context)
-                                                .pay_with_your_cool_balance,
-                                            textButton1: S
-                                                .of(context)
-                                                .yes_continue,
-                                            textButton2:
-                                            S.of(context).other_pay,
-                                            onPress2: () async {
-                                              Nav.back();
-                                              await value.payProfiling(
-                                                  context,
-                                                  idLogs,
-                                                  "0",
-                                                  "transaction_type",
-                                                  qty, onUpdate: () async {
-                                                await value
-                                                    .getListProfiling(context);
-                                              }, fromPage: "profiling");
-                                            }, onPress1: () async {
+                            formData.add(formDataItem);
+                          }
+                          await value.createMultipleProfiling(
+                            context, formData, );
+
+                          if(value.multipleProfilingResult!.success == true){
+                            int qty = value.qty;
+                            List<int> idLogs = value.parsedIdLogs;
+                            await value.payProfiling(
+                                context,
+                                idLogs,
+                                "0",
+                                "transaction_type",
+                                qty, onUpdate: () async {
+                              await value
+                                  .getListProfiling(context);
+                            }, fromPage: "profiling");
+
+                          }else{
+                            NotificationUtils.showDialogError(context, () {
+                              Nav.back();
+                            },
+                                widget: Text(
+                                    value.multipleProfilingResult!.message ?? "-") );
+                          }
+                        } else{
+                          if (!invalidAge) {
+                            NotificationUtils.showSimpleDialog2(context,
+                                S.of(context).yakinbayar + '${_getFormattedPrice()}',
+                                textButton1: S.of(context).yes,
+                                textButton2: S.of(context).no,
+                                onPress1: value.isCreateMultipleProfiling
+                                    ? () {}
+                                    : () async {
+                                  Nav.back();
+                                  List<Map<String, dynamic>> formData = [];
+                                  for (int i = 0;
+                                  i < allProfiles.length;
+                                  i++) {
+                                    Map<String, dynamic> formDataItem = {
+                                      'name': allProfiles[i].name,
+                                      'birth_date': allProfiles[i]
+                                          .dateOfBirth
+                                          .toString(),
+                                      'month_date': allProfiles[i]
+                                          .monthDate
+                                          .toString(),
+                                      'year_date': allProfiles[i]
+                                          .yearDate
+                                          .toString(),
+                                      'blood_type':
+                                      allProfiles[i].bloodType == "-"
+                                          ? ""
+                                          : allProfiles[i].bloodType ??
+                                          "",
+                                      'domicile': allProfiles[i].residence,
+                                      "ref_code": widget.coderef,
+                                    };
+
+                                    formData.add(formDataItem);
+                                  }
+                                  await value.createMultipleProfiling(
+                                    context, formData, );
+                                  if(value.multipleProfilingResult!.success == true){
+                                    int qty = value.qty;
+                                    List<int> idLogs = value.parsedIdLogs;
+                                    await NotificationUtils
+                                        .showSimpleDialog2(
+                                        context,
+                                        S
+                                            .of(context)
+                                            .pay_with_your_cool_balance,
+                                        textButton1: S
+                                            .of(context)
+                                            .yes_continue,
+                                        textButton2:
+                                        S.of(context).other_pay,
+                                        onPress2: () async {
                                           Nav.back();
-                                          await value
-                                              .createTransactionProfiling(
+                                          await value.payProfiling(
                                               context,
-                                              DataCheckoutTransaction(
-                                                  idLogs: idLogs,
-                                                  discount: "0",
-                                                  idItemPayments: "1",
-                                                  qty: qty,
-                                                  gateway: "paypal"),
-                                                  () async {
-                                                await value
-                                                    .getListProfiling(context);
-                                              });
-                                        },
-                                            colorButon1: primaryColor,
-                                            colorButton2: Colors.white);
-                                        // NotificationUtils.showSimpleDialog2(
-                                        //     context,
-                                        //     'Apakah anda yakin bayar sebanyak ${_getFormattedPrice()}',
-                                        //     textButton1:
-                                        //     S.of(context).yes_continue,
-                                        //     textButton2: S.of(context).no,
-                                        //     onPress2: () {
-                                        //       Nav.back();
-                                        //     }, onPress1: () async {
-                                        //   Nav.back();
-                                        //   await NotificationUtils
-                                        //       .showSimpleDialog2(
-                                        //       context,
-                                        //       S
-                                        //           .of(context)
-                                        //           .pay_with_your_cool_balance,
-                                        //       textButton1: S
-                                        //           .of(context)
-                                        //           .yes_continue,
-                                        //       textButton2:
-                                        //       S.of(context).other_pay,
-                                        //       onPress2: () async {
-                                        //         Nav.back();
-                                        //         await value.payProfiling(
-                                        //             context,
-                                        //             idLogs,
-                                        //             "0",
-                                        //             "transaction_type",
-                                        //             qty, onUpdate: () async {
-                                        //           await value
-                                        //               .getListProfiling(context);
-                                        //         }, fromPage: "profiling");
-                                        //       }, onPress1: () async {
-                                        //     Nav.back();
-                                        //     await value
-                                        //         .createTransactionProfiling(
-                                        //         context,
-                                        //         DataCheckoutTransaction(
-                                        //             idLogs: idLogs,
-                                        //             discount: "0",
-                                        //             idItemPayments: "1",
-                                        //             qty: qty,
-                                        //             gateway: "paypal"),
-                                        //             () async {
-                                        //           await value
-                                        //               .getListProfiling(context);
-                                        //         });
-                                        //   },
-                                        //       colorButon1: primaryColor,
-                                        //       colorButton2: Colors.white);
-                                        // },
-                                        //     colorButon1: primaryColor,
-                                        //     colorButton2: Colors.white);
-                                      }else{
-                                        NotificationUtils.showDialogError(context, () {
-                                          Nav.back();
-                                        },
-                                            widget: Text(
-                                              value.multipleProfilingResult!.message ?? "-") );
-                                      }
-                                        // onAdd: widget.onAdd
-                                    },
-                              onPress2: value.isCreateMultipleProfiling
-                                  ? () {}
-                                  : () {
+                                              idLogs,
+                                              "0",
+                                              "transaction_type",
+                                              qty, onUpdate: () async {
+                                            await value
+                                                .getListProfiling(context);
+                                          }, fromPage: "profiling");
+                                        }, onPress1: () async {
                                       Nav.back();
-                                    });
+                                      await value
+                                          .createTransactionProfiling(
+                                          context,
+                                          DataCheckoutTransaction(
+                                              idLogs: idLogs,
+                                              discount: "0",
+                                              idItemPayments: "1",
+                                              qty: qty,
+                                              gateway: "paypal"),
+                                              () async {
+                                            await value
+                                                .getListProfiling(context);
+                                          });
+                                    },
+                                        colorButon1: primaryColor,
+                                        colorButton2: Colors.white);
+
+                                  }else{
+                                    NotificationUtils.showDialogError(context, () {
+                                      Nav.back();
+                                    },
+                                        widget: Text(
+                                            value.multipleProfilingResult!.message ?? "-") );
+                                  }
+                                  // onAdd: widget.onAdd
+                                },
+                                onPress2: value.isCreateMultipleProfiling
+                                    ? () {}
+                                    : () async {
+                                  Nav.back();
+                                });
+                          }
                         }
+
                       }),
               )
               // // Row(

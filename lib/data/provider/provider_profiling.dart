@@ -23,6 +23,7 @@ import 'package:coolappflutter/data/response/profiling/res_pay_profiling.dart';
 import 'package:coolappflutter/data/response/profiling/res_update_transaction_profiling.dart';
 import 'package:coolappflutter/data/response/profiling/res_upgrade_member.dart';
 import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/on_boarding/onboarding_profiling.dart';
 import 'package:coolappflutter/presentation/pages/main/components/input_code_ref_profilling.dart';
 import 'package:coolappflutter/presentation/pages/main/nav_home.dart';
 import 'package:coolappflutter/presentation/pages/profiling/add_multiple_profiling.dart';
@@ -168,6 +169,8 @@ class ProviderProfiling extends ChangeNotifier {
             e.message,
             textAlign: TextAlign.center,
           ));
+      listProfiling = [];
+      notifyListeners();
     }, success: (res) async {
       if (res.success == true) {
         listProfiling = res.data ?? [];
@@ -405,7 +408,7 @@ class ProviderProfiling extends ChangeNotifier {
       if (kDebugMode) {
         print("id log profilings ${res.data?.totalAmount}");
       }
-      Nav.to(PreInvoiceScreen(
+      Nav.toAll(PreInvoiceScreen(
         snapToken: res.data?.snapToken,
         orderId: res.data?.orderId.toString(),
         paymentType: res.data?.transactionType.toString(),
@@ -1081,7 +1084,7 @@ class ProviderProfiling extends ChangeNotifier {
   ResUpgradeMember? resUpgradeMember;
 
   Future<void> upgradeToMember(
-      BuildContext context, TextEditingController code) async {
+      BuildContext context, TextEditingController code,{String? route}) async {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       isUpgradeToMember = true;
       notifyListeners();
@@ -1102,14 +1105,25 @@ class ProviderProfiling extends ChangeNotifier {
           ));
     }, success: (res) async {
       if (res.success == true) {
-        await Nav.back();
-        NotificationUtils.showDialogSuccess(context, () {
-          Nav.back();
-        },
-            widget: Text(
-              S.of(context).member_upgrade_successfull,
-              textAlign: TextAlign.center,
-            ));
+        if(route == 'register'){
+          Nav.toAll(OnboardingProfiling());
+          NotificationUtils.showDialogSuccess(context, () {
+            Nav.back();
+          },
+              widget: Text(
+                S.of(context).member_upgrade_successfull,
+                textAlign: TextAlign.center,
+              ));
+        }else {
+          await Nav.toAll(NavMenuScreen());
+          NotificationUtils.showDialogSuccess(context, () {
+            Nav.back();
+          },
+              widget: Text(
+                S.of(context).member_upgrade_successfull,
+                textAlign: TextAlign.center,
+              ));
+        }
       } else {
         NotificationUtils.showDialogError(context, () {
           Nav.back();

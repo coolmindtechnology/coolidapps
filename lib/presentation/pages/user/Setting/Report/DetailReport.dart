@@ -1,15 +1,14 @@
 import 'package:coolappflutter/data/apps/app_sizes.dart';
 import 'package:coolappflutter/data/provider/provider_user.dart';
-import 'package:coolappflutter/data/provider/proviider_notification.dart';
-import 'package:coolappflutter/data/response/notification/res_detail_notification.dart';
-import 'package:coolappflutter/data/response/user/res_get_deetail_report.dart';
 import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/user/Setting/Report/ChatBoxReport.dart';
+import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/widgets/GlobalButton.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
-
-import '../../../../../generated/l10n.dart';
 
 class DetailReportLog extends StatefulWidget {
   final String ReportId;
@@ -47,6 +46,7 @@ class _DetailReportLogState extends State<DetailReportLog> {
         final isLoading = provider.isLoadingDetailLog;
 
         return Scaffold(
+          backgroundColor: Colors.white,
           appBar: AppBar(
             title: Text(
               S.of(context).detailLogError,
@@ -128,8 +128,8 @@ class _DetailReportLogState extends State<DetailReportLog> {
                                             fontWeight: FontWeight.w600)),
                                     gapH10,
                                     provider!.detailLogReportData!.data!
-                                                    .media ==
-                                                null
+                                                .media ==
+                                            null
                                         ? Text(S
                                             .of(context)
                                             .assetNotAvailable) // Tampilkan teks jika media null atau kosong
@@ -207,6 +207,76 @@ class _DetailReportLogState extends State<DetailReportLog> {
                         ),
                       ),
                     ),
+          bottomNavigationBar: isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : provider.detailLogReportData?.data?.status !=
+                  "Closed"
+              ? Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: provider.isLoadingCloseMassage
+                      ? GlobalButton(
+                    onPressed: () async {},
+                    color: greyColor,
+                    text: S.of(context).tutup_laporan,
+                    textStyle: TextStyle(color: Colors.white),
+                  )
+                      : GlobalButton(
+                    onPressed: () async {
+                      await provider.closeMassageReportProvider(
+                          context,
+                          provider.detailLogReportData?.data?.id
+                              .toString() ??
+                              "0");
+                    },
+                    color: Colors.white,
+                    text: S.of(context).tutup_laporan,
+                    textStyle: TextStyle(color: Colors.red),
+                  ),
+                ),
+                gapW10,
+                Expanded(
+                  child: provider.isLoadingCloseMassage
+                      ? GlobalButton(
+                    onPressed: () async {},
+                    color: greyColor,
+                    text: S.of(context).balas,
+                    textStyle: TextStyle(color: Colors.white),
+                  )
+                      : GlobalButton(
+                    onPressed: () {
+                      Nav.to(ChatBoxReport(
+                        name: provider.detailLogReportData?.data
+                            ?.categoryReports?.name ??
+                            "",
+                        status: provider.detailLogReportData?.data?.status
+                            .toString(),
+                        body: provider.detailLogReportData?.data?.body
+                            .toString(),
+                        appVersion: provider
+                            .detailLogReportData?.data?.appVersion
+                            .toString(),
+                        media: provider.detailLogReportData?.data?.media
+                            .toString(),
+                        tanggal: DateFormat('dd MM yyyy').format(
+                            DateTime.parse(provider
+                                .detailLogReportData?.data?.updatedAt
+                                ?.toString() ??
+                                "")),
+                        id_log:   provider.detailLogReportData?.data?.id
+                            .toString() ??
+                            "0",
+                      ));
+                    },
+                    color: primaryColor,
+                    text:  S.of(context).balas,
+                  ),
+                )
+              ],
+            ),
+          ) : SizedBox(),
         );
       },
     );

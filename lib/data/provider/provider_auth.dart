@@ -6,8 +6,10 @@ import 'package:coolappflutter/data/data_global.dart';
 import 'package:coolappflutter/data/helpers/either.dart';
 import 'package:coolappflutter/data/helpers/failure.dart';
 import 'package:coolappflutter/data/locals/shared_pref.dart';
+import 'package:coolappflutter/data/provider/provider_adress.dart';
 import 'package:coolappflutter/data/provider/provider_book.dart';
 import 'package:coolappflutter/data/repositories/authentication.dart';
+import 'package:coolappflutter/data/response/auth/res_check_credential.dart';
 import 'package:coolappflutter/data/response/auth/res_get_otp.dart';
 import 'package:coolappflutter/data/response/auth/res_logout.dart';
 import 'package:coolappflutter/data/response/auth/res_resend_otp.dart';
@@ -19,6 +21,10 @@ import 'package:coolappflutter/data/response/auth/res_login.dart';
 import 'package:coolappflutter/data/response/auth/res_register.dart';
 import 'package:coolappflutter/data/response/user/res_get_location_member.dart';
 import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/on_boarding/on_boarding_isi_ktp.dart';
+import 'package:coolappflutter/presentation/on_boarding/on_boarding_location.dart';
+import 'package:coolappflutter/presentation/on_boarding/onboarding_isi_email.dart';
+import 'package:coolappflutter/presentation/on_boarding/onboarding_isi_identitas.dart';
 import 'package:coolappflutter/presentation/pages/auth/component/alert_dialog_otp.dart';
 import 'package:coolappflutter/presentation/pages/auth/login_screen.dart';
 import 'package:coolappflutter/presentation/pages/auth/reset_password_screen.dart';
@@ -29,10 +35,13 @@ import 'package:coolappflutter/presentation/utils/get_country.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:coolappflutter/presentation/utils/notification_utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+
+import '../../presentation/pages/main/components/input_code_ref_profilling.dart';
 
 class ProviderAuth extends ChangeNotifier {
   ProviderAuth() {
@@ -152,7 +161,8 @@ class ProviderAuth extends ChangeNotifier {
   Future<void> login(BuildContext context,
       {required String phoneNumber,
       required String password,
-      required String fcmToken}) async {
+      required String fcmToken,
+      String? source}) async {
     isLoading = true;
     notifyListeners();
 
@@ -233,7 +243,12 @@ class ProviderAuth extends ChangeNotifier {
             dataGlobal.setToken(res.data?.accessToken.toString() ?? "");
             await Prefs().setToken(res.data?.accessToken.toString());
             await context.read<ProviderBook>().getPreHome(context);
-            Nav.toAll(const PreHomeScreen());
+            if(source == 'register'){
+              // Nav.toAll(const InputCodeRefPofilling());
+              Nav.toAll(IdentityPage());
+            }else{
+              Nav.toAll(const PreHomeScreen());
+            }
           } else {
             isLoading = false;
             notifyListeners();
@@ -383,6 +398,7 @@ class ProviderAuth extends ChangeNotifier {
               '${e.message.toString()}  ${e.errorCode.toString()}')),
         );
       }, success: (res) async {
+        await AddressPreferences.saveAddressString(stateId,cityId,districtId);
         // Proses setelah registrasi berhasil
         try {
           // Mendaftar user di Firebase Authentication
@@ -582,6 +598,8 @@ class ProviderAuth extends ChangeNotifier {
             context,
             dataRegister?.userId.toString() ?? "",
             channel,
+            phonenumber: phoneNumberReg.toString(),
+            Password: passwordReg.text
           );
         }
       });
@@ -926,7 +944,13 @@ class ProviderAuth extends ChangeNotifier {
   bool isLoadingSendOtp = false;
 
   Future<void> sendOtp(
-      BuildContext context, String idUser, String channel) async {
+      BuildContext context,
+      String idUser,
+      String channel,
+      {
+        String? phonenumber,
+        String? Password,
+      }) async {
     isLoadingSendOtp = true;
     notifyListeners();
 
@@ -956,6 +980,8 @@ class ProviderAuth extends ChangeNotifier {
         Nav.toAll(OtpScreen(
           channel: channel,
           idUser: idUser,
+          phonenumber: phonenumber,
+          password: Password,
         ));
       }
     });
@@ -966,7 +992,8 @@ class ProviderAuth extends ChangeNotifier {
 
   // verify otp
   Future<void> verify(BuildContext context, String otpCode,
-      {required String idUser}) async {
+      {required String idUser, String? phonenumber,
+        String? Password,}) async {
     isLoading = true;
     notifyListeners();
 
@@ -987,7 +1014,7 @@ class ProviderAuth extends ChangeNotifier {
           style: const TextStyle(fontSize: 16),
         ),
       );
-    }, success: (res) {
+    }, success: (res) async {
       if (res.status == false) {
         NotificationUtils.showDialogError(context, () {
           // resendOtp().then((value) => Nav.back());
@@ -1000,16 +1027,33 @@ class ProviderAuth extends ChangeNotifier {
             ),
             textButton: S.of(context).back);
       } else if (res.status == true) {
-        stopTimer();
-        NotificationUtils.showDialogSuccessOtp(
-          context,
-          () {
-            Nav.back();
-          },
-          widget: Center(
-            child: Text(S.of(context).registration_success),
-          ),
-        );
+        String? fcmKey = await FirebaseMessaging
+            .instance
+            .getToken();
+        if(phonenumber != null){
+          login(context,
+              phoneNumber: phonenumber ?? "",
+              password: Password ?? "",
+              fcmToken: fcmKey.toString(),
+          source: 'register');
+          stopTimer();
+          isLoading = false;
+          notifyListeners();
+        }else{
+          stopTimer();
+          NotificationUtils.showDialogSuccessOtp(
+            context,
+                () {
+              Nav.back();
+            },
+            widget: Center(
+              child: Text(S.of(context).registration_success),
+            ),
+          );
+        }
+        isLoading = false;
+        notifyListeners();
+
       }
     });
 
@@ -1273,6 +1317,101 @@ class ProviderAuth extends ChangeNotifier {
       }
     });
 
+    notifyListeners();
+  }
+
+  bool isLoadingCredential = false;
+  CredentialResponse? response;
+  Failure? failure;
+  Future<void> cekCredential({
+    required BuildContext context,
+    String? phoneNumber,
+    String? email,
+    String? navigasi,
+    String? coderef
+  }) async {
+    isLoadingCredential = true;
+    notifyListeners();
+
+    try {
+      Either<Failure, CredentialResponse> result = await auth
+          .cekCredential(
+        phoneNumber: phoneNumber,
+        email: email,
+      )
+          .timeout(
+        const Duration(seconds: 30),
+        onTimeout: () {
+          throw TimeoutException("Permintaan melebihi waktu. Coba lagi.");
+        },
+      );
+
+      result.when(
+        error: (e) {
+          failure = e;
+          response = null;
+
+          NotificationUtils.showDialogError(
+            context,
+                () => Navigator.pop(context),
+            widget: Text(
+              e.message,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 16),
+            ),
+          );
+        },
+        success: (res) {
+          if (res.success) {
+            response = res;
+            if(navigasi == 'nohp'){
+              Nav.to(OnBoardingEmailPage(phoneNumber: phoneNumber ?? "no kosong",coderef: coderef ?? "",));
+            } else if (navigasi == 'email') {
+              Nav.to(OnBoardingLoactionPage(phoneNumber: phoneNumber ?? "no kosong",email: email ?? "email kosong",coderef: coderef ?? "",));
+            }
+          } else {
+            failure = Failure(res.message);
+            NotificationUtils.showDialogError(
+              context,
+                  () => Navigator.pop(context),
+              widget: Text(
+                res.message,
+                textAlign: TextAlign.center,
+                style: const TextStyle(fontSize: 16),
+              ),
+            );
+          }
+        },
+      );
+    } on TimeoutException catch (e) {
+      failure = Failure(e.message ?? "Timeout");
+      response = null;
+
+      NotificationUtils.showDialogError(
+        context,
+            () => Navigator.pop(context),
+        widget: Text(
+          e.message ?? "Request Timeout",
+          textAlign: TextAlign.center,
+          style: const TextStyle(fontSize: 16),
+        ),
+      );
+    } catch (e) {
+      failure = Failure("Terjadi kesalahan, silakan coba lagi.");
+      response = null;
+
+      NotificationUtils.showDialogError(
+        context,
+            () => Navigator.pop(context),
+        widget: const Text(
+          "Gagal menghubungi server.",
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 16),
+        ),
+      );
+    }
+
+    isLoadingCredential = false;
     notifyListeners();
   }
 }

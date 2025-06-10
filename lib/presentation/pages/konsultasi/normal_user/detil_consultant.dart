@@ -1,3 +1,4 @@
+import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/profile_consultant.dart';
 import 'package:coolappflutter/presentation/pages/konsultasi/normal_user/chat/New_UserChat.dart';
 import 'package:coolappflutter/presentation/pages/konsultasi/normal_user/chat/firebase_chat/rooms.dart';
 import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
@@ -142,17 +143,22 @@ class _DetailConsultantState extends State<DetailConsultant> {
               ),
             ),
             SizedBox(height: 10),
-            ProfileCard(
-              imagePath: widget.imagePath,
-              name: widget.name,
-              title: widget.title,
-              bloodType: widget.bloodType,
-              location: widget.location,
-              time: widget.time,
-              timeRemaining: widget.timeRemaining,
-              timeColor: widget.timeColor,
-              status: widget.status,
-              warnastatus: widget.warnastatus,
+            InkWell(
+              onTap: () {
+                Nav.to(ProfileConsultant(id : widget.idConsultant.toString()));
+              },
+              child: ProfileCard(
+                imagePath: widget.imagePath,
+                name: widget.name,
+                title: widget.title,
+                bloodType: widget.bloodType,
+                location: widget.location,
+                time: widget.time,
+                timeRemaining: widget.timeRemaining,
+                timeColor: widget.timeColor,
+                status: widget.status,
+                warnastatus: widget.warnastatus,
+              ),
             ),
             SizedBox(height: 16.0),
             CardConsultant(

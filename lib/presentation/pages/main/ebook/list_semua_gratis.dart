@@ -38,8 +38,8 @@ class _ListSemuaGratisState extends State<ListSemuaGratis> {
                     Navigator.pop(context);
                   },
                   icon: Image.asset("images/buku/arrowleft.png")),
-              title: const Text(
-                "List Semua Buku Gratis",
+              title:  Text(
+                  S.of(context).list_semua_buku_gratis,
                 style: TextStyle(color: Colors.white),
               ),
               centerTitle: false,
@@ -75,7 +75,7 @@ class _ListSemuaGratisState extends State<ListSemuaGratis> {
                                 ),
                               ),
                             ),
-                            hintText: "Cari Judul Buku",
+                            hintText:  S.of(context).cari_judul_buku,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(Sizes.p10),
                               borderSide: const BorderSide(
@@ -91,10 +91,10 @@ class _ListSemuaGratisState extends State<ListSemuaGratis> {
                       shrinkWrap: true,
                       physics: NeverScrollableScrollPhysics(),
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        childAspectRatio: 0.8,
-                        crossAxisSpacing: 10,
+                        crossAxisCount: 2, // jumlah item per baris, sesuaikan dengan lebar layar
                         mainAxisSpacing: 10,
+                        crossAxisSpacing: 10,
+                        childAspectRatio: 100 / 200, // lebar : tinggi
                       ),
                       itemCount: value.displayFree.length,
                       itemBuilder: (context, index) {
@@ -103,50 +103,53 @@ class _ListSemuaGratisState extends State<ListSemuaGratis> {
                           onTap: () {
                             Nav.to(ReadBook("${data.filePath}", "${data.title}"));
                           },
-                          child: Card(
-                            color: Colors.white,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: SizedBox(
-                                    height: 150,
-                                    width: double.infinity,
-                                    child: Image.network(
-                                      "${data.imagePath ?? ""}",
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                                gapH20,
-                                Padding(
-                                  padding:
-                                      const EdgeInsets.only(left: 5, right: 5),
-                                  child: Center(
-                                    child: Text(
-                                      data.title.toString().length > 15
-                                          ? data.title
-                                              .toString()
-                                              .substring(0, 15) +
-                                              '...'
-                                          : data.title.toString(),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                        fontSize: 19,
-                                        fontWeight: FontWeight.w600
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 10,bottom: 50),
+                            child: SizedBox(
+                              height: 100,
+                              width: 170,
+                              child: Card(
+                                color: Colors.white,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(10),
+                                      child: SizedBox(
+                                        width: double.infinity,
+                                        child: Image.network(
+                                          "${data.imagePath ?? ""}",
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                                   Spacer(), // Sesuai jarak di ListView
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 5, right: 5),
+                                      child: Center(
+                                        child: Text(
+                                          data.title.toString(),
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600// Sama seperti ListView
                                           ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                    gapH10
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
                         );
                       },
                     ),
-                  ),
+                  )
+
                 ],
               ),
             ),

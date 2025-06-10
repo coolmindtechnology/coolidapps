@@ -145,35 +145,35 @@ class _ProfilingDashboardState extends State<ProfilingDashboard>
                           gapW10,
                           _buildTab(
                               index: 4,
-                              text: 'Creative',
+                              text: S.of(context).creative,
                               textColor: Colors.white,
                               backgroundColor: Colors.orange,
                               borderColor: Colors.orange),
                           gapW10,
                           _buildTab(
                               index: 5,
-                              text: 'Action',
+                              text: S.of(context).action,
                               textColor: Colors.white,
                               borderColor: Colors.red,
                               backgroundColor: Colors.red),
                           gapW10,
                           _buildTab(
                               index: 3,
-                              text: 'Master',
+                              text: S.of(context).master,
                               borderColor: Colors.white,
                               backgroundColor: Colors.white,
                               textColor: Colors.black),
                           gapW10,
                           _buildTab(
                               index: 1,
-                              text: 'Emotion',
+                              text: S.of(context).emotion,
                               textColor: Colors.white,
                               borderColor: Colors.green,
                               backgroundColor: greenColor),
                           gapW10,
                           _buildTab(
                               index: 2,
-                              text: 'Logic',
+                              text: S.of(context).logic,
                               textColor: Colors.black,
                               backgroundColor: Colors.yellow,
                               borderColor: Colors.yellow),
@@ -207,58 +207,168 @@ class _ProfilingDashboardState extends State<ProfilingDashboard>
                           : SingleChildScrollView(
                               child: Column(
                                 children: [
-                                  if(_selectedIndex == 0 && value.listDisable.isNotEmpty)
-                                  value.listFalseProfiling.isEmpty
-                                      ? SizedBox()
-                                      : ListView.builder(
-                                          shrinkWrap: true,
-                                          physics:
-                                              const NeverScrollableScrollPhysics(),
-                                          itemCount:
-                                              value.listFalseProfiling.length,
-                                          itemBuilder: (context, index) {
-                                            final item =
-                                                value.listFalseProfiling[index];
-                                            return Padding(
-                                              padding: const EdgeInsets.only(top: 6,bottom: 6),
-                                              child: CardPayProfilingWidget(data: item),
-                                            );
-                                          },
-                                        ),
-                                  ListView.builder(
-                                    physics: const NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    itemCount: dataToDisplay.length,
-                                    itemBuilder: (context, index) {
-                                      DataProfiling data = dataToDisplay[index];
-                                      return GestureDetector(
-                                        onTap: () {
-                                          if (data.status.toString() == "0") {
-                                            NotificationUtils.showSimpleDialog2(
-                                                context,
-                                                S.of(context).pay_to_see_more,
-                                                textButton1:
-                                                    S.of(context).yes_continue,
-                                                textButton2: S.of(context).no,
-                                                onPress2: () {
-                                              Nav.back();
-                                            }, onPress1: () async {
-                                              Nav.back();
-                                              await NotificationUtils
+                                  if (value.listFalseProfiling.isEmpty &&
+                                      dataToDisplay.isEmpty)
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 140),
+                                      child: const Center(
+                                        child: Text("No data"),
+                                      ),
+                                    )
+                                  else ...[
+                                    if (_selectedIndex == 0)
+                                      value.listFalseProfiling.isEmpty
+                                          ? SizedBox()
+                                          : ListView.builder(
+                                              shrinkWrap: true,
+                                              physics:
+                                                  const NeverScrollableScrollPhysics(),
+                                              itemCount: value
+                                                  .listFalseProfiling.length,
+                                              itemBuilder: (context, index) {
+                                                final item = value
+                                                    .listFalseProfiling[index];
+                                                return Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 6, bottom: 6),
+                                                  child: CardPayProfilingWidget(
+                                                      data: item),
+                                                );
+                                              },
+                                            ),
+                                    ListView.builder(
+                                      physics:
+                                          const NeverScrollableScrollPhysics(),
+                                      shrinkWrap: true,
+                                      itemCount: dataToDisplay.length,
+                                      itemBuilder: (context, index) {
+                                        DataProfiling data =
+                                            dataToDisplay[index];
+                                        return GestureDetector(
+                                          onTap: () {
+                                            if (data.status.toString() == "0") {
+                                              NotificationUtils
                                                   .showSimpleDialog2(
                                                       context,
                                                       S
                                                           .of(context)
-                                                          .pay_with_your_cool_balance,
+                                                          .pay_to_see_more,
                                                       textButton1: S
                                                           .of(context)
                                                           .yes_continue,
                                                       textButton2: S
                                                           .of(context)
-                                                          .other_pay,
-                                                      onPress2: () async {
+                                                          .no, onPress2: () {
                                                 Nav.back();
-                                                await value.payProfiling(
+                                              }, onPress1: () async {
+                                                Nav.back();
+                                                await NotificationUtils
+                                                    .showSimpleDialog2(
+                                                        context,
+                                                        S
+                                                            .of(context)
+                                                            .pay_with_your_cool_balance,
+                                                        textButton1: S
+                                                            .of(context)
+                                                            .yes_continue,
+                                                        textButton2: S
+                                                            .of(context)
+                                                            .other_pay,
+                                                        onPress2: () async {
+                                                  Nav.back();
+                                                  await value.payProfiling(
+                                                      context,
+                                                      [
+                                                        int.tryParse(data
+                                                                    .idLogResult
+                                                                    .toString() ??
+                                                                "0") ??
+                                                            0
+                                                      ],
+                                                      "0",
+                                                      "transaction_type",
+                                                      1, onUpdate: () async {
+                                                    await value
+                                                        .getListProfiling(
+                                                            context);
+                                                  }, fromPage: "profiling");
+                                                }, onPress1: () async {
+                                                  Nav.back();
+                                                  await value
+                                                      .createTransactionProfiling(
+                                                          context,
+                                                          DataCheckoutTransaction(
+                                                              idLogs: [
+                                                                int.parse(data
+                                                                        .idLogResult
+                                                                        .toString() ??
+                                                                    "0")
+                                                              ],
+                                                              discount: "0",
+                                                              idItemPayments:
+                                                                  "1",
+                                                              qty: 1,
+                                                              gateway:
+                                                                  "paypal"),
+                                                          () async {
+                                                    await value
+                                                        .getListProfiling(
+                                                            context);
+                                                  });
+                                                },
+                                                        colorButon1:
+                                                            primaryColor,
+                                                        colorButton2:
+                                                            Colors.white);
+                                              },
+                                                      colorButon1: primaryColor,
+                                                      colorButton2:
+                                                          Colors.white);
+                                            } else {
+                                              if (data.isAboveseventeen ==
+                                                  true) {
+                                                Nav.to(ScreenHasilKepribadian(
+                                                    data: data));
+                                              } else {
+                                                Nav.to(
+                                                    ScreenHasilKepribadianBawah17(
+                                                        data: data));
+                                              }
+                                              // Nav.to(DetailProfiling(
+                                              //     data: data));
+                                            }
+                                          },
+                                          onDoubleTap: () {
+                                            if (data.status.toString() == "0") {
+                                              NotificationUtils
+                                                  .showSimpleDialog2(
+                                                      context,
+                                                      S
+                                                          .of(context)
+                                                          .pay_to_see_more,
+                                                      textButton1: S
+                                                          .of(context)
+                                                          .yes_continue,
+                                                      textButton2: S
+                                                          .of(context)
+                                                          .no, onPress2: () {
+                                                Nav.back();
+                                              }, onPress1: () async {
+                                                Nav.back();
+                                                await NotificationUtils
+                                                    .showSimpleDialog2(
+                                                        context,
+                                                        S
+                                                            .of(context)
+                                                            .pay_with_your_cool_balance,
+                                                        textButton1: S
+                                                            .of(context)
+                                                            .yes_continue,
+                                                        textButton2:
+                                                            S.of(context).other,
+                                                        onPress2: () async {
+                                                  await value.payProfiling(
                                                     context,
                                                     [
                                                       int.tryParse(data
@@ -269,16 +379,20 @@ class _ProfilingDashboardState extends State<ProfilingDashboard>
                                                     ],
                                                     "0",
                                                     "transaction_type",
-                                                    1, onUpdate: () async {
-                                                  await value.getListProfiling(
-                                                      context);
-                                                }, fromPage: "profiling");
-                                              }, onPress1: () async {
-                                                Nav.back();
-                                                await value
-                                                    .createTransactionProfiling(
-                                                        context,
-                                                        DataCheckoutTransaction(
+                                                    1,
+                                                    onUpdate: () async {
+                                                      await value
+                                                          .getListProfiling(
+                                                              context);
+                                                    },
+                                                    fromPage: "profiling",
+                                                  );
+                                                }, onPress1: () async {
+                                                  Nav.back();
+                                                  await value
+                                                      .createTransactionProfiling(
+                                                          context,
+                                                          DataCheckoutTransaction(
                                                             idLogs: [
                                                               int.parse(data
                                                                       .idLogResult
@@ -288,115 +402,38 @@ class _ProfilingDashboardState extends State<ProfilingDashboard>
                                                             discount: "0",
                                                             idItemPayments: "1",
                                                             qty: 1,
-                                                            gateway: "paypal"),
-                                                        () async {
-                                                  await value.getListProfiling(
-                                                      context);
-                                                });
-                                              },
-                                                      colorButon1: primaryColor,
-                                                      colorButton2:
-                                                          Colors.white);
-                                            },
-                                                colorButon1: primaryColor,
-                                                colorButton2: Colors.white);
-                                          } else {
-                                            if (data.isAboveseventeen == true) {
-                                              Nav.to(ScreenHasilKepribadian(
-                                                  data: data));
-                                            } else {
-                                              Nav.to(
-                                                  ScreenHasilKepribadianBawah17(
-                                                      data: data));
-                                            }
-                                            // Nav.to(DetailProfiling(
-                                            //     data: data));
-                                          }
-                                        },
-                                        onDoubleTap: () {
-                                          if (data.status.toString() == "0") {
-                                            NotificationUtils.showSimpleDialog2(
-                                                context,
-                                                S.of(context).pay_to_see_more,
-                                                textButton1:
-                                                    S.of(context).yes_continue,
-                                                textButton2: S.of(context).no,
-                                                onPress2: () {
-                                              Nav.back();
-                                            }, onPress1: () async {
-                                              Nav.back();
-                                              await NotificationUtils
-                                                  .showSimpleDialog2(
-                                                      context,
-                                                      S
-                                                          .of(context)
-                                                          .pay_with_your_cool_balance,
-                                                      textButton1: S
-                                                          .of(context)
-                                                          .yes_continue,
-                                                      textButton2:
-                                                          S.of(context).other,
-                                                      onPress2: () async {
-                                                await value.payProfiling(
-                                                  context,
-                                                  [
-                                                    int.tryParse(data
-                                                                .idLogResult
-                                                                .toString() ??
-                                                            "0") ??
-                                                        0
-                                                  ],
-                                                  "0",
-                                                  "transaction_type",
-                                                  1,
-                                                  onUpdate: () async {
+                                                          ), () async {
                                                     await value
                                                         .getListProfiling(
                                                             context);
-                                                  },
-                                                  fromPage: "profiling",
-                                                );
-                                              }, onPress1: () async {
-                                                Nav.back();
-                                                await value
-                                                    .createTransactionProfiling(
-                                                        context,
-                                                        DataCheckoutTransaction(
-                                                          idLogs: [
-                                                            int.parse(data
-                                                                    .idLogResult
-                                                                    .toString() ??
-                                                                "0")
-                                                          ],
-                                                          discount: "0",
-                                                          idItemPayments: "1",
-                                                          qty: 1,
-                                                        ), () async {
-                                                  await value.getListProfiling(
-                                                      context);
-                                                });
+                                                  });
+                                                },
+                                                        colorButon1:
+                                                            primaryColor,
+                                                        colorButton2:
+                                                            Colors.white);
                                               },
                                                       colorButon1: primaryColor,
                                                       colorButton2:
                                                           Colors.white);
-                                            },
-                                                colorButon1: primaryColor,
-                                                colorButton2: Colors.white);
-                                          } else {
-                                            if (data.isAboveseventeen == true) {
-                                              Nav.to(ScreenHasilKepribadian(
-                                                  data: data));
                                             } else {
-                                              Nav.to(
-                                                  ScreenHasilKepribadianBawah17(
-                                                      data: data));
+                                              if (data.isAboveseventeen ==
+                                                  true) {
+                                                Nav.to(ScreenHasilKepribadian(
+                                                    data: data));
+                                              } else {
+                                                Nav.to(
+                                                    ScreenHasilKepribadianBawah17(
+                                                        data: data));
+                                              }
                                             }
-                                          }
-                                        },
-                                        child: CardListProfilingWidget(data: data),
-                                      );
-                                    },
-                                  ),
+                                          },
+                                          child: CardListProfilingWidget(
+                                              data: data),
+                                        );
+                                      },
+                                    ),
+                                  ]
                                 ],
                               ),
                             ),
@@ -672,7 +709,6 @@ class CardListProfilingWidget extends StatelessWidget {
   }
 }
 
-
 class CardPayProfilingWidget extends StatelessWidget {
   const CardPayProfilingWidget({
     super.key,
@@ -691,19 +727,22 @@ class CardPayProfilingWidget extends StatelessWidget {
         width: double.infinity,
         height: 120,
         decoration: BoxDecoration(
-          color: primaryColor,
-          borderRadius: BorderRadius.circular(15)
-        ),
+            color: primaryColor, borderRadius: BorderRadius.circular(15)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.lock,color: Colors.white,),
+            Icon(
+              Icons.lock,
+              color: Colors.white,
+            ),
             gapH10,
             Text(
               "TERKUNCI (${data.totalProfiling} Profiling)",
               style: const TextStyle(
-                  fontSize: 16, fontWeight: FontWeight.bold,color: Colors.white),
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
             ),
             gapH10,
             Text(
@@ -718,8 +757,7 @@ class CardPayProfilingWidget extends StatelessWidget {
       ),
     );
   }
-  }
-
+}
 
 class InputAmountProfilingDialog extends StatelessWidget {
   final String? maxProfiling;

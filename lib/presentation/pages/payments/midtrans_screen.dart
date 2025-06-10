@@ -213,7 +213,7 @@ class _MidtransScreenState extends State<MidtransScreen> {
                 // close midtrans
 
                 if (url.toString().contains('midtrans-on-close')) {
-                  Nav.back();
+                  Nav.toAll(NavMenuScreen());
                 }
               } else {
                 Nav.back();

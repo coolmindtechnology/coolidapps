@@ -56,7 +56,9 @@ class _TabRequestCurhatState extends State<TabRequestCurhat> {
               status: S.of(context).Status,
               warnastatus: Colors.lightGreen.shade100,
               onTap: () {
-                Nav.to(ProfileConsultant());
+                Nav.to(ProfileConsultant(
+                  id: curhat.consultantId.toString(),
+                ));
               },
             );
           });

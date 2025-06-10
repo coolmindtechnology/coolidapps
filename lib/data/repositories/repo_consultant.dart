@@ -7,11 +7,14 @@ import 'package:coolappflutter/data/response/consultant/res_approval_by_consulta
 import 'package:coolappflutter/data/response/consultant/res_approval_summary.dart';
 import 'package:coolappflutter/data/response/consultant/res_check_session.dart';
 import 'package:coolappflutter/data/response/consultant/res_dashboard_consultant.dart';
+import 'package:coolappflutter/data/response/consultant/res_follow_consultant.dart';
 import 'package:coolappflutter/data/response/consultant/res_get_comissen.dart';
 import 'package:coolappflutter/data/response/consultant/res_get_participant.dart';
 import 'package:coolappflutter/data/response/consultant/res_get_term.dart';
+import 'package:coolappflutter/data/response/consultant/res_get_topic.dart';
 import 'package:coolappflutter/data/response/consultant/res_regist_consultant.dart';
 import 'package:coolappflutter/data/response/consultant/res_update_status.dart';
+import 'package:coolappflutter/data/response/consultation/res_detail_consultant.dart';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
@@ -142,6 +145,100 @@ class RepoConsultant {
       return Either.error(ErrorHandler.handle(e).failure);
     }
   }
+
+  Future<Either<Failure, ResponseDetailConsultant>> getDetailConsultant(
+      String id) async {
+    try {
+      // Membentuk URL dengan menambahkan parameter category ke query string jika parameter tidak null
+      String url =  ApiEndpoint.getDetailConsultant(id);
+
+      // Melakukan request GET
+      Response res = await dio.get(
+        url,
+        options: Options(
+          validateStatus: (status) {
+            return status == 200 || status == 400;
+          },
+          headers: {
+            'Authorization': dataGlobal.token, // Header Authorization
+          },
+        ),
+      );
+
+      // Mengembalikan hasil response dari API
+      return Either.success(ResponseDetailConsultant.fromJson(res.data));
+    } catch (e, st) {
+      if (kDebugMode) {
+        print(st); // Menampilkan error jika ada
+      }
+      return Either.error(ErrorHandler.handle(e).failure);
+    }
+  }
+
+
+  Future<Either<Failure, ResponseGetTopic>> getTopicConsultant(
+      String id) async {
+    try {
+      // Membentuk URL dengan menambahkan parameter category ke query string jika parameter tidak null
+      String url =  ApiEndpoint.getTopicConsultant(id);
+
+      // Melakukan request GET
+      Response res = await dio.get(
+        url,
+        options: Options(
+          validateStatus: (status) {
+            return status == 200 || status == 400;
+          },
+          headers: {
+            'Authorization': dataGlobal.token, // Header Authorization
+          },
+        ),
+      );
+
+      // Mengembalikan hasil response dari API
+      return Either.success(ResponseGetTopic.fromJson(res.data));
+    } catch (e, st) {
+      if (kDebugMode) {
+        print(st); // Menampilkan error jika ada
+      }
+      return Either.error(ErrorHandler.handle(e).failure);
+    }
+  }
+
+  Future<Either<Failure, ResponseFollowConsultant>> followConsultant(String id) async {
+    try {
+      // Endpoint URL
+      String url = ApiEndpoint.followConsultant(id);
+
+      // Body yang dikirim
+      Map<String, dynamic> body = {
+        "foll": 1,
+      };
+
+      // Melakukan request PUT
+      Response res = await dio.put(
+        url,
+        data: body,
+        options: Options(
+          validateStatus: (status) {
+            return status == 200 || status == 400;
+          },
+          headers: {
+            'Authorization': dataGlobal.token, // Header Authorization
+          },
+        ),
+      );
+
+      // Mengembalikan hasil response dari API
+      return Either.success(ResponseFollowConsultant.fromJson(res.data));
+    } catch (e, st) {
+      if (kDebugMode) {
+        print(st); // Menampilkan error jika ada
+      }
+      return Either.error(ErrorHandler.handle(e).failure);
+    }
+  }
+
 
   Future<Either<Failure, ResGetTerm>> getTermCondition({String? token}) async {
     try {

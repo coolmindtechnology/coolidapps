@@ -1,8 +1,8 @@
 class ApiEndpoint {
-  // static String baseUrl = "https://cool-compass.mycool.id";
+  static String baseUrl = "https://cool-compass.mycool.id";
   // static String baseUrl = "https://staging-cool.hantrr.com";
   // static String baseUrl = "https://cool-staging.dschazy.com";
-  static String baseUrl = "https://cool-new.dschazy.com";
+  // static String baseUrl = "https://cool-new.dschazy.com";
 
   // static String baseUrl = "https://coolcompas-staging.mycool.id";
 
@@ -97,6 +97,7 @@ class ApiEndpoint {
   static String register = "${_baseUrlApi}auth/register";
   static String resetPassword = "${_authUrlApi}reset-password";
   static String checkCountry = "${_authUrlApi}check-country";
+  static String checkCredential = "${_authUrlApi}checkCredentials";
 
   //// User
   static String getUser = "${_userUrlApi}me";
@@ -109,6 +110,9 @@ class ApiEndpoint {
   static String getAddress = "${_userUrlApi}get/extra/address";
   static String ReportBugByUser = "${_baseUrlApi}users/log/reports";
   static String getCategoryBug = "${_baseUrlApi}category-user";
+  static String sendMassageReport = "${_baseUrlApi}chat-report/create";
+  static String getMassageReport = "${_baseUrlApi}chat-report/get";
+  static String closeMassageReport(id) => "${_baseUrlApi}chat-report/close/case/$id";
 
   //API Consultation
   static String getListConsultation =
@@ -131,6 +135,10 @@ class ApiEndpoint {
   static String getHomeConsultant = "${_consultantUrlApi}overview";
   static String getParticipant = "${_consultationUrlApi}get-participant";
   static String checkSession = "${_consultationUrlApi}check-sessions";
+  static String getTopicConsultant(id) =>
+      "${_consultationUrlApi}related-topic/$id";
+  static String followConsultant(id) =>
+      "${_baseUrlApi}user/followed-consultant/$id";
 
   static String getTermConsultant =
       "${_baseUrlApi}terms-and-condition";

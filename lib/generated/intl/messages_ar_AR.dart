@@ -389,6 +389,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "account_success": MessageLookupByLibrary.simpleMessage("نجاح الحساب"),
         "achieve_success_in_life": MessageLookupByLibrary.simpleMessage(
             "حقق النجاح في الحياة\nمن خلال أفضل تطبيقات الشخصية"),
+        "action": MessageLookupByLibrary.simpleMessage("عملي"),
         "ada": MessageLookupByLibrary.simpleMessage("موجود"),
         "add": MessageLookupByLibrary.simpleMessage("إضافة"),
         "add_data_first": MessageLookupByLibrary.simpleMessage(
@@ -411,6 +412,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "الوكيل لديه بالفعل الحد الأقصى من الأعضاء"),
         "agree_terms_conditions": MessageLookupByLibrary.simpleMessage(
             "بقراءة هذا، أوافق على الشروط والأحكام"),
+        "ajakan": MessageLookupByLibrary.simpleMessage(
+            "هل تريد معرفة نوع دماغك؟ لنقم بإنشاء ملفك الشخصي الآن!"),
         "ajakan_mengenal_diri": MessageLookupByLibrary.simpleMessage(
             "هيا، تعرف على نفسك بشكل أعمق"),
         "akandidengar": MessageLookupByLibrary.simpleMessage("سوف تسمع :"),
@@ -432,7 +435,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "asset_type": MessageLookupByLibrary.simpleMessage("نوع الأصول"),
         "attention": MessageLookupByLibrary.simpleMessage("انتباه!"),
         "aura_type": MessageLookupByLibrary.simpleMessage("نوع هالة"),
+        "ayo_selfie":
+            MessageLookupByLibrary.simpleMessage("هيا نلتقط صورة سيلفي!"),
+        "baca_buku": MessageLookupByLibrary.simpleMessage("اقرأ الكتاب"),
         "back": MessageLookupByLibrary.simpleMessage("رجوع"),
+        "balas": MessageLookupByLibrary.simpleMessage("الرد"),
         "bank_account": MessageLookupByLibrary.simpleMessage("حساب بنكي"),
         "bank_account_not_found": MessageLookupByLibrary.simpleMessage(
             "لم يتم العثور على حساب البنك"),
@@ -448,6 +455,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("اشتراك في العقل"),
         "brain_type": MessageLookupByLibrary.simpleMessage("نوع الدماغ"),
         "brain_type_label": MessageLookupByLibrary.simpleMessage("نوع الدماغ"),
+        "buku_premium": MessageLookupByLibrary.simpleMessage("كتاب مميز"),
         "calculation_results":
             MessageLookupByLibrary.simpleMessage("نتائج التصنيف"),
         "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
@@ -458,6 +466,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "cannot_be_empty":
             MessageLookupByLibrary.simpleMessage("لا يمكن أن تكون فارغة"),
         "career": MessageLookupByLibrary.simpleMessage("المهنة"),
+        "cari_judul_buku":
+            MessageLookupByLibrary.simpleMessage("ابحث عن عنوان الكتاب"),
+        "cek_form_register": MessageLookupByLibrary.simpleMessage(
+            "يرجى التحقق من نموذج التسجيل مرة أخرى"),
         "ceritaAnda": MessageLookupByLibrary.simpleMessage("قصتك"),
         "certificate": MessageLookupByLibrary.simpleMessage("شهادة"),
         "change_language": MessageLookupByLibrary.simpleMessage("تغيير اللغة"),
@@ -520,6 +532,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "قم بإنشاء كلمة مرور جديدة للدخول إلى التطبيق"),
         "create_password":
             MessageLookupByLibrary.simpleMessage("إنشاء كلمة المرور"),
+        "creative": MessageLookupByLibrary.simpleMessage("مبدع"),
         "credit_card": MessageLookupByLibrary.simpleMessage("بطاقة الائتمان"),
         "currency": MessageLookupByLibrary.simpleMessage("SAR"),
         "current_password":
@@ -564,6 +577,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
         "email_not_registered": MessageLookupByLibrary.simpleMessage(
             "البريد الإلكتروني المدخل غير مسجل في النظام"),
+        "emotion": MessageLookupByLibrary.simpleMessage("عاطفي"),
         "enjoy_all_access":
             MessageLookupByLibrary.simpleMessage("استمتع بجميع الوصولات"),
         "enter_a_value_between_2_and_10":
@@ -614,11 +628,13 @@ class MessageLookup extends MessageLookupByLibrary {
             "النسخة المجانية يمكن الاستماع إليها حتى 5 دقائق الأولى فقط. يرجى الاشتراك للاستماع إلى الكل."),
         "from": MessageLookupByLibrary.simpleMessage("من"),
         "gambar": MessageLookupByLibrary.simpleMessage("الصورة:"),
+        "ganti_foto": MessageLookupByLibrary.simpleMessage("تغيير الصورة"),
         "get_know_yourself": MessageLookupByLibrary.simpleMessage(
             "تعرف على نفسك بشكل أسرع وأكثر دقة"),
         "get_lots_of_benefits_by_subcribing":
             MessageLookupByLibrary.simpleMessage(
                 "احصل على الكثير من الفوائد من خلال الاشتراك"),
+        "gratis_untuk_kamu": MessageLookupByLibrary.simpleMessage("مجاني لك!"),
         "great_figures_with_same_brain_type":
             MessageLookupByLibrary.simpleMessage(
                 "رائع! هناك شخصيات لها نفس نوع الدماغ مثلك"),
@@ -661,8 +677,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "is_adalah": MessageLookupByLibrary.simpleMessage("هو"),
         "is_the_data_entered_correct":
             MessageLookupByLibrary.simpleMessage("هل البيانات المدخلة صحيحة؟"),
+        "isiIdentitas": MessageLookupByLibrary.simpleMessage("املأ هويتك"),
         "isiSemuaKolom":
             MessageLookupByLibrary.simpleMessage("يرجى ملء جميع الحقول!"),
+        "isiTanggalLahir":
+            MessageLookupByLibrary.simpleMessage("أدخل تاريخ ميلادك"),
+        "isi_identitas": MessageLookupByLibrary.simpleMessage("أدخل هويتك"),
+        "isi_ktp":
+            MessageLookupByLibrary.simpleMessage("أدخل رقم الهوية الخاص بك"),
+        "isi_nama_lengkap":
+            MessageLookupByLibrary.simpleMessage("أدخل اسمك الكامل"),
         "jadi_anggota_pada": MessageLookupByLibrary.simpleMessage("انضم في"),
         "join_now": MessageLookupByLibrary.simpleMessage(
             "انضم الآن وابدأ في تحقيق دخل إضافي!"),
@@ -681,6 +705,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "komisi": MessageLookupByLibrary.simpleMessage("العمولة"),
         "komisiKu": MessageLookupByLibrary.simpleMessage("عمولتي"),
         "komisiku": MessageLookupByLibrary.simpleMessage("عمولتي"),
+        "lakukanSekarang": MessageLookupByLibrary.simpleMessage("قم بذلك الآن"),
         "lakukan_pembayaran": MessageLookupByLibrary.simpleMessage("قم بالدفع"),
         "lakukan_pembayaran_pertanyaan":
             MessageLookupByLibrary.simpleMessage("هل تريد إجراء الدفع؟"),
@@ -692,6 +717,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "lets_develop_ourselves":
             MessageLookupByLibrary.simpleMessage("لنطور أنفسنا"),
         "list": MessageLookupByLibrary.simpleMessage("قائمة"),
+        "list_semua_buku_gratis":
+            MessageLookupByLibrary.simpleMessage("قائمة جميع الكتب المجانية"),
+        "list_semua_buku_premium":
+            MessageLookupByLibrary.simpleMessage("قائمة جميع الكتب المميزة"),
         "listen_brain_40_times": MessageLookupByLibrary.simpleMessage(
             "يرجى الاستماع إلى العقل وفقًا لشخصيتك 40 مرة أولاً. بعد ذلك يمكنك الاشتراك في الميزات الأخرى."),
         "loading": MessageLookupByLibrary.simpleMessage("جارٍ التحميل..."),
@@ -700,8 +729,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("سجل مشاكلك"),
         "logging_in":
             MessageLookupByLibrary.simpleMessage("جارٍ تسجيل الدخول..."),
+        "logic": MessageLookupByLibrary.simpleMessage("منطقي"),
         "logout": MessageLookupByLibrary.simpleMessage("تسجيل الخروج"),
         "manual_input": MessageLookupByLibrary.simpleMessage("إدخال يدوي"),
+        "master": MessageLookupByLibrary.simpleMessage("خبير"),
         "max_deposit": MessageLookupByLibrary.simpleMessage("حد أقصى للإيداع"),
         "max_withdrawal": MessageLookupByLibrary.simpleMessage("حد أقصى للسحب"),
         "maximum_10_profiling_data_for_1x_transaction": m0,
@@ -720,9 +751,13 @@ class MessageLookup extends MessageLookupByLibrary {
             "الحد الأدنى لمبلغ السحب: 10x عمولة"),
         "monthly": MessageLookupByLibrary.simpleMessage("شهريًا"),
         "motivasi": MessageLookupByLibrary.simpleMessage("١. الدافع"),
+        "mulai":
+            MessageLookupByLibrary.simpleMessage("ابدأ بالتعرف على شخصيتك"),
         "multiple": MessageLookupByLibrary.simpleMessage("مجموعة"),
         "my_balance": MessageLookupByLibrary.simpleMessage("رصيدي"),
         "name": MessageLookupByLibrary.simpleMessage("الاسم"),
+        "nanti": MessageLookupByLibrary.simpleMessage("لاحقًا"),
+        "nantiSaja": MessageLookupByLibrary.simpleMessage("لاحقًا"),
         "negative_balance_description": MessageLookupByLibrary.simpleMessage(
             "الرصيد السالب يحدث عندما يقوم الأعضاء بالتصنيف ولكن يتجاوز الرصيد المتاح للشريك. وبالتالي، يتم اعتبار النقص كدين (رصيد سالب). عندما يقوم الشريك بإعادة التعبئة، يتم خصم رصيده تلقائيًا وفقًا للرصيد السالب."),
         "new_profiling": MessageLookupByLibrary.simpleMessage("توصيف جديد"),
@@ -747,6 +782,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("يتم الاستماع الآن:"),
         "number_not_registered": MessageLookupByLibrary.simpleMessage(
             "الرقم المدخل غير مسجل في النظام"),
+        "oke": MessageLookupByLibrary.simpleMessage("حسنًا"),
         "orange": MessageLookupByLibrary.simpleMessage("برتقالي"),
         "order_id": MessageLookupByLibrary.simpleMessage("رقم الطلب"),
         "other": MessageLookupByLibrary.simpleMessage("أخرى"),
@@ -809,8 +845,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "phone_number": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
         "pilihGambar": MessageLookupByLibrary.simpleMessage(
             "اختر صورة من المعرض أو الكاميرا"),
+        "pilihGolonganDarah":
+            MessageLookupByLibrary.simpleMessage("اختر فصيلة دمك"),
         "pilihKategoriDanDeskripsi": MessageLookupByLibrary.simpleMessage(
             "يرجى اختيار الفئة وإدخال الوصف"),
+        "pin_lokasi":
+            MessageLookupByLibrary.simpleMessage("يرجى تحديد موقعك أولاً"),
         "play_audio": MessageLookupByLibrary.simpleMessage("تشغيل الصوت"),
         "please_check_again_on_form": MessageLookupByLibrary.simpleMessage(
             "يرجى التحقق مرة أخرى في النموذج"),
@@ -834,6 +874,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "post": MessageLookupByLibrary.simpleMessage("مشاركة"),
         "posting": MessageLookupByLibrary.simpleMessage("نشر"),
         "premium": MessageLookupByLibrary.simpleMessage("متميز"),
+        "preview": MessageLookupByLibrary.simpleMessage("معاينة"),
         "proceed": MessageLookupByLibrary.simpleMessage("استمر"),
         "process": MessageLookupByLibrary.simpleMessage("عملية"),
         "profil_mirip":
@@ -850,6 +891,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "تم إلغاء اشتراكك في برنامج الشراكة مع coolApp بنجاح"),
         "provideYourReason": MessageLookupByLibrary.simpleMessage("قدم سببك"),
         "qr_code": MessageLookupByLibrary.simpleMessage("رمز QR"),
+        "rating": MessageLookupByLibrary.simpleMessage("التقييم"),
         "reach_your_brains_maximum_potential": MessageLookupByLibrary.simpleMessage(
             "حقق أقصى إمكانيات دماغك من خلال الاستماع إلى تسجيلات صوتية مخصصة لتحفيز وتعزيز الوظائف الإدراكية المختلفة. استمع يوميًا مجانًا."),
         "read": MessageLookupByLibrary.simpleMessage("اقرأ"),
@@ -905,6 +947,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "scan_qr": MessageLookupByLibrary.simpleMessage("مسح QR"),
         "scan_qr_code": MessageLookupByLibrary.simpleMessage("امسح رمز QR"),
         "see_all": MessageLookupByLibrary.simpleMessage("عرض الكل"),
+        "selangkahLagi": MessageLookupByLibrary.simpleMessage(
+            "خطوة واحدة فقط لمعرفة المزيد عن نفسك"),
         "select": MessageLookupByLibrary.simpleMessage("اختر"),
         "select_bank": MessageLookupByLibrary.simpleMessage("اختر نوع البنك"),
         "select_bank_account":
@@ -978,6 +1022,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "thirty_days_ago": MessageLookupByLibrary.simpleMessage("منذ 30 يومًا"),
         "tidakAda": MessageLookupByLibrary.simpleMessage("لا يوجد"),
         "tidakTersedia": MessageLookupByLibrary.simpleMessage("غير متوفر"),
+        "tidakadaaff": MessageLookupByLibrary.simpleMessage(
+            "لا يوجد فرع قريب، يرجى المتابعة"),
         "tipe_harta": MessageLookupByLibrary.simpleMessage("نوع ثروتي!"),
         "tipe_otak": MessageLookupByLibrary.simpleMessage("نوع عقلي!"),
         "tipe_pola": MessageLookupByLibrary.simpleMessage("نوع النمط"),
@@ -1001,6 +1047,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("إجمالي المال الحقيقي"),
         "transaction": MessageLookupByLibrary.simpleMessage("معاملة"),
         "treasure_type": MessageLookupByLibrary.simpleMessage("نوع الكنز"),
+        "tutup_laporan": MessageLookupByLibrary.simpleMessage("إغلاق التقرير"),
         "type_ex":
             MessageLookupByLibrary.simpleMessage("اكتب، على سبيل المثال."),
         "type_figure": m4,

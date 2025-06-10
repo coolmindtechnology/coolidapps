@@ -760,7 +760,6 @@ class _ScreenHasilKepribadianBawah17State
       case 'CREATIVE OUT':
         return Colors.white;
       case 'ACTION IN':
-
       case 'ACTION OUT':
         return Colors.white;
       default:

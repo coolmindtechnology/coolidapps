@@ -72,16 +72,21 @@ class _TopUpPageState extends State<TopUpPage> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       var provider = Provider.of<ProviderPayment>(context, listen: false);
-      if (provider.listDataListTopUp != null && provider.listDataListTopUp!.length >= 3) {
-        try {
-          double parsedPrice = double.parse(provider.listDataListTopUp![2].price ?? "0");
-          if (mounted) {
+      if (provider.listDataListTopUp != null && provider.listDataListTopUp!.length > 2) {
+        final data = provider.listDataListTopUp![2];
+        final price = data.price;
+
+        if (price != null) {
+          final parsedPrice = double.tryParse(price.toString());
+          if (parsedPrice != null && mounted) {
             setState(() {
-              defaultKelipatan = parsedPrice.toInt(); // Konversi ke int
+              defaultKelipatan = parsedPrice.toInt();
             });
+          } else {
+            print("Gagal parsing price dari data index ke-2: $price");
           }
-        } catch (e) {
-          print("Error parsing price: $e");
+        } else {
+          print("Price null pada data index ke-2");
         }
       }
     });
