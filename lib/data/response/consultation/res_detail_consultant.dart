@@ -42,6 +42,7 @@ class DataDetailConsultant {
   int? sessionSuccess;
   dynamic rating;
   int? follower; // Tambahan follower
+  bool? isFollow;
 
   DataDetailConsultant({
     this.id,
@@ -52,7 +53,8 @@ class DataDetailConsultant {
     this.address,
     this.sessionSuccess,
     this.rating,
-    this.follower, // Inisialisasi follower
+    this.follower,
+    this.isFollow,// Inisialisasi follower
   });
 
   DataDetailConsultant.fromJson(Map<String, dynamic> json) {
@@ -64,7 +66,8 @@ class DataDetailConsultant {
     address = json['address'];
     sessionSuccess = json['session_success'];
     rating = json['rating'];
-    follower = json['follower']; // Parsing follower
+    follower = json['follower'];
+    isFollow = json['is_follow'];// Parsing follower
   }
 
   Map<String, dynamic> toJson() {
@@ -77,7 +80,8 @@ class DataDetailConsultant {
     data['address'] = address;
     data['session_success'] = sessionSuccess;
     data['rating'] = rating;
-    data['follower'] = follower; // Tambahkan follower
+    data['follower'] = follower;
+    data['is_follow'] = isFollow;// Tambahkan follower
     return data;
   }
 }

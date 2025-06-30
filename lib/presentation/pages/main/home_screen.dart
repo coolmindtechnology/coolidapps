@@ -5,6 +5,7 @@ import 'package:coolappflutter/data/apps/app_sizes.dart';
 import 'package:coolappflutter/data/data_global.dart';
 import 'package:coolappflutter/data/models/data_checkout_transaction.dart';
 import 'package:coolappflutter/data/provider/provider_auth_affiliate.dart';
+import 'package:coolappflutter/data/provider/provider_consultant.dart';
 import 'package:coolappflutter/data/provider/provider_payment.dart';
 import 'package:coolappflutter/data/provider/provider_profiling.dart';
 import 'package:coolappflutter/data/provider/provider_user.dart';
@@ -85,6 +86,7 @@ class _HomeScreenState extends State<HomeScreen> {
       context.read<ProviderUser>().getTotalSaldo(context);
       context.read<ProviderPayment>().getListTopUp(context);
       context.read<ProviderAffiliate>().checkTopupAffiliate(context);
+      context.read<ConsultantProvider>().checkUserSession(context);
       Provider.of<ProviderProfiling>(context, listen: false)
           .getListProfiling(context);
       // // _pengecekanIsAffiliate();
@@ -577,15 +579,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                       fontSize: 20,
                                       fontWeight: FontWeight.w600),
                                 ),
-                                TextButton(
-                                    onPressed: () async {
-                                      Nav.to(const InputCodeRefPofilling(route: 'register',));
-                                    },
-                                    child: Text(
-                                      "bypass",
-                                      style: TextStyle(
-                                          color: BlueColor, fontSize: 18),
-                                    )),
+                                // TextButton(
+                                //     onPressed: () async {
+                                //       Nav.to(const InputCodeRefPofilling(route: 'register',));
+                                //     },
+                                //     child: Text(
+                                //       "bypass",
+                                //       style: TextStyle(
+                                //           color: BlueColor, fontSize: 18),
+                                //     )),
                                 TextButton(
                                     onPressed: () async {
                                       await valuePro

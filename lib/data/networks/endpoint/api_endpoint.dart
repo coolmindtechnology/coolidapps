@@ -1,8 +1,9 @@
 class ApiEndpoint {
-  static String baseUrl = "https://cool-compass.mycool.id";
+  // static String baseUrl = "https://cool-compass.mycool.id";
   // static String baseUrl = "https://staging-cool.hantrr.com";
   // static String baseUrl = "https://cool-staging.dschazy.com";
-  // static String baseUrl = "https://cool-new.dschazy.com";
+  static String baseUrl = "https://cool-new.dschazy.com";
+  // static String baseUrl = "https://staging-cool-compass.mycool.id";
 
   // static String baseUrl = "https://coolcompas-staging.mycool.id";
 
@@ -117,7 +118,7 @@ class ApiEndpoint {
   //API Consultation
   static String getListConsultation =
       "${_baseUrlApi}consultation/get-list-session";
-  static String getListTheme = "${_baseUrlApi}consultation/get-theme";
+  static String getListTheme = "${_baseUrlApi}consultation/get-theme?type=consultation";
   static String getListTime(time) =>
       "${_baseUrlApi}consultation/get-sessions-time?date=$time";
   static String getListConsultanPerson =
@@ -135,6 +136,10 @@ class ApiEndpoint {
   static String getHomeConsultant = "${_consultantUrlApi}overview";
   static String getParticipant = "${_consultationUrlApi}get-participant";
   static String checkSession = "${_consultationUrlApi}check-sessions";
+  static String postEndSession = "${_consultationUrlApi}post-end-room";
+  static String getPrice = "${_consultationUrlApi}get/price";
+  static String joinSession(id) => "${_consultationUrlApi}req-join-room/$id";
+  static String getArchiveChat(id) => "${_consultationUrlApi}get-chat/$id";
   static String getTopicConsultant(id) =>
       "${_consultationUrlApi}related-topic/$id";
   static String followConsultant(id) =>
@@ -204,7 +209,7 @@ class ApiEndpoint {
   // Api Profiling
   static String listProfiling = "${_featureUrlApi}list_profiling";
   static String getPriceProfiling = "${_featureUrlApi}get-price-by-qty";
-  static String detailProfiling(id) => "${_featureUrlApi}detail_profiling/$id";
+  static String detailProfiling(id,menu) => "${_featureUrlApi}detail_profiling/$id?menu=$menu";
   static String updateProfiling(id) => "${_featureUrlApi}edit_profiling/$id";
   static String deleteProfiling(id) => "${_featureUrlApi}delete_profiling/$id";
   static String addProfiling = "${_featureUrlApi}create_profiling";

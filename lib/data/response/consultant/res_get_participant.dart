@@ -51,6 +51,7 @@ class Datum {
   String? participantExplanation;
   String? amount;
   String? theme;
+  String? idDocument;
   dynamic? duration;
   String? type;
   FirebaseData? firebaseConf; // ✅ Disesuaikan dengan JSON
@@ -71,6 +72,7 @@ class Datum {
     this.participantExplanation,
     this.amount,
     this.theme,
+    this.idDocument,
     this.duration,
     this.type,
     this.firebaseConf,
@@ -92,6 +94,7 @@ class Datum {
     participantExplanation: json["participant_explanation"],
     amount: json["amount"],
     theme: json["theme"],
+    idDocument: json["id_document"],
     duration: json["duration"],
     type: json["type"],
     firebaseConf: json["firebase_conf"] == null
@@ -115,6 +118,7 @@ class Datum {
     "participant_explanation": participantExplanation,
     "amount": amount,
     "theme": theme,
+    "id_document": idDocument,
     "duration": duration,
     "type": type,
     "firebase_conf": firebaseConf?.toJson(),

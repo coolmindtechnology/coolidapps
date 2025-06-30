@@ -85,8 +85,23 @@ void main() async {
   Intl.defaultLocale = 'en_US';
   WidgetsFlutterBinding.ensureInitialized();
   if (Firebase.apps.isEmpty) {
-    await Firebase.initializeApp(); // Inisialisasi hanya sekali
+    if (kIsWeb) {
+      await Firebase.initializeApp(
+        options: const FirebaseOptions(
+          apiKey: 'AIzaSyAUwYqwfekzl72dvGkyFE7irzZdh4Qa9fk',
+          appId: '1:460609975158:android:4368eef2b9acf8efb38057',
+          messagingSenderId: '460609975158',
+          projectId: 'my-cool-id',
+          storageBucket: 'my-cool-id.firebaseio.com',
+          authDomain: 'cool-app-641a1.firebaseapp.com',
+          measurementId: 'G-2JY8LGXM4M',
+        ),
+      );
+    } else {
+      await Firebase.initializeApp();
+    }
   }
+
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   // Konfigurasi local notifications

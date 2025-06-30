@@ -69,13 +69,17 @@ class _AnggotaSayaPageState extends State<AnggotaSayaPage> {
                 child: Container(
                   width: 400,
                   height: 80,
-                  child: CardHomeKonsultant(
-                    title: S.of(context).Total_Members,
-                    titleColor: Colors.white,
-                    subtitleColor: Colors.white,
-                    subtitle: "${listMember.length} ${S.of(context).Member}",
-                    imageAsset: AppAsset.icMember,
-                    containerColor: const Color(0xFF4CCBF4),
+                  child: Row(
+                    children: [
+                      CardHomeKonsultant(
+                        title: S.of(context).Total_Members,
+                        titleColor: Colors.white,
+                        subtitleColor: Colors.white,
+                        subtitle: "${listMember.length} ${S.of(context).Member}",
+                        imageAsset: AppAsset.icMember,
+                        containerColor: const Color(0xFF4CCBF4),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -188,123 +192,6 @@ class _AnggotaSayaPageState extends State<AnggotaSayaPage> {
                   ),
                 ),
               ),
-
-              // Aktivitas Terbaru
-              // Expanded(
-              //   child: Container(
-              //     color: Colors.white,
-              //     child: Column(
-              //       children: [
-              //         Padding(
-              //           padding: const EdgeInsets.symmetric(
-              //               horizontal: 16, vertical: 8),
-              //           child: sectionTitle(
-              //             context: context,
-              //             title: S.of(context).aktivitas_terbaru,
-              //             onTap: () => Nav.to(AktivitiPage()),
-              //           ),
-              //         ),
-              //         Expanded(
-              //           child: ListView.builder(
-              //             itemCount: listActivity.length,
-              //             itemBuilder: (context, index) {
-              //               final activity = listActivity[index];
-              //               return InkWell(
-              //
-              //                 onTap: () {
-              //                   Nav.to(DetailAktivitasPage(idActivity: activity.id.toString(),)); // Bisa dikembangkan passing data
-              //                 },
-              //                 child: Card(
-              //                   color: Colors.white,
-              //                   margin: const EdgeInsets.symmetric(
-              //                       horizontal: 16, vertical: 6),
-              //                   child: Padding(
-              //                     padding: const EdgeInsets.all(8.0),
-              //                     child: Row(
-              //                       mainAxisAlignment:
-              //                           MainAxisAlignment.spaceBetween,
-              //                       children: [
-              //                         Column(
-              //                           mainAxisAlignment:
-              //                               MainAxisAlignment.spaceEvenly,
-              //                           crossAxisAlignment:
-              //                               CrossAxisAlignment.start,
-              //                           children: [
-              //                             Text(
-              //                               '+ ${(activity.affPoint?.fold<double>(
-              //                                 0.0,
-              //                                     (sum, item) =>
-              //                                 sum + (double.tryParse(item.point.toString() ?? '0') ?? 0.0),
-              //                               ) ?? 0.0).toStringAsFixed(2)} ${S.of(context).points}',
-              //                               style: const TextStyle(
-              //                                 color: Colors.green,
-              //                                 fontWeight: FontWeight.bold,
-              //                                 fontSize: 18,
-              //                               ),
-              //                             ),
-              //                             gapH10,
-              //                             Row(
-              //                               children: [
-              //                                 CircleAvatar(
-              //                                   radius: 25,
-              //                                   backgroundImage: NetworkImage(
-              //                                       activity.image.toString()),
-              //                                 ),
-              //                                 gapW16,
-              //                                 Column(
-              //                                   crossAxisAlignment:
-              //                                       CrossAxisAlignment.start,
-              //                                   children: [
-              //                                     Text(
-              //                                       activity.name ?? '-',
-              //                                       style: const TextStyle(
-              //                                           fontSize: 16,
-              //                                           fontWeight:
-              //                                               FontWeight.w600),
-              //                                     ),
-              //                                     gapH10,
-              //                                     Text(
-              //                                       S
-              //                                           .of(context)
-              //                                           .profiling_dibuat,
-              //                                       style: const TextStyle(
-              //                                           fontSize: 14,),
-              //                                     ),
-              //                                   ],
-              //                                 )
-              //                               ],
-              //                             ),
-              //                           ],
-              //                         ),
-              //                         Column(
-              //                           mainAxisAlignment:
-              //                               MainAxisAlignment.spaceBetween,
-              //                           crossAxisAlignment:
-              //                               CrossAxisAlignment.end,
-              //                           children: [
-              //                             Text(
-              //                               formatTanggal(activity.otpTime.toString() ?? '-'),
-              //                               style: const TextStyle(fontSize: 12),
-              //                             ),
-              //                             gapH32,
-              //                             Text(
-              //                               '${activity?.profilingsCount?.toString() ?? '0'} X',
-              //                               style: TextStyle(fontSize: 12),
-              //                             )
-              //                           ],
-              //                         ),
-              //                       ],
-              //                     ),
-              //                   ),
-              //                 ),
-              //               );
-              //             },
-              //           ),
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // ),
             ],
           );
         },

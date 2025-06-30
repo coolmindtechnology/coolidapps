@@ -67,20 +67,18 @@ class _SemuaAnggotaPageState extends State<SemuaAnggotaPage> {
               // Search bar
               Padding(
                 padding: const EdgeInsets.all(16),
-                child: Expanded(
-                  child: TextField(
-                    onChanged: (value) {
-                      setState(() {
-                        _searchText = value;
-                      });
-                    },
-                    decoration: InputDecoration(
-                      hintText: S.of(context).Search,
-                      prefixIcon:  Icon(Icons.search,color: primaryColor,),
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 16),
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
+                child: TextField(
+                  onChanged: (value) {
+                    setState(() {
+                      _searchText = value;
+                    });
+                  },
+                  decoration: InputDecoration(
+                    hintText: S.of(context).Search,
+                    prefixIcon:  Icon(Icons.search,color: primaryColor,),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
                     ),
                   ),
                 ),

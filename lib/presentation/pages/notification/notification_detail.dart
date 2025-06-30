@@ -81,7 +81,7 @@ class _DetailNotificationScreenState extends State<DetailNotificationScreen> {
                       const SizedBox(height: 20),
                       notificationDetail!.asset != "Asset Not Available"
                           ? Image.network(notificationDetail!.asset)
-                          : const Text("No asset available"),
+                          : const Text(""),
                     ],
                   ),
                 ),

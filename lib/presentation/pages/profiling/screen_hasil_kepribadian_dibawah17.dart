@@ -100,9 +100,9 @@ class _ScreenHasilKepribadianBawah17State
   }
 
   initLoad() async {
-    await context
-        .read<ProviderProfiling>()
-        .getDetailProfiling(context, widget.data?.idLogResult.toString() ?? "");
+    // await context
+    //     .read<ProviderProfiling>()
+    //     .getDetailProfiling(context, widget.data?.idLogResult.toString() ?? "");
     await context
         .read<ProviderProfiling>()
         .getShowProfiling(context, widget.data?.idLogResult.toString() ?? "");
@@ -140,7 +140,7 @@ class _ScreenHasilKepribadianBawah17State
   @override
   Widget build(BuildContext context) {
     return Consumer<ProviderProfiling>(builder: (context, value, child) {
-      bool isLoading = value.isShowDetail == true || value.isDetail == true;
+      bool isLoading = value.isShowDetail == true;
       return PopScope(
         onPopInvoked: (didPop) {
           _stop();
@@ -379,39 +379,59 @@ class _ScreenHasilKepribadianBawah17State
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 CustomIconButton(
-                                  onTap: () {
-                                    Nav.to(ResultDetailUnder17(
-                                      data: widget.data,
-                                      type: 'tipeKaya',
-                                    ));
+                                  isLoading: value.isShowDetail,
+                                  onTap: () async {
+                                    await context
+                                        .read<ProviderProfiling>()
+                                        .getDetailProfiling(context, widget.data?.idLogResult.toString() ?? "", "tipe_kaya");
+                                    if (value.isShowDetail == false && value.isSuccesgetdetail == true) {
+                                      Nav.to(ResultDetailUnder17(
+                                        data: widget.data,
+                                        type: 'tipeKaya',
+                                      ));
+                                    }
                                   },
                                   imagePath: 'images/tipeKaya17.png',
                                   text: S.of(context).rich_type,
                                 ),
                                 gapW10,
                                 CustomIconButton(
-                                  onTap: () {
-                                    Nav.to(ResultDetailUnder17(
-                                      data: widget.data,
-                                      type: 'tipeOtak',
-                                    ));
+                                  isLoading: value.isShowDetail,
+                                  onTap: () async {
+                                    await context
+                                        .read<ProviderProfiling>()
+                                        .getDetailProfiling(context, widget.data?.idLogResult.toString() ?? "", "tipe_otak");
+                                    if (value.isShowDetail == false && value.isSuccesgetdetail == true) {
+                                      Nav.to(ResultDetailUnder17(
+                                        data: widget.data,
+                                        type: 'tipeOtak',
+                                      ));
+                                    }
                                   },
                                   imagePath: 'images/tipeOtak17.png',
                                   text: S.of(context).brain_type,
                                 ),
                                 gapW10,
                                 CustomIconButton(
-                                  onTap: () {
-                                    Nav.to(ResultDetailUnder17(
-                                      data: widget.data,
-                                      type: 'personality',
-                                    ));
+                                  isLoading: value.isShowDetail,
+                                  onTap: () async {
+                                    await context
+                                        .read<ProviderProfiling>()
+                                        .getDetailProfiling(context, widget.data?.idLogResult.toString() ?? "", "personality");
+                                    if (value.isShowDetail == false && value.isSuccesgetdetail == true) {
+                                      Nav.to(ResultDetailUnder17(
+                                        data: widget.data,
+                                        type: 'personality',
+                                      ));
+                                    }
                                   },
                                   imagePath: 'images/personality17.png',
                                   text: S.of(context).personality,
                                 ),
+
                                 gapW10,
                                 CustomIconButton(
+                                  isLoading: value.isShowDetail,
                                   onTap: () {
                                     Nav.to(MenuTentangProfilUnder17(
                                       data: widget.data,
@@ -793,18 +813,20 @@ class CustomIconButton extends StatelessWidget {
   final VoidCallback onTap;
   final String imagePath;
   final String text;
+  final bool isLoading;
 
   const CustomIconButton({
     Key? key,
     required this.onTap,
     required this.imagePath,
     required this.text,
+    required this.isLoading,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
+      onTap: isLoading? null : onTap,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

@@ -116,9 +116,9 @@ class _ResultDetailUnder17State extends State<ResultDetailUnder17> {
   }
 
   initLoad() async {
-    await context
-        .read<ProviderProfiling>()
-        .getDetailProfiling(context, widget.data?.idLogResult.toString() ?? "");
+    // await context
+    //     .read<ProviderProfiling>()
+    //     .getDetailProfiling(context, widget.data?.idLogResult.toString() ?? "");
   }
 
   @override

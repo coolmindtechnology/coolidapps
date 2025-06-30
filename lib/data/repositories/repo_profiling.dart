@@ -89,12 +89,13 @@ class RepoProfiling {
   }
 
   Future<Either<Failure, ResDetailProfiling>> getDetailProfiling(
-      String id) async {
+      String id, String typemenu) async {
     String isEnglish = await LocaleChecker().cekLocale();
     String? isLanguage = await PreferenceHandler.retrieveId();
     String cekLanguage = isLanguage ?? "is_english";
+    String menu = typemenu;
     try {
-      Response res = await dio.get(ApiEndpoint.detailProfiling(id),
+      Response res = await dio.get(ApiEndpoint.detailProfiling(id,menu),
           queryParameters: {cekLanguage: isEnglish},
           options: Options(
             validateStatus: (status) {

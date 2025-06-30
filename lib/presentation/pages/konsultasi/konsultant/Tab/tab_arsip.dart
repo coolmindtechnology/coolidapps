@@ -55,6 +55,8 @@ class _TabArsipKonsultantState extends State<TabArsipKonsultant> {
                 warnastatus: Colors.lightBlueAccent.shade100,
                 onTap: () {
                   Nav.to(DetailArchivePage(
+                    idDocument: participant.idDocument,
+                    braintype: participant.personalityType,
                     comisson: participant.amount,
                     consultationTime: participant.consultationTime,
                     bloodType: participant.bloodType,

@@ -6,6 +6,7 @@ import 'package:coolappflutter/data/networks/error_handler.dart';
 import 'package:coolappflutter/data/response/consultant/res_approval_by_consultant.dart';
 import 'package:coolappflutter/data/response/consultant/res_approval_summary.dart';
 import 'package:coolappflutter/data/response/consultant/res_check_session.dart';
+import 'package:coolappflutter/data/response/consultant/res_check_session_consultant.dart';
 import 'package:coolappflutter/data/response/consultant/res_dashboard_consultant.dart';
 import 'package:coolappflutter/data/response/consultant/res_follow_consultant.dart';
 import 'package:coolappflutter/data/response/consultant/res_get_comissen.dart';
@@ -13,8 +14,14 @@ import 'package:coolappflutter/data/response/consultant/res_get_participant.dart
 import 'package:coolappflutter/data/response/consultant/res_get_term.dart';
 import 'package:coolappflutter/data/response/consultant/res_get_topic.dart';
 import 'package:coolappflutter/data/response/consultant/res_regist_consultant.dart';
+import 'package:coolappflutter/data/response/consultant/res_stop_room.dart';
 import 'package:coolappflutter/data/response/consultant/res_update_status.dart';
+import 'package:coolappflutter/data/response/consultation/res_create_consultation.dart';
 import 'package:coolappflutter/data/response/consultation/res_detail_consultant.dart';
+import 'package:coolappflutter/data/response/consultation/res_get_chat_archive.dart';
+import 'package:coolappflutter/data/response/consultation/res_get_price.dart';
+import 'package:coolappflutter/data/response/consultation/res_join_consultation.dart';
+import 'package:coolappflutter/data/response/consultation/res_payment_consultation.dart';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
@@ -205,14 +212,14 @@ class RepoConsultant {
     }
   }
 
-  Future<Either<Failure, ResponseFollowConsultant>> followConsultant(String id) async {
+  Future<Either<Failure, ResponseFollowConsultant>> followConsultant(String id, String status) async {
     try {
       // Endpoint URL
       String url = ApiEndpoint.followConsultant(id);
 
       // Body yang dikirim
       Map<String, dynamic> body = {
-        "foll": 1,
+        "foll": status,
       };
 
       // Melakukan request PUT
@@ -351,5 +358,210 @@ class RepoConsultant {
       return Either.error(ErrorHandler.handle(e).failure);
     }
   }
+
+
+  Future<Either<Failure, ResCheckSessionConsultant>> checkSessionConsultant() async {
+    try {
+      Response res = await dio.get(ApiEndpoint.checkSession,
+          options: Options(
+            validateStatus: (status) {
+              return status == 200 || status == 400;
+            },
+            headers: {'Authorization': dataGlobal.token},
+          ));
+
+      return Either.success(ResCheckSessionConsultant.fromJson(res.data));
+    } catch (e, st) {
+      if (kDebugMode) {
+        print(st);
+      }
+      return Either.error(ErrorHandler.handle(e).failure);
+    }
+  }
+
+
+  Future<Either<Failure, ResponseCreateConsultation>> createConsultation({
+    required String consultantId,
+    required String themeId,
+    required String participantExplanation,
+    required String typeSession,
+    required String time,
+  }) async {
+    try {
+      final String url = "${ApiEndpoint.baseUrl}/api/consultation/create-consultation";
+
+      Map<String, dynamic> data = {
+        "consultant_id": consultantId,
+        "theme_id": themeId,
+        "participant_explanation": participantExplanation,
+        "type_session": typeSession,
+        "time": time
+      };
+
+      final response = await dio.post(
+        url,
+        data: data,
+        options: Options(
+          headers: {
+            "Authorization": "Bearer ${dataGlobal.token}",
+            "Content-Type": "application/json",
+          },
+          validateStatus: (status) => status == 200 || status == 201 || status == 400,
+        ),
+      );
+
+      return Either.success(ResponseCreateConsultation.fromJson(response.data));
+    } catch (e, st) {
+      print("Error create consultation: $st");
+      return Either.error(ErrorHandler.handle(e).failure);
+    }
+  }
+
+
+  Future<Either<Failure, ResponseJoin>> joinroom(
+      {String? token, String? id}) async {
+    try {
+      Response res = await dio.post(ApiEndpoint.joinSession(id),
+          data: {
+            "is_present": "present", // << Tambahkan payload di sini
+          },
+          options: Options(
+            validateStatus: (status) {
+              return status == 200 || status == 400;
+            },
+            headers: {'Authorization': dataGlobal.token},
+          ));
+
+      return Either.success(ResponseJoin.fromJson(res.data));
+    } catch (e, st) {
+      if (kDebugMode) {
+        print(st);
+      }
+      return Either.error(ErrorHandler.handle(e).failure);
+    }
+  }
+
+
+  Future<Either<Failure, ResStopSession>> StopSession(String id, String type, String idDocument) async {
+    try {
+      // Endpoint URL
+      String url = ApiEndpoint.postEndSession;     // Body yang dikirim
+      Map<String, dynamic> body = {
+        "consultation_id": id,
+        "is_status" : 1,
+        "type_session" : type,
+        "document_id" : idDocument,
+      };
+
+      // Melakukan request PUT
+      Response res = await dio.post(
+        url,
+        data: body,
+        options: Options(
+          validateStatus: (status) {
+            return status == 200 || status == 400;
+          },
+          headers: {
+            'Authorization': dataGlobal.token, // Header Authorization
+          },
+        ),
+      );
+
+      // Mengembalikan hasil response dari API
+      return Either.success(ResStopSession.fromJson(res.data));
+    } catch (e, st) {
+      if (kDebugMode) {
+        print(st); // Menampilkan error jika ada
+      }
+      return Either.error(ErrorHandler.handle(e).failure);
+    }
+  }
+
+
+  Future<Either<Failure, ResCheckPrice>> GetPrice(String timestart, String timeend, String day, String type) async {
+    try {
+      // Endpoint URL
+      String url = '${ApiEndpoint.getPrice}?time_start=${timestart}&time_end=${timeend}&day=${day}&type_consultation=${type}';     // Body yang dikirim
+      // Melakukan request PUT
+      Response res = await dio.get(
+        url,
+        options: Options(
+          validateStatus: (status) {
+            return status == 200 || status == 400;
+          },
+          headers: {
+            'Authorization': dataGlobal.token, // Header Authorization
+          },
+        ),
+      );
+
+      // Mengembalikan hasil response dari API
+      return Either.success(ResCheckPrice.fromJson(res.data));
+    } catch (e, st) {
+      if (kDebugMode) {
+        print(st); // Menampilkan error jika ada
+      }
+      return Either.error(ErrorHandler.handle(e).failure);
+    }
+  }
+
+
+  Future<Either<Failure, ResPaymentKonsultasi>> PayMentConsultasi(String idconsultation, String type , String harga) async {
+    try {
+      // Endpoint URL
+      String url = ApiEndpoint.payProfiling;     // Body yang dikirim
+      Map<String, dynamic> body = {
+        "id_consultations": idconsultation,
+        "id_item_payments": 6,
+        "discount": 0,
+        "transaction_type": type,
+        "price": harga,
+        "gateway": "midtrans"
+      };
+
+      // Melakukan request PUT
+      Response res = await dio.post(
+        url,
+        data: body,
+        options: Options(
+          validateStatus: (status) {
+            return status == 200 || status == 400;
+          },
+          headers: {
+            'Authorization': dataGlobal.token, // Header Authorization
+          },
+        ),
+      );
+
+      // Mengembalikan hasil response dari API
+      return Either.success(ResPaymentKonsultasi.fromJson(res.data));
+    } catch (e, st) {
+      if (kDebugMode) {
+        print(st); // Menampilkan error jika ada
+      }
+      return Either.error(ErrorHandler.handle(e).failure);
+    }
+  }
+
+
+  Future<Either<Failure, ResGetChatArchived>> getChatArcived(String id) async {
+    try {
+      Response res = await dio.get(ApiEndpoint.getArchiveChat(id),
+          options: Options(
+            validateStatus: (status) {
+              return status == 200 || status == 400;
+            },
+            headers: {'Authorization': dataGlobal.token},
+          ));
+
+      return Either.success(ResGetChatArchived.fromJson(res.data));
+    } catch (e, st) {
+      if (kDebugMode) {
+        print(st);
+      }
+      return Either.error(ErrorHandler.handle(e).failure);
+    }
+  }
+
 
 }

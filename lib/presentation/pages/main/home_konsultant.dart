@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:coolappflutter/data/apps/app_assets.dart';
 import 'package:coolappflutter/data/apps/app_sizes.dart';
 import 'package:coolappflutter/data/models/data_checkout_transaction.dart';
+import 'package:coolappflutter/data/provider/provider_consultant.dart';
 import 'package:coolappflutter/data/provider/provider_payment.dart';
 import 'package:coolappflutter/data/provider/provider_profiling.dart';
 import 'package:coolappflutter/data/provider/provider_user.dart';
@@ -66,6 +67,7 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
   initHome() async {
     await context.read<ProviderAffiliate>().getHomeAff(context);
     await context.read<ProviderProfiling>().getListProfiling(context);
+    await context.read<ConsultantProvider>().checkConsultantSession(context);
     // context.read<ProviderUser>().checkProfile(context);
     // context.read<ProviderUser>().getTotalSaldo(context);
   }

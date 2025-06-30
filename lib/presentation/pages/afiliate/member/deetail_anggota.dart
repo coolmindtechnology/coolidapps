@@ -150,31 +150,6 @@ class _DetailAnggotaPageState extends State<DetailAnggotaPage> {
                           ],
                         ),
                         const SizedBox(height: 16),
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        //   children: [
-                        //     // Column(
-                        //     //   children: [
-                        //     //     Text('${detail.data?.totalIncomePoint ?? 0}+',
-                        //     //         style: const TextStyle(
-                        //     //             fontSize: 18,
-                        //     //             fontWeight: FontWeight.bold)),
-                        //     //     Text(S.of(context).reward_point,
-                        //     //         style: const TextStyle(fontSize: 12)),
-                        //     //   ],
-                        //     // ),
-                        //     Column(
-                        //       children: [
-                        //         Text('${detail.data?.activity ?? 0}',
-                        //             style: const TextStyle(
-                        //                 fontSize: 18,
-                        //                 fontWeight: FontWeight.bold)),
-                        //         Text(S.of(context).aktivitas,
-                        //             style: const TextStyle(fontSize: 12)),
-                        //       ],
-                        //     ),
-                        //   ],
-                        // ),
                         const SizedBox(height: 12),
                         ElevatedButton.icon(
                           style: ElevatedButton.styleFrom(
@@ -195,28 +170,6 @@ class _DetailAnggotaPageState extends State<DetailAnggotaPage> {
                     ),
                   ),
                 ),
-
-                // --- Search Bar ---
-                // Padding(
-                //   padding:
-                //       const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                //   child: TextField(
-                //     onChanged: (value) {
-                //       setState(() {
-                //         searchQuery = value;
-                //       });
-                //     },
-                //     decoration: InputDecoration(
-                //       hintText: S.of(context).Search,
-                //       prefixIcon: const Icon(Icons.search),
-                //       border: OutlineInputBorder(
-                //           borderRadius: BorderRadius.circular(8)),
-                //       contentPadding: const EdgeInsets.symmetric(horizontal: 12),
-                //     ),
-                //   ),
-                // ),
-
-                // --- List aktivitas ---
                 Expanded(
                   child: filteredActivities.isEmpty
                       ? Center(child: Text('Tidak ada aktivitas ditemukan.'))

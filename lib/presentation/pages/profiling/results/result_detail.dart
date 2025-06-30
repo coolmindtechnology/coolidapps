@@ -116,9 +116,9 @@ class _ResultDetailState extends State<ResultDetail> {
   }
 
   initLoad() async {
-    await context
-        .read<ProviderProfiling>()
-        .getDetailProfiling(context, widget.data?.idLogResult.toString() ?? "");
+    // await context
+    //     .read<ProviderProfiling>()
+    //     .getDetailProfiling(context, widget.data?.idLogResult.toString() ?? "");
   }
 
   @override
@@ -560,9 +560,8 @@ class _Personality extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             color: value.detailProfiling?.tipeDarah == null
-                ? imageBlue
-                : Colors.white,
-          ),
+                ? Colors.white
+                : imageBlue,),
           child: Image.network(
             "${value.detailProfiling?.personality?.picture}",
           ),
@@ -729,9 +728,8 @@ class _TipeOtak extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             color: value.detailProfiling?.tipeDarah == null
-                ? imageBlue
-                : Colors.white,
-          ),
+                ? Colors.white
+                : imageBlue,),
           child: Image.network(
             "${value.detailProfiling?.tipeOtak?.picture}",
           ),
@@ -810,9 +808,8 @@ class _TipeAura extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             color: value.detailProfiling?.tipeDarah == null
-                ? imageBlue
-                : Colors.white,
-          ),
+                ? Colors.white
+                : imageBlue,),
           child: Image.network(
             "${value.detailProfiling?.tipeAura?.picture}",
             loadingBuilder: (BuildContext context, Widget image,
@@ -898,10 +895,10 @@ class _TipeKaya extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          S.of(context).rich_type,
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-        ),
+        // Text(
+        //   S.of(context).rich_type,
+        //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+        // ),
         Center(
           child: Container(
             height: 160,
@@ -909,8 +906,8 @@ class _TipeKaya extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
                 color: value.detailProfiling?.tipeDarah == null
-                    ? imageBlue
-                    : Colors.white,),
+                    ? Colors.white
+                    : imageBlue,),
             child: Image.network(
               "${value.detailProfiling?.tipeKaya?.picture}",
               loadingBuilder: (BuildContext context, Widget image,
@@ -1004,9 +1001,8 @@ class _TipeDarah extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
             color: value.detailProfiling?.tipeDarah == null
-                ? imageBlue
-                : Colors.white,
-          ),
+                ? Colors.white
+                : imageBlue,),
           child: Image.network(
             "${value.detailProfiling?.tipeDarah?.picture}",
             loadingBuilder: (BuildContext context, Widget image,

@@ -90,99 +90,112 @@ class _ProfileConsultantState extends State<ProfileConsultant> {
                       shimmerButton(),
                       gapH32,
                       shimmerButton(),
-                      gapH32,
-                      shimmerButton(),
                     ],
-                  ) : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ProfileCard(
-                          imagePath: value.detailConsultantData?.image ?? "",
-                          name: value.detailConsultantData?.name ?? "",
-                          title: value.detailConsultantData?.typeBrain ?? "",
-                          bloodType: value.detailConsultantData?.typeBlood ?? "",
-                          location: value.detailConsultantData?.address ?? "",
-                          warnastatus: Colors.white,
-                      ),
-                      ContainerProfile(
-                        title1: value.detailConsultantData?.sessionSuccess.toString() ?? "0",
-                        subtitle1: S.of(context).Session,
-                        title2: value.detailConsultantData?.rating.toString() ?? "0",
-                        subtitle2: S.of(context).rating,
-                        title3:  value.detailConsultantData?.follower.toString() ?? "0",
-                        subtitle3: S.of(context).followers,
-                      ),
-                      GlobalButton(
-                          onPressed: () async {
-                            await value.followConsultant(context, widget.id);
-                          },
-                          color: primaryColor,
-                          text: S.of(context).Follow_on_Coolchat),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      if(value.topicConsultantData == null || value.topicConsultantData!.isEmpty)
-                      Text(
-                        S.of(context).Related_Topics,
-                        style: TextStyle(
-                            color: primaryColor,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 20),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(S.of(context).Related_Topics,style: TextStyle(color: primaryColor,fontWeight: FontWeight.bold,fontSize: 20),),
-                      gapH20,
-                      Expanded(
-                        child: GridView.builder(
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 10,
-                            childAspectRatio: 2, // Sesuaikan rasio lebar/tinggi
-                          ),
-                          itemCount: value.topicConsultantData?.length ?? 0,
-                          itemBuilder: (context, index) {
-                            final data = value.topicConsultantData![index];
-                            return Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(color: Colors.blue, width: 2),
-                                borderRadius: BorderRadius.circular(8),
-                                gradient: LinearGradient(
-                                  colors: [
-                                    Colors.white.withOpacity(0.8),
-                                    Colors.lightBlueAccent.shade100,
-                                  ],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                ),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      data?.title ?? "",
-                                      style: TextStyle(
-                                          color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
-                                    ),
-                                    SizedBox(height: 5,),
-                                    Text(
-                                      '+ ${data?.count ?? "0"} ${S.of(context).Discussing_This}',
-                                      style: TextStyle( fontSize: 12),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
+                  ) : RefreshIndicator(
+                    onRefresh: () async {
+                      final provider = Provider.of<ConsultantProvider>(context, listen: false);
+                      await provider.getDetailConsultantData(context, widget.id);
+                      await provider.getTopicConsultantData(context, widget.id);
+                    },
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ProfileCard(
+                            imagePath: value.detailConsultantData?.image ?? "",
+                            name: value.detailConsultantData?.name ?? "",
+                            title: value.detailConsultantData?.typeBrain ?? "",
+                            bloodType: value.detailConsultantData?.typeBlood ?? "",
+                            location: value.detailConsultantData?.address ?? "",
+                            warnastatus: Colors.white,
                         ),
-                      ),
+                        ContainerProfile(
+                          title1: value.detailConsultantData?.sessionSuccess.toString() ?? "0",
+                          subtitle1: S.of(context).Session,
+                          title2: value.detailConsultantData?.rating.toString() ?? "0",
+                          subtitle2: S.of(context).rating,
+                          title3:  value.detailConsultantData?.follower.toString() ?? "0",
+                          subtitle3: S.of(context).followers,
+                        ),
+                        GlobalButton(
+                            onPressed: () async {
+                              await value.followConsultant(
+                                context,
+                                widget.id,
+                                (value.detailConsultantData?.isFollow ?? false) ? "0" : "1",
+                              );
 
-                    ],
+                              await value.getDetailConsultantData(context, widget.id);
+                            },
+                            color: primaryColor,
+                          text: (value.detailConsultantData?.isFollow ?? false)
+                              ? S.of(context).unfollow
+                              : S.of(context).Follow_on_Coolchat, ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        if(value.topicConsultantData == null || value.topicConsultantData!.isEmpty)
+                        Text(
+                          S.of(context).Related_Topics,
+                          style: TextStyle(
+                              color: primaryColor,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 20),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(S.of(context).Related_Topics,style: TextStyle(color: primaryColor,fontWeight: FontWeight.bold,fontSize: 20),),
+                        gapH20,
+                        Expanded(
+                          child: GridView.builder(
+                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 10,
+                              childAspectRatio: 2, // Sesuaikan rasio lebar/tinggi
+                            ),
+                            itemCount: value.topicConsultantData?.length ?? 0,
+                            itemBuilder: (context, index) {
+                              final data = value.topicConsultantData![index];
+                              return Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(color: Colors.blue, width: 2),
+                                  borderRadius: BorderRadius.circular(8),
+                                  gradient: LinearGradient(
+                                    colors: [
+                                      Colors.white.withOpacity(0.8),
+                                      Colors.lightBlueAccent.shade100,
+                                    ],
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        data?.title ?? "",
+                                        style: TextStyle(
+                                            color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
+                                      ),
+                                      SizedBox(height: 5,),
+                                      Text(
+                                        '+ ${data?.count ?? "0"} ${S.of(context).Discussing_This}',
+                                        style: TextStyle( fontSize: 12),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+
+                      ],
+                    ),
                   ),
                 ),
               ),

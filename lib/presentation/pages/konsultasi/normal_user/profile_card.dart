@@ -1,3 +1,4 @@
+import 'package:coolappflutter/data/apps/app_sizes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -49,7 +50,7 @@ class ProfileCard extends StatelessWidget {
           title: Row(
             children: [
               if (name != null)
-                Text(name!, style: TextStyle(fontWeight: FontWeight.w600)),
+                Text(name!, style: TextStyle(fontWeight: FontWeight.w600,fontSize: 12)),
               if (title != null) SizedBox(width: 20),
               if (title != null)
                 Text(
@@ -57,7 +58,7 @@ class ProfileCard extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     color: _getColorForType(title!),
-                    fontSize: 15,
+                    fontSize: 12,
                   ),
                 ),
             ],
@@ -132,18 +133,21 @@ class ProfileCard extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(right: 10, left: 10),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
                     status != "false" ? status! : "",
                     style: TextStyle(
                         color: timeColor, fontWeight: FontWeight.w500),
                   ),
+                  Spacer(),
                   Text(
                     status != "false" ? timeRemaining! : "",
                     style: TextStyle(
                         color: timeColor, fontWeight: FontWeight.w500),
                   ),
+
+
                 ],
               ),
             ),

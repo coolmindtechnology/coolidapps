@@ -63,9 +63,9 @@ class ProviderProfiling extends ChangeNotifier {
   ProviderProfiling.showDetail(BuildContext context, String id) {
     getShowProfiling(context, id);
   }
-  ProviderProfiling.detail(BuildContext context, String id) {
-    getDetailProfiling(context, id);
-  }
+  // ProviderProfiling.detail(BuildContext context, String id) {
+  //   getDetailProfiling(context, id);
+  // }
 
   ProviderProfiling.getHistory(BuildContext context) {
     getHistoryProfiling(context);
@@ -261,14 +261,15 @@ class ProviderProfiling extends ChangeNotifier {
   }
 
   bool isDetail = false;
-  Future<void> getDetailProfiling(BuildContext context, String id) async {
+  bool isSuccesgetdetail = false;
+  Future<void> getDetailProfiling(BuildContext context, String id, String menu) async {
     isDetail = true;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       notifyListeners();
     });
 
     Either<Failure, ResDetailProfiling> response =
-        await repo.getDetailProfiling(id);
+        await repo.getDetailProfiling(id,menu);
 
     isDetail = false;
     notifyListeners();
@@ -285,6 +286,7 @@ class ProviderProfiling extends ChangeNotifier {
       if (res.success == true) {
         if (kDebugMode) {}
         detailProfiling = res.data;
+        isSuccesgetdetail = true;
         _updateTextToSpeech(detailProfiling);
 
         notifyListeners();
