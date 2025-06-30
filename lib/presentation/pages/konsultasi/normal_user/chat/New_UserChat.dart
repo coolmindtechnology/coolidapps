@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coolappflutter/data/apps/app_sizes.dart';
 import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
 import 'package:coolappflutter/data/provider/provider_chat.dart';
+import 'package:coolappflutter/data/provider/provider_consultant.dart';
 import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/pages/konsultasi/normal_user/chat/firebase_chat/rating_chat.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
@@ -24,7 +25,9 @@ class NewUserChatPage extends StatefulWidget {
   final String tipeotak;
   final String waktu;
   final String image;
+  final String type;
   final bool status;
+  final String explanation;
   const NewUserChatPage(
       {super.key,
       required this.reciverUserID,
@@ -33,9 +36,11 @@ class NewUserChatPage extends StatefulWidget {
       required this.tipeotak,
       required this.waktu,
       required this.image,
+      required this.type,
       required this.status,
       required this.consultantID,
-      required this.consultationID,});
+      required this.consultationID,
+      required this.explanation,});
 
   @override
   State<NewUserChatPage> createState() => _NewUserChatPageState();
@@ -46,6 +51,8 @@ class _NewUserChatPageState extends State<NewUserChatPage> {
   final ChatService _chatService = ChatService();
   final ValueNotifier<int> _remainingSeconds = ValueNotifier<int>(1800);
   bool _isTyping = false;
+  bool _isLoadingTime = true;
+  String? _activeRoomId;
 
   Timer? _timer;
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
@@ -53,7 +60,7 @@ class _NewUserChatPageState extends State<NewUserChatPage> {
   void sendMessage() async {
     if (_massageController.text.isNotEmpty) {
       await _chatService.sendMassage(
-          widget.reciverUserID, _massageController.text);
+          widget.reciverUserID, _massageController.text, widget.consultationID);
       _massageController.clear();
     }
   }
@@ -62,9 +69,60 @@ class _NewUserChatPageState extends State<NewUserChatPage> {
   void initState() {
     super.initState();
     if (widget.status) {
-      _startTimer();
+      _prepareRoomAndStartTimer();// 🔄 gunakan fungsi baru
     }
   }
+
+
+  Future<void> _prepareRoomAndStartTimer() async {
+    setState(() {
+      _isLoadingTime = true;
+    });
+
+    try {
+      // ✅ Simpan langsung ke _activeRoomId
+      try {
+        _activeRoomId = await _chatService.getActiveChatRoomId(
+          _firebaseAuth.currentUser!.uid,
+          widget.reciverUserID,
+        );
+      } catch (e) {
+        print("Room tidak ditemukan, membuat room baru...");
+        await _chatService.sendMassage(
+            widget.reciverUserID, widget.explanation, widget.consultationID);
+        _activeRoomId = await _chatService.getActiveChatRoomId(
+          _firebaseAuth.currentUser!.uid,
+          widget.reciverUserID,
+        );
+      }
+
+      final docRef = FirebaseFirestore.instance
+          .collection('chat_rooms')
+          .doc(_activeRoomId);
+      final snapshot = await docRef.get();
+      final data = snapshot.data();
+
+      if (data?['start_time'] == null) {
+        await docRef.update({'start_time': FieldValue.serverTimestamp()});
+        await Future.delayed(Duration(milliseconds: 500));
+      }
+
+      int seconds = await _chatService.getRemainingTime(_activeRoomId!);
+      _remainingSeconds.value = seconds;
+
+      _startTimer();
+    } catch (e) {
+      print("Gagal siapkan room dan timer: $e");
+    } finally {
+      setState(() {
+        _isLoadingTime = false;
+      });
+    }
+  }
+
+
+
+
 
   void pickImage(ImageSource source) async {
     final ImagePicker picker = ImagePicker();
@@ -78,64 +136,27 @@ class _NewUserChatPageState extends State<NewUserChatPage> {
   void _startTimer() {
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
       if (_remainingSeconds.value > 0) {
-        _remainingSeconds.value--; // <- Update hanya value, tanpa setState()
+        _remainingSeconds.value--;
       } else {
-        timer.cancel(); // 🔥 STOP timer sebelum panggil API
+        timer.cancel();
         Future.microtask(() {
-          _postEndRoom();
-          _chatService.endChatSession(widget.reciverUserID); // 🔥 Panggil endChatSession
-        });// 🔥 Pastikan API hanya dipanggil sekali
+          context.read<ConsultantProvider>().stopSession(
+            context,
+            widget.consultationID,
+            widget.type,
+            _activeRoomId ?? '', // ✅ Pakai yang disimpan
+          );
+          _chatService.endChatSession(widget.reciverUserID);
+        });
       }
     });
   }
-
-  bool _isPosting = false;
-
-  Future<void> _postEndRoom() async {
-    debugPrint('Posting end room...');
-    if (_isPosting) return;
-
-    _isPosting = true; // 🔥 Langsung update tanpa setState()
-
-    final dio = Dio();
-    var apiUrl = '${ApiEndpoint.baseUrl}/api/consultation/post-end-room';
-    final formData = FormData.fromMap({
-      'consultation_id': widget.consultationID,
-      'is_status': 1,
-      'type': 'consultation'
-    });
-
-    try {
-      final response = await dio.post(apiUrl, data: formData);
-      if (response.data['success'] == true) {
-        print(response.data['message']);
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(response.data['message'])),
-        );
-      }
-    } catch (e) {
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   SnackBar(content: Text('Error: $e')),
-      // );
-      // debugPrint('Error posting data: $e');
-    } finally {
-      _isPosting = false; // 🔥 Tidak perlu setState, hanya update variabel biasa
-    }
-  }
-
-
-
 
   String _formatTime(int seconds) {
     int minutes = seconds ~/ 60;
     int remainingSeconds = seconds % 60;
     return "${minutes.toString().padLeft(2, '0')}:${remainingSeconds.toString().padLeft(2, '0')}";
   }
-
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -152,28 +173,44 @@ class _NewUserChatPageState extends State<NewUserChatPage> {
           ],
         ),
         centerTitle: true,
-        actions: [
+        actions:  [
           ValueListenableBuilder<int>(
             valueListenable: _remainingSeconds,
             builder: (context, seconds, child) {
-              return Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.white,
-                  border: Border.all(
-                    color: seconds > 0 ? Colors.blue : Colors.red,
-                    width: 5,
+              return AnimatedSwitcher(
+                duration: Duration(milliseconds: 300),
+                child: _isLoadingTime
+                    ? Container(
+                  width: 40,
+                  height: 40,
+                  padding: const EdgeInsets.all(8),
+                  child: const CircularProgressIndicator(
+                    strokeWidth: 2.5,
+                    color: Colors.white,
                   ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(2),
-                  child: Text(
-                    seconds > 0 ? _formatTime(seconds) : S.of(context).Archives,
-                    overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
-                      fontSize: 18,
+                )
+                    : Container(
+                  key: ValueKey("timerBox"),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    color: Colors.white,
+                    border: Border.all(
                       color: seconds > 0 ? Colors.blue : Colors.red,
-                      fontWeight: FontWeight.w600,
+                      width: 5,
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(2),
+                    child: Text(
+                      seconds > 0
+                          ? _formatTime(seconds)
+                          : S.of(context).Archives,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: seconds > 0 ? Colors.blue : Colors.red,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ),
@@ -371,7 +408,13 @@ class _NewUserChatPageState extends State<NewUserChatPage> {
               ),
             )
           else
-            ChatBubble(massage: data['massage'] ?? ''),
+            ChatBubble(
+              message: data['massage'] ?? '',
+              bubbleColor: isMe ? Colors.black12 : primaryColor,
+              alignment: isMe ? Alignment.centerRight : Alignment.centerLeft,
+              crossAxisAlignment: isMe ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+              textColor: isMe ? Colors.black : Colors.white,
+            ),
         ],
       ),
     );
@@ -385,20 +428,20 @@ class _NewUserChatPageState extends State<NewUserChatPage> {
             left: 8, right: 8, top: 20, bottom: 20),
         child: Row(
           children: [
-            IconButton(
-              icon: Icon(
-                Icons.camera_alt,
-                color: BlueColor,
-              ),
-                onPressed: () => pickImage(ImageSource.camera)
-            ),
-            IconButton(
-              icon: Icon(
-                Icons.attach_file,
-                color: BlueColor,
-              ),
-              onPressed: () => pickImage(ImageSource.gallery),
-            ),
+            // IconButton(
+            //   icon: Icon(
+            //     Icons.camera_alt,
+            //     color: BlueColor,
+            //   ),
+            //     onPressed: () => pickImage(ImageSource.camera)
+            // ),
+            // IconButton(
+            //   icon: Icon(
+            //     Icons.attach_file,
+            //     color: BlueColor,
+            //   ),
+            //   onPressed: () => pickImage(ImageSource.gallery),
+            // ),
             Expanded(
               child: SizedBox(
                 height: 50,
@@ -458,16 +501,42 @@ class _NewUserChatPageState extends State<NewUserChatPage> {
 }
 
 class ChatBubble extends StatelessWidget {
-  final String massage;
-  const ChatBubble({super.key, required this.massage});
+  final String message;
+  final Color bubbleColor;
+  final Color textColor;
+  final Alignment alignment;
+  final CrossAxisAlignment crossAxisAlignment;
+
+  const ChatBubble({
+    super.key,
+    required this.message,
+    required this.bubbleColor,
+    required this.textColor,
+    required this.alignment,
+    required this.crossAxisAlignment,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(12),
-      decoration: BoxDecoration(
-          color: primaryColor, borderRadius: BorderRadius.circular(10)),
-      child: Text(massage, style: TextStyle(color: Colors.white, fontSize: 16)),
+    return Align(
+      alignment: alignment,
+      child: Column(
+        crossAxisAlignment: crossAxisAlignment,
+        children: [
+          Container(
+            padding: const EdgeInsets.all(12),
+            margin: const EdgeInsets.symmetric(vertical: 4),
+            decoration: BoxDecoration(
+              color: bubbleColor,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Text(
+              message,
+              style: TextStyle(color: textColor, fontSize: 16),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

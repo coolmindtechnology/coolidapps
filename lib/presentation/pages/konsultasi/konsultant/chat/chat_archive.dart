@@ -1,3 +1,5 @@
+import 'package:coolappflutter/data/data_global.dart';
+import 'package:coolappflutter/data/provider/provider_consultant.dart';
 import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/rating.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
@@ -9,8 +11,41 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'dart:async';
 
+import 'package:provider/provider.dart';
+
 class ChatArchivebyConsultant extends StatefulWidget {
-  const ChatArchivebyConsultant({super.key});
+  const ChatArchivebyConsultant(
+      {super.key,
+        this.profilePicture,
+        this.braintype,
+        this.participantName,
+        this.typeConsultation,
+        this.type,
+        this.bloodType,
+        this.rate,
+        this.consultationTime,
+        this.remainingMinutes,
+        this.theme,
+        this.explanation,
+        this.comisson,
+        this.id_consultation,
+        this.idDocument
+
+      });
+  final participantName;
+  final braintype;
+  final typeConsultation;
+  final bloodType;
+  final rate;
+  final comisson;
+  final theme;
+  final explanation;
+  final consultationTime;
+  final type;
+  final remainingMinutes;
+  final id_consultation;
+  final profilePicture;
+  final idDocument;
 
   @override
   _ChatArchivebyConsultantState createState() => _ChatArchivebyConsultantState();
@@ -33,11 +68,22 @@ class _ChatArchivebyConsultantState extends State<ChatArchivebyConsultant> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<ConsultantProvider>(context, listen: false)
+          .getChatArchived(context, widget.idDocument);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    return Consumer<ConsultantProvider>(builder: (context, value, child) {
+      String sender = dataGlobal.dataUser!.email;
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          S.of(context).PARENTING,
+          widget.theme,
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600),
         ),
         centerTitle: true,
@@ -75,48 +121,52 @@ class _ChatArchivebyConsultantState extends State<ChatArchivebyConsultant> {
             width: double.infinity,
             color: Color(0xFFBBE9FA),
             height: 100,
-            child: Row(
-              children: [
-                ClipOval(
-                  child: Image.asset(
-                    'images/konsultasi/profile1.png',
-                    height: 90,
-                    fit: BoxFit.cover,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  ClipOval(
+                    child: Image.network(
+                      widget.profilePicture,
+                      height: 90,
+                      width: 90,
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                ),
-                SizedBox(
-                  width: 20,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text('Viviana Entira',
-                            style: TextStyle(fontWeight: FontWeight.w600)),
-                        SizedBox(
-                          width: 40,
-                        ),
-                        Text(
-                          'Creative',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            color: Colors.orange,
-                            fontSize: 15,
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Text(widget.participantName,
+                              style: TextStyle(fontWeight: FontWeight.w600)),
+                          SizedBox(
+                            width: 40,
                           ),
-                        )
-                      ],
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      '09.00 - 09.30',
-                      style: TextStyle(color: BlueColor),
-                    ),
-                  ],
-                )
-              ],
+                          Text(
+                            widget.braintype,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: Colors.orange,
+                              fontSize: 15,
+                            ),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Text(
+                        widget.consultationTime,
+                        style: TextStyle(color: BlueColor),
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
             Padding(
@@ -132,42 +182,43 @@ class _ChatArchivebyConsultantState extends State<ChatArchivebyConsultant> {
               ),
             ),
           SizedBox(
-            height: 100,
+            height: 50,
           ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: ListView.builder(
-                itemCount: messages.length,
+              child: value.isLoadingChatArchived
+                  ? const Center(child: CircularProgressIndicator())
+                  : ListView.builder(
+                itemCount: value.chatArchivedData?.data.length ?? 0,
                 itemBuilder: (context, index) {
-                  bool isUser = messages[index]['sender'] == 'user';
+                  final message = value.chatArchivedData!.data[index];
+
+                  // ⚡ Bandingkan EMAIL pengirim vs email user login
+                  final isUser = message.senderEmail == sender;
+
                   return Align(
                     alignment:
                     isUser ? Alignment.centerRight : Alignment.centerLeft,
                     child: Container(
-                      margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-                      padding: EdgeInsets.all(10),
+                      margin: const EdgeInsets.symmetric(
+                          vertical: 5, horizontal: 10),
+                      padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         color: isUser ? Colors.blue[100] : Colors.grey[300],
                         borderRadius: BorderRadius.circular(10),
                       ),
-                      child: Text(messages[index]['text']!),
+                      child: Text(message.messageContent),
                     ),
                   );
                 },
               ),
             ),
-          ),
-          Center(
-            child: TextButton(
-              onPressed: () {
-                Nav.to(Rating());
-              },
-              child: Text(S.of(context).Add_Session),
-            ),
-          ),
+          )
+
         ],
       ),
     );
+  },);
   }
 }

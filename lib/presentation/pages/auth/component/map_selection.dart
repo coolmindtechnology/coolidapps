@@ -31,15 +31,17 @@ class _MapSelectionScreenState extends State<MapSelectionScreen> {
     Timer(const Duration(seconds: 2), () {
       getLocation();
     });
-
-    setState(() {});
   }
 
   getLocation() {
-    final locationProvider = Provider.of<LocationProvider>(context);
+    final locationProvider = Provider.of<LocationProvider>(context, listen: false);
     selectedPosition = LatLng(locationProvider.latitude!.toDouble(),
         locationProvider.longitude!.toDouble());
+
+    // Pastikan UI terupdate setelah mendapatkan lokasi
+    setState(() {});
   }
+
 
   // Fungsi untuk menangani ketika peta ditekan
   void _onMapTapped(LatLng latLng) {
@@ -50,7 +52,7 @@ class _MapSelectionScreenState extends State<MapSelectionScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final locationProvider = Provider.of<LocationProvider>(context);
+    final locationProvider = Provider.of<LocationProvider>(context, listen: false);
     return SafeArea(
       child: Scaffold(
         // appBar: AppBar(title: const Text('Select Location on Map')),

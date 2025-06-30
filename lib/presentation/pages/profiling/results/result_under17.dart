@@ -116,9 +116,9 @@ class _ResultDetailUnder17State extends State<ResultDetailUnder17> {
   }
 
   initLoad() async {
-    await context
-        .read<ProviderProfiling>()
-        .getDetailProfiling(context, widget.data?.idLogResult.toString() ?? "");
+    // await context
+    //     .read<ProviderProfiling>()
+    //     .getDetailProfiling(context, widget.data?.idLogResult.toString() ?? "");
   }
 
   @override
@@ -292,6 +292,55 @@ class _ResultDetailUnder17State extends State<ResultDetailUnder17> {
                                         data: value
                                             .detailProfiling?.personality),
                                   ],
+                                   if (widget.type == "karir" &&
+                                      value.detailProfiling?.karir !=
+                                          null) ...[
+                                    _classtipe(
+                                        data: value
+                                            .detailProfiling?.karir),
+                                  ],
+                                   if (widget.type == "polaBahagia" &&
+                                      value.detailProfiling?.polaBahagia !=
+                                          null) ...[
+                                    _classtipe(
+                                        data: value
+                                            .detailProfiling?.polaBahagia),
+                                  ],
+                                   if (widget.type == "polaInteraksi" &&
+                                      value.detailProfiling?.polaInteraksi !=
+                                          null) ...[
+                                    _classtipe(
+                                        data: value
+                                            .detailProfiling?.polaInteraksi),
+                                  ],
+                                   if (widget.type == "family" &&
+                                      value.detailProfiling?.family !=
+                                          null) ...[
+                                    _classtipe(
+                                        data: value
+                                            .detailProfiling?.family),
+                                  ],
+                                   if (widget.type == "polaHealing" &&
+                                      value.detailProfiling?.polaHealing !=
+                                          null) ...[
+                                    _classtipe(
+                                        data: value
+                                            .detailProfiling?.polaHealing),
+                                  ],
+                                   if (widget.type == "kebutuhan" &&
+                                      value.detailProfiling?.kebutuhan !=
+                                          null) ...[
+                                    _classtipe(
+                                        data: value
+                                            .detailProfiling?.kebutuhan),
+                                  ],
+                                   if (widget.type == "finansial" &&
+                                      value.detailProfiling?.finansial !=
+                                          null) ...[
+                                    _classtipe(
+                                        data: value
+                                            .detailProfiling?.finansial),
+                                  ],
                                 ],
                               ),
                             ),
@@ -344,6 +393,13 @@ class _classtipe extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String formatKalimat(String text) {
+      return text.replaceAllMapped(
+        RegExp(r'\.\s+'), // cari titik diikuti spasi
+            (match) => '.\n', // ganti dengan titik dan newline
+      );
+    }
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -416,13 +472,34 @@ class _classtipe extends StatelessWidget {
 Widget _getText(String type,context) {
   switch (type) {
     case 'tipeKaya':
-      return Text(S.of(context).tipe_harta,
+      return Text(S.of(context).rich_type,
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: BlueColor));
     case 'tipeOtak':
       return Text(S.of(context).tipe_otak,
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: BlueColor));
     case 'personality':
       return Text(S.of(context).your_personality,
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: BlueColor));
+     case 'karir':
+      return Text(S.of(context).career,
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: BlueColor));
+     case 'polaBahagia':
+      return Text(S.of(context).happiness_pattern,
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: BlueColor));
+     case 'polaInteraksi':
+      return Text(S.of(context).social_interaction_pattern,
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: BlueColor));
+    case 'polaHealing':
+      return Text(S.of(context).healing_pattern,
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: BlueColor));
+     case 'family':
+      return Text(S.of(context).family,
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: BlueColor));
+     case 'kebutuhan':
+      return Text(S.of(context).kebutuhan,
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: BlueColor));
+     case 'finansial':
+      return Text(S.of(context).financial,
           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold,color: BlueColor));
     default:
       return Text(S.of(context).tipe_tidak_dikenali,
@@ -438,7 +515,21 @@ Widget _getImage(String type) {
       return Image.asset('images/tipeOtak17.png', height: 100);
     case 'personality':
       return Image.asset('images/personality17.png', height: 100);
+     case 'karir':
+      return SizedBox();
+     case 'polaBahagia':
+       return SizedBox();
+     case 'polaInteraksi':
+       return SizedBox();
+     case 'family':
+       return SizedBox();
+     case 'kebutuhan':
+       return SizedBox();
+     case 'polaHealing':
+       return SizedBox();
+     case 'finansial':
+       return SizedBox();
     default:
-      return Image.asset('images/default.png', height: 100);
+      return SizedBox();
   }
 }

@@ -12,7 +12,8 @@ import '../../../widgets/button_primary.dart';
 import '../../../widgets/custom_input_field.dart';
 
 class InputCodeRefPofilling extends StatefulWidget {
-  const InputCodeRefPofilling({super.key});
+  final String? route;
+  const InputCodeRefPofilling({super.key,this.route});
 
   @override
   State<InputCodeRefPofilling> createState() => _InputCodeRefPofillingState();
@@ -160,7 +161,7 @@ class _InputCodeRefPofillingState extends State<InputCodeRefPofilling> {
                                                   valuePro.controllerProfillingCode
                                                           .text =
                                                       affiliate[
-                                                          'refferal_code'];
+                                                          'referral_code'];
                                                 },
                                                 leading: CircleAvatar(
                                                   backgroundImage: NetworkImage(
@@ -200,7 +201,7 @@ class _InputCodeRefPofillingState extends State<InputCodeRefPofilling> {
                                           },
                                         )
                                       : Center(
-                                          child: Text(S.of(context).no_data),
+                                          child: Text(S.of(context).tidakadaaff),
                                         )),
                             ),
                       Stack(
@@ -266,12 +267,12 @@ class _InputCodeRefPofillingState extends State<InputCodeRefPofilling> {
                       CustomInputField(
                         textEditingController:
                             valuePro.controllerProfillingCode,
-                        validator: (val) {
-                          if (val!.isEmpty) {
-                            return S.of(context).cannot_be_empty;
-                          }
-                          return null;
-                        },
+                        // validator: (val) {
+                        //   if (val!.isEmpty) {
+                        //     return S.of(context).cannot_be_empty;
+                        //   }
+                        //   return null;
+                        // },
                       ),
                       const SizedBox(
                         height: 16,
@@ -279,21 +280,32 @@ class _InputCodeRefPofillingState extends State<InputCodeRefPofilling> {
                       Center(
                         child: SizedBox(
                           height: 50,
-                          child: ButtonPrimary(
+                          child: valuePro.isUpgradeToMember ? SizedBox(
+                              width: 50,
+                              height: 50,
+                              child: CircularProgressIndicator(backgroundColor: primaryColor,)) : ButtonPrimary(
                             S.of(context).next,
                             expand: true,
                             radius: 8,
                             elevation: 0.0,
                             onPress: () async {
-                              if (valuePro
-                                  .controllerProfillingCode.text.isNotEmpty) {
+                              if(widget.route == "register"){
+                                await valuePro.upgradeToMember(
+                                    context, valuePro.controllerProfillingCode,route: 'register');
+                              }else{
                                 await valuePro.upgradeToMember(
                                     context, valuePro.controllerProfillingCode);
-                              } else {
-                                NotificationUtils.showSnackbar(
-                                    S.of(context).cannot_be_empty,
-                                    backgroundColor: primaryColor);
                               }
+
+                              // if (valuePro
+                              //     .controllerProfillingCode.text.isNotEmpty) {
+                              //   await valuePro.upgradeToMember(
+                              //       context, valuePro.controllerProfillingCode);
+                              // } else {
+                              //   NotificationUtils.showSnackbar(
+                              //       S.of(context).cannot_be_empty,
+                              //       backgroundColor: primaryColor);
+                              // }
                             },
                           ),
                         ),

@@ -73,6 +73,7 @@ class _RatingState extends State<RatingChat> {
         setState(() {
           showTextButton = true;
         });
+        Nav.toAll(NavMenuScreen());
       } else {
         debugPrint("Response Code: ${response.statusCode}");
         debugPrint("Response Data: ${response.data}");

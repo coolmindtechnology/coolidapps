@@ -11,6 +11,7 @@ class ChatService extends ChangeNotifier {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseStorage _storage = FirebaseStorage.instance;
 
+
   /// **Upload gambar ke Firebase Storage**
   Future<String?> uploadImage(XFile imageFile) async {
     try {
@@ -131,7 +132,7 @@ class ChatService extends ChangeNotifier {
 
 
   ///send
-  Future<void> sendMassage(String reciverId, String massage) async {
+  Future<void> sendMassage(String reciverId, String massage, String id_consultation) async {
     final String currentId = _firebaseAuth.currentUser!.uid;
     final String currentEmail = _firebaseAuth.currentUser!.email!;
     final Timestamp timestamp = Timestamp.now();
@@ -170,9 +171,13 @@ class ChatService extends ChangeNotifier {
       chatRoomId = "${baseChatRoomId}_${timestamp.seconds}";
       await _firestore.collection('chat_rooms').doc(chatRoomId).set({
         'status': 'progress',
-        'createdAt': timestamp
+        'createdAt': timestamp,
+        'start_time': FieldValue.serverTimestamp(),  // ⬅️ penting!
+        'duration_seconds': 1800,
+        'id_consultation' : id_consultation
       });
     }
+
 
     // Buat pesan baru
     Massage newMassage = Massage(
@@ -214,7 +219,6 @@ class ChatService extends ChangeNotifier {
 
         if (roomData['status'] == 'progress') {
           String chatRoomId = room.id;
-
           yield* _firestore
               .collection('chat_rooms')
               .doc(chatRoomId)
@@ -259,7 +263,6 @@ class ChatService extends ChangeNotifier {
           await _firestore.collection('chat_rooms').doc(chatRoomId).update({
             'status': 'archive'
           });
-
           return; // Keluar setelah menemukan dan mengupdate room aktif
         }
       }
@@ -280,6 +283,46 @@ class ChatService extends ChangeNotifier {
   /// Fungsi untuk mendapatkan ID user yang sedang login
   String getCurrentUserId() {
     return _firebaseAuth.currentUser?.uid ?? "";
+  }
+
+  Future<int> getRemainingTime(String chatRoomId) async {
+    final doc = await _firestore.collection('chat_rooms').doc(chatRoomId).get();
+    final data = doc.data();
+
+    if (data == null) {
+      throw Exception("Data tidak ditemukan");
+    }
+
+    if (data['start_time'] == null) {
+      throw Exception("start_time belum tersedia");
+    }
+
+    final Timestamp startTime = data['start_time'];
+    final int duration = data['duration_seconds'] ?? 1800;
+
+    final int elapsed = DateTime.now().difference(startTime.toDate()).inSeconds;
+    return duration - elapsed;
+  }
+
+
+  Future<String> getActiveChatRoomId(String user1, String user2) async {
+    List<String> ids = [user1, user2]..sort();
+    String baseId = ids.join('_');
+
+    final rooms = await _firestore
+        .collection('chat_rooms')
+        .where(FieldPath.documentId, isGreaterThanOrEqualTo: baseId)
+        .where(FieldPath.documentId, isLessThanOrEqualTo: "$baseId\uf8ff")
+        .orderBy('createdAt', descending: true)
+        .get();
+
+    for (var room in rooms.docs) {
+      if (room.data()['status'] == 'progress') {
+        return room.id;
+      }
+    }
+
+    throw Exception("No active chat room found");
   }
 
 

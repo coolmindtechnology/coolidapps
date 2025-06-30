@@ -68,10 +68,14 @@ class _TabSesiState extends State<TabSesi> {
                 }
 
                 if (remainingMinutes == 0) {
+
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => DetailConsultant(
+                        type: consultation.typeSession,
+                        payed: "Paid",
+                        price: consultation.price?.toString() ?? "Free",
                         user: null,
                         idUser: consultation.id.toString(),
                         imagePath: consultation.consultantImage ?? '-',

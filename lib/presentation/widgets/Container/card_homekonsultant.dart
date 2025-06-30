@@ -76,7 +76,6 @@ class CardHomeKonsultant extends StatelessWidget {
                   heightFactor: 1.3, // Membesar gambar 30% dari ukuran normal
                   child: Image.asset(
                     imageAsset,
-                    fit: BoxFit.cover,
                   ),
                 ),
               ),

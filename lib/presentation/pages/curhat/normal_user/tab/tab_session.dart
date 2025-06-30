@@ -80,6 +80,9 @@ class _TabSesiCurhatState extends State<TabSesiCurhat> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => DetailConsultant(
+                          type: curhat.typeSession,
+                            payed : "Paid",
+                          price: curhat.price,
                           idUser: curhat.id.toString(),
                           imagePath: curhat.consultantImage ?? '-',
                           name: curhat.consultantName ?? '-',

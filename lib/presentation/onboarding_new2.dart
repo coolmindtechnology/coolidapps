@@ -1,6 +1,7 @@
 import 'package:coolappflutter/data/apps/app_sizes.dart';
 
 import 'package:coolappflutter/data/locals/preference_handler.dart';
+import 'package:coolappflutter/presentation/on_boarding/onboarding_isi_no_hp.dart';
 
 import 'package:coolappflutter/presentation/pages/auth/register_screen.dart';
 import 'package:flutter/cupertino.dart';
@@ -100,7 +101,8 @@ class _OnboardingNew2State extends State<OnboardingNew2> {
                         onTap: () async {
                           // Nav.toAll(const PreHomeScreen());
                           await PreferenceHandler.storingCekOnboarding("1");
-                          Nav.toAll(const RegisterScreen());
+                          // Nav.toAll(const RegisterScreen());
+                          Nav.toAll(const OnboardingIsiNoHp());
                         },
                         child: Row(
                           children: [
@@ -196,7 +198,8 @@ class _OnboardingNew2State extends State<OnboardingNew2> {
                                 await PreferenceHandler.storingCekOnboarding(
                                     "1");
                                 countPage = 0;
-                                Nav.toAll(const RegisterScreen());
+                                // Nav.toAll(const RegisterScreen());
+                                Nav.toAll(const OnboardingIsiNoHp());
                               }
                               setState(() {});
                             }),

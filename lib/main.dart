@@ -39,6 +39,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -81,10 +82,26 @@ void onDidReceiveNotificationResponse(NotificationResponse response) {
 }
 
 void main() async {
+  Intl.defaultLocale = 'en_US';
   WidgetsFlutterBinding.ensureInitialized();
   if (Firebase.apps.isEmpty) {
-    await Firebase.initializeApp(); // Inisialisasi hanya sekali
+    if (kIsWeb) {
+      await Firebase.initializeApp(
+        options: const FirebaseOptions(
+          apiKey: 'AIzaSyAUwYqwfekzl72dvGkyFE7irzZdh4Qa9fk',
+          appId: '1:460609975158:android:4368eef2b9acf8efb38057',
+          messagingSenderId: '460609975158',
+          projectId: 'my-cool-id',
+          storageBucket: 'my-cool-id.firebaseio.com',
+          authDomain: 'cool-app-641a1.firebaseapp.com',
+          measurementId: 'G-2JY8LGXM4M',
+        ),
+      );
+    } else {
+      await Firebase.initializeApp();
+    }
   }
+
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   // Konfigurasi local notifications

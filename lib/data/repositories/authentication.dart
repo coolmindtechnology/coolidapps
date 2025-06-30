@@ -7,6 +7,7 @@ import 'package:coolappflutter/data/helpers/failure.dart';
 import 'package:coolappflutter/data/networks/dio_handler.dart';
 import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
 import 'package:coolappflutter/data/networks/error_handler.dart';
+import 'package:coolappflutter/data/response/auth/res_check_credential.dart';
 import 'package:coolappflutter/data/response/auth/res_get_otp.dart';
 import 'package:coolappflutter/data/response/auth/res_logout.dart';
 import 'package:coolappflutter/data/response/auth/res_register.dart';
@@ -97,10 +98,10 @@ class Authentication {
             'email': email,
             'channel': channel,
             'code_referal': codeReferal,
-            "country_id": countryId,
-            "state_id": stateId,
-            "city_id": cityId,
-            "district_id": districtId,
+            "country": countryId,
+            "state": stateId,
+            "city": cityId,
+            "district": districtId,
             "longitude": longitude,
             "latitude": latitude
           },
@@ -341,4 +342,33 @@ class Authentication {
       return Either.error(ErrorHandler.handle(e).failure);
     }
   }
+
+  // verify credential
+  Future<Either<Failure, CredentialResponse>> cekCredential({
+    String? phoneNumber,
+    String? email,
+  }) async {
+    Response res = await dio.post(ApiEndpoint.checkCredential,
+        data: {
+          'phone_number': phoneNumber,
+          'email': email,
+        },
+        options: Options(
+          validateStatus: (status) {
+            return status == 200 || status == 400;
+          },
+          contentType: Headers.jsonContentType,
+          responseType: ResponseType.json,
+        ));
+    try {
+      return Either.success(CredentialResponse.fromJson(res.data));
+    } catch (e, st) {
+      if (kDebugMode) {
+        print(st);
+      }
+      return Either.error(ErrorHandler.handle(e).failure);
+    }
+  }
+
+
 }

@@ -1,12 +1,10 @@
-// To parse this JSON data, do
-//
-//     final resGetListCurhat = resGetListCurhatFromJson(jsonString);
-
 import 'dart:convert';
 
-ResGetListCurhat resGetListCurhatFromJson(String str) => ResGetListCurhat.fromJson(json.decode(str));
+ResGetListCurhat resGetListCurhatFromJson(String str) =>
+    ResGetListCurhat.fromJson(json.decode(str));
 
-String resGetListCurhatToJson(ResGetListCurhat data) => json.encode(data.toJson());
+String resGetListCurhatToJson(ResGetListCurhat data) =>
+    json.encode(data.toJson());
 
 class ResGetListCurhat {
   bool? success;
@@ -19,11 +17,12 @@ class ResGetListCurhat {
     this.data,
   });
 
-  factory ResGetListCurhat.fromJson(Map<String, dynamic> json) => ResGetListCurhat(
-    success: json["success"],
-    message: json["message"],
-    data: json["data"] == null ? null : Data.fromJson(json["data"]),
-  );
+  factory ResGetListCurhat.fromJson(Map<String, dynamic> json) =>
+      ResGetListCurhat(
+        success: json["success"],
+        message: json["message"],
+        data: json["data"] == null ? null : Data.fromJson(json["data"]),
+      );
 
   Map<String, dynamic> toJson() => {
     "success": success,
@@ -65,12 +64,16 @@ class Data {
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
     currentPage: json["current_page"],
-    data: json["data"] == null ? [] : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
+    data: json["data"] == null
+        ? []
+        : List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
     firstPageUrl: json["first_page_url"],
     from: json["from"],
     lastPage: json["last_page"],
     lastPageUrl: json["last_page_url"],
-    links: json["links"] == null ? [] : List<Link>.from(json["links"]!.map((x) => Link.fromJson(x))),
+    links: json["links"] == null
+        ? []
+        : List<Link>.from(json["links"].map((x) => Link.fromJson(x))),
     nextPageUrl: json["next_page_url"],
     path: json["path"],
     perPage: json["per_page"],
@@ -81,12 +84,16 @@ class Data {
 
   Map<String, dynamic> toJson() => {
     "current_page": currentPage,
-    "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x.toJson())),
+    "data": data == null
+        ? []
+        : List<dynamic>.from(data!.map((x) => x.toJson())),
     "first_page_url": firstPageUrl,
     "from": from,
     "last_page": lastPage,
     "last_page_url": lastPageUrl,
-    "links": links == null ? [] : List<dynamic>.from(links!.map((x) => x.toJson())),
+    "links": links == null
+        ? []
+        : List<dynamic>.from(links!.map((x) => x.toJson())),
     "next_page_url": nextPageUrl,
     "path": path,
     "per_page": perPage,
@@ -112,9 +119,11 @@ class Datum {
   DateTime? sessionStart;
   DateTime? sessionEnd;
   String? timeSelected;
-  String? price;
-  bool? status;
+  double? price;
+  String? categorySession;
+  String? status;
   String? typeSession;
+  String? idDocument;
   FirebaseConf? firebaseConf;
 
   Datum({
@@ -134,8 +143,10 @@ class Datum {
     this.sessionEnd,
     this.timeSelected,
     this.price,
+    this.categorySession,
     this.status,
     this.typeSession,
+    this.idDocument,
     this.firebaseConf,
   });
 
@@ -152,13 +163,23 @@ class Datum {
     sessionStatus: json["session_status"],
     rating: json["rating"],
     remainingMinutes: json["remaining_minutes"],
-    sessionStart: json["session_start"] == null ? null : DateTime.parse(json["session_start"]),
-    sessionEnd: json["session_end"] == null ? null : DateTime.parse(json["session_end"]),
+    sessionStart: json["session_start"] == null
+        ? null
+        : DateTime.parse(json["session_start"]),
+    sessionEnd: json["session_end"] == null
+        ? null
+        : DateTime.parse(json["session_end"]),
     timeSelected: json["time_selected"],
-    price: json["price"],
+    price: json["price"] != null
+        ? double.tryParse(json["price"].toString())
+        : null,
+    categorySession: json["category_session"],
     status: json["status"],
     typeSession: json["type_session"],
-    firebaseConf: json["firebase_conf"] == null ? null : FirebaseConf.fromJson(json["firebase_conf"]),
+    idDocument: json["id_document"],
+    firebaseConf: json["firebase_conf"] == null
+        ? null
+        : FirebaseConf.fromJson(json["firebase_conf"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -178,8 +199,10 @@ class Datum {
     "session_end": sessionEnd?.toIso8601String(),
     "time_selected": timeSelected,
     "price": price,
+    "category_session": categorySession,
     "status": status,
     "type_session": typeSession,
+    "id_document": idDocument,
     "firebase_conf": firebaseConf?.toJson(),
   };
 }

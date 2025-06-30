@@ -341,10 +341,10 @@ packages:
     dependency: transitive
     description:
       name: connectivity_plus
-      sha256: "04bf81bb0b77de31557b58d052b24b3eee33f09a6e7a8c68a3e247c7df19ec27"
+      sha256: "051849e2bd7c7b3bc5844ea0d096609ddc3a859890ec3a9ac4a65a2620cc1f99"
       url: "https://pub.dev"
     source: hosted
-    version: "6.1.3"
+    version: "6.1.4"
   connectivity_plus_platform_interface:
     dependency: transitive
     description:
@@ -1350,6 +1350,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.5.3"
+  image_cropper:
+    dependency: "direct main"
+    description:
+      name: image_cropper
+      sha256: "4e9c96c029eb5a23798da1b6af39787f964da6ffc78fd8447c140542a9f7c6fc"
+      url: "https://pub.dev"
+    source: hosted
+    version: "9.1.0"
+  image_cropper_for_web:
+    dependency: transitive
+    description:
+      name: image_cropper_for_web
+      sha256: fd81ebe36f636576094377aab32673c4e5d1609b32dec16fad98d2b71f1250a9
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.1.0"
+  image_cropper_platform_interface:
+    dependency: transitive
+    description:
+      name: image_cropper_platform_interface
+      sha256: "6ca6b81769abff9a4dcc3bbd3d75f5dfa9de6b870ae9613c8cd237333a4283af"
+      url: "https://pub.dev"
+    source: hosted
+    version: "7.1.0"
   image_picker:
     dependency: "direct main"
     description:
@@ -2615,26 +2639,26 @@ packages:
     dependency: transitive
     description:
       name: zego_express_engine
-      sha256: de02285f05c922c7d6852835f46f3274228371f557afc162bb10ccbb757544bb
+      sha256: "6639d0c1dc27343fbb31142038d27c2b196fc4add268dfb4b5df978ccfbcafd5"
       url: "https://pub.dev"
     source: hosted
-    version: "3.19.1"
+    version: "3.20.5"
   zego_plugin_adapter:
     dependency: transitive
     description:
       name: zego_plugin_adapter
-      sha256: b8552195f1a9d055e1daa71247434f09b647837d1ac41b41a68b49a6a8bf35b6
+      sha256: af781427cf0f299f5b5760b1d0fe8147b64abac8a535d4130c6eedc166d26326
       url: "https://pub.dev"
     source: hosted
-    version: "2.13.8"
+    version: "2.13.9"
   zego_uikit:
     dependency: transitive
     description:
       name: zego_uikit
-      sha256: "94e2ed3f25655737ea9e33cceed41dff4074e26ab33f15150b96188c90177a4c"
+      sha256: c366fbb3513ed0536664ac17b5c2aebe24c0b57adfd43db947dc2877bcb241e3
       url: "https://pub.dev"
     source: hosted
-    version: "2.28.10"
+    version: "2.28.14"
   zego_uikit_prebuilt_video_conference:
     dependency: "direct main"
     description:

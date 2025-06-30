@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:coolappflutter/data/data_global.dart';
 import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
 import 'package:coolappflutter/data/provider/provider_brain_activation.dart';
+import 'package:coolappflutter/presentation/pages/main/nav_home.dart';
 import 'package:coolappflutter/presentation/pages/payments/payment_failed_page.dart';
 import 'package:coolappflutter/presentation/pages/payments/payment_success_page.dart';
 import 'package:coolappflutter/presentation/pages/payments/webview_paypal.dart';
@@ -205,10 +206,7 @@ class _PaypalScreenState extends State<PaypalScreen> {
                 if (url.toString().contains('payment-success')) {
                   if (widget.fromPage == "profiling") {
                     widget.onUpdate!();
-                    Nav.back();
-                    if (widget.isMultiple) {
-                      Nav.back();
-                    }
+                    Nav.toAll(const NavMenuScreen());
                   } else if (widget.fromPage == "register_affiliate") {
                     Nav.back(data: "affiliate");
                   } else if (widget.fromPage == "topup_affiliate") {

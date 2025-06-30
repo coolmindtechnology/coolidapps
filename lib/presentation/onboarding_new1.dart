@@ -111,7 +111,8 @@ class _Onboardingnew1State extends State<Onboardingnew1> {
                       if (cekOboarding.toString() != "1") {
                         await Nav.to(const OnboardingNew2());
                       } else {
-                        Nav.to(const RegisterScreen());
+                        // Nav.to(const RegisterScreen());
+                        Nav.to(const OnboardingNew2());
                       }
                     },
                     child: Text(

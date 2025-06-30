@@ -42,6 +42,8 @@ class _CommisionDashboardState extends State<CommisionDashboard> {
 
   Future<void> _refreshData() async {
     await context.read<PromotionProvider>().fetchListPromotion();
+    setState(() {
+    });
   }
 
   void _showPromoDialog() async {
@@ -62,7 +64,7 @@ class _CommisionDashboardState extends State<CommisionDashboard> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Minimum Withdrawal"),
+          title: Text(S.of(context).minimalwd),
           content: Text(S.of(context).minimumWdCommision +
               "(${formatMinimumWd(dataGlobal.dataPromotion?.minimumWd ?? "IDR 0")})"),
           actions: [
@@ -103,7 +105,7 @@ class _CommisionDashboardState extends State<CommisionDashboard> {
         appBar: AppBar(
           centerTitle: false,
           title: Text(
-            'Commision',
+            S.of(context).komisi,
             style: const TextStyle(color: Colors.white),
           ),
           iconTheme: const IconThemeData(color: Colors.white),
@@ -133,230 +135,253 @@ class _CommisionDashboardState extends State<CommisionDashboard> {
                 )
               : RefreshIndicator(
                   onRefresh: _refreshData,
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [
-                          Color(0xFFFEFDCD),
-                          primaryColor,
-                        ],
-                        stops: [0.01, 0.3],
-                        begin: Alignment.topCenter,
-                        end: Alignment.center,
+                  child: SingleChildScrollView(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [
+                            Color(0xFFFEFDCD),
+                            primaryColor,
+                          ],
+                          stops: [0.01, 0.3],
+                          begin: Alignment.topCenter,
+                          end: Alignment.center,
+                        ),
                       ),
-                    ),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: whiteColor,
-                                borderRadius: BorderRadius.circular(20)),
-                            child: Padding(
-                              padding: const EdgeInsets.only(
-                                  top: 30, bottom: 0, right: 20, left: 20),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          color: Color(0xFFFEFDCD),
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                        ),
-                                        child: Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 8,
-                                              right: 15,
-                                              bottom: 8,
-                                              top: 8),
-                                          child: Row(
-                                            children: [
-                                              Image.asset(
-                                                AppAsset.icRealMoney,
-                                              ),
-                                              gapW10,
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    'My Commision',
-                                                    style: TextStyle(
-                                                      color: DarkYellow,
-                                                      fontSize: 17,
-                                                      fontWeight:
-                                                          FontWeight.w300,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: whiteColor,
+                                  borderRadius: BorderRadius.circular(20)),
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                    top: 30, bottom: 0, right: 20, left: 20),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          width: 250,
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFFFEFDCD),
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                          ),
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 8,
+                                                right: 15,
+                                                bottom: 8,
+                                                top: 8),
+                                            child: Row(
+                                              children: [
+                                                Image.asset(
+                                                  AppAsset.icRealMoney,
+                                                ),
+                                                gapW10,
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      S.of(context).komisiku,
+                                                      style: TextStyle(
+                                                        color: DarkYellow,
+                                                        fontSize: 17,
+                                                        fontWeight:
+                                                            FontWeight.w300,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  Text(
-                                                    "${(dataGlobal.dataPromotion?.totalComission == null || dataGlobal.dataPromotion?.totalComission.toString().isEmpty == true) ? '0' : dataGlobal.dataPromotion?.totalComission.toString()}",
-                                                    style: TextStyle(
-                                                      color: DarkYellow,
-                                                      fontSize: 17,
-                                                      fontWeight:
-                                                          FontWeight.w600,
+                                                    Text(
+                                                      "${(dataGlobal.dataPromotion?.totalComission == null || dataGlobal.dataPromotion?.totalComission.toString().isEmpty == true) ? '0' : dataGlobal.dataPromotion?.totalComission.toString()}",
+                                                      style: TextStyle(
+                                                        color: DarkYellow,
+                                                        fontSize: 17,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                      ),
                                                     ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
+                                        Spacer(),
+                                        IconButton(
+                                            onPressed: () {
+                                              showDialog(
+                                                context: context,
+                                                builder: (BuildContext context) {
+                                                  return Dialog(
+                                                    shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              20),
+                                                    ),
+                                                    child: IntrinsicHeight(
+                                                      child: _popup(),
+                                                    ),
+                                                  );
+                                                },
+                                              );
+                                            },
+                                            icon: Icon(
+                                              Icons.qr_code,
+                                              color: primaryColor,
+                                              size: 50,
+                                            )),
+                                      ],
+                                    ),
+                                    SizedBox(height: 8),
+                                    Text(
+                                      S.of(context).minimumWdCommision +
+                                          "(${formatMinimumWd(dataGlobal.dataPromotion?.minimumWd ?? "IDR 0")})",
+                                      style: TextStyle(fontSize: 12),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                    SizedBox(height: 12),
+                                    GlobalButton(
+                                      onPressed: () {
+                                        // showDialog(
+                                        //   context: context,
+                                        //   builder: (BuildContext context) {
+                                        //     return AlertDialog(
+                                        //       title: Padding(
+                                        //         padding: const EdgeInsets.all(8.0),
+                                        //         child: Center(child: Text(S.of(context).coming_soon)),
+                                        //       ),
+                                        //       actions: [
+                                        //         GlobalButton (onPressed: () {
+                                        //           Navigator.of(context).pop(); // Tutup popup
+                                        //         }, color: primaryColor, text: 'Oke')
+                                        //       ],
+                                        //     );
+                                        //   },
+                                        // );
+                                        if (dataGlobal.dataPromotion?.isWd ==
+                                            false) {
+                                          _showMinWdDialog();
+                                          print(dataGlobal
+                                              .dataPromotion?.totalComission
+                                              .toString());
+                                        } else {
+                                          Nav.to(WithdrawalCommision());
+                                        }
+
+                                        // Nav.to(WithdrawalCommision());
+                                      },
+                                      color: primaryColor,
+                                      text: S.of(context).withdraw,
+                                    ),
+                                    _buildUrlBox(dataGlobal.dataPromotion?.codeReferal.toString() ?? ""),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 16),
+                          Expanded(
+                            child: Container(
+                              padding: const EdgeInsets.all(12),
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  topRight: Radius.circular(20),
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.black12,
+                                    blurRadius: 5,
+                                    spreadRadius: 1,
+                                  ),
+                                ],
+                              ),
+                              child: Column(
+                                children: [
+                                  Center(
+                                    child: Image.asset('images/toplist.png'),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        S.of(context).history,
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold),
                                       ),
-                                      Spacer(),
-                                      IconButton(
-                                          onPressed: () {
-                                            showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return Dialog(
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20),
-                                                  ),
-                                                  child: IntrinsicHeight(
-                                                    child: _popup(),
-                                                  ),
-                                                );
-                                              },
-                                            );
-                                          },
-                                          icon: Icon(
-                                            Icons.qr_code,
-                                            color: primaryColor,
-                                            size: 50,
-                                          )),
+                                      DropdownButton(
+                                        value: selectedCategory,
+                                        items: [
+                                          DropdownMenuItem(
+                                              child: Text(S.of(context).all),
+                                              value: "all"),
+                                          DropdownMenuItem(
+                                              child: Text(S.of(context).income),
+                                              value: "income"),
+                                          DropdownMenuItem(
+                                              child: Text(S.of(context).withdraw),
+                                              value: "withdrawal"),
+                                        ],
+                                        onChanged: (value) {
+                                          if (value != null) {
+                                            setState(() {
+                                              selectedCategory = value;
+                                            });
+                                          }
+                                        },
+                                      ),
                                     ],
                                   ),
-                                  SizedBox(height: 8),
-                                  Text(
-                                    S.of(context).minimumWdCommision +
-                                        "(${formatMinimumWd(dataGlobal.dataPromotion?.minimumWd ?? "IDR 0")})",
-                                    style: TextStyle(fontSize: 12),
-                                    textAlign: TextAlign.center,
+                                  const SizedBox(height: 8),
+                    
+                                  // List History
+                                  Expanded(
+                                    child: filteredData.isNotEmpty
+                                        ? ListView.builder(
+                                            itemCount: filteredData.length,
+                                            itemBuilder: (context, index) {
+                                              final item = filteredData[index];
+                                              return Card(
+                                                margin:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 5),
+                                                child: ListTile(
+                                                  title: Text(
+                                                    "${item.comissionAmount}",
+                                                    style: TextStyle(
+                                                        color: item.category == "income" ? Colors.green : Colors.red,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                  subtitle:  item.category == "income" ? Text("${item.profiling ?? ""} "+"\n${item.nameMember ?? ""}") : Padding(
+                                                    padding: const EdgeInsets.only(top: 10,bottom: 10),
+                                                    child: Text("${item.category.toString()}" ),
+                                                  ),
+                                                  trailing: Text(item.date ?? ""),
+                                                ),
+                                              );
+                                            },
+                                          )
+                                        : Center(
+                                            child: Text(S.of(context).no_data)),
                                   ),
-                                  SizedBox(height: 12),
-                                  GlobalButton(
-                                    onPressed: () {
-                                      if (dataGlobal.dataPromotion?.isWd ==
-                                          false) {
-                                        _showMinWdDialog();
-                                        print(dataGlobal
-                                            .dataPromotion?.totalComission
-                                            .toString());
-                                      } else {
-                                        Nav.to(WithdrawalCommision());
-                                      }
-                                    },
-                                    color: primaryColor,
-                                    text: S.of(context).withdraw,
-                                  ),
-                                  _buildUrlBox(dataGlobal.dataPromotion?.codeReferal.toString() ?? ""),
                                 ],
                               ),
                             ),
                           ),
-                        ),
-                        SizedBox(height: 16),
-                        Expanded(
-                          child: Container(
-                            padding: const EdgeInsets.all(12),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(20),
-                                topRight: Radius.circular(20),
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black12,
-                                  blurRadius: 5,
-                                  spreadRadius: 1,
-                                ),
-                              ],
-                            ),
-                            child: Column(
-                              children: [
-                                Center(
-                                  child: Image.asset('images/toplist.png'),
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      S.of(context).history,
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    DropdownButton(
-                                      value: selectedCategory,
-                                      items: [
-                                        DropdownMenuItem(
-                                            child: Text(S.of(context).all),
-                                            value: "all"),
-                                        DropdownMenuItem(
-                                            child: Text(S.of(context).income),
-                                            value: "income"),
-                                        DropdownMenuItem(
-                                            child: Text(S.of(context).withdraw),
-                                            value: "withdrawl"),
-                                      ],
-                                      onChanged: (value) {
-                                        if (value != null) {
-                                          setState(() {
-                                            selectedCategory = value;
-                                          });
-                                        }
-                                      },
-                                    ),
-                                  ],
-                                ),
-                                const SizedBox(height: 8),
-
-                                // List History
-                                Expanded(
-                                  child: filteredData.isNotEmpty
-                                      ? ListView.builder(
-                                          itemCount: filteredData.length,
-                                          itemBuilder: (context, index) {
-                                            final item = filteredData[index];
-                                            return Card(
-                                              margin:
-                                                  const EdgeInsets.symmetric(
-                                                      vertical: 5),
-                                              child: ListTile(
-                                                title: Text(
-                                                  "${item.comissionAmount}",
-                                                  style: const TextStyle(
-                                                      color: Colors.green,
-                                                      fontWeight:
-                                                          FontWeight.bold),
-                                                ),
-                                                subtitle: Text(
-                                                    "${item.profiling}\n${item.nameMember}"),
-                                                trailing: Text(item.date ?? ""),
-                                              ),
-                                            );
-                                          },
-                                        )
-                                      : Center(
-                                          child: Text(S.of(context).no_data)),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 );
@@ -377,7 +402,7 @@ class _CommisionDashboardState extends State<CommisionDashboard> {
         children: [
           Expanded(
             child: Text(
-              url,
+              "#"+url,
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 14,
@@ -415,21 +440,25 @@ class _CommisionDashboardState extends State<CommisionDashboard> {
         child: Column(
           children: [
             gapH32,
-            SvgPicture.network(
+            Image.network(
               "${ApiEndpoint.qrPromotion}",
               headers: {'Authorization': dataGlobal.token},
               width: 200,
               height: 200,
-              placeholderBuilder: (context) {
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) return child;
                 return const SizedBox(
                   height: 200,
                   width: 200,
                   child: CircularProgressWidget(),
                 );
               },
+              errorBuilder: (context, error, stackTrace) {
+                return const Icon(Icons.error, size: 100, color: Colors.red);
+              },
             ),
             gapH10,
-            _buildUrlBox(dataGlobal.dataPromotion?.referalLink.toString() ?? "")
+            _buildUrlBox(dataGlobal.dataPromotion?.codeReferal.toString() ?? "")
           ],
         ),
       ),

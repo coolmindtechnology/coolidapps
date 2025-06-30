@@ -43,7 +43,7 @@ class _FormCurhatState extends State<FormCurhat> {
             SizedBox(height: 8.0),
             ProfileCard(
                 onTap: () {
-                  Nav.to(ProfileConsultant());
+                  // Nav.to(ProfileConsultant());
                 },
                 imagePath: AppAsset.imgProfile1,
                 name: 'vivian Entira',

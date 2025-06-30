@@ -125,7 +125,7 @@ class _AddMultipleProfilingState extends State<AddMultipleProfiling> {
                         Expanded(
                           child: ListView.builder(
                             shrinkWrap: true, // Tambahkan shrinkWrap
-                            physics: const NeverScrollableScrollPhysics(),
+                            // physics: const NeverScrollableScrollPhysics(),
                             scrollDirection: Axis.horizontal,
                             itemCount: controllersName.length, // Gunakan panjang list yang dinamis
                             itemBuilder: (context, index) {
@@ -157,7 +157,7 @@ class _AddMultipleProfilingState extends State<AddMultipleProfiling> {
                             },
                           ),
                         ),
-            
+
                         IconButton(onPressed: () {
                           if (widget.jumlahProfiling == widget.maxJumlahProfiling) {
                             NotificationUtils.showDialogError(context, () {
@@ -341,13 +341,13 @@ class _AddMultipleProfilingState extends State<AddMultipleProfiling> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                // if (widget.coderef != null)
-                // CustomInputField(
-                //   isReadOnly: true,
-                //   title: S.of(context).referral_code_optional,
-                //   textEditingController: controllersCodeRef[0]..text = widget.coderef ?? '',
-                // ),
-                // gapH10,
+                if (widget.coderef != null)
+                CustomInputField(
+                  isReadOnly: true,
+                  title: S.of(context).referral_code_optional,
+                  textEditingController: controllersCodeRef[0]..text = widget.coderef ?? '',
+                ),
+                gapH10,
                 // SizedBox(
                 //   height: 54,
                 //   child: ButtonPrimary(S.of(context).save,
@@ -434,38 +434,23 @@ class _AddMultipleProfilingState extends State<AddMultipleProfiling> {
                                 onPress1: value.isCreateMultipleProfiling
                                     ? () {}
                                     : () async {
-                                        Nav.back();
-                                        List<Map<String, dynamic>> formData =
-                                            [];
-                                        for (int i = 0;
-                                            i < widget.jumlahProfiling;
-                                            i++) {
-                                          Map<String, dynamic> formDataItem = {
-                                            'name': controllersName[i].text,
-                                            'birth_date':
-                                                selectedDate[i].day.toString(),
-                                            'month_date': selectedDate[i]
-                                                .month
-                                                .toString(),
-                                            'year_date':
-                                                selectedDate[i].year.toString(),
-                                            'blood_type':
-                                                selectedBloodType[i] == "-"
-                                                    ? ""
-                                                    : selectedBloodType[i] ??
-                                                        "",
-                                            'domicile':
-                                                controllersResidence[i].text,
-                                            "ref_code":
-                                                controllersCodeRef[i].text,
-                                          };
+                                  Nav.back();
+                                  final List<ProfilData> allProfiles = [];
+                                  for (int i = 0; i < controllersName.length; i++) {
+                                    allProfiles.add(
+                                      ProfilData(
+                                        name: controllersName[i].text,
+                                        dateOfBirth: selectedDate[i].day.toString(),
+                                        age: controllersAge[i].text,
+                                        residence: controllersResidence[i].text,
+                                        bloodType: selectedBloodType[i] ?? "-",
+                                        monthDate: selectedDate[i].month.toString(),
+                                        yearDate: selectedDate[i].year.toString(),
+                                      ),
+                                    );
+                                  }
 
-                                          formData.add(formDataItem);
-                                        }
-                                        await value.createMultipleProfiling(
-                                            context, formData,
-                                            // onAdd: widget.onAdd
-                                            );
+                                  Nav.to(KonfirmasiIdentitiasPage(profiles: allProfiles,widget.coderef ?? ''));
                                       },
                                 onPress2: value.isCreateMultipleProfiling
                                     ? () {}

@@ -105,7 +105,7 @@ class _FormIsianCurhatState extends State<FormIsianCurhat> {
                       onPressed: () {
                         Nav.to(SummaryConsultant(
                           consultId: widget.id.toString(),
-                          themeId: '3',
+                          themeId: '2',
                           partisipant: inputDeskrip.text,
                           typeSession: 'curhat',
                           time: widget.getTime,

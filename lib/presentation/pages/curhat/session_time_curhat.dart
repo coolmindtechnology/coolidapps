@@ -175,7 +175,7 @@ class _SessionTimeState extends State<SessionTimeCurhat> {
                     onPressed: () {
                       if (selectedDate != null && selectedTimeSlot != null) {
                         Nav.to(ChooseConsultantCurhat(
-                          getTopik: widget.getTopik,
+                          getTopik: 'Curhat',
                           getTime: selectedTimeSlot.toString(),
                           getIdTheme: widget.getId,
                         ));

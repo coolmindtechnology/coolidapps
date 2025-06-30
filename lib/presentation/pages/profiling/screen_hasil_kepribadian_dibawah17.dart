@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:coolappflutter/presentation/pages/profiling/menu_tentang_profile_under17.dart';
 import 'package:coolappflutter/presentation/pages/profiling/results/result_under17.dart';
 import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -99,9 +100,9 @@ class _ScreenHasilKepribadianBawah17State
   }
 
   initLoad() async {
-    await context
-        .read<ProviderProfiling>()
-        .getDetailProfiling(context, widget.data?.idLogResult.toString() ?? "");
+    // await context
+    //     .read<ProviderProfiling>()
+    //     .getDetailProfiling(context, widget.data?.idLogResult.toString() ?? "");
     await context
         .read<ProviderProfiling>()
         .getShowProfiling(context, widget.data?.idLogResult.toString() ?? "");
@@ -139,7 +140,7 @@ class _ScreenHasilKepribadianBawah17State
   @override
   Widget build(BuildContext context) {
     return Consumer<ProviderProfiling>(builder: (context, value, child) {
-      bool isLoading = value.isShowDetail == true || value.isDetail == true;
+      bool isLoading = value.isShowDetail == true;
       return PopScope(
         onPopInvoked: (didPop) {
           _stop();
@@ -212,7 +213,7 @@ class _ScreenHasilKepribadianBawah17State
                                     "No Name", // Jika null, tampilkan default
                                 style: TextStyle(
                                   fontWeight: FontWeight.w600,
-                                  color: _getColorForType(
+                                  color: _getColorForText(
                                       value.dataShowDetail?.result),
                                 ),
                               ),
@@ -255,7 +256,7 @@ class _ScreenHasilKepribadianBawah17State
                                       top: 10),
                                   child: Text(
                                     value.dataShowDetail?.result ?? "",
-                                    style: TextStyle(color: Colors.white),
+                                    style: TextStyle(color: _getColorForText(value.dataShowDetail?.result)),
                                   ),
                                 ),
                               ),
@@ -378,36 +379,66 @@ class _ScreenHasilKepribadianBawah17State
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 CustomIconButton(
-                                  onTap: () {
-                                    Nav.to(ResultDetailUnder17(
-                                      data: widget.data,
-                                      type: 'tipeKaya',
-                                    ));
+                                  isLoading: value.isShowDetail,
+                                  onTap: () async {
+                                    await context
+                                        .read<ProviderProfiling>()
+                                        .getDetailProfiling(context, widget.data?.idLogResult.toString() ?? "", "tipe_kaya");
+                                    if (value.isShowDetail == false && value.isSuccesgetdetail == true) {
+                                      Nav.to(ResultDetailUnder17(
+                                        data: widget.data,
+                                        type: 'tipeKaya',
+                                      ));
+                                    }
                                   },
                                   imagePath: 'images/tipeKaya17.png',
-                                  text: S.of(context).wealth_type,
+                                  text: S.of(context).rich_type,
                                 ),
                                 gapW10,
                                 CustomIconButton(
-                                  onTap: () {
-                                    Nav.to(ResultDetailUnder17(
-                                      data: widget.data,
-                                      type: 'tipeOtak',
-                                    ));
+                                  isLoading: value.isShowDetail,
+                                  onTap: () async {
+                                    await context
+                                        .read<ProviderProfiling>()
+                                        .getDetailProfiling(context, widget.data?.idLogResult.toString() ?? "", "tipe_otak");
+                                    if (value.isShowDetail == false && value.isSuccesgetdetail == true) {
+                                      Nav.to(ResultDetailUnder17(
+                                        data: widget.data,
+                                        type: 'tipeOtak',
+                                      ));
+                                    }
                                   },
                                   imagePath: 'images/tipeOtak17.png',
                                   text: S.of(context).brain_type,
                                 ),
                                 gapW10,
                                 CustomIconButton(
-                                  onTap: () {
-                                    Nav.to(ResultDetailUnder17(
-                                      data: widget.data,
-                                      type: 'personality',
-                                    ));
+                                  isLoading: value.isShowDetail,
+                                  onTap: () async {
+                                    await context
+                                        .read<ProviderProfiling>()
+                                        .getDetailProfiling(context, widget.data?.idLogResult.toString() ?? "", "personality");
+                                    if (value.isShowDetail == false && value.isSuccesgetdetail == true) {
+                                      Nav.to(ResultDetailUnder17(
+                                        data: widget.data,
+                                        type: 'personality',
+                                      ));
+                                    }
                                   },
                                   imagePath: 'images/personality17.png',
                                   text: S.of(context).personality,
+                                ),
+
+                                gapW10,
+                                CustomIconButton(
+                                  isLoading: value.isShowDetail,
+                                  onTap: () {
+                                    Nav.to(MenuTentangProfilUnder17(
+                                      data: widget.data,
+                                    ));
+                                  },
+                                  imagePath: 'images/lainnyaunder17.png',
+                                  text: S.of(context).others,
                                 ),
                               ],
                             ),
@@ -735,6 +766,27 @@ class _ScreenHasilKepribadianBawah17State
     }
   }
 
+  Color _getColorForText(String type) {
+    switch (type) {
+      case 'EMOTION IN':
+      case 'EMOTION OUT':
+        return Colors.white;
+      case 'LOGIC IN':
+      case 'LOGIC OUT':
+        return Colors.black;
+      case 'MASTER':
+        return Colors.white;
+      case 'CREATIVE IN':
+      case 'CREATIVE OUT':
+        return Colors.white;
+      case 'ACTION IN':
+      case 'ACTION OUT':
+        return Colors.white;
+      default:
+        return Colors.white; // Warna default jika type tidak cocok
+    }
+  }
+
   Color _getColorForContainer(String type) {
     switch (type) {
       case 'EMOTION IN':
@@ -761,24 +813,26 @@ class CustomIconButton extends StatelessWidget {
   final VoidCallback onTap;
   final String imagePath;
   final String text;
+  final bool isLoading;
 
   const CustomIconButton({
     Key? key,
     required this.onTap,
     required this.imagePath,
     required this.text,
+    required this.isLoading,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
+      onTap: isLoading? null : onTap,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            height: 100,
-            width: 100,
+            height: 70,
+            width: 70,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
             ),
@@ -788,9 +842,10 @@ class CustomIconButton extends StatelessWidget {
               width: 80,
               child: Text(
                 text,
+                textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
-                    fontSize: 12.sp,
+                    fontSize: 10.sp,
                     color: BlueColor,
                     fontWeight: FontWeight.bold),
               ))

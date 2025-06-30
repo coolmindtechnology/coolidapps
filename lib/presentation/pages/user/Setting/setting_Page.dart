@@ -68,7 +68,9 @@ class _Setting_pageState extends State<Setting_page> {
                   Nav.to(ChangeLanguange(
                     onChanged: () {
                       setState(() {
-                        widget.onLanguageChanged!();
+                        if (widget.onLanguageChanged != null) {
+                          widget.onLanguageChanged!();
+                        }
                       });
                     },
                   ));

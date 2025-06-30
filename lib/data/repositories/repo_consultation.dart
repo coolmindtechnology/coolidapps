@@ -17,7 +17,7 @@ class RepoConsultation {
     try {
       // Membentuk URL dengan menambahkan parameter category ke query string jika parameter tidak null
       String url =
-          '${ApiEndpoint.getListConsultation}/?type=$parameter&type_sesion=consultation';
+          '${ApiEndpoint.getListConsultation}/?type=$parameter&type_session=consultation';
 
       // Melakukan request GET
       Response res = await dio.get(

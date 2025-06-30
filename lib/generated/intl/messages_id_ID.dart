@@ -399,6 +399,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "account_success": MessageLookupByLibrary.simpleMessage("Akun Sukses"),
         "achieve_success_in_life": MessageLookupByLibrary.simpleMessage(
             "Raih keberhasilan dalam hidup\nlewat aplikasi kepribadian terbaik"),
+        "action": MessageLookupByLibrary.simpleMessage("Action"),
+        "ada": MessageLookupByLibrary.simpleMessage("Ada"),
         "add": MessageLookupByLibrary.simpleMessage("Tambah"),
         "add_data_first": MessageLookupByLibrary.simpleMessage(
             "Silahkan tambahkan data terlebih\ndahulu melalui tombol di bawah"),
@@ -420,20 +422,34 @@ class MessageLookup extends MessageLookupByLibrary {
             "Agen sudah memiliki maksimal anggota"),
         "agree_terms_conditions": MessageLookupByLibrary.simpleMessage(
             "Dengan membaca ini saya setuju dengan terma & syarat"),
+        "ajakan": MessageLookupByLibrary.simpleMessage(
+            "Ingin tahu tipe otak anda? ayo buat profil diri anda sekarang!"),
         "ajakan_mengenal_diri": MessageLookupByLibrary.simpleMessage(
             "Yuk, mengenal diri lebih dalam"),
         "akandidengar": MessageLookupByLibrary.simpleMessage("Akan Didengar :"),
+        "aktivitas": MessageLookupByLibrary.simpleMessage("Aktivitas"),
+        "aktivitas_bulan_ini":
+            MessageLookupByLibrary.simpleMessage("Aktivitas Bulan Ini"),
+        "aktivitas_terbaru":
+            MessageLookupByLibrary.simpleMessage("Aktivitas Terbaru"),
         "all": MessageLookupByLibrary.simpleMessage("Semua"),
         "already_have_an_account":
             MessageLookupByLibrary.simpleMessage("Sudah Punya Akun?"),
         "amount": MessageLookupByLibrary.simpleMessage("Total"),
+        "anggota_terbaru":
+            MessageLookupByLibrary.simpleMessage("Anggota Terbaru"),
         "approvalSuccessful":
             MessageLookupByLibrary.simpleMessage("Persetujuan Berhasil"),
         "approve": MessageLookupByLibrary.simpleMessage("setujui"),
+        "assetNotAvailable":
+            MessageLookupByLibrary.simpleMessage("Asset Not Available"),
         "asset_type": MessageLookupByLibrary.simpleMessage("Tipe Harta"),
         "attention": MessageLookupByLibrary.simpleMessage("PERHATIAN!"),
         "aura_type": MessageLookupByLibrary.simpleMessage("Tipe Aura"),
+        "ayo_selfie": MessageLookupByLibrary.simpleMessage("Ayo Selfie!"),
+        "baca_buku": MessageLookupByLibrary.simpleMessage("Baca Buku"),
         "back": MessageLookupByLibrary.simpleMessage("Kembali"),
+        "balas": MessageLookupByLibrary.simpleMessage("Balas"),
         "bank_account": MessageLookupByLibrary.simpleMessage("Rekening Bank"),
         "bank_account_not_found": MessageLookupByLibrary.simpleMessage(
             "Account bank tidak ditemukan"),
@@ -452,6 +468,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Langganan Brain"),
         "brain_type": MessageLookupByLibrary.simpleMessage("Tipe Otak"),
         "brain_type_label": MessageLookupByLibrary.simpleMessage("Tipe Otak"),
+        "buku_premium": MessageLookupByLibrary.simpleMessage("Buku Premium"),
         "calculation_results":
             MessageLookupByLibrary.simpleMessage("Hasil Profiling"),
         "cancel": MessageLookupByLibrary.simpleMessage("Batal"),
@@ -462,6 +479,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "cannot_be_empty":
             MessageLookupByLibrary.simpleMessage("Tidak boleh kosong"),
         "career": MessageLookupByLibrary.simpleMessage("Karir"),
+        "cari_judul_buku":
+            MessageLookupByLibrary.simpleMessage("Cari Judul Buku"),
+        "cek_form_register": MessageLookupByLibrary.simpleMessage(
+            "Silahkan cek kembali form register"),
+        "ceritaAnda": MessageLookupByLibrary.simpleMessage("Cerita Anda"),
         "certificate": MessageLookupByLibrary.simpleMessage("Sertifikat"),
         "change_language": MessageLookupByLibrary.simpleMessage("Ganti Bahasa"),
         "change_password":
@@ -522,6 +544,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Buat Password baru anda untuk\nlogin ke aplikasi"),
         "create_password":
             MessageLookupByLibrary.simpleMessage("Buat Password"),
+        "creative": MessageLookupByLibrary.simpleMessage("Creative"),
         "credit_card": MessageLookupByLibrary.simpleMessage("Kartu Kredit"),
         "currency": MessageLookupByLibrary.simpleMessage("Rp"),
         "current_password":
@@ -541,6 +564,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("HAPUS DATA PROFILING?"),
         "deposit_info": MessageLookupByLibrary.simpleMessage(
             "Deposit: Diperlukan deposit sebesar 2.000.000 IDR untuk bergabung."),
+        "detailLogError":
+            MessageLookupByLibrary.simpleMessage("Detail Log Error"),
+        "detail_aktivitas":
+            MessageLookupByLibrary.simpleMessage("Detail Aktivitas"),
         "develop_yourself_by_exploring": MessageLookupByLibrary.simpleMessage(
             "Kembangkan diri anda dengan menjelajahi buku online yang telah tersedia. Jadi diri yang lebih baik, dimanapun dan kapanpun"),
         "digitalid": MessageLookupByLibrary.simpleMessage("Digital ID"),
@@ -560,6 +587,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "email_not_registered": MessageLookupByLibrary.simpleMessage(
             "Email yang dimasukkan tidak terdaftar di sistem"),
+        "emotion": MessageLookupByLibrary.simpleMessage("Emotion"),
         "enjoy_all_access":
             MessageLookupByLibrary.simpleMessage("Nikmati semua Akses"),
         "enter_a_value_between_2_and_10":
@@ -609,11 +637,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "free_version_limit": MessageLookupByLibrary.simpleMessage(
             "Versi free hanya dapat didengarkan sampai 5 menit pertama. Silahkan berlangganan untuk mendengarkan keseluruhan."),
         "from": MessageLookupByLibrary.simpleMessage("Dari"),
+        "gambar": MessageLookupByLibrary.simpleMessage("Gambar :"),
+        "ganti_foto": MessageLookupByLibrary.simpleMessage("Ganti Foto"),
         "get_know_yourself": MessageLookupByLibrary.simpleMessage(
             "Kenali Diri Lebih Cepat, Tepat dan Akurat"),
         "get_lots_of_benefits_by_subcribing":
             MessageLookupByLibrary.simpleMessage(
                 "Dapatkan banyak keuntungan dengan berlanganan"),
+        "gratis_untuk_kamu":
+            MessageLookupByLibrary.simpleMessage("Gratis untuk kamu!"),
         "great_figures_with_same_brain_type":
             MessageLookupByLibrary.simpleMessage(
                 "Hebat! Ada tokoh yang memiliki tipe otak yang sama dengan Anda"),
@@ -640,6 +672,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Jika kurang dari jumlah maksimal dan lebih dari jumlah minimal berlaku kelipatan dari hari jumlah minimal."),
         "income": MessageLookupByLibrary.simpleMessage("Pemasukan"),
+        "inputfavcode": MessageLookupByLibrary.simpleMessage(
+            "Masukkan kode promosi pengguna favorit Anda"),
         "instruksi_scan_qr": MessageLookupByLibrary.simpleMessage(
             "Silakan Scan QR Gunakan CoolApp"),
         "internal_server_error": MessageLookupByLibrary.simpleMessage(
@@ -654,6 +688,19 @@ class MessageLookup extends MessageLookupByLibrary {
         "is_adalah": MessageLookupByLibrary.simpleMessage("adalah"),
         "is_the_data_entered_correct": MessageLookupByLibrary.simpleMessage(
             "apakah data yang dimasukkan sudah benar ?"),
+        "isiIdentitas":
+            MessageLookupByLibrary.simpleMessage("Isi Identitas Anda"),
+        "isiSemuaKolom":
+            MessageLookupByLibrary.simpleMessage("Isi semua kolom!"),
+        "isiTanggalLahir":
+            MessageLookupByLibrary.simpleMessage("Isi tanggal lahir anda"),
+        "isi_identitas":
+            MessageLookupByLibrary.simpleMessage("Isi identitas anda"),
+        "isi_ktp": MessageLookupByLibrary.simpleMessage("Isi no. KTP anda"),
+        "isi_nama_lengkap":
+            MessageLookupByLibrary.simpleMessage("Isi nama lengkap anda"),
+        "jadi_anggota_pada":
+            MessageLookupByLibrary.simpleMessage("Jadi anggota pada"),
         "join_now": MessageLookupByLibrary.simpleMessage(
             "Bergabunglah sekarang dan mulailah mendapatkan penghasilan tambahan!"),
         "just": MessageLookupByLibrary.simpleMessage("hanya"),
@@ -663,20 +710,44 @@ class MessageLookup extends MessageLookupByLibrary {
         "kelebihan": MessageLookupByLibrary.simpleMessage("3. Kelebihan"),
         "kelemahan": MessageLookupByLibrary.simpleMessage("4. Kelemahan"),
         "keyword": MessageLookupByLibrary.simpleMessage("Kata Kunci"),
+        "kirimLaporanBaru":
+            MessageLookupByLibrary.simpleMessage("Kirim Laporan Baru"),
         "kode_anda": MessageLookupByLibrary.simpleMessage("Kode Anda"),
         "kode_saya": MessageLookupByLibrary.simpleMessage("Kode Saya"),
+        "kodepromosi": MessageLookupByLibrary.simpleMessage("Kode Promosi"),
+        "komisi": MessageLookupByLibrary.simpleMessage("Komisi"),
+        "komisiKu": MessageLookupByLibrary.simpleMessage("KomisiKu"),
+        "komisiku": MessageLookupByLibrary.simpleMessage("Komisi Ku"),
+        "lakukanSekarang":
+            MessageLookupByLibrary.simpleMessage("Lakukan Sekarang"),
+        "lakukan_pembayaran":
+            MessageLookupByLibrary.simpleMessage("Lakukan Pembayaran"),
+        "lakukan_pembayaran_pertanyaan":
+            MessageLookupByLibrary.simpleMessage("Lakukan Pembayaran?"),
         "language": MessageLookupByLibrary.simpleMessage("Bahasa"),
         "lanjut": MessageLookupByLibrary.simpleMessage("lanjut"),
+        "lanjutt": MessageLookupByLibrary.simpleMessage("Lanjut"),
+        "lanjuttampa":
+            MessageLookupByLibrary.simpleMessage("Lanjut Tanpa Code"),
         "latest_book": MessageLookupByLibrary.simpleMessage("Buku terbaru"),
         "lets_develop_ourselves":
             MessageLookupByLibrary.simpleMessage("Ayo kembangkan diri"),
         "list": MessageLookupByLibrary.simpleMessage("Daftar"),
+        "list_semua_buku_gratis":
+            MessageLookupByLibrary.simpleMessage("List Semua Buku Gratis"),
+        "list_semua_buku_premium":
+            MessageLookupByLibrary.simpleMessage("List Semua Buku Premium"),
         "listen_brain_40_times": MessageLookupByLibrary.simpleMessage(
             "Silahkan dengarkan brain sesuai karakter anda 40 kali terlebih dahulu. Setelah itu anda dapat berlangganan yang lainnya."),
         "loading": MessageLookupByLibrary.simpleMessage("Memuat..."),
+        "logLaporan": MessageLookupByLibrary.simpleMessage("Log Laporan"),
+        "logPermasalahanAnda": MessageLookupByLibrary.simpleMessage(
+            "Log Laporan Permasalahan anda"),
         "logging_in": MessageLookupByLibrary.simpleMessage("Sedang Masuk..."),
+        "logic": MessageLookupByLibrary.simpleMessage("Logic"),
         "logout": MessageLookupByLibrary.simpleMessage("Keluar"),
         "manual_input": MessageLookupByLibrary.simpleMessage("Input manual"),
+        "master": MessageLookupByLibrary.simpleMessage("Master"),
         "max_deposit": MessageLookupByLibrary.simpleMessage("Maksimal deposit"),
         "max_withdrawal":
             MessageLookupByLibrary.simpleMessage("Maksimal tarik"),
@@ -692,13 +763,18 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Minimal 8 karakter"),
         "min_deposit": MessageLookupByLibrary.simpleMessage("Minimal deposit"),
         "min_withdrawal": MessageLookupByLibrary.simpleMessage("Minimal tarik"),
+        "minimalwd": MessageLookupByLibrary.simpleMessage("Minimal Penarikan"),
         "minimumWdCommision": MessageLookupByLibrary.simpleMessage(
             "Minimum penarikan sebanyak: 10x Komisi"),
         "monthly": MessageLookupByLibrary.simpleMessage("Perbulan"),
         "motivasi": MessageLookupByLibrary.simpleMessage("1. Motivasi"),
+        "mulai": MessageLookupByLibrary.simpleMessage(
+            "Mulai Kenali Kepribadian diri"),
         "multiple": MessageLookupByLibrary.simpleMessage("Kelompok"),
         "my_balance": MessageLookupByLibrary.simpleMessage("Saldo Saya"),
         "name": MessageLookupByLibrary.simpleMessage("Nama"),
+        "nanti": MessageLookupByLibrary.simpleMessage("Nanti"),
+        "nantiSaja": MessageLookupByLibrary.simpleMessage("Nanti Saja"),
         "negative_balance_description": MessageLookupByLibrary.simpleMessage(
             "Saldo minus didapatkan dari member yang melakukan profiling namun melebihi saldo affiliator yang tersedia. Sehingga kekurangan tersebut dijadikan hutang (saldo minus). Ketika affiliator top up maka saldonya akan otomatis terpotong sesuai saldo minus tersebut."),
         "new_profiling": MessageLookupByLibrary.simpleMessage("Profiling Baru"),
@@ -724,6 +800,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Sekarang Didengar:"),
         "number_not_registered": MessageLookupByLibrary.simpleMessage(
             "Nomor yang dimasukkan tidak terdaftar di sistem"),
+        "oke": MessageLookupByLibrary.simpleMessage("Oke"),
         "orange": MessageLookupByLibrary.simpleMessage("Oranye"),
         "order_id": MessageLookupByLibrary.simpleMessage("Order ID"),
         "other": MessageLookupByLibrary.simpleMessage("Lainnya"),
@@ -774,6 +851,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "payment_with_cool_balance_was_successful":
             MessageLookupByLibrary.simpleMessage(
                 "Pembayaran dengan saldo Cool berhasil"),
+        "pending": MessageLookupByLibrary.simpleMessage("Pending"),
+        "peringatan_pembayaran_belum_dilakukan":
+            MessageLookupByLibrary.simpleMessage(
+                "apabila belum dilakukan pembayaran"),
+        "peringatan_penghapusan_profiling":
+            MessageLookupByLibrary.simpleMessage(
+                "Data profiling akan dihapus setelah"),
         "personality": MessageLookupByLibrary.simpleMessage("Kepribadian"),
         "personalityy":
             MessageLookupByLibrary.simpleMessage("Personality Saya!"),
@@ -782,6 +866,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "petunjuk_qr": MessageLookupByLibrary.simpleMessage(
             "Tunjukan QR Code Ini untuk mempermudah proses affiliasi anda."),
         "phone_number": MessageLookupByLibrary.simpleMessage("No. Hp"),
+        "pilihGambar": MessageLookupByLibrary.simpleMessage(
+            "Pilih gambar dari galeri atau kamera"),
+        "pilihGolonganDarah":
+            MessageLookupByLibrary.simpleMessage("Pilih golongan darah anda"),
+        "pilihKategoriDanDeskripsi": MessageLookupByLibrary.simpleMessage(
+            "Harap pilih kategori dan masukkan deskripsi"),
+        "pin_lokasi": MessageLookupByLibrary.simpleMessage(
+            "Silahkan pin lokasi terlebih dahulu"),
         "play_audio": MessageLookupByLibrary.simpleMessage("Putar Audio"),
         "please_check_again_on_form": MessageLookupByLibrary.simpleMessage(
             "Silahkan cek kembali pada form"),
@@ -801,9 +893,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "plese_profiling_first_before_joining_coolchat":
             MessageLookupByLibrary.simpleMessage(
                 "Silahkan profiling dulu sebelum bergabung ke Coolchat"),
+        "points": MessageLookupByLibrary.simpleMessage("Points"),
         "post": MessageLookupByLibrary.simpleMessage("Post"),
         "posting": MessageLookupByLibrary.simpleMessage("Posting"),
         "premium": MessageLookupByLibrary.simpleMessage("Premium"),
+        "preview": MessageLookupByLibrary.simpleMessage("Preview"),
         "proceed": MessageLookupByLibrary.simpleMessage("Lanjut"),
         "process": MessageLookupByLibrary.simpleMessage("Proses"),
         "profil_mirip":
@@ -812,6 +906,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Profil ku mirip siapa ya?"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "profiling": MessageLookupByLibrary.simpleMessage("Profiling"),
+        "profiling_dibuat":
+            MessageLookupByLibrary.simpleMessage("Profiling Dibuat"),
         "profiling_results":
             MessageLookupByLibrary.simpleMessage("Hasil Profiling"),
         "program_cancelled": MessageLookupByLibrary.simpleMessage(
@@ -819,6 +915,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "provideYourReason":
             MessageLookupByLibrary.simpleMessage("Berikan alasan Anda"),
         "qr_code": MessageLookupByLibrary.simpleMessage("Kode QR"),
+        "rating": MessageLookupByLibrary.simpleMessage("Rating"),
         "reach_your_brains_maximum_potential": MessageLookupByLibrary.simpleMessage(
             "Raih potensi maksimal otak anda, dengan mendengarkan audio khusus yang dapat meningkatkan dan merangsang berbagai fungsi kognitif Mainkan tiap hari secara gratis"),
         "read": MessageLookupByLibrary.simpleMessage("Baca"),
@@ -858,11 +955,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "reset_password":
             MessageLookupByLibrary.simpleMessage("Reset Kata Sandi"),
         "residence": MessageLookupByLibrary.simpleMessage("Domisili"),
+        "responseDariCool":
+            MessageLookupByLibrary.simpleMessage("Response dari pihak Cool"),
         "response_timeout": MessageLookupByLibrary.simpleMessage(
             "Waktu penerimaan respons habis."),
         "result_detail": MessageLookupByLibrary.simpleMessage("Detail Hasil"),
         "returnIn3Seconds":
             MessageLookupByLibrary.simpleMessage("Kembali dalam 3 detik..."),
+        "reward_point": MessageLookupByLibrary.simpleMessage("Reward Point"),
+        "reward_total": MessageLookupByLibrary.simpleMessage("Reward Total"),
         "rich_type": MessageLookupByLibrary.simpleMessage("Tipe Kaya"),
         "rights_responsibilities": MessageLookupByLibrary.simpleMessage(
             "Hak dan Kewajiban: Anda bertanggung jawab atas promosi etis, kami berhak membatalkan akun jika melanggar ketentuan."),
@@ -872,6 +973,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "scan_qr": MessageLookupByLibrary.simpleMessage("Scan QR"),
         "scan_qr_code": MessageLookupByLibrary.simpleMessage("Pindai Kode QR"),
         "see_all": MessageLookupByLibrary.simpleMessage("Lihat Semua"),
+        "selangkahLagi": MessageLookupByLibrary.simpleMessage(
+            "Selangkah lagi untuk mengetahui tentang diri anda"),
         "select": MessageLookupByLibrary.simpleMessage("Pilih"),
         "select_bank": MessageLookupByLibrary.simpleMessage("Pilih jenis bank"),
         "select_bank_account":
@@ -886,6 +989,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "self_surgery": MessageLookupByLibrary.simpleMessage("Self Surgery"),
         "self_surgery_solution_surgery":
             MessageLookupByLibrary.simpleMessage("Bedah DIRI,\nBedah SOLUSI"),
+        "semua_anggota": MessageLookupByLibrary.simpleMessage("Semua Anggota"),
         "send": MessageLookupByLibrary.simpleMessage("Kirim"),
         "sending": MessageLookupByLibrary.simpleMessage("Sedang Mengirim ..."),
         "sessionCompleted":
@@ -909,6 +1013,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "show_qr_code_to_affiliate": MessageLookupByLibrary.simpleMessage(
             "Tunjukkan Kode QR Ini untuk mempermudah proses afiliasi Anda."),
         "sign_in": MessageLookupByLibrary.simpleMessage("Masuk"),
+        "silahkanPilihLokasi":
+            MessageLookupByLibrary.simpleMessage("Silahkan Pilih Lokasi Anda"),
         "single": MessageLookupByLibrary.simpleMessage("Tunggal"),
         "skip": MessageLookupByLibrary.simpleMessage("Lewati"),
         "social_interaction_pattern":
@@ -922,6 +1028,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "start_activating_brain_potential":
             MessageLookupByLibrary.simpleMessage("Mulai aktivasi potensi Otak"),
         "state": MessageLookupByLibrary.simpleMessage("Provinsi"),
+        "status": MessageLookupByLibrary.simpleMessage("Status :"),
         "subcription_all_type":
             MessageLookupByLibrary.simpleMessage("Langganan semua tipe"),
         "subscribe": MessageLookupByLibrary.simpleMessage("Berlangganan"),
@@ -943,6 +1050,10 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Versi terbaru aplikasi telah tersedia. Silakan perbarui aplikasi untuk mendapatkan fitur terbaru dan peningkatan kinerja."),
         "thirty_days_ago":
             MessageLookupByLibrary.simpleMessage("30 Hari yang lalu"),
+        "tidakAda": MessageLookupByLibrary.simpleMessage("Tidak ada"),
+        "tidakTersedia": MessageLookupByLibrary.simpleMessage("Tidak Tersedia"),
+        "tidakadaaff": MessageLookupByLibrary.simpleMessage(
+            "Tidak ada Affiliator terdekat, Silahkan Lanjut"),
         "tipe_harta": MessageLookupByLibrary.simpleMessage("Tipe Harta Saya!"),
         "tipe_otak": MessageLookupByLibrary.simpleMessage("Tipe Otak Saya!"),
         "tipe_pola": MessageLookupByLibrary.simpleMessage("Tipe Pola"),
@@ -966,6 +1077,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Total Real Money"),
         "transaction": MessageLookupByLibrary.simpleMessage("Transaksi"),
         "treasure_type": MessageLookupByLibrary.simpleMessage("Tipe Harta"),
+        "tutup_laporan": MessageLookupByLibrary.simpleMessage("Tutup Laporan"),
         "type_ex": MessageLookupByLibrary.simpleMessage("Ketik, misal."),
         "type_figure": m4,
         "unauthorized": MessageLookupByLibrary.simpleMessage(
@@ -993,6 +1105,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "use_your_user_account": MessageLookupByLibrary.simpleMessage(
             "Silahkan gunakan akun pengguna"),
         "user": MessageLookupByLibrary.simpleMessage("Pengguna"),
+        "versiAplikasi":
+            MessageLookupByLibrary.simpleMessage("Versi Aplikasi :"),
         "viewArchive": MessageLookupByLibrary.simpleMessage("Lihat Arsip"),
         "view_old_profiling": MessageLookupByLibrary.simpleMessage(
             "Anda masih bisa melihat hasil profiling yang lama"),
@@ -1021,6 +1135,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "withdrawal": MessageLookupByLibrary.simpleMessage("Penarikan"),
         "withdrawal_amount":
             MessageLookupByLibrary.simpleMessage("Jumlah Tarikan"),
+        "yakinWithdrawal": MessageLookupByLibrary.simpleMessage(
+            "Apakah Anda Yakin Withdrawal Sebanyak"),
+        "yakinbayar": MessageLookupByLibrary.simpleMessage(
+            "Apakah Anda yakin ingin melakukan pembayaran sebesar"),
         "year": MessageLookupByLibrary.simpleMessage("Tahun"),
         "yearly": MessageLookupByLibrary.simpleMessage("Pertahun"),
         "yellow": MessageLookupByLibrary.simpleMessage("Kuning"),

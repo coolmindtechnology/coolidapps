@@ -5,6 +5,7 @@ import 'package:coolappflutter/data/apps/app_sizes.dart';
 import 'package:coolappflutter/data/data_global.dart';
 import 'package:coolappflutter/data/models/data_checkout_transaction.dart';
 import 'package:coolappflutter/data/provider/provider_auth_affiliate.dart';
+import 'package:coolappflutter/data/provider/provider_consultant.dart';
 import 'package:coolappflutter/data/provider/provider_payment.dart';
 import 'package:coolappflutter/data/provider/provider_profiling.dart';
 import 'package:coolappflutter/data/provider/provider_user.dart';
@@ -12,8 +13,10 @@ import 'package:coolappflutter/data/response/profiling/res_list_profiling.dart';
 import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/data/provider/provider_book.dart';
 import 'package:coolappflutter/main.dart';
+import 'package:coolappflutter/presentation/pages/main/components/input_code_ref_profilling.dart';
 import 'package:coolappflutter/presentation/pages/main/detail_saldo/detail_saldo.dart';
 import 'package:coolappflutter/presentation/pages/main/ebook/home_ebook.dart';
+import 'package:coolappflutter/presentation/pages/payments/commision/commision_dashboard.dart';
 import 'package:coolappflutter/presentation/pages/profiling/screen_hasil_kepribadian.dart';
 import 'package:coolappflutter/presentation/pages/profiling/screen_hasil_kepribadian_dibawah17.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
@@ -28,6 +31,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../data/provider/provider_affiliate.dart';
+import '../../on_boarding/on_boarding_isi_foto.dart';
 import '../../theme/color_utils.dart';
 import '../../widgets/Container/container_list_profiling.dart';
 import '../../widgets/Container/container_yellow_home.dart';
@@ -82,8 +86,9 @@ class _HomeScreenState extends State<HomeScreen> {
       context.read<ProviderUser>().getTotalSaldo(context);
       context.read<ProviderPayment>().getListTopUp(context);
       context.read<ProviderAffiliate>().checkTopupAffiliate(context);
-
-
+      context.read<ConsultantProvider>().checkUserSession(context);
+      Provider.of<ProviderProfiling>(context, listen: false)
+          .getListProfiling(context);
       // // _pengecekanIsAffiliate();
       // context.read<ProviderPayment>().getAmoutDeposit(context);
     });
@@ -108,6 +113,11 @@ class _HomeScreenState extends State<HomeScreen> {
       final formatter = NumberFormat.currency(locale: 'id_ID', symbol: 'Rp ', decimalDigits: 0);
       return formatter.format(double.tryParse(price) ?? 0);
     }
+
+    // Tentukan index yang ingin ditampilkan berdasarkan status user Indonesia
+    final List<int> visibleSliderIndexes = dataGlobal.isIndonesia
+        ? [0, 2] // Jika user dari Indonesia, tampilkan index 1 dan 3
+        : [0, 1, 2]; // Jika bukan, tampilkan index 1, 2, dan 3
 
     return MultiProvider(
       providers: [
@@ -507,36 +517,53 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                             SizedBox(
-                              height: 210, // Batasi tinggi PageView
+                              height: 210,
                               child: PageView.builder(
                                 controller: _pageController,
-                                itemCount: sliderData.length,
+                                itemCount: visibleSliderIndexes.length,
                                 onPageChanged: (index) {
                                   setState(() {
                                     _currentIndex = index;
                                   });
                                 },
                                 itemBuilder: (context, index) {
-                                  return Image.asset(
-                                    sliderData[index],
-                                    fit: BoxFit.cover,
+                                  int realIndex = visibleSliderIndexes[index];
+                                  return InkWell(
+                                    onTap: () async {
+                                      if (realIndex == 0) {
+                                        await valuePro.cekAvailableProfiling(context, codeReferralC, "seeall");
+                                        codeReferralC.clear();
+                                      } else if (realIndex == 1) {
+                                        if (dataGlobal.dataUser?.isAffiliate == 0 &&
+                                            dataGlobal.isIndonesia == false) {
+                                          Nav.to(CommisionDashboard());
+                                        }
+                                      } else if (realIndex == 2) {
+                                        await valuePro.cekAvailableProfiling(context, codeReferralC, "seeall");
+                                        codeReferralC.clear();
+                                      }
+                                    },
+                                    child: Image.asset(
+                                      sliderData[realIndex],
+                                      fit: BoxFit.cover,
+                                    ),
                                   );
                                 },
                               ),
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,
-                              children: List.generate(sliderData.length, (index) {
+                              children: List.generate(visibleSliderIndexes.length, (index) {
                                 bool isActive = _currentIndex == index;
 
                                 return AnimatedContainer(
-                                  duration: Duration(milliseconds: 300), // Animasi transisi
-                                  width: isActive ? 24 : 8, // Lebih lebar saat aktif
-                                  height: 8, // Tinggi tetap sama
+                                  duration: Duration(milliseconds: 300),
+                                  width: isActive ? 24 : 8,
+                                  height: 8,
                                   margin: const EdgeInsets.symmetric(horizontal: 4),
                                   decoration: BoxDecoration(
                                     color: isActive ? Colors.blue : Colors.grey,
-                                    borderRadius: BorderRadius.circular(isActive ? 4 : 50), // Lonjong saat aktif, bulat saat tidak
+                                    borderRadius: BorderRadius.circular(isActive ? 4 : 50),
                                   ),
                                 );
                               }),
@@ -552,6 +579,15 @@ class _HomeScreenState extends State<HomeScreen> {
                                       fontSize: 20,
                                       fontWeight: FontWeight.w600),
                                 ),
+                                // TextButton(
+                                //     onPressed: () async {
+                                //       Nav.to(const InputCodeRefPofilling(route: 'register',));
+                                //     },
+                                //     child: Text(
+                                //       "bypass",
+                                //       style: TextStyle(
+                                //           color: BlueColor, fontSize: 18),
+                                //     )),
                                 TextButton(
                                     onPressed: () async {
                                       await valuePro
@@ -782,11 +818,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       const EdgeInsets.all(8.0),
                                                   child: Column(
                                                     children: [
-                                                      Text(
-                                                        data.typeBrain ??
-                                                            S
-                                                                .of(context)
-                                                                .no_data,
+                                                      Text(data.status.toString() ==
+                                                      "0" ? S.of(context).pending :
+                                                        data.typeBrain,
                                                         style: TextStyle(
                                                           color: Colors.white,
                                                           fontSize: 16,

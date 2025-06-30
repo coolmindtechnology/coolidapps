@@ -1,3 +1,4 @@
+import 'package:coolappflutter/data/apps/app_sizes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -49,15 +50,15 @@ class ProfileCard extends StatelessWidget {
           title: Row(
             children: [
               if (name != null)
-                Text(name!, style: TextStyle(fontWeight: FontWeight.w600)),
+                Text(name!, style: TextStyle(fontWeight: FontWeight.w600,fontSize: 12)),
               if (title != null) SizedBox(width: 20),
               if (title != null)
                 Text(
                   title!,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
-                    color: Colors.orange,
-                    fontSize: 15,
+                    color: _getColorForType(title!),
+                    fontSize: 12,
                   ),
                 ),
             ],
@@ -112,7 +113,7 @@ class ProfileCard extends StatelessWidget {
                 ),
             ],
           ),
-          trailing: Icon(CupertinoIcons.forward),
+          trailing: onTap != null ? Icon(CupertinoIcons.forward) : null,
           onTap: onTap,
         ),
         // Tampilkan Container hanya jika status, warnastatus, timeRemaining, dan timeColor tidak null
@@ -132,18 +133,21 @@ class ProfileCard extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(right: 10, left: 10),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Text(
                     status != "false" ? status! : "",
                     style: TextStyle(
                         color: timeColor, fontWeight: FontWeight.w500),
                   ),
+                  Spacer(),
                   Text(
                     status != "false" ? timeRemaining! : "",
                     style: TextStyle(
                         color: timeColor, fontWeight: FontWeight.w500),
                   ),
+
+
                 ],
               ),
             ),
@@ -151,5 +155,30 @@ class ProfileCard extends StatelessWidget {
               : Container()
       ],
     );
+  }
+
+  Color _getColorForType(String type) {
+    switch (type) {
+      case 'emotion in':
+      case 'emotion out':
+      case 'emotion':
+        return Colors.green;
+      case 'logic in':
+      case 'logic out':
+      case 'logic':
+        return Colors.yellow;
+      case 'master':
+        return Colors.black;
+      case 'creative in':
+      case 'creative out':
+      case 'creative':
+        return Colors.orange;
+      case 'action in':
+      case 'action out':
+      case 'action':
+        return Colors.red;
+      default:
+        return Colors.grey; // Warna default jika type tidak cocok
+    }
   }
 }

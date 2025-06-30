@@ -50,7 +50,9 @@ class _SummaryCurhatState extends State<SummaryCurhat> {
             SizedBox(height: 8.0),
             ProfileCard(
                 onTap: () {
-                  Nav.to(ProfileConsultant());
+                  // Nav.to(ProfileConsultant(
+                  //   id: ,
+                  // ));
                 },
                 imagePath: AppAsset.imgProfile1,
                 name: 'vivian Entira',

@@ -25,7 +25,7 @@ class _InputCodeReferralAffiliateState
   final GlobalKey<FormState> _form = GlobalKey<FormState>();
   @override
   void initState() {
-    initAutofill();
+    // initAutofill();
     // Timer(const Duration(seconds: 3), () {
     //   debugPrint("Masuk Timer");
 
@@ -46,6 +46,7 @@ class _InputCodeReferralAffiliateState
           "null") {
         controllerCodeReferral.text =
             context.read<ProviderAuthAffiliate>().dataCodeReferal.toString();
+
       } else {
         controllerCodeReferral.text = "";
       }
@@ -71,21 +72,18 @@ class _InputCodeReferralAffiliateState
             key: _form,
             child: Column(
               children: [
-                value.isLoading == false
-                    ? CustomInputField(
-                        isReadOnly:
-                            controllerCodeReferral.text != "" ? true : false,
-                        title: S.of(context).enter_referral_code,
-                        textEditingController: controllerCodeReferral,
-                        textInputAction: TextInputAction.done,
-                        validator: (val) {
-                          if (val == null || val.isEmpty) {
-                            return S.of(context).cannot_be_empty;
-                          }
-                          return null;
-                        },
-                      )
-                    : const CircularProgressIndicator(),
+                CustomInputField(
+                  isReadOnly: false, // selalu bisa diisi
+                  title: S.of(context).enter_referral_code,
+                  textEditingController: controllerCodeReferral,
+                  textInputAction: TextInputAction.done,
+                  validator: (val) {
+                    if (val == null || val.isEmpty) {
+                      return S.of(context).cannot_be_empty;
+                    }
+                    return null;
+                  },
+                ),
                 const SizedBox(
                   height: 24,
                 ),

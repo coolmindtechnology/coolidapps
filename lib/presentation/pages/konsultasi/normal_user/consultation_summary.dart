@@ -1,35 +1,34 @@
+import 'dart:async';
+
+import 'package:coolappflutter/data/provider/provider_consultant.dart';
 import 'package:coolappflutter/generated/l10n.dart';
-
-import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/konsultasi_page.dart';
-import 'package:coolappflutter/presentation/pages/main/nav_home.dart';
-
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
-import 'package:coolappflutter/presentation/utils/nav_utils.dart';
-
 import 'package:coolappflutter/presentation/widgets/GlobalButton.dart';
 import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-
-import '../../../../data/provider/provider_consultation.dart';
-import '../../../widgets/Container/container_promo.dart';
+import '../../../../data/apps/app_sizes.dart';
+import '../../../../data/locals/preference_handler.dart';
+import '../../../../data/locals/shared_pref.dart';
+import '../../main/home_screen.dart';
 import 'card_consultant.dart';
 import 'profile_card.dart';
 
 class SummaryConsultant extends StatefulWidget {
   const SummaryConsultant(
       {super.key,
-        required this.consultId,
-        required this.themeId,
-        required this.partisipant,
-        required this.typeSession,
-        required this.time,
-        required this.imagePath,
-        required this.name,
-        required this.title,
-        required this.bloodType,
-        required this.location,
-        required this.getSesi});
+      required this.consultId,
+      required this.themeId,
+      required this.partisipant,
+      required this.typeSession,
+      required this.time,
+      required this.imagePath,
+      required this.name,
+      required this.title,
+      required this.bloodType,
+      required this.location,
+      required this.getSesi});
   final String consultId;
   final String themeId;
   final String partisipant;
@@ -47,10 +46,74 @@ class SummaryConsultant extends StatefulWidget {
 }
 
 class _SummaryConsultantState extends State<SummaryConsultant> {
+
+  @override
+  void initState() {
+    super.initState();
+    cekSession();
+    // Pecah "08:00 - 08:30" menjadi dua bagian
+    final timeParts = widget.time.split(' - ');
+    final timeStart = timeParts[0]; // "08:00"
+    final timeEnd = timeParts[1];   // "08:30"
+
+    // Ambil hari ini dalam bahasa Inggris
+    final now = DateTime.now();
+    final day = DateFormat('EEEE').format(now); // Hasil: "Monday", "Tuesday", dst.
+
+    // Debug (opsional)
+    print("Start: $timeStart, End: $timeEnd, Day: $day");
+
+    // Panggil getPrice dengan parameter yang sesuai
+    context.read<ConsultantProvider>().getPrice(
+      context,
+      timeStart: timeStart,
+      timeEnd: timeEnd,
+      day: day,
+      type: widget.typeSession,
+    );
+  }
+
+  Future<void> cekSession() async {
+    dynamic ceklanguage = await PreferenceHandler.retrieveISelectLanguage();
+    if (ceklanguage == null) {
+      Prefs().setLocale('en_US', () {
+        S.load(Locale('en_US'));
+      });
+    } else {
+      Prefs().setLocale('$ceklanguage', () {
+        S.load(Locale('$ceklanguage'));
+      });
+    }
+
+    // Tambahkan logika ini DI SINI
+    getTimeParts();
+  }
+
+  void getTimeParts() {
+    final timeParts = widget.time.split(' - ');
+    final timeStart = timeParts[0];
+    final timeEnd = timeParts[1];
+
+    final now = DateTime.now();
+    final day = DateFormat('EEEE').format(now);
+
+    print("Start: $timeStart, End: $timeEnd, Day: $day");
+
+    context.read<ConsultantProvider>().getPrice(
+      context,
+      timeStart: timeStart,
+      timeEnd: timeEnd,
+      day: day,
+      type: widget.typeSession,
+    );
+  }
+
+
   bool isConfirmed = false;
   @override
   Widget build(BuildContext context) {
-    return Consumer<ProviderConsultation>(builder: (context, provider, _) {
+    return Consumer<ConsultantProvider>(builder: (context, provider, _) {
+      bool loading = provider.isLoadingPrice;
       return Scaffold(
         appBar: AppBar(
           backgroundColor: primaryColor,
@@ -60,7 +123,26 @@ class _SummaryConsultantState extends State<SummaryConsultant> {
             overflow: TextOverflow.ellipsis,
           ),
         ),
-        body: Padding(
+        body: loading ? Column(
+          children: [
+            shimmerContainer(height: 150, width: double.infinity),
+            gapH10,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Expanded(child: shimmerButton()),
+                gapW10,
+                Expanded(child: shimmerButton()),
+              ],
+            ),
+            gapH20,
+            shimmerButton(),
+            gapH20,
+            shimmerButton(),
+            gapH32,
+            shimmerButton(),
+          ],
+        ) :Padding(
           padding: const EdgeInsets.all(18),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,6 +179,7 @@ class _SummaryConsultantState extends State<SummaryConsultant> {
                 height: 20,
               ),
               TextField(
+                enabled: false,
                 maxLines: 5,
                 decoration: InputDecoration(
                     hintText: widget.partisipant,
@@ -119,7 +202,11 @@ class _SummaryConsultantState extends State<SummaryConsultant> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(S.of(context).Price),
-                          Text(S.of(context).FREE),
+                          Text(
+                            (provider.priceData?.data?.price == 0)
+                                ? S.of(context).FREE
+                                : "Rp ${provider.priceData?.data?.price}",
+                          ),
                         ],
                       ),
                       Divider(
@@ -161,40 +248,14 @@ class _SummaryConsultantState extends State<SummaryConsultant> {
                 height: 10,
               ),
               if (isConfirmed)
-                GlobalButton(
+                provider.isCreatingConsultation ? Center(child: CircularProgressIndicator(color: primaryColor,)) : GlobalButton(
                   onPressed: () {
-                    provider.createConsultation(
-                        context,
-                        widget.consultId,
-                        widget.themeId,
-                        widget.partisipant,
-                        widget.typeSession,
-                        widget.time);
-                    if (provider.isLoading == false)
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          // Timer untuk navigasi otomatis setelah 3 detik
-                          Future.delayed(Duration(seconds: 3), () {
-                            Nav.toAll(NavMenuScreen()); // Ganti ke rute tujuan
-                          });
-
-                          return Dialog(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
-                            child: SizedBox(
-                              height: 350,
-                              child: ContainerPromo(
-                                title: S.of(context).Awaiting_Confirmation,
-                                imageUrl: 'konsultasi/Time_Circle.jpg',
-                                subtitle: S.of(context).Awaiting_Confirmation,
-                                subtitle2: S.of(context).Back_to_Consultation,
-                              ),
-                            ),
-                          );
-                        },
-                      );
+                    provider.createConsultation(context,
+                        consultantId: widget.consultId,
+                        themeId: widget.themeId,
+                        participantExplanation: widget.partisipant,
+                        time: widget.time,
+                        typeSession: widget.typeSession);
                   },
                   color: primaryColor,
                   text: S.of(context).next,

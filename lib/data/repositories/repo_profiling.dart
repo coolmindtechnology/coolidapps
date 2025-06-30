@@ -7,9 +7,11 @@ import 'package:coolappflutter/data/response/profiling/res_add_profiling.dart';
 import 'package:coolappflutter/data/response/profiling/res_check_maximum_profiling.dart';
 import 'package:coolappflutter/data/response/profiling/res_create_multiple_profiling.dart';
 import 'package:coolappflutter/data/response/profiling/res_detail_profiling.dart';
+import 'package:coolappflutter/data/response/profiling/res_get_price.dart';
 import 'package:coolappflutter/data/response/profiling/res_get_user_profiling.dart';
 import 'package:coolappflutter/data/response/profiling/res_list_multiple_profiling.dart';
 import 'package:coolappflutter/data/response/profiling/res_list_profiling.dart';
+import 'package:coolappflutter/data/response/profiling/res_list_profiling_false.dart';
 import 'package:coolappflutter/data/response/profiling/res_pay_profiling.dart';
 import 'package:coolappflutter/data/response/profiling/res_permit_profiling.dart';
 import 'package:coolappflutter/data/response/profiling/res_share_result_detail.dart';
@@ -27,7 +29,7 @@ import '../networks/endpoint/api_endpoint.dart';
 
 class RepoProfiling {
   Future<Either<Failure, ResListProfiling>> getProfiling() async {
-    Response res = await dio.get(ApiEndpoint.listProfiling,
+    Response res = await dio.get("${ApiEndpoint.listProfiling}?is_home=true",
         options: Options(
           validateStatus: (status) {
             return status == 200 || status == 400;
@@ -45,6 +47,26 @@ class RepoProfiling {
       return Either.error(ErrorHandler.handle(e).failure);
     }
   }
+
+  Future<Either<Failure, ProfilingResponseFalse>> getFalseProfiling() async {
+      Response res = await dio.get("${ApiEndpoint.listProfiling}?is_home=false",
+          options: Options(
+            validateStatus: (status) {
+              return status == 200 || status == 400;
+            },
+            contentType: Headers.jsonContentType,
+            responseType: ResponseType.json,
+            headers: {'Authorization': dataGlobal.token},
+          ));
+      try {
+        return Either.success(ProfilingResponseFalse.fromJson(res.data));
+      } catch (e, st) {
+        if (kDebugMode) {
+          print(st);
+        }
+        return Either.error(ErrorHandler.handle(e).failure);
+      }
+    }
 
   Future<Either<Failure, ResShowDetail>> getShowProfiling(String id) async {
     try {
@@ -67,12 +89,13 @@ class RepoProfiling {
   }
 
   Future<Either<Failure, ResDetailProfiling>> getDetailProfiling(
-      String id) async {
+      String id, String typemenu) async {
     String isEnglish = await LocaleChecker().cekLocale();
     String? isLanguage = await PreferenceHandler.retrieveId();
     String cekLanguage = isLanguage ?? "is_english";
+    String menu = typemenu;
     try {
-      Response res = await dio.get(ApiEndpoint.detailProfiling(id),
+      Response res = await dio.get(ApiEndpoint.detailProfiling(id,menu),
           queryParameters: {cekLanguage: isEnglish},
           options: Options(
             validateStatus: (status) {
@@ -416,6 +439,26 @@ class RepoProfiling {
           ));
       return Either.success(ResUpgradeMember.fromJson(res.data));
     } catch (e) {
+      return Either.error(ErrorHandler.handle(e).failure);
+    }
+  }
+
+  Future<Either<Failure, ResPriceProfiling>> getPriceProfiling(String qty) async {
+    Response res = await dio.get(ApiEndpoint.getPriceProfiling+"?qty=$qty",
+        options: Options(
+          validateStatus: (status) {
+            return status == 200 || status == 400;
+          },
+          contentType: Headers.jsonContentType,
+          responseType: ResponseType.json,
+          headers: {'Authorization': dataGlobal.token},
+        ));
+    try {
+      return Either.success(ResPriceProfiling.fromJson(res.data));
+    } catch (e, st) {
+      if (kDebugMode) {
+        print(st);
+      }
       return Either.error(ErrorHandler.handle(e).failure);
     }
   }

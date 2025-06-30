@@ -6,6 +6,8 @@ import 'package:coolappflutter/data/provider/provider_profiling.dart';
 import 'package:coolappflutter/data/provider/provider_transaksi_affiliate.dart';
 import 'package:coolappflutter/data/repositories/repo_affiliate.dart';
 import 'package:coolappflutter/data/response/affiliate/res_check_topup_affiliate.dart';
+import 'package:coolappflutter/data/response/affiliate/res_detail_activity.dart';
+import 'package:coolappflutter/data/response/affiliate/res_list_activity.dart';
 import 'package:coolappflutter/data/response/affiliate/res_overview.dart'
     as affiliasiover;
 import 'package:coolappflutter/data/response/affiliate/res_detail_member.dart';
@@ -44,9 +46,21 @@ import 'package:collection/collection.dart';
 class ProviderAffiliate extends ChangeNotifier {
   DataAffiliasi? dataAffiliasi;
   affiliasiover.Data? dataOverview;
+
+  RepoAffiliate repo = RepoAffiliate();
+
+
   bool isLoading = false;
   bool isCektopup = false;
-  RepoAffiliate repo = RepoAffiliate();
+  bool isListMember = false;
+  bool isDetailMember = false;
+  bool isListActivity = false;
+  bool isDetailActivity = false;
+
+  ResListMember? listMember;
+  ResDetailMember? detailMember;
+  ResListActivity? listActivity;
+  ResDetailActivity? detailActivity;
 
   /// Retrieves the home affiliate data and performs necessary actions based on the response.
   ///
@@ -294,38 +308,125 @@ class ProviderAffiliate extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool isListMember = false;
-  List<DataMemberAffiliate> listMember = [];
+
+//========================== fitur member dan activity aff ==========================================================/
+
   Future<void> getListMember(BuildContext context) async {
     isListMember = true;
-
     notifyListeners();
 
-    Either<Failure, ResListMember> response = await repo.getListMember();
-    isListMember = false;
-    notifyListeners();
-    response.when(error: (e) {
-      NotificationUtils.showDialogError(context, () {
-        Nav.back();
-      },
-          widget: Text(
-            e.message,
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 16),
-          ),
-          textButton: S.of(context).back);
-    }, success: (res) async {
-      if (res.success == true) {
-        listMember = res.data ?? [];
-        if (kDebugMode) {
-          print("data list member ${listMember[0].toJson()}");
-        }
-        notifyListeners();
-      }
-    });
-
-    notifyListeners();
+    try {
+      final response = await repo.getListMember();
+      response.when(
+        error: (e) {
+          NotificationUtils.showDialogError(
+            context,
+                () => Nav.back(),
+            widget: Text(e.message, textAlign: TextAlign.center, style: const TextStyle(fontSize: 16)),
+            textButton: S.of(context).back,
+          );
+        },
+        success: (res) {
+          if (res.success == true) {
+            listMember = res;
+          }
+        },
+      );
+    } finally {
+      isListMember = false;
+      notifyListeners();
+    }
   }
+
+  Future<void> getDetailMember(BuildContext context, String idMember) async {
+    isDetailMember = true;
+    notifyListeners();
+
+    try {
+      final response = await repo.getDetailMemberAffiliate(idMember);
+      response.when(
+        error: (e) {
+          NotificationUtils.showDialogError(
+            context, () {
+            Nav.back();
+            Nav.back();
+          },
+              widget: Text(e.message, textAlign: TextAlign.center, style: const TextStyle(fontSize: 16)),
+            textButton: S.of(context).back,
+          );
+        },
+        success: (res) {
+          if (res.success == true) {
+            detailMember = res;
+          }
+        },
+      );
+    } finally {
+      isDetailMember = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> getListActivity(BuildContext context) async {
+    isListActivity = true;
+    notifyListeners();
+
+    try {
+      final response = await repo.getListActivity();
+      response.when(
+        error: (e) {
+          NotificationUtils.showDialogError(
+            context,
+                () => Nav.back(),
+            widget: Text(e.message, textAlign: TextAlign.center, style: const TextStyle(fontSize: 16)),
+            textButton: S.of(context).back,
+          );
+        },
+        success: (res) {
+          if (res.success == true) {
+            listActivity = res;
+          }
+        },
+      );
+    } finally {
+      isListActivity = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> getDetailActivity(BuildContext context, String idActivity) async {
+    isDetailActivity = true;
+    notifyListeners();
+
+    try {
+      final response = await repo.getDetailActivityAffiliate(idActivity);
+      response.when(
+        error: (e) {
+          NotificationUtils.showDialogError(
+            context,
+                  () {
+                Nav.back();
+                Nav.back();
+              },
+            widget: Text(e.message, textAlign: TextAlign.center, style: const TextStyle(fontSize: 16)),
+            textButton: S.of(context).back,
+          );
+        },
+        success: (res) {
+          if (res.success == true) {
+            detailActivity = res;
+          }
+        },
+      );
+    } finally {
+      isDetailActivity = false;
+      notifyListeners();
+    }
+  }
+
+
+  //========================== fitur member dan activity aff ==========================================================/
+
 
   bool isAccountBank = false;
   ResBankAccount? dataAccountBank;
@@ -393,40 +494,6 @@ class ProviderAffiliate extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool isDetailAffiliate = false;
-  DataMemberAffiliate? detailDataMember;
-  Future<void> getDetailAffiliate(BuildContext context, String idMember) async {
-    isLoading = true;
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      notifyListeners();
-    });
-
-    Either<Failure, ResDetailMeber> response =
-        await repo.getDetailMemberAffiliate(idMember);
-    isLoading = false;
-    notifyListeners();
-    response.when(error: (e) {
-      NotificationUtils.showDialogError(context, () {
-        Nav.back();
-      },
-          widget: Text(
-            e.message,
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 16),
-          ),
-          textButton: S.of(context).back);
-    }, success: (res) async {
-      if (res.success == true) {
-        detailDataMember = res.data;
-        if (kDebugMode) {
-          print("data detail member ${detailDataMember?.toJson()}");
-        }
-        notifyListeners();
-      }
-    });
-
-    notifyListeners();
-  }
 
   ResCheckTopupAffiliate? _resCheckTopupAffiliate;
 

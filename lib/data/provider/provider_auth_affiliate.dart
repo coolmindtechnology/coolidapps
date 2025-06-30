@@ -29,8 +29,7 @@ class ProviderAuthAffiliate extends ChangeNotifier {
   bool isRegisterAffiliate = false;
   Future<void> registerAffiliate(
     BuildContext context,
-    String referralCode,
-  ) async {
+    String referralCode,) async {
     isRegisterAffiliate = true;
     notifyListeners();
     await context
@@ -39,10 +38,6 @@ class ProviderAuthAffiliate extends ChangeNotifier {
 
     Either<Failure, ResRegisterffiliate> response =
         await repoAuthAffiliate.registerAffiliate(referralCode);
-
-    isRegisterAffiliate = false;
-    notifyListeners();
-
     response.when(error: (e) {
       NotificationUtils.showDialogError(context, () {
         Nav.back();
@@ -51,10 +46,16 @@ class ProviderAuthAffiliate extends ChangeNotifier {
             e.message,
             textAlign: TextAlign.center,
           ));
+      isRegisterAffiliate = false;
+      notifyListeners();
     }, success: (res) async {
       if (res.success == true) {
         dataRegisterAffiliate = res.data;
         fetchPriceUpgrade(dataRegisterAffiliate?.id.toString() ?? "", context);
+        Timer(const Duration(seconds: 4), () {
+          isRegisterAffiliate = false;
+          notifyListeners();
+        });
       } else {
         NotificationUtils.showDialogError(context, () {
           Nav.back();
@@ -88,7 +89,9 @@ class ProviderAuthAffiliate extends ChangeNotifier {
                 id,
                 response.data['data']["price"].toString(),
                 'other_pay',
-                "register");
+                "register",
+                 "true"
+        );
       } else {
         print('Error: ${response.statusCode}');
       }
@@ -97,7 +100,7 @@ class ProviderAuthAffiliate extends ChangeNotifier {
     }
   }
 
-  bool isLoading = true;
+  bool isLoading = false;
 
   Future<void> autofill(String id, BuildContext context) async {
     try {
@@ -190,7 +193,7 @@ class ProviderAuthAffiliate extends ChangeNotifier {
                               .toString() ??
                           "",
                       'other_pay',
-                      "deposit");
+                      "deposit","true");
             }
           },
           onPress2: () {

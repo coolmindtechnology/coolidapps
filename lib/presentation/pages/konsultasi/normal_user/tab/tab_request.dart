@@ -86,14 +86,25 @@ class _TabRequestState extends State<TabRequest> {
             time: "${consultation.timeSelected}",
             timeRemaining: consultation.sessionStatus,
             // '${consultation.remainingMinutes ?? '-'} ${S.of(context).Minutes_Left}',
-            timeColor: Colors.green,
+            timeColor: Colors.green, // fallback kalau status bukan keduanya
             status: S.of(context).Status,
             warnastatus: Colors.lightGreen.shade100,
             onTap: () {
+              String paid;
+              if (consultation.catergorySession == "paid" && consultation.status == "Unpaid") {
+                paid = "Unpaid";
+              } else if (consultation.catergorySession == "free" && consultation.status == "Unpaid") {
+                paid = "Paid";
+              }else {
+                paid = "Paid";
+              }
               Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => DetailConsultant(
+                      type: consultation.typeSession,
+                      payed: paid,
+                      price: consultation.price?.toString() ?? "Free",
                       idUser: consultation.id.toString(),
                       imagePath: consultation.consultantImage ?? '-',
                       name: consultation.consultantName ?? '-',

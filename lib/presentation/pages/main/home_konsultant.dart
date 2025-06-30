@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:coolappflutter/data/apps/app_assets.dart';
 import 'package:coolappflutter/data/apps/app_sizes.dart';
 import 'package:coolappflutter/data/models/data_checkout_transaction.dart';
+import 'package:coolappflutter/data/provider/provider_consultant.dart';
 import 'package:coolappflutter/data/provider/provider_payment.dart';
 import 'package:coolappflutter/data/provider/provider_profiling.dart';
 import 'package:coolappflutter/data/provider/provider_user.dart';
@@ -10,9 +11,11 @@ import 'package:coolappflutter/data/response/profiling/res_list_profiling.dart';
 import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/data/provider/provider_book.dart';
 import 'package:coolappflutter/main.dart';
+import 'package:coolappflutter/presentation/pages/afiliate/member/anggota_saya.dart';
 import 'package:coolappflutter/presentation/pages/afiliate/screen_total_member.dart';
 import 'package:coolappflutter/presentation/pages/konsultasi/konsultant/terma_konsultan.dart';
 import 'package:coolappflutter/presentation/pages/main/ebook/home_ebook.dart';
+import 'package:coolappflutter/presentation/pages/main/qrcode/qr_code.dart';
 import 'package:coolappflutter/presentation/pages/payments/realmoney_aff/detail_realmoney.dart';
 import 'package:coolappflutter/presentation/pages/payments/saldo_aff/detai_saldo_aff.dart';
 import 'package:coolappflutter/presentation/pages/profiling/profiling%20dashboard.dart';
@@ -28,6 +31,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../data/provider/provider_affiliate.dart';
@@ -63,6 +67,7 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
   initHome() async {
     await context.read<ProviderAffiliate>().getHomeAff(context);
     await context.read<ProviderProfiling>().getListProfiling(context);
+    await context.read<ConsultantProvider>().checkConsultantSession(context);
     // context.read<ProviderUser>().checkProfile(context);
     // context.read<ProviderUser>().getTotalSaldo(context);
   }
@@ -155,8 +160,9 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                               children: [
                                 Image.asset(
                                   AppAsset.imgNewCoolLogo,
-                                  height: 40,
-                                  width: 120,
+                                  height: 75.sp,
+                                  width: 165.sp,
+                                  fit: BoxFit.fill,
                                 ),
                                 Spacer(),
                                 // InkWell(
@@ -273,69 +279,74 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                             SizedBox(
                               height: 40,
                             ),
-                            Container(
-                              width: double.infinity,
-                              height: 160,
-                              decoration: BoxDecoration(
-                                color: blueSlider,
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  // Text di sebelah kiri
-                                  Expanded(
-                                    flex: 2, // Atur proporsi teks
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(16),
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            S.of(context).Invite_Friends,
-                                            style: TextStyle(
-                                              color: BlueColor,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 5,
-                                          ),
-                                          Spacer(),
-                                          Container(
-                                            height: 40,
-                                            width: 140,
-                                            decoration: BoxDecoration(
+                            InkWell(
+                              onTap: () {
+                                Nav.to(QRCodePage());
+                              },
+                              child: Container(
+                                width: double.infinity,
+                                height: 170,
+                                decoration: BoxDecoration(
+                                  color: blueSlider,
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    // Text di sebelah kiri
+                                    Expanded(
+                                      flex: 2, // Atur proporsi teks
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(16),
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              S.of(context).Invite_Friends,
+                                              style: TextStyle(
                                                 color: BlueColor,
-                                                borderRadius:
-                                                    BorderRadius.circular(15)),
-                                            child: Center(
-                                              child: Text(
-                                                S.of(context).UndangTeman,
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight:
-                                                        FontWeight.w600),
-                                                overflow: TextOverflow.ellipsis,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
                                               ),
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 5,
                                             ),
-                                          )
-                                        ],
+                                            Spacer(),
+                                            Container(
+                                              height: 35,
+                                              width: 140,
+                                              decoration: BoxDecoration(
+                                                  color: BlueColor,
+                                                  borderRadius:
+                                                      BorderRadius.circular(15)),
+                                              child: Center(
+                                                child: Text(
+                                                  S.of(context).UndangTeman,
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.w600),
+                                                  overflow: TextOverflow.ellipsis,
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  // Gambar di sebelah kanan
-                                  Expanded(
-                                    flex: 2,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(20),
-                                      child: Image.asset(
-                                        AppAsset.imgKonsultanHome,
-                                        fit: BoxFit.cover,
-                                        height: 170,
+                                    // Gambar di sebelah kanan
+                                    Expanded(
+                                      flex: 2,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(20),
+                                        child: Image.asset(
+                                          AppAsset.imgKonsultanHome,
+                                          fit: BoxFit.cover,
+                                          height: 170,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                             SizedBox(
@@ -464,7 +475,8 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                                     imageAsset: AppAsset.icMember,
                                     containerColor: Color(0xFF4CCBF4),
                                     onTap: () {
-                                      Nav.to(const ScreenTotalMember());
+                                      Nav.to(AnggotaSayaPage());
+                                      // Nav.to(const ScreenTotalMember());
                                     },
                                   ),
                                 ],
@@ -976,16 +988,14 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                                                             8.0),
                                                     child: Column(
                                                       children: [
-                                                        Text(
-                                                          data.typeBrain ??
-                                                              S
-                                                                  .of(context)
-                                                                  .no_data,
+                                                        Text(data.status.toString() ==
+                                                            "0" ? S.of(context).pending :
+                                                        data.typeBrain,
                                                           style: TextStyle(
                                                             color: Colors.white,
                                                             fontSize: 16,
                                                             fontWeight:
-                                                                FontWeight.w600,
+                                                            FontWeight.w600,
                                                           ),
                                                         ),
                                                         Spacer(),

@@ -84,3 +84,45 @@ Future<XFile?> _pickAndCompressImage(ImageSource source) async {
     return null;
   }
 }
+
+Future<XFile?> pickAndCompressImage(ImageSource source) async {
+  final ImagePicker picker = ImagePicker();
+  XFile? pickedFile = await picker.pickImage(
+      source: source,
+      preferredCameraDevice: CameraDevice.rear,
+      imageQuality: 5);
+
+  if (pickedFile != null) {
+    Uint8List? imageBytes = await pickedFile.readAsBytes();
+    img.Image? originalImage = img.decodeImage(imageBytes);
+
+    if (originalImage == null) return null;
+
+    int size = originalImage.width < originalImage.height
+        ? originalImage.width
+        : originalImage.height;
+
+    int offsetX = (originalImage.width - size) ~/ 2;
+    int offsetY = (originalImage.height - size) ~/ 2;
+
+    img.Image croppedImage = img.copyCrop(
+      originalImage,
+      x: offsetX,
+      y: offsetY,
+      width: size,
+      height: size,
+    );
+
+    img.Image compressedImage = img.copyResize(croppedImage, width: 500);
+
+    var compressedFile = await File('${pickedFile.path}_compressed.jpg').create();
+    compressedFile.writeAsBytesSync(img.encodeJpg(compressedImage));
+
+    return XFile(compressedFile.path);
+  } else {
+    return null;
+  }
+}
+
+
+

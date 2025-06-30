@@ -72,7 +72,7 @@ class _RatingCurhatState extends State<RatingCurhat> {
             ),
             ProfileCard(
               onTap: () {
-                Nav.to(ProfileConsultant());
+                // Nav.to(ProfileConsultant());
               },
               imagePath: AppAsset.imgProfile1,
               name: 'vivian Entira',

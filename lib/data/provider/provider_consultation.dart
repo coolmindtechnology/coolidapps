@@ -375,6 +375,7 @@ class ProviderConsultation extends ChangeNotifier {
         debugPrint("Failed to create consultation: ${response.statusMessage}");
       }
     } catch (e) {
+      debugPrint("Failed to create consultation: ${e}");
       NotificationUtils.showDialogError(context, () {
         Nav.back();
       },

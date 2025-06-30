@@ -1,6 +1,8 @@
 import 'package:coolappflutter/data/response/affiliate/res_bank_account.dart';
 import 'package:coolappflutter/data/response/affiliate/res_check_topup_affiliate.dart';
+import 'package:coolappflutter/data/response/affiliate/res_detail_activity.dart';
 import 'package:coolappflutter/data/response/affiliate/res_detail_member.dart';
+import 'package:coolappflutter/data/response/affiliate/res_list_activity.dart';
 import 'package:coolappflutter/data/response/affiliate/res_list_bank.dart';
 import 'package:coolappflutter/data/response/affiliate/res_list_member.dart';
 import 'package:coolappflutter/data/response/affiliate/res_overview.dart';
@@ -115,7 +117,7 @@ class RepoAffiliate {
 
   Future<Either<Failure, ResListMember>> getListMember() async {
     try {
-      Response res = await dio.get(ApiEndpoint.apiListMember,
+      Response res = await dio.get('${ApiEndpoint.apiListMember}?s_all=true',
           options: Options(
             validateStatus: (status) {
               return status == 200 || status == 400;
@@ -157,7 +159,7 @@ class RepoAffiliate {
     }
   }
 
-  Future<Either<Failure, ResDetailMeber>> getDetailMemberAffiliate(
+  Future<Either<Failure, ResDetailMember>> getDetailMemberAffiliate(
       String idMember) async {
     try {
       Response res = await dio.get(ApiEndpoint.apiDetailMember(idMember),
@@ -170,7 +172,50 @@ class RepoAffiliate {
             headers: {'Authorization': dataGlobal.token},
           ));
 
-      return Either.success(ResDetailMeber.fromJson(res.data));
+      return Either.success(ResDetailMember.fromJson(res.data));
+    } catch (e, st) {
+      if (kDebugMode) {
+        print(st);
+      }
+      return Either.error(ErrorHandler.handle(e).failure);
+    }
+  }
+
+  Future<Either<Failure, ResListActivity>> getListActivity() async {
+    try {
+      Response res = await dio.get("${ApiEndpoint.apiListMember}?is_new=true",
+          options: Options(
+            validateStatus: (status) {
+              return status == 200 || status == 400;
+            },
+            contentType: Headers.jsonContentType,
+            responseType: ResponseType.json,
+            headers: {'Authorization': dataGlobal.token},
+          ));
+
+      return Either.success(ResListActivity.fromJson(res.data));
+    } catch (e, st) {
+      if (kDebugMode) {
+        print(st);
+      }
+      return Either.error(ErrorHandler.handle(e).failure);
+    }
+  }
+
+  Future<Either<Failure, ResDetailActivity>> getDetailActivityAffiliate(
+      String idActivity) async {
+    try {
+      Response res = await dio.get(ApiEndpoint.apiDetailActivity(idActivity),
+          options: Options(
+            validateStatus: (status) {
+              return status == 200 || status == 400;
+            },
+            contentType: Headers.jsonContentType,
+            responseType: ResponseType.json,
+            headers: {'Authorization': dataGlobal.token},
+          ));
+
+      return Either.success(ResDetailActivity.fromJson(res.data));
     } catch (e, st) {
       if (kDebugMode) {
         print(st);
