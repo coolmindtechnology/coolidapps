@@ -6,6 +6,7 @@ import 'package:coolappflutter/presentation/pages/konsultasi/normal_user/profile
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:coolappflutter/presentation/widgets/GlobalButton.dart';
+import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -104,7 +105,7 @@ class _FormIsianCurhatState extends State<FormIsianCurhat> {
                       onPressed: () {
                         Nav.to(SummaryConsultant(
                           consultId: widget.id.toString(),
-                          themeId: widget.getThemeId,
+                          themeId: '2',
                           partisipant: inputDeskrip.text,
                           typeSession: 'curhat',
                           time: widget.getTime,
@@ -121,7 +122,7 @@ class _FormIsianCurhatState extends State<FormIsianCurhat> {
                 ],
               ),
             ),
-          ));
+          ),     floatingActionButton: const CustomFAB(),);
     });
   }
 }

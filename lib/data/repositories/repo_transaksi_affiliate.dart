@@ -48,10 +48,10 @@ class RepoTransaksiAffiliate {
   }
 
   Future<Either<Failure, ResTransactionTopupDeposit>> transactionTopupDeposit(
-      String id, String price, String source) async {
+      String id, String price, String source,  String? isRegister) async {
     try {
       Response res = await dio.post(ApiEndpoint.affiliateTransaction,
-          data: {"id_user": id, "price": price, "source": source},
+          data: {"id_user": id, "price": price, "source": source,   "is_register": (isRegister == null || isRegister.isEmpty) ? "false" : isRegister, },
           options: Options(
             validateStatus: (status) {
               return status == 200 || status == 400;
@@ -260,7 +260,7 @@ class RepoTransaksiAffiliate {
   Future<Either<Failure, ResGetAffiliateManagement>>
       getAffiliateManagement() async {
     try {
-      Response res = await dio.get(ApiEndpoint.affiliateManagement,
+      Response res = await dio.get('${ApiEndpoint.affiliateManagement}'+'?customer=${dataGlobal.dataUser!.id}',
           options: Options(
             validateStatus: (status) {
               return status == 200 || status == 400;

@@ -1,7 +1,3 @@
-// To parse this JSON data, do
-//
-//     final resGetDataTopUp = resGetDataTopUpFromJson(jsonString);
-
 import 'dart:convert';
 
 ResGetDataTopUp resGetDataTopUpFromJson(String str) =>
@@ -28,16 +24,16 @@ class ResGetDataTopUp {
         data: json["data"] == null
             ? []
             : List<DataListTopUp>.from(
-                json["data"]!.map((x) => DataListTopUp.fromJson(x))),
+            json["data"]!.map((x) => DataListTopUp.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
-        "success": success,
-        "message": message,
-        "data": data == null
-            ? []
-            : List<dynamic>.from(data!.map((x) => x.toJson())),
-      };
+    "success": success,
+    "message": message,
+    "data": data == null
+        ? []
+        : List<dynamic>.from(data!.map((x) => x.toJson())),
+  };
 }
 
 class DataListTopUp {
@@ -47,6 +43,8 @@ class DataListTopUp {
   dynamic qty;
   dynamic discount;
   dynamic price;
+  dynamic intlPrice; // Properti baru
+  dynamic intlDiscount; // Properti baru
   dynamic status;
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -59,6 +57,8 @@ class DataListTopUp {
     this.qty,
     this.discount,
     this.price,
+    this.intlPrice, // Properti baru
+    this.intlDiscount, // Properti baru
     this.status,
     this.createdAt,
     this.updatedAt,
@@ -66,32 +66,36 @@ class DataListTopUp {
   });
 
   factory DataListTopUp.fromJson(Map<String, dynamic> json) => DataListTopUp(
-        id: json["id"],
-        idItemPayments: json["id_item_payments"],
-        name: json["name"],
-        qty: json["qty"],
-        discount: json["discount"],
-        price: json["price"],
-        status: json["status"],
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
-        deletedAt: json["deleted_at"],
-      );
+    id: json["id"],
+    idItemPayments: json["id_item_payments"],
+    name: json["name"],
+    qty: json["qty"],
+    discount: json["discount"],
+    price: json["price"],
+    intlPrice: json["intl_price"], // Menyesuaikan properti baru
+    intlDiscount: json["intl_discount"], // Menyesuaikan properti baru
+    status: json["status"],
+    createdAt: json["created_at"] == null
+        ? null
+        : DateTime.parse(json["created_at"]),
+    updatedAt: json["updated_at"] == null
+        ? null
+        : DateTime.parse(json["updated_at"]),
+    deletedAt: json["deleted_at"],
+  );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "id_item_payments": idItemPayments,
-        "name": name,
-        "qty": qty,
-        "discount": discount,
-        "price": price,
-        "status": status,
-        "created_at": createdAt?.toIso8601String(),
-        "updated_at": updatedAt?.toIso8601String(),
-        "deleted_at": deletedAt,
-      };
+    "id": id,
+    "id_item_payments": idItemPayments,
+    "name": name,
+    "qty": qty,
+    "discount": discount,
+    "price": price,
+    "intl_price": intlPrice, // Properti baru
+    "intl_discount": intlDiscount, // Properti baru
+    "status": status,
+    "created_at": createdAt?.toIso8601String(),
+    "updated_at": updatedAt?.toIso8601String(),
+    "deleted_at": deletedAt,
+  };
 }

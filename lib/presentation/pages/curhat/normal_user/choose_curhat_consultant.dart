@@ -6,6 +6,7 @@ import 'package:coolappflutter/presentation/pages/curhat/normal_user/form_curhat
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:coolappflutter/presentation/widgets/GlobalButton.dart';
+import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
 import 'package:flutter/material.dart';
 
 import '../../konsultasi/normal_user/profile_card.dart';
@@ -72,7 +73,7 @@ class _ChooseCurhatConsultantState extends State<ChooseCurhatConsultant> {
             ),
             SizedBox(height: 8.0),
             Text(
-              S.of(context).Choose_your_consultant,
+              S.of(context).choose,
               overflow: TextOverflow.ellipsis,
               maxLines: 2,
               style: TextStyle(fontSize: 14.0, color: Colors.black54),
@@ -137,6 +138,7 @@ class _ChooseCurhatConsultantState extends State<ChooseCurhatConsultant> {
           ],
         ),
       ),
+      floatingActionButton: const CustomFAB(),
     );
   }
 }

@@ -9,11 +9,15 @@ import 'package:coolappflutter/data/provider/provider_auth_affiliate.dart';
 import 'package:coolappflutter/data/provider/provider_boarding.dart';
 import 'package:coolappflutter/data/provider/provider_book.dart';
 import 'package:coolappflutter/data/provider/provider_brain_activation.dart';
+import 'package:coolappflutter/data/provider/provider_chat.dart';
 import 'package:coolappflutter/data/provider/provider_consultant.dart';
 import 'package:coolappflutter/data/provider/provider_consultation.dart';
 import 'package:coolappflutter/data/provider/provider_cool_chat.dart';
+import 'package:coolappflutter/data/provider/provider_curhat.dart';
+import 'package:coolappflutter/data/provider/provider_meet.dart';
 import 'package:coolappflutter/data/provider/provider_payment.dart';
 import 'package:coolappflutter/data/provider/provider_profiling.dart';
+import 'package:coolappflutter/data/provider/provider_promotion.dart';
 import 'package:coolappflutter/data/provider/provider_transaksi_affiliate.dart';
 import 'package:coolappflutter/data/provider/provider_user.dart';
 import 'package:coolappflutter/data/provider/proviider_notification.dart';
@@ -35,6 +39,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:intl/intl.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -77,10 +82,26 @@ void onDidReceiveNotificationResponse(NotificationResponse response) {
 }
 
 void main() async {
+  Intl.defaultLocale = 'en_US';
   WidgetsFlutterBinding.ensureInitialized();
   if (Firebase.apps.isEmpty) {
-    await Firebase.initializeApp(); // Inisialisasi hanya sekali
+    if (kIsWeb) {
+      await Firebase.initializeApp(
+        options: const FirebaseOptions(
+          apiKey: 'AIzaSyAUwYqwfekzl72dvGkyFE7irzZdh4Qa9fk',
+          appId: '1:460609975158:android:4368eef2b9acf8efb38057',
+          messagingSenderId: '460609975158',
+          projectId: 'my-cool-id',
+          storageBucket: 'my-cool-id.firebaseio.com',
+          authDomain: 'cool-app-641a1.firebaseapp.com',
+          measurementId: 'G-2JY8LGXM4M',
+        ),
+      );
+    } else {
+      await Firebase.initializeApp();
+    }
   }
+
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
   // Konfigurasi local notifications
@@ -366,6 +387,18 @@ class _MainAppState extends State<MainApp> {
               ),
               ChangeNotifierProvider(
                 create: (context) => ConsultantProvider(),
+              ),
+              ChangeNotifierProvider(
+                create: (context) => ChatService(),
+              ),
+              ChangeNotifierProvider(
+                create: (context) => CurhatProvider(),
+              ),
+              ChangeNotifierProvider(
+                create: (context) => MeetProvider(),
+              ),
+              ChangeNotifierProvider(
+                  create: (context) => PromotionProvider()
               ),
             ],
             child: MaterialApp(

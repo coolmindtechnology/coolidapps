@@ -39,9 +39,9 @@ class _BankConfirmState extends State<BankConfirm> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(S.of(context).confirmBankAccount,style: TextStyle(fontSize: 23,fontWeight: FontWeight.w600),),
+                Text(S.of(context).confirm_bank_account,style: TextStyle(fontSize: 23,fontWeight: FontWeight.w600),),
                 gapH10,
-                Text(S.of(context).doubleCheckBankNumber,style: TextStyle(fontSize: 16,fontWeight: FontWeight.w400),),
+                Text(S.of(context).double_check_bank_number,style: TextStyle(fontSize: 16,fontWeight: FontWeight.w400),),
                 gapH20,
                 Container(
                   width: double.infinity,
@@ -82,7 +82,7 @@ class _BankConfirmState extends State<BankConfirm> {
                 gapH10,
                 GlobalButton(onPressed: () {
                   Nav.to(Invoice());
-                }, color: primaryColor, text: S.of(context).yesIamSure),
+                }, color: primaryColor, text: S.of(context).yes_i_am_sure),
 
               ],
             ),

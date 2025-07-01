@@ -5,6 +5,7 @@ import 'package:coolappflutter/presentation/pages/main/nav_home.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:coolappflutter/presentation/widgets/GlobalButton.dart';
+import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:provider/provider.dart';
@@ -117,6 +118,7 @@ class _TermaKonsultantState extends State<TermaKonsultant> {
           },
         ),
       ),
+      floatingActionButton: const CustomFAB(),
     );
   }
 }

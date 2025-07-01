@@ -198,7 +198,7 @@ class _HomeAffiliateState extends State<HomeAffiliate> {
                                     if (index == 0) {
                                       widget.klickTabAffiliate!(0);
                                     } else if (index == 1) {
-                                      Nav.to(const ScreenTotalMember());
+                                      // Nav.to(const ScreenTotalMember());
                                     } else if (index == 2) {
                                       widget.klickTabAffiliate!(1);
                                     }

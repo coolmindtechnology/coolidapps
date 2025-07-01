@@ -1,6 +1,7 @@
 import 'package:coolappflutter/data/provider/provider_payment.dart';
 import 'package:coolappflutter/data/response/payments/res_history_brain_activation.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
 import 'package:coolappflutter/presentation/widgets/no_data_widget.dart';
 import 'package:coolappflutter/presentation/widgets/shimmer_loading_widget_many.dart';
 import 'package:flutter/material.dart';
@@ -72,6 +73,7 @@ class _HistoryBrainActivationState extends State<HistoryBrainActivation> {
                       },
                       itemCount: value.dataHistoryBrainActivation.length),
         ),
+        floatingActionButton: const CustomFAB(),
       ),
     );
   }

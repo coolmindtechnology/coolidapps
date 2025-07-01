@@ -6,6 +6,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   app_links
   audioplayers_windows
   cloud_firestore
+  connectivity_plus
   file_selector_windows
   firebase_auth
   firebase_core
@@ -18,6 +19,7 @@ list(APPEND FLUTTER_PLUGIN_LIST
   share_plus
   syncfusion_pdfviewer_windows
   url_launcher_windows
+  zego_express_engine
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST

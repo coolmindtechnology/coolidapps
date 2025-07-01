@@ -146,29 +146,16 @@ class ProviderBoarding extends ChangeNotifier {
         int vDb = int.parse(numericDb);
 
         //get version from android
-        int vApp = 183;
+        // Version app is taken from pubspec
+        String numericApp = versionNumber.replaceAll('.', '');
+        int vApp = int.parse(numericApp);
 
         int logicVersion = vDb - vApp;
         debugPrint("Versi db $vDb");
         debugPrint("Versi app $vApp");
         debugPrint("result $logicVersion");
 
-        if (logicVersion >= 2) {
-          if (kDebugMode) {
-            print(
-                "Versi aplikasi berbeda: $versionNumber (lokal) != ${success.data?.stableVersion} (stable version) || ${success.data?.incomingVersion} (incoming version)");
-          }
-          Nav.replace(
-              UpdateAppPage(versionApp: success.data?.incomingVersion ?? ""));
-          completer.complete(false);
-        } else {
-          completer.complete(true);
-        }
-
-        // if (versionNumber == success.data?.stableVersion ||
-        //     versionNumber == success.data?.incomingVersion) {
-        //   completer.complete(true);
-        // } else {
+        // if (logicVersion >= 100) {
         //   if (kDebugMode) {
         //     print(
         //         "Versi aplikasi berbeda: $versionNumber (lokal) != ${success.data?.stableVersion} (stable version) || ${success.data?.incomingVersion} (incoming version)");
@@ -176,7 +163,23 @@ class ProviderBoarding extends ChangeNotifier {
         //   Nav.replace(
         //       UpdateAppPage(versionApp: success.data?.incomingVersion ?? ""));
         //   completer.complete(false);
+        // } else {
+        //   completer.complete(true);
         // }
+        if (versionNumber == success.data?.stableVersion ||
+            versionNumber == success.data?.incomingVersion) {
+          print(
+              "Versi aplikasi sama: $versionNumber (lokal) ${success.data?.stableVersion} (stable version) || ${success.data?.incomingVersion} (incoming version)");
+          completer.complete(true);
+        } else {
+          if (kDebugMode) {
+            print(
+                "Versi aplikasi berbeda: $versionNumber (lokal) != ${success.data?.stableVersion} (stable version) || ${success.data?.incomingVersion} (incoming version)");
+          }
+          Nav.replace(
+              UpdateAppPage(versionApp: success.data?.incomingVersion ?? ""));
+          completer.complete(false);
+        }
       },
     );
 

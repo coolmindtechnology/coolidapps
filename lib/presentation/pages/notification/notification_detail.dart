@@ -79,9 +79,9 @@ class _DetailNotificationScreenState extends State<DetailNotificationScreen> {
                             const TextStyle(fontSize: 14, color: Colors.grey),
                       ),
                       const SizedBox(height: 20),
-                      // notificationDetail!.asset != "Asset Not Available"
-                      //     ? Image.network(notificationDetail!.asset)
-                      //     : const Text("No asset available"),
+                      notificationDetail!.asset != "Asset Not Available"
+                          ? Image.network(notificationDetail!.asset)
+                          : const Text(""),
                     ],
                   ),
                 ),

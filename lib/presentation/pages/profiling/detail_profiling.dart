@@ -1,6 +1,7 @@
 import 'package:coolappflutter/presentation/pages/profiling/screen_hasil_kepribadian.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:coolappflutter/presentation/widgets/button_primary.dart';
+import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
 import 'package:flutter/material.dart';
 
 import '../../../data/response/profiling/res_list_profiling.dart';
@@ -187,6 +188,10 @@ class _DetailProfilingState extends State<DetailProfiling> {
                   },
                   expand: true,
                   radius: 10,
-                ))));
+                ),
+            )),
+      floatingActionButton: const CustomFAB(),
+
+    );
   }
 }

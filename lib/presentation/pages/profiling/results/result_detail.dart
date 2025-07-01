@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:coolappflutter/data/apps/app_assets.dart';
 import 'package:coolappflutter/data/apps/app_sizes.dart';
 import 'package:coolappflutter/data/helpers/check_language.dart';
 import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
@@ -115,9 +116,9 @@ class _ResultDetailState extends State<ResultDetail> {
   }
 
   initLoad() async {
-    await context
-        .read<ProviderProfiling>()
-        .getDetailProfiling(context, widget.data?.idLogResult.toString() ?? "");
+    // await context
+    //     .read<ProviderProfiling>()
+    //     .getDetailProfiling(context, widget.data?.idLogResult.toString() ?? "");
   }
 
   @override
@@ -212,54 +213,86 @@ class _ResultDetailState extends State<ResultDetail> {
                     color: primaryColor,
                   )
                 : Container(
-              color: Colors.white,
-              height: MediaQuery.of(context).size.height,
-                  child: SingleChildScrollView(
+                    color: Colors.white,
+                    height: MediaQuery.of(context).size.height,
+                    child: SingleChildScrollView(
                       child: Padding(
                         padding: const EdgeInsets.all(10),
                         child: Container(
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: primaryColor
-                          ),
+                              borderRadius: BorderRadius.circular(15),
+                              color: primaryColor),
                           child: Padding(
                             padding: const EdgeInsets.all(15),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                if (widget.type == "tipeAura" && value.detailProfiling?.tipeAura != null) ...[
+                                if (widget.type == "tipeAura" &&
+                                    value.detailProfiling?.tipeAura !=
+                                        null) ...[
                                   _TipeAura(value: value),
                                 ],
-                                if (widget.type == "tipeOtak" && value.detailProfiling?.tipeOtak != null) ...[
+                                if (widget.type == "tipeOtak" &&
+                                    value.detailProfiling?.tipeOtak !=
+                                        null) ...[
                                   _TipeOtak(value: value),
                                 ],
-                                if (widget.type == "tipeKaya" && value.detailProfiling?.tipeKaya != null) ...[
+                                if (widget.type == "tipeKaya" &&
+                                    value.detailProfiling?.tipeKaya !=
+                                        null) ...[
                                   _TipeKaya(value: value),
                                 ],
-                                if (widget.type == "tipeDarah" && value.detailProfiling?.tipeDarah != null) ...[
+                                if (widget.type == "tipeDarah" &&
+                                    value.detailProfiling?.tipeDarah !=
+                                        null) ...[
                                   _TipeDarah(value: value),
                                 ],
-                                if (widget.type == "personality" && value.detailProfiling?.personality != null) ...[
+                                if (widget.type == "personality" &&
+                                    value.detailProfiling?.personality !=
+                                        null) ...[
                                   _Personality(value: value),
                                 ],
-                                if (widget.type == "karir" && value.detailProfiling?.karir != null) ...[
-                                  _classtipe(data: value.detailProfiling?.karir),
+                                if (widget.type == "karir" &&
+                                    value.detailProfiling?.karir != null) ...[
+                                  _classtipe(
+                                      data: value.detailProfiling?.karir,judul: S.of(context).career,),
                                 ],
-                                if (widget.type == "polaBahagia" && value.detailProfiling?.polaBahagia != null) ...[
-                                  _classtipe(data: value.detailProfiling?.polaBahagia),
+                                if (widget.type == "polaBahagia" &&
+                                    value.detailProfiling?.polaBahagia !=
+                                        null) ...[
+                                  _classtipe(
+                                      data: value.detailProfiling?.polaBahagia,judul: S.of(context).happiness_pattern),
                                 ],
-                                if (widget.type == "polaInteraksi" && value.detailProfiling?.polaInteraksi != null) ...[
-                                  _classtipe(data: value.detailProfiling?.polaInteraksi),
+                                if (widget.type == "polaInteraksi" &&
+                                    value.detailProfiling?.polaInteraksi !=
+                                        null) ...[
+                                  _classtipe(
+                                      data:
+                                          value.detailProfiling?.polaInteraksi,judul: S.of(context).social_interaction_pattern),
                                 ],
-                                if (widget.type == "family" && value.detailProfiling?.family != null) ...[
-                                  _classtipe(data: value.detailProfiling?.family),
+                                if (widget.type == "family" &&
+                                    value.detailProfiling?.family != null) ...[
+                                  _classtipe(
+                                      data: value.detailProfiling?.family,judul: S.of(context).family),
                                 ],
-                                if (widget.type == "polaHealing" && value.detailProfiling?.polaHealing != null) ...[
-                                  _classtipe(data: value.detailProfiling?.polaHealing),
+                                if (widget.type == "polaHealing" &&
+                                    value.detailProfiling?.polaHealing !=
+                                        null) ...[
+                                  _classtipe(
+                                      data: value.detailProfiling?.polaHealing,judul: S.of(context).healing_pattern),
                                 ],
-                                if (widget.type == "spiritual" && value.detailProfiling?.spiritual != null) ...[
-                                  _classtipe(data: value.detailProfiling?.spiritual),
+                                if (widget.type == "kebutuhan" &&
+                                    value.detailProfiling?.kebutuhan !=
+                                        null) ...[
+                                  _classtipe(
+                                      data: value.detailProfiling?.kebutuhan,judul: S.of(context).kebutuhan),
+                                ],
+                                if (widget.type == "finansial" &&
+                                    value.detailProfiling?.finansial !=
+                                        null) ...[
+                                  _classtipe(
+                                      data: value.detailProfiling?.finansial,judul: S.of(context).financial),
                                 ],
 
                                 // Center(
@@ -341,7 +374,7 @@ class _ResultDetailState extends State<ResultDetail> {
                         ),
                       ),
                     ),
-                ),
+                  ),
             bottomNavigationBar: Container(
               color: Colors.white,
               child: Padding(
@@ -352,8 +385,11 @@ class _ResultDetailState extends State<ResultDetail> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Akan Didengar :'),
-                        Text(value.dataShowDetail?.result ?? "",style: TextStyle(fontWeight: FontWeight.w600),)
+                        Text(S.of(context).akandidengar),
+                        Text(
+                          value.dataShowDetail?.result ?? "",
+                          style: TextStyle(fontWeight: FontWeight.w600),
+                        )
                       ],
                     ),
                     gapH10,
@@ -365,7 +401,8 @@ class _ResultDetailState extends State<ResultDetail> {
                             : S.of(context).play_audio,
                         onPress: () async {
                           // debugPrint("cek audio${value.textToSpeech}");
-                          List<dynamic> languages = await flutterTts.getLanguages;
+                          List<dynamic> languages =
+                              await flutterTts.getLanguages;
                           print("Bahasa yang didukung: $languages");
 
                           isPlay ? _pause() : _speak(value.textToSpeech);
@@ -411,62 +448,62 @@ class _ResultDetailState extends State<ResultDetail> {
                       )
                     ] else ...[
                       SizedBox(
-                        // height: 54,
-                        // child: ButtonPrimary(
-                        //   S.of(context).download,
-                        //   onPress: () async {
-                        //     String? isLanguage =
-                        //         await PreferenceHandler.retrieveId();
-                        //     String? isID =
-                        //         await PreferenceHandler.retrieveIdLanguage();
-                        //     // showDialog(
-                        //     //     context: context,
-                        //     //     barrierDismissible: false,
-                        //     //     builder: (dialogcontext) {
-                        //     //       return DownloadProgressDialog(
-                        //     //           url: ApiEndpoint.donwnloadDetailPdf(
-                        //     //               widget.data?.idLogResult ?? ""),
-                        //     //           name:
-                        //     //               "${widget.data?.profilingName}_CoolProfiling_Result.pdf");
-                        //     //     });
-                        //     showModalBottomSheet(
-                        //         shape: const RoundedRectangleBorder(
-                        //           borderRadius: BorderRadius.only(
-                        //             topLeft: Radius.circular(25),
-                        //             topRight: Radius.circular(25),
-                        //           ),
-                        //         ),
-                        //         isDismissible: false,
-                        //         context: context,
-                        //         builder: (context) {
-                        //           debugPrint(
-                        //               "url pdf ${ApiEndpoint.donwnloadDetailPdf(widget.data?.idLogResult.toString(), "$isLanguage=$isID")}");
-                        //           return DownloadProgressDialog(
-                        //             url: ApiEndpoint.donwnloadDetailPdf(
-                        //                 widget.data?.idLogResult.toString() ?? "",
-                        //                 "$isLanguage=$isID"),
-                        //             name:
-                        //                 "${widget.data?.profilingName}_CoolProfiling_Result.pdf",
-                        //           );
-                        //         });
-                        //   },
-                        //   expand: true,
-                        //   negativeColor: true,
-                        //   border: 1,
-                        //   radius: 10,
-                        //   imageLeft: Row(
-                        //     children: [
-                        //       Image.asset(
-                        //         "assets/icons/download.png",
-                        //         width: 24,
-                        //       ),
-                        //       const SizedBox(
-                        //         width: 8,
-                        //       )
-                        //     ],
-                        //   ),
-                        // ),
-                      ),
+                          // height: 54,
+                          // child: ButtonPrimary(
+                          //   S.of(context).download,
+                          //   onPress: () async {
+                          //     String? isLanguage =
+                          //         await PreferenceHandler.retrieveId();
+                          //     String? isID =
+                          //         await PreferenceHandler.retrieveIdLanguage();
+                          //     // showDialog(
+                          //     //     context: context,
+                          //     //     barrierDismissible: false,
+                          //     //     builder: (dialogcontext) {
+                          //     //       return DownloadProgressDialog(
+                          //     //           url: ApiEndpoint.donwnloadDetailPdf(
+                          //     //               widget.data?.idLogResult ?? ""),
+                          //     //           name:
+                          //     //               "${widget.data?.profilingName}_CoolProfiling_Result.pdf");
+                          //     //     });
+                          //     showModalBottomSheet(
+                          //         shape: const RoundedRectangleBorder(
+                          //           borderRadius: BorderRadius.only(
+                          //             topLeft: Radius.circular(25),
+                          //             topRight: Radius.circular(25),
+                          //           ),
+                          //         ),
+                          //         isDismissible: false,
+                          //         context: context,
+                          //         builder: (context) {
+                          //           debugPrint(
+                          //               "url pdf ${ApiEndpoint.donwnloadDetailPdf(widget.data?.idLogResult.toString(), "$isLanguage=$isID")}");
+                          //           return DownloadProgressDialog(
+                          //             url: ApiEndpoint.donwnloadDetailPdf(
+                          //                 widget.data?.idLogResult.toString() ?? "",
+                          //                 "$isLanguage=$isID"),
+                          //             name:
+                          //                 "${widget.data?.profilingName}_CoolProfiling_Result.pdf",
+                          //           );
+                          //         });
+                          //   },
+                          //   expand: true,
+                          //   negativeColor: true,
+                          //   border: 1,
+                          //   radius: 10,
+                          //   imageLeft: Row(
+                          //     children: [
+                          //       Image.asset(
+                          //         "assets/icons/download.png",
+                          //         width: 24,
+                          //       ),
+                          //       const SizedBox(
+                          //         width: 8,
+                          //       )
+                          //     ],
+                          //   ),
+                          // ),
+                          ),
                     ],
                   ],
                 ),
@@ -521,43 +558,69 @@ class _Personality extends StatelessWidget {
           height: 160,
           width: double.infinity,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: value.detailProfiling?.tipeDarah != null ? imageBlue : Colors.white
-          ),
+            borderRadius: BorderRadius.circular(15),
+            color: value.detailProfiling?.tipeDarah == null
+                ? Colors.white
+                : imageBlue,),
           child: Image.network(
             "${value.detailProfiling?.personality?.picture}",
           ),
         ),
         gapH20,
-        Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: Colors.white
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  S.of(context).personality,
-                  style: TextStyle(
-                   fontWeight: FontWeight.bold,
-                    fontSize: 16,
+        Center(
+          child: IntrinsicWidth( // Agar lebar Container menyesuaikan teks
+            child: IntrinsicHeight( // Agar tinggi menyesuaikan konten
+              child: Stack(
+                children: [
+                  // Background Container dengan logo sebagai watermark
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.white,
+                    ),
+                    child: Opacity(
+                      opacity: 0.4, // Atur transparansi gambar
+                      child: Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Center(
+                          child: Image.asset(
+                            AppAsset.imgNewCoolLogo2, // Ganti dengan path logo
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-                gapH10,
-                Text(
-                  value.detailProfiling?.personality?.description ?? "",
-                  textAlign: TextAlign.justify,
-                  style:
-                      TextStyle(fontWeight: FontWeight.w300),
-                ),
-              ],
+
+                  // Konten utama (teks)
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min, // Menyesuaikan ukuran konten
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          S.of(context).personality,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                        gapH10,
+                        Text(
+                          value.detailProfiling?.personality?.description ?? "",
+                          textAlign: TextAlign.justify,
+                          style: TextStyle(fontWeight: FontWeight.w300),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
+        )
+
       ],
     );
   }
@@ -565,10 +628,12 @@ class _Personality extends StatelessWidget {
 
 class _classtipe extends StatelessWidget {
   const _classtipe({
-    required this.data, // Langsung instance dari Personality
+    required this.data,
+    required this.judul// Langsung instance dari Personality
   });
 
   final Personality? data;
+  final dynamic judul;
 
   @override
   Widget build(BuildContext context) {
@@ -580,39 +645,71 @@ class _classtipe extends StatelessWidget {
           width: double.infinity,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(15),
-            color: data != null ? Colors.white : imageBlue,
+            color: Colors.white,
           ),
           child: data?.picture != null
-              ? Image.network("${data?.picture}")
+              ? Padding(
+                padding: const EdgeInsets.all(35),
+                child: Image.network("${data?.picture}"),
+              )
               : const SizedBox(), // Placeholder jika gambar null
         ),
         gapH20,
-        Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(15),
-            color: Colors.white,
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                gapH10,
-                Text(
-                  data?.description ?? "Deskripsi tidak tersedia",
-                  textAlign: TextAlign.justify,
-                  style: const TextStyle(fontWeight: FontWeight.w300),
-                ),
-              ],
+        Center(
+          child: IntrinsicWidth( // Agar lebar Container menyesuaikan teks
+            child: IntrinsicHeight( // Agar tinggi menyesuaikan konten
+              child: Stack(
+                children: [
+                  // Background Container dengan logo sebagai watermark
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.white,
+                    ),
+                    child: Opacity(
+                      opacity: 0.4, // Atur transparansi gambar
+                      child: Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Center(
+                          child: Image.asset(
+                            AppAsset.imgNewCoolLogo2, // Ganti dengan path logo
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  // Konten utama (teks)
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min, // Menyesuaikan ukuran konten
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                         judul,
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                        ),
+                        gapH10,
+                        Text(
+                          data?.description ?? "Deskripsi tidak tersedia",
+                          textAlign: TextAlign.justify,
+                          style: const TextStyle(fontWeight: FontWeight.w300),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
+        )
+
       ],
     );
   }
 }
-
 
 class _TipeOtak extends StatelessWidget {
   const _TipeOtak({
@@ -629,43 +726,66 @@ class _TipeOtak extends StatelessWidget {
           height: 160,
           width: double.infinity,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: value.detailProfiling?.tipeDarah != null ? imageBlue : Colors.white
-          ),
+            borderRadius: BorderRadius.circular(15),
+            color: value.detailProfiling?.tipeDarah == null
+                ? Colors.white
+                : imageBlue,),
           child: Image.network(
             "${value.detailProfiling?.tipeOtak?.picture}",
           ),
         ),
         gapH20,
-        Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: Colors.white
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "${S.of(context).brain_type} ",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold
+        Center(
+          child: IntrinsicWidth( // Agar lebar Container menyesuaikan teks
+            child: IntrinsicHeight( // Agar tinggi menyesuaikan konten
+              child: Stack(
+                children: [
+                  // Background Container dengan logo sebagai watermark
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.white,
+                    ),
+                    child: Opacity(
+                      opacity: 0.4, // Atur transparansi gambar
+                      child: Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Center(
+                          child: Image.asset(
+                            AppAsset.imgNewCoolLogo2,// Ganti dengan path logo
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-                gapH10,
-                Text(
-                  value.detailProfiling?.tipeOtak?.description ?? "",
-                  textAlign: TextAlign.justify,
-                  style:
-                      TextStyle(fontWeight: FontWeight.w300),
-                ),
-              ],
+
+                  // Konten utama (teks)
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min, // Menyesuaikan ukuran konten
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "${S.of(context).brain_type} ",
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                        gapH10,
+                        Text(
+                          value.detailProfiling?.tipeOtak?.description ?? "",
+                          textAlign: TextAlign.justify,
+                          style: TextStyle(fontWeight: FontWeight.w300),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
+        )
+
       ],
     );
   }
@@ -686,9 +806,10 @@ class _TipeAura extends StatelessWidget {
           height: 160,
           width: double.infinity,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: value.detailProfiling?.tipeDarah != null ? imageBlue : Colors.white
-          ),
+            borderRadius: BorderRadius.circular(15),
+            color: value.detailProfiling?.tipeDarah == null
+                ? Colors.white
+                : imageBlue,),
           child: Image.network(
             "${value.detailProfiling?.tipeAura?.picture}",
             loadingBuilder: (BuildContext context, Widget image,
@@ -707,35 +828,57 @@ class _TipeAura extends StatelessWidget {
           ),
         ),
         gapH20,
-        Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: Colors.white
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "${S.of(context).aura_type}  - ${value.detailProfiling?.tipeAura?.tipe ?? ""}",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold
+        Center(
+          child: IntrinsicWidth( // Agar lebar Container menyesuaikan teks
+            child: IntrinsicHeight( // Agar tinggi menyesuaikan konten
+              child: Stack(
+                children: [
+                  // Background Container dengan logo sebagai watermark
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.white,
+                    ),
+                    child: Opacity(
+                      opacity: 0.4, // Atur transparansi gambar
+                      child: Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Center(
+                          child: Image.asset(
+                            AppAsset.imgNewCoolLogo2, // Ganti dengan path logo
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-                gapH10,
-                Text(
-                  value.detailProfiling?.tipeAura?.description ?? "",
-                  textAlign: TextAlign.justify,
-                  style:
-                      TextStyle(fontWeight: FontWeight.w300),
-                ),
-              ],
+
+                  // Konten utama (teks)
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min, // Menyesuaikan ukuran konten
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "${S.of(context).aura_type} - ${value.detailProfiling?.tipeAura?.tipe ?? ""}",
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                        gapH10,
+                        Text(
+                          value.detailProfiling?.tipeAura?.description ?? "",
+                          textAlign: TextAlign.justify,
+                          style: TextStyle(fontWeight: FontWeight.w300),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
+        )
+
       ],
     );
   }
@@ -752,15 +895,19 @@ class _TipeKaya extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(S.of(context).rich_type,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+        // Text(
+        //   S.of(context).rich_type,
+        //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+        // ),
         Center(
           child: Container(
             height: 160,
             width: double.infinity,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-                color: value.detailProfiling?.tipeDarah != null ? imageBlue : Colors.white
-            ),
+                borderRadius: BorderRadius.circular(15),
+                color: value.detailProfiling?.tipeDarah == null
+                    ? Colors.white
+                    : imageBlue,),
             child: Image.network(
               "${value.detailProfiling?.tipeKaya?.picture}",
               loadingBuilder: (BuildContext context, Widget image,
@@ -780,35 +927,58 @@ class _TipeKaya extends StatelessWidget {
           ),
         ),
         gapH20,
-        Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: Colors.white
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "${S.of(context).rich_type} - ${value.detailProfiling?.tipeKaya?.tipe ?? ""}",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold
+        Center(
+          child: IntrinsicWidth( // Agar lebar Container menyesuaikan teks
+            child: IntrinsicHeight( // Agar tinggi menyesuaikan konten
+              child: Stack(
+                children: [
+                  // Background Container dengan logo sebagai watermark
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.white,
+                    ),
+                    child: Opacity(
+                      opacity: 0.4, // Atur transparansi gambar
+                      child: Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: Center(
+                          child: Image.asset(
+                            AppAsset.imgNewCoolLogo2,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-                gapH10,
-                Text(
-                  value.detailProfiling?.tipeKaya?.description ?? "",
-                  textAlign: TextAlign.justify,
-                  style:
-                      TextStyle( fontWeight: FontWeight.w300),
-                ),
-              ],
+
+                  // Konten utama (teks)
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min, // Menyesuaikan ukuran konten
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "${S.of(context).rich_type} - ${value.detailProfiling?.tipeKaya?.tipe ?? ""}",
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                        gapH10,
+                        Text(
+                          value.detailProfiling?.tipeKaya?.description ?? "",
+                          textAlign: TextAlign.justify,
+                          style: TextStyle(fontWeight: FontWeight.w300),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
+        )
+
+
       ],
     );
   }
@@ -829,9 +999,10 @@ class _TipeDarah extends StatelessWidget {
           height: 160,
           width: double.infinity,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: value.detailProfiling?.tipeDarah != null ? imageBlue : Colors.white
-          ),
+            borderRadius: BorderRadius.circular(15),
+            color: value.detailProfiling?.tipeDarah == null
+                ? Colors.white
+                : imageBlue,),
           child: Image.network(
             "${value.detailProfiling?.tipeDarah?.picture}",
             loadingBuilder: (BuildContext context, Widget image,
@@ -850,35 +1021,56 @@ class _TipeDarah extends StatelessWidget {
           ),
         ),
         gapH20,
-        Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
-              color: Colors.white
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "${S.of(context).blood_type} - ${value.detailProfiling?.tipeDarah?.tipe ?? ""}",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold
+        Center(
+          child: IntrinsicWidth( // Agar lebar Container menyesuaikan teks
+            child: IntrinsicHeight( // Agar tinggi menyesuaikan konten
+              child: Stack(
+                children: [
+                  // Background Container dengan logo sebagai watermark
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: Colors.white,
+                    ),
+                    child: Opacity(
+                      opacity: 0.4, // Atur transparansi gambar
+                      child: Padding(
+                        padding: const EdgeInsets.all(20),
+                        child: Center(
+                          child: Image.asset(
+                            AppAsset.imgNewCoolLogo2, // Ganti dengan path logo
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-                gapH10,
-                Text(
-                  value.detailProfiling?.tipeDarah?.description ?? "",
-                  textAlign: TextAlign.justify,
-                  style:
-                      TextStyle( fontWeight: FontWeight.w300),
-                ),
-              ],
+
+                  // Konten utama (teks)
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min, // Menyesuaikan ukuran konten
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "${S.of(context).blood_type} - ${value.detailProfiling?.tipeDarah?.tipe ?? ""}",
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                        ),
+                        gapH10,
+                        Text(
+                          value.detailProfiling?.tipeDarah?.description ?? "",
+                          textAlign: TextAlign.justify,
+                          style: TextStyle(fontWeight: FontWeight.w300),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
+        )
       ],
     );
   }

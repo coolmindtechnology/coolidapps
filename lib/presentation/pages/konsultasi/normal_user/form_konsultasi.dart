@@ -1,8 +1,13 @@
+import 'dart:async';
+
+import 'package:coolappflutter/data/locals/preference_handler.dart';
+import 'package:coolappflutter/data/locals/shared_pref.dart';
 import 'package:coolappflutter/generated/l10n.dart';
 
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:coolappflutter/presentation/widgets/GlobalButton.dart';
+import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -44,10 +49,45 @@ class FormConsultant extends StatefulWidget {
 class _FormConsultantState extends State<FormConsultant> {
   @override
   void initState() {
+    cekSession();
     Provider.of<ProviderConsultation>(context, listen: false)
         .getDetailConsultant(widget.id);
     super.initState();
   }
+
+  cekSession() async {
+    dynamic ceklanguage = await PreferenceHandler.retrieveISelectLanguage();
+    if (ceklanguage == null) {
+      Prefs().setLocale('en_US', () {
+        setState(() {
+          S.load(Locale('en_US'));
+          setState(() {});
+        });
+      });
+      Timer(Duration(seconds: 2), () {
+        Prefs().getLocale().then((locale) {
+          debugPrint(locale);
+
+          S.load(Locale(locale)).then((value) {});
+        });
+      });
+    } else {
+      Prefs().setLocale('$ceklanguage', () {
+        setState(() {
+          S.load(Locale('$ceklanguage'));
+          setState(() {});
+        });
+      });
+      Timer(Duration(seconds: 2), () {
+        Prefs().getLocale().then((locale) {
+          debugPrint(locale);
+
+          S.load(Locale(locale)).then((value) {});
+        });
+      });
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +121,7 @@ class _FormConsultantState extends State<FormConsultant> {
                       time: widget.getTime,
                       timeRemaining: widget.getSesi,
                       timeColor: BlueColor,
-                      status: 'Pencapaian ',
+                      status: S.of(context).Achievement,
                       warnastatus: Colors.white),
                   SizedBox(height: 16.0),
                   CardConsultant(
@@ -132,7 +172,9 @@ class _FormConsultantState extends State<FormConsultant> {
                 ],
               ),
             ),
-          ));
+
+          ),
+        floatingActionButton: const CustomFAB(),);
     });
   }
 }

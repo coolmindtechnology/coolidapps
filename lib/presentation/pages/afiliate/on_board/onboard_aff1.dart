@@ -50,7 +50,7 @@ class _OnboardAff1State extends State<OnboardAff1> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(S.of(context).affiliatorCode,style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600),),
+                        Text(S.of(context).affiliator_code,style: TextStyle(color: Colors.white,fontWeight: FontWeight.w600),),
                         gapH10,
                         TextField(
                           decoration: InputDecoration(
@@ -69,7 +69,7 @@ class _OnboardAff1State extends State<OnboardAff1> {
                 gapH40,
                 Image.asset(AppAsset.imgLogoCoolMind,fit: BoxFit.cover,),
                 gapH40,
-                Text(S.of(context).welcomeAffiliatorProgram,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 22),textAlign: TextAlign.center,),
+                Text(S.of(context).welcome_affiliate_program,style: TextStyle(fontWeight: FontWeight.w600,fontSize: 22),textAlign: TextAlign.center,),
                 gapH20,
                 Text('Ayo dapatkan penghasilan melalui CoolApps',style: TextStyle(fontSize: 18,color: Colors.grey),textAlign: TextAlign.center,),
                 Spacer(),

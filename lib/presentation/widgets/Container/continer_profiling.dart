@@ -1,4 +1,6 @@
+import 'package:coolappflutter/data/apps/app_sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ContainerProfiling extends StatelessWidget {
   final Color backgroundColor; // Warna latar belakang
@@ -67,11 +69,12 @@ class ContainerProfiling extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         if (leading != null)
-                          leading!, // Tampilkan leading jika ada
+                          leading!,
+                        gapW10,// Tampilkan leading jika ada
                         Text(
                           title,
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.w600,
                             color: textColor ?? Colors.black,
                           ),
@@ -83,7 +86,7 @@ class ContainerProfiling extends StatelessWidget {
                   : Text(
                       title,
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 14.sp,
                         fontWeight: FontWeight.w600,
                         color: textColor ?? Colors.black,
                       ),

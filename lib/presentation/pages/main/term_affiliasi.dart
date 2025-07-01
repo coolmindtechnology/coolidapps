@@ -1,5 +1,9 @@
+import 'dart:async';
+
+import 'package:coolappflutter/data/data_global.dart';
 import 'package:coolappflutter/data/helpers/check_language.dart';
 import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
+import 'package:coolappflutter/data/provider/provider_auth_affiliate.dart';
 import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/pages/affiliate_register/input_code_referral_affiliate.dart';
 
@@ -13,6 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
+import 'package:provider/provider.dart';
 
 import '../afiliate/home_affiliate.dart';
 
@@ -209,22 +214,48 @@ By joining, you can earn additional income by referring our products or services
                           Expanded(child: Text(S.of(context).save_agreement)),
                         ],
                       ),
-                      ButtonPrimary(
-                        S.of(context).register_affiliate,
-                        onPress: () {
-                          if (checkbox == true) {
-                            Nav.replace(const InputCodeReferralAffiliate());
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text(
-                                        'Silahkan ceklis persetujuan terlebih dahulu!')));
-                          }
+                      Consumer<ProviderAuthAffiliate>(
+                        builder: (context, provider, child) {
+                          final isBusy = provider.isLoading || provider.isRegisterAffiliate;
+
+                          return SizedBox(
+                            height: 54,
+                            child: isBusy
+                                ? const Center(child: CircularProgressIndicator())
+                                : ButtonPrimary(
+                              S.of(context).register_affiliate,
+                              onPress: () async {
+                                if (checkbox == true) {
+                                  await provider.autofill(
+                                    dataGlobal.dataUser?.id.toString() ?? "id kosong",
+                                    context,
+                                  );
+
+                                  final referalCode = provider.dataCodeReferal;
+                                  if (referalCode != null && referalCode.toString() != "null") {
+                                    await provider.registerAffiliate(
+                                      context,
+                                      referalCode.toString(),
+                                    );
+                                  } else {
+                                    Nav.replace(const InputCodeReferralAffiliate());
+                                  }
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text('Silahkan ceklis persetujuan terlebih dahulu!'),
+                                    ),
+                                  );
+                                }
+                              },
+                              expand: false,
+                              elevation: 0,
+                              radius: 10,
+                            ),
+                          );
                         },
-                        expand: false,
-                        elevation: 0,
-                        radius: 10,
                       )
+
                     ],
                   ));
             } else {

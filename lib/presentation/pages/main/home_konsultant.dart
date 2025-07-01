@@ -1,54 +1,41 @@
 // ignore_for_file: use_build_context_synchronously
-
 import 'dart:async';
-
 import 'package:coolappflutter/data/apps/app_assets.dart';
 import 'package:coolappflutter/data/apps/app_sizes.dart';
 import 'package:coolappflutter/data/models/data_checkout_transaction.dart';
-
+import 'package:coolappflutter/data/provider/provider_consultant.dart';
 import 'package:coolappflutter/data/provider/provider_payment.dart';
 import 'package:coolappflutter/data/provider/provider_profiling.dart';
 import 'package:coolappflutter/data/provider/provider_user.dart';
 import 'package:coolappflutter/data/response/profiling/res_list_profiling.dart';
-
 import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/data/provider/provider_book.dart';
 import 'package:coolappflutter/main.dart';
-import 'package:coolappflutter/presentation/pages/afiliate/on_board/onboard_aff1.dart';
-
+import 'package:coolappflutter/presentation/pages/afiliate/member/anggota_saya.dart';
 import 'package:coolappflutter/presentation/pages/afiliate/screen_total_member.dart';
-import 'package:coolappflutter/presentation/pages/ebook/ebook_dashboard.dart';
-
 import 'package:coolappflutter/presentation/pages/konsultasi/konsultant/terma_konsultan.dart';
 import 'package:coolappflutter/presentation/pages/main/ebook/home_ebook.dart';
+import 'package:coolappflutter/presentation/pages/main/qrcode/qr_code.dart';
 import 'package:coolappflutter/presentation/pages/payments/realmoney_aff/detail_realmoney.dart';
 import 'package:coolappflutter/presentation/pages/payments/saldo_aff/detai_saldo_aff.dart';
 import 'package:coolappflutter/presentation/pages/profiling/profiling%20dashboard.dart';
-
-import 'package:coolappflutter/presentation/pages/profiling/screen_feature_kepribadian.dart';
 import 'package:coolappflutter/presentation/pages/profiling/screen_hasil_kepribadian.dart';
-
-import 'package:coolappflutter/presentation/pages/transakction/transaksi_affiliate.dart';
+import 'package:coolappflutter/presentation/pages/profiling/screen_hasil_kepribadian_dibawah17.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:coolappflutter/presentation/utils/notification_utils.dart';
-
 import 'package:coolappflutter/presentation/widgets/Container/Continer_profiling.dart';
 import 'package:coolappflutter/presentation/widgets/Container/card_homekonsultant.dart';
-
 import 'package:coolappflutter/presentation/widgets/refresh_icon_widget.dart';
-
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
-import '../../../data/networks/endpoint/api_endpoint.dart';
 import '../../../data/provider/provider_affiliate.dart';
 import '../../theme/color_utils.dart';
-import '../../utils/circular_progress_widget.dart';
-import 'list_ebook_all.dart';
 
 // ignore: must_be_immutable
 class HomeKonsultant extends StatefulWidget {
@@ -71,10 +58,6 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
   @override
   void initState() {
     debugPrint("tes cek vacum home");
-    // Timer(const Duration(seconds: 2), () {
-    //   handleDeepLink();
-    // });
-
     Future.microtask(() {
       initHome();
     });
@@ -84,9 +67,11 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
   initHome() async {
     await context.read<ProviderAffiliate>().getHomeAff(context);
     await context.read<ProviderProfiling>().getListProfiling(context);
+    await context.read<ConsultantProvider>().checkConsultantSession(context);
     // context.read<ProviderUser>().checkProfile(context);
     // context.read<ProviderUser>().getTotalSaldo(context);
   }
+
   logicAffiliate5() {
     Timer(const Duration(seconds: 1), () {
       Nav.back();
@@ -108,8 +93,8 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
         builder: (BuildContext context, valuePro, Widget? child) =>
             Consumer<ProviderAffiliate>(
           builder: (BuildContext context, valueAffiliate, Widget? child) =>
-              Consumer<ProviderUser>(builder:
-                  (BuildContext context, valueUser, Widget? child) {
+              Consumer<ProviderUser>(
+                  builder: (BuildContext context, valueUser, Widget? child) {
             String? statusApproval =
                 valueAffiliate.dataOverview?.statusApprovalConsultant;
             return Scaffold(
@@ -128,7 +113,8 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                         .getUser(context);
                     // Provider.of<ProviderBook>(context, listen: false)
                     //     .getListEbook(context);
-                    Provider.of<ProviderAffiliate>(context, listen: false).getHomeAff(context);
+                    Provider.of<ProviderAffiliate>(context, listen: false)
+                        .getHomeAff(context);
                     // Provider.of<ProviderPayment>(context, listen: false)
                     //     .getAmoutDeposit(context);
                     Provider.of<ProviderUser>(context, listen: false)
@@ -142,8 +128,8 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                     });
                     return Future<void>.delayed(const Duration(seconds: 1));
                   },
-                  indicatorBuilder: (BuildContext context,
-                      IndicatorController controller) {
+                  indicatorBuilder:
+                      (BuildContext context, IndicatorController controller) {
                     return const RefreshIconWidget();
                   },
                   child: Container(
@@ -170,22 +156,59 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Row(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Image.asset(
                                   AppAsset.imgNewCoolLogo,
-                                  height: 40,
-                                  width: 120,
+                                  height: 75.sp,
+                                  width: 165.sp,
+                                  fit: BoxFit.fill,
                                 ),
+                                Spacer(),
+                                // InkWell(
+                                //   onTap: () {
+                                //     Nav.to(MeetingDashboard());
+                                //   },
+                                //   child: Container(
+                                //     padding:
+                                //         EdgeInsets.symmetric(horizontal: 10.w),
+                                //     height: 25.h,
+                                //     width: 85.h, // Responsif tinggi
+                                //     decoration: BoxDecoration(
+                                //       color: Color(0xFFFBF008),
+                                //       borderRadius: BorderRadius.circular(10.r),
+                                //     ),
+                                //     child: Row(
+                                //       children: [
+                                //         Icon(
+                                //           CupertinoIcons.video_camera_solid,
+                                //           color: BlueColor,
+                                //         ),
+                                //         SizedBox(width: 5,),
+                                //         Flexible(
+                                //           child: Text(
+                                //             'CoolMeet',
+                                //             style: TextStyle(
+                                //               color: BlueColor,
+                                //               fontSize: 10.sp,
+                                //             ),
+                                //             overflow: TextOverflow.ellipsis,
+                                //             maxLines: 1,
+                                //             textAlign: TextAlign.center,
+                                //           ),
+                                //         ),
+                                //       ],
+                                //     ),
+                                //   ),
+                                // ),
+                                gapW20,
                                 GestureDetector(
                                   onTap: () {
                                     widget.klickTab(3);
                                   },
                                   child: valueUser.isLoading
                                       ? Shimmer.fromColors(
-                                          baseColor:
-                                              greyColor.withOpacity(0.2),
+                                          baseColor: greyColor.withOpacity(0.2),
                                           highlightColor: whiteColor,
                                           child: Container(
                                             height: 65,
@@ -197,18 +220,16 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                                       : valueUser.dataUser?.image != null
                                           ? ClipRRect(
                                               borderRadius:
-                                                  BorderRadius.circular(
-                                                      100),
+                                                  BorderRadius.circular(100),
                                               child: Image.network(
                                                 "${valueUser.dataUser?.image}",
                                                 width: 65,
                                                 height: 65,
                                                 fit: BoxFit.fill,
-                                                errorBuilder:
-                                                    (BuildContext context,
-                                                        Object exception,
-                                                        StackTrace?
-                                                            stackTrace) {
+                                                errorBuilder: (BuildContext
+                                                        context,
+                                                    Object exception,
+                                                    StackTrace? stackTrace) {
                                                   // Tampilkan gambar placeholder jika terjadi error
                                                   return Image.asset(
                                                     AppAsset
@@ -218,11 +239,9 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                                                     fit: BoxFit.fill,
                                                   );
                                                 },
-                                                loadingBuilder: (context,
-                                                    child,
+                                                loadingBuilder: (context, child,
                                                     loadingProgress) {
-                                                  if (loadingProgress ==
-                                                      null) {
+                                                  if (loadingProgress == null) {
                                                     return child;
                                                   }
 
@@ -234,19 +253,19 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                                                       child: Container(
                                                         height: 56,
                                                         width: 56,
-                                                        decoration: BoxDecoration(
-                                                            color:
-                                                                greyColor,
-                                                            shape: BoxShape
-                                                                .circle),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                                color:
+                                                                    greyColor,
+                                                                shape: BoxShape
+                                                                    .circle),
                                                       ));
                                                 },
                                               ),
                                             )
                                           : ClipRRect(
                                               borderRadius:
-                                                  BorderRadius.circular(
-                                                      100),
+                                                  BorderRadius.circular(100),
                                               child: Image.asset(
                                                 AppAsset.imgDefaultProfile,
                                                 width: 56,
@@ -260,72 +279,74 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                             SizedBox(
                               height: 40,
                             ),
-                            Container(
-                              width: double.infinity,
-                              height: 160,
-                              decoration: BoxDecoration(
-                                color: blueSlider,
-                                borderRadius: BorderRadius.circular(15),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  // Text di sebelah kiri
-                                  Expanded(
-                                    flex: 2, // Atur proporsi teks
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(16),
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            S.of(context).Invite_Friends,
-                                            style: TextStyle(
-                                              color: BlueColor,
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                            overflow: TextOverflow.ellipsis,
-                                            maxLines: 5,
-                                          ),
-                                          Spacer(),
-                                          Container(
-                                            height: 40,
-                                            width: 140,
-                                            decoration: BoxDecoration(
+                            InkWell(
+                              onTap: () {
+                                Nav.to(QRCodePage());
+                              },
+                              child: Container(
+                                width: double.infinity,
+                                height: 170,
+                                decoration: BoxDecoration(
+                                  color: blueSlider,
+                                  borderRadius: BorderRadius.circular(15),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    // Text di sebelah kiri
+                                    Expanded(
+                                      flex: 2, // Atur proporsi teks
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(16),
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              S.of(context).Invite_Friends,
+                                              style: TextStyle(
                                                 color: BlueColor,
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        15)),
-                                            child: Center(
-                                              child: Text(
-                                                S.of(context).UndangTeman,
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight:
-                                                        FontWeight.w600),
-                                                overflow:
-                                                    TextOverflow.ellipsis,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
                                               ),
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 5,
                                             ),
-                                          )
-                                        ],
+                                            Spacer(),
+                                            Container(
+                                              height: 35,
+                                              width: 140,
+                                              decoration: BoxDecoration(
+                                                  color: BlueColor,
+                                                  borderRadius:
+                                                      BorderRadius.circular(15)),
+                                              child: Center(
+                                                child: Text(
+                                                  S.of(context).UndangTeman,
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.w600),
+                                                  overflow: TextOverflow.ellipsis,
+                                                ),
+                                              ),
+                                            )
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  // Gambar di sebelah kanan
-                                  Expanded(
-                                    flex: 2,
-                                    child: ClipRRect(
-                                      borderRadius:
-                                          BorderRadius.circular(20),
-                                      child: Image.asset(
-                                        AppAsset.imgKonsultanHome,
-                                        fit: BoxFit.cover,
-                                        height: 170,
+                                    // Gambar di sebelah kanan
+                                    Expanded(
+                                      flex: 2,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(20),
+                                        child: Image.asset(
+                                          AppAsset.imgKonsultanHome,
+                                          fit: BoxFit.cover,
+                                          height: 170,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                             SizedBox(
@@ -334,14 +355,12 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                             Text(
                               S.of(context).Welcome_Affiliator,
                               style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600),
+                                  fontSize: 20, fontWeight: FontWeight.w600),
                             ),
                             Text(
                               S.of(context).Invite_Friends_Rewards,
                               style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w100),
+                                  fontSize: 16, fontWeight: FontWeight.w100),
                               overflow: TextOverflow.ellipsis,
                               maxLines: 2,
                             ),
@@ -350,54 +369,55 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                             ),
                             valueAffiliate.isLoading
                                 ? Shimmer.fromColors(
-                              baseColor: Colors.grey[300]!,
-                              highlightColor: Colors.grey[100]!,
-                              child: Container(
-                                height: 40,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                            )
+                                    baseColor: Colors.grey[300]!,
+                                    highlightColor: Colors.grey[100]!,
+                                    child: Container(
+                                      height: 40,
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.circular(10),
+                                      ),
+                                    ),
+                                  )
                                 : Container(
-                              height: 40,
-                              decoration: BoxDecoration(
-                                color: LightBlue,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      S.of(context).Cool_Points,
-                                      style: TextStyle(
-                                          color: BlueColor,
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.w300),
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                      color: LightBlue,
+                                      borderRadius: BorderRadius.circular(10),
                                     ),
-                                    Text(
-                                      "${(valueAffiliate.dataOverview?.totalPoint == null || valueAffiliate.dataOverview?.totalPoint == '') ? '0' : valueAffiliate.dataOverview?.totalPoint}"
-                                          " " +
-                                          S.of(context).Total_Point,
-                                      style: TextStyle(
-                                          color: BlueColor,
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.w600),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            S.of(context).Cool_Points,
+                                            style: TextStyle(
+                                                color: BlueColor,
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.w300),
+                                          ),
+                                          Text(
+                                            "${(valueAffiliate.dataOverview?.totalPoint == null || valueAffiliate.dataOverview?.totalPoint == '') ? '0' : valueAffiliate.dataOverview?.totalPoint}"
+                                                    " " +
+                                                S.of(context).Total_Point,
+                                            style: TextStyle(
+                                                color: BlueColor,
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.w600),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ],
-                                ),
-                              ),
-                            ),
-
+                                  ),
                             SizedBox(
                               height: 15,
                             ),
                             if (valueAffiliate.isLoading)
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Expanded(
                                     child: Shimmer.fromColors(
@@ -407,7 +427,8 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                                         height: 80,
                                         decoration: BoxDecoration(
                                           color: Colors.white,
-                                          borderRadius: BorderRadius.circular(8),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
                                         ),
                                       ),
                                     ),
@@ -421,7 +442,8 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                                         height: 80,
                                         decoration: BoxDecoration(
                                           color: Colors.white,
-                                          borderRadius: BorderRadius.circular(8),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
                                         ),
                                       ),
                                     ),
@@ -430,12 +452,13 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                               )
                             else
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   CardHomeKonsultant(
                                     title: S.of(context).Read_Ebook,
                                     subtitle:
-                                    "${(valueAffiliate.dataOverview?.totalEbook == null || valueAffiliate.dataOverview?.totalEbook == '') ? '0' : valueAffiliate.dataOverview?.totalEbook} ${S.of(context).ebook}",
+                                        "${(valueAffiliate.dataOverview?.totalEbook == null || valueAffiliate.dataOverview?.totalEbook == '') ? '0' : valueAffiliate.dataOverview?.totalEbook} ${S.of(context).ebook}",
                                     imageAsset: AppAsset.icEbook,
                                     containerColor: Color(0xFFF9D904),
                                     onTap: () {
@@ -448,27 +471,29 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                                     titleColor: Colors.white,
                                     subtitleColor: Colors.white,
                                     subtitle:
-                                    "${(valueAffiliate.dataOverview?.totalMember == null || valueAffiliate.dataOverview?.totalMember == '') ? '0' : valueAffiliate.dataOverview?.totalMember} ${S.of(context).Member}",
+                                        "${(valueAffiliate.dataOverview?.totalMember == null || valueAffiliate.dataOverview?.totalMember == '') ? '0' : valueAffiliate.dataOverview?.totalMember} ${S.of(context).Member}",
                                     imageAsset: AppAsset.icMember,
                                     containerColor: Color(0xFF4CCBF4),
                                     onTap: () {
-                                      Nav.to(const ScreenTotalMember());
+                                      Nav.to(AnggotaSayaPage());
+                                      // Nav.to(const ScreenTotalMember());
                                     },
                                   ),
                                 ],
                               ),
-
                             SizedBox(
                               height: 10,
                             ),
-                            if (valueAffiliate.isLoading) // Jika sedang memuat data
+                            if (valueAffiliate
+                                .isLoading) // Jika sedang memuat data
                               Column(
                                 children: [
                                   Shimmer.fromColors(
                                     baseColor: Colors.grey[300]!,
                                     highlightColor: Colors.grey[100]!,
                                     child: Container(
-                                      height: 60, // Sesuaikan tinggi dengan aslinya
+                                      height:
+                                          60, // Sesuaikan tinggi dengan aslinya
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                         borderRadius: BorderRadius.circular(10),
@@ -476,40 +501,48 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 Container(
                                                   width: 100,
                                                   height: 15,
-                                                  color: Colors.white, // Placeholder shimmer untuk teks pertama
+                                                  color: Colors
+                                                      .white, // Placeholder shimmer untuk teks pertama
                                                 ),
                                                 SizedBox(height: 5),
                                                 Container(
                                                   width: 80,
                                                   height: 15,
-                                                  color: Colors.white, // Placeholder shimmer untuk teks kedua
+                                                  color: Colors
+                                                      .white, // Placeholder shimmer untuk teks kedua
                                                 ),
                                               ],
                                             ),
                                             Container(
                                               width: 40,
                                               height: 40,
-                                              color: Colors.white, // Placeholder shimmer untuk icon
+                                              color: Colors
+                                                  .white, // Placeholder shimmer untuk icon
                                             ),
                                           ],
                                         ),
                                       ),
                                     ),
                                   ),
-                                  SizedBox(height: 10), // Spasi antara dua shimmer box
+                                  SizedBox(
+                                      height:
+                                          10), // Spasi antara dua shimmer box
                                   Shimmer.fromColors(
                                     baseColor: Colors.grey[300]!,
                                     highlightColor: Colors.grey[100]!,
                                     child: Container(
-                                      height: 60, // Sesuaikan tinggi dengan aslinya
+                                      height:
+                                          60, // Sesuaikan tinggi dengan aslinya
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                         borderRadius: BorderRadius.circular(10),
@@ -517,28 +550,33 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 Container(
                                                   width: 100,
                                                   height: 15,
-                                                  color: Colors.white, // Placeholder shimmer untuk teks pertama
+                                                  color: Colors
+                                                      .white, // Placeholder shimmer untuk teks pertama
                                                 ),
                                                 SizedBox(height: 5),
                                                 Container(
                                                   width: 80,
                                                   height: 15,
-                                                  color: Colors.white, // Placeholder shimmer untuk teks kedua
+                                                  color: Colors
+                                                      .white, // Placeholder shimmer untuk teks kedua
                                                 ),
                                               ],
                                             ),
                                             Container(
                                               width: 40,
                                               height: 40,
-                                              color: Colors.white, // Placeholder shimmer untuk icon
+                                              color: Colors
+                                                  .white, // Placeholder shimmer untuk icon
                                             ),
                                           ],
                                         ),
@@ -552,7 +590,13 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                                 children: [
                                   InkWell(
                                     onTap: () {
-                                      Nav.to(DetailSaldoAff());
+                                      Nav.to(DetailSaldoAff(
+                                        initialTab: () =>
+                                            1, // Menentukan tab kedua sebagai tab awal
+                                        tabChanger: (changeTabAffiliate) {
+                                          // Dapat digunakan untuk mengubah tab dari luar
+                                        },
+                                      ));
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(
@@ -562,10 +606,12 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 Text(
                                                   S.of(context).Your_Balance,
@@ -594,7 +640,20 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                                   SizedBox(height: 10),
                                   InkWell(
                                     onTap: () {
-                                      Nav.to(DetailRealMoneyAff());
+                                      Nav.to(DetailRealMoneyAff(
+                                        initialTab: () =>
+                                            1, // Menentukan tab kedua sebagai tab awal
+                                        tabChanger: (changeTabAffiliate) {
+                                          // Dapat digunakan untuk mengubah tab dari luar
+                                        },
+                                      ));
+                                      // Nav.to(TransaksiAffiliatePage(
+                                      //   initialTab: () =>
+                                      //   1, // Menentukan tab kedua sebagai tab awal
+                                      //   tabChanger: (changeTabAffiliate) {
+                                      //     // Dapat digunakan untuk mengubah tab dari luar
+                                      //   },
+                                      // ));
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(
@@ -604,10 +663,12 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                                       child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
                                             Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
                                               children: [
                                                 Text(
                                                   S.of(context).Real_Money,
@@ -633,344 +694,367 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                                       ),
                                     ),
                                   ),
-
                                 ],
                               ),
-
                             SizedBox(
                               height: 10,
                             ),
-                            if(valuePro.listProfiling.isNotEmpty)
-                            Row(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  S.of(context).My_Profiling,
-                                  style: TextStyle(
-                                      color: BlueColor,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                TextButton(
-                                    onPressed: () async {
-                                      Nav.to(
-                                          const ProfilingDashboard());
-                                    },
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          S.of(context).see_all,
-                                          style: TextStyle(
-                                              color: BlueColor,
-                                              fontSize: 18),
-                                        ),
-                                        Icon(
-                                          CupertinoIcons.forward,
-                                          color: BlueColor,
-                                        )
-                                      ],
-                                    )),
-                              ],
-                            ),
-                            if(valuePro.listProfiling.isNotEmpty)
-                            SizedBox(
-                              height: 100, // Sesuaikan tinggi widget
-                              child: Row(
+                            if (valuePro.listProfiling.isNotEmpty)
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  if (valuePro.isLoading) // Jika sedang memuat data
-                                    Expanded(
-                                      child: ListView.builder(
-                                        scrollDirection: Axis.horizontal, // ListView horizontal
-                                        itemCount: 3, // Jumlah shimmer box yang ditampilkan
-                                        itemBuilder: (context, index) {
-                                          return Padding(
-                                            padding: const EdgeInsets.only(right: 10),
-                                            child: Shimmer.fromColors(
-                                              baseColor: Colors.grey[300]!,
-                                              highlightColor: Colors.grey[100]!,
-                                              child: Container(
-                                                width: 100,
-                                                height: 100,
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius: BorderRadius.circular(15),
+                                  Text(
+                                    S.of(context).My_Profiling,
+                                    style: TextStyle(
+                                        color: BlueColor,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  TextButton(
+                                      onPressed: () async {
+                                        Nav.to(const ProfilingDashboard());
+                                      },
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            S.of(context).see_all,
+                                            style: TextStyle(
+                                                color: BlueColor, fontSize: 18),
+                                          ),
+                                          Icon(
+                                            CupertinoIcons.forward,
+                                            color: BlueColor,
+                                          )
+                                        ],
+                                      )),
+                                ],
+                              ),
+                            if (valuePro.listProfiling.isNotEmpty)
+                              SizedBox(
+                                height: 100, // Sesuaikan tinggi widget
+                                child: Row(
+                                  children: [
+                                    if (valuePro
+                                        .isLoading) // Jika sedang memuat data
+                                      Expanded(
+                                        child: ListView.builder(
+                                          scrollDirection: Axis
+                                              .horizontal, // ListView horizontal
+                                          itemCount:
+                                              3, // Jumlah shimmer box yang ditampilkan
+                                          itemBuilder: (context, index) {
+                                            return Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 10),
+                                              child: Shimmer.fromColors(
+                                                baseColor: Colors.grey[300]!,
+                                                highlightColor:
+                                                    Colors.grey[100]!,
+                                                child: Container(
+                                                  width: 100,
+                                                  height: 100,
+                                                  decoration: BoxDecoration(
+                                                    color: Colors.white,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            15),
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                          );
-                                        },
-                                      ),
-                                    )
-                                  else if (valuePro.listProfiling
-                                      .isNotEmpty) // Jika data tersedia
-                                    Expanded(
-                                      child: ListView.builder(
-                                        scrollDirection: Axis
-                                            .horizontal, // ListView horizontal
-                                        itemCount:
-                                            valuePro.listProfiling.length,
-                                        itemBuilder: (context, index) {
-                                          DataProfiling data =
-                                              valuePro.listProfiling[index];
-                                          return Padding(
-                                            padding: const EdgeInsets.only(
-                                                right: 10),
-                                            child: GestureDetector(
-                                              onTap: () {
-                                                if (data.status.toString() ==
-                                                    "0") {
-                                                  NotificationUtils
-                                                      .showSimpleDialog2(
-                                                      context,
-                                                      S
-                                                          .of(context)
-                                                          .pay_to_see_more,
-                                                      textButton1: S
-                                                          .of(context)
-                                                          .yes_continue,
-                                                      textButton2:
-                                                      S.of(context).no,
-                                                      onPress2: () {
-                                                        Nav.back();
-                                                      }, onPress1: () async {
-                                                    Nav.back();
-                                                    await NotificationUtils
+                                            );
+                                          },
+                                        ),
+                                      )
+                                    else if (valuePro.listProfiling
+                                        .isNotEmpty) // Jika data tersedia
+                                      Expanded(
+                                        child: ListView.builder(
+                                          scrollDirection: Axis
+                                              .horizontal, // ListView horizontal
+                                          itemCount:
+                                              valuePro.listProfiling.length,
+                                          itemBuilder: (context, index) {
+                                            DataProfiling data =
+                                                valuePro.listProfiling[index];
+                                            return Padding(
+                                              padding: const EdgeInsets.only(
+                                                  right: 10),
+                                              child: GestureDetector(
+                                                onTap: () {
+                                                  if (data.status.toString() ==
+                                                      "0") {
+                                                    NotificationUtils
                                                         .showSimpleDialog2(
-                                                        context,
-                                                        S
-                                                            .of(context)
-                                                            .pay_with_your_cool_balance,
-                                                        textButton1: S
-                                                            .of(context)
-                                                            .yes_continue,
-                                                        textButton2: S
-                                                            .of(context)
-                                                            .other_pay,
-                                                        onPress2: () async {
-                                                          Nav.back();
-                                                          await valuePro.payProfiling(
-                                                              context,
-                                                              [
-                                                                int.tryParse(data
-                                                                    .idLogResult
-                                                                    .toString() ??
-                                                                    "0") ??
-                                                                    0
-                                                              ],
-                                                              "0",
-                                                              "transaction_type",
-                                                              1,
-                                                              onUpdate: () async {
-                                                                await valuePro
-                                                                    .getListProfiling(
-                                                                    context);
-                                                              }, fromPage: "profiling");
-                                                        }, onPress1: () async {
+                                                            context,
+                                                            S
+                                                                .of(context)
+                                                                .pay_to_see_more,
+                                                            textButton1: S
+                                                                .of(context)
+                                                                .yes_continue,
+                                                            textButton2: S
+                                                                .of(context)
+                                                                .no,
+                                                            onPress2: () {
                                                       Nav.back();
-                                                      await valuePro
-                                                          .createTransactionProfiling(
-                                                          context,
-                                                          DataCheckoutTransaction(
-                                                              idLogs: [
-                                                                int.parse(data
-                                                                    .idLogResult
-                                                                    .toString() ??
-                                                                    "0")
-                                                              ],
-                                                              discount: "0",
-                                                              idItemPayments:
-                                                              "1",
-                                                              qty: 1,
-                                                              gateway:
-                                                              "paypal"),
-                                                              () async {
-                                                            await valuePro
-                                                                .getListProfiling(
-                                                                context);
-                                                          });
-                                                    },
-                                                        colorButon1:
-                                                        primaryColor,
-                                                        colorButton2:
-                                                        Colors.white);
-                                                  },
-                                                      colorButon1:
-                                                      primaryColor,
-                                                      colorButton2:
-                                                      Colors.white);
-                                                } else {
-
-                                                  // Nav.to(DetailProfiling(
-                                                  //     data: data));
-                                                  Nav.to(ScreenHasilKepribadian(
-                                                      data: data));
-                                                }
-                                              },
-                                              onDoubleTap: () {
-                                                if (data.status.toString() ==
-                                                    "0") {
-                                                  NotificationUtils
-                                                      .showSimpleDialog2(
-                                                      context,
-                                                      S
-                                                          .of(context)
-                                                          .pay_to_see_more,
-                                                      textButton1: S
-                                                          .of(context)
-                                                          .yes_continue,
-                                                      textButton2:
-                                                      S.of(context).no,
-                                                      onPress2: () {
+                                                    }, onPress1: () async {
+                                                      Nav.back();
+                                                      await NotificationUtils
+                                                          .showSimpleDialog2(
+                                                              context,
+                                                              S
+                                                                  .of(context)
+                                                                  .pay_with_your_cool_balance,
+                                                              textButton1: S
+                                                                  .of(context)
+                                                                  .yes_continue,
+                                                              textButton2: S
+                                                                  .of(context)
+                                                                  .other_pay,
+                                                              onPress2:
+                                                                  () async {
                                                         Nav.back();
-                                                      }, onPress1: () async {
-                                                    Nav.back();
-                                                    await NotificationUtils
-                                                        .showSimpleDialog2(
-                                                        context,
-                                                        S
-                                                            .of(context)
-                                                            .pay_with_your_cool_balance,
-                                                        textButton1: S
-                                                            .of(context)
-                                                            .yes_continue,
-                                                        textButton2: S
-                                                            .of(context)
-                                                            .other,
-                                                        onPress2: () async {
-                                                          await valuePro.payProfiling(
+                                                        await valuePro.payProfiling(
                                                             context,
                                                             [
                                                               int.tryParse(data
-                                                                  .idLogResult
-                                                                  .toString() ??
-                                                                  "0") ??
+                                                                          .idLogResult
+                                                                          .toString() ??
+                                                                      "0") ??
                                                                   0
                                                             ],
                                                             "0",
                                                             "transaction_type",
                                                             1,
                                                             onUpdate: () async {
-                                                              await valuePro
-                                                                  .getListProfiling(
+                                                          await valuePro
+                                                              .getListProfiling(
                                                                   context);
-                                                            },
-                                                            fromPage: "profiling",
-                                                          );
-                                                        }, onPress1: () async {
-                                                      Nav.back();
-                                                      await valuePro
-                                                          .createTransactionProfiling(
-                                                          context,
-                                                          DataCheckoutTransaction(
-                                                            idLogs: [
-                                                              int.parse(data
-                                                                  .idLogResult
-                                                                  .toString() ??
-                                                                  "0")
-                                                            ],
-                                                            discount: "0",
-                                                            idItemPayments:
-                                                            "1",
-                                                            qty: 1,
-                                                          ), () async {
+                                                        },
+                                                            fromPage:
+                                                                "profiling");
+                                                      }, onPress1: () async {
+                                                        Nav.back();
                                                         await valuePro
-                                                            .getListProfiling(
-                                                            context);
-                                                      });
+                                                            .createTransactionProfiling(
+                                                                context,
+                                                                DataCheckoutTransaction(
+                                                                    idLogs: [
+                                                                      int.parse(
+                                                                          data.idLogResult.toString() ??
+                                                                              "0")
+                                                                    ],
+                                                                    discount:
+                                                                        "0",
+                                                                    idItemPayments:
+                                                                        "1",
+                                                                    qty: 1,
+                                                                    gateway:
+                                                                        "paypal"),
+                                                                () async {
+                                                          await valuePro
+                                                              .getListProfiling(
+                                                                  context);
+                                                        });
+                                                      },
+                                                              colorButon1:
+                                                                  primaryColor,
+                                                              colorButton2:
+                                                                  Colors.white);
                                                     },
-                                                        colorButon1:
-                                                        primaryColor,
-                                                        colorButton2:
-                                                        Colors.white);
-                                                  },
-                                                      colorButon1:
-                                                      primaryColor,
-                                                      colorButton2:
-                                                      Colors.white);
-                                                } else {
-                                                  Nav.to(ScreenHasilKepribadian(
-                                                      data: data));
-                                                }
-                                              },
-                                              child: Container(
-                                                width: 100,
-                                                height: 100,
-                                                decoration: BoxDecoration(
-                                                  color: BlueColor,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          15),
-                                                ),
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(
-                                                          8.0),
-                                                  child: Column(
-                                                    children: [
-                                                      Text(
-                                                        data.typeBrain ??
+                                                            colorButon1:
+                                                                primaryColor,
+                                                            colorButton2:
+                                                                Colors.white);
+                                                  } else {
+                                                    // Nav.to(DetailProfiling(
+                                                    //     data: data));
+                                                    if(data.isAboveseventeen == true){
+                                                      Nav.to(ScreenHasilKepribadian(
+                                                          data: data));
+                                                    }else{
+                                                      Nav.to(ScreenHasilKepribadianBawah17(
+                                                          data: data));
+                                                    }
+                                                  }
+                                                },
+                                                onDoubleTap: () {
+                                                  if (data.status.toString() ==
+                                                      "0") {
+                                                    NotificationUtils
+                                                        .showSimpleDialog2(
+                                                            context,
                                                             S
                                                                 .of(context)
-                                                                .no_data,
-                                                        style: TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 16,
-                                                          fontWeight:
-                                                              FontWeight.w600,
+                                                                .pay_to_see_more,
+                                                            textButton1: S
+                                                                .of(context)
+                                                                .yes_continue,
+                                                            textButton2: S
+                                                                .of(context)
+                                                                .no,
+                                                            onPress2: () {
+                                                      Nav.back();
+                                                    }, onPress1: () async {
+                                                      Nav.back();
+                                                      await NotificationUtils
+                                                          .showSimpleDialog2(
+                                                              context,
+                                                              S
+                                                                  .of(context)
+                                                                  .pay_with_your_cool_balance,
+                                                              textButton1: S
+                                                                  .of(context)
+                                                                  .yes_continue,
+                                                              textButton2: S
+                                                                  .of(context)
+                                                                  .other,
+                                                              onPress2:
+                                                                  () async {
+                                                        await valuePro
+                                                            .payProfiling(
+                                                          context,
+                                                          [
+                                                            int.tryParse(data
+                                                                        .idLogResult
+                                                                        .toString() ??
+                                                                    "0") ??
+                                                                0
+                                                          ],
+                                                          "0",
+                                                          "transaction_type",
+                                                          1,
+                                                          onUpdate: () async {
+                                                            await valuePro
+                                                                .getListProfiling(
+                                                                    context);
+                                                          },
+                                                          fromPage: "profiling",
+                                                        );
+                                                      }, onPress1: () async {
+                                                        Nav.back();
+                                                        await valuePro
+                                                            .createTransactionProfiling(
+                                                                context,
+                                                                DataCheckoutTransaction(
+                                                                  idLogs: [
+                                                                    int.parse(data
+                                                                            .idLogResult
+                                                                            .toString() ??
+                                                                        "0")
+                                                                  ],
+                                                                  discount: "0",
+                                                                  idItemPayments:
+                                                                      "1",
+                                                                  qty: 1,
+                                                                ), () async {
+                                                          await valuePro
+                                                              .getListProfiling(
+                                                                  context);
+                                                        });
+                                                      },
+                                                              colorButon1:
+                                                                  primaryColor,
+                                                              colorButton2:
+                                                                  Colors.white);
+                                                    },
+                                                            colorButon1:
+                                                                primaryColor,
+                                                            colorButton2:
+                                                                Colors.white);
+                                                  } else {
+                                                    if(data.isAboveseventeen == true){
+                                                      Nav.to(ScreenHasilKepribadian(
+                                                          data: data));
+                                                    }else{
+                                                      Nav.to(ScreenHasilKepribadianBawah17(
+                                                          data: data));
+                                                    }
+                                                  }
+                                                },
+                                                child: Container(
+                                                  width: 100,
+                                                  height: 100,
+                                                  decoration: BoxDecoration(
+                                                    color: BlueColor,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            15),
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Column(
+                                                      children: [
+                                                        Text(data.status.toString() ==
+                                                            "0" ? S.of(context).pending :
+                                                        data.typeBrain,
+                                                          style: TextStyle(
+                                                            color: Colors.white,
+                                                            fontSize: 16,
+                                                            fontWeight:
+                                                            FontWeight.w600,
+                                                          ),
                                                         ),
-                                                      ),
-                                                      Spacer(),
-                                                      Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceEvenly,
-                                                        children: [
-                                                          Text(
-                                                            data.profilingName ??
-                                                                "Data tidak ditemukan",
-                                                            style: TextStyle(
-                                                              color: Colors
-                                                                  .white,
-                                                              fontSize: 14,
-                                                              fontWeight:
+                                                        Spacer(),
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceEvenly,
+                                                          children: [
+                                                            SizedBox(
+                                                              width: 50,
+                                                              child: Text(
+                                                                data.profilingName ??
+                                                                    "Data tidak ditemukan",
+                                                                style: TextStyle(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 14,
+                                                                  fontWeight:
                                                                   FontWeight
                                                                       .w400,
+                                                                ),
+                                                                overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                              ),
                                                             ),
-                                                          ),
-                                                          Icon(
-                                                            CupertinoIcons
-                                                                .heart_fill,
-                                                            color:
-                                                                Colors.white,
-                                                            size: 18,
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
+                                                            Icon(
+                                                              CupertinoIcons
+                                                                  .heart_fill,
+                                                              color:
+                                                                  Colors.white,
+                                                              size: 18,
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
                                               ),
+                                            );
+                                          },
+                                        ),
+                                      )
+                                    else // Jika tidak ada data dan tidak sedang memuat
+                                      Expanded(
+                                        child: Center(
+                                          child: Text(
+                                            S.of(context).no_data,
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 16,
                                             ),
-                                          );
-                                        },
-                                      ),
-                                    )
-                                  else // Jika tidak ada data dan tidak sedang memuat
-                                    Expanded(
-                                      child: Center(
-                                        child: Text(
-                                          S.of(context).no_data,
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontSize: 16,
                                           ),
                                         ),
                                       ),
-                                    ),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ),
                             SizedBox(
                               height: 15,
                             ),
@@ -995,7 +1079,7 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                                       _showReferralPopup(
                                           context,
                                           valueAffiliate.dataOverview
-                                                  ?.linkRefferalCode ??
+                                                  ?.referralCode ??
                                               "kesalahann teknis harap coba lagi");
                                     },
                                   ),
@@ -1041,167 +1125,182 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
                                 ],
                               ),
                             ),
-                            if ((valueAffiliate.dataAffiliasi?.totalSaldoAffiliate
-                                ?.isNotEmpty ??
-                                false) ||
-                                (valueAffiliate.dataAffiliasi?.totalSaldoAffiliate
-                                    ?.isEmpty ??
-                                    false)) ...[
-                              if ((valueAffiliate.dataAffiliasi?.totalSaldoAffiliate
-                                  ?.isEmpty ??
-                                  false) ||
-                                  (int.parse(valueAffiliate
-                                      .dataAffiliasi?.totalSaldoAffiliate
-                                      .toString() ??
-                                      "0") <=
-                                      minSaldo)) ...[
-                                const SizedBox(
-                                  height: 8,
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: const Color(0xffFFF3cd),
-                                    border: Border.all(
-                                        color: const Color(0x00ffeeba), width: 1.0),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  margin:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                                  padding: const EdgeInsets.all(10),
-                                  child: Row(
-                                    children: [
-                                      const Icon(Icons.warning_outlined,
-                                          color: Color(0xFF856404)),
-                                      const SizedBox(width: 8),
-                                      Text(
-                                        S.of(context).topup_first,
-                                        style: const TextStyle(
-                                            color: Color(0xFF856404)),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ],
-                            if (valueAffiliate.resCheckTopupAffiliate?.data?.notif == 5)
-                              logicAffiliate5(),
-                            if (valueAffiliate.resCheckTopupAffiliate?.data?.notif == 2) ...[
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                    color: const Color(0xffFFF3cd),
-                                    border: Border.all(
-                                        color: const Color(0x00ffeeba), width: 1.0),
-                                    borderRadius: BorderRadius.circular(10)),
-                                margin: const EdgeInsets.symmetric(horizontal: 10),
-                                padding: const EdgeInsets.all(10),
-                                child: Stack(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        const Icon(Icons.warning_outlined,
-                                            color: Color(0xFF856404)),
-                                        const SizedBox(
-                                          width: 8,
-                                        ),
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                valueAffiliate.resCheckTopupAffiliate
-                                                    ?.message ??
-                                                    "",
-                                                style: const TextStyle(
-                                                    color: Color(0xFF856404)),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 24,
-                                        ),
-                                      ],
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        valueAffiliate.resCheckTopupAffiliate = null;
-                                      },
-                                      behavior: HitTestBehavior.translucent,
-                                      child: const Align(
-                                        alignment: Alignment.topRight,
-                                        child: Icon(
-                                          Icons.close_rounded,
-                                          size: 20,
-                                          color: Color(0xFF856404),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                            if (valueAffiliate.dataAffiliasi?.totalSaldoAffiliate
-                                ?.contains("-") ==
-                                true) ...[
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              Container(
-                                decoration: BoxDecoration(
-                                    color: const Color(0xffFFF3cd),
-                                    border: Border.all(
-                                        color: const Color(0x00ffeeba), width: 1.0),
-                                    borderRadius: BorderRadius.circular(10)),
-                                margin: const EdgeInsets.symmetric(horizontal: 10),
-                                padding: const EdgeInsets.symmetric(horizontal: 10),
-                                child: ListTileTheme(
-                                  contentPadding: EdgeInsets
-                                      .zero, // this also removes horizontal padding
-                                  minVerticalPadding: 0.0,
-                                  child: ExpansionTile(
-                                    tilePadding: EdgeInsets.zero,
-                                    childrenPadding: EdgeInsets.zero,
-                                    trailing: const Icon(
-                                      Icons.info_outline_rounded,
-                                      color: Color(
-                                        0xFF856404,
-                                      ),
-                                    ),
-                                    title: Text(
-                                      S.of(context).what_is_negative_balance,
-                                      style: const TextStyle(
-                                          color: Color(
-                                            0xFF856404,
-                                          ),
-                                          fontSize: 14),
-                                    ),
-                                    collapsedShape: const RoundedRectangleBorder(
-                                      side: BorderSide.none,
-                                    ),
-                                    shape: const RoundedRectangleBorder(
-                                      side: BorderSide.none,
-                                    ),
-                                    children: <Widget>[
-                                      ListTile(
-                                          title: Text(
-                                            S.of(context).negative_balance_description,
-                                            style: const TextStyle(
-                                                color: Color(0xFF856404), fontSize: 14),
-                                          )),
-                                      const SizedBox(
-                                        height: 8,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-
-
+                            // if ((valueAffiliate.dataAffiliasi
+                            //             ?.totalSaldoAffiliate?.isNotEmpty ??
+                            //         false) ||
+                            //     (valueAffiliate.dataAffiliasi
+                            //             ?.totalSaldoAffiliate?.isEmpty ??
+                            //         false)) ...[
+                            //   if ((valueAffiliate.dataAffiliasi
+                            //               ?.totalSaldoAffiliate?.isEmpty ??
+                            //           false) ||
+                            //       (int.parse(valueAffiliate.dataAffiliasi
+                            //                   ?.totalSaldoAffiliate
+                            //                   .toString() ??
+                            //               "0") <=
+                            //           minSaldo)) ...[
+                            //     const SizedBox(
+                            //       height: 8,
+                            //     ),
+                            //     Container(
+                            //       decoration: BoxDecoration(
+                            //         color: const Color(0xffFFF3cd),
+                            //         border: Border.all(
+                            //             color: const Color(0x00ffeeba),
+                            //             width: 1.0),
+                            //         borderRadius: BorderRadius.circular(10),
+                            //       ),
+                            //       margin: const EdgeInsets.symmetric(
+                            //           horizontal: 10),
+                            //       padding: const EdgeInsets.all(10),
+                            //       child: Row(
+                            //         children: [
+                            //           const Icon(Icons.warning_outlined,
+                            //               color: Color(0xFF856404)),
+                            //           const SizedBox(width: 8),
+                            //           Text(
+                            //             S.of(context).topup_first,
+                            //             style: const TextStyle(
+                            //                 color: Color(0xFF856404)),
+                            //           ),
+                            //         ],
+                            //       ),
+                            //     ),
+                            //   ],
+                            // ],
+                            // // if (valueAffiliate
+                            // //         .resCheckTopupAffiliate?.data?.notif ==
+                            // //     5)
+                            // //   logicAffiliate5(),
+                            // if (valueAffiliate
+                            //         .resCheckTopupAffiliate?.data?.notif ==
+                            //     2) ...[
+                            //   const SizedBox(
+                            //     height: 8,
+                            //   ),
+                            //   Container(
+                            //     decoration: BoxDecoration(
+                            //         color: const Color(0xffFFF3cd),
+                            //         border: Border.all(
+                            //             color: const Color(0x00ffeeba),
+                            //             width: 1.0),
+                            //         borderRadius: BorderRadius.circular(10)),
+                            //     margin:
+                            //         const EdgeInsets.symmetric(horizontal: 10),
+                            //     padding: const EdgeInsets.all(10),
+                            //     child: Stack(
+                            //       children: [
+                            //         Row(
+                            //           children: [
+                            //             const Icon(Icons.warning_outlined,
+                            //                 color: Color(0xFF856404)),
+                            //             const SizedBox(
+                            //               width: 8,
+                            //             ),
+                            //             Expanded(
+                            //               child: Column(
+                            //                 crossAxisAlignment:
+                            //                     CrossAxisAlignment.start,
+                            //                 children: [
+                            //                   Text(
+                            //                     valueAffiliate
+                            //                             .resCheckTopupAffiliate
+                            //                             ?.message ??
+                            //                         "",
+                            //                     style: const TextStyle(
+                            //                         color: Color(0xFF856404)),
+                            //                   ),
+                            //                 ],
+                            //               ),
+                            //             ),
+                            //             const SizedBox(
+                            //               width: 24,
+                            //             ),
+                            //           ],
+                            //         ),
+                            //         GestureDetector(
+                            //           onTap: () {
+                            //             valueAffiliate.resCheckTopupAffiliate =
+                            //                 null;
+                            //           },
+                            //           behavior: HitTestBehavior.translucent,
+                            //           child: const Align(
+                            //             alignment: Alignment.topRight,
+                            //             child: Icon(
+                            //               Icons.close_rounded,
+                            //               size: 20,
+                            //               color: Color(0xFF856404),
+                            //             ),
+                            //           ),
+                            //         ),
+                            //       ],
+                            //     ),
+                            //   ),
+                            // ],
+                            // if (valueAffiliate
+                            //         .dataAffiliasi?.totalSaldoAffiliate
+                            //         ?.contains("-") ==
+                            //     true) ...[
+                            //   const SizedBox(
+                            //     height: 8,
+                            //   ),
+                            //   Container(
+                            //     decoration: BoxDecoration(
+                            //         color: const Color(0xffFFF3cd),
+                            //         border: Border.all(
+                            //             color: const Color(0x00ffeeba),
+                            //             width: 1.0),
+                            //         borderRadius: BorderRadius.circular(10)),
+                            //     margin:
+                            //         const EdgeInsets.symmetric(horizontal: 10),
+                            //     padding:
+                            //         const EdgeInsets.symmetric(horizontal: 10),
+                            //     child: ListTileTheme(
+                            //       contentPadding: EdgeInsets
+                            //           .zero, // this also removes horizontal padding
+                            //       minVerticalPadding: 0.0,
+                            //       child: ExpansionTile(
+                            //         tilePadding: EdgeInsets.zero,
+                            //         childrenPadding: EdgeInsets.zero,
+                            //         trailing: const Icon(
+                            //           Icons.info_outline_rounded,
+                            //           color: Color(
+                            //             0xFF856404,
+                            //           ),
+                            //         ),
+                            //         title: Text(
+                            //           S.of(context).what_is_negative_balance,
+                            //           style: const TextStyle(
+                            //               color: Color(
+                            //                 0xFF856404,
+                            //               ),
+                            //               fontSize: 14),
+                            //         ),
+                            //         collapsedShape:
+                            //             const RoundedRectangleBorder(
+                            //           side: BorderSide.none,
+                            //         ),
+                            //         shape: const RoundedRectangleBorder(
+                            //           side: BorderSide.none,
+                            //         ),
+                            //         children: <Widget>[
+                            //           ListTile(
+                            //               title: Text(
+                            //             S
+                            //                 .of(context)
+                            //                 .negative_balance_description,
+                            //             style: const TextStyle(
+                            //                 color: Color(0xFF856404),
+                            //                 fontSize: 14),
+                            //           )),
+                            //           const SizedBox(
+                            //             height: 8,
+                            //           ),
+                            //         ],
+                            //       ),
+                            //     ),
+                            //   ),
+                            // ],
                           ],
                         ),
                       ),
@@ -1238,8 +1337,9 @@ class _HomeKonsultantState extends State<HomeKonsultant> {
               child: Text(
                 linkReferralCode,
                 style:
-                    const TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                 maxLines: 5,
+                textAlign: TextAlign.center,
               ),
             ),
             gapH20,

@@ -4,6 +4,7 @@ import 'package:coolappflutter/presentation/pages/profiling/screen_hasil_kepriba
 import 'package:coolappflutter/presentation/pages/user/invoice_profilling_detail_history.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
 import 'package:coolappflutter/presentation/widgets/shimmer_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -108,6 +109,7 @@ class _ScreenHistoryState extends State<ScreenHistory> {
                         },
                         itemCount: value.listHistory.length),
           ),
+          floatingActionButton: const CustomFAB(),
         ),
       ),
     );

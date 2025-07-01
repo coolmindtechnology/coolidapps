@@ -9,6 +9,7 @@ import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 
 import 'package:coolappflutter/presentation/widgets/GlobalButton.dart';
+import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
 import 'package:flutter/material.dart';
 
 import '../../konsultasi/normal_user/pop-upwarning.dart';
@@ -83,7 +84,7 @@ class _DetailSessionCurhatState extends State<DetailSessionCurhat> {
             ),
             ProfileCard(
                 onTap: () {
-                  Nav.to(ProfileConsultant());
+                  // Nav.to(ProfileConsultant());
                 },
                 imagePath: AppAsset.imgProfile1,
                 name: 'vivian Entira',
@@ -174,6 +175,7 @@ class _DetailSessionCurhatState extends State<DetailSessionCurhat> {
           ],
         ),
       ),
+      floatingActionButton: const CustomFAB(),
     );
   }
 }

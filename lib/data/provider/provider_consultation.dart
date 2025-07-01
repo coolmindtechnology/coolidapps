@@ -1,4 +1,7 @@
+import 'package:coolappflutter/data/helpers/either.dart';
+import 'package:coolappflutter/data/helpers/failure.dart';
 import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
+import 'package:coolappflutter/data/repositories/repo_consultation.dart';
 import 'package:coolappflutter/data/response/consultation/res_get_theme.dart';
 import 'package:coolappflutter/data/response/consultation/res_list_consultation.dart';
 import 'package:coolappflutter/data/response/consultation/res_list_time.dart';
@@ -15,50 +18,101 @@ import '../response/consultation/res_list_consultant_person.dart';
 class ProviderConsultation extends ChangeNotifier {
   ProviderConsultation();
 
-  ProviderConsultation.initList(BuildContext context, String type) {
-    getListConsultations(context, "active");
-  }
+  final RepoConsultation repoConsultation = RepoConsultation();
 
-  List<Data> _consultations = [];
+
+
+  bool isLoadingConsultation = false;
+  bool _isLoading = false;
+  // List<Data> _consultations = [];
   List<Themes> _getThemes = [];
 
-  bool _isLoading = false;
 
-  List<Data> get consultations => _consultations;
+
+  // List<Data> get consultations => _consultations;
   List<Themes> get getThemes => _getThemes;
+  List<Data>? _consultations = [];
+  List<Data> get consultations => _consultations ?? [];
 
   bool get isLoading => _isLoading;
+  Future<void> getListConsultations(BuildContext context,String? type) async {
+    isLoadingConsultation = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      notifyListeners();
+    });
 
-  Future<void> getListConsultations(BuildContext context, String type) async {
-    _isLoading = true;
+    debugPrint("Fetching consultation data from API...");
+
+    // Memanggil repository dengan Either untuk menangani error/success
+    Either<Failure, ResponseListConsultation> response = await repoConsultation.getlistConsultation(parameter: type);
+
+    isLoadingConsultation = false;
     notifyListeners();
 
-    final String? token = await Prefs().getToken();
-    final Dio dio = Dio();
-    final String url = "${ApiEndpoint.getListConsultation}/?type=$type";
-
-    try {
-      final response = await dio.get(
-        url,
-        options: Options(
-          headers: {'Authorization': 'Bearer $token'},
-        ),
-      );
-
-      if (response.statusCode == 200) {
-        final responseData = ResponseListConsultation.fromJson(response.data);
-        _consultations = responseData.datas?.data ?? [];
-        print('input data oke');
-      } else {
-        throw Exception('Failed to load consultations');
-      }
-    } catch (error) {
-      rethrow;
-    } finally {
-      _isLoading = false;
-      notifyListeners();
-    }
+    response.when(
+      error: (failure) {
+        debugPrint("Error fetching consultation data: ${failure.message}");
+        NotificationUtils.showDialogError(
+          context,
+              () {
+            Nav.back();
+          },
+          widget: Text(
+            failure.message,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 16),
+          ),
+          textButton: "Back",
+        );
+      },
+      success: (res) {
+        debugPrint("Consultation data fetched successfully");
+        if (res.success == true) {
+          _consultations = res.datas?.data ?? [];
+          debugPrint("API response sukses: ${res.datas}");
+          notifyListeners();
+        } else {
+          debugPrint("API response gagal: ${res.datas}");
+          debugPrint("Failed to fetch consultation data");
+        }
+      },
+    );
+    notifyListeners();
   }
+
+
+
+  // Future<void> getListConsultations(BuildContext context, String type,String typekonsult) async {
+  //   _isLoading = true;
+  //   notifyListeners();
+  //
+  //   final String? token = await Prefs().getToken();
+  //   final Dio dio = Dio();
+  //   // final String url = "${ApiEndpoint.getListConsultation}/?type=$type";
+  //   final String url = "${ApiEndpoint.getListConsultation}/?type=$type&type_sesion=$typekonsult";
+  //
+  //   try {
+  //     final response = await dio.get(
+  //       url,
+  //       options: Options(
+  //         headers: {'Authorization': 'Bearer $token'},
+  //       ),
+  //     );
+  //
+  //     if (response.statusCode == 200) {
+  //       final responseData = ResponseListConsultation.fromJson(response.data);
+  //       _consultations = responseData.datas?.data ?? [];
+  //       print('input data oke');
+  //     } else {
+  //       throw Exception('Failed to load consultations');
+  //     }
+  //   } catch (error) {
+  //     rethrow;
+  //   } finally {
+  //     _isLoading = false;
+  //     notifyListeners();
+  //   }
+  // }
 
   Future<void> getListTheme(BuildContext context) async {
     _isLoading = true;
@@ -321,6 +375,7 @@ class ProviderConsultation extends ChangeNotifier {
         debugPrint("Failed to create consultation: ${response.statusMessage}");
       }
     } catch (e) {
+      debugPrint("Failed to create consultation: ${e}");
       NotificationUtils.showDialogError(context, () {
         Nav.back();
       },

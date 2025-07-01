@@ -3,6 +3,7 @@ class ApiEndpoint {
   // static String baseUrl = "https://staging-cool.hantrr.com";
   // static String baseUrl = "https://cool-staging.dschazy.com";
   static String baseUrl = "https://cool-new.dschazy.com";
+  // static String baseUrl = "https://staging-cool-compass.mycool.id";
 
   // static String baseUrl = "https://coolcompas-staging.mycool.id";
 
@@ -97,6 +98,7 @@ class ApiEndpoint {
   static String register = "${_baseUrlApi}auth/register";
   static String resetPassword = "${_authUrlApi}reset-password";
   static String checkCountry = "${_authUrlApi}check-country";
+  static String checkCredential = "${_authUrlApi}checkCredentials";
 
   //// User
   static String getUser = "${_userUrlApi}me";
@@ -109,11 +111,14 @@ class ApiEndpoint {
   static String getAddress = "${_userUrlApi}get/extra/address";
   static String ReportBugByUser = "${_baseUrlApi}users/log/reports";
   static String getCategoryBug = "${_baseUrlApi}category-user";
+  static String sendMassageReport = "${_baseUrlApi}chat-report/create";
+  static String getMassageReport = "${_baseUrlApi}chat-report/get";
+  static String closeMassageReport(id) => "${_baseUrlApi}chat-report/close/case/$id";
 
   //API Consultation
   static String getListConsultation =
       "${_baseUrlApi}consultation/get-list-session";
-  static String getListTheme = "${_baseUrlApi}consultation/get-theme";
+  static String getListTheme = "${_baseUrlApi}consultation/get-theme?type=consultation";
   static String getListTime(time) =>
       "${_baseUrlApi}consultation/get-sessions-time?date=$time";
   static String getListConsultanPerson =
@@ -131,6 +136,14 @@ class ApiEndpoint {
   static String getHomeConsultant = "${_consultantUrlApi}overview";
   static String getParticipant = "${_consultationUrlApi}get-participant";
   static String checkSession = "${_consultationUrlApi}check-sessions";
+  static String postEndSession = "${_consultationUrlApi}post-end-room";
+  static String getPrice = "${_consultationUrlApi}get/price";
+  static String joinSession(id) => "${_consultationUrlApi}req-join-room/$id";
+  static String getArchiveChat(id) => "${_consultationUrlApi}get-chat/$id";
+  static String getTopicConsultant(id) =>
+      "${_consultationUrlApi}related-topic/$id";
+  static String followConsultant(id) =>
+      "${_baseUrlApi}user/followed-consultant/$id";
 
   static String getTermConsultant =
       "${_baseUrlApi}terms-and-condition";
@@ -195,7 +208,8 @@ class ApiEndpoint {
   //// Feature
   // Api Profiling
   static String listProfiling = "${_featureUrlApi}list_profiling";
-  static String detailProfiling(id) => "${_featureUrlApi}detail_profiling/$id";
+  static String getPriceProfiling = "${_featureUrlApi}get-price-by-qty";
+  static String detailProfiling(id,menu) => "${_featureUrlApi}detail_profiling/$id?menu=$menu";
   static String updateProfiling(id) => "${_featureUrlApi}edit_profiling/$id";
   static String deleteProfiling(id) => "${_featureUrlApi}delete_profiling/$id";
   static String addProfiling = "${_featureUrlApi}create_profiling";
@@ -279,12 +293,14 @@ class ApiEndpoint {
   static String updateTopupNotif = "${_affiliateUrlApi}update-topup-notif";
   static String checkCompleteBank = "${_affiliateUrlApi}cek-complete-bank";
 
+
   ///Affiliate
   static String homeAffiliate(id) => "${baseUrlApi}affiliate/overview/$id";
 
   static String apiListMember = "${baseUrlApi}affiliate/getMember";
 
   static String apiDetailMember(id) => "${baseUrlApi}affiliate/getMember/$id";
+  static String apiDetailActivity(id) => "${baseUrlApi}affiliate/getActivityDetail/$id";
 
   //transaction real money
 
@@ -301,6 +317,19 @@ class ApiEndpoint {
 
   //Convert Currency
   static String convertCurrency = "${baseUrlApi}convert-currency";
+
+  //meet
+  //base endpoint meet
+  static final String _meetapiUrl = "${baseUrlApi}meeting/";
+  static String getallsessionmeet = "${_meetapiUrl}session-all";
+  static String getlogmeet = "${_meetapiUrl}get-log-session";
+
+  ///komisi/promote user
+  static final String _promotionapiUrl = "${baseUrlApi}promotion/";
+  static String getoverviewpromotion = "${_promotionapiUrl}overview";
+  static String qrPromotion = "${_promotionapiUrl}generate-qr";
+  static String WdPromotion = "${_promotionapiUrl}withdrawl";
+
 
   ///api soung opening
   // static String apiOpeningCool = "${_baseUrlApi}boarding/get-sound";

@@ -1,6 +1,14 @@
 import 'package:coolappflutter/data/apps/app_sizes.dart';
+import 'package:coolappflutter/data/data_global.dart';
+import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
+import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/utils/circular_progress_widget.dart';
+import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
+import 'package:coolappflutter/presentation/widgets/refresh_icon_widget.dart';
+import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:qr_code_scanner_plus/qr_code_scanner_plus.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -15,6 +23,9 @@ class QRCodePage extends StatefulWidget {
 
 class _QRCodePageState extends State<QRCodePage>
     with SingleTickerProviderStateMixin {
+
+   String imageUrl = '${ApiEndpoint.baseUrlApi}api/generate-qrcode?size=300&margin=10&text=https://cool-app.udadeveloper.com/login';
+String token = dataGlobal.token;
   late TabController _tabController;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   bool showUrl = false; // State untuk menampilkan URL
@@ -22,6 +33,7 @@ class _QRCodePageState extends State<QRCodePage>
   void initState() {
     super.initState();
     _tabController = TabController(length: 2, vsync: this);
+    _refreshImage();
   }
 
   @override
@@ -29,6 +41,21 @@ class _QRCodePageState extends State<QRCodePage>
     _tabController.dispose();
     super.dispose();
   }
+
+  Future<void> _refreshImage() async {
+    // Simulate network fetch delay
+    // await Future.delayed(Duration(seconds: 2));
+
+    // Refresh the image by updating the state
+    setState(() {
+      imageUrl =
+      '${ApiEndpoint.getMyAffiliateQR}?size=300&margin=10&timestamp=${DateTime.now().millisecondsSinceEpoch}';
+    });
+  }
+
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey =
+  GlobalKey<RefreshIndicatorState>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -45,38 +72,33 @@ class _QRCodePageState extends State<QRCodePage>
         ),
         centerTitle: false,
         backgroundColor: Color(0xFF4CCBF4),
-        // bottom: TabBar(
-        //   controller: _tabController,
-        //   indicatorColor: Colors.white,
-        //   labelColor: Colors.black,
-        //   unselectedLabelColor: Colors.black54,
-        //   labelStyle: TextStyle(fontWeight: FontWeight.bold),
-        //   tabs: [
-        //     Tab(
-        //       icon: Icon(Icons.qr_code, color: Colors.black),
-        //       text: 'Kode Saya',
-        //     ),
-        //     Tab(
-        //       icon: Icon(Icons.qr_code_scanner, color: Colors.black),
-        //       text: 'Scan QR',
-        //     ),
-        //   ],
-        // ),
       ),
-      body: Column(
-        children: [
-          _buildTabBar(),
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-                _buildMyQRCodeTab(),
-                _buildQRScannerTab(),
-              ],
+      body: CustomMaterialIndicator(
+        key: _refreshIndicatorKey,
+        onRefresh: () {
+          _refreshImage();
+         return Future<void>.delayed(const Duration(seconds: 1));
+        },
+        indicatorBuilder:
+            (BuildContext context, IndicatorController controller) {
+          return const RefreshIconWidget();
+        },
+        child: Column(
+          children: [
+            _buildTabBar(),
+            Expanded(
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  _buildMyQRCodeTab(),
+                  _buildQRScannerTab(),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
+      floatingActionButton: const CustomFAB()
     );
   }
 
@@ -87,9 +109,8 @@ class _QRCodePageState extends State<QRCodePage>
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          _buildTabButton("Kode Saya", Icons.qr_code, 0),
-          // SizedBox(width: 10),
-          _buildTabButton("Scan QR", Icons.qr_code_scanner, 1),
+          _buildTabButton(S.of(context).kode_anda, Icons.qr_code, 0),
+          _buildTabButton(S.of(context).scan_qr, Icons.qr_code_scanner, 1),
         ],
       ),
     );
@@ -134,15 +155,17 @@ class _QRCodePageState extends State<QRCodePage>
 
   Widget _buildMyQRCodeTab() {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        SizedBox(height: 30,),
         Text(
-          "Silakan Scan QR Gunakan CoolApp",
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+          S.of(context).instruksi_scan_qr,
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),textAlign: TextAlign.center,
         ),
         Container(
           margin: EdgeInsets.all(20),
+          width: double.infinity,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
             border: Border.all(color: Colors.grey), // Outline warna grey
@@ -150,34 +173,85 @@ class _QRCodePageState extends State<QRCodePage>
           child: Column(
             children: [
               gapH10,
-              QrImageView(
-                embeddedImage: AssetImage("images/qrcode/logoqr.png"),
-                data: "Nama: Budi",
-                version: QrVersions.auto,
-                size: 300.0,
+              if (dataGlobal.dataUser?.isAffiliate == 1)
+              Center(
+                child: Image.network(
+                  imageUrl,
+                  headers: {'Authorization': token},
+                  width: 200,
+                  height: 200,
+                  loadingBuilder: (BuildContext context,
+                      Widget child,
+                      ImageChunkEvent? loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Center(
+                      child: CircularProgressWidget(
+                        value: loadingProgress
+                            .expectedTotalBytes !=
+                            null
+                            ? loadingProgress
+                            .cumulativeBytesLoaded /
+                            loadingProgress
+                                .expectedTotalBytes!
+                            : null,
+                      ),
+                    );
+                  },
+                  errorBuilder:
+                      (context, exception, stackTrace) {
+                    return Center(
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              "assets/icons/material-symbols-light_error-outline.png",
+                              width: 100,
+                            ),
+                            Text(
+                              S.of(context).failed_load_qr_code,
+                            ),
+                          ],
+                        ));
+                  },
+                ),
               ),
+              if (dataGlobal.dataUser?.isAffiliate == 0)
+                SvgPicture.network(
+                  "${ApiEndpoint.qrCode}/${dataGlobal.dataUser?.phoneNumber}",
+                  headers: {'Authorization': dataGlobal.token},
+                  width: 200,
+                  height: 200,
+                  placeholderBuilder: (context) {
+                    return const SizedBox(
+                      height: 200,
+                      width: 200,
+                      child: CircularProgressWidget(),
+                    );
+                  },
+                ),
               gapH16,
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text("Kode User Anda : KAYH2829"),
-                    gapW10,
-                    Icon(
-                      Icons.copy_sharp,
-                      size: 15,
-                    ),
-                  ]),
+              // Row(
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     crossAxisAlignment: CrossAxisAlignment.center,
+              //     children: [
+              //       Text("Kode Anda : ${dataGlobal.dataAff.}"),
+              //       gapW10,
+              //       Icon(
+              //         Icons.copy_sharp,
+              //         size: 15,
+              //       ),
+              //     ]),
+              if (dataGlobal.dataUser?.isAffiliate == 1)
               Padding(
                 padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
                 child: Text(
-                    "Tunjukan QR Code Ini untuk mempermudah proses affiliasi anda."),
+                    S.of(context).petunjuk_qr),
               ),
               gapH10,
             ],
           ),
         ),
         gapH20,
+        if (dataGlobal.dataUser?.isAffiliate == 1)
         _buildInviteCard(),
       ],
     );
@@ -197,7 +271,7 @@ class _QRCodePageState extends State<QRCodePage>
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Undang teman anda!",
+                S.of(context).UndangTeman,
                 style: TextStyle(
                   color: Colors.black,
                   // fontWeight: FontWeight.bold,
@@ -227,7 +301,7 @@ class _QRCodePageState extends State<QRCodePage>
   }
 
   Widget _buildUrlBox() {
-    String url = "https://affiliate/cool.com";
+    String url = dataGlobal.dataAff?.linkreferalcode ?? "";
 
     return Container(
       margin: EdgeInsets.only(top: 10),
@@ -260,7 +334,7 @@ class _QRCodePageState extends State<QRCodePage>
             onTap: () {
               Clipboard.setData(ClipboardData(text: url));
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text("URL disalin!")),
+                SnackBar(content: Text(S.of(context).copy)),
               );
             },
           ),
@@ -284,6 +358,7 @@ class _QRCodePageState extends State<QRCodePage>
           ),
         ),
         gapH20,
+        if (dataGlobal.dataUser?.isAffiliate == 1)
         Positioned(left: 10, right: 10, bottom: 10, child: _buildInviteCard()),
       ],
     );

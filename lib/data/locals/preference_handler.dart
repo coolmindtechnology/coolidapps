@@ -76,4 +76,10 @@ class PreferenceHandler {
     String? result = preferences.getString("dialog");
     return result;
   }
+
+  static Future<String?> retrieveCekDialogCommision() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String? result = preferences.getString("isCommisionpop");
+    return result;
+  }
 }

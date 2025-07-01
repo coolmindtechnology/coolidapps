@@ -1,3 +1,4 @@
+import 'package:coolappflutter/data/data_global.dart';
 import 'package:coolappflutter/data/helpers/either.dart';
 import 'package:coolappflutter/data/helpers/failure.dart';
 import 'package:coolappflutter/data/repositories/repo_transaksi_affiliate.dart';
@@ -292,6 +293,7 @@ class ProviderTransaksiAffiliate extends ChangeNotifier {
     String nominal,
     String source,
     String fromPage,
+      String isRegister,
   ) async {
     isTransactionTopupDeposit = true;
 
@@ -299,7 +301,7 @@ class ProviderTransaksiAffiliate extends ChangeNotifier {
 
     Either<Failure, ResTransactionTopupDeposit> response =
         await repoTransaksiAffiliate.transactionTopupDeposit(
-            id, nominal, source);
+            id, nominal, source, isRegister);
 
     isTransactionTopupDeposit = false;
     notifyListeners();
@@ -321,18 +323,22 @@ class ProviderTransaksiAffiliate extends ChangeNotifier {
           name: data?.customer,
           orderId: data?.orderId,
           date: data?.createdAt,
-          amount: data?.amount,
+          amount: data?.totalAmount.toString(),
+          price: data?.amount.toString(),
           paymentType: data?.item,
           snapToken: data?.snapToken,
+          admin: data?.beaAdmin.toString(),
         ));
       } else if (fromPage == "deposit") {
         Nav.to(InvoiceRegisterAffiliate(
           name: data?.customer,
           orderId: data?.orderId,
           date: data?.createdAt,
-          amount: data?.amount,
+          amount: data?.totalAmount.toString(),
+          price: data?.amount.toString(),
           paymentType: data?.item,
           snapToken: data?.snapToken,
+          admin: data?.beaAdmin,
         ));
       } else if (fromPage == "topup") {
         Nav.to(VoucherPage(
@@ -584,11 +590,10 @@ class ProviderTransaksiAffiliate extends ChangeNotifier {
 
     Either<ResCreateWithdraw, ResCreateWithdraw> response =
         await repoTransaksiAffiliate.createWithdraw(
-      amount,
-      dataBank?.bankNumber ?? "",
-      dataBank?.bankAccountName ?? "",
-      dataBank?.bankName ?? "",
-      dataBank?.user?.email ?? "",
+      amount, dataGlobal.dataAff?.bankNumber ?? "",
+          dataGlobal.dataAff?.bankAccountName ?? "",
+          dataGlobal.dataAff?.bankName ?? "",
+          dataGlobal.dataAff?.user?.email ?? "",
     );
     isCreateWithdraw = false;
     notifyListeners();
@@ -652,6 +657,7 @@ class ProviderTransaksiAffiliate extends ChangeNotifier {
         await repoTransaksiAffiliate.getAffiliateManagement();
     isGetAffiliateManagement = false;
     notifyListeners();
+    print("prikitiw");
     response.when(error: (e) {
       NotificationUtils.showDialogError(context, () {
         Nav.back();

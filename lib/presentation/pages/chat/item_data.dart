@@ -86,7 +86,7 @@ class _ItemCoolChatState extends State<ItemCoolChat> {
                           width: 12,
                         ),
                         Text(
-                          "${widget.data?.user?.name ?? ""} .  ${widget.data?.createdAt?.hour} hours ago",
+                          "${widget.data?.user?.name ?? ""} .  ${widget.data?.timeAgo}",
                           style: TextStyle(fontSize: 12, color: greyColor),
                         )
                       ],

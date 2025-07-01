@@ -7,6 +7,7 @@ import 'package:coolappflutter/presentation/pages/konsultasi/normal_user/profile
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:coolappflutter/presentation/widgets/GlobalButton.dart';
+import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -91,14 +92,14 @@ class _ChooseConsultantState extends State<ChooseConsultant> {
               ),
               SizedBox(height: 8.0),
               Text(
-                S.of(context).Choose_your_consultant,
+                S.of(context).choose,
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
                 style: TextStyle(fontSize: 14.0, color: Colors.black54),
               ),
               SizedBox(height: 16.0),
               CardConsultant(
-                topic: S.of(context).Choose_your_consultant,
+                topic: S.of(context).choose,
                 topicSelected: widget.getTopik,
                 consultationTime: S.of(context).Consultation_time,
                 consultationTimeSelected: widget.getTime,
@@ -190,6 +191,7 @@ class _ChooseConsultantState extends State<ChooseConsultant> {
             ],
           ),
         ),
+        floatingActionButton: const CustomFAB(),
       );
     });
   }

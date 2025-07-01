@@ -29,7 +29,6 @@ class _PreHomeScreenState extends State<PreHomeScreen> {
 
   Future<void> _initializeData() async {
     await providerUser?.getUser(context);
-    await providerProfiling?.getListProfiling(context);
     await providerUser?.getMemberArea(context);
   }
 

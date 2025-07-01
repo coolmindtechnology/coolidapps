@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:coolappflutter/data/apps/app_sizes.dart';
 import 'package:coolappflutter/data/helpers/check_language.dart';
@@ -112,9 +113,9 @@ class _ScreenHasilKepribadianState extends State<ScreenHasilKepribadian> {
   }
 
   initLoad() async {
-    await context
-        .read<ProviderProfiling>()
-        .getDetailProfiling(context, widget.data?.idLogResult.toString() ?? "");
+    // await context
+    //     .read<ProviderProfiling>()
+    //     .getDetailProfiling(context, widget.data?.idLogResult.toString() ?? "");
     await context
         .read<ProviderProfiling>()
         .getShowProfiling(context, widget.data?.idLogResult.toString() ?? "");
@@ -153,7 +154,7 @@ class _ScreenHasilKepribadianState extends State<ScreenHasilKepribadian> {
   Widget build(BuildContext context) {
     return Consumer<ProviderProfiling>(
           builder: (context, value, child) {
-            bool isLoading = value.isShowDetail == true || value.isDetail == true;
+            bool isLoading = value.isShowDetail == true;
             return PopScope(
               onPopInvoked: (didPop) {
                 _stop();
@@ -270,16 +271,6 @@ class _ScreenHasilKepribadianState extends State<ScreenHasilKepribadian> {
                                       await PreferenceHandler.retrieveId();
                                       String? isID =
                                       await PreferenceHandler.retrieveIdLanguage();
-                                      // showDialog(
-                                      //     context: context,
-                                      //     barrierDismissible: false,
-                                      //     builder: (dialogcontext) {
-                                      //       return DownloadProgressDialog(
-                                      //           url: ApiEndpoint.donwnloadDetailPdf(
-                                      //               widget.data?.idLogResult ?? ""),
-                                      //           name:
-                                      //               "${widget.data?.profilingName}_CoolProfiling_Result.pdf");
-                                      //     });
                                       showModalBottomSheet(
                                           shape: const RoundedRectangleBorder(
                                             borderRadius: BorderRadius.only(
@@ -302,7 +293,7 @@ class _ScreenHasilKepribadianState extends State<ScreenHasilKepribadian> {
                                           });
                                     },
                                     color: primaryColor,
-                                    text: S.of(context).download_result,
+                                    text: S.of(context).download_pdf,
                                     icon: Image.asset('images/icDownload.png',width: 30.sp,),
                                   )
                                 ],
@@ -321,7 +312,7 @@ class _ScreenHasilKepribadianState extends State<ScreenHasilKepribadian> {
                                 onPressed: () {
                                   Nav.to(CertificateScreen(
                                       data: widget.data,
-                                      shareCode: value.dataShowDetail?.shareCode ?? ""));
+                                      shareCode: value.dataShowDetail?.shareCode ?? "",isUnder17: false,));
                                 },
                                 color: Colors.green,
                                 text: S.of(context).certificate,
@@ -368,7 +359,7 @@ class _ScreenHasilKepribadianState extends State<ScreenHasilKepribadian> {
                                     style: TextStyle(fontWeight: FontWeight.w600),
                                   ),
                                   SizedBox(
-                                    width: 300,
+                                    width: 280,
                                     child: Text(
                                         S.of(context).free_consultation_details,maxLines: 2,overflow: TextOverflow.ellipsis,),
                                   ),
@@ -387,33 +378,62 @@ class _ScreenHasilKepribadianState extends State<ScreenHasilKepribadian> {
                         isLoading ? shimmerButton() : Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            CustomIconButton(
-                              onTap: () {
-                                Nav.to(ResultDetail(data: widget.data,type: 'tipeKaya',));
+                              CustomIconButton(
+                              loading: value.isDetail,
+                              onTap: () async {
+                                await context
+                                    .read<ProviderProfiling>()
+                                    .getDetailProfiling(context, widget.data?.idLogResult.toString() ?? "","tipe_kaya");
+                                if(value.isDetail == false && value.isSuccesgetdetail == true ){
+                                  Nav.to(ResultDetail(data: widget.data,type: 'tipeKaya',));
+                                }
                               },
                               imagePath: 'images/profiling/icTipeKaya.png',
-                              text: S.of(context).wealth_type,
+                              text: S.of(context).rich_type,
                             ),
                             gapW10,
                             CustomIconButton(
-                              onTap: () {
-                                Nav.to(ResultDetail(data: widget.data,type: 'tipeOtak',));
+                              loading: value.isDetail,
+                              onTap: () async {
+                                await context
+                                    .read<ProviderProfiling>()
+                                    .getDetailProfiling(context, widget.data?.idLogResult.toString() ?? "","tipe_otak");
+                                if(value.isDetail == false && value.isSuccesgetdetail == true ){
+                                  Nav.to(ResultDetail(data: widget.data,type: 'tipeOtak',));
+                                }
                               },
                               imagePath: 'images/profiling/icTipeOtak.png',
                               text: S.of(context).brain_type,
                             ),
                             gapW10,
                             CustomIconButton(
-                              onTap: () {Nav.to(ResultDetail(data: widget.data,type: 'personality',));},
+                              loading: value.isDetail,
+                              onTap: () async {
+                                await context
+                                    .read<ProviderProfiling>()
+                                    .getDetailProfiling(context, widget.data?.idLogResult.toString() ?? "", "personality");
+                                if (value.isDetail == false && value.isSuccesgetdetail == true) {
+                                  Nav.to(ResultDetail(data: widget.data, type: 'personality'));
+                                }
+                              },
                               imagePath: 'images/profiling/icPersonality.png',
                               text: S.of(context).personality,
                             ),
                             gapW10,
                             CustomIconButton(
-                              onTap: () { Nav.to(ResultDetail(data: widget.data, type: 'family'));},
+                              loading: value.isDetail,
+                              onTap: () async {
+                                await context
+                                    .read<ProviderProfiling>()
+                                    .getDetailProfiling(context, widget.data?.idLogResult.toString() ?? "", "family");
+                                if (value.isDetail == false && value.isSuccesgetdetail == true) {
+                                  Nav.to(ResultDetail(data: widget.data, type: 'family'));
+                                }
+                              },
                               imagePath: 'images/profiling/icFamily.png',
                               text: S.of(context).family,
                             ),
+
                           ],
                         ),
                         gapH10,
@@ -421,24 +441,49 @@ class _ScreenHasilKepribadianState extends State<ScreenHasilKepribadian> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
                             CustomIconButton(
-                              onTap: () {Nav.to(ResultDetail(data: widget.data, type: 'polaBahagia'));},
+                              loading: value.isDetail,
+                              onTap: () async {
+                                await context
+                                    .read<ProviderProfiling>()
+                                    .getDetailProfiling(context, widget.data?.idLogResult.toString() ?? "", "polaBahagia");
+                                if (value.isDetail == false && value.isSuccesgetdetail == true) {
+                                  Nav.to(ResultDetail(data: widget.data, type: 'polaBahagia'));
+                                }
+                              },
                               imagePath: 'images/profiling/icPolaBahagia.png',
                               text: S.of(context).happiness_pattern,
                             ),
                             gapW10,
                             CustomIconButton(
-                              onTap: () {Nav.to(ResultDetail(data: widget.data, type: 'karir'));},
+                              loading: value.isDetail,
+                              onTap: () async {
+                                await context
+                                    .read<ProviderProfiling>()
+                                    .getDetailProfiling(context, widget.data?.idLogResult.toString() ?? "", "karir");
+                                if (value.isDetail == false && value.isSuccesgetdetail == true) {
+                                  Nav.to(ResultDetail(data: widget.data, type: 'karir'));
+                                }
+                              },
                               imagePath: 'images/profiling/icKarir.png',
                               text: S.of(context).career,
                             ),
                             gapW10,
                             CustomIconButton(
-                              onTap: () {Nav.to(ResultDetail(data: widget.data, type: 'polaBahagia'));},
+                              loading: value.isDetail,
+                              onTap: () async {
+                                await context
+                                    .read<ProviderProfiling>()
+                                    .getDetailProfiling(context, widget.data?.idLogResult.toString() ?? "", "polaInteraksi");
+                                if (value.isDetail == false && value.isSuccesgetdetail == true) {
+                                  Nav.to(ResultDetail(data: widget.data, type: 'polaBahagia'));
+                                }
+                              },
                               imagePath: 'images/profiling/icPolaInteraksi.png',
                               text: S.of(context).social_interaction_pattern,
                             ),
                             gapW10,
                             CustomIconButton(
+                              loading: value.isDetail,
                               onTap: () {Nav.to(MenuTentangProfil(data: widget.data,));},
                               imagePath: 'images/profiling/icLainnya.png',
                               text: S.of(context).others,
@@ -453,7 +498,7 @@ class _ScreenHasilKepribadianState extends State<ScreenHasilKepribadian> {
                             onTap: () {
                               if (value.detailProfiling?.publicFigure != null &&
                               value.detailProfiling!.publicFigure!.isNotEmpty) {
-                              Nav.to(TokohPage(publicFigures: value.detailProfiling!.publicFigure!,));
+                              Nav.to(TokohPage(publicFigures: value.detailProfiling!.publicFigure!,isUnder17: false,));
                               }
                               },
                             child: isLoading  ? shimmerIconRow() : Row(
@@ -673,6 +718,7 @@ class _ScreenHasilKepribadianState extends State<ScreenHasilKepribadian> {
                     ],
                   ),
                 ),
+                floatingActionButton: const CustomFAB(),
               ),
             );
           }
@@ -705,34 +751,38 @@ class CustomIconButton extends StatelessWidget {
   final VoidCallback onTap;
   final String imagePath;
   final String text;
+  final bool loading;
 
   const CustomIconButton({
     Key? key,
     required this.onTap,
     required this.imagePath,
     required this.text,
+    required this.loading,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            height: 50,
-            width: 50,
-            decoration: BoxDecoration(
-              color: lightBlue,
-              borderRadius: BorderRadius.circular(15),
+    return Expanded(
+      child: InkWell(
+        onTap: loading ? null : onTap,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              height: 50,
+              width: 50,
+              decoration: BoxDecoration(
+                color: loading? Colors.black12 : lightBlue,
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Image.asset(imagePath),
             ),
-            child: Image.asset(imagePath),
-          ),
-          SizedBox(
-              width: 80,
-              child: Text(text,overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: 12.sp),))
-        ],
+            SizedBox(
+                width: 80,
+                child: Text(text,overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: 12.sp),textAlign: TextAlign.center,))
+          ],
+        ),
       ),
     );
   }

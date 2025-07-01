@@ -1,5 +1,6 @@
 import 'package:coolappflutter/data/provider/provider_profiling.dart';
 import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/profiling/profiling%20dashboard.dart';
 import 'package:coolappflutter/presentation/pages/profiling/screen_feature_kepribadian.dart';
 import 'package:coolappflutter/presentation/pages/main/nav_home.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
@@ -38,28 +39,30 @@ class _LoadingPaymentSaldoState extends State<LoadingPaymentSaldo> {
           );
         }
         if (provider.resUpdateTransactionProfiling?.success == true) {
-          return _buildSuccessWidget(
-              context, widget.onUpdate, widget.isMultiple);
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+
+            Future.delayed(const Duration(seconds: 3), () {
+              widget.onUpdate();
+              Nav.toAll(ProfilingDashboard());
+            });
+          });
+          return _buildSuccessWidget(context);
         } else {
-          return _buildFailedWidget(
-              context, widget.onUpdate, widget.isMultiple);
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+
+            Future.delayed(const Duration(seconds: 3), () {
+              widget.onUpdate();
+              Nav.toAll(NavMenuScreen());
+            });
+          });
+          return _buildFailedWidget(context);
         }
       }),
     );
   }
 
   Widget _buildSuccessWidget(
-      BuildContext context, Function() onUpdate, bool isMultiple) {
-    onUpdate();
-    Future.delayed(const Duration(seconds: 3), () {
-      // Nav.replace(const ScreenFeatureKepribadian());
-      // Nav.toAll(const NavMenuScreen());
-      Nav.back();
-      if (isMultiple) {
-        Nav.back();
-      }
-    });
-
+      BuildContext context) {
     return Scaffold(
       body: Center(
         child: Column(
@@ -90,18 +93,7 @@ class _LoadingPaymentSaldoState extends State<LoadingPaymentSaldo> {
   }
 
   Widget _buildFailedWidget(
-      BuildContext context, Function() onUpdate, bool isMultiple) {
-    onUpdate();
-    Future.delayed(const Duration(seconds: 3), () {
-      // Nav.replace(const ScreenFeatureKepribadian());
-      // Nav.toAll(const NavMenuScreen());
-      Nav.back();
-      Nav.back();
-      if (isMultiple) {
-        Nav.back();
-      }
-    });
-
+      BuildContext context) {
     return Scaffold(
       body: Center(
         child: Column(

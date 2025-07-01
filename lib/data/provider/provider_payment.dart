@@ -55,15 +55,47 @@ class ProviderPayment extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool isLoadingListTopUp = false;
+  bool isLoadingListPro = false;
   Future<void> getListTopUp(
     BuildContext context,
   ) async {
-    isLoadingListTopUp = true;
+    isLoadingListPro = true;
     notifyListeners();
 
     Either<Failure, ResGetDataTopUp> response =
         await repoPayment.getListTopUp();
+
+    isLoadingListPro = false;
+    notifyListeners();
+
+    response.when(error: (e) {
+      debugPrint("tes topup3 ${e.toString()}");
+      NotificationUtils.showDialogError(context, () {
+        Nav.back();
+      },
+          widget: Text(
+            e.message,
+            textAlign: TextAlign.center,
+          ));
+    }, success: (res) async {
+      if (res.success == true) {
+        listDataListTopUp = res.data;
+        dataGlobal.dataTopUp = res;
+        notifyListeners();
+      }
+    });
+    notifyListeners();
+  }
+
+  bool isLoadingListTopUp = false;
+  Future<void> cekListTopUp(
+      BuildContext context,
+      ) async {
+    isLoadingListTopUp = true;
+    notifyListeners();
+
+    Either<Failure, ResGetDataTopUp> response =
+    await repoPayment.getListTopUp();
 
     isLoadingListTopUp = false;
     notifyListeners();
@@ -79,7 +111,6 @@ class ProviderPayment extends ChangeNotifier {
           ));
     }, success: (res) async {
       if (res.success == true) {
-        listDataListTopUp = res.data;
         Nav.to(const TopUpPage());
         notifyListeners();
       }

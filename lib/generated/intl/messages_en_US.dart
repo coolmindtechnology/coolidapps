@@ -110,7 +110,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Choose your session time"),
         "Choose_time_consult": MessageLookupByLibrary.simpleMessage(
             "You can choose when it\'s convenient to consult"),
-        "Choose_your_consultant": MessageLookupByLibrary.simpleMessage(
+        "Choose_yprofil_miripour_consultant": MessageLookupByLibrary.simpleMessage(
             "Choose your consultant carefully, you will work with them for the next 3 days"),
         "Classes_Training": MessageLookupByLibrary.simpleMessage(
             "Classes, training, or COOL seminars are included. Provide supporting documents such as certificates"),
@@ -153,7 +153,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Cool_Points": MessageLookupByLibrary.simpleMessage("Cool Points"),
         "Coolapp_consultation_space": MessageLookupByLibrary.simpleMessage(
             "COOLAPP now provides a professional consultation space for you"),
-        "Curhat": MessageLookupByLibrary.simpleMessage("Share your feelings"),
+        "Curhat": MessageLookupByLibrary.simpleMessage("Confession"),
         "Current_Language":
             MessageLookupByLibrary.simpleMessage("Current Language"),
         "Delete_Account":
@@ -175,9 +175,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Earn money by becoming an affiliator"),
         "Ebook": MessageLookupByLibrary.simpleMessage("E-Book"),
-        "Edit_profile": MessageLookupByLibrary.simpleMessage("Edit Profile"),
         "Email_Input": MessageLookupByLibrary.simpleMessage("Enter your email"),
-        "Emotion_in": MessageLookupByLibrary.simpleMessage("Emotion In"),
         "Enter_referal_code": MessageLookupByLibrary.simpleMessage(
             "Have a promoter you\'d like to support? Enter their referral code below!"),
         "Experience": MessageLookupByLibrary.simpleMessage("Experience"),
@@ -193,8 +191,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Filter by Date"),
         "Follow_on_Coolchat":
             MessageLookupByLibrary.simpleMessage("Follow on Coolchat"),
-        "Follower": MessageLookupByLibrary.simpleMessage("Follower"),
-        "Following": MessageLookupByLibrary.simpleMessage("Following"),
         "Free_3_times":
             MessageLookupByLibrary.simpleMessage("Free for 3 times!"),
         "Free_consult_3_days": MessageLookupByLibrary.simpleMessage(
@@ -229,10 +225,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "Member": MessageLookupByLibrary.simpleMessage("Member"),
         "Minutes_Left": MessageLookupByLibrary.simpleMessage("minutes left"),
         "My_Profiling": MessageLookupByLibrary.simpleMessage("My Profiling"),
-        "My_Profiling_Results":
-            MessageLookupByLibrary.simpleMessage("My Profiling Results"),
-        "My_Subscription":
-            MessageLookupByLibrary.simpleMessage("My Subscription"),
         "New_Confiding_Session":
             MessageLookupByLibrary.simpleMessage("New Confiding Session"),
         "New_Email_Input":
@@ -258,7 +250,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "Open_all_topics_now":
             MessageLookupByLibrary.simpleMessage("Open all topics!"),
         "Or": MessageLookupByLibrary.simpleMessage("Or"),
-        "Others": MessageLookupByLibrary.simpleMessage("Others"),
         "Overview": MessageLookupByLibrary.simpleMessage("Overview"),
         "PARENTING": MessageLookupByLibrary.simpleMessage("PARENTING"),
         "PARENTING_desc": MessageLookupByLibrary.simpleMessage(
@@ -281,7 +272,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "Please_select_the_promoter_you_wish_to_support":
             MessageLookupByLibrary.simpleMessage(
                 "Please select the promoter you wish to support."),
-        "Post": MessageLookupByLibrary.simpleMessage("Post"),
         "Price": MessageLookupByLibrary.simpleMessage("Price"),
         "Proceed": MessageLookupByLibrary.simpleMessage("Proceed"),
         "Rating_Given": MessageLookupByLibrary.simpleMessage("Rating Given"),
@@ -330,10 +320,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Session Details"),
         "Session_Summary":
             MessageLookupByLibrary.simpleMessage("Session Summary"),
-        "Setting": MessageLookupByLibrary.simpleMessage("Setting"),
         "Share_Experience":
             MessageLookupByLibrary.simpleMessage("Share your experience"),
-        "Share_Link": MessageLookupByLibrary.simpleMessage("Share link"),
+        "Share_Link":
+            MessageLookupByLibrary.simpleMessage("Share Refferal Code"),
         "Short_Time": MessageLookupByLibrary.simpleMessage(
             "It was nice knowing you for this short time, we will miss you"),
         "Skip": MessageLookupByLibrary.simpleMessage("Skip"),
@@ -352,9 +342,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Tell_Us_What_You_Gained":
             MessageLookupByLibrary.simpleMessage("Tell us what you gained"),
         "Terms_Conditions":
-            MessageLookupByLibrary.simpleMessage("Terms & Conditions"),
+            MessageLookupByLibrary.simpleMessage("Terms and Conditions"),
         "Terms_and_Conditions":
-            MessageLookupByLibrary.simpleMessage("Terms & Conditions"),
+            MessageLookupByLibrary.simpleMessage("Terms and Conditions"),
         "Thank_You_For_Registering": MessageLookupByLibrary.simpleMessage(
             "Thank you for registering as a consultant, please check the submission status on the consultation page"),
         "Thank_You_For_Your_Report":
@@ -407,6 +397,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Your story helps us to improve"),
         "Your_Submission":
             MessageLookupByLibrary.simpleMessage("Your Submission"),
+        "about_your_profile":
+            MessageLookupByLibrary.simpleMessage("About your profile"),
         "access_denied": MessageLookupByLibrary.simpleMessage(
             "Access denied. You do not have permission to perform this action."),
         "account_disabled_contact_admin": MessageLookupByLibrary.simpleMessage(
@@ -417,20 +409,58 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Account Success"),
         "achieve_success_in_life": MessageLookupByLibrary.simpleMessage(
             "Achieve success in life through\nthe best personality application"),
+        "action": MessageLookupByLibrary.simpleMessage("Action"),
+        "ada": MessageLookupByLibrary.simpleMessage("Available"),
         "add": MessageLookupByLibrary.simpleMessage("Add"),
         "add_data_first": MessageLookupByLibrary.simpleMessage(
             "Please add data first through the button below"),
+        "add_icon_for_profiling": MessageLookupByLibrary.simpleMessage(
+            "Add Icon for your profiling!"),
+        "add_profile": MessageLookupByLibrary.simpleMessage("Add Profile"),
         "address": MessageLookupByLibrary.simpleMessage("Address"),
         "affiliate": MessageLookupByLibrary.simpleMessage("Affiliate"),
+        "affiliate_agreement": MessageLookupByLibrary.simpleMessage(
+            "Affiliate Program Agreement:"),
+        "affiliate_program":
+            MessageLookupByLibrary.simpleMessage("Affiliate Program:"),
+        "affiliator_account_notice": MessageLookupByLibrary.simpleMessage(
+            "An account that has become an affiliator CANNOT be used for NEW profiling"),
+        "affiliator_code":
+            MessageLookupByLibrary.simpleMessage("Affiliator Code"),
         "age": MessageLookupByLibrary.simpleMessage("Age"),
+        "agent_max_members": MessageLookupByLibrary.simpleMessage(
+            "The agent already has the maximum number of members"),
+        "agree_terms_conditions": MessageLookupByLibrary.simpleMessage(
+            "By reading this, I agree to the terms & conditions"),
+        "ajakan": MessageLookupByLibrary.simpleMessage(
+            "Want to know your brain type? Let\'s create your profile now!"),
+        "ajakan_mengenal_diri": MessageLookupByLibrary.simpleMessage(
+            "Let\'s get to know yourself better"),
+        "akandidengar": MessageLookupByLibrary.simpleMessage("Will Hear :"),
+        "aktivitas": MessageLookupByLibrary.simpleMessage("Activity"),
+        "aktivitas_bulan_ini":
+            MessageLookupByLibrary.simpleMessage("This Month\'s Activity"),
+        "aktivitas_terbaru":
+            MessageLookupByLibrary.simpleMessage("Latest Activity"),
         "all": MessageLookupByLibrary.simpleMessage("All"),
         "already_have_an_account":
             MessageLookupByLibrary.simpleMessage("Already have an account?"),
         "amount": MessageLookupByLibrary.simpleMessage("Total"),
+        "anggota_terbaru":
+            MessageLookupByLibrary.simpleMessage("Newest Member"),
         "approvalSuccessful":
             MessageLookupByLibrary.simpleMessage("Approval Successful"),
+        "approve": MessageLookupByLibrary.simpleMessage("approve"),
+        "assetNotAvailable":
+            MessageLookupByLibrary.simpleMessage("Asset Not Available"),
+        "asset_type": MessageLookupByLibrary.simpleMessage("Asset Type"),
+        "attention": MessageLookupByLibrary.simpleMessage("ATTENTION!"),
         "aura_type": MessageLookupByLibrary.simpleMessage("Type Aura"),
+        "ayo_selfie":
+            MessageLookupByLibrary.simpleMessage("Let\'s take a selfie!"),
+        "baca_buku": MessageLookupByLibrary.simpleMessage("Read Book"),
         "back": MessageLookupByLibrary.simpleMessage("Back"),
+        "balas": MessageLookupByLibrary.simpleMessage("Reply"),
         "bank_account": MessageLookupByLibrary.simpleMessage("Bank Account"),
         "bank_account_not_found":
             MessageLookupByLibrary.simpleMessage("Bank account not found"),
@@ -439,19 +469,32 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Become Affiliate"),
         "become_promotor":
             MessageLookupByLibrary.simpleMessage("Become a Promoter"),
+        "biodata": MessageLookupByLibrary.simpleMessage("Biodata"),
+        "blood_group": MessageLookupByLibrary.simpleMessage("Blood Group"),
         "blood_type": MessageLookupByLibrary.simpleMessage("Blood Type"),
+        "brain": MessageLookupByLibrary.simpleMessage("Brain"),
         "brain_activation":
             MessageLookupByLibrary.simpleMessage("Brain Activation"),
         "brain_subscription":
             MessageLookupByLibrary.simpleMessage("Brain Subscription"),
         "brain_type": MessageLookupByLibrary.simpleMessage("Brain Type"),
+        "brain_type_label": MessageLookupByLibrary.simpleMessage("Brain Type"),
+        "buku_premium": MessageLookupByLibrary.simpleMessage("Premium Book"),
         "calculation_results":
             MessageLookupByLibrary.simpleMessage("Calculation Results"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "cancellation_changes": MessageLookupByLibrary.simpleMessage(
+            "Cancellation and Changes: We reserve the right to modify or cancel the agreement with notice."),
         "cannotAcceptConsultation":
             MessageLookupByLibrary.simpleMessage("Cannot accept consultation"),
         "cannot_be_empty":
             MessageLookupByLibrary.simpleMessage("Cannot be empty"),
+        "career": MessageLookupByLibrary.simpleMessage("Career"),
+        "cari_judul_buku":
+            MessageLookupByLibrary.simpleMessage("Search Book Title"),
+        "cek_form_register": MessageLookupByLibrary.simpleMessage(
+            "Please check the registration form again"),
+        "ceritaAnda": MessageLookupByLibrary.simpleMessage("Your Story"),
         "certificate": MessageLookupByLibrary.simpleMessage("Certificate"),
         "change_language":
             MessageLookupByLibrary.simpleMessage("Change Language"),
@@ -459,6 +502,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Change Password"),
         "chat": MessageLookupByLibrary.simpleMessage("Chat"),
         "check_account": MessageLookupByLibrary.simpleMessage("Check Account"),
+        "check_profiling_data": MessageLookupByLibrary.simpleMessage(
+            "Let\'s review the profiling data you want to create, we don\'t want any mistakes, do we?"),
         "check_your_self_worth":
             MessageLookupByLibrary.simpleMessage("Check your\nself-worth"),
         "choose": MessageLookupByLibrary.simpleMessage("Select"),
@@ -478,8 +523,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "come_get_to_know_yourself":
             MessageLookupByLibrary.simpleMessage("Get to know yourself"),
         "coming_soon": MessageLookupByLibrary.simpleMessage("Coming Soon"),
+        "commission_info": MessageLookupByLibrary.simpleMessage(
+            "Commission: Paid based on actions generated from your affiliate link."),
+        "communication": MessageLookupByLibrary.simpleMessage("Communication"),
         "complete_profile_before_joining": MessageLookupByLibrary.simpleMessage(
             "Please complete your profile & profiling according to your profile before joining Coolchat"),
+        "complete_profiling": MessageLookupByLibrary.simpleMessage(
+            "Complete profiling & get Free consultation"),
+        "confirm_bank_account": MessageLookupByLibrary.simpleMessage(
+            "Are you sure about this bank account number?"),
         "confirm_location":
             MessageLookupByLibrary.simpleMessage("Confirm Location"),
         "confirmation": MessageLookupByLibrary.simpleMessage("Confirmation"),
@@ -490,6 +542,10 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Congratulations, you have become a regular member of COOL Apps"),
         "congratulations":
             MessageLookupByLibrary.simpleMessage("Congratulations!"),
+        "congratulationsYou": MessageLookupByLibrary.simpleMessage(
+            "CONGRATULATIONS!! YOU ARE A \n"),
+        "congratulations_affiliator": MessageLookupByLibrary.simpleMessage(
+            "Congratulations! You are now part of our contributors"),
         "connection_error": MessageLookupByLibrary.simpleMessage(
             "Connection Error. Please check your network connection."),
         "connection_lost": MessageLookupByLibrary.simpleMessage(
@@ -502,6 +558,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Create New Password for\nlogging into the application"),
         "create_password":
             MessageLookupByLibrary.simpleMessage("Create Password"),
+        "creative": MessageLookupByLibrary.simpleMessage("Creative"),
         "credit_card": MessageLookupByLibrary.simpleMessage("Credit Card"),
         "currency": MessageLookupByLibrary.simpleMessage("USD"),
         "current_password":
@@ -509,6 +566,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "customer": MessageLookupByLibrary.simpleMessage("Customer"),
         "daily_limit_reached": MessageLookupByLibrary.simpleMessage(
             "You have reached today\'s limit of 3 plays"),
+        "data_deletion_warning": MessageLookupByLibrary.simpleMessage(
+            "Deleted data cannot be recovered, are you sure?"),
         "date": MessageLookupByLibrary.simpleMessage("Date"),
         "date_of_birth": MessageLookupByLibrary.simpleMessage("Date of Birth"),
         "debit_card": MessageLookupByLibrary.simpleMessage("Debit Card"),
@@ -516,14 +575,27 @@ class MessageLookup extends MessageLookupByLibrary {
         "delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "delete_account":
             MessageLookupByLibrary.simpleMessage("Delete Account"),
+        "delete_profiling_data":
+            MessageLookupByLibrary.simpleMessage("DELETE PROFILING DATA?"),
+        "deposit_info": MessageLookupByLibrary.simpleMessage(
+            "Deposit: A deposit of 2,000,000 IDR is required to join."),
+        "detailLogError":
+            MessageLookupByLibrary.simpleMessage("Error Log Detail"),
+        "detail_aktivitas":
+            MessageLookupByLibrary.simpleMessage("Activity Detail"),
         "develop_yourself_by_exploring": MessageLookupByLibrary.simpleMessage(
             "Develop yourself by exploring the available online books. Be a better version of yourself, anytime and anywhere."),
-        "digital_ID": MessageLookupByLibrary.simpleMessage("digital ID"),
+        "digitalid": MessageLookupByLibrary.simpleMessage("Digital ID"),
         "discount": MessageLookupByLibrary.simpleMessage("Discount"),
         "district": MessageLookupByLibrary.simpleMessage("District"),
         "dont_have_an_account":
             MessageLookupByLibrary.simpleMessage("Don\'t Have an Account?"),
+        "double_check_bank_number": MessageLookupByLibrary.simpleMessage(
+            "Make sure the entered number is yours. You can change the bank account number in settings."),
         "download": MessageLookupByLibrary.simpleMessage("Download"),
+        "download_pdf": MessageLookupByLibrary.simpleMessage("Download PDF"),
+        "download_result":
+            MessageLookupByLibrary.simpleMessage("Download Result"),
         "due_date": MessageLookupByLibrary.simpleMessage("Due"),
         "earnedCommission":
             MessageLookupByLibrary.simpleMessage("Earned Commission"),
@@ -531,10 +603,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("Email"),
         "email_not_registered": MessageLookupByLibrary.simpleMessage(
             "The entered email is not registered in the system"),
+        "emotion": MessageLookupByLibrary.simpleMessage("Emotion"),
         "enjoy_all_access":
             MessageLookupByLibrary.simpleMessage("Enjoy all Access"),
         "enter_a_value_between_2_and_10":
             MessageLookupByLibrary.simpleMessage("Enter a value between 2 and"),
+        "enter_agent_code":
+            MessageLookupByLibrary.simpleMessage("Enter the Agent Code"),
         "enter_email": MessageLookupByLibrary.simpleMessage(
             "Enter your email\nto receive verification"),
         "enter_phone_number": MessageLookupByLibrary.simpleMessage(
@@ -551,8 +626,17 @@ class MessageLookup extends MessageLookupByLibrary {
             "Are you sure you want to\nexit the application?"),
         "failed_load_qr_code": MessageLookupByLibrary.simpleMessage(
             "Failed to load QR code, please refresh the page"),
+        "family": MessageLookupByLibrary.simpleMessage("Family"),
         "feature_unavailable_affiliate": MessageLookupByLibrary.simpleMessage(
             "This feature is not available if you are an affiliator"),
+        "figures": MessageLookupByLibrary.simpleMessage("Figures"),
+        "figures_with_same_brain_type": MessageLookupByLibrary.simpleMessage(
+            "Figures with the same brain type"),
+        "figures_with_same_personality": MessageLookupByLibrary.simpleMessage(
+            "Figures with the same personality"),
+        "figures_with_same_type":
+            MessageLookupByLibrary.simpleMessage("Figures with the same type"),
+        "financial": MessageLookupByLibrary.simpleMessage("Financial"),
         "follow": MessageLookupByLibrary.simpleMessage("Follow"),
         "followers": MessageLookupByLibrary.simpleMessage("Followers"),
         "following": MessageLookupByLibrary.simpleMessage("Following"),
@@ -562,52 +646,124 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Forgot Password"),
         "form": MessageLookupByLibrary.simpleMessage("Form"),
         "free": MessageLookupByLibrary.simpleMessage("Free"),
+        "free_consultation":
+            MessageLookupByLibrary.simpleMessage("FREE CONSULTATION 3x"),
+        "free_consultation_details": MessageLookupByLibrary.simpleMessage(
+            "Get free consultation up to 3 times in 3 days"),
         "free_version_limit": MessageLookupByLibrary.simpleMessage(
             "The free version can only be listened to for the first 5 minutes. Please subscribe to listen to the entire content."),
+        "from": MessageLookupByLibrary.simpleMessage("From"),
+        "gambar": MessageLookupByLibrary.simpleMessage("Image:"),
+        "ganti_foto": MessageLookupByLibrary.simpleMessage("Change Photo"),
         "get_know_yourself": MessageLookupByLibrary.simpleMessage(
             "Get to know yourself more quickly, precisely and accurately"),
         "get_lots_of_benefits_by_subcribing":
             MessageLookupByLibrary.simpleMessage(
                 "Get lots of benefits by subscribing"),
+        "gratis_untuk_kamu":
+            MessageLookupByLibrary.simpleMessage("Free for you!"),
+        "great_figures_with_same_brain_type":
+            MessageLookupByLibrary.simpleMessage(
+                "Great! There are figures with the same brain type as you"),
+        "green": MessageLookupByLibrary.simpleMessage("Green"),
+        "happiness_pattern":
+            MessageLookupByLibrary.simpleMessage("Happiness Pattern"),
         "have_not_received_the_otp": MessageLookupByLibrary.simpleMessage(
             "Haven\'t received the OTP code yet?"),
         "have_you_ever_used_coolApps": MessageLookupByLibrary.simpleMessage(
             "Have you ever used CoolApps?"),
+        "healing_pattern":
+            MessageLookupByLibrary.simpleMessage("Healing Pattern"),
         "hello_world": MessageLookupByLibrary.simpleMessage("Hello World"),
         "history": MessageLookupByLibrary.simpleMessage("History"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "how_much_data_do_you_want_to_create":
             MessageLookupByLibrary.simpleMessage(
                 "How much data do you want to create?"),
+        "i_understand": MessageLookupByLibrary.simpleMessage("I Understand"),
+        "id": MessageLookupByLibrary.simpleMessage("ID:"),
         "id_number": MessageLookupByLibrary.simpleMessage("ID Number"),
+        "identity_confirmation":
+            MessageLookupByLibrary.simpleMessage("Identity Confirmation"),
         "if_it_is_less_than_maximum_amount_and_more_than_minimum_amount":
             MessageLookupByLibrary.simpleMessage(
                 "If it is less than maximum amount and more than minimum amount, multiples of the minimum amount apply."),
         "income": MessageLookupByLibrary.simpleMessage("Income"),
+        "inputfavcode": MessageLookupByLibrary.simpleMessage(
+            "Enter your favorite user\'s promo code"),
+        "instruksi_scan_qr": MessageLookupByLibrary.simpleMessage(
+            "Please Scan the QR Code Using CoolApp"),
         "internal_server_error": MessageLookupByLibrary.simpleMessage(
             "Internal Server Error. Please try again later."),
+        "invalid_agent_code":
+            MessageLookupByLibrary.simpleMessage("Invalid agent code!"),
         "invalid_phone_number":
             MessageLookupByLibrary.simpleMessage("Invalid Phone Number"),
         "invalid_request": MessageLookupByLibrary.simpleMessage(
             "Invalid request. Please check your request parameters."),
+        "invoice": MessageLookupByLibrary.simpleMessage("Invoice"),
         "is_adalah": MessageLookupByLibrary.simpleMessage("is"),
         "is_the_data_entered_correct": MessageLookupByLibrary.simpleMessage(
             "is the data entered correct?"),
+        "isiIdentitas":
+            MessageLookupByLibrary.simpleMessage("Input your Identity"),
+        "isiSemuaKolom":
+            MessageLookupByLibrary.simpleMessage("Please fill in all fields!"),
+        "isiTanggalLahir":
+            MessageLookupByLibrary.simpleMessage("Enter your birth date"),
+        "isi_identitas":
+            MessageLookupByLibrary.simpleMessage("Enter your identity"),
+        "isi_ktp": MessageLookupByLibrary.simpleMessage("Enter your ID number"),
+        "isi_nama_lengkap":
+            MessageLookupByLibrary.simpleMessage("Enter your full name"),
         "items": MessageLookupByLibrary.simpleMessage("Items"),
+        "jadi_anggota_pada": MessageLookupByLibrary.simpleMessage("Joined on"),
+        "join_now": MessageLookupByLibrary.simpleMessage(
+            "Join now and start earning extra income!"),
         "just": MessageLookupByLibrary.simpleMessage("just"),
+        "karakter": MessageLookupByLibrary.simpleMessage("2. Character"),
+        "kata_kunci": MessageLookupByLibrary.simpleMessage("KEYWORDS"),
+        "kebutuhan": MessageLookupByLibrary.simpleMessage("Need"),
+        "kelebihan": MessageLookupByLibrary.simpleMessage("3. Strengths"),
+        "kelemahan": MessageLookupByLibrary.simpleMessage("4. Weaknesses"),
         "keyword": MessageLookupByLibrary.simpleMessage("Keyword"),
+        "kirimLaporanBaru":
+            MessageLookupByLibrary.simpleMessage("Submit New Report"),
+        "kode_anda": MessageLookupByLibrary.simpleMessage("Your Code"),
+        "kode_saya": MessageLookupByLibrary.simpleMessage("My Code"),
+        "kodepromosi": MessageLookupByLibrary.simpleMessage("Promo Code"),
+        "komisi": MessageLookupByLibrary.simpleMessage("Commission"),
+        "komisiKu": MessageLookupByLibrary.simpleMessage("My Commission"),
+        "komisiku": MessageLookupByLibrary.simpleMessage("My Commission"),
+        "lakukanSekarang": MessageLookupByLibrary.simpleMessage("Do it Now"),
+        "lakukan_pembayaran":
+            MessageLookupByLibrary.simpleMessage("Make Payment"),
+        "lakukan_pembayaran_pertanyaan":
+            MessageLookupByLibrary.simpleMessage("Make a Payment?"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "lanjut": MessageLookupByLibrary.simpleMessage("Next"),
+        "lanjutt": MessageLookupByLibrary.simpleMessage("Continue"),
+        "lanjuttampa":
+            MessageLookupByLibrary.simpleMessage("Continue Without Code"),
         "latest_book": MessageLookupByLibrary.simpleMessage("Latest book"),
         "lets_develop_ourselves":
             MessageLookupByLibrary.simpleMessage("Let\'s develop ourselves"),
         "list": MessageLookupByLibrary.simpleMessage("List"),
+        "list_semua_buku_gratis":
+            MessageLookupByLibrary.simpleMessage("List All Free Books"),
+        "list_semua_buku_premium":
+            MessageLookupByLibrary.simpleMessage("List All Premium Books"),
         "listen_brain_40_times": MessageLookupByLibrary.simpleMessage(
             "Please listen to the brain according to your character 40 times first. After that, you can subscribe to others."),
         "loading": MessageLookupByLibrary.simpleMessage("Loading..."),
+        "logLaporan": MessageLookupByLibrary.simpleMessage("Report Log"),
+        "logPermasalahanAnda":
+            MessageLookupByLibrary.simpleMessage("Your Problem Report Log"),
         "logging_in": MessageLookupByLibrary.simpleMessage("Logging In..."),
+        "logic": MessageLookupByLibrary.simpleMessage("Logic"),
         "logout": MessageLookupByLibrary.simpleMessage("Logout"),
         "manual_input": MessageLookupByLibrary.simpleMessage("Manual Input"),
+        "master": MessageLookupByLibrary.simpleMessage("Master"),
         "max_deposit": MessageLookupByLibrary.simpleMessage("Maximum deposit"),
         "max_withdrawal":
             MessageLookupByLibrary.simpleMessage("Maximum withdrawal"),
@@ -624,18 +780,28 @@ class MessageLookup extends MessageLookupByLibrary {
         "min_deposit": MessageLookupByLibrary.simpleMessage("Minimum deposit"),
         "min_withdrawal":
             MessageLookupByLibrary.simpleMessage("Minimum withdrawal"),
+        "minimalwd": MessageLookupByLibrary.simpleMessage("Minimum Withdrawal"),
+        "minimumWdCommision": MessageLookupByLibrary.simpleMessage(
+            "Minimum withdrawal amount: 10x Commision"),
         "monthly": MessageLookupByLibrary.simpleMessage("Monthly"),
+        "motivasi": MessageLookupByLibrary.simpleMessage("1. Motivation"),
+        "mulai": MessageLookupByLibrary.simpleMessage(
+            "Start to Recognize Your Personality"),
         "multiple": MessageLookupByLibrary.simpleMessage("Multiple"),
         "my_balance": MessageLookupByLibrary.simpleMessage("My Balance"),
         "name": MessageLookupByLibrary.simpleMessage("Name"),
+        "nanti": MessageLookupByLibrary.simpleMessage("Later"),
+        "nantiSaja": MessageLookupByLibrary.simpleMessage("Later"),
         "negative_balance_description": MessageLookupByLibrary.simpleMessage(
             "A negative balance is incurred when a member performs profiling but exceeds the available affiliate balance. This deficit is considered a debt (negative balance). When the affiliate tops up, their balance will automatically be deducted according to the negative balance."),
+        "new_profiling": MessageLookupByLibrary.simpleMessage("New Profiling"),
         "next": MessageLookupByLibrary.simpleMessage("Next"),
         "ninety_days_ago": MessageLookupByLibrary.simpleMessage("90 Days Ago"),
         "no": MessageLookupByLibrary.simpleMessage("No"),
         "no_data": MessageLookupByLibrary.simpleMessage("No data"),
         "no_deposit_fee": MessageLookupByLibrary.simpleMessage(
             "You have not made a deposit fee. Please make a payment first"),
+        "no_dont": MessageLookupByLibrary.simpleMessage("No, Don\'t"),
         "no_profiling_yet":
             MessageLookupByLibrary.simpleMessage("No profiling yet"),
         "no_this_is_the_first_time":
@@ -646,11 +812,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "not_now_thankyou":
             MessageLookupByLibrary.simpleMessage("Not Now, Thank You"),
         "notification": MessageLookupByLibrary.simpleMessage("Notification"),
+        "now_listening": MessageLookupByLibrary.simpleMessage("Now Listening:"),
         "number_not_registered": MessageLookupByLibrary.simpleMessage(
             "The entered number is not registered in the system"),
+        "oke": MessageLookupByLibrary.simpleMessage("Okay"),
+        "orange": MessageLookupByLibrary.simpleMessage("Orange"),
         "order_id": MessageLookupByLibrary.simpleMessage("Order ID"),
         "other": MessageLookupByLibrary.simpleMessage("Other"),
         "other_pay": MessageLookupByLibrary.simpleMessage("Other Pay"),
+        "others": MessageLookupByLibrary.simpleMessage("Others"),
         "otp_code": MessageLookupByLibrary.simpleMessage("OTP Code"),
         "otp_code_has_been_sent": m1,
         "otp_code_has_been_sent_email": m2,
@@ -697,8 +867,28 @@ class MessageLookup extends MessageLookupByLibrary {
         "payment_with_cool_balance_was_successful":
             MessageLookupByLibrary.simpleMessage(
                 "Payment with Cool balance was successful"),
+        "pending": MessageLookupByLibrary.simpleMessage("Pending"),
+        "peringatan_pembayaran_belum_dilakukan":
+            MessageLookupByLibrary.simpleMessage(
+                "if payment has not been made"),
+        "peringatan_penghapusan_profiling":
+            MessageLookupByLibrary.simpleMessage(
+                "Profiling data will be deleted after"),
         "personality": MessageLookupByLibrary.simpleMessage("Personality"),
+        "personalityy": MessageLookupByLibrary.simpleMessage("My Personality!"),
+        "pesan_selamat": MessageLookupByLibrary.simpleMessage(
+            "Congratulations! You are a...."),
+        "petunjuk_qr": MessageLookupByLibrary.simpleMessage(
+            "Show this QR Code to facilitate your affiliation process."),
         "phone_number": MessageLookupByLibrary.simpleMessage("Phone number"),
+        "pilihGambar": MessageLookupByLibrary.simpleMessage(
+            "Choose image from gallery or camera"),
+        "pilihGolonganDarah":
+            MessageLookupByLibrary.simpleMessage("Choose your blood type"),
+        "pilihKategoriDanDeskripsi": MessageLookupByLibrary.simpleMessage(
+            "Please select category and enter description"),
+        "pin_lokasi": MessageLookupByLibrary.simpleMessage(
+            "Please pin your location first"),
         "pindahkan_saldo":
             MessageLookupByLibrary.simpleMessage("Transfer Balance"),
         "play_audio": MessageLookupByLibrary.simpleMessage("Play Audio"),
@@ -720,12 +910,21 @@ class MessageLookup extends MessageLookupByLibrary {
         "plese_profiling_first_before_joining_coolchat":
             MessageLookupByLibrary.simpleMessage(
                 "Please profile first before joining Coolchat"),
+        "points": MessageLookupByLibrary.simpleMessage("Points"),
         "post": MessageLookupByLibrary.simpleMessage("Post"),
         "posting": MessageLookupByLibrary.simpleMessage("Posting"),
         "premium": MessageLookupByLibrary.simpleMessage("Premium"),
+        "preview": MessageLookupByLibrary.simpleMessage("Preview"),
+        "proceed": MessageLookupByLibrary.simpleMessage("Proceed"),
         "process": MessageLookupByLibrary.simpleMessage("Process"),
+        "profil_mirip": MessageLookupByLibrary.simpleMessage(
+            "Who does my profile resemble?"),
+        "profil_mirip_duplikat": MessageLookupByLibrary.simpleMessage(
+            "Who does my profile resemble?"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "profiling": MessageLookupByLibrary.simpleMessage("Profiling"),
+        "profiling_dibuat":
+            MessageLookupByLibrary.simpleMessage("Profiling Created"),
         "profiling_results":
             MessageLookupByLibrary.simpleMessage("Profiling Results"),
         "program_cancelled": MessageLookupByLibrary.simpleMessage(
@@ -733,11 +932,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "provideYourReason":
             MessageLookupByLibrary.simpleMessage("Provide your reason"),
         "qr_code": MessageLookupByLibrary.simpleMessage("Qr Code"),
+        "rating": MessageLookupByLibrary.simpleMessage("Rating"),
         "reach_your_brains_maximum_potential": MessageLookupByLibrary.simpleMessage(
             "Reach your brain\'s maximum potential by listening to special audio recordings that stimulate and enhance various cognitive functions. Play them daily for free."),
         "read": MessageLookupByLibrary.simpleMessage("Read"),
         "read_ebook_online":
             MessageLookupByLibrary.simpleMessage("Read Ebooks Online"),
+        "read_terms_conditions": MessageLookupByLibrary.simpleMessage(
+            "Please read the terms & conditions until the end"),
+        "red": MessageLookupByLibrary.simpleMessage("Red"),
         "referral": MessageLookupByLibrary.simpleMessage("Referral"),
         "referralLinkCopied":
             MessageLookupByLibrary.simpleMessage("Referral link copied!"),
@@ -768,17 +971,26 @@ class MessageLookup extends MessageLookupByLibrary {
         "reset_password":
             MessageLookupByLibrary.simpleMessage("Reset Password"),
         "residence": MessageLookupByLibrary.simpleMessage("Residence"),
+        "responseDariCool":
+            MessageLookupByLibrary.simpleMessage("Response from Cool Team"),
         "response_timeout": MessageLookupByLibrary.simpleMessage(
             "Response receiving time has expired."),
         "result_detail": MessageLookupByLibrary.simpleMessage("Result Details"),
         "returnIn3Seconds":
             MessageLookupByLibrary.simpleMessage("Returning in 3 seconds..."),
+        "reward_point": MessageLookupByLibrary.simpleMessage("Reward Point"),
+        "reward_total": MessageLookupByLibrary.simpleMessage("Total Reward"),
         "rich_type": MessageLookupByLibrary.simpleMessage("Rich Type"),
+        "rights_responsibilities": MessageLookupByLibrary.simpleMessage(
+            "Rights and Responsibilities: You are responsible for ethical promotion, and we reserve the right to terminate your account if terms are violated."),
         "save": MessageLookupByLibrary.simpleMessage("Save"),
         "save_agreement": MessageLookupByLibrary.simpleMessage(
             "By clicking \"Save\", you agree to the terms and conditions"),
+        "scan_qr": MessageLookupByLibrary.simpleMessage("Scan QR"),
         "scan_qr_code": MessageLookupByLibrary.simpleMessage("Scan QR Code"),
         "see_all": MessageLookupByLibrary.simpleMessage("See All"),
+        "selangkahLagi": MessageLookupByLibrary.simpleMessage(
+            "One more step to learn about yourself"),
         "select": MessageLookupByLibrary.simpleMessage("Select"),
         "select_bank": MessageLookupByLibrary.simpleMessage("Select bank"),
         "select_bank_account":
@@ -795,6 +1007,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "self_surgery": MessageLookupByLibrary.simpleMessage("Bedah Diri"),
         "self_surgery_solution_surgery": MessageLookupByLibrary.simpleMessage(
             "SELF Surgery,\nSOLUTION Surgery"),
+        "semua_anggota": MessageLookupByLibrary.simpleMessage("All Members"),
         "send": MessageLookupByLibrary.simpleMessage("Send"),
         "sending": MessageLookupByLibrary.simpleMessage("Sending ..."),
         "sessionCompleted":
@@ -817,17 +1030,23 @@ class MessageLookup extends MessageLookupByLibrary {
         "show_qr_code_to_affiliate": MessageLookupByLibrary.simpleMessage(
             "Show this QR Code to facilitate your affiliate process."),
         "sign_in": MessageLookupByLibrary.simpleMessage("Login"),
+        "silahkanPilihLokasi":
+            MessageLookupByLibrary.simpleMessage("Please Select Your Location"),
         "single": MessageLookupByLibrary.simpleMessage("Single"),
         "skip": MessageLookupByLibrary.simpleMessage("Skip"),
+        "social_interaction_pattern":
+            MessageLookupByLibrary.simpleMessage("Social Interaction Pattern"),
         "solution_surgery":
             MessageLookupByLibrary.simpleMessage("Bedah Solusi"),
         "source": MessageLookupByLibrary.simpleMessage("Source"),
+        "spiritual": MessageLookupByLibrary.simpleMessage("Spiritual"),
         "ssl_certificate_error": MessageLookupByLibrary.simpleMessage(
             "SSL Certificate Error. Please check your network connection."),
         "start_activating_brain_potential":
             MessageLookupByLibrary.simpleMessage(
                 "Start activating brain potential"),
         "state": MessageLookupByLibrary.simpleMessage("State"),
+        "status": MessageLookupByLibrary.simpleMessage("Status:"),
         "subcription_all_type":
             MessageLookupByLibrary.simpleMessage("Subscription all types"),
         "subscribe": MessageLookupByLibrary.simpleMessage("Subscribe"),
@@ -851,6 +1070,15 @@ class MessageLookup extends MessageLookupByLibrary {
                 "The latest version of the app is available. Please update the app to get the latest features and performance improvements."),
         "the_minimum_amount_that_must_be": m6,
         "thirty_days_ago": MessageLookupByLibrary.simpleMessage("30 Days Ago"),
+        "tidakAda": MessageLookupByLibrary.simpleMessage("None"),
+        "tidakTersedia": MessageLookupByLibrary.simpleMessage("Not Available"),
+        "tidakadaaff": MessageLookupByLibrary.simpleMessage(
+            "There is no affiliate nearby, please continue"),
+        "tipe_harta": MessageLookupByLibrary.simpleMessage("My Wealth Type!"),
+        "tipe_otak": MessageLookupByLibrary.simpleMessage("My Brain Type!"),
+        "tipe_pola": MessageLookupByLibrary.simpleMessage("Pattern Type"),
+        "tipe_tidak_dikenali":
+            MessageLookupByLibrary.simpleMessage("Unrecognized Type"),
         "today": MessageLookupByLibrary.simpleMessage("Today"),
         "too_many_requests": MessageLookupByLibrary.simpleMessage(
             "You have made too many requests"),
@@ -867,6 +1095,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Total Real Money"),
         "transaction": MessageLookupByLibrary.simpleMessage("Transaction"),
         "treasure_type": MessageLookupByLibrary.simpleMessage("Treasure Type"),
+        "tutup_laporan": MessageLookupByLibrary.simpleMessage("Close Report"),
         "type_ex": MessageLookupByLibrary.simpleMessage("Type, ex."),
         "type_figure": m4,
         "unauthorized": MessageLookupByLibrary.simpleMessage(
@@ -888,12 +1117,17 @@ class MessageLookup extends MessageLookupByLibrary {
                 "Upgrade members to get access to more features"),
         "uploading_in_progress":
             MessageLookupByLibrary.simpleMessage("Uploading in progress"),
+        "use_another_account":
+            MessageLookupByLibrary.simpleMessage("Use another account"),
         "use_your_location":
             MessageLookupByLibrary.simpleMessage("Use Your Location"),
         "use_your_user_account":
             MessageLookupByLibrary.simpleMessage("Please use user account"),
         "user": MessageLookupByLibrary.simpleMessage("User"),
+        "versiAplikasi": MessageLookupByLibrary.simpleMessage("App Version:"),
         "viewArchive": MessageLookupByLibrary.simpleMessage("View Archive"),
+        "view_old_profiling": MessageLookupByLibrary.simpleMessage(
+            "You can still view the results of previous profiling"),
         "view_results": MessageLookupByLibrary.simpleMessage("View Results"),
         "waiting": MessageLookupByLibrary.simpleMessage("WAITING"),
         "waitingForUser":
@@ -901,19 +1135,36 @@ class MessageLookup extends MessageLookupByLibrary {
         "want_to_hear_more_please_subscribe":
             MessageLookupByLibrary.simpleMessage(
                 "Want to hear more? Please subscribe"),
+        "wealth_type": MessageLookupByLibrary.simpleMessage("Wealth Type"),
+        "welcome_affiliate_program": MessageLookupByLibrary.simpleMessage(
+            "Welcome to our Affiliate Program! By joining, you can earn extra income by referring our products or services to others."),
+        "welcome_affiliator":
+            MessageLookupByLibrary.simpleMessage("Welcome Affiliator"),
+        "welcome_affiliator_program": MessageLookupByLibrary.simpleMessage(
+            "Welcome to the Affiliator Program"),
         "what_is_negative_balance": MessageLookupByLibrary.simpleMessage(
             "What is a negative balance(-)?"),
+        "what_is_profiling":
+            MessageLookupByLibrary.simpleMessage("What is Profiling?"),
         "what_to_discuss": MessageLookupByLibrary.simpleMessage(
             "What do you want to discuss?"),
+        "white": MessageLookupByLibrary.simpleMessage("White"),
         "withdraw": MessageLookupByLibrary.simpleMessage("Withdraw"),
         "withdrawal": MessageLookupByLibrary.simpleMessage("Withdrawal"),
         "withdrawal_amount":
             MessageLookupByLibrary.simpleMessage("Withdrawal Amount"),
+        "yakinWithdrawal":
+            MessageLookupByLibrary.simpleMessage("Are You Sure to Withdraw"),
+        "yakinbayar": MessageLookupByLibrary.simpleMessage(
+            "Are you sure you want to make a payment of"),
         "year": MessageLookupByLibrary.simpleMessage("Year"),
         "yearly": MessageLookupByLibrary.simpleMessage("Yearly"),
+        "yellow": MessageLookupByLibrary.simpleMessage("Yellow"),
         "yes": MessageLookupByLibrary.simpleMessage("Yes"),
         "yes_continue": MessageLookupByLibrary.simpleMessage("Yes, Next"),
+        "yes_delete": MessageLookupByLibrary.simpleMessage("Yes, Delete"),
         "yes_exit": MessageLookupByLibrary.simpleMessage("Yes, Exit"),
+        "yes_i_am_sure": MessageLookupByLibrary.simpleMessage("Yes, I am sure"),
         "yes_i_have": MessageLookupByLibrary.simpleMessage("Yes, I Have"),
         "yesterday": MessageLookupByLibrary.simpleMessage("Yesterday"),
         "yourReferralCode":
@@ -921,6 +1172,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "your_affiliate_code":
             MessageLookupByLibrary.simpleMessage("Your Affiliate Code"),
         "your_personality":
-            MessageLookupByLibrary.simpleMessage("Your Personality")
+            MessageLookupByLibrary.simpleMessage("Your Personality"),
+        "your_profiling": MessageLookupByLibrary.simpleMessage("Your Profiling")
       };
 }

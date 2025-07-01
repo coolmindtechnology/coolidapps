@@ -673,18 +673,23 @@
 
 import 'dart:async';
 import 'dart:io';
+import 'package:coolappflutter/data/apps/app_sizes.dart';
 import 'package:coolappflutter/data/networks/endpoint/api_endpoint.dart';
 import 'package:coolappflutter/data/provider/provider_user.dart';
 import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/pages/auth/component/country_state_city_provider.dart';
+import 'package:coolappflutter/presentation/pages/auth/map_screen.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/circular_progress_widget.dart';
 import 'package:coolappflutter/presentation/utils/notification_utils.dart';
 import 'package:coolappflutter/presentation/utils/takeimage_utils.dart';
+import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
+
+import '../main/home_screen.dart';
 
 class ScreenProfile extends StatefulWidget {
   const ScreenProfile({super.key, required this.phone});
@@ -698,8 +703,53 @@ class _ScreenProfileState extends State<ScreenProfile> {
   final _formKey = GlobalKey<FormState>();
   bool isImageSelected = false;
   TextEditingController modifiedController = TextEditingController();
+  TextEditingController controllerCountry = TextEditingController();
+  TextEditingController controllerState = TextEditingController();
+  TextEditingController controllerCity = TextEditingController();
+  TextEditingController controllerDistrict = TextEditingController();
+  TextEditingController controllerLong = TextEditingController();
+  TextEditingController controllerLat = TextEditingController();
+
+  bool isIndonesia = true;
+  String? selectedCountry;
+  String? selectedState;
+  String? selectedCity;
+  String? selectedDistrict;
+  String? selectedLong;
+  String? selectedLat;
+
   @override
+
+  void _navigateToMap() async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => MapScreen()),
+    );
+
+    if (result != null) {
+      final providerUser = Provider.of<ProviderUser>(context, listen: false);
+      setState(() {
+        controllerCountry.text = result['country'];
+        controllerState.text = result['state'];
+        controllerCity.text = result['city'];
+        controllerDistrict.text = result['district'];
+
+        providerUser.SelectedCountryController.text = result['country'];
+        providerUser.SelectedStateController.text = result['state'];
+        providerUser.SelectedCityController.text = result['city'];
+        providerUser.SelectedDistrictController.text = result['district'];
+        providerUser.SelectedLongtitudeController.text = result['longtitude'].toString();
+        providerUser.SelectedLatitudeController.text = result['latitide'].toString();
+      });
+    }
+  }
   void initState() {
+    controllerCountry.text = selectedCountry ?? '';
+    controllerState.text = selectedState ?? '';
+    controllerCity.text = selectedCity ?? '';
+    controllerDistrict.text = selectedDistrict ?? '';
+    controllerLong.text = selectedDistrict ?? '';
+    controllerLat.text = selectedDistrict ?? '';
     super.initState();
     Provider.of<ProviderUser>(context, listen: false).getAddress(context);
 
@@ -736,6 +786,8 @@ class _ScreenProfileState extends State<ScreenProfile> {
   Widget build(BuildContext context) {
     final provider = Provider.of<CountryStateCityProvider>(context);
     return Consumer<ProviderUser>(builder: (context, providerUser, child) {
+      bool isLoading = providerUser.isLoading == true;
+      bool isSave = providerUser.isLoadingUpdateUser == true;
       return Scaffold(
           // resizeToAvoidBottomInset: false,
           appBar: AppBar(
@@ -756,7 +808,7 @@ class _ScreenProfileState extends State<ScreenProfile> {
                 padding: const EdgeInsets.only(
                     right: 10), // Memberikan jarak dari kanan
                 child: GestureDetector(
-                  onTap: () async {
+                  onTap: isSave ? null : () async {
                     setState(() {});
                     if (_formKey.currentState?.validate() ?? false) {
                       if (providerUser.dataUser?.image == null &&
@@ -766,7 +818,7 @@ class _ScreenProfileState extends State<ScreenProfile> {
                           backgroundColor: Colors.red,
                         );
                       } else {
-                        await providerUser.updateUser(context);
+                        await providerUser.updateUser(context,'updateprofile');
                       }
                     }
                   },
@@ -777,7 +829,7 @@ class _ScreenProfileState extends State<ScreenProfile> {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: Text(
+                    child: isSave ? SizedBox( height: 20 ,width: 20 ,child: CircularProgressIndicator()) : Text(
                       S.of(context).save, // Teks tombol
                       style: TextStyle(
                         color: Colors.blue, // Warna teks biru
@@ -794,7 +846,27 @@ class _ScreenProfileState extends State<ScreenProfile> {
               key: _formKey,
               child: Padding(
                 padding: const EdgeInsets.all(20),
-                child: Column(
+                child: isLoading
+                    ? Column(
+                  children: [
+                    gapH20,
+                    gapH20,
+                    shimmerContainer(height: 300, width: double.infinity),
+                    gapH32,
+                    shimmerButton(),
+                    gapH10,
+                    shimmerButton(),
+                    gapH10,
+                    shimmerButton(),
+                    gapH10,
+                    shimmerButton(),
+                    gapH10,
+                    shimmerButton(),
+                    gapH10,
+
+                  ],
+                )
+                    : Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Stack(
@@ -1028,12 +1100,6 @@ class _ScreenProfileState extends State<ScreenProfile> {
                                 const BorderSide(color: Colors.white, width: 1),
                             borderRadius: BorderRadius.circular(10)),
                       ),
-                      // validator: (validator) {
-                      //   if (validator!.isEmpty) {
-                      //     return S.of(context).cannot_be_empty;
-                      //   }
-                      //   return null;
-                      // },
                     ),
                     const SizedBox(
                       height: 8,
@@ -1066,188 +1132,73 @@ class _ScreenProfileState extends State<ScreenProfile> {
                     const SizedBox(
                       height: 15,
                     ),
-                    DropdownButtonFormField<int>(
-                      hint: Text(providerUser.countryController.text,
-                          style: const TextStyle(color: Colors.grey)),
-                      value: provider.selectedCountryId,
-                      items: provider.countries
-                          .map<DropdownMenuItem<int>>((country) {
-                        return DropdownMenuItem<int>(
-                          value: country['id'],
-                          child: Text(
-                            country['name'],
-                          ),
-                        );
-                      }).toList(),
-                      onChanged: (value) {
-                        if (value != null) {
-                          providerUser.setSelectedCountryId(value);
-                          provider.setSelectedCountryId(value);
-                          provider
-                              .setSelectedCountryId(providerUser.countryssId);
-                          providerUser.countryssId =
-                              provider.selectedCountryId!;
-                          provider.fetchCountries(value);
-                          provider.fetchStates(value);
-                          provider.selectedStateId = null;
-                        }
-                      },
-                      icon: const Icon(Icons.arrow_drop_down,
-                          color: Colors.grey), // Panah putih
-                      decoration: InputDecoration(
-                        labelText: S.of(context).country,
-                        labelStyle: const TextStyle(color: Colors.grey),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 2.0),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 2.0),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
+                    if (providerUser.SelectedCountryController.text.isNotEmpty)
+                      CustomTextField(
+                        controller: providerUser.SelectedCountryController,
+                        onChanged: (value) {
+                          setState(() {
+                            selectedCountry = value;
+                            providerUser.SelectedCountryController.text = value;
+                          });
+                        },
+                        textColor: Colors.black,
                       ),
-                    ),
-
-                    const SizedBox(height: 16),
-
-                    // Dropdown for State
-
-                    DropdownButtonFormField<int>(
-                      hint: Text(providerUser.stateController.text,
-                          style: const TextStyle(color: Colors.grey)),
-                      value: provider.selectedStateId,
-                      items:
-                          provider.states.map<DropdownMenuItem<int>>((state) {
-                        return DropdownMenuItem<int>(
-                          value: state['id'],
-                          child: Text(state['name']),
-                        );
-                      }).toList(),
-                      onChanged: (value) {
-                        if (value != null) {
-                          providerUser.setSelectedStateId(value);
-                          provider.setSelectedStateId(value);
-                          // provider.fetchStates(
-                          //   provider.selectedCountryId!,
-                          // );
-                          provider.fetchCities(
-                            provider.selectedCountryId!,
-                            provider.selectedStateId!,
-                          );
-                        }
-                      },
-                      icon: const Icon(Icons.arrow_drop_down,
-                          color: Colors.grey), // Panah putih
-                      decoration: InputDecoration(
-                        labelText: S.of(context).state,
-                        labelStyle: const TextStyle(color: Colors.grey),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 2.0),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 2.0),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
+                    if (providerUser.SelectedStateController.text.isNotEmpty)
+                      CustomTextField(
+                        controller: providerUser.SelectedStateController,
+                        onChanged: (value) {
+                          setState(() {
+                            selectedState = value;
+                            providerUser.SelectedStateController.text = value;
+                          });
+                        },
+                        textColor: Colors.black,
                       ),
-                    ),
-
-                    const SizedBox(height: 16),
-                    // Dropdown for City
-
-                    DropdownButtonFormField<int>(
-                      hint: Text(providerUser.cityController.text,
-                          style: const TextStyle(color: Colors.grey)),
-                      value: provider.selectedCityId,
-                      items:
-                          provider.cities.map<DropdownMenuItem<int>>((cities) {
-                        return DropdownMenuItem<int>(
-                          value: cities['id'],
-                          child: Text(cities['name']),
-                        );
-                      }).toList(),
-                      onChanged: (value) {
-                        if (value != null) {
-                          providerUser.setSelectedCityId(value);
-                          provider.setSelectedCityId(value);
-                          provider.fetchCities(
-                            provider.selectedCountryId!,
-                            provider.selectedStateId!,
-                          );
-                          provider.fetchDistricts(provider.selectedCountryId!,
-                              provider.selectedStateId!, value);
-                        }
-                      },
-                      icon: const Icon(Icons.arrow_drop_down,
-                          color: Colors.grey), // Panah putih
-                      decoration: InputDecoration(
-                        labelText: S.of(context).city,
-                        labelStyle: const TextStyle(color: Colors.grey),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 2.0),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 2.0),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
+                    if (providerUser.SelectedCityController.text.isNotEmpty)
+                      CustomTextField(
+                        controller: providerUser.SelectedCityController,
+                        onChanged: (value) {
+                          setState(() {
+                            selectedCity = value;
+                            selectedCity =  providerUser.SelectedCityController.text;
+                          });
+                        },
+                        textColor: Colors.black,
                       ),
-                    ),
-
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    // Dropdown for District
-
-                    DropdownButtonFormField<int>(
-                      hint: Text(providerUser.districtController.text,
-                          style: const TextStyle(color: Colors.grey)),
-                      value: provider.selectedDistrictId,
-                      items: provider.district
-                          .map<DropdownMenuItem<int>>((district) {
-                        return DropdownMenuItem<int>(
-                          value: district['id'],
-                          child: Text(district['name']),
-                        );
-                      }).toList(),
-                      onChanged: (value) {
-                        if (value != null) {
-                          providerUser.setSelectedDistrictId(value);
-                          provider.setSelectedDistrictId(value);
-                          // provider.fetchDistricts(
-                          //     provider.selectedCountryId!,
-                          //     provider.selectedStateId!,
-                          //     value);
-                        }
-                      },
-                      icon: const Icon(Icons.arrow_drop_down,
-                          color: Colors.grey), // Panah putih
-                      decoration: InputDecoration(
-                        labelText: S.of(context).district,
-                        labelStyle: const TextStyle(color: Colors.grey),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 2.0),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(color: Colors.grey, width: 2.0),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
+                    if (providerUser.SelectedDistrictController.text.isNotEmpty)
+                      CustomTextField(
+                        controller: providerUser.SelectedDistrictController,
+                        onChanged: (value) {
+                          setState(() {
+                            selectedDistrict = value;
+                            selectedDistrict =  providerUser.SelectedDistrictController.text;
+                          });
+                        },
+                        textColor: Colors.black,
                       ),
-                    ),
+                    MaterialButton(
+                        minWidth: MediaQuery.of(context).size.width,
+                        height: 55,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        color: primaryColor,
+                        textColor: whiteColor,
+                        onPressed: () async {
+                          _navigateToMap();
+                        },
+                        child: Text(
+                          S.of(context).silahkanPilihLokasi,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold),
+                        )),
                   ],
                 ),
               ),
             ),
-          ));
+          ),
+        floatingActionButton: const CustomFAB(),
+      );
     });
   }
 
@@ -1268,6 +1219,44 @@ class _ScreenProfileState extends State<ScreenProfile> {
           ),
         );
       },
+    );
+  }
+
+
+}
+
+class CustomTextField extends StatelessWidget {
+  final TextEditingController controller;
+  final Function(String) onChanged;
+  final Color textColor;
+
+  const CustomTextField({
+    Key? key,
+    required this.controller,
+    required this.onChanged,
+    this.textColor = Colors.white,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: TextField(
+        controller: controller,
+        onChanged: onChanged,
+        enabled: false,
+        decoration: InputDecoration(
+          hintStyle: TextStyle(color: textColor),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(color: textColor, width: 1),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          disabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: BorderSide(color: textColor, width: 2.0),
+          ),
+        ),
+      ),
     );
   }
 }

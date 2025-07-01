@@ -11,9 +11,11 @@ import 'package:coolappflutter/presentation/pages/konsultasi/konsultant/history/
 import 'package:coolappflutter/presentation/pages/konsultasi/konsultant/history/history_curhat.dart';
 import 'package:coolappflutter/presentation/pages/konsultasi/konsultant/history/history_konsul.dart';
 import 'package:coolappflutter/presentation/pages/main/nav_home.dart';
+import 'package:coolappflutter/presentation/pages/user/Setting/Report/Report_Page.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:coolappflutter/presentation/widgets/Container/container_slider_home.dart';
+import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -269,6 +271,7 @@ class _KonsultantDashboardState extends State<KonsultantDashboard> {
           ],
         ),
       ),
+      floatingActionButton: const CustomFAB(),
     );
   }
 

@@ -37,9 +37,13 @@ class _TopupSaldoPageState extends State<TopupSaldoPage> {
   @override
   void initState() {
     isIndonesia = context.read<ProviderUser>().isIndonesia();
-
     super.initState();
+    Future.microtask(() {
+      Provider.of<ProviderTransaksiAffiliate>(context, listen: false)
+          .getAffiliateManagement(context);
+    });
   }
+
 
   Future<void> setCurrency(double amount) async {
     context
@@ -191,7 +195,7 @@ class _TopupSaldoPageState extends State<TopupSaldoPage> {
                                       dataGlobal.dataUser?.id.toString() ?? "",
                                       controllerAmount.text.replaceAll(".", ""),
                                       _selectedValue ?? "other_pay",
-                                      "topup");
+                                      "topup","false");
                                 }
                               },
                               expand: true,

@@ -102,92 +102,92 @@ class _ListSemuaEbookState extends State<ListSemuaEbook>
                   ),
                 ),
               ),
-              if (widget.data == "rak") gapH16,
-              if (widget.data == "rak")
-                Padding(
-                  padding: const EdgeInsets.only(left: 15, bottom: 10),
-                  child: Row(
-                    children: [
-                      Text(
-                        "Terakhir dibaca!",
-                        style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                ),
-              if (widget.data == "rak")
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    height: 100,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(
-                        // Menambahkan outline abu-abu
-                        color: const Color.fromARGB(255, 226, 225, 225),
-                        width: 1.5,
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Row(
-                        children: [
-                          Image.asset("images/buku/img-red.png"),
-                          gapW10,
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                "HUMAN BOOK",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                              gapH10,
-                              Text(
-                                "Chapter 1- Hal 62",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Spacer(),
-                          SizedBox(
-                            height: 40,
-                            child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                          10), // Menghilangkan border radius
-                                      side: BorderSide(
-                                          color: Colors
-                                              .transparent), // Menghilangkan border
-                                    ),
-                                    backgroundColor: Colors.white),
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      (MaterialPageRoute(
-                                          builder: (context) =>
-                                              DetailBacaEbook())));
-                                },
-                                child: Text(
-                                  "Lanjut Baca",
-                                  style: TextStyle(
-                                    color: primaryColor,
-                                  ),
-                                )),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+              // if (widget.data == "rak") gapH16,
+              // if (widget.data == "rak")
+              //   Padding(
+              //     padding: const EdgeInsets.only(left: 15, bottom: 10),
+              //     child: Row(
+              //       children: [
+              //         Text(
+              //           "Terakhir dibaca!",
+              //           style: TextStyle(
+              //               fontSize: 15, fontWeight: FontWeight.bold),
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // if (widget.data == "rak")
+              //   Padding(
+              //     padding: const EdgeInsets.all(8.0),
+              //     child: Container(
+              //       height: 100,
+              //       width: double.infinity,
+              //       decoration: BoxDecoration(
+              //         color: Colors.white,
+              //         borderRadius: BorderRadius.circular(10),
+              //         border: Border.all(
+              //           // Menambahkan outline abu-abu
+              //           color: const Color.fromARGB(255, 226, 225, 225),
+              //           width: 1.5,
+              //         ),
+              //       ),
+              //       child: Padding(
+              //         padding: const EdgeInsets.all(8.0),
+              //         child: Row(
+              //           children: [
+              //             Image.asset("images/buku/img-red.png"),
+              //             gapW10,
+              //             Column(
+              //               mainAxisAlignment: MainAxisAlignment.center,
+              //               crossAxisAlignment: CrossAxisAlignment.center,
+              //               children: [
+              //                 Text(
+              //                   "HUMAN BOOK",
+              //                   style: TextStyle(
+              //                       color: Colors.black,
+              //                       fontWeight: FontWeight.bold),
+              //                 ),
+              //                 gapH10,
+              //                 Text(
+              //                   "Chapter 1- Hal 62",
+              //                   style: TextStyle(
+              //                     color: Colors.black,
+              //                   ),
+              //                 ),
+              //               ],
+              //             ),
+              //             Spacer(),
+              //             SizedBox(
+              //               height: 40,
+              //               child: ElevatedButton(
+              //                   style: ElevatedButton.styleFrom(
+              //                       shape: RoundedRectangleBorder(
+              //                         borderRadius: BorderRadius.circular(
+              //                             10), // Menghilangkan border radius
+              //                         side: BorderSide(
+              //                             color: Colors
+              //                                 .transparent), // Menghilangkan border
+              //                       ),
+              //                       backgroundColor: Colors.white),
+              //                   onPressed: () {
+              //                     Navigator.push(
+              //                         context,
+              //                         (MaterialPageRoute(
+              //                             builder: (context) =>
+              //                                 DetailBacaEbook())));
+              //                   },
+              //                   child: Text(
+              //                     "Lanjut Baca",
+              //                     style: TextStyle(
+              //                       color: primaryColor,
+              //                     ),
+              //                   )),
+              //             )
+              //           ],
+              //         ),
+              //       ),
+              //     ),
+              //   ),
               gapH10,
               if (widget.data == "rak")
                 Padding(
@@ -223,7 +223,7 @@ class _ListSemuaEbookState extends State<ListSemuaEbook>
                       Text(
                         _tabController.index == 0
                             ? "${value.displayFree.length} Buku Gratis Dimiliki"
-                            : "${value.displayFree.length} Buku Berbayar Dimiliki",
+                            : "${value.displayPremium.length} Buku Berbayar Dimiliki",
                         style: TextStyle(
                             fontSize: 15, fontWeight: FontWeight.bold),
                       ),
@@ -560,7 +560,7 @@ class _ListSemuaEbookState extends State<ListSemuaEbook>
           scrollDirection: Axis.horizontal,
           itemCount: value.displayPremium.length,
           itemBuilder: (context, index) {
-            DataBook data = value.displayFree[index];
+            DataBook data = value.displayPremium[index];
             return GestureDetector(
               onTap: () {
                 Navigator.push(
@@ -597,29 +597,29 @@ class _ListSemuaEbookState extends State<ListSemuaEbook>
                               ? data.title.toString().substring(0, 10)
                               : data.title.toString()),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(6.0),
-                          child: Row(
-                            children: [
-                              Text(
-                                data.isPremium == 0 ? "Gratis" : "Premium",
-                                style: TextStyle(fontSize: 8),
-                              ),
-                              Spacer(),
-                              Icon(
-                                Icons.star,
-                                color: Colors.amber,
-                                size: 15,
-                              ),
-                              Text(
-                                data.rating.toString() == "null"
-                                    ? "0"
-                                    : data.rating.toString(),
-                                style: TextStyle(fontSize: 8),
-                              )
-                            ],
-                          ),
-                        ),
+                        // Padding(
+                        //   padding: const EdgeInsets.all(6.0),
+                        //   child: Row(
+                        //     children: [
+                        //       Text(
+                        //         data.isPremium == 0 ? "Gratis" : "Premium",
+                        //         style: TextStyle(fontSize: 8),
+                        //       ),
+                        //       Spacer(),
+                        //       Icon(
+                        //         Icons.star,
+                        //         color: Colors.amber,
+                        //         size: 15,
+                        //       ),
+                        //       Text(
+                        //         data.rating.toString() == "null"
+                        //             ? "0"
+                        //             : data.rating.toString(),
+                        //         style: TextStyle(fontSize: 8),
+                        //       )
+                        //     ],
+                        //   ),
+                        // ),
                         SizedBox(
                           height: 30,
                           child: ElevatedButton(
@@ -696,29 +696,29 @@ class _ListSemuaEbookState extends State<ListSemuaEbook>
                               ? data.title.toString().substring(0, 10)
                               : data.title.toString()),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(6.0),
-                          child: Row(
-                            children: [
-                              Text(
-                                data.isPremium == 0 ? "Gratis" : "Premium",
-                                style: TextStyle(fontSize: 8),
-                              ),
-                              Spacer(),
-                              Icon(
-                                Icons.star,
-                                color: Colors.amber,
-                                size: 15,
-                              ),
-                              Text(
-                                data.rating.toString() == "null"
-                                    ? "0"
-                                    : data.rating.toString(),
-                                style: TextStyle(fontSize: 8),
-                              )
-                            ],
-                          ),
-                        ),
+                        // Padding(
+                        //   padding: const EdgeInsets.all(6.0),
+                        //   child: Row(
+                        //     children: [
+                        //       Text(
+                        //         data.isPremium == 0 ? "Gratis" : "Premium",
+                        //         style: TextStyle(fontSize: 8),
+                        //       ),
+                        //       Spacer(),
+                        //       Icon(
+                        //         Icons.star,
+                        //         color: Colors.amber,
+                        //         size: 15,
+                        //       ),
+                        //       Text(
+                        //         data.rating.toString() == "null"
+                        //             ? "0"
+                        //             : data.rating.toString(),
+                        //         style: TextStyle(fontSize: 8),
+                        //       )
+                        //     ],
+                        //   ),
+                        // ),
                         SizedBox(
                           height: 30,
                           child: ElevatedButton(

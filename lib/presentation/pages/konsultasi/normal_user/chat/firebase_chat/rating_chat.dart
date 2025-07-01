@@ -44,10 +44,11 @@ class _RatingState extends State<RatingChat> {
       if (token == null) {
         throw Exception("Token tidak ditemukan");
       }
-      debugPrint(" give consultation ${widget.consultationId}");
-      debugPrint(" give consultant ${widget.consultanId}");
+      debugPrint("${widget.consultationId}");
+      debugPrint("${widget.consultanId}");
       debugPrint(_selectedRating.toString());
       debugPrint(_controller.text.trim());
+      debugPrint("${token}");
 
       final dio = Dio();
       final response = await dio.post(
@@ -56,8 +57,8 @@ class _RatingState extends State<RatingChat> {
           headers: {"Authorization": "Bearer $token"},
         ),
         data: {
-          "consultation_id": widget.consultanId,
-          "consultant_id": widget.consultationId,
+          "consultation_id": widget.consultationId.toString(),
+          "consultant_id": widget.consultanId.toString(),
           "rate": _selectedRating.toString(),
           "feedback": _controller.text.trim().isEmpty
               ? "Sangat good dan bagus bagus pisan"
@@ -72,13 +73,18 @@ class _RatingState extends State<RatingChat> {
         setState(() {
           showTextButton = true;
         });
+        Nav.toAll(NavMenuScreen());
       } else {
-        // throw Exception("Gagal mengirim rating");
+        debugPrint("Response Code: ${response.statusCode}");
+        debugPrint("Response Data: ${response.data}");
+        debugPrint("Response Data: ${widget.consultanId} ${widget.consultationId}, ${token.toString()}");
       }
     } catch (e) {
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   SnackBar(content: Text("Error: ${e.toString()}")),
-      // );
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Error: ${e.toString()}")),
+      );
+      // debugPrint("Error: $e");
+
     } finally {
       setState(() {
         isLoading = false;

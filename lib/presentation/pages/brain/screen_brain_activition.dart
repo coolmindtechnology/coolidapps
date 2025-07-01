@@ -9,6 +9,7 @@ import 'package:coolappflutter/presentation/utils/durasi_utils.dart';
 import 'package:coolappflutter/presentation/utils/money_formatter.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:coolappflutter/presentation/widgets/button_primary.dart';
+import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
 import 'package:coolappflutter/presentation/widgets/refresh_icon_widget.dart';
 import 'package:coolappflutter/presentation/widgets/shimmer_loading.dart';
 import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
@@ -329,7 +330,7 @@ class _ScreenBrainActivationState extends State<ScreenBrainActivation> {
                       ],
                     ),
             ),
-          )),
+          ),     floatingActionButton: const CustomFAB(),),
     );
   }
 }

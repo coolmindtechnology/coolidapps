@@ -21,6 +21,7 @@ class DetailArchivePage extends StatefulWidget {
   const DetailArchivePage(
       {super.key,
         this.profilePicture,
+        this.braintype,
         this.participantName,
         this.typeConsultation,
         this.type,
@@ -31,9 +32,12 @@ class DetailArchivePage extends StatefulWidget {
         this.theme,
         this.explanation,
         this.comisson,
-        this.id_consultation});
+        this.id_consultation,
+        this.idDocument
+      });
   final participantName;
   final typeConsultation;
+  final braintype;
   final bloodType;
   final rate;
   final comisson;
@@ -44,6 +48,7 @@ class DetailArchivePage extends StatefulWidget {
   final remainingMinutes;
   final id_consultation;
   final profilePicture;
+  final idDocument;
 
   @override
   State<DetailArchivePage> createState() => _DetailArchivePageState();
@@ -57,7 +62,7 @@ class _DetailArchivePageState extends State<DetailArchivePage> {
   @override
   void initState() {
     super.initState();
-    _selectedRating = widget.rate ?? 0; // Pastikan nilai default jika null
+    _selectedRating = (widget.rate ?? 0).toInt();
   }
   @override
   Widget build(BuildContext context) {
@@ -92,7 +97,7 @@ class _DetailArchivePageState extends State<DetailArchivePage> {
               ProfileCard(
                 imagePath: widget.profilePicture, // Gambar profil
                 name: widget.participantName ?? '', // Nama peserta
-                title: widget.typeConsultation ?? '', // Jenis konsultasi
+                title: widget.braintype ?? '', // Jenis konsultasi
                 bloodType: widget.bloodType ?? 'Unknown', // Golongan darah
                 location: widget.theme ?? 'No theme', // Tema konsultasi
                 time: widget.consultationTime ?? '', // Waktu konsultasi
@@ -103,7 +108,7 @@ class _DetailArchivePageState extends State<DetailArchivePage> {
               ),
               SizedBox(height: 16.0),
               CardCurhat(
-                type: widget.type ?? 'konsultasi',
+                type: widget.type ?? S.of(context).Consultation,
                 CurhatTimeSelected: widget.consultationTime ?? "00.00",
               ),
               SizedBox(
@@ -177,25 +182,25 @@ class _DetailArchivePageState extends State<DetailArchivePage> {
                   );
                 }),
               ),
-              SizedBox(height: 10),
-              Text(S.of(context).clientComment,style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-              ),),
+              // SizedBox(height: 10),
+              // Text(S.of(context).clientComment,style: TextStyle(
+              //   fontSize: 14,
+              //   fontWeight: FontWeight.w600,
+              // ),),
+              // SizedBox(
+              //   height: 10,
+              // ),
+              // TextField(
+              //   enabled: false,
+              //   maxLines: 5,
+              //   decoration: InputDecoration(
+              //       hintText: S.of(context).clientComment,
+              //       border: OutlineInputBorder(
+              //           borderRadius: BorderRadius.circular(10),
+              //           borderSide: BorderSide(color: Colors.grey.shade300))),
+              // ),
               SizedBox(
-                height: 10,
-              ),
-              TextField(
-                enabled: false,
-                maxLines: 5,
-                decoration: InputDecoration(
-                    hintText: S.of(context).clientComment,
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.grey.shade300))),
-              ),
-              SizedBox(
-                height: 40,
+                height:150,
               ),
               Container(
                 color: Colors.lightBlueAccent.shade100,
@@ -225,7 +230,22 @@ class _DetailArchivePageState extends State<DetailArchivePage> {
               MaterialButton(
                 minWidth: double.infinity,
                 onPressed: () {
-                  Nav.to(ChatArchivebyConsultant());
+                  Nav.to(ChatArchivebyConsultant(
+                    idDocument: widget.idDocument,
+                    braintype: widget.braintype,
+                    comisson: widget.comisson,
+                    consultationTime: widget.consultationTime,
+                    bloodType: widget.bloodType,
+                    id_consultation: widget.id_consultation,
+                    participantName: widget.participantName,
+                    remainingMinutes: widget.remainingMinutes,
+                    theme: widget.theme,
+                    type: widget.type,
+                    typeConsultation: widget.typeConsultation,
+                    profilePicture: widget.profilePicture,
+                    explanation: widget.explanation,
+                    rate: widget.rate,
+                  ));
                 },
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15),

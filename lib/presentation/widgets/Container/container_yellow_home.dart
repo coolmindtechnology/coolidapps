@@ -22,18 +22,18 @@ class ContainerYellowHome extends StatelessWidget {
         onTap: onTap,
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 10.w),
-          height: 50.h, // Responsif tinggi
+          height: 40.h, // Responsif tinggi
           decoration: BoxDecoration(
             color: Color(0xFFFBF008),
             borderRadius: BorderRadius.circular(8.r),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          child: Row(
             children: [
               Image.asset(
                 '$icon',height: 24.sp,
                 fit: BoxFit.cover,
               ),
+              SizedBox(width: 10,),
               Flexible(
                 child: Text(
                   title,

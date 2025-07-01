@@ -1,5 +1,6 @@
 import 'package:coolappflutter/data/provider/provider_consultation.dart';
 import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/non_konsultasi.dart';
 
 import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/profile_consultant.dart';
 import 'package:coolappflutter/presentation/pages/konsultasi/normal_user/detil_consultant.dart';
@@ -59,13 +60,13 @@ class _TabRequestState extends State<TabRequest> {
   Widget build(BuildContext context) {
     return Scaffold(body:
         Consumer<ProviderConsultation>(builder: (context, provider, child) {
-      if (provider.isLoading) {
+      if (provider.isLoadingConsultation) {
         return Center(child: CircularProgressIndicator());
       }
 
       final consultations = provider.consultations;
       if (consultations.isEmpty) {
-        return Center(child: Text('No consultations available'));
+        return const Center(child: NoneKonsul());
       }
 
       return ListView.builder(
@@ -85,29 +86,50 @@ class _TabRequestState extends State<TabRequest> {
             time: "${consultation.timeSelected}",
             timeRemaining: consultation.sessionStatus,
             // '${consultation.remainingMinutes ?? '-'} ${S.of(context).Minutes_Left}',
-            timeColor: Colors.green,
+            timeColor: Colors.green, // fallback kalau status bukan keduanya
             status: S.of(context).Status,
             warnastatus: Colors.lightGreen.shade100,
             onTap: () {
+              String paid;
+              if (consultation.catergorySession == "paid" && consultation.status == "Unpaid") {
+                paid = "Unpaid";
+              } else if (consultation.catergorySession == "free" && consultation.status == "Unpaid") {
+                paid = "Paid";
+              }else {
+                paid = "Paid";
+              }
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => DetailConsultant(
-                          idUser: consultation.id.toString(),
-                          imagePath: consultation.consultantImage ?? '-',
-                          name: consultation.consultantName ?? '-',
-                          title: consultation.consultantTypeBrain ?? '-',
-                          bloodType: consultation.consultantBloodType ?? '-',
-                          location: consultation.consultantAddress ?? '-',
-                          time: "${consultation.timeSelected}",
-                          timeRemaining:
-                              '${consultation.remainingMinutes ?? '-'} ${S.of(context).Minutes_Left}',
-                          timeColor: BlueColor,
-                          status: consultation.status.toString(),
-                          warnastatus: Colors.lightBlueAccent.shade100,
-                          getTopik: consultation.theme.toString(),
-                          statusSession: consultation.sessionStatus.toString(),
-                          deskripsi: consultation.explanation.toString())));
+                    builder: (context) => DetailConsultant(
+                      type: consultation.typeSession,
+                      payed: paid,
+                      price: consultation.price?.toString() ?? "Free",
+                      idUser: consultation.id.toString(),
+                      imagePath: consultation.consultantImage ?? '-',
+                      name: consultation.consultantName ?? '-',
+                      title: consultation.consultantTypeBrain ?? '-',
+                      bloodType:
+                      consultation.consultantBloodType ?? '-',
+                      location: consultation.consultantAddress ?? '-',
+                      time: "${consultation.timeSelected}",
+                      timeRemaining:
+                      '${consultation.remainingMinutes ?? '-'} ${S.of(context).Minutes_Left}',
+                      timeColor: BlueColor,
+                      status: consultation.status.toString(),
+                      warnastatus: Colors.lightBlueAccent.shade100,
+                      getTopik: consultation.theme.toString(),
+                      statusSession:
+                      consultation.sessionStatus.toString(),
+                      deskripsi:
+                      consultation.explanation.toString(),
+                      idConsultation: consultation.id.toString(),
+                      idConsultant: consultation.consultantId.toString(),
+                      idreciver: consultation.firebaseConf!.consultantIds.toString(),
+
+                    ),
+
+                  ));
             }, // Aksi jika ada
           );
         },

@@ -8,8 +8,10 @@ import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/pages/auth/component/country_state_city_provider.dart';
 import 'package:coolappflutter/presentation/pages/auth/component/map_selection.dart';
 import 'package:coolappflutter/presentation/pages/auth/login_screen.dart';
+import 'package:coolappflutter/presentation/pages/auth/map_screen.dart';
 import 'package:coolappflutter/presentation/pages/auth/scan_page.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
+import 'package:coolappflutter/presentation/utils/notification_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:phone_form_field/phone_form_field.dart';
@@ -40,22 +42,34 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController controllerCountry = TextEditingController();
   TextEditingController controllerState = TextEditingController();
   TextEditingController controllerCity = TextEditingController();
-  TextEditingController controlleDistrict = TextEditingController();
+  TextEditingController controllerDistrict = TextEditingController();
+  TextEditingController controllerLong = TextEditingController();
+  TextEditingController controllerLat = TextEditingController();
 
   bool isIndonesia = true;
   String? selectedCountry;
   String? selectedState;
-  String? selectedProvince;
+  String? selectedCity;
+  String? selectedDistrict;
+  String? selectedLong;
+  String? selectedLat;
 
   @override
   void initState() {
+    controllerCountry.text = selectedCountry ?? '';
+    controllerState.text = selectedState ?? '';
+    controllerCity.text = selectedCity ?? '';
+    controllerDistrict.text = selectedDistrict ?? '';
+    controllerLong.text = selectedDistrict ?? '';
+    controllerLat.text = selectedDistrict ?? '';
+
     Timer(Duration(seconds: 3), () {
       cekSession();
     });
     cekSession();
     // Fetch countries when the widget initializes
     final provider =
-        Provider.of<CountryStateCityProvider>(context, listen: false);
+    Provider.of<CountryStateCityProvider>(context, listen: false);
     provider.fetchCountries(0);
     Future.microtask(() async {
       Provider.of<CountryStateCityProvider>(context, listen: false);
@@ -65,7 +79,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     // // Memanggil fetchCountries dan getCurrentLocation
     Future.microtask(() async {
       final locationProvider =
-          Provider.of<LocationProvider>(context, listen: false);
+      Provider.of<LocationProvider>(context, listen: false);
       await locationProvider.fetchCountries();
       await locationProvider.fetchCurrentLocation();
     });
@@ -83,7 +97,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     final hasLowercase = password.contains(RegExp(r'[a-z]'));
     final hasDigits = password.contains(RegExp(r'[0-9]'));
     final hasSpecialCharacters =
-        password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
+    password.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
 
     return password.length >= 8 &&
         hasUppercase &&
@@ -128,8 +142,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       MaterialPageRoute(
         builder: (context) => MapSelectionScreen(
           initialPosition:
-              Provider.of<LocationProvider>(context).selectedPosition ??
-                  const LatLng(-6.1751, 106.8650), // Default position
+          Provider.of<LocationProvider>(context).selectedPosition ??
+              const LatLng(-6.1751, 106.8650), // Default position
         ),
       ),
     );
@@ -155,6 +169,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
         S.load(Locale(locale)).then((value) {});
       });
     });
+  }
+
+  void _navigateToMap() async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => MapScreen()),
+    );
+
+    if (result != null) {
+      setState(() {
+        controllerCountry.text = result['country'];
+        controllerState.text = result['state'];
+        controllerCity.text = result['city'];
+        controllerDistrict.text = result['district'];
+        controllerLong.text = result['longtitude'].toString();
+        controllerLat.text = result['latitide'].toString();
+      });
+    }
   }
 
   @override
@@ -183,12 +215,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   Padding(
                     padding:
-                        const EdgeInsets.only(left: 20, right: 20, top: 48),
+                    const EdgeInsets.only(left: 20, right: 20, top: 48),
                     child: Column(
                       children: [
                         PhoneFormField(
                           initialValue:
-                              PhoneNumber.parse('+62'), // or use the controller
+                          PhoneNumber.parse('+62'), // or use the controller
                           validator: PhoneValidator.compose([
                             PhoneValidator.required(context,
                                 errorText: S.of(context).cannot_be_empty),
@@ -196,27 +228,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 errorText: S.of(context).invalid_phone_number)
                           ]),
                           countrySelectorNavigator:
-                              const CountrySelectorNavigator.dialog(),
+                          const CountrySelectorNavigator.dialog(),
                           onChanged: (phoneNumber) {
                             phoneNumberReg.text =
                                 phoneNumber.countryCode.toString() +
                                     phoneNumber.nsn.toString();
                             cekSession();
-
-                            // if (phoneNumber.countryCode.toString() != "62") {
-                            //   setState(() {
-                            //     isIndonesia = false;
-                            //   });
-                            // }
                           },
                           enabled: true,
-                          // countryButtonPadding: null,
                           isCountrySelectionEnabled: true,
                           isCountryButtonPersistent: true,
-                          // showDialCode: true,
-                          // showIsoCodeInInput: false,
-                          // showFlagInInput: true,
-                          // flagSize: 16,
                           style: TextStyle(color: whiteColor),
                           decoration: InputDecoration(
                             labelText: S.of(context).phone_number,
@@ -242,63 +263,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ),
                           ),
                         ),
-                        // PhoneFormField(
-                        //   initialValue:
-                        //       PhoneNumber.parse('+62'), // or use the controller
-                        //   validator: PhoneValidator.compose([
-                        //     PhoneValidator.required(context,
-                        //         errorText: S.of(context).cannot_be_empty),
-                        //     PhoneValidator.validMobile(context,
-                        //         errorText: S.of(context).invalid_phone_number)
-                        //   ]),
-                        //   countrySelectorNavigator:
-                        //       const CountrySelectorNavigator.dialog(),
-
-                        //   onChanged: (phoneNumber) {
-                        //     state.phoneNumberReg.text =
-                        //         phoneNumber.countryCode.toString() +
-                        //             phoneNumber.nsn.toString();
-
-                        //     if (phoneNumber.countryCode.toString() != "62") {
-                        //       setState(() {
-                        //         isIndonesia = false;
-                        //       });
-                        //     }
-                        //   },
-                        //   enabled: true,
-                        //   // countryButtonPadding: null,
-                        //   isCountrySelectionEnabled: true,
-                        //   isCountryButtonPersistent: true,
-                        //   // showDialCode: true,
-                        //   // showIsoCodeInInput: false,
-                        //   // showFlagInInput: true,
-                        //   // flagSize: 16,
-
-                        //   style: TextStyle(color: whiteColor),
-                        //   decoration: InputDecoration(
-                        //     labelText: S.of(context).phone_number,
-                        //     labelStyle: TextStyle(
-                        //         color: whiteColor, fontFamily: "Poppins"),
-                        //     helperStyle: TextStyle(color: whiteColor),
-                        //     border: OutlineInputBorder(
-                        //         borderSide: const BorderSide(
-                        //             color: Colors.white, width: 1),
-                        //         borderRadius: BorderRadius.circular(10)),
-                        //     focusedBorder: OutlineInputBorder(
-                        //       borderRadius: BorderRadius.circular(15.0),
-                        //       borderSide: const BorderSide(
-                        //         color: Colors.white,
-                        //       ),
-                        //     ),
-                        //     enabledBorder: OutlineInputBorder(
-                        //       borderRadius: BorderRadius.circular(15.0),
-                        //       borderSide: const BorderSide(
-                        //         color: Colors.white,
-                        //         width: 2.0,
-                        //       ),
-                        //     ),
-                        //   ),
-                        // ),
                         const SizedBox(
                           height: 15,
                         ),
@@ -462,195 +426,49 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                             ),
                           ),
-                          // validator: (value) {
-                          //   if (value!.isEmpty && state.isCountryIndonesia) {
-                          //     return S.of(context).cannot_be_empty;
-                          //   }
-                          //   return null;
-                          // },
                         ),
                         const SizedBox(
                           height: 15,
                         ),
-                        // Dropdown for Country
-                        DropdownButtonFormField<int>(
-                          hint: Text(S.of(context).select_country,
-                              style: const TextStyle(color: Colors.white)),
-                          value: provider.selectedCountryId,
-                          items: provider.countries
-                              .map<DropdownMenuItem<int>>((country) {
-                            return DropdownMenuItem<int>(
-                              value: country['id'],
-                              child: Text(
-                                country['name'],
-                              ),
-                            );
-                          }).toList(),
+                        if (controllerCountry.text.isNotEmpty)
+                        CustomTextField(
+                          controller: controllerCountry,
                           onChanged: (value) {
-                            if (value != null) {
-                              provider.setSelectedCountryId(value);
-                              provider.fetchCountries(value);
-                              provider.fetchStates(value);
-                              provider.selectedStateId = null;
-                              cekSession();
-                            }
+                            setState(() {
+                              selectedCountry = value;
+                            });
                           },
-                          icon: const Icon(Icons.arrow_drop_down,
-                              color: Colors.white), // Panah putih
-                          decoration: InputDecoration(
-                            labelText: S.of(context).country,
-                            labelStyle: const TextStyle(color: Colors.white),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Colors.white, width: 2.0),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Colors.white, width: 2.0),
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
+                          textColor: whiteColor,
                         ),
-
-                        const SizedBox(height: 16),
-
-                        // Dropdown for State
-                        if (provider.selectedCountryId != null)
-                          DropdownButtonFormField<int>(
-                            hint: Text(S.of(context).select_state,
-                                style: const TextStyle(color: Colors.white)),
-                            value: provider.selectedStateId,
-                            items: provider.states
-                                .map<DropdownMenuItem<int>>((state) {
-                              return DropdownMenuItem<int>(
-                                value: state['id'],
-                                child: Text(state['name']),
-                              );
-                            }).toList(),
-                            onChanged: (value) {
-                              if (value != null) {
-                                provider.setSelectedStateId(value);
-                                // provider.fetchStates(
-                                //   provider.selectedCountryId!,
-                                // );
-                                provider.fetchCities(
-                                  provider.selectedCountryId!,
-                                  provider.selectedStateId!,
-                                );
-                                cekSession();
-                              }
-                            },
-                            icon: const Icon(Icons.arrow_drop_down,
-                                color: Colors.white), // Panah putih
-                            decoration: InputDecoration(
-                              labelText: S.of(context).state,
-                              labelStyle: const TextStyle(color: Colors.white),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: Colors.white, width: 2.0),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: Colors.white, width: 2.0),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                          ),
-
-                        const SizedBox(height: 16),
-                        // Dropdown for City
-                        if (provider.selectedStateId != null)
-                          DropdownButtonFormField<int>(
-                            hint: Text(S.of(context).select_city,
-                                style: const TextStyle(color: Colors.white)),
-                            value: provider.selectedCityId,
-                            items: provider.cities
-                                .map<DropdownMenuItem<int>>((cities) {
-                              return DropdownMenuItem<int>(
-                                value: cities['id'],
-                                child: Text(cities['name']),
-                              );
-                            }).toList(),
-                            onChanged: (value) {
-                              if (value != null) {
-                                provider.setSelectedCityId(value);
-                                provider.fetchCities(
-                                  provider.selectedCountryId!,
-                                  provider.selectedStateId!,
-                                );
-                                provider.fetchDistricts(
-                                    provider.selectedCountryId!,
-                                    provider.selectedStateId!,
-                                    value);
-                                cekSession();
-                              }
-                            },
-                            icon: const Icon(Icons.arrow_drop_down,
-                                color: Colors.white), // Panah putih
-                            decoration: InputDecoration(
-                              labelText: S.of(context).city,
-                              labelStyle: const TextStyle(color: Colors.white),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: Colors.white, width: 2.0),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: Colors.white, width: 2.0),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                          ),
-
-                        const SizedBox(
-                          height: 16,
+                        if (controllerCountry.text.isNotEmpty)
+                        CustomTextField(
+                          controller: controllerState,
+                          onChanged: (value) {
+                            setState(() {
+                              selectedState = value;
+                            });
+                          },
+                          textColor: whiteColor,
                         ),
-                        // Dropdown for District
-                        if (provider.selectedCityId != null)
-                          DropdownButtonFormField<int>(
-                            hint: Text(S.of(context).select_district,
-                                style: const TextStyle(color: Colors.white)),
-                            value: provider.selectedDistrictId,
-                            items: provider.district
-                                .map<DropdownMenuItem<int>>((district) {
-                              return DropdownMenuItem<int>(
-                                value: district['id'],
-                                child: Text(district['name']),
-                              );
-                            }).toList(),
-                            onChanged: (value) {
-                              if (value != null) {
-                                provider.setSelectedDistrictId(value);
-                                cekSession();
-                                // provider.fetchDistricts(
-                                //     provider.selectedCountryId!,
-                                //     provider.selectedStateId!,
-                                //     value);
-                              }
-                            },
-                            icon: const Icon(Icons.arrow_drop_down,
-                                color: Colors.white), // Panah putih
-                            decoration: InputDecoration(
-                              labelText: S.of(context).district,
-                              labelStyle: const TextStyle(color: Colors.white),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: Colors.white, width: 2.0),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: Colors.white, width: 2.0),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                          ),
-
-                        const SizedBox(
-                          height: 15,
+                        if (controllerCountry.text.isNotEmpty)
+                        CustomTextField(
+                          controller: controllerCity,
+                          onChanged: (value) {
+                            setState(() {
+                              selectedCity = value;
+                            });
+                          },
+                          textColor: whiteColor,
+                        ),
+                        if (controllerCountry.text.isNotEmpty)
+                        CustomTextField(
+                          controller: controllerDistrict,
+                          onChanged: (value) {
+                            setState(() {
+                              selectedDistrict = value;
+                            });
+                          },
+                          textColor: whiteColor,
                         ),
                         MaterialButton(
                             minWidth: MediaQuery.of(context).size.width,
@@ -661,72 +479,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             color: Colors.white,
                             textColor: primaryColor,
                             onPressed: () async {
-                              // dynamic idUser =
-                              //     await PreferenceHandler.retrieveIdUser();
-                              // try {
-                              //   await provider.postAddress(
-                              //     userId: idUser,
-                              //     longitude: locationProvider.longitude,
-                              //     latitude: locationProvider.latitude,
-                              //   );
-                              //   ScaffoldMessenger.of(context)
-                              //       .showSnackBar(const SnackBar(
-                              //     content: Text("Address posted successfully!"),
-                              //   ));
-                              // } catch (e) {
-                              //   ScaffoldMessenger.of(context)
-                              //       .showSnackBar(SnackBar(
-                              //     content: Text("Error posting address: $e"),
-                              //   ));
-                              // }
-                              await locationProvider.getCurrentLocation();
-                              await locationProvider.openMap(context);
+                              _navigateToMap();
                               cekSession();
                             },
                             child: state.isLoading
                                 ? Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      const CircularProgressIndicator(),
-                                      const SizedBox(width: 20),
-                                      Text(S
-                                          .of(context)
-                                          .registering), // Display loading text
-                                    ],
-                                  )
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment:
+                              CrossAxisAlignment.center,
+                              children: <Widget>[
+                                const CircularProgressIndicator(),
+                                const SizedBox(width: 20),
+                                Text(S
+                                    .of(context)
+                                    .registering), // Display loading text
+                              ],
+                            )
                                 : Text(
-                                    S.of(context).use_your_location,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                        // ElevatedButton(
-                        //   onPressed: () {
-                        //     // locationProvider.openMap(context);
-                        //   },
-                        //   child: const Text('Gunakan Lokasi Anda'),
-                        // ),
-
-                        // ElevatedButton(
-                        //   onPressed: () {
-                        //     // Contoh koordinat untuk Jakarta, Indonesia
-                        //     locationProvider.fetchLocationData(
-                        //         -6.1751, 106.8650); // Latitude, Longitude
-                        //   },
-                        //   child: const Text('Get Location Data'),
-                        // ),
-                        // if (locationProvider.selectedCountry != null) ...[
-                        //   Text('Country: ${locationProvider.selectedCountry}'),
-                        //   Text('State: ${locationProvider.selectedState}'),
-                        //   Text('City: ${locationProvider.selectedCity}'),
-                        //   if (locationProvider.selectedDistrict != null) ...[
-                        //     Text(
-                        //         'District: ${locationProvider.selectedDistrict}'), // Menampilkan district
-                        //   ]
-                        // ],
-
+                              'Silahkan Pilih Lokasi Anda',
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold),
+                            )),
                         const SizedBox(
                           height: 16,
                         ),
@@ -741,110 +515,122 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             onPressed: state.isLoading
                                 ? () {}
                                 : () {
-                                    if (_form.currentState?.validate() ??
-                                        false) {
-                                      // if (isIndonesia) {
-                                      showDialog(
-                                        context: context,
-                                        builder: (context2) {
-                                          return AlertDialogOtp(
-                                            email: () {
-                                              Nav.back();
-                                              state.register(
-                                                  context,
-                                                  'email',
-                                                  controllerEmail.text,
-                                                  codeReferal.text,
-                                                  provider.selectedCountryId
-                                                      .toString(),
-                                                  provider.selectedStateId
-                                                      .toString(),
-                                                  provider.selectedCityId
-                                                      .toString(),
-                                                  provider.selectedDistrictId
-                                                      .toString(),
-                                                  locationProvider.longitude
-                                                      .toString(),
-                                                  locationProvider.latitude
-                                                      .toString(),
-                                                  phoneNumberReg.text);
-                                            },
-                                            wa: () {
-                                              Nav.back();
-                                              state.register(
-                                                  context,
-                                                  'wa',
-                                                  controllerEmail.text,
-                                                  codeReferal.text,
-                                                  provider.selectedCountryId
-                                                      .toString(),
-                                                  provider.selectedStateId
-                                                      .toString(),
-                                                  provider.selectedCityId
-                                                      .toString(),
-                                                  provider.selectedDistrictId
-                                                      .toString(),
-                                                  locationProvider.longitude
-                                                      .toString(),
-                                                  locationProvider.latitude
-                                                      .toString(),
-                                                  phoneNumberReg.text);
-                                            },
-                                            sms: () {
-                                              Nav.back();
-                                              state.register(
-                                                  context,
-                                                  "sms",
-                                                  controllerEmail.text,
-                                                  codeReferal.text,
-                                                  provider.selectedCountryId
-                                                      .toString(),
-                                                  provider.selectedStateId
-                                                      .toString(),
-                                                  provider.selectedCityId
-                                                      .toString(),
-                                                  provider.selectedDistrictId
-                                                      .toString(),
-                                                  locationProvider.longitude
-                                                      .toString(),
-                                                  locationProvider.latitude
-                                                      .toString(),
-                                                  phoneNumberReg.text);
-                                            },
-                                          );
-                                        },
-                                      );
-                                      // } else {
-                                      //   state.register(
-                                      //       context,
-                                      //       'email',
-                                      //       controllerEmail.text,
-                                      //       codeReferal.text);
-                                      // }
-                                    }
-                                    cekSession();
+                              if (controllerCountry.text.isNotEmpty || controllerState.text.isNotEmpty || controllerCity.text.isNotEmpty || controllerDistrict.text.isNotEmpty) {
+                                // if (isIndonesia) {
+                                showDialog(
+                                  context: context,
+                                  builder: (context2) {
+                                    return AlertDialogOtp(
+                                      email: () {
+                                        Nav.back();
+                                        state.register(
+                                            context,
+                                            'email',
+                                            controllerEmail.text,
+                                            codeReferal.text,
+                                            controllerCountry
+                                                .text,
+                                            controllerState
+                                                .text,
+                                            controllerCity
+                                                .text,
+                                            controllerDistrict
+                                                .text,
+                                            controllerLong.text,
+                                            controllerLat.text,
+                                            phoneNumberReg.text);
+                                      },
+                                      wa: () {
+                                        Nav.back();
+                                        state.register(
+                                            context,
+                                            'wa',
+                                            controllerEmail.text,
+                                            codeReferal.text,
+                                            controllerCountry
+                                                .text,
+                                            controllerState
+                                                .text,
+                                            controllerCity
+                                                .text,
+                                            controllerDistrict
+                                                .text,
+                                            controllerLong.text,
+                                            controllerLat.text,
+                                            phoneNumberReg.text);
+                                      },
+                                      sms: () {
+                                        Nav.back();
+                                        state.register(
+                                            context,
+                                            "sms",
+                                            controllerEmail.text,
+                                            codeReferal.text,
+                                            controllerCountry
+                                                .text,
+                                            controllerState
+                                                .text,
+                                            controllerCity
+                                                .text,
+                                            controllerDistrict
+                                                .text,
+                                           controllerLong.text,
+                                            controllerLat.text,
+                                            phoneNumberReg.text);
+                                      },
+                                    );
                                   },
+                                );
+                              }else if (controllerCountry.text.isEmpty || controllerState.text.isEmpty || controllerCity.text.isEmpty || controllerDistrict.text.isEmpty){
+                                NotificationUtils.showDialogError(
+                                  context,
+                                      () {
+                                    Navigator.pop(context); // Menutup dialog saat tombol OK ditekan
+                                  },
+                                  widget: Text(
+                                    'Silahkan pin lokasi terlebih dahulu',
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  textButton: 'Oke',
+                                );
+
+                              }else{
+                                NotificationUtils.showDialogError(
+                                  context,
+                                      () {
+                                    Navigator.pop(context); // Menutup dialog saat tombol OK ditekan
+                                  },
+                                  widget: Text(
+                                    'Silahkan cek kembali form register',
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  textButton: 'Oke',
+                                );
+
+                              }
+                              cekSession();
+                            },
                             child: state.isLoading
                                 ? Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      const CircularProgressIndicator(),
-                                      const SizedBox(width: 20),
-                                      Text(S
-                                          .of(context)
-                                          .registering), // Display loading text
-                                    ],
-                                  )
+                              mainAxisSize: MainAxisSize.min,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment:
+                              CrossAxisAlignment.center,
+                              children: <Widget>[
+                                const CircularProgressIndicator(),
+                                const SizedBox(width: 20),
+                                Text(S
+                                    .of(context)
+                                    .registering), // Display loading text
+                              ],
+                            )
                                 : Text(
-                                    state.isLoading
-                                        ? S.of(context).registering
-                                        : S.of(context).register,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.bold),
-                                  )),
+                              state.isLoading
+                                  ? S.of(context).registering
+                                  : S.of(context).register,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.bold),
+                            )),
                       ],
                     ),
                   )
@@ -875,10 +661,47 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 child: Text(
                   S.of(context).sign_in,
                   style:
-                      TextStyle(color: whiteColor, fontWeight: FontWeight.w600),
+                  TextStyle(color: whiteColor, fontWeight: FontWeight.w600),
                 ),
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class CustomTextField extends StatelessWidget {
+  final TextEditingController controller;
+  final Function(String) onChanged;
+  final Color textColor;
+
+  const CustomTextField({
+    Key? key,
+    required this.controller,
+    required this.onChanged,
+    this.textColor = Colors.white,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: TextField(
+        style: TextStyle(color: textColor),
+        controller: controller,
+        onChanged: onChanged,
+        enabled: false,
+        decoration: InputDecoration(
+          hintStyle: TextStyle(color: textColor),
+          border: OutlineInputBorder(
+            borderSide: BorderSide(color: textColor, width: 1),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          disabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.0),
+            borderSide: BorderSide(color: textColor, width: 2.0),
           ),
         ),
       ),

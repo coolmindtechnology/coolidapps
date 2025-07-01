@@ -31,7 +31,7 @@ class _HistoryConsultantState extends State<HistoryConsultant> {
           children: [
             ProfileCard(
                 onTap: () {
-                  Nav.to(ArsipConsultant());
+                  // Nav.to(ArsipConsultant());
                 },
                 imagePath: 'images/konsultasi/profile1.png',
                 name: 'vivian Entira',

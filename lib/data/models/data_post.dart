@@ -11,7 +11,8 @@ class DataPost {
   dynamic embedUrl;
   dynamic isComment;
   dynamic shareCount;
-  DateTime? createdAt;
+  dynamic? createdAt;
+  dynamic? timeAgo;
   DateTime? updatedAt;
   dynamic likes;
   dynamic comment;
@@ -28,6 +29,7 @@ class DataPost {
     this.isComment,
     this.shareCount,
     this.createdAt,
+    this.timeAgo,
     this.updatedAt,
     this.likes,
     this.comment,
@@ -44,6 +46,7 @@ class DataPost {
         embedUrl: json["embed_url"],
         isComment: json["is_comment"],
         shareCount: json["share_count"],
+        timeAgo: json["time_ago"],
         createdAt: json["created_at"] == null
             ? null
             : DateTime.parse(json["created_at"]),
@@ -69,6 +72,7 @@ class DataPost {
         "description": description,
         "embed_url": embedUrl,
         "is_comment": isComment,
+        "time_ago": timeAgo,
         "share_count": shareCount,
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),

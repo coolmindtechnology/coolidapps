@@ -3,6 +3,7 @@ import 'package:coolappflutter/generated/l10n.dart';
 import 'package:coolappflutter/presentation/pages/curhat/normal_user/arsip_curhat.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
 import 'package:flutter/material.dart';
 
 import '../../konsultasi/normal_user/profile_card.dart';
@@ -57,6 +58,7 @@ class _Archive_CurhatState extends State<Archive_Curhat> {
           ],
         ),
       ),
+      floatingActionButton: const CustomFAB(),
     );
   }
 }

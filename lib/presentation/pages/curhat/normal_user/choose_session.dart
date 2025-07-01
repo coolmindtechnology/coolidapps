@@ -4,6 +4,7 @@ import 'package:coolappflutter/presentation/pages/curhat/normal_user/choose_curh
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:coolappflutter/presentation/widgets/GlobalButton.dart';
+import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
 import 'package:flutter/material.dart';
 
 class ChooseSession extends StatefulWidget {
@@ -166,6 +167,7 @@ class _ChooseSessionState extends State<ChooseSession> {
           ),
         ),
       ),
+      floatingActionButton: const CustomFAB(),
     );
   }
 

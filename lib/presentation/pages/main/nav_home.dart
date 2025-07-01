@@ -8,23 +8,27 @@ import 'package:coolappflutter/presentation/pages/chat/home_chat.dart';
 import 'package:coolappflutter/presentation/pages/main/home_konsultant.dart';
 import 'package:coolappflutter/presentation/pages/main/home_screen.dart';
 import 'package:coolappflutter/presentation/pages/notification/notification_screen.dart';
+import 'package:coolappflutter/presentation/pages/user/Setting/Report/Report_Page.dart';
 
 import 'package:coolappflutter/presentation/pages/user/screen_settings.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 import 'package:coolappflutter/presentation/utils/notification_utils.dart';
+import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class NavMenuScreen extends StatefulWidget {
-  const NavMenuScreen({super.key});
+  final int initialIndex;
+  const NavMenuScreen({super.key, this.initialIndex = 0});
 
   @override
   State<NavMenuScreen> createState() => _NavMenuScreenState();
 }
 
 class _NavMenuScreenState extends State<NavMenuScreen> {
-  int currentIndex = 0;
+  // int currentIndex = 0;
+  late int currentIndex;
 
   // Menggunakan lazy loading untuk HomeChat
   HomeChat? homeChatPage;
@@ -64,8 +68,7 @@ class _NavMenuScreenState extends State<NavMenuScreen> {
   }
 
   void pengecekanIsProfiling() async {
-    await context.read<ProviderUser>().getUser(context);
-    if (context.read<ProviderUser>().dataUser?.isProfiling != '1') {
+    if (context.read<ProviderUser>().dataUser?.isProfiling != '1' ) {
       NotificationUtils.showDialogError(
         context,
         () {
@@ -96,9 +99,8 @@ class _NavMenuScreenState extends State<NavMenuScreen> {
   @override
   void initState() {
     super.initState();
+    currentIndex = widget.initialIndex;
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      await context.read<ProviderUser>().getUser(context);
-      // Periksa nilai is_affiliate untuk menentukan halaman Home
       final homePage = (dataGlobal.dataUser?.isAffiliate == 1)
           ? HomeKonsultant(klickTab: klikTab)
           : HomeScreen(klickTab: klikTab);
@@ -184,6 +186,7 @@ class _NavMenuScreenState extends State<NavMenuScreen> {
           );
         }).toList(),
       ),
+      floatingActionButton: const CustomFAB(),
     );
   }
 }

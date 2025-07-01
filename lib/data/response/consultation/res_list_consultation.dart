@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-ResponseListConsultation responseListConsultationromJson(String str) =>
+ResponseListConsultation responseListConsultationFromJson(String str) =>
     ResponseListConsultation.fromJson(json.decode(str));
 
 String responseListConsultationToJson(ResponseListConsultation data) =>
@@ -47,18 +47,18 @@ class Datas {
 
   Datas(
       {this.currentPage,
-      this.data,
-      this.firstPageUrl,
-      this.from,
-      this.lastPage,
-      this.lastPageUrl,
-      this.links,
-      this.nextPageUrl,
-      this.path,
-      this.perPage,
-      this.prevPageUrl,
-      this.to,
-      this.total});
+        this.data,
+        this.firstPageUrl,
+        this.from,
+        this.lastPage,
+        this.lastPageUrl,
+        this.links,
+        this.nextPageUrl,
+        this.path,
+        this.perPage,
+        this.prevPageUrl,
+        this.to,
+        this.total});
 
   Datas.fromJson(Map<String, dynamic> json) {
     currentPage = json['current_page'];
@@ -118,32 +118,43 @@ class Data {
   String? consultantTypeBrain;
   String? consultantAddress;
   String? sessionStatus;
-  int? rating;
+  double? rating;
   int? remainingMinutes;
   String? sessionStart;
   String? sessionEnd;
   String? timeSelected;
-  bool? status;
   String? theme;
   String? explanation;
+  String? typeSession;
+  String? status; // "free" atau "paid"
+  String? catergorySession; // "free" atau "paid"
+  String? idDocument; // "free" atau "paid"
+  dynamic price;  // bisa int, double, atau String
+  FirebaseConf? firebaseConf;
 
-  Data(
-      {this.id,
-      this.consultantId,
-      this.consultantImage,
-      this.consultantName,
-      this.consultantBloodType,
-      this.consultantTypeBrain,
-      this.consultantAddress,
-      this.sessionStatus,
-      this.rating,
-      this.remainingMinutes,
-      this.sessionStart,
-      this.sessionEnd,
-      this.timeSelected,
-      this.status,
-      this.theme,
-      this.explanation});
+  Data({
+    this.id,
+    this.consultantId,
+    this.consultantImage,
+    this.consultantName,
+    this.consultantBloodType,
+    this.consultantTypeBrain,
+    this.consultantAddress,
+    this.sessionStatus,
+    this.rating,
+    this.remainingMinutes,
+    this.sessionStart,
+    this.sessionEnd,
+    this.timeSelected,
+    this.theme,
+    this.explanation,
+    this.typeSession,
+    this.status,
+    this.price,
+    this.catergorySession,
+    this.idDocument,
+    this.firebaseConf,
+  });
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -154,14 +165,21 @@ class Data {
     consultantTypeBrain = json['consultant_type_brain'];
     consultantAddress = json['consultant_address'];
     sessionStatus = json['session_status'];
-    rating = json['rating'];
+    rating = (json['rating'] ?? 0).toDouble();
     remainingMinutes = json['remaining_minutes'];
     sessionStart = json['session_start'];
     sessionEnd = json['session_end'];
     timeSelected = json['time_selected'];
-    status = json['status'];
     theme = json['theme'];
     explanation = json['explanation'];
+    typeSession = json['type_session'];
+    status = json['status'];
+    catergorySession = json['category_session'];
+    idDocument = json['id_document'];
+    price = json['price'];
+    firebaseConf = json['firebase_conf'] != null
+        ? FirebaseConf.fromJson(json['firebase_conf'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -179,9 +197,38 @@ class Data {
     data['session_start'] = sessionStart;
     data['session_end'] = sessionEnd;
     data['time_selected'] = timeSelected;
-    data['status'] = status;
     data['theme'] = theme;
     data['explanation'] = explanation;
+    data['type_session'] = typeSession;
+    data['status'] = status;
+    data['category_session'] = catergorySession;
+    data['id_document'] = idDocument;
+    data['price'] = price;
+    if (firebaseConf != null) {
+      data['firebase_conf'] = firebaseConf!.toJson();
+    }
+    return data;
+  }
+}
+
+class FirebaseConf {
+  String? participantIds;
+  String? consultantIds;
+  String? roomIds;
+
+  FirebaseConf({this.participantIds, this.consultantIds, this.roomIds});
+
+  FirebaseConf.fromJson(Map<String, dynamic> json) {
+    participantIds = json['participant_ids'];
+    consultantIds = json['consultant_ids'];
+    roomIds = json['room_ids'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['participant_ids'] = participantIds;
+    data['consultant_ids'] = consultantIds;
+    data['room_ids'] = roomIds;
     return data;
   }
 }
@@ -207,3 +254,37 @@ class Links {
     return data;
   }
 }
+
+class Price {
+  String? status;
+  double? price;
+
+  Price({
+    this.status,
+    this.price,
+  });
+
+  factory Price.fromJson(dynamic json) {
+    try {
+      if (json is Map<String, dynamic>) {
+        return Price(
+          status: json['status']?.toString(),
+          price: json['price'] != null ? double.tryParse(json['price'].toString()) : null,
+        );
+      } else if (json is String) {
+        // Jika backend kirim "paid" (string langsung), bisa handle di sini jika perlu
+        return Price(status: json, price: null);
+      }
+    } catch (e) {
+      print('Price.fromJson error: $e');
+    }
+
+    return Price(status: null, price: null);
+  }
+
+  Map<String, dynamic> toJson() => {
+    "status": status,
+    "price": price,
+  };
+}
+

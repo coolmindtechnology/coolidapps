@@ -1,5 +1,7 @@
 import 'package:coolappflutter/data/provider/provider_consultation.dart';
 import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/Arsip_Consultant.dart';
+import 'package:coolappflutter/presentation/pages/Konsultasi/Normal_User/non_konsultasi.dart';
 import 'package:coolappflutter/presentation/pages/konsultasi/normal_user/detil_consultant.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
 
@@ -58,13 +60,13 @@ class _TabArsipState extends State<TabArsip> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Consumer<ProviderConsultation>(builder: (context, provider, child) {
-        if (provider.isLoading) {
+        if (provider.isLoadingConsultation) {
           return Center(child: CircularProgressIndicator());
         }
 
         final consultations = provider.consultations;
         if (consultations.isEmpty) {
-          return Center(child: Text('No consultations available'));
+          return const Center(child: NoneKonsul());
         }
 
         return ListView.builder(
@@ -83,31 +85,58 @@ class _TabArsipState extends State<TabArsip> {
               location: consultation.consultantAddress ?? '-',
               time: "${consultation.timeSelected}",
               timeRemaining:
-                  '${consultation.remainingMinutes ?? '-'} ${S.of(context).Minutes_Left}',
+                  consultation.sessionEnd.toString(),
               timeColor: BlueColor,
               status: S.of(context).Completed_On,
               warnastatus: Colors.lightBlueAccent.shade100,
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => DetailConsultant(
-                            idUser: consultation.id.toString(),
-                            imagePath: consultation.consultantImage ?? '-',
-                            name: consultation.consultantName ?? '-',
-                            title: consultation.consultantTypeBrain ?? '-',
-                            bloodType: consultation.consultantBloodType ?? '-',
-                            location: consultation.consultantAddress ?? '-',
-                            time: "${consultation.timeSelected}",
-                            timeRemaining:
-                                '${consultation.remainingMinutes ?? '-'} ${S.of(context).Minutes_Left}',
-                            timeColor: BlueColor,
-                            status: consultation.status.toString(),
-                            warnastatus: Colors.lightBlueAccent.shade100,
-                            getTopik: consultation.theme.toString(),
-                            statusSession:
-                                consultation.sessionStatus.toString(),
-                            deskripsi: consultation.explanation.toString())));
+                Nav.to(ArsipConsultant(
+                  idDocument : consultation.idDocument,
+                  rating : consultation.rating,
+                  type: consultation.typeSession,
+                  price: consultation.price?.toString() ?? "Free",
+                  idUser: consultation.id.toString(),
+                  imagePath: consultation.consultantImage ?? '-',
+                  name: consultation.consultantName ?? '-',
+                  title: consultation.consultantTypeBrain ?? '-',
+                  bloodType:
+                  consultation.consultantBloodType ?? '-',
+                  location: consultation.consultantAddress ?? '-',
+                  time: "${consultation.timeSelected}",
+                  timeRemaining: consultation.sessionEnd.toString(),
+                  timeColor: BlueColor,
+                  status: consultation.status.toString(),
+                  warnastatus: Colors.lightBlueAccent.shade100,
+                  getTopik: consultation.theme.toString(),
+                  statusSession:
+                  consultation.sessionStatus.toString(),
+                  deskripsi:
+                  consultation.explanation.toString(),
+                  idConsultation: consultation.id.toString(),
+                  idConsultant: consultation.consultantId.toString(),
+                  idreciver: consultation.firebaseConf!.consultantIds.toString(),
+
+                ));
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (context) => DetailConsultant(
+                //             idUser: consultation.id.toString(),
+                //             imagePath: consultation.consultantImage ?? '-',
+                //             name: consultation.consultantName ?? '-',
+                //             title: consultation.consultantTypeBrain ?? '-',
+                //             bloodType: consultation.consultantBloodType ?? '-',
+                //             location: consultation.consultantAddress ?? '-',
+                //             time: "${consultation.timeSelected}",
+                //             timeRemaining:
+                //                 '${consultation.remainingMinutes ?? '-'} ${S.of(context).Minutes_Left}',
+                //             timeColor: BlueColor,
+                //             status: consultation.status.toString(),
+                //             warnastatus: Colors.lightBlueAccent.shade100,
+                //             getTopik: consultation.theme.toString(),
+                //             statusSession:
+                //                 consultation.sessionStatus.toString(),
+                //             deskripsi: consultation.explanation.toString())));
               }, // Aksi jika ada
             );
           },

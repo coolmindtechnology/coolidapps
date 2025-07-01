@@ -33,30 +33,31 @@ class ResApproveByConsultant {
 
 class Data {
   int? id;
-  int? consultantId; // Integer ID for consultant
-  int? participantId; // Integer ID for participant
-  int? themeId; // Integer ID for theme
-  String? startTime; // Format time: "HH:MM:SS"
-  int? duration; // Duration in minutes
+  String? consultantId;
+  String? participantId;
+  String? themeId;
+  String? startTime;
+  String? duration;
   String? participantExplanation;
-  String? amount; // Represented as String
-  String? discount; // Represented as String
-  String? totalAmount; // Represented as String
-  dynamic paymentType; // Could be null
+  String? amount;
+  String? discount;
+  String? totalAmount;
+  String? paymentType;
   String? status;
-  dynamic snapToken; // Can be null
-  dynamic transactionIdPaypal; // Can be null
-  dynamic currencyPaypal; // Can be null
-  dynamic amountPaypal; // Can be null
-  dynamic responsePaypal; // Can be null
-  dynamic statusPaypal; // Can be null
+  String? snapToken;
+  String? transactionIdPaypal;
+  String? currencyPaypal;
+  String? amountPaypal;
+  String? responsePaypal;
+  String? statusPaypal;
   String? typeConsultation;
   String? statusSession;
   String? typeSession;
-  dynamic paidAt; // Can be null
-  DateTime? createdAt; // Should be DateTime
-  DateTime? updatedAt; // Should be DateTime
-  dynamic deletedAt; // Can be null
+  String? paidAt;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  String? deletedAt;
+  List<Room>? room;
 
   Data({
     this.id,
@@ -84,6 +85,7 @@ class Data {
     this.createdAt,
     this.updatedAt,
     this.deletedAt,
+    this.room,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
@@ -91,7 +93,7 @@ class Data {
     consultantId: json["consultant_id"],
     participantId: json["participant_id"],
     themeId: json["theme_id"],
-    startTime: json["start_time"], // Waktu dalam format String
+    startTime: json["start_time"],
     duration: json["duration"],
     participantExplanation: json["participant_explanation"],
     amount: json["amount"],
@@ -116,6 +118,9 @@ class Data {
         ? null
         : DateTime.parse(json["updated_at"]),
     deletedAt: json["deleted_at"],
+    room: json["room"] == null
+        ? []
+        : List<Room>.from(json["room"].map((x) => Room.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -144,5 +149,96 @@ class Data {
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
     "deleted_at": deletedAt,
+    "room": room == null
+        ? []
+        : List<dynamic>.from(room!.map((x) => x.toJson())),
+  };
+}
+
+class Room {
+  int? id;
+  String? consultationId;
+  String? consultantId;
+  String? participantId;
+  String? themeId;
+  String? duration;
+  String? presentParticipant;
+  String? presentParticipantAt;
+  String? presentConsultant;
+  String? presentConsultantAt;
+  String? startRoom;
+  String? endRoom;
+  String? deletedAt;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  String? time;
+  String? approvalStatusConsultant;
+  String? approvalNoteConsultant;
+
+  Room({
+    this.id,
+    this.consultationId,
+    this.consultantId,
+    this.participantId,
+    this.themeId,
+    this.duration,
+    this.presentParticipant,
+    this.presentParticipantAt,
+    this.presentConsultant,
+    this.presentConsultantAt,
+    this.startRoom,
+    this.endRoom,
+    this.deletedAt,
+    this.createdAt,
+    this.updatedAt,
+    this.time,
+    this.approvalStatusConsultant,
+    this.approvalNoteConsultant,
+  });
+
+  factory Room.fromJson(Map<String, dynamic> json) => Room(
+    id: json["id"],
+    consultationId: json["consultation_id"],
+    consultantId: json["consultant_id"],
+    participantId: json["participant_id"],
+    themeId: json["theme_id"],
+    duration: json["duration"],
+    presentParticipant: json["present_participant"],
+    presentParticipantAt: json["present_participant_at"],
+    presentConsultant: json["present_consultant"],
+    presentConsultantAt: json["present_consultant_at"],
+    startRoom: json["start_room"],
+    endRoom: json["end_room"],
+    deletedAt: json["deleted_at"],
+    createdAt: json["created_at"] == null
+        ? null
+        : DateTime.parse(json["created_at"]),
+    updatedAt: json["updated_at"] == null
+        ? null
+        : DateTime.parse(json["updated_at"]),
+    time: json["time"],
+    approvalStatusConsultant: json["approval_status_consultant"],
+    approvalNoteConsultant: json["approval_note_consultant"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "consultation_id": consultationId,
+    "consultant_id": consultantId,
+    "participant_id": participantId,
+    "theme_id": themeId,
+    "duration": duration,
+    "present_participant": presentParticipant,
+    "present_participant_at": presentParticipantAt,
+    "present_consultant": presentConsultant,
+    "present_consultant_at": presentConsultantAt,
+    "start_room": startRoom,
+    "end_room": endRoom,
+    "deleted_at": deletedAt,
+    "created_at": createdAt?.toIso8601String(),
+    "updated_at": updatedAt?.toIso8601String(),
+    "time": time,
+    "approval_status_consultant": approvalStatusConsultant,
+    "approval_note_consultant": approvalNoteConsultant,
   };
 }

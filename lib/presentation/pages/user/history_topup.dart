@@ -3,6 +3,7 @@ import 'package:coolappflutter/data/response/payments/res_history_topup.dart';
 import 'package:coolappflutter/presentation/pages/payments/invoice_screen.dart';
 import 'package:coolappflutter/presentation/theme/color_utils.dart';
 import 'package:coolappflutter/presentation/utils/nav_utils.dart';
+import 'package:coolappflutter/presentation/widgets/costum_floatingbutton.dart';
 import 'package:coolappflutter/presentation/widgets/shimmer_loading.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -139,6 +140,7 @@ class _HistoryTopupState extends State<HistoryTopup> {
                           },
                           itemCount: value.getFilteredHistory("Paid").length),
         ),
+        floatingActionButton: const CustomFAB(),
       ),
     );
   }

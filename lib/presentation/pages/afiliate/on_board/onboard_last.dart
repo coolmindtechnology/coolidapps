@@ -29,9 +29,9 @@ class _OnboardLastState extends State<OnboardLast> {
             gapH100,
             Image.asset(AppAsset.imgWelcomeAff,fit: BoxFit.cover,width: 270,),
             gapH50,
-            Text(S.of(context).welcomeAffiliator,style: TextStyle(fontSize: 27,color: Colors.white,fontWeight: FontWeight.w600),),
+            Text(S.of(context).welcome_affiliator,style: TextStyle(fontSize: 27,color: Colors.white,fontWeight: FontWeight.w600),),
             gapH20,
-            Text(S.of(context).congratulationsAffiliator,style: TextStyle(fontSize: 19,color: Colors.white,fontWeight: FontWeight.w500),textAlign: TextAlign.center,),
+            Text(S.of(context).congratulations_affiliator,style: TextStyle(fontSize: 19,color: Colors.white,fontWeight: FontWeight.w500),textAlign: TextAlign.center,),
             Spacer(),
             GlobalButton(onPressed: () {
               Nav.to(NavMenuScreen());

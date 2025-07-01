@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'dart:async';
+import 'dart:convert';
 import 'package:coolappflutter/data/data_global.dart';
 import 'package:coolappflutter/data/locals/preference_handler.dart';
 import 'package:coolappflutter/data/models/data_checkout_transaction.dart';
@@ -14,15 +15,20 @@ import 'package:coolappflutter/data/response/profiling/res_add_profiling.dart'
 import 'package:coolappflutter/data/response/profiling/res_check_maximum_profiling.dart';
 import 'package:coolappflutter/data/response/profiling/res_create_multiple_profiling.dart';
 import 'package:coolappflutter/data/response/profiling/res_detail_profiling.dart';
+import 'package:coolappflutter/data/response/profiling/res_get_price.dart';
 import 'package:coolappflutter/data/response/profiling/res_get_user_profiling.dart';
 import 'package:coolappflutter/data/response/profiling/res_list_multiple_profiling.dart';
+import 'package:coolappflutter/data/response/profiling/res_list_profiling_false.dart';
 import 'package:coolappflutter/data/response/profiling/res_pay_profiling.dart';
 import 'package:coolappflutter/data/response/profiling/res_update_transaction_profiling.dart';
 import 'package:coolappflutter/data/response/profiling/res_upgrade_member.dart';
 import 'package:coolappflutter/generated/l10n.dart';
+import 'package:coolappflutter/presentation/on_boarding/onboarding_profiling.dart';
 import 'package:coolappflutter/presentation/pages/main/components/input_code_ref_profilling.dart';
 import 'package:coolappflutter/presentation/pages/main/nav_home.dart';
 import 'package:coolappflutter/presentation/pages/profiling/add_multiple_profiling.dart';
+import 'package:coolappflutter/presentation/pages/profiling/components/ref_pop_Up.dart';
+import 'package:coolappflutter/presentation/pages/profiling/components/ref_pop_Up.dart';
 import 'package:coolappflutter/presentation/pages/profiling/profiling%20dashboard.dart';
 import 'package:coolappflutter/presentation/pages/profiling/screen_feature_kepribadian.dart';
 import 'package:coolappflutter/data/response/profiling/res_share_result_detail.dart';
@@ -57,9 +63,9 @@ class ProviderProfiling extends ChangeNotifier {
   ProviderProfiling.showDetail(BuildContext context, String id) {
     getShowProfiling(context, id);
   }
-  ProviderProfiling.detail(BuildContext context, String id) {
-    getDetailProfiling(context, id);
-  }
+  // ProviderProfiling.detail(BuildContext context, String id) {
+  //   getDetailProfiling(context, id);
+  // }
 
   ProviderProfiling.getHistory(BuildContext context) {
     getHistoryProfiling(context);
@@ -82,9 +88,11 @@ class ProviderProfiling extends ChangeNotifier {
   ProviderPayment payment = ProviderPayment();
   bool isLoadingget = false;
   bool isLoading = false;
+  bool isLoadingFalse = false;
   RepoProfiling repo = RepoProfiling();
   List<DataProfiling> listProfiling = [], listDisable = [];
   List<DataProfiling> filteredProfiling = [];
+  List<ProfilingData> listFalseProfiling = [];
   DataDetailProfiling? detailProfiling;
   DataShowDetail? dataShowDetail;
   TextEditingController controllerProfillingCode = TextEditingController();
@@ -161,9 +169,12 @@ class ProviderProfiling extends ChangeNotifier {
             e.message,
             textAlign: TextAlign.center,
           ));
+      listProfiling = [];
+      notifyListeners();
     }, success: (res) async {
       if (res.success == true) {
         listProfiling = res.data ?? [];
+        filterProfilingData(0);
         listDisable = listProfiling.where((element) {
           return element.status == "1";
         }).toList();
@@ -172,6 +183,38 @@ class ProviderProfiling extends ChangeNotifier {
     });
     notifyListeners();
   }
+
+  Future<void> getListFalseProfiling(BuildContext context) async {
+    isLoadingFalse = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      notifyListeners();
+    });
+
+    Either<Failure, ProfilingResponseFalse> response = await repo.getFalseProfiling();
+
+    isLoadingFalse = false;
+    notifyListeners();
+
+    response.when(error: (e) {
+      listFalseProfiling = [];
+      notifyListeners();
+      // NotificationUtils.showDialogError(context, () {
+      //   Nav.back();
+      // },
+      //     widget: Text(
+      //       e.message,
+      //       textAlign: TextAlign.center,
+      //     ));
+    }, success: (res) async {
+      if (res.success == true) {
+        listFalseProfiling = res.data ?? [];
+        notifyListeners();
+      }
+    });
+    notifyListeners();
+  }
+
+
 
   String _textToSpeech = "";
   String get textToSpeech {
@@ -218,14 +261,15 @@ class ProviderProfiling extends ChangeNotifier {
   }
 
   bool isDetail = false;
-  Future<void> getDetailProfiling(BuildContext context, String id) async {
+  bool isSuccesgetdetail = false;
+  Future<void> getDetailProfiling(BuildContext context, String id, String menu) async {
     isDetail = true;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       notifyListeners();
     });
 
     Either<Failure, ResDetailProfiling> response =
-        await repo.getDetailProfiling(id);
+        await repo.getDetailProfiling(id,menu);
 
     isDetail = false;
     notifyListeners();
@@ -242,6 +286,7 @@ class ProviderProfiling extends ChangeNotifier {
       if (res.success == true) {
         if (kDebugMode) {}
         detailProfiling = res.data;
+        isSuccesgetdetail = true;
         _updateTextToSpeech(detailProfiling);
 
         notifyListeners();
@@ -365,7 +410,7 @@ class ProviderProfiling extends ChangeNotifier {
       if (kDebugMode) {
         print("id log profilings ${res.data?.totalAmount}");
       }
-      Nav.to(PreInvoiceScreen(
+      Nav.toAll(PreInvoiceScreen(
         snapToken: res.data?.snapToken,
         orderId: res.data?.orderId.toString(),
         paymentType: res.data?.transactionType.toString(),
@@ -632,130 +677,117 @@ class ProviderProfiling extends ChangeNotifier {
   ResPermiteProfiling? cekAvailable;
 
   Future<void> cekAvailableProfiling(
-      BuildContext context, TextEditingController controller, String param) async {
+      BuildContext context,
+      TextEditingController controller,
+      String param,
+      ) async {
     isCekAvailable = true;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       notifyListeners();
     });
 
     Either<Failure, ResPermiteProfiling> response =
-        await repo.cekAvailableLocationProfiling();
+    await repo.cekAvailableLocationProfiling();
 
     isCekAvailable = false;
     notifyListeners();
 
-    response.when(error: (e) {
-      NotificationUtils.showDialogError(context, () {
-        Nav.back();
-      },
+    response.when(
+      error: (e) {
+        NotificationUtils.showDialogError(
+          context,
+              () => Nav.back(),
           widget: Text(
             e.message,
             textAlign: TextAlign.center,
-          ));
-    }, success: (res) async {
-      if (res.success == true) {
-        if(param == "plus")
-          Nav.to(AddMultipleProfiling(
-            int.parse('1'),
-            int.parse('10'),
-          ));
-        else if(param == "seeall")
-          Nav.to(const ProfilingDashboard());
-        else if(param == "profiling1")
-          Nav.to(AddMultipleProfiling(
-            int.parse('1'),
-            int.parse('10'),
-          ));
-        else if(param == "profiling10")
-          Nav.to(AddMultipleProfiling(
-            int.parse('10'),
-            int.parse('10'),
-          ));
-
-        if (kDebugMode) {
-          print("cek available $cekAvailable");
-        }
-
-        cekAvailable = res;
-
-        notifyListeners();
-      } else {
-        // for upgrade member
-//newui
-        NotificationUtils.showSimpleDialog2(
-          context,
-          "${res.message}",
-          content: Text(
-            S.of(context).upgrade_member_to_get_more_feature,
-            textAlign: TextAlign.center,
           ),
-          textButton1: S.of(context).yes,
-          textButton2: S.of(context).no,
-          onPress1: () async {
-            Nav.back();
-            Navigator.push(
+        );
+      },
+      success: (res) async {
+        if (res.success == true) {
+          cekAvailable = res;
+
+          if(dataGlobal.isIndonesia == true){
+            if(param == "plus")
+              Nav.to(AddMultipleProfiling(
+                  int.parse('1'),
+                  int.parse('10'),null
+              ));
+            else if(param == "seeall")
+              Nav.to(const ProfilingDashboard());
+            else if(param == "profiling1")
+              Nav.to(AddMultipleProfiling(
+                  int.parse('1'),
+                  int.parse('1'),null
+              ));
+            else if(param == "profiling10")
+              Nav.to(AddMultipleProfiling(
+                  int.parse('10'),
+                  int.parse('10'),null
+              ));
+          }else{
+            Future<void> goToAddProfiling(int from, int to) async {
+              String? coderef = await showCodeRefDialog(context);
+              Nav.to(AddMultipleProfiling(from, to, coderef));
+            }
+
+            switch (param) {
+              case "plus":
+                await goToAddProfiling(1, 10);
+                break;
+
+              case "profiling1":
+                await goToAddProfiling(1, 1);
+                break;
+
+              case "profiling10":
+                await goToAddProfiling(10, 10);
+                break;
+
+              case "seeall":
+                Nav.to(const ProfilingDashboard());
+                break;
+            }
+          }
+
+          if (kDebugMode) {
+            print("cek available $cekAvailable");
+          }
+
+          notifyListeners();
+        } else {
+          // Upgrade member UI
+          NotificationUtils.showSimpleDialog2(
+            context,
+            res.message ?? "",
+            content: Text(
+              S.of(context).upgrade_member_to_get_more_feature,
+              textAlign: TextAlign.center,
+            ),
+            textButton1: S.of(context).yes,
+            textButton2: S.of(context).no,
+            onPress1: () {
+              Nav.back();
+              Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const InputCodeRefPofilling()));
-            // NotificationUtils.showSimpleDialog(
-            //   context,
-            //   () async {
-            //     if (controller.text.isNotEmpty) {
-            //       await upgradeToMember(context, controller);
-            //     } else {
-            //       NotificationUtils.showSnackbar(S.of(context).cannot_be_empty,
-            //           backgroundColor: primaryColor);
-            //     }
-            //   },
-            //   widget: Column(
-            //     mainAxisSize: MainAxisSize.min,
-            //     crossAxisAlignment: CrossAxisAlignment.start,
-            //     children: [
-            //       Text(S.of(context).referral_code_affiliate),
-            //       const SizedBox(
-            //         height: 16,
-            //       ),
-            //       CustomInputField(
-            //         textEditingController: controller,
-            //         validator: (val) {
-            //           if (val!.isEmpty) {
-            //             return S.of(context).cannot_be_empty;
-            //           }
-            //           return null;
-            //         },
-            //       ),
-            //       const SizedBox(
-            //         height: 16,
-            //       ),
-            //       Center(
-            //         child: SizedBox(
-            //           height: 50,
-            //           child: ButtonPrimary(
-            //             S.of(context).cancel,
-            //             expand: true,
-            //             radius: 8,
-            //             elevation: 0.0,
-            //             onPress: () {
-            //               Nav.back();
-            //             },
-            //           ),
-            //         ),
-            //       ),
-            //     ],
-            //   ),
-            // );
-          },
-          onPress2: () {
-            Nav.back();
-          },
-        );
-        if (kDebugMode) {
-          print("cek available $cekAvailable");
+                  builder: (context) => const InputCodeRefPofilling(),
+                ),
+              );
+            },
+            onPress2: () => Nav.back(),
+          );
+
+          if (kDebugMode) {
+            print("cek available $cekAvailable");
+          }
         }
-      }
-    });
+      },
+    );
+
     notifyListeners();
   }
+
 
   bool isCreatePayment = false;
   ResTransactionProfiling? resTransactionProfiling;
@@ -769,10 +801,11 @@ class ProviderProfiling extends ChangeNotifier {
     Either<Failure, ResTransactionProfiling> response =
         await repo.createTransactionProfiling(dataCheckoutTransaction);
 
-    isCreatePayment = false;
-    notifyListeners();
+
 
     response.when(error: (e) {
+      isCreatePayment = false;
+      notifyListeners();
       debugPrint("cek paypal $e $response");
       NotificationUtils.showDialogError(
         context,
@@ -810,11 +843,16 @@ class ProviderProfiling extends ChangeNotifier {
           onUpdate: onUpdate,
           isIndonesia: isIndonesia,
         ));
+        Timer(const Duration(seconds: 4), () {
+          isCreatePayment = false;
+          notifyListeners();
+        });
       } else {
         NotificationUtils.showDialogError(
           context,
           () {
             Nav.back();
+            Nav.toAll(ProfilingDashboard());
           },
           widget: Text(
             resTransactionProfiling?.message ?? "",
@@ -822,6 +860,8 @@ class ProviderProfiling extends ChangeNotifier {
             style: const TextStyle(fontSize: 16),
           ),
         );
+        isCreatePayment = false;
+        notifyListeners();
       }
 
       notifyListeners();
@@ -832,6 +872,24 @@ class ProviderProfiling extends ChangeNotifier {
 
   bool isCreateMultipleProfiling = false;
 
+  List<int> get parsedIdLogs {
+    try {
+      return (_multipleProfilingResult?.log?.idLogs != null)
+          ? (json.decode(_multipleProfilingResult!.log!.idLogs!) as List)
+          .map((e) => int.tryParse(e.toString()) ?? 0)
+          .toList()
+          : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  int get qty {
+    return _multipleProfilingResult?.log?.qty ?? 0;
+  }
+
+  ResCreateMultipleProfiling? _multipleProfilingResult;
+  ResCreateMultipleProfiling? get multipleProfilingResult => _multipleProfilingResult;
   Future<void> createMultipleProfiling(
       BuildContext context, List<Map<String, dynamic>> formData,
       {Function? onAdd}) async {
@@ -857,18 +915,20 @@ class ProviderProfiling extends ChangeNotifier {
         ),
       );
     }, success: (res) async {
-      print("Navigasi ke NavMenuScreen...");
-      Nav.toAll(NavMenuScreen());
-      print("Navigasi berhasil.");
+      _multipleProfilingResult = res;
+
+      // print("Navigasi ke NavMenuScreen...");
+      // Nav.toAll(NavMenuScreen());
+      // print("Navigasi berhasil.");
       // Nav.back();
-      showDialog(
-          context: context,
-          builder: (context) {
-            return DialogSimpleAutoPopup(
-              seconds: 3,
-              message: res.message ?? "-",
-            );
-          });
+      // showDialog(
+      //     context: context,
+      //     builder: (context) {
+      //       return DialogSimpleAutoPopup(
+      //         seconds: 3,
+      //         message: res.message ?? "-",
+      //       );
+      //     });
 
       if (onAdd != null) {
         onAdd!();
@@ -1026,7 +1086,7 @@ class ProviderProfiling extends ChangeNotifier {
   ResUpgradeMember? resUpgradeMember;
 
   Future<void> upgradeToMember(
-      BuildContext context, TextEditingController code) async {
+      BuildContext context, TextEditingController code,{String? route}) async {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       isUpgradeToMember = true;
       notifyListeners();
@@ -1047,14 +1107,25 @@ class ProviderProfiling extends ChangeNotifier {
           ));
     }, success: (res) async {
       if (res.success == true) {
-        await Nav.back();
-        NotificationUtils.showDialogSuccess(context, () {
-          Nav.back();
-        },
-            widget: Text(
-              S.of(context).member_upgrade_successfull,
-              textAlign: TextAlign.center,
-            ));
+        if(route == 'register'){
+          Nav.toAll(OnboardingProfiling());
+          NotificationUtils.showDialogSuccess(context, () {
+            Nav.back();
+          },
+              widget: Text(
+                S.of(context).member_upgrade_successfull,
+                textAlign: TextAlign.center,
+              ));
+        }else {
+          await Nav.toAll(NavMenuScreen());
+          NotificationUtils.showDialogSuccess(context, () {
+            Nav.back();
+          },
+              widget: Text(
+                S.of(context).member_upgrade_successfull,
+                textAlign: TextAlign.center,
+              ));
+        }
       } else {
         NotificationUtils.showDialogError(context, () {
           Nav.back();
@@ -1094,6 +1165,46 @@ class ProviderProfiling extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+
+  bool isLoadingPriceProfiling = false;
+  ResPriceProfiling? priceProfiling;
+  Future<void> getPriceProfiling(BuildContext context, String qty) async {
+    isLoadingPriceProfiling = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      notifyListeners();
+    });
+
+    Either<Failure, ResPriceProfiling> response = await repo.getPriceProfiling(qty);
+
+    isLoadingPriceProfiling = false;
+    notifyListeners();
+
+    response.when(
+      error: (e) {
+        NotificationUtils.showDialogError(
+          context,
+              () {
+            Nav.back();
+          },
+          widget: Text(
+            e.message,
+            textAlign: TextAlign.center,
+          ),
+        );
+        notifyListeners();
+      },
+      success: (res) {
+        if (res.success == true) {
+          priceProfiling = res;
+          print(res.data.toString());
+          notifyListeners();
+        }
+      },
+    );
+    notifyListeners();
+  }
+
 }
 
 class DialogSimpleAutoPopup extends StatefulWidget {
